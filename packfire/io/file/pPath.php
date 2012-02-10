@@ -6,26 +6,6 @@
  *
  */
 class pPath {
-
-    /**
-     * Get the directory name
-     */
-    const DIRECTORY = 'dirname';
-
-    /**
-     * Get the filename
-     */
-    const BASENAME = 'basename';
-
-    /**
-     * Get the file extension
-     */
-    const EXTENSION = 'extension';
-
-    /**
-     * Get the file name without the file extension
-     */
-    const FILENAME = 'filename';
     
     /**
      * Create a directory path recursively
@@ -155,7 +135,7 @@ class pPath {
      * @see pPath::pathInfo()
      */
     public static function fileName($p){
-        return self::pathInfo($p, self::FILENAME);
+        return self::pathInfo($p, pPathPart::FILENAME);
     }
 
     /**
@@ -166,7 +146,7 @@ class pPath {
      * @see pPath::pathInfo()
      */
     public static function baseName($p){
-        return self::pathInfo($p, self::BASENAME);
+        return self::pathInfo($p, pPathPart::BASENAME);
     }
 
     /**
@@ -177,7 +157,7 @@ class pPath {
      * @see pPath::pathInfo()
      */
     public static function extension($p){
-        return self::pathInfo($p, self::EXTENSION);
+        return self::pathInfo($p, pPathPart::EXTENSION);
     }
 
     /**
@@ -188,7 +168,7 @@ class pPath {
      * @see pPath::pathInfo()
      */
     public static function path($p){
-        return self::pathInfo($p, self::DIRECTORY);
+        return self::pathInfo($p, pPathPart::DIRECTORY);
     }
 
     /**
@@ -200,7 +180,7 @@ class pPath {
      * @static
      */
     public static function pathInfo($p, $a = false){
-        if($a == self::FILENAME && version_compare(PHP_VERSION, '5.2', '<')){   
+        if($a == pPathPart::FILENAME && version_compare(PHP_VERSION, '5.2', '<')){   
             // compatibility for "5.2.0 - The PATHINFO_FILENAME constant was added. "
             $basename =  self::baseName($p);
             $ext = self::extension($p);
