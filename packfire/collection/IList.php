@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * A List interface.
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire/collection
+ * @since 1.0-sofia
+ */
 interface IList extends ArrayAccess, IIterable, ISet {
     
     public function add($item);

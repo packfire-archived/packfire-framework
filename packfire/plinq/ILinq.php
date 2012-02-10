@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Interface for LINQ operations
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire/plinq
+ * @since 1.0-sofia
+ */
 interface ILinq {
     
     public function in($source);
@@ -16,10 +24,6 @@ interface ILinq {
     
     public function thenByDesc($field);
     
-    /**
-     *
-     * @param type $mapper either function or array
-     */
     public function select($mapper);
     
     public function join($subject, $name, $conditionFunc);

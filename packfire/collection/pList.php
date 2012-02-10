@@ -1,44 +1,94 @@
 <?php
 
+/**
+ * A List of Items
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire/collection
+ * @since 1.0-sofia
+ */
 class pList implements IList {
     
     /**
-     *
+     * The internal array that stores the data
      * @var array
+     * @since 1.0-sofia
      */
     protected $array = array();
     
-    public function __construct($initialize){
-        if($initialize instanceof self){
-            $this->array = array_values($initialize->array);
-        }elseif(is_array($initialize)){
-            $this->array = array_values($initialize);
-        }else{
-            // TODO unknown variable
+    /**
+     * Create a pList
+     * @param pList|array $initialize (optional) If an initializing array or
+     *                                list is set, the list will be populated
+     *                                with the items.
+     * @since 1.0-sofia
+     */
+    public function __construct($initialize = null){
+        if(func_num_args() == 1){
+            if($initialize instanceof self){
+                $this->array = array_values($initialize->array);
+            }elseif(is_array($initialize)){
+                $this->array = array_values($initialize);
+            }else{
+                // TODO unknown variable
+            }
         }
     }
 
+    /**
+     * The number of items in this list.
+     * @return integer Returns an integer representing the number of items.
+     * @since 1.0-sofia
+     */
     public function count() {
         return count($this->array);
     }
 
+    /**
+     * Get the iterator for this list.
+     * @return pIterator Returns a pIterator.
+     * @since 1.0-sofia
+     */
     public function iterator() {
         return new pIterator($this);
     }
 
+    /**
+     * Add a item to the list.
+     * @param mixed $item The item to be added.
+     * @return integer Returns the index of the item that was added.
+     * @since 1.0-sofia
+     */
     public function add($item) {
         $this->array[] = $item;
         return end(array_keys($this->array));
     }
 
+    /**
+     * Clear all the items in the list.
+     * @since 1.0-sofia 
+     */
     public function clear() {
         $this->array = array();
     }
 
+    /**
+     * Check if the list contains a specified item.
+     * @param mixed $item The item to look for.
+     * @return boolean Returns true if the list contain the item, false otherwise.
+     * @since 1.0-sofia
+     */
     public function contains($item) {
         return in_array($item, $this->array, true);
     }
 
+    /**
+     * Get the item at the index.
+     * @param integer $index The index of the item
+     * @return mixed Returns the item or null if not found.
+     * @since 1.0-sofia
+     */
     public function get($index) {
         $value = null;
         if($this->offsetExists($index)){
@@ -49,6 +99,12 @@ class pList implements IList {
         return $value;
     }
 
+    /**
+     * Get the index of an item in the list.
+     * @param mixed $item The item to look for.
+     * @return integer Returns the index of the item found, or null if not found.
+     * @since 1.0-sofia
+     */
     public function indexOf($item) {
         $index = array_search($item, $this->array, true);
         if($index === false){
@@ -57,6 +113,12 @@ class pList implements IList {
         return $index;
     }
     
+    /**
+     * Get a list of the indexes of an item in the list.
+     * @param mixed $item The item to look for.
+     * @return pList Returns the list of indexes. 
+     * @since 1.0-sofia
+     */
     public function indexesOf($item){
         $list = new self();
         $keys = array_keys($this->array, $item, true);
@@ -64,6 +126,13 @@ class pList implements IList {
         return $list;
     }
 
+    /**
+     * Get the index of an item from the back of the list. 
+     * @param mixed $item The item to look for.
+     * @return integer Returns the index of the item from the back if found, or
+     *                 NULL if it is not found.
+     * @since 1.0-sofia
+     */
     public function lastIndexOf($item) {
         $array = array_reverse($this->array, true);
         $index = array_search($item, $array, true);
@@ -73,14 +142,27 @@ class pList implements IList {
         return $index;
     }
 
+    /**
+     * Remove an item from the array. If there are multiple counts of the same
+     * item, they are all removed.
+     * @param mixed $item The item to remove.
+     * @since 1.0-sofia
+     */
     public function remove($item) {
         foreach($this->array as &$value) {
             if ($value === $item){
                 unset($value);
+                break;
             }
         }
     }
     
+    /**
+     * Remove a list of items from the list. If an item occurs multiple counts 
+     * in the list, all of the instances will be removed as well.
+     * @param IList|array $list The list of items to remove.
+     * @since 1.0-sofia
+     */
     public function removeAll($list){
         foreach($this->array as &$value) {
             if (in_array($value, $list, true)){
@@ -89,6 +171,11 @@ class pList implements IList {
         }
     }
 
+    /**
+     * Remove an item by its index.
+     * @param integer $index Index of the item to remove.
+     * @since 1.0-sofia
+     */
     public function removeAt($index) {
         if($this->offsetExists($index)){
             unset($this->array[$index]);
@@ -99,9 +186,9 @@ class pList implements IList {
     
     /**
      * Get the difference between this collection and another
-     * @param pList|array $a The collection to compare against
-     * @param boolean $keys (optional) If set to TRUE, the keys will be considered in the comparison
-     * @return pList
+     * @param IList|array $a The collection to compare against
+     * @return IList
+     * @since 1.0-sofia
      */
     public function difference($set){
         $result = new self();
@@ -113,13 +200,25 @@ class pList implements IList {
         return $result;
     }
     
+    /**
+     * Get the complement of this list and another ($set).
+     * @param IList|array $set The list to complement
+     * @return pList Returns a list that is the result of the set complement operation.
+     * @since 1.0-sofia
+     */
     public function complement($set) {
         $list = new self();
         $list->array = $this->array;
         $list->removeAll($set);
         return $list;
     }
-
+    
+    /**
+     * Get the intersection of this list and another ($set).
+     * @param IList|array $set The list to intersect
+     * @return pList Returns a list that is the result of the set intersect operation.
+     * @since 1.0-sofia
+     */
     public function intersect($set) {
         $result = new self();
         if($set instanceof self){
@@ -130,6 +229,12 @@ class pList implements IList {
         return $result;
     }
 
+    /**
+     * Get the union of this list and another ($set).
+     * @param IList|array $set The list to union with.
+     * @return pList Returns a list that is the result of the set union operation.
+     * @since 1.0-sofia
+     */
     public function union($set) {
         $result = new self();
         $result->array = $this->array;
@@ -137,6 +242,11 @@ class pList implements IList {
         return $result;
     }
 
+    /**
+     * Append to the list with items from another list.
+     * @param pList|array $list The list to append
+     * @since 1.0-sofia
+     */
     public function append($list) {
         if($list instanceof self){
             $this->array = array_merge($this->array, $list->array);
@@ -145,6 +255,11 @@ class pList implements IList {
         }
     }
 
+    /**
+     * Prepend to the list with items from another list.
+     * @param pList|array $list The list to prepend
+     * @since 1.0-sofia
+     */
     public function prepend($list) {
         if($list instanceof self){
             $this->array = array_merge($list->array, $this->array);
@@ -153,18 +268,45 @@ class pList implements IList {
         }
     }
     
+    /**
+     * Get the ArrayIterator for PHP foreach access
+     * @return ArrayIterator 
+     * @internal
+     * @ignore
+     * @since 1.0-sofia
+     */
     public function getIterator() {
         return new ArrayIterator($this->array);
     }
     
+    /**
+     * For normal array operations
+     * @return boolean 
+     * @internal
+     * @ignore
+     * @since 1.0-sofia
+     */
     public function offsetExists($offset) {
         return $offset >= 0 && $offset < $this->count();
     }
-
+    
+    /**
+     * For normal array operations
+     * @return mixed 
+     * @internal
+     * @ignore
+     * @since 1.0-sofia
+     */
     public function offsetGet($offset) {
         return $this->array[$offset];
     }
 
+    /**
+     * For normal array operations
+     * @internal
+     * @ignore
+     * @since 1.0-sofia
+     */
     public function offsetSet($offset, $value) {
         if($this->offsetExists($offset)){
             $this->array[$offset] = $value;
@@ -172,7 +314,13 @@ class pList implements IList {
             // TODO: throw exception
         }
     }
-
+    
+    /**
+     * For normal array operations
+     * @internal
+     * @ignore
+     * @since 1.0-sofia
+     */
     public function offsetUnset($offset) {
         unset($this->array[$offset]);
     }

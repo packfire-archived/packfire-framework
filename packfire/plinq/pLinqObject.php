@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LINQ operations on a list or collection of objects or arrays
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire/plinq
+ * @since 1.0-sofia
+ */
 class pLinqObject implements ILinq {
     
     private $from;
