@@ -1,5 +1,10 @@
 <?php
 
+
+define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
+
+require(__PACKFIRE_ROOT__ . 'pClassLoader.php');
+
 /**
  * The core magical class. Unicorns ftw.
  *
@@ -9,5 +14,9 @@
  * @since 1.0-sofia
  */
 class Packfire {
+    
+    public static function load($path){
+        pClassLoader::load($path);
+    }
     
 }
