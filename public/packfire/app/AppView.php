@@ -1,4 +1,5 @@
 <?php
+Packfire::load('packfire.pView');
 
 /**
  * The generic application view class

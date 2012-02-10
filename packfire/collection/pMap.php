@@ -1,4 +1,6 @@
 <?php
+Packfire::load('IMap');
+Packfire::load('pList');
 
 /**
  * A Hash Map

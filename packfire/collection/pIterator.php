@@ -1,4 +1,5 @@
 <?php
+Packfire::load('pKeyValuePair');
 
 /**
  * Iterator that helps to iterator through a list or array

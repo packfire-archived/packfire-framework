@@ -1,4 +1,5 @@
 <?php
+Packfire::load('packfire.pModel');
 
 /**
  * The generic application mdoel class

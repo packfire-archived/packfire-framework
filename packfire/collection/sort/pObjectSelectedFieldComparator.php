@@ -1,4 +1,5 @@
 <?php
+Packfire::load('IComparator');
 
 /**
  * A comparator that compares between two objects based on their fields in common

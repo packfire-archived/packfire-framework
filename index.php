@@ -8,4 +8,4 @@
  * Visitors to this file will be redirected to the public folder.
  */
 
-header('Location: /public/');
+header('Location: public/');

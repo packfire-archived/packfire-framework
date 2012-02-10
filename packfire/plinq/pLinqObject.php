@@ -1,4 +1,5 @@
 <?php
+Packfire::load('ILinq');
 
 /**
  * LINQ operations on a list or collection of objects or arrays

@@ -1,4 +1,5 @@
 <?php
+Packfire::load('IList');
 
 /**
  * A Hash Map interface
