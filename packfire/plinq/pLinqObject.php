@@ -73,7 +73,7 @@ class pLinqObject implements ILinq {
     }
     
     public function join($subject, $name, $conditionFunc){
-        
+        // TODO join
     }
     
     public function distinct(){
@@ -81,7 +81,7 @@ class pLinqObject implements ILinq {
     }
     
     public function group($fieldSelector){
-        
+        // TODO group
     }
     
     public function count($conditionFunc = null){
