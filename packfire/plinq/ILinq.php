@@ -8,13 +8,13 @@ interface ILinq {
     
     public function where($conditionFunc);
     
-    public function orderBy($fieldSelector);
+    public function orderBy($field);
     
-    public function thenBy($fieldSelector);
+    public function thenBy($field);
     
-    public function orderByDesc($fieldSelector);
+    public function orderByDesc($field);
     
-    public function thenByDesc($fieldSelector);
+    public function thenByDesc($field);
     
     /**
      *
@@ -26,17 +26,17 @@ interface ILinq {
     
     public function distinct();
     
-    public function group($fieldSelector);
+    public function group($field);
     
-    public function count($conditionFunc = null);
+    public function count($condition = null);
     
-    public function sum($fieldSelector = null);
+    public function sum($field = null);
     
-    public function min($fieldSelector = null);
+    public function min($field = null);
     
-    public function max($fieldSelector = null);
+    public function max($field = null);
     
-    public function average($fieldSelector = null);
+    public function average($field = null);
     
     public function limit($offset, $length = null);
     

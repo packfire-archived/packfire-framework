@@ -5,12 +5,12 @@
  *
  * @author Sam Yong
  */
-abstract class pView {
+abstract class pView implements IView {
     
     private $fields;
     
     public function __construct(){
-        $this->fields = new pList();
+        $this->fields = new pMap();
     }
     
     /**

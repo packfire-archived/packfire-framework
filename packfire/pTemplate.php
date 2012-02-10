@@ -34,8 +34,4 @@ class pTemplate {
         return $html;
     }
     
-    public function __toString() {
-        $this->parse();
-    }
-    
 }

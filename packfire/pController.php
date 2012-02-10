@@ -7,4 +7,10 @@
  */
 abstract class pController {
     
+    public function model($model){
+        
+    }
+    
+    public abstract function run();
+    
 }
