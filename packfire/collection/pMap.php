@@ -1,7 +1,17 @@
 <?php
 
 class pMap extends pList implements IMap {
- 
+    
+    public function __construct($initialize){
+        if($initialize instanceof self){
+            $this->array = $initialize->array;
+        }elseif(is_array($initialize)){
+            $this->array = $initialize;
+        }else{
+            // TODO unknown variable
+        }
+    }
+    
     public function add($key, $value) {
         $this->array[$key] = $value;
     }

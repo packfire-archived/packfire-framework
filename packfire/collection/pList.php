@@ -7,6 +7,16 @@ class pList implements IList {
      * @var array
      */
     protected $array = array();
+    
+    public function __construct($initialize){
+        if($initialize instanceof self){
+            $this->array = array_values($initialize->array);
+        }elseif(is_array($initialize)){
+            $this->array = array_values($initialize);
+        }else{
+            // TODO unknown variable
+        }
+    }
 
     public function count() {
         return count($this->array);
@@ -34,7 +44,7 @@ class pList implements IList {
         if($this->offsetExists($index)){
             $value = $this->array[$index];
         }else{
-            // throw exception
+            // TODO throw exception
         }
         return $value;
     }
@@ -159,7 +169,7 @@ class pList implements IList {
         if($this->offsetExists($offset)){
             $this->array[$offset] = $value;
         }else{
-            // throw exception
+            // TODO: throw exception
         }
     }
 
