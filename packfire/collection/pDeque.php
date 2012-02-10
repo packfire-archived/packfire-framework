@@ -1,12 +1,12 @@
 <?php
 
-class pStack extends pList {
+class pDeque extends pQueue {
     
-    public function push($item){
-        $this->add($item);
+    public function enqueueFront($item){
+        array_unshift($this->array, $item);
     }
     
-    public function pop(){
+    public function dequeueBack(){
         $value = null;
         if($this->count() > 0){
             $value = array_pop($this->array);

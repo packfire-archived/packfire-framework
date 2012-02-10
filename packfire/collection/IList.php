@@ -1,6 +1,6 @@
 <?php
 
-interface IList extends ArrayAccess, IIterable {
+interface IList extends ArrayAccess, IIterable, ISet {
     
     public function add($item);
     
@@ -9,6 +9,8 @@ interface IList extends ArrayAccess, IIterable {
     public function clear();
     
     public function get($index);
+    
+    public function removeAll($list);
     
     public function remove($item);
     
@@ -19,5 +21,9 @@ interface IList extends ArrayAccess, IIterable {
     public function indexesOf($item);
     
     public function lastIndexOf($item);
+    
+    public function prepend($list);
+    
+    public function append($list);
     
 }

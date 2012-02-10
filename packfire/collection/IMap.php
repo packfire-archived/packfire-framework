@@ -6,4 +6,8 @@ interface IMap extends IList {
     
     public function keyExists($key);
     
+    public function keys();
+    
+    public function values();
+    
 }
