@@ -1,4 +1,5 @@
 <?php
+Packfire::load('packfire.IRunnable');
 
 /**
  * The generic controller class
@@ -8,10 +9,23 @@
  * @package packfire
  * @since 1.0-sofia
  */
-abstract class pController {
+abstract class pController implements IRunnable {
+    
+    /**
+     * 
+     * @var IView
+     */
+    private $view;
+    
+    public function view($view = null){
+        if(func_num_args() == 1){
+            $this->view = $view;
+        }
+        return $this->view;
+    }
     
     public function model($model){
-        
+        Packfire::load('model.' . $model);
     }
     
     public abstract function run();
