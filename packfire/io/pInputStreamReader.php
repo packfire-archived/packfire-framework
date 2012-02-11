@@ -52,12 +52,14 @@ class pInputStreamReader {
         while(!$found){
             $data = $this->stream->read(1024);
             if($data === null){
-                break;
+                $found = true;
             }else{
                 $buffer .= $data;
-                $pos = strrpos($buffer, $search);
+                $pos = strpos($buffer, $search);
                 if($pos !== false){
+                    $this->stream->seek($this->stream->tell() - (strlen($buffer) - $pos) + strlen($search));
                     $buffer = substr($buffer, 0, $pos);
+                    $found = true;
                 }
             }
         }

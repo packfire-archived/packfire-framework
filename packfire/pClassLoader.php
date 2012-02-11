@@ -26,7 +26,11 @@ class pClassLoader {
         // since there is not a single dot,
         // it means there is only a name. 
         // search the current namespace for the class
-        $trace = current(debug_backtrace());
+        $a = debug_backtrace();
+        reset($a);
+        next($a);
+        next($a);
+        $trace = current($a);
         $path = $trace['file'];
         $path = pathinfo($path, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
         $search = $path . $package . '.php';
@@ -38,10 +42,10 @@ class pClassLoader {
         $packages = array_filter(explode('.', $package));
         $root = array_shift($packages);
         if($root == 'packfire'){
-            $path = implode(DIRECTOR_SEPARATOR, $packages);
+            $path = implode(DIRECTORY_SEPARATOR, $packages);
             $search = __PACKFIRE_ROOT__ . $path . '.php';
         }else{
-            $path = ($root ? ($root . DIRECTORY_SEPARATOR) : '') . implode(DIRECTOR_SEPARATOR, $packages);
+            $path = ($root ? ($root . DIRECTORY_SEPARATOR) : '') . implode(DIRECTORY_SEPARATOR, $packages);
             $search = dirname($_SERVER['PHP_SELF']) . DIRECTORY_SEPARATOR . $path . '.php';
         }
         $files = glob($search, GLOB_NOSORT);
