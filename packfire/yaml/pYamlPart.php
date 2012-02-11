@@ -17,4 +17,8 @@ class pYamlPart {
     
     const INDENTATION = '    ';
     
+    public static function quotationMarkers(){
+        return array('"', '\'');
+    }
+    
 }

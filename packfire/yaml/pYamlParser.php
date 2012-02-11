@@ -1,4 +1,5 @@
 <?php
+Packfire::load('pYamlInline');
 
 /**
  * pYamlParser
@@ -22,73 +23,65 @@ class pYamlParser {
     
     public function parse(){
         $this->findDocumentStart();
+        $result = array();
         while($this->read->stream()->tell() < $this->read->stream()->length() - 1){
-            $this->parseNextUnit();
+            $data = $this->parseNextUnit();
+            if($data){
+                $result = array_merge($result, $data);
+            }
         }
+        return $result;
     }
     
     public function findDocumentStart(){
         $this->read->until('---');
-        $this->read->stream()->seek(function($x){
-            return $x->tell() + 3;
-        });
+//        $this->read->stream()->seek(function($x){
+//            return $x->tell() + 3;
+//        });
     }
     
     public function parseNextUnit($level = 0){
-        $key = $this->parseKey();
-        if($key){
-            $line = trim($this->read->line());
-            switch(substr($line, 0, 1)){
+        $result = null;
+        $line = $this->read->line();
+        $trimmed = trim($line);
+        if(strlen($trimmed) > 1 && $trimmed[0] != '#'){
+            $data = each(pYamlInline::parseKeyValue($line));
+            $indentation = strpos($line, $trimmed);
+            var_dump($data, $indentation);
+            list($key, $value) = $data;
+            switch($value){
+                case '|':
+                    
+                    break;
+                case '>':
+                    
+                    break;
                 case '':
-                case '#':
-                    // nothing on the line
-                    break;
-                case '[':
-                    break;
-                case '"':
-                case '\'':
+                    // data either on next line onwards, or it's a nested sequence / array
+                    $nextLine = $this->read->line();
+                    $trimmedNextLine = trim($nextLine);
+                    if(strlen($trimmedNextLine) > 1){
+                        
+                    }else{
+                        // empty line?? can't be...
+                        $value = null;
+                    }
                     break;
             }
-        }   
+            $result[$key] = $value;
+        }
     }
     
-    private function parseKey(){
-        $key = $this->read->until(array(
-            "\n",
-            pYamlPart::KEY_VALUE_SEPARATOR
-        ));
-        $stopper = substr($key, -1);
-        if($stopper != pYamlPart::KEY_VALUE_SEPARATOR){
-            $key = null;
-        }
-        if($key){
-            $trimKey = trim($key);
-            $firstChar = substr($trimKey, 0, 1);
-            if(($firstChar == '"' || $firstChar == '\'') && substr($trimKey, -1) != $firstChar){
-                $key = substr($key, 1);
-                $delimit = '\\';
-                while($delimit != $firstChar){
-                    $keyPart = $this->read->until(array(
-                        '\\' . $firstChar,
-                        $firstChar
-                    ));
-                    $delimit = substr($keyPart, -1);
-                    $key .= $keyPart;
-                }
-            }
-            $key = substr($key, 0, strlen($key) - 1);
-        }
-        return $key;
-    }
-    
-    public function parseLineValue($line){
+    private function parseSequence(){
         
     }
     
-    public function parseBlockLiteral(){
+    private function parseBlockLiteral(){
         
     }
     
-    
+    public function parseFoldedBlockLiteral(){
+        
+    }
     
 }
