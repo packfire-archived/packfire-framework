@@ -37,7 +37,18 @@ class pYamlParser {
     public function parseNextUnit($level = 0){
         $key = $this->parseKey();
         if($key){
-            $line = $this->read->line();
+            $line = trim($this->read->line());
+            switch(substr($line, 0, 1)){
+                case '':
+                case '#':
+                    // nothing on the line
+                    break;
+                case '[':
+                    break;
+                case '"':
+                case '\'':
+                    break;
+            }
         }   
     }
     
