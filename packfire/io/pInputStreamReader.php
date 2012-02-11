@@ -43,7 +43,7 @@ class pInputStreamReader {
     /**
      * Read until a certain text is found. If the text is not found, data from 
      * the starting position until the end of the file will be returned.
-     * @param string $search 
+     * @param string|array|pList $search The text to read until. 
      * @return string Returns the data read from the stream.
      */
     public function until($search){
@@ -55,15 +55,39 @@ class pInputStreamReader {
                 $found = true;
             }else{
                 $buffer .= $data;
-                $pos = strpos($buffer, $search);
+                $pos = false;
+                if(is_array($search)){
+                    $result = self::strposa($buffer, $search);
+                    if($result){
+                        $search = $result['text'];
+                        $pos = $result['position'];
+                    }
+                }else{
+                    $pos = strpos($buffer, $search);
+                }
                 if($pos !== false){
-                    $this->stream->seek($this->stream->tell() - (strlen($buffer) - $pos) + strlen($search));
-                    $buffer = substr($buffer, 0, $pos);
+                    $searchLen = strlen($search);
+                    $this->stream->seek($this->stream->tell() - (strlen($buffer) - $pos) + $searchLen);
+                    $buffer = substr($buffer, 0, $pos + $searchLen);
                     $found = true;
                 }
             }
         }
         return $buffer;
+    }
+    
+    private static function strposa($string, $search){
+        $result = false;
+        foreach($search as $text){
+            $tpos = strpos($string, $text);
+            if($tpos !== false && (!$result || $tpos < $result['position'])){
+                $result = array(
+                    'position' => $tpos,
+                    'text' => $text
+                );
+            }
+        }
+        return $result;
     }
     
 }

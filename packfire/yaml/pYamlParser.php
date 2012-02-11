@@ -23,27 +23,51 @@ class pYamlParser {
     public function parse(){
         $this->findDocumentStart();
         while($this->read->stream()->tell() < $this->read->stream()->length() - 1){
-            $line = $this->read->line();
-            $trimmed = trim($line);
-            if(substr($trimmed, 0, 1) != '#'){ // not a comment line
-                $keySep = strpos($line, pYamlPart::KEY_VALUE_SEPARATOR);
-                if($keySep !== false){
-                    $key = trim(substr($line, 0, $keySep));
-                }
-            }
+            $this->parseNextUnit();
         }
-    }
-    
-    public function parseUnit(){
-        
     }
     
     public function findDocumentStart(){
         $this->read->until('---');
+        $this->read->stream()->seek(function($x){
+            return $x->tell() + 3;
+        });
     }
     
-    public function parseKey($line){
-        return trim(substr($line, 0, strpos($line, ':')));
+    public function parseNextUnit($level = 0){
+        $key = $this->parseKey();
+        if($key){
+            $line = $this->read->line();
+        }   
+    }
+    
+    private function parseKey(){
+        $key = $this->read->until(array(
+            "\n",
+            pYamlPart::KEY_VALUE_SEPARATOR
+        ));
+        $stopper = substr($key, -1);
+        if($stopper != pYamlPart::KEY_VALUE_SEPARATOR){
+            $key = null;
+        }
+        if($key){
+            $trimKey = trim($key);
+            $firstChar = substr($trimKey, 0, 1);
+            if(($firstChar == '"' || $firstChar == '\'') && substr($trimKey, -1) != $firstChar){
+                $key = substr($key, 1);
+                $delimit = '\\';
+                while($delimit != $firstChar){
+                    $keyPart = $this->read->until(array(
+                        '\\' . $firstChar,
+                        $firstChar
+                    ));
+                    $delimit = substr($keyPart, -1);
+                    $key .= $keyPart;
+                }
+            }
+            $key = substr($key, 0, strlen($key) - 1);
+        }
+        return $key;
     }
     
     public function parseLineValue($line){
