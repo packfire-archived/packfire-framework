@@ -16,16 +16,22 @@ class pYamlValue {
         $escape = false;
         $string = false;
         $openQuote = null;
-        $found = false;
-        while($position < $length && !$found){
+        $start = null;
+        $removals = array();
+        while($position < $length){
             switch($line[$position]){
                 case '\\':
                     $escape = true;
                     break;
+                case "\n":
+                    if(!$string && $start !== null){
+                        $removals[$start] = $position;
+                        $start = null;
+                    }
+                    break;
                 case '#':
                     if(!$string){
-                        --$position;
-                        $found = true;
+                        $start = $position;
                     }
                     break;
                 case '"':
@@ -49,7 +55,17 @@ class pYamlValue {
             }
             ++$position;
         }
-        return substr($line, 0, $position);
+        if($start !== null){
+            $removals[$start] = strlen($line);
+        }
+        $offset = 0;
+        foreach($removals as $start => $end){
+            $start -= $offset;
+            $end -= $offset;
+            $line = substr($line, 0, $start) . substr($line, $end);
+            $offset += ($end - $start);
+        }
+        return $line;
     }
     
     public static function isQuoted($text){

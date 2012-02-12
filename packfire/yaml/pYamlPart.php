@@ -17,6 +17,10 @@ class pYamlPart {
     
     const INDENTATION = '    ';
     
+    const SEQUENCE_ITEM_BULLET = '- ';
+    
+    const MULTILINE_SEQUENCE_OF_MAP_START = '`\s*\- \s*([^\s\:\{].*)\s*\:\s*([^\s].*)\s*`ism';
+    
     public static function quotationMarkers(){
         return array('"', '\'');
     }

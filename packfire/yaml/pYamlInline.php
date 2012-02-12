@@ -12,21 +12,32 @@ Packfire::load('pYamlInline');
  */
 class pYamlInline {
     
-    public static function parseKeyValue($line, &$position = 0, $breakers = array('{', ':','#', "\n")){
-        $result = array();
-        $length = strlen($line);
-        $key = self::parseScalar($line, $position, $breakers);
-        ++$position;
+    private $line;
+    
+    private $length;
+    
+    public function __construct($line){
+        $this->line = $line;
+        $this->length = strlen($line);
+    }
+    
+    public static function load($line){
+        $inline = new self($line);
+        return $inline;
+    }
+    
+    public function parseValue(&$position = 0, $breakers = array('{', ':','#', "\n")){
+        $line = $this->line;
+        $length = $this->length;
         $eov = false;
-        $value = null;
         while($position < $length && !$eov){
             switch($line[$position]){
                 case '[':
-                    $value = self::parseSequence($line, $position);
+                    $value = $this->parseSequence($position);
                     $eov = true;
                     break;
                 case '{':
-                    $value = self::parseMap($line, $position);
+                    $value = $this->parseMap($position);
                     $eov = true;
                     break;
                 case ' ':
@@ -35,12 +46,22 @@ class pYamlInline {
                     // fly off!
                     break;
                 default:
-                    $value = self::parseScalar($line, $position, $breakers);
+                    $value = $this->parseScalar($position, $breakers);
                     $eov = true;
                     break;
             }
             ++$position;
         }
+        return $value;
+    }
+    
+    public function parseKeyValue(&$position = 0, $breakers = array('{', ':','#', "\n")){
+        $result = array();
+        $line = $this->line;
+        $key = $this->parseScalar($position, $breakers);
+        ++$position;
+        $value = null;
+        $value = $this->parseValue($position, $breakers);
         if($key){
             $result[$key] = $value;
         }else{
@@ -50,22 +71,24 @@ class pYamlInline {
         return $result;
     }
     
-    public static function parseScalar($line, &$position = 0, $breakers = array('#', "\n")){
+    public function parseScalar(&$position = 0, $breakers = array('#', "\n")){
         $result = '';
-        $length = strlen($line);
+        $line = $this->line;
+        $length = $this->length;
         if($length > 0){
             if($length > 1 && in_array($line[$position], pYamlPart::quotationMarkers())){
-                $result = self::parseQuotedString($line, $position);
+                $result = $this->parseQuotedString($position);
             }else{
-                $result = self::parseNormalScalar($line, $position, $breakers);
+                $result = $this->parseNormalScalar($position, $breakers);
             }
         }
         return pYamlValue::translateScalar(trim($result));
     }
     
-    private static function parseNormalScalar($line, &$position = 0, $breakers = array('#', "\n")){
+    private function parseNormalScalar(&$position = 0, $breakers = array('#', "\n")){
         $offset = $position;
-        $length = strlen($line);
+        $line = $this->line;
+        $length = $this->length;
         while($position < $length){
             if(in_array($line[$position], $breakers)){
                 --$position;
@@ -76,10 +99,11 @@ class pYamlInline {
         return substr($line, $offset, $position - $offset + 1);
     }
     
-    private static function parseQuotedString($line, &$position = 0){
+    private function parseQuotedString(&$position = 0){
+        $line = $this->line;
+        $length = $this->length;
         ++$position;
         $offset = $position;
-        $length = strlen($line);
         $quote = $line[$position - 1];
         while($position < $length){
             if($line[$position] == $quote){
@@ -98,28 +122,30 @@ class pYamlInline {
         return substr($line, $offset, $position - $offset);
     }
     
-    public static function parseSequence($line, &$position = 0){
+    public function parseSequence(&$position = 0, $separator = ','){
         $result = array();
-        $length = strlen($line);
+        $line = $this->line;
+        $length = $this->length;
         $eos = false;
         ++$position;
         while($position < $length && !$eos){
             switch($line[$position]){
                 case '[': // nested sequence
-                    $result[] = self::parseSequence($line, $position);
+                    $result[] = $this->parseSequence($position);
                     break;
                 case '{': // nested map
-                    $result[] = self::parseMap($line, $position);
+                    $result[] = $this->parseMap($position);
                     break;
                 case ']': // end of sequence
                     $eos = true;
                     break;
+                case "\n":
                 case ' ':
-                case ',':
+                case $separator:
                     // do nothing here
                     break;
                 default:
-                    $result[] = self::parseScalar($line, $position, array(',', ']', '#'));
+                    $result[] = $this->parseScalar($position, array(',', ']', '#'));
                     break;
             }
             ++$position;
@@ -127,9 +153,10 @@ class pYamlInline {
         return $result;
     }
     
-    public static function parseMap($line, &$position = 0){
+    public function parseMap(&$position = 0, $separator = ','){
         $result = array();
-        $length = strlen($line);
+        $line = $this->line;
+        $length = $this->length;
         $eos = false;
         ++$position;
         // {computer: food, come: home, maybe: yes}
@@ -138,12 +165,13 @@ class pYamlInline {
                 case '}': // end of sequence
                     $eos = true;
                     break;
+                case "\n":
                 case ' ':
-                case ',':
+                case $separator:
                     continue;
                     break;
                 default:
-                    $data = self::parseKeyValue($line, $position, array(':', ',', '}'));
+                    $data = $this->parseKeyValue($position, array(':', $separator, '}'));
                     $result = array_merge($result, $data);
                     break;
             }

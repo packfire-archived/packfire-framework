@@ -17,6 +17,7 @@ class pYaml {
     
     public function read(){
         $parser = new pYamlParser($this->reader);
+        $parser->findDocumentStart();
         return $parser->parse();
     }
     
