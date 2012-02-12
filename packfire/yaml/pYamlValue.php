@@ -10,7 +10,47 @@
  */
 class pYamlValue {
     
-    
+    public static function stripComment($line){
+        $length = strlen($line);
+        $position = 0;
+        $escape = false;
+        $string = false;
+        $openQuote = null;
+        $found = false;
+        while($position < $length && !$found){
+            switch($line[$position]){
+                case '\\':
+                    $escape = true;
+                    break;
+                case '#':
+                    if(!$string){
+                        --$position;
+                        $found = true;
+                    }
+                    break;
+                case '"':
+                case '\'':
+                    if(!$escape){
+                        if($string){
+                            if($openQuote == $line[$position]){
+                                $openQuote = null;
+                                $string = false;
+                            }
+                        }else{
+                            $openQuote = $line[$position];
+                            $string = true;
+                        }
+                    }
+                default:
+                    if($escape){
+                        $escape = false;
+                    }
+                    break;
+            }
+            ++$position;
+        }
+        return substr($line, 0, $position);
+    }
     
     public static function isQuoted($text){
         $len = strlen($text);

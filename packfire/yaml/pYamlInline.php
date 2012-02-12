@@ -1,4 +1,6 @@
 <?php
+Packfire::load('pYamlValue');
+Packfire::load('pYamlInline');
 
 /**
  * pYamlInline Description
@@ -10,19 +12,15 @@
  */
 class pYamlInline {
     
-    public static function parseKeyValue($line, &$position = 0, $breakers = array(':')){
+    public static function parseKeyValue($line, &$position = 0, $breakers = array('{', ':','#', "\n")){
         $result = array();
         $length = strlen($line);
         $key = self::parseScalar($line, $position, $breakers);
         ++$position;
-        $eos = false;
         $eov = false;
         $value = null;
-        while($position < $length && !$eos && !$eov){
+        while($position < $length && !$eov){
             switch($line[$position]){
-                case '}':
-                    $eos = true;
-                    break;
                 case '[':
                     $value = self::parseSequence($line, $position);
                     $eov = true;
@@ -37,7 +35,7 @@ class pYamlInline {
                     // fly off!
                     break;
                 default:
-                    $value = self::parseScalar($line, $position);
+                    $value = self::parseScalar($line, $position, $breakers);
                     $eov = true;
                     break;
             }
@@ -82,9 +80,6 @@ class pYamlInline {
         ++$position;
         $offset = $position;
         $length = strlen($line);
-        if($position == 0){
-            var_dump($line);
-        }
         $quote = $line[$position - 1];
         while($position < $length){
             if($line[$position] == $quote){
