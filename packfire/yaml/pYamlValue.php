@@ -74,7 +74,11 @@ class pYamlValue {
     }
     
     public static function stripQuote($text){
-        return substr($text, 1, strlen($text) - 2);
+        $result = $text;
+        if(self::isQuoted($text)){
+            $result = substr($text, 1, strlen($text) - 2);
+        }
+        return $result;
     }
     
     public static function translateScalar($scalar){

@@ -18,8 +18,7 @@ class pYamlPart {
     const INDENTATION = '    ';
     
     const SEQUENCE_ITEM_BULLET = '- ';
-    
-    const MULTILINE_SEQUENCE_OF_MAP_START = '`\s*\- \s*([^\s\:\{].*)\s*\:\s*([^\s].*)\s*`ism';
+    const SEQUENCE_ITEM_BULLET_EMPTYLINE = "-\n";
     
     public static function quotationMarkers(){
         return array('"', '\'');

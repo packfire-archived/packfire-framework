@@ -57,8 +57,7 @@ class pYamlInline {
     
     public function parseKeyValue(&$position = 0, $breakers = array('{', ':','#', "\n")){
         $result = array();
-        $line = $this->line;
-        $key = $this->parseScalar($position, $breakers);
+        $key = $this->parseScalar($position, $breakers, false);
         ++$position;
         $value = null;
         $value = $this->parseValue($position, $breakers);
@@ -71,7 +70,7 @@ class pYamlInline {
         return $result;
     }
     
-    public function parseScalar(&$position = 0, $breakers = array('#', "\n")){
+    public function parseScalar(&$position = 0, $breakers = array('#', "\n"), $translate = true){
         $result = '';
         $line = $this->line;
         $length = $this->length;
@@ -82,7 +81,13 @@ class pYamlInline {
                 $result = $this->parseNormalScalar($position, $breakers);
             }
         }
-        return pYamlValue::translateScalar(trim($result));
+        $result = trim($result);
+        if($translate){
+            $result = pYamlValue::translateScalar($result);
+        }else{
+            $result = pYamlValue::stripQuote($result);
+        }
+        return $result;
     }
     
     private function parseNormalScalar(&$position = 0, $breakers = array('#', "\n")){
@@ -102,9 +107,8 @@ class pYamlInline {
     private function parseQuotedString(&$position = 0){
         $line = $this->line;
         $length = $this->length;
-        ++$position;
         $offset = $position;
-        $quote = $line[$position - 1];
+        $quote = $line[$position];
         while($position < $length){
             if($line[$position] == $quote){
                 if($position - 1 > 1 && $line[$position - 1] != '\\'){
@@ -119,7 +123,7 @@ class pYamlInline {
             }
             ++$position;
         }
-        return substr($line, $offset, $position - $offset);
+        return substr($line, $offset, $position - $offset + 1);
     }
     
     public function parseSequence(&$position = 0, $separator = ','){
@@ -155,8 +159,8 @@ class pYamlInline {
     
     public function parseMap(&$position = 0, $separator = ','){
         $result = array();
-        $line = $this->line;
-        $length = $this->length;
+        $line = trim($this->line);
+        $length = strlen($line);
         $eos = false;
         ++$position;
         // {computer: food, come: home, maybe: yes}
