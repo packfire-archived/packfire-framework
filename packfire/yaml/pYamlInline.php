@@ -1,4 +1,5 @@
 <?php
+Packfire::load('pYamlPart');
 Packfire::load('pYamlValue');
 Packfire::load('pYamlInline');
 
@@ -12,20 +13,45 @@ Packfire::load('pYamlInline');
  */
 class pYamlInline {
     
+    /**
+     *
+     * @var string
+     */
     private $line;
     
+    /**
+     *
+     * @var integer
+     */
     private $length;
     
+    /**
+     *
+     * @param string $line 
+     */
     public function __construct($line){
         $this->line = $line;
         $this->length = strlen($line);
     }
     
+    /**
+     * Load a line and work on it.
+     * @param string $line The line to work on
+     * @return pYamlInline Returns the object that will work on the string
+     * @since 1.0-sofia
+     */
     public static function load($line){
         $inline = new self($line);
         return $inline;
     }
     
+    /**
+     * Parse a YAML inline value. 
+     * @param integer $position (optional) The position of the line to start parsing from.
+     * @param array $breakers (optional) The delimiter that determines when to stop parsing the value
+     * @return mixed The value parsed.
+     * @since 1.0-sofia
+     */
     public function parseValue(&$position = 0, $breakers = array('{', ':','#', "\n")){
         $line = $this->line;
         $length = $this->length;
@@ -33,10 +59,12 @@ class pYamlInline {
         while($position < $length && !$eov){
             switch($line[$position]){
                 case '[':
+                    --$position;
                     $value = $this->parseSequence($position);
                     $eov = true;
                     break;
                 case '{':
+                    --$position;
                     $value = $this->parseMap($position);
                     $eov = true;
                     break;
@@ -55,7 +83,14 @@ class pYamlInline {
         return $value;
     }
     
-    public function parseKeyValue(&$position = 0, $breakers = array('{', ':','#', "\n")){
+    /**
+     * Perform a inline key-value parsing
+     * @param integer $position (optional) The position of the line to start parsing from.
+     * @param array $breakers (optional) The delimiter that determines when to stop parsing the value
+     * @return array Returns the array ($key => $value) data parsed from the line. 
+     * @return 1.0-sofia
+     */
+    public function parseKeyValue(&$position = 0, $breakers = array('{', pYamlPart::KEY_VALUE_SEPARATOR,'#', "\n")){
         $result = array();
         $key = $this->parseScalar($position, $breakers, false);
         ++$position;
@@ -70,6 +105,14 @@ class pYamlInline {
         return $result;
     }
     
+    /**
+     * Parse a scalar value.
+     * @param integer $position (optional) The position of the line to start parsing from.
+     * @param array $breakers (optional) The delimiter that determines when to stop parsing the value
+     * @param boolean $translate Whether or not to post-process the scalar value 
+     * @return string Returns the parsed value.
+     * @since 1.0-sofia
+     */
     public function parseScalar(&$position = 0, $breakers = array('#', "\n"), $translate = true){
         $result = '';
         $line = $this->line;
@@ -90,6 +133,13 @@ class pYamlInline {
         return $result;
     }
     
+    /**
+     * Parse a normal non-quoted scalar
+     * @param integer $position (optional) The position of the line to start parsing from.
+     * @param array $breakers (optional) The delimiter that determines when to stop parsing the value
+     * @return Returns the parsed value
+     * @since 1.0-sofia
+     */
     private function parseNormalScalar(&$position = 0, $breakers = array('#', "\n")){
         $offset = $position;
         $line = $this->line;
@@ -104,28 +154,41 @@ class pYamlInline {
         return substr($line, $offset, $position - $offset + 1);
     }
     
+    /**
+     * Parse a quoted string
+     * @param integer $position (optional) The position of the line to start parsing from.
+     * @return string Returns the string parsed from the line
+     * @since 1.0-sofia
+     */
     private function parseQuotedString(&$position = 0){
         $line = $this->line;
         $length = $this->length;
         $offset = $position;
         $quote = $line[$position];
+        $escape = false;
+        ++$position;
         while($position < $length){
-            if($line[$position] == $quote){
-                if($position - 1 > 1 && $line[$position - 1] != '\\'){
+            if(!$escape){
+                if($line[$position] == $quote){
                     break;
-                }elseif($position - 1 > 2 && $line[$position - 1] == '\\'
-                        && $line[$position - 2] != '\\'){
-                    // "Escaped!"
-                    $line = substr($line, 0, $position - 1)
-                            . substr($line, $position);
-                    --$length;
+                }elseif($line[$position] == '\\'){
+                    $escape = true;
                 }
+            }else{
+                $escape = false;
             }
             ++$position;
         }
         return substr($line, $offset, $position - $offset + 1);
     }
     
+    /**
+     * Parse an inline sequence
+     * @param integer $position (optional) The position of the line to start parsing from.
+     * @param string $separator (optional) The item separator. Defaults to a comma.
+     * @return array Returns the array sequence.
+     * @since 1.0-sofia
+     */
     public function parseSequence(&$position = 0, $separator = ','){
         $result = array();
         $line = $this->line;
@@ -157,6 +220,13 @@ class pYamlInline {
         return $result;
     }
     
+    /**
+     * Parse a map
+     * @param integer $position (optional) The position of the line to start parsing from.
+     * @param string $separator (optional) The item separator. Defaults to a comma.
+     * @return array Returns the array map.
+     * @since 1.0-sofia
+     */
     public function parseMap(&$position = 0, $separator = ','){
         $result = array();
         $line = trim($this->line);

@@ -1,15 +1,25 @@
 <?php
 
 /**
- * pYamlValue Description
+ * Provides API for working on YAML values.
  *
- * @author Sam Yong
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package package
- * @since version-created
+ * @package packfire.yaml
+ * @since 1.0-sofia
  */
 class pYamlValue {
     
+    /**
+     * Strip comments off the text
+     * 
+     * If the text has multiple lines, the method will remove comments from all
+     * the lines.
+     * 
+     * @param string $line The text to remove comments from.
+     * @return string Returns the text without any comments
+     * @since 1.0-sofia
+     */
     public static function stripComment($line){
         $length = strlen($line);
         $position = 0;
@@ -68,11 +78,24 @@ class pYamlValue {
         return $line;
     }
     
+    /**
+     * Check whether if text is quoted or not.
+     * @param string $text The text to check
+     * @return boolean Returns true if the text is quoted, false otherwise. 
+     * @since 1.0-sofia
+     */
     public static function isQuoted($text){
+        $text = trim($text);
         $len = strlen($text);
         return $len > 1 && in_array($text[0], pYamlPart::quotationMarkers()) && $text[0] == $text[$len - 1];
     }
     
+    /**
+     * Strip quotation marks if the text is wrapped by them.
+     * @param string $text The text to strip quotes
+     * @return string Returns the processed string
+     * @since 1.0-sofia
+     */
     public static function stripQuote($text){
         $result = $text;
         if(self::isQuoted($text)){
@@ -81,6 +104,12 @@ class pYamlValue {
         return $result;
     }
     
+    /**
+     * Process a scalar value
+     * @param string $scalar The value to process
+     * @return string Returns the processed scalar value.
+     * @since 1.0-sofia
+     */
     public static function translateScalar($scalar){
         $result = $scalar;
         switch($scalar){
@@ -100,10 +129,31 @@ class pYamlValue {
         if(is_numeric($result)){
             $result += 0;
         }
-        if(self::isQuoted($result)){
+        $quoted = self::isQuoted($result);
+        if(!$quoted || ($quoted && $result[0] != '\'')){
+            $result = self::unescape($result);
+        }
+        if($quoted){
             $result = self::stripQuote($result);
         }
         return $result;
+    }
+    
+    /**
+     * Process and unescape characters from a text
+     * @param string $text The text to process
+     * @return string Returns the processed text
+     * @since 1.0-sofia
+     */
+    public function unescape($text){
+        $replace = array(
+            '\n' => "\n",
+            '\r' => "\r",
+            '\t' => "\t",
+            '\0' => "\0",
+        );
+        $text = str_replace(array_keys($replace), $replace, $text);
+        return $text;
     }
     
 }
