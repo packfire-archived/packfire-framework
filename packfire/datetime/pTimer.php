@@ -1,4 +1,5 @@
 <?php
+pload('pDateTime');
 
 /**
  * A timer in microseconds
