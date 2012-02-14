@@ -27,10 +27,19 @@ class pRouter {
     private $routes;
     
     /**
+     * Flags whether rewritting is enabled or disabled.
+     * @var boolean 
+     */
+    private $rewrite;
+    
+    /**
      * Create a new pRouter
+     * @param boolean $rewrite (optional) Flag whether rewritting is enabled or
+     *                         disabled. Defaults to true.
      * @since 1.0-sofia 
      */
-    public function __construct(){
+    public function __construct($rewrite = true){
+        $this->rewrite = $rewrite;
         $this->routes = new pMap();
     }
     
@@ -45,6 +54,60 @@ class pRouter {
     }
     
     /**
+     * Get the map of entries.
+     * @return pMap Returns a pMap of routing entries.
+     * @since 1.0-sofia
+     */
+    public function entries(){
+        return $this->routes;
+    }
+    
+    /**
+     *
+     * @param type $url
+     * @param type $method
+     * @return type
+     * @throws RaiseInvalidRequestException 
+     */
+    public function route($url, $method){
+        //$url = $this->request()->get($this->settings()->get('phpRaise', 'enableRewrite') ? RaiseUrlRouteManager::KEY : 'p');
+        if ($url == null) {
+            $url == '';
+        }
+
+        foreach ($this->routes() as $route) {
+            // check whether HTTP method matches for RESTful routing
+            if($route->httpMethod() == $method){
+                $t = new RaiseTemplate($route->rewrite());
+                $tokens = $t->tokens();
+                foreach ($tokens as $a) {
+                    $v = RaiseRegex::escape($route->params()->get($a));
+                    if (!$v) {
+                        $v = '(*)';
+                    }
+                    $t->fields()->add($a, '(?P<' . $a . '>' . $v . ')');
+                }
+                $matches = array();
+                $i = preg_match('`^' . $t->parse() . '([/]{0,1})$`is', $url, $matches);
+                if ($i) {
+                    $params = array();
+                    foreach ($tokens as $a) {
+                        $params[$a] = $matches[$a];
+                    }
+                    $params = array_merge($params, $this->request()->get()->toArray());
+                    if($route->httpMethod() == pHttpMethod::POST){
+                        $params = array_merge($params, $this->request()->post()->toArray());
+                    }
+                    $class = $route->actual();
+                    // TODO: found class what to do?
+                }
+            }
+        }
+
+        // TODO: page not found exception
+    }
+    
+    /**
      * Get the URL for a particular routing key
      * @param string $key The routing key that uniquely identify the routing
      *                    entry to fetch.
@@ -52,7 +115,7 @@ class pRouter {
      * @return string Returns the URL
      * @since 1.0-sofia
      */
-    public function route($key, $params = array()){
+    public function to($key, $params = array()){
         $route = $this->routes->get($key);
         if($route === null){
             // TODO throw exception

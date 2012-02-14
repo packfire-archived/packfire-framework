@@ -44,16 +44,16 @@ class pRoute {
      * Create a new pRoute entry
      * @param string|pUrl $rewrite Rewritten version of the URL
      * @param string|pUrl $actual Name of the controller class to route to
-     * @param string $method (optional) The HTTP Method to filter for, defaults to HTTP GET
+     * @param string $method (optional) The HTTP Method to filter for, defaults to null.
+     *                       When set to NULL, all HTTP methods to this route entry will
+     *                       be called and handling of the HTTP method should be done
+     *                       in the Controller.
      * @param pMap|array $params (optional) Parameters of the URL route
      * @since 1.0-sofia
      */
     function __construct($rewrite, $actual, $method = null, $params = array()){
         $this->rewrite = $rewrite;
         $this->actual = $actual;
-        if(!$method){
-            $method = pHttpMethod::GET;
-        }
         $this->httpMethod = $method;
         $this->params = new pMap($params);
     }
