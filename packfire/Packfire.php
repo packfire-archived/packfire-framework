@@ -31,8 +31,8 @@ class Packfire {
     }
     
     public static function fire(){
-        pload('packfire.config.pConfig');
-        $config = new pConfig('app', '');
+        pload('packfire.config.pAppConfig');
+        
     }
     
 }

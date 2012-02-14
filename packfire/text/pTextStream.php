@@ -14,18 +14,21 @@ class pTextStream implements IIOStream {
     /**
      * The data stream
      * @var string
+     * @since 1.0-sofia
      */
     private $buffer;
     
     /**
      * The current pointer position in the buffer;
      * @var integer 
+     * @since 1.0-sofia
      */
     private $pointer;
     
     /**
      * Create a new pTextStream
      * @param string $data (optional) Intialize the stream with some data.
+     * @since 1.0-sofia
      */
     public function __construct($data = ''){
         $this->buffer = $data;
@@ -35,6 +38,7 @@ class pTextStream implements IIOStream {
     /**
      * Nothing to do here
      * @ignore me... #foreveralone
+     * @since 1.0-sofia
      */
     public function close() {
         // nothing here ^^
@@ -43,6 +47,7 @@ class pTextStream implements IIOStream {
     /**
      * Nothing to do here
      * @ignore me... #foreveralone
+     * @since 1.0-sofia
      */
     public function open() {
         // nothing here
@@ -51,6 +56,7 @@ class pTextStream implements IIOStream {
     /**
      * Get the length of the stream.
      * @return Returns the length of the stream.
+     * @since 1.0-sofia
      */
     public function length() {
         return strlen($this->buffer);
@@ -61,6 +67,7 @@ class pTextStream implements IIOStream {
      * @param integer $length The amount of data to read.
      * @return string Returns the data read from the stream or NULL if the end
      *                of the stream has been reached.
+     * @since 1.0-sofia
      */
     public function read($length) {
         $data = null;
