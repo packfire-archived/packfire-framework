@@ -26,11 +26,10 @@ require(__PACKFIRE_ROOT__ . 'helper.php');
  */
 class Packfire {
     
-    public static function load($path){
-        pload($path);
-    }
-    
-    public static function fire(){
+    /**
+     * Start the application execution 
+     */
+    public function fire(){
         
     }
     

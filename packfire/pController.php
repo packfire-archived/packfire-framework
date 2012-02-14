@@ -9,25 +9,34 @@ pload('packfire.IRunnable');
  * @package packfire
  * @since 1.0-sofia
  */
-abstract class pController implements IRunnable {
+abstract class pController {
     
-    /**
-     * 
-     * @var IView
-     */
-    private $view;
+    protected $restful = true;
     
-    public function view($view = null){
-        if(func_num_args() == 1){
-            $this->view = $view;
-        }
-        return $this->view;
+    public function __construct(){
+        
+    }
+    
+    public function render($view){
+        
     }
     
     public function model($model){
         pload('model.' . $model);
+        $obj = new $model();
+        return $obj;
     }
     
-    public abstract function run();
+    /**
+     * Run the controller with the route
+     * @param pHttpClient $client
+     */
+    public function run($client){
+        $route = $client->request()->route();
+        list(, $action) = explode(':', $route->actual());
+        if(!$action){
+            $action = 'index';
+        }
+    }
     
 }
