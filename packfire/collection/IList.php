@@ -1,6 +1,6 @@
 <?php
-Packfire::load('IIterable');
-Packfire::load('ISet');
+pload('IIterable');
+pload('ISet');
 
 /**
  * A List interface.

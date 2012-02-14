@@ -1,6 +1,6 @@
 <?php
-Packfire::load('packfire.collection.pMap');
-Packfire::load('packfire.net.http.pHttpMethod');
+pload('packfire.collection.pMap');
+pload('packfire.net.http.pHttpMethod');
 
 /**
 * A URL rewrite/routing entry

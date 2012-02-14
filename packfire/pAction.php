@@ -1,5 +1,5 @@
 <?php
-Packfire::load('packfire.IRunnable');
+pload('packfire.IRunnable');
 
 /**
  * An action class that combines the logic controller and view controller
@@ -23,7 +23,7 @@ class pAction implements IRunnable {
      * @param string $view The name of the view class to output
      */
     public function __construct($controller, $view){
-        Packfire::load('controller.' . $controller);
+        pload('controller.' . $controller);
         $this->controller = new $controller();
         $this->controller->view($view);
     }

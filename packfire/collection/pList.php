@@ -1,6 +1,6 @@
 <?php
-Packfire::load('IList');
-Packfire::load('pIterator');
+pload('IList');
+pload('pIterator');
 
 /**
  * A List of Items

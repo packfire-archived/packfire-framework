@@ -1,8 +1,8 @@
 <?php
-Packfire::load('pYamlInline');
-Packfire::load('packfire.collection.pMap');
-Packfire::load('pYamlReference');
-Packfire::load('pYamlPart');
+pload('pYamlInline');
+pload('packfire.collection.pMap');
+pload('pYamlReference');
+pload('pYamlPart');
 
 /**
  * Contains constants that identify parts of the document

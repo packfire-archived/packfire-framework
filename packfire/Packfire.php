@@ -2,7 +2,7 @@
 
 define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
 
-require(__PACKFIRE_ROOT__ . 'pClassLoader.php');
+require(__PACKFIRE_ROOT__ . 'helper.php');
 
 /**
  * The small fire you bring around in your pack to go around setting forests
@@ -17,7 +17,7 @@ require(__PACKFIRE_ROOT__ . 'pClassLoader.php');
 class Packfire {
     
     public static function load($path){
-        pClassLoader::load($path);
+        pload($path);
     }
     
     public static function fire(){

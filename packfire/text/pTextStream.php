@@ -1,5 +1,5 @@
 <?php
-Packfire::load('packfire.io.IIOStream');
+pload('packfire.io.IIOStream');
 
 /**
  * Provides stream operations to a string buffer

@@ -1,6 +1,6 @@
 <?php
-Packfire::load('IView');
-Packfire::load('pTemplate');
+pload('IView');
+pload('pTemplate');
 
 /**
  * The generic view class.

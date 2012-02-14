@@ -1,5 +1,5 @@
 <?php
-Packfire::load('packfire.collection.pMap');
+pload('packfire.collection.pMap');
 
 /**
  * Contains data of a reference map

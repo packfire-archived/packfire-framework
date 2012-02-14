@@ -1,7 +1,7 @@
 <?php
-Packfire::load('pYamlPart');
-Packfire::load('pYamlValue');
-Packfire::load('pYamlInline');
+pload('pYamlPart');
+pload('pYamlValue');
+pload('pYamlInline');
 
 /**
  * pYamlInline Description

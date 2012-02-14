@@ -1,5 +1,5 @@
 <?php
-Packfire::load('pList');
+pload('pList');
 
 /**
  * A Queue that can be enqueued from the back and dequeued from the front of the

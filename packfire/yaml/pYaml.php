@@ -1,6 +1,6 @@
 <?php
-Packfire::load('packfire.io.pInputStreamReader');
-Packfire::load('pYamlParser');
+pload('packfire.io.pInputStreamReader');
+pload('pYamlParser');
 
 /**
  * Provides functionalities to start working on a YAML stream

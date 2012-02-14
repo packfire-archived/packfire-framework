@@ -1,7 +1,7 @@
 <?php
-Packfire::load('packfire.collection.pMap');
-Packfire::load('packfire.pTemplate');
-Packfire::load('packfire.net.http.pUrl');
+pload('packfire.collection.pMap');
+pload('packfire.pTemplate');
+pload('packfire.net.http.pUrl');
 
 /**
 * Handles URL rewritting and controller routing

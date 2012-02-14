@@ -1,5 +1,5 @@
 <?php
-Packfire::load('packfire.pController');
+pload('packfire.pController');
 
 /**
  * The generic application controller class

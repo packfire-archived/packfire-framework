@@ -1,6 +1,6 @@
 <?php
-Packfire::load('IInputStream');
-Packfire::load('IOutputStream');
+pload('IInputStream');
+pload('IOutputStream');
 
 /**
  * A stream that can be written and read

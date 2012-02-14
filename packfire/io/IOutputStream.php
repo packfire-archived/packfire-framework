@@ -1,5 +1,5 @@
 <?php
-Packfire::load('IStream');
+pload('IStream');
 
 /**
  * Output Stream for writing operations to a stream

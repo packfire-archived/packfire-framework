@@ -1,5 +1,5 @@
 <?php
-Packfire::load('pList');
+pload('pList');
 
 /**
  * A stack of items that allows pushing and popping operations.

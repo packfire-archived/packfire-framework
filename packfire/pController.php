@@ -1,5 +1,5 @@
 <?php
-Packfire::load('packfire.IRunnable');
+pload('packfire.IRunnable');
 
 /**
  * The generic controller class
@@ -25,7 +25,7 @@ abstract class pController implements IRunnable {
     }
     
     public function model($model){
-        Packfire::load('model.' . $model);
+        pload('model.' . $model);
     }
     
     public abstract function run();
