@@ -1,0 +1,17 @@
+#
+# YAML Configuration File - app
+#     Application Configuration File
+#
+# Author: Sam-Mauris Yong / mauris@hotmail.sg
+# License: http://www.opensource.org/licenses/bsd-license New BSD License
+#
+
+---
+app:
+  name: "Packfire Framework for PHP"
+  version: "1.0-sofia"
+
+database:
+  default: null
+
+...
