@@ -36,14 +36,22 @@ class pRouter {
     
     /**
      * Add a new routing entry to the router
-     * @param type $key
-     * @param type $route 
+     * @param string $key The routing key that uniquely identify this routing entry.
+     * @param pRoute $route  The route entry
      * @since 1.0-sofia
      */
     public function add($key, $route){
         $this->routes[$key] = $route;
     }
     
+    /**
+     * Get the URL for a particular routing key
+     * @param string $key The routing key that uniquely identify the routing
+     *                    entry to fetch.
+     * @param array|pMap $params (optional) The parameters to insert into the URL.
+     * @return string Returns the URL
+     * @since 1.0-sofia
+     */
     public function route($key, $params = array()){
         $route = $this->routes->get($key);
         if($route === null){

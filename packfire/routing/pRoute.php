@@ -60,7 +60,7 @@ class pRoute {
     
     /**
      * Get the HTTP method for this URL route
-     * @return string 
+     * @return string Returns the HTTP method
      */
     public function httpMethod(){
         return $this->httpMethod;
@@ -68,7 +68,7 @@ class pRoute {
 
     /**
      * Get the rewritten relative-to-host URL
-     * @return string|pUrl
+     * @return string|pUrl Returns the URL
      */
     public function rewrite(){
         return $this->rewrite;
@@ -76,7 +76,7 @@ class pRoute {
 
     /**
      * Get the name of the controller class to route to
-     * @return string
+     * @return string Returns the controller class name
      */
     public function actual(){
         return $this->actual;
@@ -84,7 +84,7 @@ class pRoute {
 
     /**
      * Get the hash map of parameters for the route
-     * @return pMap
+     * @return pMap Returns a hash map
      */
     public function params(){
         return $this->params;
