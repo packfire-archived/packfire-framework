@@ -1,0 +1,20 @@
+#
+# YAML Configuration File - routing
+#     Routing for the application goes here
+#
+# Author: Sam-Mauris Yong / mauris@hotmail.sg
+# License: http://www.opensource.org/licenses/bsd-license New BSD License
+#
+
+---
+
+home:
+  rewrite: "/"
+  method: "get"
+  actual: "Home:view"
+
+helloWorld:
+  rewrite: "/hello-world/{hello}"
+  actual: "Home:helloWorld"
+  
+...
