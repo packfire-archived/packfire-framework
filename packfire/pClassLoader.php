@@ -46,7 +46,7 @@ class pClassLoader {
             $search = __PACKFIRE_ROOT__ . $path . '.php';
         }else{
             $path = ($root ? ($root . DIRECTORY_SEPARATOR) : '') . implode(DIRECTORY_SEPARATOR, $packages);
-            $search = dirname($_SERVER['PHP_SELF']) . DIRECTORY_SEPARATOR . $path . '.php';
+            $search = __APP_ROOT__ . $path . '.php';
         }
         $files = glob($search, GLOB_NOSORT);
         return $files;

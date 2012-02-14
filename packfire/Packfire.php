@@ -1,6 +1,16 @@
 <?php
 
+/**
+ * The root folder of the framework
+ * @since 1.0-sofia
+ */
 define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
+
+/**
+ * The root folder of the application front controller
+ * @since 1.0-sofia
+ */
+define('__APP_ROOT__', pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
 
 require(__PACKFIRE_ROOT__ . 'helper.php');
 
@@ -21,7 +31,8 @@ class Packfire {
     }
     
     public static function fire(){
-        
+        pload('packfire.config.pConfig');
+        $config = new pConfig('app', '');
     }
     
 }

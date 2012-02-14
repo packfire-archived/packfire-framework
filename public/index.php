@@ -10,8 +10,16 @@
  * @ignore
  */
 
+/**
+ * Location of the Packfire class
+ */
 define('__PACKFIRE_CLASS__', '../packfire/Packfire.php');
 
-include(__PACKFIRE_CLASS__);
-
-Packfire::fire();
+// include the main Packfire class
+$ok = @include(__PACKFIRE_CLASS__);
+if($ok){
+    // IMMA FIRIN' MA LAZOR
+    Packfire::fire();
+}else{
+    
+}
