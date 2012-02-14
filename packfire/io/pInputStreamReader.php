@@ -22,6 +22,7 @@ class pInputStreamReader {
      */
     public function __construct($stream){
         $this->stream = $stream;
+        $this->stream->open();
     }
     
     /**

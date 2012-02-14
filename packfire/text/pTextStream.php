@@ -125,10 +125,13 @@ class pTextStream implements IIOStream {
     public function write($data, $offset = null, $length = null) {
         switch(func_num_args()){
             case 3:
+                if(null !== $offset){
+                    $offset = $this->pointer;
+                }
                 $this->buffer = substr($this->buffer, 0, $offset)
                     . substr($data, 0, $length)
                     . substr($this->buffer, $offset + $length);
-                $this->seek($offset + $length);                
+                $this->seek($offset + $length);
                 break;
             case 2:
                 $this->buffer = substr($this->buffer, 0, $offset)
