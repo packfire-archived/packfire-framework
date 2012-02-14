@@ -22,18 +22,29 @@ class pAppConfig {
      * @since 1.0-sofia
      */
     public static function load($name, $context = null){
-        $file = __APP_ROOT__ . 'packfire/config/' . $name .
-                ($context ? ('.' . $context) : '');
+        $path = __APP_ROOT__ . 'packfire/config/' . $name;
+        
+        // parsers
         $testFiles = array(
-            $file . '.yml' => 'pYamlConfig',
-            $file . '.yaml' => 'pYamlConfig',
-            $file . '.ini' => 'pIniConfig',
+            'yml' => 'pYamlConfig',
+            'yaml' => 'pYamlConfig',
+            'ini' => 'pIniConfig',
         );
-        foreach($testFiles as $file => $class){
-            if(file_exists($file)){
+        
+        if($context){
+            foreach($testFiles as $type => $class){
+                if(file_exists($path . '.' . $context . '.' . $type)){
+                    return new $class($file);
+                }
+            }
+        }
+        // fall back if with context the file is not found
+        foreach($testFiles as $type => $class){
+            if(file_exists($path . '.' .  $type)){
                 return new $class($file);
             }
         }
+        
         return null;
     }
     
