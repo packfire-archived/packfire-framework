@@ -19,7 +19,7 @@ define('__PACKFIRE_CLASS__', '../packfire/Packfire.php');
 $ok = @include(__PACKFIRE_CLASS__);
 if($ok){
     // IMMA FIRIN' MA LAZOR
-    $packfire = Packfire();
+    $packfire = new Packfire();
     $packfire->fire();
 }else{
     
