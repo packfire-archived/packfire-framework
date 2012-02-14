@@ -10,7 +10,7 @@ define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEP
  * The root folder of the application front controller
  * @since 1.0-sofia
  */
-define('__APP_ROOT__', pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
+define('__APP_ROOT__', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
 
 require(__PACKFIRE_ROOT__ . 'helper.php');
 
