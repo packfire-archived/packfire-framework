@@ -71,10 +71,12 @@ class pMap extends pList implements IMap {
     /**
      * Get the item using its key.
      * @param string $key The key of the item.
+     * @param string $default (optional) The default value to return if the key
+     *                        is not found.
      * @return mixed Returns the item or null if not found.
      */
-    public function get($key) {
-        return parent::get($key);
+    public function get($key, $default = null) {
+        return parent::get($key, $default);
     }
 
     /**

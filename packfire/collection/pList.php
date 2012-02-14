@@ -88,15 +88,17 @@ class pList implements IList {
     /**
      * Get the item at the index.
      * @param integer $index The index of the item
+     * @param string $default (optional) The default value to return if the key
+     *                        is not found.
      * @return mixed Returns the item or null if not found.
      * @since 1.0-sofia
      */
-    public function get($index) {
+    public function get($index, $default = null) {
         $value = null;
         if($this->offsetExists($index)){
             $value = $this->array[$index];
         }else{
-            // TODO throw exception
+            $value = $default;
         }
         return $value;
     }
