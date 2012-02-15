@@ -1,4 +1,5 @@
 <?php
+pload('packfire.collection.pList');
 
 /**
  * Loads and prepares other classes for use.
@@ -10,18 +11,75 @@
  */
 class pClassLoader {
     
-    public static function load($package){
-        $files = array();
+    /**
+     * PHP file extension 
+     * @since 1.0-sofia
+     */
+    const EXT = '.php';
+    
+    /**
+     * The list of loaded classes
+     * @var pList
+     * @since 1.0-sofia
+     */
+    private $loadedClasses;
+    
+    /**
+     * Create a new pClassLoader 
+     * @since 1.0-sofia
+     */
+    public function __construct(){
+        $this->loadedClasses = new pList();
+    }
+    
+    /**
+     * Get the list of loaded classes
+     * @return pList Returns the list of loaded classes
+     * @since 1.0-sofia
+     */
+    public function loaded(){
+        return $this->loadedClasses;
+    }
+    
+    /**
+     * Loads classes based on the package supplied.
+     * 
+     * If your file is located in the framework folder:
+     * <code>    packfire/yaml/pYaml.php</code>
+     * The package name will then be:
+     * <code>    packfire.yaml.pYaml</code>
+     * 
+     * If your file is located in the application folder:
+     * <code    public/packfire/app/AppView.php</code>
+     * The package name will then be:
+     * <code>   app.AppView</code>
+     * 
+     * @param string $package The package to load. 
+     * @since 1.0-sofia
+     */
+    public function load($package){
+        $search = '';
         if(strpos($package, '.') === false){
-            $files = self::prepareCurrentDirectoryFiles($package);
+            $search = self::prepareCurrentDirectoryFiles($package);
         }else{
-            $files = self::prepareDirectorySearch($package);
+            $search = self::prepareDirectorySearch($package);
         }
+        $files = glob($search, GLOB_NOSORT);
         foreach($files as $f){
-            include_once($f);
+            $ok = include_once($f);
+            if($ok){
+                $this->loadedClasses->add(basename($f, self::EXT));
+            }
         }
     } 
     
+    /**
+     * Prepare to search for the package in the directory which the class that
+     * called for loading is in.
+     * @param string $package The package to load.
+     * @return string Returns the path constructed to search for.
+     * @since 1.0-sofia
+     */
     private static function prepareCurrentDirectoryFiles($package){
         // since there is not a single dot,
         // it means there is only a name. 
@@ -33,23 +91,29 @@ class pClassLoader {
         $trace = current($a);
         $path = $trace['file'];
         $path = pathinfo($path, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
-        $search = $path . $package . '.php';
-        $files = glob($search, GLOB_NOSORT);
-        return $files;
+        $search = $path . $package . self::EXT;
+        return $search;
     }
     
+    /**
+     * Prepare to search for the package
+     * @param string $package The package to load.
+     * @return string Returns the path constructed to search for.
+     * @since 1.0-sofia
+     */
     private static function prepareDirectorySearch($package){
         $packages = array_filter(explode('.', $package));
         $root = array_shift($packages);
         if($root == 'packfire'){
             $path = implode(DIRECTORY_SEPARATOR, $packages);
-            $search = __PACKFIRE_ROOT__ . $path . '.php';
+            $search = __PACKFIRE_ROOT__ . $path . self::EXT;
         }else{
-            $path = ($root ? ($root . DIRECTORY_SEPARATOR) : '') . implode(DIRECTORY_SEPARATOR, $packages);
-            $search = __APP_ROOT__ . $path . '.php';
+            $path = ($root ? ($root . DIRECTORY_SEPARATOR) : '')
+                . 'packfire' . DIRECTORY_SEPARATOR
+                . implode(DIRECTORY_SEPARATOR, $packages);
+            $search = __APP_ROOT__ . $path . self::EXT;
         }
-        $files = glob($search, GLOB_NOSORT);
-        return $files;
+        return $search;
     }
     
 }
