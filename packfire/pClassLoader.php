@@ -19,7 +19,7 @@ class pClassLoader {
     
     /**
      * The list of loaded classes
-     * @var pList
+     * @var array
      * @since 1.0-sofia
      */
     private $loadedClasses;
@@ -29,12 +29,12 @@ class pClassLoader {
      * @since 1.0-sofia
      */
     public function __construct(){
-        $this->loadedClasses = new pList();
+        $this->loadedClasses = array();
     }
     
     /**
      * Get the list of loaded classes
-     * @return pList Returns the list of loaded classes
+     * @return array Returns the list of loaded classes
      * @since 1.0-sofia
      */
     public function loaded(){
@@ -68,7 +68,7 @@ class pClassLoader {
         foreach($files as $f){
             $ok = include_once($f);
             if($ok){
-                $this->loadedClasses->add(basename($f, self::EXT));
+                $this->loadedClasses[] = basename($f, self::EXT);
             }
         }
     } 

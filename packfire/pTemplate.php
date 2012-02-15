@@ -1,4 +1,5 @@
 <?php
+pload('packfire.collection.pMap');
 
 /**
  * Provides operations on template parsing.
@@ -61,8 +62,8 @@ class pTemplate {
      */
     public function parse(){
         $html = $this->template;
-        foreach($this->fields as $k => $v){
-            $key = self::KEY_OPEN . $k . self::KEY_CLOSE;
+        foreach($this->fields as $key => $v){
+            $key = self::KEY_OPEN . $key . self::KEY_CLOSE;
             if(strpos($html, $key) !== false){
                 $html = str_replace($key, $v, $html);
             }
