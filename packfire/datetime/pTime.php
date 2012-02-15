@@ -1,36 +1,41 @@
 <?php
+pload('pDateTimeComponent');
 
 /**
- * pTime Description
+ * Time of the day
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pTime {
+class pTime extends pDateTimeComponent {
     
     /**
      * Hour of the day (0 to 23), 24-hour format
      * @var integer
+     * @since 1.0-sofia
      */
     private $hour = 0;
     
     /**
      * Minutes of the hour (0 to 59)
      * @var integer
+     * @since 1.0-sofia
      */
     private $minute = 0;
     
     /**
      * Seconds of the minute (0 to 59)
      * @var integer
+     * @since 1.0-sofia
      */
     private $second = 0;
     
     /**
      * milliseconds
      * @var integer
+     * @since 1.0-sofia
      */
     private $millisecond = 0;
     
@@ -41,34 +46,13 @@ class pTime {
      * @param integer $second (optional) The second component. Defaults to 0.
      * @param double|integer $millisecond (optional) The millisecond component.
      *                                    Defaults to 0.
+     * @since 1.0-sofia
      */
     function __construct($hour = 0, $minute = 0, $second = 0, $millisecond = 0) {
         $this->hour($hour);
         $this->minute($minute);
         $this->second($second);
         $this->millisecond($millisecond);
-    }
-    
-    /**
-     * Process the next component
-     * @param integer $value
-     * @param string $next
-     * @param integer $max
-     * @return integer
-     * @internal
-     * @since 1.0-sofia
-     */
-    protected function processNextComponent($value, $next, $max){
-        if($value >= $max){
-            $addNext = (int)floor($value / $max);
-            $this->$next($this->$next + $addNext);
-            $value -= $addNext * $max;
-        }elseif($value < 0){
-            $subNext = (int)floor(abs($value) / $max);
-            $this->$next($this->$next - $subNext - 1);
-            $value = $max + ($value + ($subNext * $max));
-        }
-        return $value;
     }
 
     /**
@@ -164,6 +148,7 @@ class pTime {
      * 24 hours (i.e. a day), the result will be the time next day.
      * @param pTime $time The amount of time to add.
      * @return pTime Returns the resulting pTime from the addition operation.
+     * @since 1.0-sofia
      */
     public function add($time){
         $temp = new self();

@@ -2,7 +2,7 @@
 pload('pTime');
 
 /**
- * pTimeSpan Description
+ * A period of time.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
