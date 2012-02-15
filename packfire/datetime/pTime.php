@@ -50,14 +50,15 @@ class pTime {
     }
     
     /**
-     *
-     * @param type $value
-     * @param type $next
-     * @param type $max
-     * @return type 
+     * Process the next component
+     * @param integer $value
+     * @param string $next
+     * @param integer $max
+     * @return integer
+     * @internal
      * @since 1.0-sofia
      */
-    private function processNextComponent($value, $next, $max){
+    protected function processNextComponent($value, $next, $max){
         if($value >= $max){
             $addNext = (int)floor($value / $max);
             $this->$next($this->$next + $addNext);
@@ -78,11 +79,12 @@ class pTime {
      * @return double|integer Returns the millisecond component of the time
      * @since 1.0-sofia
      */
-    public function millisecond($a = null){
+    public function millisecond($millisecond = null){
         if(func_num_args() == 1){
-            if($a != $this->millisecond){
-                $a = $this->processNextComponent($a, 'second', 1000);
-                $this->millisecond = (int)$a;
+            if($millisecond != $this->millisecond){
+                $millisecond = $this->processNextComponent($millisecond,
+                                            'second', 1000);
+                $this->millisecond = (int)$millisecond;
             }
         }
         return $this->millisecond;
@@ -116,7 +118,7 @@ class pTime {
     public function minute($minute = null){
         if(func_num_args() == 1){
             if($minute != $this->minute){
-                $a = $this->processNextComponent($minute, 'hour', 60);
+                $minute = $this->processNextComponent($minute, 'hour', 60);
                 $this->minute = (int)$minute;
             }
         }
