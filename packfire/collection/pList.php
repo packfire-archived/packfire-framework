@@ -328,5 +328,5 @@ class pList implements IList {
     public function offsetUnset($offset) {
         unset($this->array[$offset]);
     }
-    
+
 }
