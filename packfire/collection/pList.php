@@ -189,6 +189,14 @@ class pList implements IList {
     }
     
     /**
+     * Get an array version of the list
+     * @return array Returns the array
+     */
+    public function toArray(){
+        return $this->array;
+    }
+    
+    /**
      * Get the difference between this collection and another
      * @param IList|array $a The collection to compare against
      * @return IList
