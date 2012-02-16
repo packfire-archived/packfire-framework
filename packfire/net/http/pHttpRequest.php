@@ -115,8 +115,8 @@ class pHttpRequest {
                     if($body === null){
                         $separator = strpos($line, ':');
                         if($separator){
-                            $key = trim(substr($l, 0, $separator));
-                            $value = trim(substr($l, $separator + 1));
+                            $key = trim(substr($line, 0, $separator));
+                            $value = trim(substr($line, $separator + 1));
                             if($request->headers()->keyExists($key)){
                                 $request->headers()->get($key)->add(new pList(array($value)));
                             }else{
@@ -124,7 +124,7 @@ class pHttpRequest {
                             }
                         }
                     }else{
-                        $body .= $line . "\n";
+                        $body .= $line . pNewline::UNIX;
                     }
                 }else{
                     $body = '';
