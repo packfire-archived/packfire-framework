@@ -2,6 +2,7 @@
 pload('packfire.collection.pMap');
 pload('packfire.pTemplate');
 pload('packfire.net.http.pUrl');
+pload('packfire.text.regex.pRegex');
 
 /**
 * Handles URL rewritting and controller routing
@@ -63,10 +64,11 @@ class pRouter {
     }
     
     /**
-     *
+     * Perform routing operation and return the call
+     * 
      * @param type $url
      * @param type $method
-     * @return type
+     * @return string The call string
      * @throws RaiseInvalidRequestException 
      */
     public function route($url, $method){
@@ -78,10 +80,10 @@ class pRouter {
         foreach ($this->routes() as $route) {
             // check whether HTTP method matches for RESTful routing
             if($route->httpMethod() == $method){
-                $t = new RaiseTemplate($route->rewrite());
+                $t = new pTemplate($route->rewrite());
                 $tokens = $t->tokens();
                 foreach ($tokens as $a) {
-                    $v = RaiseRegex::escape($route->params()->get($a));
+                    $v = pRegex::escape($route->params()->get($a));
                     if (!$v) {
                         $v = '(*)';
                     }
@@ -90,19 +92,12 @@ class pRouter {
                 $matches = array();
                 $i = preg_match('`^' . $t->parse() . '([/]{0,1})$`is', $url, $matches);
                 if ($i) {
-                    $params = array();
-                    foreach ($tokens as $a) {
-                        $params[$a] = $matches[$a];
-                    }
-                    $params = array_merge($params, $this->request()->get()->toArray());
-                    if($route->httpMethod() == pHttpMethod::POST){
-                        $params = array_merge($params, $this->request()->post()->toArray());
-                    }
-                    $class = $route->actual();
-                    // TODO: found class what to do?
+                    return $route;
                 }
             }
         }
+        
+        return null;
 
         // TODO: page not found exception
     }
