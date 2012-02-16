@@ -153,36 +153,41 @@ class pList implements IList {
      * @since 1.0-sofia
      */
     public function remove($item) {
-        foreach($this->array as &$value) {
+        foreach($this->array as $key => $value) {
             if ($value === $item){
-                unset($value);
-                break;
+                unset($this->array[$key]);
             }
         }
+        $this->array = array_values($this->array);
     }
     
     /**
      * Remove a list of items from the list. If an item occurs multiple counts 
      * in the list, all of the instances will be removed as well.
-     * @param IList|array $list The list of items to remove.
+     * @param IList|array|mixed $list,... The list of items to remove.
      * @since 1.0-sofia
      */
     public function removeAll($list){
-        foreach($this->array as &$value) {
-            if (in_array($value, $list, true)){
-                unset($value);
-            }
+        if(func_num_args() > 1){
+            $list = func_get_args();
+        }
+        foreach($list as $item){
+            $this->remove($item);
         }
     }
 
     /**
      * Remove an item by its index.
      * @param integer $index Index of the item to remove.
+     * @returns mixed Returns the item removed from the list
      * @since 1.0-sofia
      */
     public function removeAt($index) {
         if($this->offsetExists($index)){
+            $item = $this->array[$index];
             unset($this->array[$index]);
+            $this->array = array_values($this->array);
+            return $item;
         }else{
             // TODO: throw exception
         }
@@ -209,6 +214,7 @@ class pList implements IList {
         }else{
                 $result->array = array_diff($this->array, $set);
         }
+        $result->array = array_values($result->array);
         return $result;
     }
     
@@ -238,6 +244,7 @@ class pList implements IList {
         }else{
             $result->array = array_intersect($this->array, $set);
         }
+        $result->array = array_values($result->array);
         return $result;
     }
 
@@ -335,6 +342,7 @@ class pList implements IList {
      */
     public function offsetUnset($offset) {
         unset($this->array[$offset]);
+        $this->array = array_values($this->array);
     }
 
 }

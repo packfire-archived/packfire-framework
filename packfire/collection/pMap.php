@@ -110,6 +110,24 @@ class pMap extends pList implements IMap {
         return array_key_exists($key, $this->array);
     }
     
+    public function remove($item) {
+        foreach($this->array as $key => $value) {
+            if ($value === $item){
+                unset($this->array[$key]);
+            }
+        }
+    }
+    
+    public function removeAt($index) {
+        if($this->offsetExists($index)){
+            $item = $this->array[$index];
+            unset($this->array[$index]);
+            return $item;
+        }else{
+            // TODO: throw exception
+        }
+    }
+    
     /**
      * Get the difference between this collection and another
      * @param pList|array $a The collection to compare against
