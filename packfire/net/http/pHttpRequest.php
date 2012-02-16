@@ -286,4 +286,26 @@ class pHttpRequest {
         return $u;
     }
     
+    public function __toString(){
+        $buffer = '';
+        $buffer .= $this->requestLine() . pNewLine::UNIX;
+        foreach ($this->headers() as $k => $h) {
+            if (is_array($h)) {
+                foreach ($h as $d) {
+                    $buffer .= $k . ': ' . $d . pNewLine::UNIX;
+                }
+            } else {
+                    $buffer .= $k . ': ' . $h . pNewLine::UNIX;
+            }
+        }
+        if($this->body()){
+            $buffer .= pNewLine::UNIX;
+            while($this->body()->tell() < $this->body()->length()){
+                $read = $this->body()->read(1024);
+                $buffer .= $read;
+            }
+        }
+        return $buffer;
+    }
+    
 }
