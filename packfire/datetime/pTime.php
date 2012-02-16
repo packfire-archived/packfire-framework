@@ -17,28 +17,28 @@ class pTime extends pDateTimeComponent implements IComparable {
      * @var integer
      * @since 1.0-sofia
      */
-    private $hour = 0;
+    protected $hour = 0;
     
     /**
      * Minutes of the hour (0 to 59)
      * @var integer
      * @since 1.0-sofia
      */
-    private $minute = 0;
+    protected $minute = 0;
     
     /**
      * Seconds of the minute (0 to 59)
      * @var integer
      * @since 1.0-sofia
      */
-    private $second = 0;
+    protected $second = 0;
     
     /**
      * milliseconds
      * @var integer
      * @since 1.0-sofia
      */
-    private $millisecond = 0;
+    protected $millisecond = 0;
     
     /**
      * Create a new pTime

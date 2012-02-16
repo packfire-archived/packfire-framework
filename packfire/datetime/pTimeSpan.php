@@ -17,6 +17,23 @@ class pTimeSpan extends pTime {
      * @since 1.0-sofia
      */
     private $day = 0;
+    
+    /**
+     * Create a new pTimeSpan object
+     * @param integer $seconds (optional) The number of seconds to initialize
+     *                         the time span with.
+     */
+    public function __construct($seconds = null){
+        if(func_num_args() == 1){
+            $this->day(floor($seconds / 86400));
+            $seconds -= $this->day() * 86400;
+            $this->hour(floor($seconds / 3600));
+            $seconds -= $this->hour() * 3600;
+            $this->minute(floor($seconds / 60));
+            $seconds -= $this->minute() * 60;
+            $this->second($seconds);
+        }
+    }
 
     /**
      * Get or set the hour component of the time

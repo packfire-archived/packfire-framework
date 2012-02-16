@@ -144,7 +144,7 @@ class pDate extends pDateTimeComponent implements IComparable {
      * @since 1.0-sofia
      */
     public function add($timeSpan){
-        $temp = new self($this->year, $this->month, $this->year);
+        $temp = new self($this->year, $this->month, $this->day);
         
         $temp->day($temp->day + $timeSpan->day());
         
