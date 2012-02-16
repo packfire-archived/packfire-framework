@@ -1,5 +1,6 @@
 <?php
 pload('pDateTimeComponent');
+pload('packfire.collection.sort.IComparable');
 
 /**
  * Time of the day
@@ -9,7 +10,7 @@ pload('pDateTimeComponent');
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pTime extends pDateTimeComponent {
+class pTime extends pDateTimeComponent implements IComparable {
     
     /**
      * Hour of the day (0 to 23), 24-hour format
@@ -178,6 +179,17 @@ class pTime extends pDateTimeComponent {
         
         return $temp;
     }
-
     
+    /**
+     * Compare this pTime object with another pTime object
+     * @param pTime $another The other pTime object to compare with
+     * @return integer Returns 0 if they are the same, -1 if $this < $another
+     *                 and 1 if $this > $another.
+     * @since 1.0-sofia
+     */
+    public function compareTo($another) {
+        $comparator = new pTimeComparator();
+        return $comparator->compare($this, $another);
+    }
+
 }

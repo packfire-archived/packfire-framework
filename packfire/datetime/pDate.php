@@ -1,6 +1,7 @@
 <?php
 pload('pDateTimeComponent');
 pload('pDateTime');
+pload('packfire.collection.sort.IComparable');
 
 /**
  * Grerogian Calendar Date
@@ -10,7 +11,7 @@ pload('pDateTime');
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pDate extends pDateTimeComponent {
+class pDate extends pDateTimeComponent implements IComparable {
 
     /**
      * Day of the month (1 to 31)
@@ -162,6 +163,18 @@ class pDate extends pDateTimeComponent {
         $temp->day($temp->day + $timeSpan->day());
         
         return $temp;
+    }
+    
+    /**
+     * Compare this pDate object with another pDate object
+     * @param pDate $another The other pDate object to compare with
+     * @return integer Returns 0 if they are the same, -1 if $this < $another
+     *                 and 1 if $this > $another.
+     * @since 1.0-sofia
+     */
+    public function compareTo($another) {
+        $comparator = new pDateComparator();
+        return $comparator->compare($this, $another);
     }
     
 }

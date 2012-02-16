@@ -352,4 +352,16 @@ class pDateTime extends pDate {
         return ((double)$usec + (double)$sec);
     }
     
+    /**
+     * Compare this pDateTime object with another pDateTime object
+     * @param pDateTime $another The other pDateTime object to compare with
+     * @return integer Returns 0 if they are the same, -1 if $this < $another
+     *                 and 1 if $this > $another.
+     * @since 1.0-sofia
+     */
+    public function compareTo($another) {
+        $comparator = new pDateTimeComparator();
+        return $comparator->compare($this, $another);
+    }
+    
 }
