@@ -16,12 +16,9 @@ define('__ENVIRONMENT__' , '');
 
 require(__PACKFIRE_ROOT__ . 'helper.php');
 
-pload('packfire.routing.pRoute');
-pload('packfire.routing.pRouter');
+pload('pApplication');
 pload('packfire.net.http.pHttpClient');
 pload('packfire.net.http.pHttpClientRequest');
-pload('packfire.config.pRouterConfig');
-pload('packfire.collection.pMap');
 pload('packfire.io.file.pFileStream');
 pload('packfire.datetime.pDateTime');
 
@@ -43,21 +40,9 @@ class Packfire {
      */
     public function fire(){
         $request = $this->loadRequest();
-        $router = $this->loadRouter();
-        $route = $router->route($request);
-        if(strpos($route->actual(), ':')){
-            list($class, $action) = explode(':', $route->actual());
-        }else{
-            $class = $route->actual();
-            $action = '';
-        }
-        
-        // call controller
-        $class .= 'Controller';
-        pload('controller.' . $class);
-        
-        $controller = new $class();
-        $response = $controller->run($request, $route, $action);
+        $application = new pApplication();
+        $response = $application->receive($request);
+        $this->processResponse($response);
     }
     
     /**
@@ -116,16 +101,16 @@ class Packfire {
         return $request;
     }
     
-    private function loadRouter(){
-        $router = new pRouter();
-        $settings = pRouterConfig::load();
-        $routes = $settings->get();
-        foreach($routes as $key => $data){
-            $data = new pMap($data);
-            $route = new pRoute($data->get('rewrite'), $data->get('actual'), $data->get('method'), $data->get('params'));
-            $router->add($key, $route);
+    /**
+     *
+     * @param pHttpResponse $response 
+     */
+    public function processResponse($response){
+        header($response->version() . ' ' . $response->code());
+        foreach($response->headers() as $key => $value){
+            header($key . ': ' . $value);
         }
-        return $router;
+        echo $response->body();
     }
     
 }
