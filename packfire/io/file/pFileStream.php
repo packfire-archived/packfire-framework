@@ -142,7 +142,6 @@ class pFileStream implements IIOStream {
      */
     public function open() {
         $this->handle = fopen($this->file, 'r+');
-        var_dump($this->file);
     }
     
 }
