@@ -1,5 +1,6 @@
-#The public folder
+#Application Folder
+###Packfire Framework for PHP
 
-This is the folder where your application root should be on the web front of your web server. 
+___
 
-If let say your application should be accessible from http://www.example.com/, the root of the domain should point to this folder.
+The application folder contains packages classes that are part of the application that implement from the framework.
