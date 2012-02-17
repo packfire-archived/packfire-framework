@@ -79,6 +79,9 @@ class pRouter {
             $url == '';
         }
 
+        /**
+         * @var pRoute $route 
+         */
         foreach ($this->routes as $route) {
             // check whether HTTP method matches for RESTful routing
             if(strtolower($route->httpMethod()) == $method){
@@ -94,6 +97,11 @@ class pRouter {
                 $matches = array();
                 $i = preg_match('`^' . $t->parse() . '([/]{0,1})$`is', $url, $matches);
                 if ($i) {
+                    $params = array();
+                    foreach ($tokens as $a) {
+                        $params[$a] = $matches[$a];
+                    }
+                    $route->params()->append($params);
                     return $route;
                 }
             }
