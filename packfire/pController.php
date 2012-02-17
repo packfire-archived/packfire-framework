@@ -1,6 +1,7 @@
 <?php
 pload('packfire.IRunnable');
 pload('packfire.net.http.pHttpResponse');
+pload('packfire.net.http.pRedirectResponse');
 
 /**
  * The generic controller class
@@ -12,14 +13,45 @@ pload('packfire.net.http.pHttpResponse');
  */
 abstract class pController {
     
+    /**
+     *
+     * @var pHttpResponse
+     */
+    protected $response;
+    
+    /**
+     *
+     * @var boolean
+     */
     protected $restful = true;
     
-    public function __construct(){
-        
+    /**
+     * Controller Parameters
+     * @var pMap
+     */
+    protected $params;
+    
+    public function __construct($response){
+        $this->response = $response;
     }
     
+    /**
+     * 
+     * @param IView $view 
+     */
     public function render($view){
-        
+        $output = $view->render();
+        $this->response->body($output);
+    }
+    
+    protected function redirect($url, $code = null){
+        $result = null;
+        if(func_num_args() == 2){
+            $result = new pRedirectResponse($url, $code);
+        }else{
+            $result = new pRedirectResponse($url);
+        }
+        return $result;
     }
     
     public function model($model){
@@ -40,19 +72,20 @@ abstract class pController {
             $action = 'index';
         }
         
-        $httpMethodCall = strtolower($route->httpMethod()) . ucFirst($action);
-        if(is_callable(array($this, $httpMethodCall))){
-            $action = $httpMethodCall;
+        if($this->restful){
+            $httpMethodCall = strtolower($route->httpMethod()) . ucFirst($action);
+            if(is_callable(array($this, $httpMethodCall))){
+                $action = $httpMethodCall;
+            }
         }
         
         $action = 'do' . ucFirst($action);
         
-        $result = new pHttpResponse();
         if(is_callable(array($this, $action))){
             $this->$action();
         }
         
-        return $result;
+        return $this->response;
     }
     
 }
