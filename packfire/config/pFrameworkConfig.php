@@ -23,7 +23,7 @@ class pFrameworkConfig {
      *                 or NULL if the file is not recognized or not found.
      * @since 1.0-sofia
      */
-    public static function load($name, $context = null){
+    public static function load($name, $context = __ENVIRONMENT__){
         $path = __APP_ROOT__ . 'pack/config/' . $name;
         
         // parsers
