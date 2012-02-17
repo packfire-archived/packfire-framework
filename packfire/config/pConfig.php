@@ -62,7 +62,7 @@ abstract class pConfig {
      * @return mixed Returns the data read or NULL if the key is not found.
      * @since 1.0-sofia
      */
-    public function get($key){
+    public function get(){
         $keys = func_get_args();
         $data = $this->data;
         foreach($keys as $key){

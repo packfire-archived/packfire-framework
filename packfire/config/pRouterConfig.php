@@ -2,14 +2,14 @@
 pload('pFrameworkConfig');
 
 /**
- * Application configuration parser
+ * Router configuration parser
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.config
  * @since 1.0-sofia
  */
-class pAppConfig extends pFrameworkConfig {
+class pRouterConfig extends pFrameworkConfig {
     
     /**
      * Load the routing configuration file located the the config folder.
@@ -22,7 +22,7 @@ class pAppConfig extends pFrameworkConfig {
      * @since 1.0-sofia
      */
     public static function load($context = null) {
-        return parent::load('app', $context);
+        return parent::load('routing', $context);
     }
     
 }
