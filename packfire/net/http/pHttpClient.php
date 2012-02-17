@@ -14,39 +14,51 @@ class pHttpClient {
     /**
      * The IP Address of the client
      * @var string 
+     * @since 1.0-sofia
      */
     private $ipAddress;
     
     /**
      * User agent of the client
      * @var string
+     * @since 1.0-sofia
      */
     private $userAgent;
     
     /**
      * The operating system of the client
      * @var string 
+     * @since 1.0-sofia
      */
     private $operatingSystem;
     
     /**
      * The name of the browser
      * @var string 
+     * @since 1.0-sofia
      */
     private $browserName;
     
     /**
      * The browser version
      * @var string
+     * @since 1.0-sofia
      */
     private $browserVersion;
     
     /**
      * Flags whether the client is a known bot or not.
      * @var boolean
+     * @since 1.0-sofia
      */
     private $bot = false;
     
+    /**
+     * Create a new pHttpClient object
+     * @param string $ip The IP Address of the client
+     * @param string $userAgent The user agent of the client
+     * @since 1.0-sofia
+     */
     public function __construct($ip, $userAgent){
         $this->ipAddress = $ip;
         $this->userAgent = $userAgent;
@@ -55,6 +67,7 @@ class pHttpClient {
     
     /**
      * Auto detect parameters from the user agent
+     * @since 1.0-sofia
      */
     protected function detect(){
         if (strpos($this->userAgent, 'Windows')) {
