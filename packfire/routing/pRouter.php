@@ -1,6 +1,6 @@
 <?php
 pload('packfire.collection.pMap');
-pload('packfire.pTemplate');
+pload('packfire.template.pTemplate');
 pload('packfire.net.http.pUrl');
 pload('packfire.text.regex.pRegex');
 
