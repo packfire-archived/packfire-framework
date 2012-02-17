@@ -65,6 +65,7 @@ class pClassLoader {
             $search = self::prepareDirectorySearch($package);
         }
         $files = glob($search, GLOB_NOSORT);
+        
         foreach($files as $f){
             $ok = include_once($f);
             if($ok){
@@ -108,8 +109,7 @@ class pClassLoader {
             $path = implode(DIRECTORY_SEPARATOR, $packages);
             $search = __PACKFIRE_ROOT__ . $path . self::EXT;
         }else{
-            $path = ($root ? ($root . DIRECTORY_SEPARATOR) : '')
-                . 'packfire' . DIRECTORY_SEPARATOR
+            $path = 'pack' . DIRECTORY_SEPARATOR . ($root ? ($root . DIRECTORY_SEPARATOR) : '')
                 . implode(DIRECTORY_SEPARATOR, $packages);
             $search = __APP_ROOT__ . $path . self::EXT;
         }
