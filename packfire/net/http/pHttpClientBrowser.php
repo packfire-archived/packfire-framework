@@ -23,7 +23,7 @@ class pHttpClientBrowser {
     /**
      * Browser: Apple Safari
      */
-    const BR_SAFARI = 'Safari';
+    const SAFARI = 'Safari';
 
     /**
      * Browser: Opera

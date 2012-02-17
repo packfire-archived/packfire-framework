@@ -1,5 +1,6 @@
 <?php
 pload('pHttpClientOS');
+pload('pHttpClientBrowser');
 
 /**
  * pHttpClient Description
