@@ -16,5 +16,7 @@ home:
 helloWorld:
   rewrite: "/hello-world/{hello}"
   actual: "Home:helloWorld"
+  params:
+    hello: ([a-zA-Z0-9]+)
   
 ...
