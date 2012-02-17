@@ -2,6 +2,7 @@
 pload('packfire.text.pNewline');
 pload('packfire.text.pTextStream');
 pload('pUrl');
+pload('packfire.collection.pMap');
 
 /**
  * A HTTP Request
