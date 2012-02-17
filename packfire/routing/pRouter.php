@@ -64,22 +64,24 @@ class pRouter {
     }
     
     /**
-     * Perform routing operation and return the call
+     * Perform routing operation and return the route entry
      * 
-     * @param type $url
-     * @param type $method
-     * @return string The call string
-     * @throws RaiseInvalidRequestException 
+     * @param pHttpClientRequest $clientRequest The client request
+     * @return pRoute The route found
      */
-    public function route($url, $method){
+    public function route($clientRequest){
         //$url = $this->request()->get($this->settings()->get('phpRaise', 'enableRewrite') ? RaiseUrlRouteManager::KEY : 'p');
+        
+        $url = '/' . (string)$clientRequest->get()->get(self::KEY);
+        $method = strtolower($clientRequest->method());
+        
         if ($url == null) {
             $url == '';
         }
 
-        foreach ($this->routes() as $route) {
+        foreach ($this->routes as $route) {
             // check whether HTTP method matches for RESTful routing
-            if($route->httpMethod() == $method){
+            if(strtolower($route->httpMethod()) == $method){
                 $t = new pTemplate($route->rewrite());
                 $tokens = $t->tokens();
                 foreach ($tokens as $a) {
