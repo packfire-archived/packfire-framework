@@ -1,5 +1,6 @@
 <?php
 pload('packfire.IRunnable');
+pload('packfire.net.http.pHttpResponse');
 
 /**
  * The generic controller class
@@ -29,14 +30,29 @@ abstract class pController {
     
     /**
      * Run the controller with the route
-     * @param pHttpClient $client
+     * @param pHttpClientRequest $request
+     * @param pRoute $route
+     * @param string $action
+     * @since 1.0-sofia
      */
-    public function run($client){
-        $route = $client->request()->route();
-        list(, $action) = explode(':', $route->actual());
+    public function run($request, $route, $action){
         if(!$action){
             $action = 'index';
         }
+        
+        $httpMethodCall = strtolower($route->httpMethod()) . ucFirst($action);
+        if(is_callable(array($this, $httpMethodCall))){
+            $action = $httpMethodCall;
+        }
+        
+        $action = 'do' . ucFirst($action);
+        
+        $result = new pHttpResponse();
+        if(is_callable(array($this, $action))){
+            $this->$action();
+        }
+        
+        return $result;
     }
     
 }
