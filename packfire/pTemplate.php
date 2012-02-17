@@ -1,5 +1,6 @@
 <?php
 pload('packfire.collection.pMap');
+pload('packfire.text.regex.pRegex');
 
 /**
  * Provides operations on template parsing.
@@ -70,6 +71,23 @@ class pTemplate {
         }
         
         return $html;
+    }
+
+    /**
+     * Get the list of tokens found in the template
+     * @return pList Returns the list of tokens
+     * @since 1.0-sofia
+     */
+    public function tokens(){
+        $tokens = new pList();
+        $matches = array();
+        $i = preg_match_all('`' . pRegex::escape(self::KEY_OPEN) . '([a-zA-Z0-9\.]+)' . pRegex::escape(self::KEY_CLOSE) . '`is', $this->template, $matches, PREG_SET_ORDER);
+        if($i > 0){
+            foreach($matches as $m){
+                $tokens->add($m[1]);
+            }
+        }
+        return $tokens;
     }
     
 }
