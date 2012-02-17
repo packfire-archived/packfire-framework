@@ -11,7 +11,7 @@
 home:
   rewrite: "/"
   method: "get"
-  actual: "Home:view"
+  actual: "Home"
 
 helloWorld:
   rewrite: "/hello-world/{hello}"

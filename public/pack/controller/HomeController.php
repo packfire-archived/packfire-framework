@@ -1,4 +1,5 @@
 <?php
+pload('app.AppController');
 
 /**
  * Handles interaction for home
