@@ -12,7 +12,18 @@ define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEP
  */
 define('__APP_ROOT__', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
 
+define('__ENVIRONMENT__' , '');
+
 require(__PACKFIRE_ROOT__ . 'helper.php');
+
+pload('packfire.routing.pRoute');
+pload('packfire.routing.pRouter');
+pload('packfire.net.http.pHttpClient');
+pload('packfire.net.http.pHttpClientRequest');
+pload('packfire.config.pRouterConfig');
+pload('packfire.collection.pMap');
+pload('packfire.io.file.pFileStream');
+pload('packfire.datetime.pDateTime');
 
 /**
  * The small fire you bring around in your pack to go around setting forests
@@ -28,9 +39,93 @@ class Packfire {
     
     /**
      * Start the application execution 
+     * @since 1.0-sofia
      */
     public function fire(){
+        $request = $this->loadRequest();
+        $router = $this->loadRouter();
+        $route = $router->route($request);
+        if(strpos($route->actual(), ':')){
+            list($class, $action) = explode(':', $route->actual());
+        }else{
+            $class = $route->actual();
+            $action = '';
+        }
         
+        // call controller
+        $class .= 'Controller';
+        pload('controller.' . $class);
+        
+        $controller = new $class();
+        $response = $controller->run($request, $route, $action);
+    }
+    
+    /**
+     * Prepare and load the client request
+     * @return pHttpClientRequest 
+     * @since 1.0-sofia
+     */
+    private function loadRequest(){
+        $client = new pHttpClient($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']);
+        $request = new pHttpClientRequest($client);
+        
+        $request->method($_SERVER['REQUEST_METHOD']);
+        $request->uri($_SERVER['REQUEST_URI']);
+        $request->version($_SERVER['SERVER_PROTOCOL']);
+        // changed to stream to prevent Denial Of Service
+        $request->body(new pFileStream('php://input'));
+        $request->time(pDateTime::fromTimestamp($_SERVER['REQUEST_TIME']));
+        if(array_key_exists('HTTP_HOST', $_SERVER)){
+            $request->headers()->add('Host', $_SERVER['HTTP_HOST'], true);
+        }
+        if(array_key_exists('HTTP_REFERER', $_SERVER)){
+            $request->headers()->add('Referer', $_SERVER['HTTP_REFERER'], true);
+        }
+        if(array_key_exists('HTTP_CONNECTION', $_SERVER)){
+            $request->headers()->add('Connection', $_SERVER['HTTP_CONNECTION'], true);
+        }
+        if(array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)){
+            $request->headers()->add('Accept-Language', $_SERVER['HTTP_ACCEPT_LANGUAGE'], true);
+        }
+        if(array_key_exists('HTTP_ACCEPT_ENCODING', $_SERVER)){
+            $request->headers()->add('Accept-Encoding', $_SERVER['HTTP_ACCEPT_ENCODING'], true);
+        }
+        if(array_key_exists('HTTP_ACCEPT_CHARSET', $_SERVER)){
+            $request->headers()->add('Accept-Charset', $_SERVER['HTTP_ACCEPT_CHARSET'], true);
+        }
+        if(array_key_exists('HTTP_ACCEPT', $_SERVER)){
+            $request->headers()->add('Accept', $_SERVER['HTTP_ACCEPT'], true);
+        }
+        if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){
+            $request->headers()->add('User-Agent', $_SERVER['HTTP_USER_AGENT'], true);
+        }
+
+        foreach ($_COOKIE as $k => $v) {
+            $request->cookies()->add($k, $v);
+        }
+
+        foreach ($_POST as $k => $v) {
+            $request->post()->add($k, $v);
+        }
+
+        foreach ($_GET as $k => $v) {
+            $request->get()->add($k, $v);
+        }
+
+        $request->https((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'));
+        return $request;
+    }
+    
+    private function loadRouter(){
+        $router = new pRouter();
+        $settings = pRouterConfig::load();
+        $routes = $settings->get();
+        foreach($routes as $key => $data){
+            $data = new pMap($data);
+            $route = new pRoute($data->get('rewrite'), $data->get('actual'), $data->get('method'), $data->get('params'));
+            $router->add($key, $route);
+        }
+        return $router;
     }
     
 }
