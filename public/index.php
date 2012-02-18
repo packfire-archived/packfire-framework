@@ -20,7 +20,7 @@ $ok = @include(__PACKFIRE_CLASS__);
 if($ok){
     // IMMA FIRIN' MA LAZOR
     $packfire = new Packfire();
-    $packfire->fire();
+    $packfire->fire(new pApplication());
 }else{
     
 }

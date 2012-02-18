@@ -21,7 +21,6 @@ class HomeView extends AppView {
     }
 
     protected function create() {
-        var_dump($this->data);
         $this->template('home');
         
         $this->define('title', $this->data['title']);
