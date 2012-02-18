@@ -1,4 +1,5 @@
 <?php
+pload('pPathPart');
 
 /**
  * pPath class
