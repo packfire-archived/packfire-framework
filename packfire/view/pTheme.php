@@ -1,4 +1,5 @@
 <?php
+pload('packfire.collection.pMap');
 
 /**
  * A Theme...
@@ -16,6 +17,14 @@ abstract class pTheme {
      * @since 1.0-sofia
      */
     private $fields;
+    
+    /**
+     * Create a new pTheme object
+     * @since 1.0-sofia
+     */
+    public function __construct(){
+        $this->fields = new pMap();
+    }
     
     /**
      * Get the theme settings defined

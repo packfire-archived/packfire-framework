@@ -1,6 +1,7 @@
 <?php
 pload('packfire.view.pView');
 pload('AppTemplate');
+pload('AppTheme');
 
 /**
  * The generic application view class
@@ -14,14 +15,16 @@ abstract class AppView extends pView {
     
     protected function template($template) {
         if(is_string($template)){
-            $template = AppTemplate::load('home');
+            $template = AppTemplate::load($template);
         }
         return parent::template($template);
     }
 
     protected function theme($theme) {
+        if(is_string($theme)){
+            $theme = AppTheme::load($theme);
+        }
         return parent::theme($theme);
     }
-
     
 }

@@ -101,7 +101,7 @@ abstract class pView implements IView {
             $this->theme->render();
             // forward the theme fields to the view
             foreach($this->theme->fields() as $key => $value){
-                $this->define('template.' . $key, $value);
+                $this->define('theme.' . $key, $value);
             }
         }
         
