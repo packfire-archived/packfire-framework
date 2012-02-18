@@ -35,19 +35,20 @@ pload('packfire.datetime.pDateTime');
 class Packfire {
     
     /**
-     * Start the application execution 
+     * Start the framework execution
+     * This is the entry point: this is it.
+     * @param IApplication
      * @since 1.0-sofia
      */
-    public function fire(){
+    public function fire($app){
         $request = $this->loadRequest();
-        $application = new pApplication();
-        $response = $application->receive($request);
+        $response = $app->receive($request);
         $this->processResponse($response);
     }
     
     /**
      * Prepare and load the client request
-     * @return pHttpClientRequest 
+     * @return pHttpClientRequest The client's request
      * @since 1.0-sofia
      */
     private function loadRequest(){
@@ -102,10 +103,12 @@ class Packfire {
     }
     
     /**
-     *
-     * @param pHttpResponse $response 
+     * Process the response and reply to the client
+     * @param IAppResponse $response The response to reply
+     * @since 1.0-sofia
      */
     public function processResponse($response){
+        $response = $response->response();
         header($response->version() . ' ' . $response->code());
         foreach($response->headers() as $key => $value){
             header($key . ': ' . $value);

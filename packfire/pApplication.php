@@ -1,4 +1,5 @@
 <?php
+pload('IApplication');
 pload('packfire.routing.pRoute');
 pload('packfire.routing.pRouter');
 pload('packfire.config.pRouterConfig');
@@ -13,12 +14,12 @@ pload('packfire.net.http.pHttpResponse');
  * @package packfire
  * @since 1.0-sofia
  */
-class pApplication {
+class pApplication implements IApplication {
     
     /**
      * Receive a request, process, and respond.
      * @param pHttpClientRequest $request The request made
-     * @return pHttpResponse Returns the http response
+     * @return IAppResponse Returns the http response
      */
     public function receive($request){
         $router = $this->loadRouter();
@@ -44,8 +45,9 @@ class pApplication {
                 }
 
                 if(class_exists($class)){
-                    $controller = new $class($response);
-                    $response = $controller->run($request, $route, $action);
+                    $controller = new $class($request, $response);
+                    $controller->run($route, $action);
+                    $response = $controller;
                 }
             }
         }
@@ -53,7 +55,7 @@ class pApplication {
     }
     
     /**
-     * Prepare the response
+     * Create and prepare the response
      * @param pHttpRequest $request The request to respond to
      * @return pHttpResponse Returns the response prepared
      * @since 1.0-sofia

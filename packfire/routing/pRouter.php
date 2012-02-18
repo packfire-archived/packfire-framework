@@ -78,10 +78,7 @@ class pRouter {
         if ($url == null) {
             $url == '';
         }
-
-        /**
-         * @var pRoute $route 
-         */
+        
         foreach ($this->routes as $route) {
             // check whether HTTP method matches for RESTful routing
             if(strtolower($route->httpMethod()) == $method){
