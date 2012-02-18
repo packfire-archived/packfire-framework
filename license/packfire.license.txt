@@ -13,10 +13,6 @@ Software (found the the "licenses" folder).
 Copyright (c) 2010-2012, Sam-Mauris Yong
 All rights reserved.
 
-Portion of the source code were derived from phpRaise PHP Framework which is
-licensed for free re-distribution open-source under the same license as
-Packfire Framework.
-
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 
