@@ -22,38 +22,52 @@ class pApplication {
      */
     public function receive($request){
         $router = $this->loadRouter();
+        $response = $this->prepareResponse($request);
         $route = $router->route($request);
-        if(strpos($route->actual(), ':')){
-            list($class, $action) = explode(':', $route->actual());
+        if(is_null($route)){
+            // todo: page not found
         }else{
-            $class = $route->actual();
-            $action = '';
-        }
-        
-        $response = $this->respond($request);
-        
-        if($class instanceof Closure){
-            $response = $class($request, $route, $response);
-        }else{
-            if(is_string($class)){
-                // call controller
-                $class .= 'Controller';
-                pload('controller.' . $class);
+            if(strpos($route->actual(), ':')){
+                list($class, $action) = explode(':', $route->actual());
+            }else{
+                $class = $route->actual();
+                $action = '';
             }
 
-            if(class_exists($class)){
-                $controller = new $class($response);
-                $response = $controller->run($request, $route, $action);
+            if($class instanceof Closure){
+                $response = $class($request, $route, $response);
+            }else{
+                if(is_string($class)){
+                    // call controller
+                    $class .= 'Controller';
+                    pload('controller.' . $class);
+                }
+
+                if(class_exists($class)){
+                    $controller = new $class($response);
+                    $response = $controller->run($request, $route, $action);
+                }
             }
         }
         return $response;
     }
     
-    protected function respond($request){
+    /**
+     * Prepare the response
+     * @param pHttpRequest $request The request to respond to
+     * @return pHttpResponse Returns the response prepared
+     * @since 1.0-sofia
+     */
+    protected function prepareResponse($request){
         $response = new pHttpResponse();
         return $response;
     }
     
+    /**
+     * Load the router and its configuration
+     * @return pRouter Returns the router
+     * @since 1.0-sofia
+     */
     private function loadRouter(){
         $router = new pRouter();
         $settings = pRouterConfig::load();
