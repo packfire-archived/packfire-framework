@@ -58,6 +58,12 @@ class pClassLoader {
      * @since 1.0-sofia
      */
     public function load($package){
+        if(array_key_exists($package, $this->loadedClasses)){
+            return;
+        }else{
+            $this->loadedClasses[$package] = array();
+        }
+        
         $search = '';
         if(strpos($package, '.') === false){
             $search = self::prepareCurrentDirectoryFiles($package);
@@ -69,7 +75,7 @@ class pClassLoader {
         foreach($files as $f){
             $ok = include_once($f);
             if($ok){
-                $this->loadedClasses[] = basename($f, self::EXT);
+                $this->loadedClasses[$package][] = basename($f, self::EXT);
             }
         }
     } 
