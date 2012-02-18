@@ -1,6 +1,7 @@
 <?php
 pload('pDateTimeComponent');
 pload('packfire.collection.sort.IComparable');
+pload('pTimeComparator');
 
 /**
  * Time of the day
@@ -152,12 +153,13 @@ class pTime extends pDateTimeComponent implements IComparable {
      * @since 1.0-sofia
      */
     public function add($time){
-        $temp = new self();
+        $temp = new self($this->hour, $this->minute,
+                $this->second, $this->millisecond);
         
-        $temp->millisecond($this->millisecond + $time->millisecond);
-        $temp->second($this->second + $time->second);
-        $temp->minute($this->minute + $time->minute);
-        $temp->hour($this->hour + $time->hour);
+        $temp->millisecond($temp->millisecond + $time->millisecond);
+        $temp->second($temp->second + $time->second);
+        $temp->minute($temp->minute + $time->minute);
+        $temp->hour($temp->hour + $time->hour);
         
         return $temp;
     }
@@ -170,12 +172,13 @@ class pTime extends pDateTimeComponent implements IComparable {
      * @since 1.0-sofia
      */
     public function subtract($time){
-        $temp = new self();
+        $temp = new self($this->hour, $this->minute,
+                $this->second, $this->millisecond);
         
-        $temp->millisecond($this->millisecond - $time->millisecond);
-        $temp->second($this->second - $time->second);
-        $temp->minute($this->minute - $time->minute);
-        $temp->hour($this->hour - $time->hour);
+        $temp->millisecond($temp->millisecond - $time->millisecond);
+        $temp->second($temp->second - $time->second);
+        $temp->minute($temp->minute - $time->minute);
+        $temp->hour($temp->hour - $time->hour);
         
         return $temp;
     }
