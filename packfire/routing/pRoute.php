@@ -42,8 +42,8 @@ class pRoute {
 
     /**
      * Create a new pRoute entry
-     * @param string|pUrl $rewrite Rewritten version of the URL
-     * @param string|pUrl $actual Name of the controller class to route to
+     * @param string $rewrite Rewritten version of the URL
+     * @param string $actual Name of the controller class to route to
      * @param string $method (optional) The HTTP Method to filter for, defaults to null.
      *                       When set to NULL, all HTTP methods to this route entry will
      *                       be called and handling of the HTTP method should be done
@@ -68,7 +68,7 @@ class pRoute {
 
     /**
      * Get the rewritten relative-to-host URL
-     * @return string|pUrl Returns the URL
+     * @return string Returns the relative URL
      */
     public function rewrite(){
         return $this->rewrite;
