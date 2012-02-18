@@ -1,6 +1,5 @@
 <?php
-pload('pYamlConfig');
-pload('pIniConfig');
+pload('pConfigFactory');
 
 /**
  * Framework Application configuration parser
@@ -33,10 +32,12 @@ class pFrameworkConfig {
             'ini' => 'pIniConfig',
         );
         
+        $factory = new pConfigFactory();
+        
         if($context){
             foreach($testFiles as $type => $class){
                 if(is_file($path . '.' . $context . '.' . $type)){
-                    return new $class($path . '.' . $context . '.' . $type);
+                    return $factory->load($path . '.' . $context . '.' . $type);
                 }
             }
         }
@@ -44,7 +45,7 @@ class pFrameworkConfig {
         // fall back if with context the file is not found
         foreach($testFiles as $type => $class){
             if(is_file($path . '.' .  $type)){
-                return new $class($path . '.' .  $type);
+                return $factory->load($path . '.' . $type);
             }
         }
         
