@@ -1,4 +1,5 @@
 <?php
+pload('packfire.IAppResponse');
 pload('pHttpVersion');
 pload('pHttpResponseCode');
 pload('packfire.text.pNewline');
@@ -12,7 +13,7 @@ pload('packfire.collection.pMap');
  * @package packfire.net.http
  * @since 1.0-sofia
  */
-class pHttpResponse {
+class pHttpResponse implements IAppResponse {
 
     /**
      * The HTTP Version of the Status-Line in the HTTP response
@@ -171,6 +172,10 @@ class pHttpResponse {
         }
         $buffer .=  pNewline::UNIX . $this->body();
         return $buffer;
+    }
+    
+    public function response() {
+        return $this;
     }
     
 }
