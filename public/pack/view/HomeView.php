@@ -6,7 +6,7 @@ pload('app.AppView');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package sofia.view
+ * @package candice.view
  * @since 1.0-sofia
  */
 class HomeView extends AppView {
@@ -21,7 +21,7 @@ class HomeView extends AppView {
     }
 
     protected function create() {
-        $this->template('home');
+        $this->template('home')->theme('light');
         
         $this->define('title', $this->data['title']);
         $this->define('message', $this->data['message']);

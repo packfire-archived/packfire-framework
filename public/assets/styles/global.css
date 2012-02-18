@@ -1,0 +1,27 @@
+/* 
+    Document   : global
+    Created on : Feb 18, 2012, 1:39:38 PM
+    Author     : Sam-Mauris Yong / mauris@hotmail.sg
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+*{
+    padding:0;
+    border:none;
+    margin:0;
+}
+
+body{
+    font: normal 14px/1.5 'Lucida Grande', 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
+}
+
+h1{
+    font-weight:normal;
+    font-size:32px;
+}
+
+#universe{
+    width:600px;
+    margin:20px auto;
+}
