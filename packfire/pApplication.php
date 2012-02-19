@@ -94,7 +94,8 @@ class pApplication extends pBucketUser implements IApplication {
         $routes = $settings->get();
         foreach($routes as $key => $data){
             $data = new pMap($data);
-            $route = new pRoute($data->get('rewrite'), $data->get('actual'), $data->get('method'), $data->get('params'));
+            $route = new pRoute($data->get('rewrite'), $data->get('actual'),
+                    $data->get('method'), $data->get('params'));
             $router->add($key, $route);
         }
         return $router;
