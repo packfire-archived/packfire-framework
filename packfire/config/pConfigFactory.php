@@ -4,7 +4,7 @@ pload('pYamlConfig');
 pload('pIniConfig');
 
 /**
- * pConfigFactory Description
+ * Factory class to create the appropriate Config class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License

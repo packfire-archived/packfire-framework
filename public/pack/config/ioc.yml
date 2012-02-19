@@ -1,12 +1,16 @@
 #
 # YAML Configuration File - IoC
-#     Inversion of Control definition
+#     Inversion of Control - services definition
 #
 # Author: Sam-Mauris Yong / mauris@hotmail.sg
 # License: http://www.opensource.org/licenses/bsd-license New BSD License
 #
 
 ---
-# Your data goes here
+#serviceName:
+#  class: className
+#  parameters:
+#    - param1
+#    - param2
 
 ...

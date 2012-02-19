@@ -1,12 +1,12 @@
 <?php
-pload('pConfigFactory');
+pload('packfire.config.pConfigFactory');
 
 /**
  * Framework Application configuration parser
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.config
+ * @package packfire.config.framework
  * @since 1.0-sofia
  */
 class pFrameworkConfig {
