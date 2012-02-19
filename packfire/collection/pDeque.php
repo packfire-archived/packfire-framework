@@ -41,7 +41,7 @@ class pDeque extends pQueue {
      *               there is no item in the queue.
      * @since 1.0-sofia
      */
-    public function front(){
+    public function back(){
         if($this->count() > 0){
             return end($this->array);
         }
