@@ -1,15 +1,15 @@
 <?php
 
 /**
- * IService Description
+ * A user of the pServiceBucket
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package package
- * @since version-created
+ * @package packfire.ioc
+ * @since 1.0-sofia
  */
-class IService {
+interface IBucketUser {
     
-    //TODO: put your code here
+    public function bucket($bucket = null);
     
 }
