@@ -85,6 +85,14 @@ class pHttpClient {
             $this->operatingSystem = pHttpClientOS::LINUX;
         } else if (strpos($this->userAgent, 'Unix')) {
             $this->operatingSystem = pHttpClientOS::UNIX;
+        } else if (strpos($this->userAgent, 'Googlebot')) {
+            $this->operatingSystem = pHttpClientOS::GOOGLEBOT;
+        } else if (strpos($this->userAgent, 'Yahoo!')) {
+            $this->operatingSystem = pHttpClientOS::YAHOOBOT;
+        } else if (strpos($this->userAgent, 'bingbot')) {
+            $this->operatingSystem = pHttpClientOS::BINGBOT;
+        } else if (strpos($this->userAgent, 'msnbot')) {
+            $this->operatingSystem = pHttpClientOS::MSNBOT;
         } else {
             $this->operatingSystem = pHttpClientOS::UNKNOWN;;
         }

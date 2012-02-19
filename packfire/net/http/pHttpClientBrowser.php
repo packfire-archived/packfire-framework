@@ -35,7 +35,6 @@ class pHttpClientBrowser {
      */
     const CHROME = 'Chrome';
 
-
     /**
      * Browser: Unknown
      */

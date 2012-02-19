@@ -49,5 +49,25 @@ class pHttpClientOS {
      * Google Android OS 
      */
     const ANDROID = 'Android';
+
+    /**
+     * Bot: Googlebot 
+     */
+    const GOOGLEBOT = 'Googlebot';
+
+    /**
+     * Bot: MSN Search Engine bot 
+     */
+    const MSNBOT = 'MSNBot';
+
+    /**
+     * Bot: Bing Search Engine bot 
+     */
+    const BINGBOT = 'BingBot';
+
+    /**
+     * Bot: Yahoo's Search Engine Bot
+     */
+    const YAHOOBOT = 'Yahoo! Slurp';
     
 }
