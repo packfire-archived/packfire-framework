@@ -67,7 +67,7 @@ abstract class pConfig {
         $data = $this->data;
         foreach($keys as $key){
             if(array_key_exists($key, $data)){
-                $data = $data[$keys];
+                $data = $data[$key];
             }else{
                 $data = null;
                 break;
