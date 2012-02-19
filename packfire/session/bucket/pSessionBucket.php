@@ -17,11 +17,15 @@ class pSessionBucket implements ISessionBucket {
      */
     private $id;
     
+    /**
+     *
+     * @var array
+     */
     private $data;
     
     public function __construct($id = null){
         $this->id = $id;
-        $this->data = new pMap();
+        $this->data = array();
     }
     
     public function id(){
@@ -29,29 +33,32 @@ class pSessionBucket implements ISessionBucket {
     }
     
     public function clear() {
-        $this->data->clear();
+        $this->data = array();
     }
 
     public function get($name, $default = null) {
-        return $this->data->get($name, $default);
+        if(array_key_exists($name, $this->data)){
+            return $this->data[$name];
+        }
+        return $default;
     }
 
     public function has($name) {
-        return $this->data->keyExists($name);
+        return array_key_exists($name, $this->data);
     }
 
     public function load(&$data = null) {
-        if($data){
-            $this->data = new pMap($data);
-        }
+        $this->data = &$data;
     }
     
     public function remove($name){
-        $this->data->removeAt($name);
+        if($this->has($name)){
+            unset($this->data[$name]);
+        }
     }
 
     public function set($name, $value) {
-        $this->data->add($name, $value);
+        $this->data[$name] = $value;
     }
      
 }

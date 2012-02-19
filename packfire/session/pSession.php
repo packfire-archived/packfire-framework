@@ -8,14 +8,39 @@
  * @package packfire.session
  * @since 1.0-sofia
  */
-class pSession implements Serializable {
+class pSession {
     
-    public function serialize() {
-        
+    /**
+     * Session Storage
+     * @var ISessionStorage
+     */
+    private $storage;
+    
+    public function __construct($storage){
+        $this->storage = $storage;
+        session_start();
+        $this->storage->load();
     }
-
-    public function unserialize($serialized) {
-        
+    
+    public function get($key){
+        return $this->storage->get($key);
+    }
+    
+    public function set($key, $value){
+        $this->storage->set($key, $value);
+    }
+    
+    public function clear(){
+        $this->storage->clear();
+    }
+    
+    public function invalidate(){
+        $this->storage->clear();
+        $this->storage->regenerate(true);
+    }
+    
+    public function bucket($bucket){
+        return $this->storage->bucket($bucket);
     }
     
 }
