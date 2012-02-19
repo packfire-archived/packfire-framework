@@ -2,12 +2,12 @@
 pload('IApplication');
 pload('packfire.routing.pRoute');
 pload('packfire.routing.pRouter');
-pload('packfire.config.pRouterConfig');
 pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.ioc.pBucketUser');
 pload('packfire.ioc.pServiceBucket');
 pload('packfire.config.pAppConfig');
+pload('packfire.config.pRouterConfig');
 
 /**
  * Application class
@@ -26,7 +26,7 @@ class pApplication extends pBucketUser implements IApplication {
     protected function createBucket(){
         $bucket = new pServiceBucket();
         $bucket->put('config.app', array('pAppConfig', 'load'));
-        $bucket->put('config.routing', array('pRoutingConfig', 'load'));
+        $bucket->put('config.routing', array('pRouterConfig', 'load'));
         return $bucket;
     }
     
