@@ -2,7 +2,6 @@
 pload('packfire.collection.pMap');
 pload('packfire.template.pTemplate');
 pload('packfire.net.http.pUrl');
-pload('packfire.text.regex.pRegex');
 
 /**
 * Handles URL rewritting and controller routing
@@ -81,11 +80,12 @@ class pRouter {
         
         foreach ($this->routes as $route) {
             // check whether HTTP method matches for RESTful routing
-            if(strtolower($route->httpMethod()) == $method){
+            
+            if(!$route->httpMethod() || strtolower($route->httpMethod()) == $method){
                 $t = new pTemplate($route->rewrite());
                 $tokens = $t->tokens();
                 foreach ($tokens as $a) {
-                    $v = pRegex::escape($route->params()->get($a));
+                    $v = $route->params()->get($a);
                     if (!$v) {
                         $v = '(*)';
                     }
