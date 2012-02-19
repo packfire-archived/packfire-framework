@@ -3,6 +3,7 @@ pload('IAppResponse');
 pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.net.http.pRedirectResponse');
+pload('packfire.ioc.pBucketUser');
 
 /**
  * The generic controller class
@@ -12,7 +13,7 @@ pload('packfire.net.http.pRedirectResponse');
  * @package packfire
  * @since 1.0-sofia
  */
-abstract class pController implements IAppResponse {
+abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * The client request to this controller
@@ -61,6 +62,9 @@ abstract class pController implements IAppResponse {
      * @param IView $view 
      */
     public function render($view){
+        if($view instanceof IBucketUser){
+            $view->bucket($this->bucket);
+        }
         $output = $view->render();
         $this->response->body($output);
     }

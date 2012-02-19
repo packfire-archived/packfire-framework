@@ -11,7 +11,7 @@ pload('packfire.template.pTemplate');
  * @package packfire.view
  * @since 1.0-sofia
  */
-abstract class pView implements IView {
+abstract class pView extends pBucketUser implements IView {
     
     /**
      * The fields in the view defined

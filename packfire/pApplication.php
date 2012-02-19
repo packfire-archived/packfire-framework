@@ -5,6 +5,9 @@ pload('packfire.routing.pRouter');
 pload('packfire.config.pRouterConfig');
 pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
+pload('packfire.ioc.pBucketUser');
+pload('packfire.ioc.pServiceBucket');
+pload('packfire.config.pAppConfig');
 
 /**
  * Application class
@@ -14,12 +17,24 @@ pload('packfire.net.http.pHttpResponse');
  * @package packfire
  * @since 1.0-sofia
  */
-class pApplication implements IApplication {
+class pApplication extends pBucketUser implements IApplication {
+    
+    public function __construct(){
+        $this->bucket($this->createBucket());
+    }
+    
+    protected function createBucket(){
+        $bucket = new pServiceBucket();
+        $bucket->put('config.app', array('pAppConfig', 'load'));
+        $bucket->put('config.routing', array('pRoutingConfig', 'load'));
+        return $bucket;
+    }
     
     /**
      * Receive a request, process, and respond.
      * @param pHttpClientRequest $request The request made
      * @return IAppResponse Returns the http response
+     * @since 1.0-sofia
      */
     public function receive($request){
         $router = $this->loadRouter();
@@ -46,6 +61,9 @@ class pApplication implements IApplication {
 
                 if(class_exists($class)){
                     $controller = new $class($request, $response);
+                    if($controller instanceof IBucketUser){
+                        $controller->bucket($this->bucket);
+                    }
                     $controller->run($route, $action);
                     $response = $controller;
                 }
@@ -72,7 +90,7 @@ class pApplication implements IApplication {
      */
     private function loadRouter(){
         $router = new pRouter();
-        $settings = pRouterConfig::load();
+        $settings = $this->bucket()->pick('config.routing');
         $routes = $settings->get();
         foreach($routes as $key => $data){
             $data = new pMap($data);
