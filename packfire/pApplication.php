@@ -6,8 +6,11 @@ pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.ioc.pBucketUser');
 pload('packfire.ioc.pServiceBucket');
-pload('packfire.config.pAppConfig');
-pload('packfire.config.pRouterConfig');
+pload('packfire.config.framework.pAppConfig');
+pload('packfire.config.framework.pRouterConfig');
+pload('packfire.session.pSession');
+pload('packfire.session.storage.pSessionStorage');
+pload('packfire.ioc.pServiceLoader');
 
 /**
  * Application class
@@ -27,6 +30,8 @@ class pApplication extends pBucketUser implements IApplication {
         $bucket = new pServiceBucket();
         $bucket->put('config.app', array('pAppConfig', 'load'));
         $bucket->put('config.routing', array('pRouterConfig', 'load'));
+        $bucket->put('session', new pSession(new pSessionStorage()));
+        pServiceLoader::loadConfig($bucket);
         return $bucket;
     }
     
