@@ -22,8 +22,4 @@ class HomeController extends AppController {
         return $this->render($view);
     }
     
-    function doHelloWorld(){
-        
-    }
-    
 }

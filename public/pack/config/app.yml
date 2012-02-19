@@ -10,7 +10,14 @@
 app:
   name: "Packfire Framework for PHP"
   version: "1.0-sofia"
+  rootUrl: "http://localhost/packfire/public"
   
+session:
+  name: packfire
+  lifetime: 3600
+  http: true
+  secure: false
+
 routing:
   enabled: true
 

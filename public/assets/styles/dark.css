@@ -11,3 +11,22 @@ body{
     color: #F5F5F5;
 }
 
+a, a:visited{
+    color:#FFF;
+    text-decoration:underline;
+}
+
+a:hover{
+    color:#FFCC00;
+    text-decoration:none;
+}
+
+#themeSwitch a, #themeSwitch a:visited {
+    background:#EE9922;
+    color:#FFF;
+}
+
+#themeSwitch a:hover{
+    background:#333;
+    color:#FFF;
+}

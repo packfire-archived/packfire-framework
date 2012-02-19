@@ -13,4 +13,9 @@
 #    - param1
 #    - param2
 
+session.storage.default:
+  class: packfire.session.storage.pSessionStorage
+  parameters: []
+    
+
 ...

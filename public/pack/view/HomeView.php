@@ -21,10 +21,16 @@ class HomeView extends AppView {
     }
 
     protected function create() {
-        $this->template('home')->theme('light');
+        $theme = $this->bucket->pick('session')->get('theme', 'dark');
+        $this->template('home')->theme($theme);
         
+        $rootUrl = $this->bucket->pick('config.app')->get('app', 'rootUrl');
+        $this->define('rootUrl', $rootUrl . '/');
         $this->define('title', $this->data['title']);
         $this->define('message', $this->data['message']);
+        $this->define('version', $this->bucket->pick('config.app')->get('app', 'version'));
+        $this->define('themeDark', $rootUrl . $this->bucket->pick('router')->to('themeSwitch', array('theme' => 'dark')));
+        $this->define('themeLight', $rootUrl . $this->bucket->pick('router')->to('themeSwitch', array('theme' => 'light')));
     }
 
 }

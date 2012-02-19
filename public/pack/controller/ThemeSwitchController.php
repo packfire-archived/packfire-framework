@@ -12,6 +12,7 @@ pload('app.AppController');
 class ThemeSwitchController extends AppController {
     
     public function doIndex(){
+        $this->bucket->pick('session')->set('theme', $this->params['theme']);
         $this->redirect('/');
     }
     

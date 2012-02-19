@@ -22,6 +22,27 @@ h1{
 }
 
 #universe{
-    width:600px;
+    width:550px;
     margin:20px auto;
+}
+
+#message{
+    padding-bottom: 40px;
+}
+
+#version{
+    float:right;
+}
+
+#themeSwith{
+    padding: 10px;
+}
+
+#themeSwitch a, #themeSwitch a:visited{
+    padding: 5px 10px;
+    text-decoration:none;
+    margin: 0px 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }

@@ -13,10 +13,10 @@ home:
   method: "get"
   actual: "Home"
 
-helloWorld:
-  rewrite: "/hello-world/{hello}"
-  actual: "Home:helloWorld"
+themeSwitch:
+  rewrite: "/theme/switch/{theme}"
+  actual: "ThemeSwitch"
   params:
-    hello: ([a-zA-Z0-9]+)
+    theme: "([a-zA-Z0-9]+)"
   
 ...

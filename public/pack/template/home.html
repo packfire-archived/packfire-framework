@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>{title}</title>
+        <base href="{rootUrl}" target="_top" />
         <link rel="shortcut icon" href="packfire-favicon.ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="assets/styles/global.css" />
@@ -9,9 +10,11 @@
     </head>
     <body>
         <div id="universe">
+            <div id="version">v{version}</div>
             <img src="assets/images/packfire.biglogo.{theme.style}.png" alt="" />
             <h1>{title}</h1>
-            <div>{message}</div>
+            <div id="message">{message}</div>
+            <div id="themeSwitch"><a href="{themeDark}">Dark</a><a href="{themeLight}">Light</a></div>
         </div>
     </body>
 </html>
