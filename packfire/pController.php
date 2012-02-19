@@ -76,6 +76,9 @@ abstract class pController extends pBucketUser implements IAppResponse {
      *                     Use constants from pHttpResponseCode
      */
     protected function redirect($url, $code = null){
+        if(strlen($url) > 0 && $url[0] == '/'){
+            $url = $this->bucket->pick('config.app')->get('app', 'rootUrl') . $url;
+        }
         if(func_num_args() == 2){
             $this->response = new pRedirectResponse($url, $code);
         }else{

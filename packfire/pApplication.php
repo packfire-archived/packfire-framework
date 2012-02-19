@@ -23,16 +23,24 @@ pload('packfire.ioc.pServiceLoader');
 class pApplication extends pBucketUser implements IApplication {
     
     public function __construct(){
-        $this->bucket($this->createBucket());
+        $this->createBucket();
     }
     
     protected function createBucket(){
-        $bucket = new pServiceBucket();
-        $bucket->put('config.app', array('pAppConfig', 'load'));
-        $bucket->put('config.routing', array('pRouterConfig', 'load'));
-        $bucket->put('session', new pSession(new pSessionStorage()));
-        pServiceLoader::loadConfig($bucket);
-        return $bucket;
+        $this->bucket = new pServiceBucket();
+        $this->bucket->put('config.app', array('pAppConfig', 'load'));
+        $this->bucket->put('config.routing', array('pRouterConfig', 'load'));
+        $this->bucket->put('router', $this->loadRouter());
+        pServiceLoader::loadConfig($this->bucket);
+        
+        $storageId = $this->bucket->pick('config.app')->get('service', 'storageId');
+        $storage = null;
+        if($storageId){
+            $storage = $this->bucket->pick($storageId);
+        }else{
+            $storage = new pSessionStorage();
+        }
+        $this->bucket->put('session', new pSession($storage));
     }
     
     /**
