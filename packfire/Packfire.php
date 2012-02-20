@@ -16,7 +16,6 @@ define('__ENVIRONMENT__' , '');
 
 require(__PACKFIRE_ROOT__ . 'helper.php');
 
-pload('pApplication');
 pload('packfire.net.http.pHttpClient');
 pload('packfire.net.http.pHttpClientRequest');
 pload('packfire.io.file.pFileStream');

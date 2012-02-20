@@ -80,6 +80,22 @@ abstract class pView extends pBucketUser implements IView {
     }
     
     /**
+     * Get a specific routing URL from the router service
+     * @param string $key The routing key
+     * @param array $params (optionl) URL Parameters 
+     * @return string Returns the URL
+     * @since 1.0-sofia
+     */
+    protected function route($key, $params = array()){
+        $router = $this->service('router');
+        $url = $router->to($key, $params);
+        if(strlen($url) > 0 && $url[0] == '/'){
+            $url = $this->service('config.app')->get('app', 'rootUrl') . $url;
+        }
+        return $url;
+    }
+    
+    /**
      * Prepare and create the view fields
      * @since 1.0-sofia
      */

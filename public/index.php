@@ -18,9 +18,10 @@ define('__PACKFIRE_CLASS__', '../packfire/Packfire.php');
 // include the main Packfire class
 $ok = @include(__PACKFIRE_CLASS__);
 if($ok){
+    pload('app.Application');
     // IMMA FIRIN' MA LAZOR
     $packfire = new Packfire();
-    $packfire->fire(new pApplication());
+    $packfire->fire(new Application());
 }else{
     
 }
