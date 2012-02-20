@@ -21,19 +21,22 @@ class HomeView extends AppView {
     }
 
     protected function create() {
-        $theme = $this->bucket->pick('session')->get('theme', 'dark');
+        $theme = $this->service('session')->get('theme', 'dark');
         if(!in_array($theme, array('dark', 'light'))){
             $theme = 'light';
         }
         $this->template('home')->theme($theme);
         
-        $rootUrl = $this->bucket->pick('config.app')->get('app', 'rootUrl');
+        $rootUrl = $this->service('config.app')->get('app', 'rootUrl');
         $this->define('rootUrl', $rootUrl . '/');
         $this->define('title', $this->data['title']);
         $this->define('message', $this->data['message']);
-        $this->define('version', $this->bucket->pick('config.app')->get('app', 'version'));
-        $this->define('themeDark', $rootUrl . $this->bucket->pick('router')->to('themeSwitch', array('theme' => 'dark')));
-        $this->define('themeLight', $rootUrl . $this->bucket->pick('router')->to('themeSwitch', array('theme' => 'light')));
+        $this->define('version', $this->service('config.app')->get('app', 'version'));
+        //$this->define('themeDark', $rootUrl . $this->service('router')->to('themeSwitch', array('theme' => 'dark')));
+        //$this->define('themeLight', $rootUrl . $this->service('router')->to('themeSwitch', array('theme' => 'light')));
+        
+        $this->define('themeDark', $this->route('themeSwitch', array('theme' => 'dark')));
+        $this->define('themeLight', $this->route('themeSwitch', array('theme' => 'light')));
     }
 
 }
