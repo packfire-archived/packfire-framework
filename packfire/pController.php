@@ -34,6 +34,12 @@ abstract class pController extends pBucketUser implements IAppResponse {
     protected $response;
     
     /**
+     * The controller state
+     * @var mixed
+     */
+    protected $state;
+    
+    /**
      * Flags whether this controller uses RESTful controller actions
      * @var boolean
      */
@@ -55,6 +61,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         $this->request = $request;
         $this->response = $response;
         $this->params = new pMap();
+        $this->state = new pMap();
     }
     
     /**
@@ -63,7 +70,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
      */
     public function render($view){
         if($view instanceof IBucketUser){
-            $view->bucket($this->bucket);
+            $view->setBucket($this->services);
         }
         $output = $view->render();
         $this->response->body($output);
@@ -72,18 +79,63 @@ abstract class pController extends pBucketUser implements IAppResponse {
     /**
      * Create and prepare a redirect to another URL
      * @param string $url The URL to route to
-     * @param string $code (optional) The HTTP code. Defaults to 302 Found. 
+     * @param string $code (optional) The HTTP code. Defaults to "302 Found". 
      *                     Use constants from pHttpResponseCode
+     * @since 1.0-sofia
      */
     protected function redirect($url, $code = null){
         if(strlen($url) > 0 && $url[0] == '/'){
-            $url = $this->bucket->pick('config.app')->get('app', 'rootUrl') . $url;
+            $url = $this->service('config.app')->get('app', 'rootUrl') . $url;
         }
         if(func_num_args() == 2){
             $this->response = new pRedirectResponse($url, $code);
         }else{
             $this->response = new pRedirectResponse($url);
         }
+    }
+    
+    /**
+     * Forward the request to another controller
+     * @param string $controller Package of the controller to load
+     * @param string $action (optional) The action to execute
+     * @since 1.0-sofia
+     */
+    protected function forward($package, $action = null){
+        list($package, $class) = pClassLoader::resolvePackageClass($controller);
+
+        if(substr($class, -11) != 'Controller'){
+            $package .= 'Controller';
+            $class .= 'Controller';
+        }
+        
+        if(!class_exists($class)){
+            pload('controller.' . $package);
+        }
+        
+        if(is_subclass_of($class, 'pController')){
+            $controller = new $class($this->request, $this->response);
+            $controller->state = $this->state;
+            $controller->setBucket($this->services);
+            $controller->run($this->route, $action);
+            $this->state = $controller->state;
+            $this->response = $controller->response();
+        }
+    }
+    
+    /**
+     * Get a specific routing URL from the router service
+     * @param string $key The routing key
+     * @param array $params (optionl) URL Parameters 
+     * @return string Returns the URL
+     * @since 1.0-sofia
+     */
+    protected function route($key, $params = array()){
+        $router = $this->service('router');
+        $url = $router->to($key, $params);
+        if(strlen($url) > 0 && $url[0] == '/'){
+            $url = $this->service('config.app')->get('app', 'rootUrl') . $url;
+        }
+        return $url;
     }
     
     /**

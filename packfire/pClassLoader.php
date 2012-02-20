@@ -122,4 +122,25 @@ class pClassLoader {
         return $search;
     }
     
+    /**
+     * Resolve a package-class string into package and class
+     * 
+     * Example:
+     * <code>    pClassLoader::resolvePackageClass('packfire.ioc.pServiceBucket');</code>
+     * will return:
+     * <code>    array('packfire.ioc.pServiceBucket', 'pServiceBucket')</code>
+     * 
+     * @param string $packageClass The package-class string to resolve
+     * @return array Returns the array containing the resolved package and class.
+     * @since 1.0-sofia
+     */
+    public static function resolvePackageClass($packageClass){
+        $result = array($packageClass, $packageClass);
+        if(strpos($packageClass, '.') !== false){
+            $class = end(explode('.'), $packageClass);
+            return array($packageClass, $class);
+        }
+        return $result;
+    }
+    
 }

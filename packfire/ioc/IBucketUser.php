@@ -10,6 +10,8 @@
  */
 interface IBucketUser {
     
-    public function bucket($bucket = null);
+    public function setBucket($bucket);
+    
+    public function service($service);
     
 }

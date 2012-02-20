@@ -22,25 +22,32 @@ pload('packfire.ioc.pServiceLoader');
  */
 class pApplication extends pBucketUser implements IApplication {
     
+    /**
+     * Create the pApplication object 
+     */
     public function __construct(){
-        $this->createBucket();
+        $this->services = new pServiceBucket();
+        $this->loadBucket();
     }
     
-    protected function createBucket(){
-        $this->bucket = new pServiceBucket();
-        $this->bucket->put('config.app', array('pAppConfig', 'load'));
-        $this->bucket->put('config.routing', array('pRouterConfig', 'load'));
-        $this->bucket->put('router', $this->loadRouter());
-        pServiceLoader::loadConfig($this->bucket);
+    /**
+     * Load the bucket of services 
+     * @since 1.0-sofia
+     */
+    protected function loadBucket(){
+        $this->services->put('config.app', array('pAppConfig', 'load'));
+        $this->services->put('config.routing', array('pRouterConfig', 'load'));
+        $this->services->put('router', $this->loadRouter());
+        pServiceLoader::loadConfig($this->services);
         
-        $storageId = $this->bucket->pick('config.app')->get('service', 'storageId');
+        $storageId = $this->service('config.app')->get('service', 'storageId');
         $storage = null;
         if($storageId){
-            $storage = $this->bucket->pick($storageId);
+            $storage = $this->service($storageId);
         }else{
             $storage = new pSessionStorage();
         }
-        $this->bucket->put('session', new pSession($storage));
+        $this->services->put('session', new pSession($storage));
     }
     
     /**
@@ -68,14 +75,21 @@ class pApplication extends pBucketUser implements IApplication {
             }else{
                 if(is_string($class)){
                     // call controller
-                    $class .= 'Controller';
-                    pload('controller.' . $class);
+                    
+                    list($package, $class) =
+                            pClassLoader::resolvePackageClass($class);
+                    
+                    if(substr($class, -11) != 'Controller'){
+                        $package .= 'Controller';
+                        $class .= 'Controller';
+                    }
+                    pload('controller.' . $package);
                 }
 
                 if(class_exists($class)){
                     $controller = new $class($request, $response);
                     if($controller instanceof IBucketUser){
-                        $controller->bucket($this->bucket);
+                        $controller->setBucket($this->services);
                     }
                     $controller->run($route, $action);
                     $response = $controller;
@@ -103,7 +117,7 @@ class pApplication extends pBucketUser implements IApplication {
      */
     private function loadRouter(){
         $router = new pRouter();
-        $settings = $this->bucket()->pick('config.routing');
+        $settings = $this->service('config.routing');
         $routes = $settings->get();
         foreach($routes as $key => $data){
             $data = new pMap($data);
