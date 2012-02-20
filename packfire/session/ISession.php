@@ -10,5 +10,16 @@
  */
 interface ISession {
     
+    public function __construct($storage);
+    
+    public function get($key);
+    
+    public function set($key, $value);
+    
+    public function clear();
+    
+    public function invalidate();
+    
+    public function regenerate();
     
 }

@@ -71,7 +71,7 @@ class pServiceLoader implements IServiceLoader {
         foreach($services as $key => $service){
             $service = new pMap($service);
             if($service->keyExists('class')){
-                $loader = new pServiceLoader($service->get('class'), $service->get('params'));
+                $loader = new self($service->get('class'), $service->get('params'));
                 $bucket->put($key, array($loader, 'load'));
             }else{
                 // todo throw exception no class defined
