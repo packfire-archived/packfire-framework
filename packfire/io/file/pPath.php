@@ -2,48 +2,65 @@
 pload('pPathPart');
 
 /**
- * pPath class
- * for functionalities related to paths
- *
+ * Functionalities working with file system paths
+ * 
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire.io.file
+ * @since 1.0-sofia
  */
 class pPath {
     
     /**
-     * Create a directory path recursively
-     * @param string $f The directory path to create
-     * @param integer $perm (optional) Permissions of the directory path. Defaults to 0777
+     * Path
+     * @var string
+     */
+    private $path;
+    
+    /**
+     * Create a new pPath object
+     * @param type $path 
+     */
+    public function __construct($path){
+        $this->path = $path;
+    }
+    
+    /**
+     * Create the directory path recursively.
+     * @param integer $perm (optional) Permissions of the directory path.
+     *                      Defaults to 0777
      * @return boolean TRUE if the creation was successful, FALSE otherwise.
      * @link http://php.net/mkdir
-     * @static
+     * @since 1.0-sofia
      */
-    public static function create($f, $perm = 0777){
-        return (bool)mkdir($f, $perm, true);
+    public function create($perm = 0777){
+        return (bool)mkdir($this->path, $perm, true);
     }
 
     /**
-     * Remove a particular directory
-     * @param string $f The directory to delete
+     * Remove the path
      * @return boolean TRUE if the directory is deleted, FALSE otherwise.
      * @link http://php.net/rmdir
-     * @static
+     * @since 1.0-sofia
      */
-    public static function delete($f){
-        return (bool)rmdir($f);
+    public function delete(){
+        return (bool)rmdir($this->path);
     }
 
     /**
      * Empty the entire folder
-     * @param string $p Directory path to empty its content
-     * @static
+     * 
+     * Note that this method does not remove the folder itself, but clears
+     * the content.
+     * 
+     * @since 1.0-sofia
      */
-    public static function clear($p){
-        $d = dir($p);
-        while (($entry = $d->read()) !== false) {
-            $tp = self::combine($d->path, '/' . $entry);
+    public function clear(){
+        $dir = dir($this->path);
+        while (($entry = $dir->read()) !== false) {
+            $tp = self::combine($dir->path, '/' . $entry);
             $isdir = is_dir($tp);
-            if($entry == '.' || $entry == '..'){
-                
-            }else{
+            if($entry != '.' && $entry != '..'){
                 if($isdir){
                     self::clear($tp);
                     rmdir($tp);
@@ -52,14 +69,18 @@ class pPath {
                 }
             }
         }
-        $d->close();
+        $dir->close();
     }
 
     /**
      * Combine two paths into an elaborated path
-     * @param string $path If left empty, the path will be worked from the current working path. See pPath::currentWorkingPath()
-     * @param string $relative,... The relative path that will navigate from $path. e.g. '../../test/example/run.html' More relative paths can be appended
+     * @param string $path If left empty, the path will be worked from thE
+     *                     current working path. See pPath::currentWorkingPath()
+     * @param string $relative,... The relative path that will navigate from
+     *                             $path. e.g. '../../test/example/run.html'
+     *                             More relative paths can be appended.
      * @return string The final combined path
+     * @since 1.0-sofia
      */
     public static function combine($path, $relative){
         if(func_num_args() > 2){
@@ -94,29 +115,6 @@ class pPath {
 
         return str_replace('/', self::directorySeparator(), $path);
         }
-    }
-
-    /**
-     * Get the directory separator for the system
-     * @return string
-     * @static
-     */
-    public static function directorySeparator() {
-        return DIRECTORY_SEPARATOR;
-    }
-
-    /**
-     * Get the path separator for the system
-     * e.g for Windows it's ';', for Linux it is ':'
-     * The separator can be used to separate several paths, for example:
-     * On Windows C:\windows\system32;C:\xampp\htdocs;C:\gcc\bin
-     * or
-     * On Linux /var/www/myfile:/tmp/myfile
-     * @return string
-     * @static
-     */
-    public static function pathSeparator() {
-        return PATH_SEPARATOR;
     }
 
     /**
@@ -201,24 +199,6 @@ class pPath {
      */
     public static function currentWorkingPath(){
         return getcwd();
-    }
-
-    /**
-     * Get Packfire's path to the core files
-     * @return string
-     * @static
-     */
-    public static function packfireCorePath(){
-        return self::path(__FILE__);
-    }
-
-    /**
-     * Get Packfire's framework path
-     * @return string
-     * @static
-     */
-    public static function packfirePath(){
-        return self::resolve(self::path(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
     }
 
     /**
