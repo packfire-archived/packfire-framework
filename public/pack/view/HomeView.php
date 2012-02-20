@@ -22,6 +22,9 @@ class HomeView extends AppView {
 
     protected function create() {
         $theme = $this->bucket->pick('session')->get('theme', 'dark');
+        if(!in_array($theme, array('dark', 'light'))){
+            $theme = 'light';
+        }
         $this->template('home')->theme($theme);
         
         $rootUrl = $this->bucket->pick('config.app')->get('app', 'rootUrl');
