@@ -16,6 +16,7 @@ class pRouter {
     /**
      * The routing key to use
      * (as defined in .htaccess) 
+     * @since 1.0-sofia
      */
     const KEY = '_urlroute_';
     
@@ -29,6 +30,7 @@ class pRouter {
     /**
      * Flags whether rewritting is enabled or disabled.
      * @var boolean 
+     * @since 1.0-sofia
      */
     private $rewrite;
     
@@ -67,10 +69,9 @@ class pRouter {
      * 
      * @param pHttpClientRequest $clientRequest The client request
      * @return pRoute The route found
+     * @since 1.0-sofia
      */
-    public function route($clientRequest){
-        //$url = $this->request()->get($this->settings()->get('phpRaise', 'enableRewrite') ? RaiseUrlRouteManager::KEY : 'p');
-        
+    public function route($clientRequest){        
         $url = '/' . (string)$clientRequest->get()->get(self::KEY);
         $method = strtolower($clientRequest->method());
         

@@ -46,12 +46,8 @@ class pServiceLoader implements IServiceLoader {
         if(!$params){
             $params = array();
         }
-        $package = $this->package;
-        $class = $package;
         
-        if(strpos($package, '.') !== false){
-            $class = end(explode('.', $package));
-        }
+        list($package, $class) = pClassLoader::resolvePackageClass($this->package);
         
         if(!class_exists($class)){
             pload($package);
