@@ -111,6 +111,15 @@ class pApplication extends pBucketUser implements IApplication {
     }
     
     /**
+     * Handles unhandled exception in the application execution
+     * @param Exception $exception The unhandled exception
+     * @since 1.0-sofia
+     */
+    public function handleException($exception){
+        
+    }
+    
+    /**
      * Load the router and its configuration
      * @return pRouter Returns the router
      * @since 1.0-sofia

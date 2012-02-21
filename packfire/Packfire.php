@@ -41,7 +41,11 @@ class Packfire {
      */
     public function fire($app){
         $request = $this->loadRequest();
-        $response = $app->receive($request);
+        try{
+            $response = $app->receive($request);
+        }catch(Exception $exception){
+            $app->handleException($exception);
+        }
         $this->processResponse($response);
     }
     
