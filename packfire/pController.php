@@ -165,6 +165,8 @@ abstract class pController extends pBucketUser implements IAppResponse {
             $action = 'index';
         }
         
+        $action = 'do' . ucFirst($action);
+        
         if($this->restful){
             $httpMethodCall = strtolower($route->httpMethod()) . ucFirst($action);
             if(is_callable(array($this, $httpMethodCall))){
@@ -172,10 +174,11 @@ abstract class pController extends pBucketUser implements IAppResponse {
             }
         }
         
-        $action = 'do' . ucFirst($action);
-        
         if(is_callable(array($this, $action))){
+            // call the controller action
             $this->$action();
+        }else{
+            // TODO action not found
         }
     }
     
