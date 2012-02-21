@@ -4,6 +4,7 @@ pload('pHttpVersion');
 pload('pHttpResponseCode');
 pload('packfire.text.pNewline');
 pload('packfire.collection.pMap');
+pload('packfire.exception.pParseException');
 
 /**
  * A HTTP Response
@@ -63,6 +64,7 @@ class pHttpResponse implements IAppResponse {
      * Parse a HTTP response string into a pHttpResponse object
      * @param string $strResponse The response to parse
      * @return pHttpResponse Returns the pHttpResponse object
+     * @throws pParseException
      * @since 1.0-sofia
      */
     public static function parse($strResponse){
@@ -73,7 +75,9 @@ class pHttpResponse implements IAppResponse {
             $statusLine = $lines[0];
             $sp = strpos($statusLine, ' ');
             if($sp === false){
-                // todo: throw exception error parsing response
+                throw new pParseException(
+                        sprintf('Failed to parse HTTP response')
+                    );
             }else{
                 $response->version(trim(substr($statusLine, 0, $sp)));
                 $response->code(trim(substr($statusLine, $sp + 1)));

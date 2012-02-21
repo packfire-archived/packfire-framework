@@ -1,5 +1,6 @@
 <?php
 pload('pDateTime');
+pload('packfire.exception.pInvalidRequestException');
 
 /**
  * A timer in microseconds
@@ -39,12 +40,14 @@ class pTimer {
 
     /**
      * Start the timer
+     * @throws pInvalidRequestException
      * @since 1.0-sofia
      */
     public function start(){
         if($this->running()){
-            //throw new RaiseInvalidRequestException('Timer is already running. start() cannot be called when the Timer is running.');
-            // TODO: throw invalid request exception
+            throw new pInvalidRequestException(
+                    'pTimer::start() cannot be called when the timer is already running.'
+                );
             return;
         }
         $this->startTime = pDateTime::microtime();
@@ -53,12 +56,14 @@ class pTimer {
     /**
      * Stop the timer and return the result
      * @return double|integer Returns the result of the timing
+     * @throws pInvalidRequestException
      * @since 1.0-sofia
      */
     public function stop(){
         if(!$this->running()){
-            //throw new RaiseInvalidRequestException('Timer cannot be stopped if it is not started in the first place.');
-            // TODO: throw invalid request exception
+            throw new pInvalidRequestException(
+                    'pTimer::stop() cannot be called when the timer is already stopped.'
+                );
             return;
         }
         $this->endTime = pDateTime::microtime();
@@ -68,11 +73,14 @@ class pTimer {
     /**
      * Get the timing result after the last stop
      * @return double|integer Returns the result of the previous run.
+     * @throws pInvalidRequestException
      * @since 1.0-sofia
      */
     public function result(){
         if($this->running() || !$this->endTime){
-            // TODO: invalid request
+            throw new pInvalidRequestException(
+                    'pTimer::result() cannot be called when the timer is still running or has not started yet.'
+                );
         }
         return $this->endTime - $this->startTime;
     }

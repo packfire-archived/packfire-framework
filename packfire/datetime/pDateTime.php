@@ -3,6 +3,7 @@ pload('pTime');
 pload('pDate');
 pload('pTimeSpan');
 pload('pDateTimeFormat');
+pload('packfire.exception.pInvalidArgumentException');
 
 /**
  * A date and time representation
@@ -122,6 +123,7 @@ class pDateTime extends pDate {
      * @param integer|pDate $month The month of the year (1-12) or the pDate to check
      * @param integer $year (optional) The year. Ignored when first parameter is pDate
      * @return integer The number of days in that month of that year
+     * @throws pInvalidArgumentException
      * @since 1.0-sofia
      */
     public static function daysInMonth($month, $year = null){
@@ -132,7 +134,9 @@ class pDateTime extends pDate {
             $year = self::now()->year();
         }
         if($month < 1 || $month > 12){
-            // TODO: throw invalid argument
+            throw new pInvalidArgumentException(
+                    'pDateTime::daysInMonth', '$month', 'from 1 to 12.', $month
+                );
         }
         $mapping = array(
             31, (self::isLeapYear($year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
@@ -204,11 +208,14 @@ class pDateTime extends pDate {
      * @param double $target The destination timezone to set the date time to.
      *                       In the form of hours from -12 to 12
      * return pDateTime Returns the date time in the converted time zone
+     * @throws pInvalidArgumentException
      * @since 1.0-sofia
      */
     public static function convertTimezone($dateTime, $target){
         if($target < -12 || $target > 12){
-            // todo: invalid argument -12 to 12 only
+            throw new pInvalidArgumentException(
+                    'pDateTime::convertTimezone', '$target', 'from -12 to 12.', $target
+                );
         }else{
             $diff = $dateTime->timezone - $target;
             $ts = new pTimeSpan(abs($diff) * 3600);

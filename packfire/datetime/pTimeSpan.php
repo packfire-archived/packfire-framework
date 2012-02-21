@@ -145,15 +145,11 @@ class pTimeSpan extends pTime {
     public function subtract($time){
         $temp = new self();
         
-        if($time->totalSeconds() > $this->totalSeconds()){
-            // todo: throw exception cannot be negative
-        }else{
-            $temp->millisecond($this->millisecond - $time->millisecond);
-            $temp->second($this->second - $time->second);
-            $temp->minute($this->minute - $time->minute);
-            $temp->hour($this->hour - $time->hour);
-            $temp->day($this->day - $time->day);
-        }
+        $temp->millisecond($this->millisecond - $time->millisecond);
+        $temp->second($this->second - $time->second);
+        $temp->minute($this->minute - $time->minute);
+        $temp->hour($this->hour - $time->hour);
+        $temp->day($this->day - $time->day);
         
         return $temp;
     }

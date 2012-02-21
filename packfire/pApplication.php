@@ -11,6 +11,7 @@ pload('packfire.config.framework.pRouterConfig');
 pload('packfire.session.pSession');
 pload('packfire.session.storage.pSessionStorage');
 pload('packfire.ioc.pServiceLoader');
+pload('packfire.exception.pExceptionHandler');
 
 /**
  * Application class
@@ -37,6 +38,7 @@ class pApplication extends pBucketUser implements IApplication {
     protected function loadBucket(){
         $this->services->put('config.app', array('pAppConfig', 'load'));
         $this->services->put('config.routing', array('pRouterConfig', 'load'));
+        $this->services->put('exception.handler', new pExceptionHandler());
         $this->services->put('router', $this->loadRouter());
         pServiceLoader::loadConfig($this->services);
         
@@ -50,6 +52,12 @@ class pApplication extends pBucketUser implements IApplication {
         $this->services->put('session', new pSession($storage));
     }
     
+    public function loadExceptionHandler(){
+        $handler = new pExceptionHandler();
+        set_error_handler(array($handler, 'handleError'), E_ALL);
+        return $handler;
+    }
+    
     /**
      * Receive a request, process, and respond.
      * @param pHttpClientRequest $request The request made
@@ -57,44 +65,48 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     public function receive($request){
-        $router = $this->loadRouter();
-        $response = $this->prepareResponse($request);
-        $route = $router->route($request);
-        if(is_null($route)){
-            // todo: page not found
-        }else{
-            if(strpos($route->actual(), ':')){
-                list($class, $action) = explode(':', $route->actual());
+        try{
+            $router = $this->loadRouter();
+            $response = $this->prepareResponse($request);
+            $route = $router->route($request);
+            if(is_null($route)){
+                // todo: page not found
             }else{
-                $class = $route->actual();
-                $action = '';
-            }
-
-            if($class instanceof Closure){
-                $response = $class($request, $route, $response);
-            }else{
-                if(is_string($class)){
-                    // call controller
-                    
-                    list($package, $class) =
-                            pClassLoader::resolvePackageClass($class);
-                    
-                    if(substr($class, -11) != 'Controller'){
-                        $package .= 'Controller';
-                        $class .= 'Controller';
-                    }
-                    pload('controller.' . $package);
+                if(strpos($route->actual(), ':')){
+                    list($class, $action) = explode(':', $route->actual());
+                }else{
+                    $class = $route->actual();
+                    $action = '';
                 }
 
-                if(class_exists($class)){
-                    $controller = new $class($request, $response);
-                    if($controller instanceof IBucketUser){
-                        $controller->setBucket($this->services);
+                if($class instanceof Closure){
+                    $response = $class($request, $route, $response);
+                }else{
+                    if(is_string($class)){
+                        // call controller
+
+                        list($package, $class) =
+                                pClassLoader::resolvePackageClass($class);
+
+                        if(substr($class, -11) != 'Controller'){
+                            $package .= 'Controller';
+                            $class .= 'Controller';
+                        }
+                        pload('controller.' . $package);
                     }
-                    $controller->run($route, $action);
-                    $response = $controller;
+
+                    if(class_exists($class)){
+                        $controller = new $class($request, $response);
+                        if($controller instanceof IBucketUser){
+                            $controller->setBucket($this->services);
+                        }
+                        $controller->run($route, $action);
+                        $response = $controller;
+                    }
                 }
             }
+        }catch(Exception $exception){
+            
         }
         return $response;
     }

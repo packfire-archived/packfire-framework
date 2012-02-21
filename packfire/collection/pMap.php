@@ -1,6 +1,8 @@
 <?php
 pload('IMap');
 pload('pList');
+pload('packfire.exception.pOutOfRangeException');
+pload('packfire.exception.pInvalidRequestException');
 
 /**
  * A Hash Map
@@ -25,8 +27,6 @@ class pMap extends pList implements IMap {
                 $this->array = $initialize->array;
             }elseif(is_array($initialize)){
                 $this->array = $initialize;
-            }else{
-                // TODO unknown variable
             }
         }
     }
@@ -124,7 +124,9 @@ class pMap extends pList implements IMap {
             unset($this->array[$index]);
             return $item;
         }else{
-            // TODO: throw exception
+            throw new pOutOfRangeException(
+                    sprintf('Unable to remove value at key %d from map.', $index)
+                );
         }
     }
     
@@ -173,13 +175,16 @@ class pMap extends pList implements IMap {
 
     /**
      * For normal array operations
+     * @throws pInvalidRequestException
      * @internal
      * @ignore
      * @since 1.0-sofia
      */
     public function offsetSet($offset, $value) {
         if($offset === null){
-            // TODO: throw exception where you need to the key
+            throw new pInvalidRequestException(
+                    'Unable to set value without key into a map.'
+                );
         }else{
             $this->array[$offset] = $value;
         }

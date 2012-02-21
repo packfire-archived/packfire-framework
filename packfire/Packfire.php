@@ -36,10 +36,11 @@ class Packfire {
     /**
      * Start the framework execution
      * This is the entry point: this is it.
-     * @param IApplication
+     * @param IApplication The application to start running
      * @since 1.0-sofia
      */
     public function fire($app){
+        set_exception_handler(array($app, 'handleException'));
         $request = $this->loadRequest();
         try{
             $response = $app->receive($request);

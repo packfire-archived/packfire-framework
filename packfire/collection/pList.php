@@ -1,6 +1,7 @@
 <?php
 pload('IList');
 pload('pIterator');
+pload('packfire.exception.pOutOfRangeException');
 
 /**
  * A List of Items
@@ -32,8 +33,6 @@ class pList implements IList {
                 $this->array = array_values($initialize->array);
             }elseif(is_array($initialize)){
                 $this->array = array_values($initialize);
-            }else{
-                // TODO unknown variable
             }
         }
     }
@@ -180,6 +179,7 @@ class pList implements IList {
      * Remove an item by its index.
      * @param integer $index Index of the item to remove.
      * @returns mixed Returns the item removed from the list
+     * @throws pOutOfRangeException
      * @since 1.0-sofia
      */
     public function removeAt($index) {
@@ -189,7 +189,9 @@ class pList implements IList {
             $this->array = array_values($this->array);
             return $item;
         }else{
-            // TODO: throw exception
+            throw new pOutOfRangeException(
+                    sprintf('Unable to remove value at index %d from list.', $index)
+                );
         }
     }
     
@@ -322,6 +324,7 @@ class pList implements IList {
 
     /**
      * For normal array operations
+     * @throws pOutOfRangeException
      * @internal
      * @ignore
      * @since 1.0-sofia
@@ -330,7 +333,9 @@ class pList implements IList {
         if($this->offsetExists($offset)){
             $this->array[$offset] = $value;
         }else{
-            // TODO: throw exception
+            throw new pOutOfRangeException(
+                    sprintf('Unable to set value at index %d into list.', $offset)
+                );
         }
     }
     
