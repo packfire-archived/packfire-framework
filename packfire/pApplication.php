@@ -13,6 +13,7 @@ pload('packfire.session.storage.pSessionStorage');
 pload('packfire.ioc.pServiceLoader');
 pload('packfire.exception.handler.pExceptionHandler');
 pload('packfire.exception.handler.pErrorHandler');
+pload('packfire.exception.pHttpException');
 
 /**
  * Application class
@@ -85,7 +86,7 @@ class pApplication extends pBucketUser implements IApplication {
         $response = $this->prepareResponse($request);
         $route = $router->route($request);
         if(is_null($route)){
-            // todo: page not found
+            throw new pHttpException(404);
         }else{
             if(strpos($route->actual(), ':')){
                 list($class, $action) = explode(':', $route->actual());

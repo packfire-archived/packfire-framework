@@ -4,6 +4,7 @@ pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.net.http.pRedirectResponse');
 pload('packfire.ioc.pBucketUser');
+pload('packfire.exception.pHttpException');
 
 /**
  * The generic controller class
@@ -178,7 +179,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
             // call the controller action
             $this->$action();
         }else{
-            // TODO action not found
+            throw new pHttpException(404);
         }
     }
     
