@@ -44,10 +44,10 @@ class Packfire {
         $request = $this->loadRequest();
         try{
             $response = $app->receive($request);
+            $this->processResponse($response);
         }catch(Exception $exception){
-            $app->handleException($exception);
+            throw $exception;
         }
-        $this->processResponse($response);
     }
     
     /**

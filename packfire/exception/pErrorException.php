@@ -11,4 +11,16 @@ pload('pException');
  */
 class pErrorException extends pException {
     
+    public function setCode($code){
+        $this->code = $code;
+    }
+    
+    public function setLine($line){
+        $this->line = $line;
+    }
+    
+    public function setFile($file){
+        $this->file = $file;
+    }
+    
 }

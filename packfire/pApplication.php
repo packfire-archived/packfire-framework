@@ -11,7 +11,8 @@ pload('packfire.config.framework.pRouterConfig');
 pload('packfire.session.pSession');
 pload('packfire.session.storage.pSessionStorage');
 pload('packfire.ioc.pServiceLoader');
-pload('packfire.exception.pExceptionHandler');
+pload('packfire.exception.handler.pExceptionHandler');
+pload('packfire.exception.handler.pErrorHandler');
 
 /**
  * Application class
@@ -24,10 +25,19 @@ pload('packfire.exception.pExceptionHandler');
 class pApplication extends pBucketUser implements IApplication {
     
     /**
+     * The exception handler
+     * @var IExceptionHandler
+     * @since 1.0-sofia
+     */
+    private $exceptionHandler;
+    
+    /**
      * Create the pApplication object 
+     * @since 1.0-sofia
      */
     public function __construct(){
         $this->services = new pServiceBucket();
+        $this->loadExceptionHandler();
         $this->loadBucket();
     }
     
@@ -52,10 +62,16 @@ class pApplication extends pBucketUser implements IApplication {
         $this->services->put('session', new pSession($storage));
     }
     
-    public function loadExceptionHandler(){
+    /**
+     * Load the exception handler and prepare handlers
+     * @since 1.0-sofia
+     */
+    protected function loadExceptionHandler(){
         $handler = new pExceptionHandler();
-        set_error_handler(array($handler, 'handleError'), E_ALL);
-        return $handler;
+        $errorhandler = new pErrorHandler($handler);
+        set_error_handler(array($errorhandler, 'handle'), E_ALL);
+        $this->exceptionHandler = $handler;
+        set_exception_handler(array($this, 'handleException'));
     }
     
     /**
@@ -65,48 +81,44 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     public function receive($request){
-        try{
-            $router = $this->loadRouter();
-            $response = $this->prepareResponse($request);
-            $route = $router->route($request);
-            if(is_null($route)){
-                // todo: page not found
+        $router = $this->loadRouter();
+        $response = $this->prepareResponse($request);
+        $route = $router->route($request);
+        if(is_null($route)){
+            // todo: page not found
+        }else{
+            if(strpos($route->actual(), ':')){
+                list($class, $action) = explode(':', $route->actual());
             }else{
-                if(strpos($route->actual(), ':')){
-                    list($class, $action) = explode(':', $route->actual());
-                }else{
-                    $class = $route->actual();
-                    $action = '';
+                $class = $route->actual();
+                $action = '';
+            }
+
+            if($class instanceof Closure){
+                $response = $class($request, $route, $response);
+            }else{
+                if(is_string($class)){
+                    // call controller
+
+                    list($package, $class) =
+                            pClassLoader::resolvePackageClass($class);
+
+                    if(substr($class, -11) != 'Controller'){
+                        $package .= 'Controller';
+                        $class .= 'Controller';
+                    }
+                    pload('controller.' . $package);
                 }
 
-                if($class instanceof Closure){
-                    $response = $class($request, $route, $response);
-                }else{
-                    if(is_string($class)){
-                        // call controller
-
-                        list($package, $class) =
-                                pClassLoader::resolvePackageClass($class);
-
-                        if(substr($class, -11) != 'Controller'){
-                            $package .= 'Controller';
-                            $class .= 'Controller';
-                        }
-                        pload('controller.' . $package);
+                if(class_exists($class)){
+                    $controller = new $class($request, $response);
+                    if($controller instanceof IBucketUser){
+                        $controller->setBucket($this->services);
                     }
-
-                    if(class_exists($class)){
-                        $controller = new $class($request, $response);
-                        if($controller instanceof IBucketUser){
-                            $controller->setBucket($this->services);
-                        }
-                        $controller->run($route, $action);
-                        $response = $controller;
-                    }
+                    $controller->run($route, $action);
+                    $response = $controller;
                 }
             }
-        }catch(Exception $exception){
-            
         }
         return $response;
     }
@@ -128,7 +140,7 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     public function handleException($exception){
-        
+        $this->exceptionHandler->handle($exception);
     }
     
     /**

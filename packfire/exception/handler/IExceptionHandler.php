@@ -10,8 +10,6 @@
  */
 interface IExceptionHandler {
     
-    public function handleException($exception);
-    
-    public function handleError($errno, $errstr, $errfile, $errline, $errcontext);
+    public function handle($exception);
     
 }
