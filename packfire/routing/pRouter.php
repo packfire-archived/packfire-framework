@@ -2,6 +2,7 @@
 pload('packfire.collection.pMap');
 pload('packfire.template.pTemplate');
 pload('packfire.net.http.pUrl');
+pload('packfire.exception.pNullException');
 
 /**
 * Handles URL rewritting and controller routing
@@ -119,7 +120,8 @@ class pRouter {
     public function to($key, $params = array()){
         $route = $this->routes->get($key);
         if($route === null){
-            // TODO throw exception
+            throw new pNullException(
+                    sprintf('Routing route "%s" is not found in the router\'s entries.', $key));
         }
         $t = new pTemplate($route->rewrite());
         foreach($params as $name => $value){
