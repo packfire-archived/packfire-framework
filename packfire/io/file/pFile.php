@@ -1,4 +1,5 @@
 <?php
+pload('IFile');
 pload('packfire.exception.pIOException');
 
 /**
@@ -9,7 +10,7 @@ pload('packfire.exception.pIOException');
  * @package packfire.io.file
  * @since 1.0-sofia
  */
-class pFile {
+class pFile implements IFile {
 
     /**
      * Actual resolved pathname of the file
