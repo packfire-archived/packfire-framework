@@ -13,6 +13,10 @@
 #    - param1
 #    - param2
 
+logger.default:
+  class: packfire.log.pLogger
+  parameters: 
+    - 'pack/storage/log/default.log'
 session.storage.default:
   class: packfire.session.storage.pSessionStorage
   parameters: []
