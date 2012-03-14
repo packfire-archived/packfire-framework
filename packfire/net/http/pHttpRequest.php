@@ -245,7 +245,7 @@ class pHttpRequest {
     
     /**
      * Get the hash map of cookies
-     * @return pMap Returns the hash map
+     * @return pMap Returns the hash map of pHttpCookie
      * @since 1.0-sofia
      */
     public function cookies(){

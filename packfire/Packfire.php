@@ -117,6 +117,9 @@ class Packfire {
         foreach($response->headers() as $key => $value){
             header($key . ': ' . $value);
         }
+        foreach($response->cookies() as $cookie){
+            $cookie->set();
+        }
         echo $response->body();
     }
     

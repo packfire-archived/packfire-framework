@@ -154,12 +154,21 @@ class pHttpResponse implements IAppResponse {
     }
 
     /**
-     * Get or set the collection that contains all the headers of the HTTP response
-     * @return pMap Returns the HTTP headers' hash
+     * Get the collection that contains all the headers of the HTTP response
+     * @return pMap Returns the HTTP headers' hash map
      * @since 1.0-sofia
      */
     public function headers(){
         return $this->headers;
+    }
+
+    /**
+     * Get the collection that contains all the cookies of the HTTP response
+     * @return pMap Returns the HTTP cookies hash
+     * @since 1.0-sofia
+     */
+    public function cookies(){
+        return $this->cookies;
     }
 
     public function __toString(){

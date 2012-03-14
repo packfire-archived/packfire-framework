@@ -277,7 +277,6 @@ class pDateTime extends pDate {
      * @since 1.0-sofia
      */
     public function add($timespan){
-        // TODO resolve bug here
         $date = parent::add($timespan);
         $datetime = new self($date->year(), $date->month(), $date->day());
         $time = $this->time->add($timespan);
