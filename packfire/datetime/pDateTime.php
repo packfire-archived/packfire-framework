@@ -246,14 +246,7 @@ class pDateTime extends pDate {
      * @since 1.0-sofia
      */
     public function toISO8601() {
-        return gmdate(pDateTimeFormat::ISO8601, $this->toTimestamp()) .
-                ($this->timezone > 0 ?
-                    '+' . sprintf('%02d', floor(abs($this->timezone))) . ':' 
-                        . sprintf('%02d', ceil(abs($this->timezone) 
-                                - floor(abs($this->timezone))) * 60) :
-                    '-' . sprintf('%02d', floor(abs($this->timezone))) . ':' 
-                        . sprintf('%02d', ceil(abs($this->timezone) -
-                                floor(abs($this->timezone))) * 60)  );
+        return gmdate(pDateTimeFormat::ISO8601, $this->toTimestamp());
     }
 
     /**
@@ -265,6 +258,17 @@ class pDateTime extends pDate {
     public function toRFC822(){
        return gmdate(pDateTimeFormat::RFC822, $this->toTimestamp());
     }
+    
+    /**
+     * Format the date time
+     * @param string $format The format
+     * @return string Returns the date and time formatted
+     * @link http://php.net/date
+     * @since 1.0-sofia
+     */
+    public function format($format){
+        return gmdate($format, $this->toTimestamp());
+    }
 
     /**
      * Add a period of time pTimeSpan to the current date time
@@ -273,9 +277,10 @@ class pDateTime extends pDate {
      * @since 1.0-sofia
      */
     public function add($timespan){
+        // TODO resolve bug here
         $date = parent::add($timespan);
         $datetime = new self($date->year(), $date->month(), $date->day());
-        $time = $datetime->time->add($timespan);
+        $time = $this->time->add($timespan);
         $diff = $time->totalSeconds() - $datetime->time->totalSeconds();
         if(abs($diff) > 86400){ // if difference is more than 24hrs
             if($diff > 0){
@@ -284,6 +289,7 @@ class pDateTime extends pDate {
                 $datetime->day($datetime->day - 1);
             }
         }
+        $datetime->time = $time;
         return $datetime;
     }
 
@@ -304,7 +310,6 @@ class pDateTime extends pDate {
         $date = parent::subtract($tspan);
         $datetime = new self($date->year(), $date->month(), $date->day());
         if($period instanceof pDateTime){
-            
             $time = $datetime->time->subtract($period->time);
             $diff = $time->totalSeconds() - $datetime->time->totalSeconds();
             if(abs($diff) > 86400){ // if difference is more than 24hrs
