@@ -38,8 +38,8 @@ class pNumericRangeValidator implements IValidator {
     
     /**
      * Validate the value
-     * @param integer|double $value
-     * @return integer|double Returns true if the validation succeeded,
+     * @param integer|double $value The value to validate
+     * @return double Returns true if the validation succeeded,
      *                        false otherwise.
      * @since 1.0-sofia
      */
