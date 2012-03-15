@@ -2,7 +2,7 @@
 pload('IValidator');
 
 /**
- * String length validator
+ * String maximum length validator
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
