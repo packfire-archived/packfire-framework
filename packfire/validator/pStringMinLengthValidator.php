@@ -2,29 +2,29 @@
 pload('IValidator');
 
 /**
- * Data type validator
+ * String length validator
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.validator
  * @since 1.0-sofia
  */
-class pDataTypeValidator implements IValidator {
+class pStringLengthValidator implements IValidator {
     
     /**
-     * The data type to validate against
+     * The minimum length of the string 
      * @var string 
      * @since 1.0-sofia
      */
-    private $type;
+    private $length;
     
     /**
-     * Create a new data type validator pDataTypeValidator
-     * @param string $type The type of the variable to check against
+     * Create a pStringMinLengthValidator
+     * @param string $length The minimum length of the string
      * @since 1.0-sofia
      */
-    public function __construct($type){
-        $this->type = $type;
+    public function __construct($length){
+        $this->length = $length;
     }
     
     /**
@@ -35,12 +35,7 @@ class pDataTypeValidator implements IValidator {
      * @since 1.0-sofia
      */
     public function validate($value) {
-        $type = gettype($value);
-        $result = ($type == $this->type);
-        if($type == 'object' && !$result){
-            $result = ($type == get_class($value));
-        }
-        return $result;
+        return strlen($value) >= $this->length;
     }
     
 }
