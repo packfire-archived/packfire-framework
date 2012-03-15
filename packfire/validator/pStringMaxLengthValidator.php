@@ -30,7 +30,7 @@ class pStringLengthValidator implements IValidator {
     /**
      * Validate the value
      * @param mixed $value The value to validate
-     * @return double Returns true if the validation succeeded,
+     * @return boolean Returns true if the validation succeeded,
      *                        false otherwise.
      * @since 1.0-sofia
      */

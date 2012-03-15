@@ -2,29 +2,30 @@
 pload('IValidator');
 
 /**
- * Data type validator
+ * Match Validator
+ * checks if value matches values provided
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.validator
  * @since 1.0-sofia
  */
-class pDataTypeValidator implements IValidator {
+class pMatchValidator implements IValidator {
     
     /**
-     * The data type to validate against
-     * @var string 
+     * The matches to validate against
+     * @var array|IList|mixed
      * @since 1.0-sofia
      */
-    private $type;
+    private $matches;
     
     /**
-     * Create a new data type validator pDataTypeValidator
-     * @param string $type The type of the variable to check against
+     * Create a new pMatchValidator
+     * @param array|IList|mixed $matches An array of values or the value to match against
      * @since 1.0-sofia
      */
-    public function __construct($type){
-        $this->type = $type;
+    public function __construct($matches){
+        $this->matches = $matches;
     }
     
     /**
@@ -35,12 +36,11 @@ class pDataTypeValidator implements IValidator {
      * @since 1.0-sofia
      */
     public function validate($value) {
-        $type = gettype($value);
-        $result = ($type == $this->type);
-        if($type == 'object' && !$result){
-            $result = ($type == get_class($value));
+        if(is_array($this->matches) || $this->matches instanceof IList){
+            return in_array($value, $this->matches);
+        }else{
+            return $this->matches == $value;
         }
-        return $result;
     }
     
 }
