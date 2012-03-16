@@ -1,4 +1,5 @@
 <?php
+pload('packfire.controller.IControllerFilter');
 
 /**
  * Validator abstraction
@@ -8,8 +9,8 @@
  * @package packfire.validator
  * @since 1.0-sofia
  */
-interface IValidator {
+interface IValidator extends IControllerFilter {
     
-    public function validate($value);
+    public function filter($value);
     
 }

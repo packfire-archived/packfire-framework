@@ -1,16 +1,15 @@
 <?php
-pload('packfire.controller.pController');
 
 /**
- * The generic application controller class
+ * Controller Parameter Filter abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.app
+ * @package packfire.controller
  * @since 1.0-sofia
  */
-abstract class AppController extends pController {
+interface IControllerFilter {
     
-
+    public function filter($value);
     
 }

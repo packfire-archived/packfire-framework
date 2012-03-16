@@ -34,7 +34,7 @@ class pDataTypeValidator implements IValidator {
      *                        false otherwise.
      * @since 1.0-sofia
      */
-    public function validate($value) {
+    public function filter($value) {
         $type = gettype($value);
         $result = ($type == $this->type);
         if($type == 'object' && !$result){

@@ -35,7 +35,7 @@ class pMatchValidator implements IValidator {
      *                        false otherwise.
      * @since 1.0-sofia
      */
-    public function validate($value) {
+    public function filter($value) {
         if(is_array($this->matches) || $this->matches instanceof IList){
             return in_array($value, $this->matches);
         }else{

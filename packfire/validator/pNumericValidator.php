@@ -18,7 +18,7 @@ class pNumericValidator implements IValidator {
      *                        false otherwise.
      * @since 1.0-sofia
      */
-    public function validate($value){
+    public function filter($value){
         return is_numeric($value);
     }
     

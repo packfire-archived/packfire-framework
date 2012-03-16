@@ -11,7 +11,7 @@ pload('packfire.exception.pHttpException');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire
+ * @package packfire.controller
  * @since 1.0-sofia
  */
 abstract class pController extends pBucketUser implements IAppResponse {
@@ -53,6 +53,12 @@ abstract class pController extends pBucketUser implements IAppResponse {
     protected $params;
     
     /**
+     * Parameter filters
+     * @var pMap 
+     */
+    private $filters;
+    
+    /**
      * Create a new pController object
      * @param pHttpClientRequest $request The client's request
      * @param pHttpResponse $response The response object
@@ -61,7 +67,9 @@ abstract class pController extends pBucketUser implements IAppResponse {
     public function __construct($request, $response){
         $this->request = $request;
         $this->response = $response;
+        
         $this->params = new pMap();
+        $this->filters = new pMap();
         $this->state = new pMap();
     }
     
@@ -150,6 +158,32 @@ abstract class pController extends pBucketUser implements IAppResponse {
         pload('model.' . $model);
         $obj = new $model();
         return $obj;
+    }
+    
+    /**
+     * Set filters to a parameter.
+     * 
+     * @param string $name Name of the parameter to add filters to
+     * @param IControllerFilter|Closure|callback|array|IList $filter The controller filter,
+     *              closure or callback that will process the parameter.
+     *              If $filter is an array the method will run through the array
+     *              recursively.
+     * @since 1.0-sofia
+     */
+    protected function filter($name, $filter){
+        if(is_array($filter) || $filter instanceof IList){
+            foreach($filter as $f){
+                $this->filter($name, $f);
+            }
+        }else{
+            $value = $this->params[$name];
+            if($filter instanceof IControllerFilter){
+                $value = $filter->filter($value);
+            }elseif($filter instanceof Closure || is_callable($filter)){
+                $value = $filter($value);
+            }
+            $this->params[$name] = $value;
+        }
     }
     
     /**
