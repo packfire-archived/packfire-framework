@@ -13,6 +13,10 @@
 #    - param1
 #    - param2
 
+session.flash:
+  class: packfire.session.pSessionFlash
+form.feedback:
+  class: packfire.form.pFormFeedback
 logger.default:
   class: packfire.log.pLogger
   parameters: 

@@ -170,19 +170,27 @@ abstract class pController extends pBucketUser implements IAppResponse {
      *              closure or callback that will process the parameter.
      *              If $filter is an array the method will run through the array
      *              recursively.
+     * @param string $message (optional) The error message to use when a pValidationException occurs.
      * @since 1.0-sofia
      */
-    protected function filter($name, $filter){
+    protected function filter($name, $filter, $message = null){
         if(is_array($filter) || $filter instanceof IList){
             foreach($filter as $f){
                 $this->filter($name, $f);
             }
         }else{
             $value = $this->params[$name];
-            if($filter instanceof IControllerFilter){
-                $value = $filter->filter($value);
-            }elseif($filter instanceof Closure || is_callable($filter)){
-                $value = $filter($value);
+            try{
+                if($filter instanceof IControllerFilter){
+                    $value = $filter->filter($value);
+                }elseif($filter instanceof Closure || is_callable($filter)){
+                    $value = $filter($value);
+                }
+            }catch(pValidationException $vEx){
+                if(!$message){
+                    $message = 'Invalid input: your input has failed the validation process.';
+                }
+                $this->service('form.feedback')->feedback($name, 'error', $message);
             }
             $this->params[$name] = $value;
         }
@@ -211,7 +219,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
             }
         }
         
-        if(is_callable(array($this, $action))){
+        if(is_callable(array($this, $action))){            
             // call the controller action
             $this->activate($action);
             $this->$action();
