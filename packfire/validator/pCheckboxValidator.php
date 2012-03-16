@@ -35,7 +35,7 @@ class pCheckboxValidator implements IValidator {
      *                        false otherwise.
      * @since 1.0-sofia
      */
-    public function filter($value) {
+    public function validate($value) {
         return (bool)$value === $this->state;
     }
     

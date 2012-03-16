@@ -29,7 +29,7 @@ class pStringLengthRangeValidator extends pNumericRangeValidator implements IVal
      *                        false otherwise.
      * @since 1.0-sofia
      */
-    public function filter($value) {
+    public function validate($value) {
         return parent::validate(strlen($value));
     }
     

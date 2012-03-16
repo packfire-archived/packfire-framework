@@ -9,8 +9,8 @@ pload('packfire.controller.IControllerFilter');
  * @package packfire.validator
  * @since 1.0-sofia
  */
-interface IValidator extends IControllerFilter {
+interface IValidator {
     
-    public function filter($value);
+    public function validate($value);
     
 }

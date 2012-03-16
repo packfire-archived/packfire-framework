@@ -35,7 +35,7 @@ class pRegexValidator implements IValidator {
      *                        false otherwise.
      * @since 1.0-sofia
      */
-    public function filter($value) {
+    public function validate($value) {
         $list = $this->regex->match($value);
         return $list->count() > 0;
     }
