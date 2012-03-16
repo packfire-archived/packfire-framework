@@ -1,5 +1,7 @@
 <?php
-pload('IAppResponse');
+pload('packfire.IAppResponse');
+pload('packfire.collection.IList');
+pload('IControllerFilter');
 pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.net.http.pRedirectResponse');
