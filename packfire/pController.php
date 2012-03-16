@@ -177,10 +177,32 @@ abstract class pController extends pBucketUser implements IAppResponse {
         
         if(is_callable(array($this, $action))){
             // call the controller action
+            $this->activate($action);
             $this->$action();
+            $this->deactivate($action);
         }else{
             throw new pHttpException(404);
         }
+    }
+    
+    /**
+     * Called before the action is executed.
+     * Feel free to override this method.
+     * @param string $action The name of the action called.
+     * @since 1.0-sofia 
+     */
+    public function activate($action){
+        
+    }
+    
+    /**
+     * Called after the action is executed.
+     * Feel free to override this method.
+     * @param string $action The name of the action executed.
+     * @since 1.0-sofia 
+     */
+    public function deactivate($action){
+        
     }
     
     public function response() {
