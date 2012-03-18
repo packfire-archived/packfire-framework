@@ -1,14 +1,39 @@
 <?php
 pload('packfire.collection.pMap');
 
-class pDbTable {
+abstract class pDbTable {
     
+    /**
+     *
+     * @var pDbDriver
+     */
+    protected $driver;
+    
+    /**
+     * The name of this table
+     * @var string
+     */
     protected $name;
     
-    protected $columns;
-    
-    public function __construct(){
-        $this->columns = pMap();
+    public function __construct($connection, $name){
+        $this->driver = $driver;
+        $this->name = $name;
     }
+    
+    public function name(){
+        return $this->name;
+    }
+    
+    public abstract function create();
+    
+    public abstract function add($column);
+    
+    public abstract function remove($column);
+    
+    public abstract function insert($row);
+    
+    public abstract function delete($row);
+    
+    public abstract function update($row);
     
 }

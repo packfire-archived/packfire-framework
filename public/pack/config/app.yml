@@ -22,6 +22,11 @@ routing:
   enabled: true
 
 database:
-  default: null
+  default: 
+    driver: mysql
+    host: localhost
+    dbname: data
+    user: root 
+    password: password
 
 ...

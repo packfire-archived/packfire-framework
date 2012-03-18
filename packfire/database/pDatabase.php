@@ -1,17 +1,22 @@
 <?php
 
-class pDatabase {
+abstract class pDatabase {
     
-    public function create(){
-        
+    /**
+     *
+     * @var pDbDriver
+     */
+    protected $driver;
+    
+    public function __construct($driver){
+        $this->driver = $driver;
     }
     
-    public function add($table){
-        
-    }
-    
-    public function remove($tableName){
-        
-    }
+    /**
+     * Select a schema
+     * @param string The schema to work with
+     * @return pDbSchema 
+     */
+    public abstract function select($schema);
     
 }

@@ -6,8 +6,10 @@ pload('ILinq');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire/plinq
+ * @package packfire.plinq
  * @since 1.0-sofia
+ * @todo re-implementation required. store all the "actions" and perform only 
+ *       at execution to allow join and group to work properly
  */
 class pLinqObject implements ILinq {
     
