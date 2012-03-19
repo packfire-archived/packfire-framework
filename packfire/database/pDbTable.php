@@ -15,7 +15,7 @@ abstract class pDbTable {
      */
     protected $name;
     
-    public function __construct($connection, $name){
+    public function __construct($driver, $name){
         $this->driver = $driver;
         $this->name = $name;
     }
@@ -23,8 +23,6 @@ abstract class pDbTable {
     public function name(){
         return $this->name;
     }
-    
-    public abstract function create();
     
     public abstract function add($column);
     
@@ -35,5 +33,9 @@ abstract class pDbTable {
     public abstract function delete($row);
     
     public abstract function update($row);
+    
+    public abstract function columns();
+    
+    public function pk();
     
 }
