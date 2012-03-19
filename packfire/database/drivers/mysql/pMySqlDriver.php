@@ -1,4 +1,5 @@
 <?php
+pload('packfire.database.pDbDriver');
 
 class pMySqlDriver extends pDbDriver {
     
@@ -21,6 +22,22 @@ class pMySqlDriver extends pDbDriver {
     public function query($query){
         $query = call_user_func_array('sprintf', func_get_args());
         return $this->pdo->query($query);
+    }
+    
+    public function processDataType($value){
+        switch(gettype($value)){
+            case 'integer':
+                $value = (int)$value;
+                break;
+            case 'string':
+                $value = '\'' . mysql_real_escape_string($value) . '\'';
+                break;
+            case 'float':
+            case 'double':
+                $value = (double)$value;
+                break;
+        }
+        return $value;
     }
     
     public function translateType($type) {

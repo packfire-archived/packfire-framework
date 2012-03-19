@@ -1,4 +1,5 @@
 <?php
+pload('packfire.database.pDatabase');
 
 class pMySqlDatabase extends pDatabase {
     
