@@ -25,7 +25,7 @@ database:
   default: 
     driver: mysql
     host: localhost
-    dbname: data
+    dbname: packfire
     user: root 
     password: password
 
