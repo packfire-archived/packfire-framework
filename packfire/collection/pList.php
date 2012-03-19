@@ -330,7 +330,10 @@ class pList implements IList {
      * @since 1.0-sofia
      */
     public function offsetSet($offset, $value) {
-        if($this->offsetExists($offset)){
+        if($this->offsetExists($offset) || $offset === null){
+            if($offset === null){
+                $offset = $this->count();
+            }
             $this->array[$offset] = $value;
         }else{
             throw new pOutOfRangeException(
