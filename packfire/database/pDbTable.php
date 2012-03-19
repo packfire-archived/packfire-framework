@@ -30,12 +30,14 @@ abstract class pDbTable {
     
     public abstract function insert($row);
     
+    public abstract function get($row);
+    
     public abstract function delete($row);
     
     public abstract function update($row);
     
     public abstract function columns();
     
-    public function pk();
+    public abstract function pk();
     
 }

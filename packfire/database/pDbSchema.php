@@ -27,7 +27,7 @@ abstract class pDbSchema {
     
     public abstract function delete();
     
-    public abstract function add($table);
+    public abstract function add($name, $columns);
     
     public abstract function remove($table);
     
