@@ -144,11 +144,11 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
         return $major;
     }
 
-    public function max($field) {
+    public function max($field = null) {
         return self::from($this->finalize())->orderBy($field)->lastOrDefault();
     }
 
-    public function min($field) {
+    public function min($field = null) {
         return self::from($this->finalize())->orderBy($field)->firstOrDefault();
     }
     
@@ -195,8 +195,7 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
     }
 
     public function sum($field = null) {
-        $copy = new self($this->finalize());
-        $result = $copy->select($field)->finalize();
+        $result = self::from($this->collection, $this->queue)->select($field)->finalize();
         return array_sum($result);
     }
     

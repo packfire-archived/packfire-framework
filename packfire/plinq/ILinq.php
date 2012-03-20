@@ -26,11 +26,11 @@ interface ILinq {
     
     public function count($condition = null);
     
-    public function sum($field);
+    public function sum($field = null);
     
-    public function min($field);
+    public function min($field = null);
     
-    public function max($field);
+    public function max($field = null);
     
     public function average($field);
     
