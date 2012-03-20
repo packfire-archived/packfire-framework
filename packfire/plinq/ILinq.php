@@ -10,19 +10,11 @@
  */
 interface ILinq {
     
-    public function in($source);
-    
-    public function from($name);
-    
     public function where($conditionFunc);
     
     public function orderBy($field);
     
-    public function thenBy($field);
-    
     public function orderByDesc($field);
-    
-    public function thenByDesc($field);
     
     public function select($mapper);
     
@@ -30,22 +22,36 @@ interface ILinq {
     
     public function distinct();
     
-    public function group($field);
+    public function groupBy($field);
     
     public function count($condition = null);
     
-    public function sum($field = null);
+    public function sum($field);
     
-    public function min($field = null);
+    public function min($field);
     
-    public function max($field = null);
+    public function max($field);
     
-    public function average($field = null);
+    public function average($field);
     
     public function limit($offset, $length = null);
     
-    public function first();
+    public function first($predicate = null);
     
-    public function last();
+    public function firstOrDefault($predicate = null);
+    
+    public function last($predicate = null);
+    
+    public function lastOrDefault($predicate = null);
+    
+    public function skip($count);
+    
+    public function take($count);
+    
+    public function all($predicate);
+    
+    public function any($predicate = null);
+    
+    public function reverse();
     
 }
