@@ -1,9 +1,18 @@
 <?php
 
-abstract class pDbConnection {
+class pDbConnection {
     
-    public abstract function __construct($config);
+    private $config;
     
-    public abstract function connect();
+    private $driver;
+    
+    public function __construct($config){
+        $this->config = $config;
+        $this->driver = pDbDriverFactory::create($config);
+    }
+    
+    public function driver(){
+        return $this->driver;
+    }
     
 }

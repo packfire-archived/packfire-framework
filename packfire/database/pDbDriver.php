@@ -12,11 +12,11 @@ abstract class pDbDriver {
         $this->connection = $connection;
     }
     
-    public abstract function query($query);
-    
     /**
      * Translate the data types 
      */
     public abstract function translateType($type);
+    
+    public abstract function escape($string);
     
 }

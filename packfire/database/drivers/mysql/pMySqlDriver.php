@@ -9,19 +9,17 @@ class pMySqlDriver extends pDbDriver {
      */
     private $pdo;
     
-    public function __construct($connection){
-        parent::__construct($connection);
-        $this->pdo = $this->connection->connect();
+    public function __construct($config){
+        $username = $config['user'];
+        $password = $config['password'];
+        $dsn = sprintf('%s:host=%s;dbname=%s', $config['driver'], $config['host'], $config['dbname']);
+        unset($config['host'], $config['driver'], $config['dbname'], $config['user'], $config['password']);
+        $this->config = $config;
+        $this->pdo = new PDO($dsn, $username, $password, $config);
     }
     
-    /**
-     *
-     * @param type $query
-     * @return PDOStatement
-     */
-    public function query($query){
-        $query = call_user_func_array('sprintf', func_get_args());
-        return $this->pdo->query($query);
+    public function pdo(){
+        return $this->pdo;
     }
     
     public function processDataType($value){
@@ -30,7 +28,7 @@ class pMySqlDriver extends pDbDriver {
                 $value = (int)$value;
                 break;
             case 'string':
-                $value = '\'' . mysql_real_escape_string($value) . '\'';
+                $value = '\'' . $this->escape($value) . '\'';
                 break;
             case 'float':
             case 'double':
@@ -53,6 +51,10 @@ class pMySqlDriver extends pDbDriver {
             return $types[$type];
         }
         return $type;
+    }
+    
+    public function escape($string){
+        return mysql_real_escape_string($string);
     }
     
 }
