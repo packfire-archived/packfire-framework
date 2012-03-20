@@ -8,6 +8,7 @@ pload('pLinqSelectQuery');
 pload('pLinqDistinctQuery');
 pload('pLinqReverseQuery');
 pload('pLinqOrderByQuery');
+pload('packfire.exception.pNullException');
 
 class pLinq implements ILinq, IteratorAggregate, Countable {
     
