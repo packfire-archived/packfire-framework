@@ -181,11 +181,13 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
 
     public function orderBy($field) {
         $this->queueAdd(new pLinqOrderByQuery($field));
+        pload('pOrderedLinq');
         return new pOrderedLinq($this->collection, $this->queue);
     }
 
     public function orderByDesc($field) {
         $this->queueAdd(new pLinqOrderByQuery($field, true));
+        pload('pOrderedLinq');
         return new pOrderedLinq($this->collection, $this->queue);
     }
 
@@ -195,7 +197,11 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
     }
 
     public function sum($field = null) {
-        $result = self::from($this->collection, $this->queue)->select($field)->finalize();
+        $worker = self::from($this->collection, $this->queue);
+        if($field){
+            $worker = $worker->select($field);
+        }
+        $result = $worker->finalize()->toArray();
         return array_sum($result);
     }
     
