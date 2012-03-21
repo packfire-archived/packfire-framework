@@ -1,4 +1,5 @@
 <?php
+pload('pLinqWorkerQuery');
 
 class pLinqSelectQuery extends pLinqWorkerQuery {
     
