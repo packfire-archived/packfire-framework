@@ -18,7 +18,7 @@ interface ILinq {
     
     public function select($mapper);
     
-    public function join($subject, $name, $conditionFunc);
+    public function join($collection, $innerKey, $outerKey, $selector);
     
     public function distinct();
     

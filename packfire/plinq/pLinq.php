@@ -8,6 +8,7 @@ pload('pLinqSelectQuery');
 pload('pLinqDistinctQuery');
 pload('pLinqReverseQuery');
 pload('pLinqOrderByQuery');
+pload('pLinqJoinQuery');
 pload('packfire.exception.pNullException');
 
 class pLinq implements ILinq, IteratorAggregate, Countable {
@@ -109,8 +110,9 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
         return $this->orDowncast();
     }
 
-    public function join($subject, $name, $conditionFunc) {
-        
+    public function join($collection, $innerKey, $outerKey, $selector) {
+        $this->queueAdd(new pLinqJoinQuery($collection, $innerKey, $outerKey, $selector));
+        return $this->orDowncast();
     }
 
     public function last($predicate = null) {
