@@ -66,7 +66,7 @@ abstract class pDbSchema {
      * @param string|pDbTable $table The table to empty
      * @since 1.0-sofia
      */
-    public function truncate($table);
+    public abstract function truncate($table);
     
     /**
      * Get a table

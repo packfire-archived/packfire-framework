@@ -1,5 +1,5 @@
 <?php
-pload('packfire.database.pDbDriver');
+pload('packfire.database.pDbConnector');
 
 /**
  * Provides functionalities to and operations of a MySQL table

@@ -44,6 +44,6 @@ abstract class pDatabase {
      * @param string $schema The name of the schema to delete
      * @since 1.0-sofia
      */
-    public abstract function delete();
+    public abstract function delete($schema);
     
 }
