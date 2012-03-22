@@ -13,7 +13,7 @@ abstract class AppTheme extends pTheme {
     
     public static function load($theme){
         $theme = ucfirst($theme) . 'Theme';
-        pload('theme.'. $theme);
+        pload('theme.' . $theme);
         return new $theme();
     }
     
