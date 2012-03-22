@@ -12,7 +12,7 @@ abstract class pDbSchema {
     
     /**
      * The database driver
-     * @var pDbDriver
+     * @var pDbConnector
      * @snce 1.0-sofia
      */
     protected $driver;
@@ -26,7 +26,7 @@ abstract class pDbSchema {
     
     /**
      * Create a new pDbSchema
-     * @param pDbDriver $driver The database driver
+     * @param pDbConnector $driver The database driver
      * @param string $name Name of the schema
      * @since 1.0-sofia
      */

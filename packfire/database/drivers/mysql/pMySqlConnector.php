@@ -1,7 +1,7 @@
 <?php
 pload('packfire.database.pDbDriver');
 
-class pMySqlDriver extends pDbDriver {
+class pMySqlConnector extends pDbConnector {
     
     /**
      *
@@ -9,30 +9,24 @@ class pMySqlDriver extends pDbDriver {
      */
     private $pdo;
     
-    public function __construct($config){
-        $username = $config['user'];
-        $password = $config['password'];
-        $dsn = sprintf('%s:host=%s;dbname=%s', $config['driver'], $config['host'], $config['dbname']);
-        unset($config['host'], $config['driver'], $config['dbname'], $config['user'], $config['password']);
-        $this->config = $config;
-        $this->pdo = new PDO($dsn, $username, $password, $config);
-    }
-    
-    public function pdo(){
-        return $this->pdo;
-    }
-    
     public function processDataType($value){
         switch(gettype($value)){
             case 'integer':
                 $value = (int)$value;
                 break;
             case 'string':
-                $value = '\'' . $this->escape($value) . '\'';
+                $value = '\'' . mysql_real_escape_string($value) . '\'';
                 break;
             case 'float':
             case 'double':
                 $value = (double)$value;
+                break;
+            case 'object':
+                if($value instanceof pDbExpression){
+                    $value = $value->expression();
+                }elseif($value instanceof pDbCommand){
+                    $value = $value->query();
+                }
                 break;
         }
         return $value;
@@ -51,10 +45,6 @@ class pMySqlDriver extends pDbDriver {
             return $types[$type];
         }
         return $type;
-    }
-    
-    public function escape($string){
-        return mysql_real_escape_string($string);
     }
     
 }

@@ -5,7 +5,7 @@ abstract class pDbTable {
     
     /**
      *
-     * @var pDbDriver
+     * @var pDbConnector
      */
     protected $driver;
     
@@ -15,6 +15,12 @@ abstract class pDbTable {
      */
     protected $name;
     
+    /**
+     *
+     * @param pDbConnector $driver
+     * @param string $name 
+     * @since 1.0-sofia
+     */
     public function __construct($driver, $name){
         $this->driver = $driver;
         $this->name = $name;
