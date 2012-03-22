@@ -21,44 +21,58 @@ abstract class pController extends pBucketUser implements IAppResponse {
     /**
      * The client request to this controller
      * @var pHttpClientRequest
+     * @since 1.0-sofia
      */
     protected $request;
     
     /**
      * The route that called for this controller
      * @var pRoute
+     * @since 1.0-sofia
      */
     protected $route;
     
     /**
      * The response this controller handles
      * @var IAppResponse
+     * @since 1.0-sofia
      */
     protected $response;
     
     /**
      * The controller state
      * @var mixed
+     * @since 1.0-sofia
      */
     protected $state;
     
     /**
      * Flags whether this controller uses RESTful controller actions
      * @var boolean
+     * @since 1.0-sofia
      */
     protected $restful = true;
     
     /**
      * Controller Parameters
      * @var pMap
+     * @since 1.0-sofia
      */
     protected $params;
     
     /**
      * Parameter filters
      * @var pMap 
+     * @since 1.0-sofia
      */
     private $filters;
+    
+    /**
+     * A collect of loaded models
+     * @var pMap
+     * @since 1.0-sofia
+     */
+    private $models;
     
     /**
      * Create a new pController object
@@ -78,6 +92,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
     /**
      * Render the view for this controller
      * @param IView $view 
+     * @since 1.0-sofia
      */
     public function render($view){
         if($view instanceof IBucketUser){
@@ -152,14 +167,18 @@ abstract class pController extends pBucketUser implements IAppResponse {
     /**
      * Load and create a model from the application folder
      * @param string $model Name of the model to load
-     * @return pModel Returns the model object
+     * @param boolean $forceReload (optional) If set to true, the method will 
+     *                  create a new model instance. Defaults to false.
+     * @return object Returns the model object
      * @since 1.0-sofia 
      */
-    public function model($model){
-        $model .= 'Model';
-        pload('model.' . $model);
-        $obj = new $model();
-        return $obj;
+    public function model($model, $forceReload = false){
+        if($forceReload || !$this->models->keyExists($model)){
+            $model .= 'Model';
+            pload('model.' . $model);
+            $this->models[$model] = new $model();
+        }
+        return $this->models[$model];
     }
     
     /**
@@ -249,6 +268,11 @@ abstract class pController extends pBucketUser implements IAppResponse {
         
     }
     
+    /**
+     * Get the response of this controller
+     * @return IAppResponse
+     * @since 1.0-sofia
+     */
     public function response() {
         return $this->response;
     }
