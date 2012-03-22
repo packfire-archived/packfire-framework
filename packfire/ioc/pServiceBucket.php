@@ -82,7 +82,7 @@ class pServiceBucket {
             }
         }
         if($result instanceof IBucketUser){
-            $result->bucket($this);
+            $result->setBucket($this);
         }
         return $result;
     }
