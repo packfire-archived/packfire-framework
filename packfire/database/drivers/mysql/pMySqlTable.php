@@ -6,7 +6,7 @@ class pMySqlTable extends pDbTable {
     
     /**
      *
-     * @var pMySqlDriver
+     * @var pMySqlConnector
      */
     protected $driver;
     

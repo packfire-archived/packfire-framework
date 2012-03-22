@@ -1,5 +1,6 @@
 <?php
-pload('packfire.database.pDbLinq');
+pload('packfire.plinq.IOrderedLinq');
+pload('packfire.database.drivers.mysql.pMySqlTable');
 pload('packfire.collection.pList');
 pload('pMySqlLinqJoin');
 pload('pMySqlLinqOrder');
@@ -12,7 +13,7 @@ pload('pMySqlLinqOrder');
  * @package packfire.database.divers.mysql.linq
  * @since 1.0-sofia
  */
-class pMySqlLinq extends pDbLinq {
+class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
 
     /**
      *
@@ -95,6 +96,11 @@ class pMySqlLinq extends pDbLinq {
             $query .= 'LIMIT ' . $this->limit . ' ';
         }
         return rtrim($query);
+    }
+    
+    public function toList(){
+        $query = $this->query();
+        $statement = $this->driver->query($query);
     }
     
     public static function from($source){

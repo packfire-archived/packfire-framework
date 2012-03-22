@@ -1,6 +1,8 @@
 <?php
 pload('packfire.database.pDbSchema');
 pload('packfire.database.pDbTable');
+pload('pMySqlTable');
+pload('packfire.database.drivers.mysql.linq.pMySqlLinq');
 
 class pMySqlSchema extends pDbSchema {
     
@@ -49,6 +51,10 @@ class pMySqlSchema extends pDbSchema {
         $table = new pMySqlTable($this->driver, $table);
         $table->columns();
         return $table;
+    }
+    
+    public function from($table){
+        return pMySqlLinq::from($table);
     }
     
 }

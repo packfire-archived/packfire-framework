@@ -54,4 +54,6 @@ abstract class pDbSchema {
     
     public abstract function table($table);
     
+    public abstract function from($table);
+    
 }
