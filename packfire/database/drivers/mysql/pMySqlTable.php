@@ -1,43 +1,61 @@
 <?php
 pload('packfire.database.pDbTable');
 pload('packfire.database.pDbColumn');
+pload('packfire.database.drivers.mysql.linq.pMySqlLinq');
 
+/**
+ * Provides functionalities to and operations of a MySQL table
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire.database.divers.mysql
+ * @since 1.0-sofia
+ */
 class pMySqlTable extends pDbTable {
     
     /**
-     *
+     * The connection driver
      * @var pMySqlConnector
+     * @since 1.0-sofia
      */
     protected $driver;
     
     /**
-     *
+     * The list of columns in the table
      * @var pList
+     * @since 1.0-sofia
      */
     protected $columns;
     
     /**
-     *
+     * The list of primary keys in the table
      * @var pList
+     * @since 1.0-sofia
      */
     protected $primaryKeys;
     
     /**
-     *
-     * @param pDbColumn $column 
+     * Add a column to the table
+     * @param pDbColumn $column The new column to add to the table
+     * @since 1.0-sofia
      */
     public function add($column) {
-        $this->driver->query('ALTER TABLE `%s` ADD COLUMN `%s` %s', $this->name,
-                $column->name(), $this->driver->translateType($column->type()));
+        $this->driver->query(sprintf('ALTER TABLE `%s` ADD COLUMN `%s` %s', $this->name,
+                $column->name(), $this->driver->translateType($column->type())));
         $this->columns();
         $this->columns->add($column);
     }
 
+    /**
+     * Remove a column from the table
+     * @param string|pDbColumn $column The column to remove
+     * @since 1.0-sofia
+     */
     public function remove($column) {
         if($column instanceof pDbColumn){
             $column = $column->name();
         }
-        $this->driver->query('ALTER TABLE `%s` DROP `%s`', $this->name, $column);
+        $this->driver->query(sprintf('ALTER TABLE `%s` DROP `%s`', $this->name, $column));
         $this->columns();
         foreach($this->columns as $col){
             if($col->name() == $column){
@@ -47,27 +65,42 @@ class pMySqlTable extends pDbTable {
         }
     }
     
+    /**
+     * Get a row from the table by its primary keys
+     * @param array|pMap $row The row's primary keys
+     * @return array
+     * @since 1.0-sofia
+     */
     public function get($row){
-        $query = 'SELECT * FROM `%s` WHERE ';
+        $linq = new pMySqlLinq($this->driver, $this->name);
         $pks = array();
         foreach($this->pk() as $column){
             $pks[] = '`'.$column->name().'` = ' . $this->driver->processDataType($row[$column->name()]);
         }
         $query .= implode(' AND ', $pks);
-        $statement = $this->driver->query($query, $this->name);
-        return $statement->fetchAll();
+        return $linq->where($query)->fetch()->first();
     }
     
+    /**
+     * Delete rows from the table
+     * @param array|pMap $row The conditions to delete the rows
+     * @since 1.0-sofia
+     */
     public function delete($row) {
         $query = 'DELETE FROM `%s` WHERE ';
         $where = array();
-        foreach($this->pk() as $column){
+        foreach($this->columns() as $column){
             $where[] = '`'.$column->name().'` = ' . $this->driver->processDataType($row[$column->name()]);
         }
         $query .= implode(' AND ', $where);
-        $this->driver->query($query, $this->name);
+        $this->driver->query(sprintf($query, $this->name));
     }
 
+    /**
+     * Insert a row into the table
+     * @param array|pMap $row The row to insert into the table
+     * @since 1.0-sofia
+     */
     public function insert($row) {
         $query = 'INSERT INTO `%s` (';
         $columns = array();
@@ -80,9 +113,14 @@ class pMySqlTable extends pDbTable {
         }
         $query .= implode(', ', $columns) . ') VALUES (';
         $query .= implode(', ', $values) . ')';
-        $this->driver->query($query, $this->name);
+        $this->driver->query(sprintf($query, $this->name));
     }
 
+    /**
+     * Update a row in the table
+     * @param array|pMap $row The row with the updated information and primary key
+     * @since 1.0-sofia
+     */
     public function update($row) {
         $columns = $this->columns();
         $query = 'UPDATE `%s` SET ';
@@ -97,9 +135,13 @@ class pMySqlTable extends pDbTable {
         }
         $query .= implode(', ', $data) . ' WHERE ';
         $query .= implode(' AND ', $pks);
-        $this->driver->query($query, $this->name);
+        $this->driver->query(sprintf($query, $this->name));
     }
-    
+    /**
+     * Get the columns of the table
+     * @return pList Returns a list of pDbColumn objects
+     * @since 1.0-sofia
+     */
     public function columns(){
         if(!$this->columns){
             $statement = $this->driver->query('SHOW COLUMNS FROM `%s`', $this->name);
@@ -131,6 +173,11 @@ class pMySqlTable extends pDbTable {
         return $this->columns;
     }
     
+    /**
+     * Get the list of primary keys of the table
+     * @return pList Returns a list of pDbColumn objects
+     * @since 1.0-sofia
+     */
     public function pk(){
         if(!$this->primaryKeys){
             $statement = $this->driver->query('SHOW COLUMNS FROM `%s` WHERE `Key` =  \'PRI\'', $this->name);

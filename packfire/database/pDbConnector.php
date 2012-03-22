@@ -1,13 +1,27 @@
 <?php
 
+/**
+ * A connector that helps to connect to the database
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire.database
+ * @since 1.0-sofia
+ */
 abstract class pDbConnector {
     
     /**
-     *
+     * The PDO object
      * @var PDO
+     * @since 1.0-sofia
      */
     protected $pdo;
     
+    /**
+     * Create the connector based on the configuration provided.
+     * @param array $config An array of configuration
+     * @since 1.0-sofia
+     */
     public function __construct($config){
         $username = $config['user'];
         $password = $config['password'];
@@ -24,18 +38,20 @@ abstract class pDbConnector {
     public abstract function translateType($type);
     
     /**
-     *
-     * @param string $query
-     * @return PDOStatement
+     * Create a PDOStatement and prepare it for execution 
+     * @param string $query The statement
+     * @return PDOStatement Returns the PDOStatement object
+     * @since 1.0-sofia
      */
     public function prepare($query){
         return $this->pdo->prepare($query);
     }
     
     /**
-     *
-     * @param string $query
-     * @return PDOStatement
+     * Create and execute a PDOStatement
+     * @param string $query The statement to execute
+     * @return PDOStatement Returns the PDOStatement object executed.
+     * @since 1.0-sofia
      */
     public function query($query){
         return $this->pdo->query($query);

@@ -1,13 +1,15 @@
 <?php
 pload('packfire.database.pDbDriver');
 
+/**
+ * Provides functionalities to and operations of a MySQL table
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire.database.divers.mysql
+ * @since 1.0-sofia
+ */
 class pMySqlConnector extends pDbConnector {
-    
-    /**
-     *
-     * @var PDO
-     */
-    private $pdo;
     
     public function processDataType($value){
         switch(gettype($value)){
