@@ -10,6 +10,8 @@
  */
 interface ILinq {
     
+    public static function from($source);
+    
     public function where($conditionFunc);
     
     public function orderBy($field);
