@@ -7,6 +7,8 @@ pload('packfire.net.http.pHttpResponse');
 pload('packfire.net.http.pRedirectResponse');
 pload('packfire.ioc.pBucketUser');
 pload('packfire.exception.pHttpException');
+pload('packfire.exception.pAuthenticationException');
+pload('packfire.exception.pAuthorizationException');
 
 /**
  * The generic controller class
@@ -222,6 +224,9 @@ abstract class pController extends pBucketUser implements IAppResponse {
      * @since 1.0-sofia
      */
     public function run($route, $action){
+        if(!$this->service('security')->authenticate()){
+            throw new pAuthenticationException('Could not authenticate user.');
+        }
         $this->route = $route;
         $this->params = $route->params();
         
@@ -236,6 +241,10 @@ abstract class pController extends pBucketUser implements IAppResponse {
             if(is_callable(array($this, $httpMethodCall))){
                 $action = $httpMethodCall;
             }
+        }
+        
+        if(!$this->service('security')->authorize($route)){
+            throw new pAuthorizationException('Could not authorize user to access route.');
         }
         
         if(is_callable(array($this, $action))){            
