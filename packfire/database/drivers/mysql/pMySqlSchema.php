@@ -84,7 +84,7 @@ class pMySqlSchema extends pDbSchema {
      * @since 1.0-sofia
      */
     public function from($table){
-        return pMySqlLinq::from($table);
+        return new pMySqlLinq($this->driver, $table);
     }
     
 }
