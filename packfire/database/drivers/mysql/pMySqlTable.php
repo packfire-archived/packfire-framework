@@ -105,7 +105,7 @@ class pMySqlTable extends pDbTable {
         $query = 'INSERT INTO `%s` (';
         $columns = array();
         $values = array();
-        foreach($this->columns as $column){
+        foreach($this->columns() as $column){
             if(array_key_exists($column->name(), $row)){
                 $columns[] = '`' . $column->name() . '`';
                 $values[] = $this->driver->processDataType($row[$column->name()]);
@@ -122,11 +122,10 @@ class pMySqlTable extends pDbTable {
      * @since 1.0-sofia
      */
     public function update($row) {
-        $columns = $this->columns();
         $query = 'UPDATE `%s` SET ';
         $data = array();
         $pks = array();
-        foreach($columns as $column){
+        foreach($this->columns() as $column){
             if($column->type() == 'pk'){
                 $pks[] = '`'.$column->name().'` = ' . $this->driver->processDataType($row[$column->name()]);
             }else{
@@ -145,7 +144,7 @@ class pMySqlTable extends pDbTable {
      */
     public function columns(){
         if(!$this->columns){
-            $statement = $this->driver->query('SHOW COLUMNS FROM `%s`', $this->name);
+            $statement = $this->driver->query(sprintf('SHOW COLUMNS FROM `%s`', $this->name));
             if($statement){
                 $cols = $statement->fetchAll();
                 $columns = new pList();
