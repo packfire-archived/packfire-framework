@@ -19,6 +19,7 @@ interface ISecurityModule {
     
     /**
      * Authorize the user to access a route
+     * @param pRoute $route The route to check authorization
      * @return boolean Returns true if the user is authorized to access the route,
      *                 false otherwise.
      * @since 1.0-sofia
@@ -31,5 +32,11 @@ interface ISecurityModule {
      * @since 1.0-sofia
      */
     public function authenticate();
+    
+    /**
+     * Deauthenticate the user
+     * @since 1.0-sofia 
+     */
+    public function deauthenticate();
     
 }

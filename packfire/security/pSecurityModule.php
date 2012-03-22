@@ -23,6 +23,7 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
 
     /**
      * Authorize the user to access a route
+     * @param pRoute $route The route to check authorization
      * @return boolean Returns true if the user is authorized to access the route,
      *                 false otherwise.
      * @since 1.0-sofia
@@ -38,6 +39,14 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
      */
     public function identity() {
         return null;
+    }
+    
+    /**
+     * Deauthenticate the user
+     * @since 1.0-sofia 
+     */
+    public function deauthenticate(){
+        // does nothing (:
     }
     
 }
