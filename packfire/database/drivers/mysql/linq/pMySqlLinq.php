@@ -73,7 +73,7 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
     
     /**
      * Flags if the result should be reversed.
-     * @var type 
+     * @var boolean 
      * @since 1.0-sofia
      */
     private $reverse = false;
@@ -86,10 +86,7 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
      */
     public function __construct($driver, $source){
         parent::__construct($driver, $source);
-        $this->selects = new pList();
-        $this->groupings = new pList();
-        $this->orderings = new pList();
-        $this->joins = new pList();
+        $this->reset();
     }
     
     /**
@@ -134,6 +131,22 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
     }
     
     /**
+     * Reset everything
+     * @since 1.0-sofia 
+     */
+    protected function reset(){
+        $this->distinct = false;
+        $this->groupings = new pList();
+        $this->joins = new pList();
+        $this->limit = null;
+        $this->offset = 0;
+        $this->orderings = new pList();
+        $this->reverse = false;
+        $this->selects = new pList();
+        $this->where = null;
+    }
+    
+    /**
      * Fetch the result 
      * @return pList Returns the list of result fetched.
      * @since 1.0-sofia
@@ -141,10 +154,12 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
     public function fetch(){
         $query = $this->query();
         $statement = $this->driver->prepare($query);
+        $statement->execute();
         $list = $statement->fetchAll(PDO::FETCH_NUM);
         if($this->reverse){
             $list = array_reverse($list);
         }
+        $this->reset();
         return new pList($list);
     }
     
@@ -202,6 +217,8 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         ));
         $query = $this->query();
         $statement = $this->driver->query($query);
+        $statement->execute();
+        $this->reset();
         return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
@@ -220,6 +237,8 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         }
         $query = $this->query();
         $statement = $this->driver->query($query);
+        $statement->execute();
+        $this->reset();
         return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
@@ -354,6 +373,8 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         ));
         $query = $this->query();
         $statement = $this->driver->query($query);
+        $statement->execute();
+        $this->reset();
         return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
@@ -369,6 +390,8 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         ));
         $query = $this->query();
         $statement = $this->driver->query($query);
+        $statement->execute();
+        $this->reset();
         return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
@@ -448,6 +471,8 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         ));
         $query = $this->query();
         $statement = $this->driver->query($query);
+        $statement->execute();
+        $this->reset();
         return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
