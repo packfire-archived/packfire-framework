@@ -137,6 +137,7 @@ class pMySqlTable extends pDbTable {
         $query .= implode(' AND ', $pks);
         $this->driver->query(sprintf($query, $this->name));
     }
+    
     /**
      * Get the columns of the table
      * @return pList Returns a list of pDbColumn objects

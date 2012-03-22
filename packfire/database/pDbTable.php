@@ -1,24 +1,34 @@
 <?php
 pload('packfire.collection.pMap');
 
+/**
+ * Abstraction of a database table
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire.database
+ * @since 1.0-sofia
+ */
 abstract class pDbTable {
     
     /**
-     *
+     * The database connector
      * @var pDbConnector
+     * @since 1.0-sofia
      */
     protected $driver;
     
     /**
      * The name of this table
      * @var string
+     * @since 1.0-sofia
      */
     protected $name;
     
     /**
-     *
-     * @param pDbConnector $driver
-     * @param string $name 
+     * Create a new pDbTable object
+     * @param pDbConnector $driver The connector
+     * @param string $name The name of the table 
      * @since 1.0-sofia
      */
     public function __construct($driver, $name){
@@ -26,6 +36,10 @@ abstract class pDbTable {
         $this->name = $name;
     }
     
+    /**
+     * Get the name of the table
+     * @return string
+     */
     public function name(){
         return $this->name;
     }

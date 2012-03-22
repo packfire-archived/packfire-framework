@@ -44,16 +44,44 @@ abstract class pDbSchema {
         return $this->name;
     }
     
-    public abstract function create();
+    /**
+     * Create a new table in the schema
+     * @param string $name The name of the table
+     * @param array|IList $columns The list of columns belonging to the table
+     * @return pDbTable Returns the table representation of the newly
+     *                  created table.
+     * @since 1.0-sofia
+     */
+    public abstract function create($name, $columns);
     
-    public abstract function delete();
+    /**
+     * Delete a table from the schema
+     * @param string|pDbTable $table The table to delete
+     * @since 1.0-sofia
+     */
+    public abstract function delete($table);
     
-    public abstract function add($name, $columns);
+    /**
+     * Truncate / empty a table
+     * @param string|pDbTable $table The table to empty
+     * @since 1.0-sofia
+     */
+    public function truncate($table);
     
-    public abstract function remove($table);
-    
+    /**
+     * Get a table
+     * @param string $table Name of the table to fetch
+     * @return pDbTable Returns the table representation
+     * @since 1.0-sofia
+     */
     public abstract function table($table);
     
+    /**
+     * Start the LINQ expression from a table
+     * @param string $table The table to work with
+     * @return ILinq Returns the LINQ object to start chaining
+     * @since 1.0-sofia
+     */
     public abstract function from($table);
     
 }
