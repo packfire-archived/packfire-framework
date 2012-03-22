@@ -290,6 +290,27 @@ class pList implements IList {
     }
     
     /**
+     * Get the first element on the list
+     * @return mixed Returns the first element on the list, or NULL if there is
+     *               no elements on the list.
+     * @since 1.0-sofia
+     */
+    public function first(){
+        return $this->count() === 0 ? null : reset($this->array);
+    }
+    
+    
+    /**
+     * Get the last element on the list
+     * @return mixed Returns the last element on the list, or NULL if there is
+     *               no elements on the list.
+     * @since 1.0-sofia
+     */
+    public function last(){
+        return $this->count() === 0 ? null : end($this->array);
+    }
+    
+    /**
      * Get the ArrayIterator for PHP foreach access
      * @return ArrayIterator 
      * @internal

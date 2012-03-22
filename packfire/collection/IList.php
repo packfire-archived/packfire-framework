@@ -36,4 +36,8 @@ interface IList extends ArrayAccess, IIterable, ISet {
     
     public function append($list);
     
+    public function first();
+    
+    public function last();
+    
 }
