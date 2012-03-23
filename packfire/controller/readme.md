@@ -58,6 +58,15 @@ In your controller, it is possible to forward your request to another controller
 
     $this->forward('app.controller.RegistrationController', 'validate');
 
+##Loading Models
+
+You can load your model entities and classes using the `model($name)` method. The model instance will only be created once and loaded into the controller's model repository. 
+
+    $this->model('Person');
+    $person = new Person();
+
+In the example above, two instances were created: one in the `model()` method where the instance created is loaded into the controller's model repository and the second in the `new` statement.
+
 ##Setting View in the Controller
 In the controller, you can set which view to use. To do that, call the `render($view)` method at the end of your action method. You can use any view classes for rendering in your application.
 
