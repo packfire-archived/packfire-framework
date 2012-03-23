@@ -32,8 +32,6 @@ class HomeView extends AppView {
         $this->define('title', $this->data['title']);
         $this->define('message', $this->data['message']);
         $this->define('version', $this->service('config.app')->get('app', 'version'));
-        //$this->define('themeDark', $rootUrl . $this->service('router')->to('themeSwitch', array('theme' => 'dark')));
-        //$this->define('themeLight', $rootUrl . $this->service('router')->to('themeSwitch', array('theme' => 'light')));
         
         $this->define('themeDark', $this->route('themeSwitch', array('theme' => 'dark')));
         $this->define('themeLight', $this->route('themeSwitch', array('theme' => 'light')));
