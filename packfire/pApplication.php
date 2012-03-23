@@ -14,7 +14,7 @@ pload('packfire.ioc.pServiceLoader');
 pload('packfire.exception.handler.pExceptionHandler');
 pload('packfire.exception.handler.pErrorHandler');
 pload('packfire.exception.pHttpException');
-pload('packfire.database.pDbFactory');
+pload('packfire.database.pDbConnectorFactory');
 
 /**
  * Application class
@@ -55,7 +55,8 @@ class pApplication extends pBucketUser implements IApplication {
         pServiceLoader::loadConfig($this->services);
         
         $databaseConfig = $this->service('config.app')->get('database', 'default');
-        $this->services->put('database', pDbFactory::create($databaseConfig));
+        $this->services->put('database.driver', pDbConnectorFactory::create($databaseConfig));
+        $this->services->put('database', $this->service('database.driver')->database());
         
         $storageId = $this->service('config.app')->get('session', 'storageId');
         $storage = null;

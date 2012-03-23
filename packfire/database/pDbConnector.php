@@ -18,11 +18,19 @@ abstract class pDbConnector {
     protected $pdo;
     
     /**
+     * The array of configuration
+     * @var array|pMap
+     * @since 1.0-sofia
+     */
+    protected $config;
+    
+    /**
      * Create the connector based on the configuration provided.
-     * @param array $config An array of configuration
+     * @param array|pMap $config An array of configuration
      * @since 1.0-sofia
      */
     public function __construct($config){
+        $this->config = $config;
         $username = $config['user'];
         $password = $config['password'];
         $dsn = sprintf('%s:host=%s;dbname=%s', $config['driver'], $config['host'], $config['dbname']);
@@ -33,9 +41,17 @@ abstract class pDbConnector {
     /**
      * Translates data type
      * @param string $type The input data type
+     * @return string The translated data type
      * @since 1.0-sofia 
      */
     public abstract function translateType($type);
+    
+    /**
+     * Get the database representation
+     * @return pDatabase|pDbSchema Returns the database representation object
+     * @since 1.0-sofia 
+     */
+    public abstract function database();
     
     /**
      * Create a PDOStatement and prepare it for execution 
@@ -55,6 +71,40 @@ abstract class pDbConnector {
      */
     public function query($query){
         return $this->pdo->query($query);
+    }
+    
+    /**
+     * Get the last insert ID
+     * @return mixed
+     * @since 1.0-sofia
+     */
+    public function lastInsertId(){
+        return $this->pdo->lastInsertId();
+    }
+    
+    /**
+     * Begin the transaction
+     * @return boolean Returns true if the transaction has been created, false otherwise.
+     * @since 1.0-sofia 
+     */
+    public function begin(){
+        return $this->pdo->beginTransaction();
+    }
+    
+    /**
+     * End and commit the transaction
+     * @since 1.0-sofia 
+     */
+    public function commit(){
+        $this->pdo->commit();
+    }
+    
+    /**
+     * End and revert changes made by the transaction
+     * @since 1.0-sofia 
+     */
+    public function rollback(){
+        $this->pdo->rollBack();
     }
     
 }

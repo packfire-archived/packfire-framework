@@ -49,4 +49,12 @@ class pMySqlConnector extends pDbConnector {
         return $type;
     }
     
+    public function database(){
+        $database = new pMySqlDatabase($this);
+        if($this->config['dbname']){
+            $database = $database->select($this->config['dbname']);
+        }
+        return $database;
+    }
+    
 }
