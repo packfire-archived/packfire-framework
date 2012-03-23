@@ -13,6 +13,17 @@ pload('AppTheme');
  */
 abstract class AppView extends pView {
     
+    public function __construct(){
+        parent::__construct();
+        
+        // set the default template as the name of the view class
+        $template = get_class($this);
+        if(strtolower(substr($template, -4)) === 'view'){
+            $template = substr($template, 0, strlen($template) - 4);
+        }
+        $this->template($template);
+    }
+    
     protected function template($template) {
         if(is_string($template)){
             $template = AppTemplate::load($template);
