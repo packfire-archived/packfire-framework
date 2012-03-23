@@ -7,6 +7,33 @@ Controller is where you interact with your application models, database, authent
 
 Methods that you create with names that start `do` are designated as controller actions. 
 
+	class PostController extends AppController{
+	
+		public function doCreate(){
+	    	$this->filters('title', PostFilter::title());
+	    	$this->filters('body', PostFilter::body());
+	    	$this->service('database')
+				 ->table('posts')
+				 ->insert(array(
+						'title' => $this->params['title'],
+						'body' => $this->params['body']
+					));
+    		$this->redirect($this->route('post.view',
+					 array('postId' => $this->service('database.driver')->lastInsertId())
+				));
+		}
+
+		public function doDelete(){
+			$this->service('database')
+				->table('posts')
+				->delete(array('postId' => $this->params['id']));
+    		$this->redirect($this->route('post.list'));
+		}
+
+	}
+
+In the `PostController` example above, `create` and `delete` are both actions of the controller. You can specify restful actions that target specific HTTP methods i.e. `getMessage` is accessed via `GET`, `postMessage` is accessed via `POST`, `deleteMessage` is accessed via `DELETE`.
+
 ##Filtering input parameters
 In any application, validation of input to the application is very important as they might cause all sorts of errors. Packfire makes validation easy for you by allowing you to specify filters.
 
