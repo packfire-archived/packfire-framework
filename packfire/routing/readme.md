@@ -36,5 +36,9 @@ You can easily create URLs in the controller by calling the `route()` method.
 ###Code in Controller
 
 
-    $postUrl = $this->route('postPage', array('pageId' => $pageId));
+    $postUrl = $this->route('postPage', 
+                   array('pageId' => $pageId)
+               );
     $this->redirect($postUrl);
+
+Updates to your URLs in the YAML configuration will also update all your URL generation. You do not need to hard code or worry about URL changes. Sweet!
