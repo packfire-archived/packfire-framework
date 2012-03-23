@@ -85,7 +85,7 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
     public function first($predicate = null) {
         $result = $this->firstOrDefault($predicate);
         if($result === null){
-            throw new pNullException('');  // TODO complete exception
+            throw new pNullException('pLinq::first() - Could not find first element as collection is empty.');
         }
         return $result;
     }
@@ -118,7 +118,7 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
     public function last($predicate = null) {
         $result = $this->lastOrDefault($predicate);
         if($result === null){
-            throw new pNullException(''); // TODO complete exception
+            throw new pNullException('pLinq::last() - Could not find last element as collection is empty.');
         }
         return $result;
     }

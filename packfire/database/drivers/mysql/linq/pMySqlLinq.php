@@ -263,7 +263,7 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
     public function first($predicate = null) {
         $result = $this->firstOrDefault($predicate);
         if($result === null){
-            throw new pNullException(''); // TODO null exception message
+            throw new pNullException('pMySqlLinq::first() - Could not find first element as collection is empty.');
         }
         return $result;
     }
@@ -323,7 +323,7 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
     public function last($predicate = null) {
         $result = $this->lastOrDefault($predicate);
         if($result === null){
-            throw new pNullException(''); // TODO null exception message
+            throw new pNullException('pMySqlLinq::last() - Could not find last element as collection is empty.');
         }
         return $result;
     }
