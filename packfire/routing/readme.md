@@ -6,17 +6,22 @@ Packfire's Routing package provides ease in managing URLs and access to controll
 
 You can manage all your URL route definitions in the `routing.yml` configuration file found in the `config` folder of your application. An example of a route entry in the routing configuration file:
 
+    home: 
+      rewrite: "/"
+      actual: "Home"
     themeSwitch:
       rewrite: "/theme/switch/{theme}"
-      actual: "ThemeSwitch"
-      method: "switch"
+      actual: "ThemeSwitch:switch"
+      method: 
+		- get
+        - post
       params:
         theme: "([a-zA-Z0-9]+)"
 
 - `themeSwitch`: this is the routing key, which uniquely identifies the routing entry.
 - `rewrite`: the rewritten URL. You can enter parameters in the URL like templates.
-- `actual`: The actual controller to be executed. You can leave out the "Controller" at the end of the class name.
-- `method`: the action of the controller to call. If this is not entered, the index method will be called.
+- `actual`: The actual controller and action to be executed. You can leave out the "Controller" at the end of the class name. The `:` separates the class name and the action name. The action name is optional and if left out the default action name "index" is used.
+- `method`: The HTTP method that the route is catered for. 
 - `params`: The hash map of parameters with its regular expression.
 
 The routing package in Packfire is powerful. Each parameter is parsed with regular expressions, which allows you to filter and validate your input data in the URL at the first stage.

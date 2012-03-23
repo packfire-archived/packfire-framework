@@ -82,7 +82,9 @@ class pRouter {
         foreach ($this->routes as $route) {
             // check whether HTTP method matches for RESTful routing
             
-            if(!$route->httpMethod() || strtolower($route->httpMethod()) == $method){
+            if(!$route->httpMethod() || 
+                    (is_string($route->httpMethod()) && strtolower($route->httpMethod()) == $method)
+                    || (is_array($route->httpMethod()) && in_array($method, $route->httpMethod()))){
                 $t = new pTemplate($route->rewrite());
                 $tokens = $t->tokens();
                 foreach ($tokens as $a) {
