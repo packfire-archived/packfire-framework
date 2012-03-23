@@ -67,9 +67,8 @@ class pRouter {
     
     /**
      * Perform routing operation and return the route entry
-     * 
      * @param pHttpClientRequest $clientRequest The client request
-     * @return pRoute The route found
+     * @return pRoute Returns the route found based on the request
      * @since 1.0-sofia
      */
     public function route($clientRequest){        
