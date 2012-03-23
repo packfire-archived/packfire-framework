@@ -35,7 +35,7 @@ abstract class pView extends pBucketUser implements IView {
     private $theme;
     
     /**
-     * Create a new view 
+     * Create a new pView object 
      * @since 1.0-sofia
      */
     public function __construct(){
@@ -60,7 +60,7 @@ abstract class pView extends pBucketUser implements IView {
     /**
      * Set the template used by the view
      * @param pTemplate $template (optional) The template to use
-     * @return pTemplate Returns an instance of self for chaining.
+     * @return pView Returns an instance of self for chaining.
      * @since 1.0-sofia
      */
     protected function template($template){
