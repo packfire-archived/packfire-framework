@@ -33,8 +33,9 @@ You can easily create URLs in the controller by calling the `route()` method.
       params:
         theme: "([a-zA-Z0-9]+)"
 
-###Code in Controller
+###Code in Controller and View classes
 
+To create URLs from the routing key, you can call the `route()` method in both `Controller` and `View` classes, like this:
 
     $postUrl = $this->route('postPage', 
                    array('pageId' => $pageId)
