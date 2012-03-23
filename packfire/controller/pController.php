@@ -209,7 +209,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
                 }
             }catch(pValidationException $vEx){
                 if(!$message){
-                    $message = 'Invalid input: your input has failed the validation process.';
+                    $message = 'Invalid input: your input has failed the validation process. ' . $vEx->getMessage();
                 }
                 $this->service('form.feedback')->feedback($name, 'error', $message);
             }
