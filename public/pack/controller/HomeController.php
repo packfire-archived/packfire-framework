@@ -13,12 +13,11 @@ pload('view.HomeView');
 class HomeController extends AppController {
     
     function doIndex(){
-        $data = array(
+        $this->state = array(
             'title' => 'Bring the fire around in a pack.',
             'message' => 'Packfire is a clean and well thought web framework for developers of all walks to scaffold and bring up websites quickly and hassle-free. You\'ll be surprised at how fast you can build a web application with a pack of fire.'
         );
-        $view = new HomeView();
-        $view->data($data);
+        $view = new HomeView($this->state);
         return $this->render($view);
     }
     

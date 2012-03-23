@@ -13,11 +13,9 @@ class HomeView extends AppView {
     
     protected $data;
     
-    public function data($data = null){
-        if(func_num_args() == 1){
-            $this->data = $data;
-        }
-        return $this->data;
+    public function __construct($state){
+        $this->data = $state;
+        parent::__construct();
     }
 
     protected function create() {
