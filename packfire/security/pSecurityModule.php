@@ -14,10 +14,11 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
     
     /**
      * Authenticate the user
+     * @param mixed $token The authentication token
      * @return boolean Returns true if the user is authenticated, false otherwise.
      * @since 1.0-sofia
      */
-    public function authenticate() {
+    public function authenticate($token) {
         return true;
     }
 
@@ -34,11 +35,12 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
 
     /**
      * Retrieve the identity of the user
+     * @param mixed $newIdentity (optional) The new identity in the session.
      * @return mixed Returns the identity of the user
      * @since 1.0-sofia
      */
-    public function identity() {
-        return null;
+    public function identity($newIdentity = null) {
+        return $newIdentity;
     }
     
     /**
@@ -46,7 +48,7 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
      * @since 1.0-sofia 
      */
     public function deauthenticate(){
-        // does nothing (:
+        $this->identity(null);
     }
     
 }
