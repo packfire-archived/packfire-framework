@@ -13,7 +13,7 @@ You can manage all your URL route definitions in the `routing.yml` configuration
       rewrite: "/theme/switch/{theme}"
       actual: "ThemeSwitch:switch"
       method: 
-		- get
+	- get
         - post
       params:
         theme: "([a-zA-Z0-9]+)"
