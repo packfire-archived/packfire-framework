@@ -77,12 +77,16 @@ class pTimer {
      * @since 1.0-sofia
      */
     public function result(){
-        if($this->running() || !$this->endTime){
+        if(!$this->running() && !$this->endTime){
             throw new pInvalidRequestException(
-                    'pTimer::result() cannot be called when the timer is still running or has not started yet.'
+                    'pTimer::result() cannot be called when the timer has not started yet.'
                 );
         }
-        return $this->endTime - $this->startTime;
+        $endTime = $this->endTime;
+        if(!$endTime){
+            $endTime = pDateTime::microtime();
+        }
+        return $endTime - $this->startTime;
     }
 
     /**
