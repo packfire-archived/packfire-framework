@@ -15,6 +15,8 @@
  */
 define('__PACKFIRE_CLASS__', '../packfire/Packfire.php');
 
+define('__ENVIRONMENT__' , '');
+
 // include the main Packfire class
 $ok = @include(__PACKFIRE_CLASS__);
 if($ok){

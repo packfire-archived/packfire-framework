@@ -12,8 +12,6 @@ define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEP
  */
 define('__APP_ROOT__', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
 
-define('__ENVIRONMENT__' , '');
-
 require(__PACKFIRE_ROOT__ . 'helper.php');
 
 pload('packfire.net.http.pHttpClient');
