@@ -16,6 +16,8 @@ pload('packfire.exception.handler.pErrorHandler');
 pload('packfire.exception.pHttpException');
 pload('packfire.database.pDbConnectorFactory');
 pload('packfire.datetime.pTimer');
+pload('packfire.debugger.pDebugger');
+pload('packfire.debugger.pConsoleDebugOutput');
 
 /**
  * Application class
@@ -68,6 +70,9 @@ class pApplication extends pBucketUser implements IApplication {
             $storage = new pSessionStorage();
         }
         $this->services->put('session', new pSession($storage));
+        if($this->service('config.app')->get('app', 'debug')){
+            $this->services->put('debugger', new pDebugger(new pConsoleDebugOutput()));
+        }
     }
     
     /**
@@ -148,6 +153,9 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     public function handleException($exception){
+        if($this->service('config.app')->get('app', 'debug')){
+            $this->service('debugger')->exception($exception);
+        }
         $this->exceptionHandler->handle($exception);
     }
     
