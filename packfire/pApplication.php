@@ -15,6 +15,7 @@ pload('packfire.exception.handler.pExceptionHandler');
 pload('packfire.exception.handler.pErrorHandler');
 pload('packfire.exception.pHttpException');
 pload('packfire.database.pDbConnectorFactory');
+pload('packfire.datetime.pTimer');
 
 /**
  * Application class
