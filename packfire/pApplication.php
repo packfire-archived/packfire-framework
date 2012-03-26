@@ -39,6 +39,7 @@ class pApplication extends pBucketUser implements IApplication {
      */
     public function __construct(){
         $this->services = new pServiceBucket();
+        $this->services->put('timer.app.start', new pTimer(true));
         $this->loadExceptionHandler();
         $this->loadBucket();
     }
