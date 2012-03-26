@@ -11,6 +11,7 @@ app:
   name: "Packfire Framework for PHP"
   version: "1.0-sofia"
   rootUrl: "http://localhost/packfire/public"
+  debug: false
   
 session:
   name: packfire
