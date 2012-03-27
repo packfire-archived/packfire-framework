@@ -19,7 +19,7 @@ session.flash:
   class: packfire.session.pSessionFlash
 form.feedback:
   class: packfire.form.pFormFeedback
-logger.default:
+logger:
   class: packfire.log.pLogger
   parameters: 
     - 'pack/storage/log/default.log'
