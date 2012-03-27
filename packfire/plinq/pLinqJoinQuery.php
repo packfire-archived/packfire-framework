@@ -2,7 +2,7 @@
 pload('ILinqQuery');
 
 /**
- * pLinqJoinQuery Description
+ * A LINQ Join query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License

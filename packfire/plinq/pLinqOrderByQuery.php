@@ -4,7 +4,7 @@ pload('packfire.collection.pList');
 pload('packfire.collection.IComparator');
 
 /**
- * pLinqOrderByQuery Description
+ * A LINQ Order By Query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
