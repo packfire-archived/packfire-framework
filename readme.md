@@ -2,6 +2,36 @@
 
 Packfire is a clean and well thought web framework for developers of all walks to scaffold and bring up websites quickly and hassle-free. You'll be surprised at how fast you can build a web application with a pack of fire.
 
-Packfire comes under the difficult experiences from the development of phpRaise and Samstyle PHP Framework. Many of Packfire's components and features are also based on the designs used in ASP.NET, Java and other popular frameworks.
+Packfire comes under the long and difficult experiences from the development of web frameworks phpRaise and Samstyle PHP Framework. Many of Packfire's components and features are also based on the designs used in ASP.NET, Java and other popular frameworks.
 
 If you're a fan of anonymous functions and closures, you'll love Packfire. In PHP 5.3, you can take advantage of closures to help write your code in simple and expressive syntax.
+
+##A word from the Developer
+
+Thank you for visiting Packfire's source code repository. My name is Sam-Mauris Yong and I founded the Packfire framework. Prior to Packfire, I have developed the Samstyle PHP Framework and phpRaise Framework. 
+
+###What made you develop another framework?
+
+My primary aim of developing frameworks was to learn. In fact it was through developing frameworks past five years that I learnt much about MVC, Templating, ORM, Database Abstraction, PHPDocs, Git, Design Patterns. I strongly believe that through open source projects, I am able to learn from others, as well as putting up my concepts to help others learn as well. It was open source made me understand the difficulty and importance of the entire Software Development Lifecycle (SDLC). 
+
+Different frameworks target very different problems to form solutions, and different users have very different needs. As I expressed the uniqueness of Packfire on the Singapore PHP User Group's Facebook page, Packfire is: Low footprint, user-intuitive, automation, code generation, strict OOP, RESTful, API-oriented. If you are using PHP 5.3 or higher, you can further empower your development with Closures. Code should be simple to read, as it is now on Packfire. All these uniqueness of Packfire definitely surpasses what other frameworks can offer.
+
+##Please let us know…
+
+To help us continue Packfirin' better, I plead for your help to let us know if…
+
+ - you have downloaded, installed and tried Packfire on your local server (whether it succeeded or not)
+ - you have encountered any problems developing your Packfire application 
+ - you have problems understanding the documentations
+ - you are now using Packfire on your production server for live use (weird because now we're still in development, but welcome to let us know)
+ - you have any ideas how Packfire can be improved
+ - you have any new features that you want to add in (hey you can fork our code, modify and submit a pull request!)
+ 
+We are greatly appreciative of your input to help make Packfire a better framework and friend to web developers around the world.
+
+
+##More information
+
+If you need more information on the source code, do feel free to take a look at the `readme.md` usage guide in directories within the framework directory. We are still in the process of development and writing more documentation and tutorial for the framework (pssst… do help us with the documentations too!). 
+
+A list of features and their progress are listed on the [Features](https://github.com/packfire/framework/wiki/Features) page.
