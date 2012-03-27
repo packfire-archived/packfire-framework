@@ -4,12 +4,12 @@ pload('IOrderedLinq');
 pload('pLinqThenByQuery');
 
 /**
- * pOrderedLinq Description
+ * An ordered LINQ that implements the thenBy() and thenByDesc() methods.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package package
- * @since version-created
+ * @package packfire.plinq
+ * @since 1.0-sofia
  */
 class pOrderedLinq extends pLinq implements IOrderedLinq {
     

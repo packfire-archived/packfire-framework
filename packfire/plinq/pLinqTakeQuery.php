@@ -2,25 +2,36 @@
 pload('ILinqQuery');
 
 /**
- * pLinqTakeQuery Description
+ * A LINQ Take query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.linq
+ * @package packfire.plinq
  * @since 1.0-sofia
  */
 class pLinqTakeQuery implements ILinqQuery {
     
+    /**
+     * The amount of elements to take
+     * @var integer 
+     * @since 1.0-sofia
+     */
     private $count;
     
+    /**
+     * Create a new pLinqTakeQuery object
+     * @param integer $count The amount of elements to take
+     * @since 1.0-sofia
+     */
     public function __construct($count){
         $this->count = $count;
     }
     
     /**
-     *
-     * @param pList $collection
-     * @return pList 
+     * Execute the query
+     * @param array $collection The collection to execute the query upon
+     * @return array Returns the resulting array after the execution 
+     * @since 1.0-sofia
      */
     public function run($collection) {
         return array_slice($collection, 0, $this->count);
