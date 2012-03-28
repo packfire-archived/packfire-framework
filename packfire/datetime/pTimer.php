@@ -71,9 +71,10 @@ class pTimer {
     }
 
     /**
-     * Get the timing result after the last stop
-     * @return double|integer Returns the result of the previous run.
-     * @throws pInvalidRequestException
+     * Get the timing result from the start till stop. If the timer is still
+     * running, the result from the start till the result call will be returned.
+     * @return double|integer Returns the timing result in terms of seconds.
+     * @throws pInvalidRequestException Throws when the timer has not started before yet
      * @since 1.0-sofia
      */
     public function result(){
