@@ -8,7 +8,7 @@ pload('packfire.exception.pOutOfRangeException');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire/collection
+ * @package packfire.collection
  * @since 1.0-sofia
  */
 class pList implements IList {
@@ -21,7 +21,7 @@ class pList implements IList {
     protected $array = array();
     
     /**
-     * Create a pList
+     * Create a new pList object
      * @param pList|array $initialize (optional) If an initializing array or
      *                                list is set, the list will be populated
      *                                with the items.

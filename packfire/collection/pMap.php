@@ -9,13 +9,13 @@ pload('packfire.exception.pInvalidRequestException');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire/collection
+ * @package packfire.collection
  * @since 1.0-sofia
  */
 class pMap extends pList implements IMap {
     
     /**
-     * Create a pMap
+     * Create a new pMap object
      * @param pMap|array $initialize (optional) If an initializing array or
      *                                list is set, the list will be populated
      *                                with the items.
@@ -32,7 +32,7 @@ class pMap extends pList implements IMap {
     }
     
     /**
-     * Add a new item
+     * Add a new item to the map
      * @param string|pKeyValuePair $key The key name
      * @param mixed $value (optional) The item to enter. Ignored if a
      *                     pKeyValuePair is entered in the first argument.
