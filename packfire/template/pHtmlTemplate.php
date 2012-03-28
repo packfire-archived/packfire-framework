@@ -10,10 +10,7 @@ pload('pTemplate');
  * @since 1.0-sofia
  */
 class pHtmlTemplate extends pTemplate {
-    
-    function __construct($template) {
-        parent::__construct($template);
-    }
 
+    
     
 }

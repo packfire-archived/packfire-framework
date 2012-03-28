@@ -41,6 +41,7 @@ class pTemplate {
     /**
      * Create a new template
      * @param string $template The template to use
+     * @since 1.0-sofia
      */
     public function __construct($template){
         $this->template = $template;
@@ -62,15 +63,15 @@ class pTemplate {
      * @since 1.0-sofia
      */
     public function parse(){
-        $html = $this->template;
+        $result = $this->template;
         foreach($this->fields as $key => $v){
             $key = self::KEY_OPEN . $key . self::KEY_CLOSE;
-            if(strpos($html, $key) !== false){
-                $html = str_replace($key, $v, $html);
+            if(strpos($result, $key) !== false){
+                $result = str_replace($key, $v, $result);
             }
         }
         
-        return $html;
+        return $result;
     }
 
     /**
@@ -81,7 +82,9 @@ class pTemplate {
     public function tokens(){
         $tokens = new pList();
         $matches = array();
-        $i = preg_match_all('`' . pRegex::escape(self::KEY_OPEN) . '([a-zA-Z0-9\.]+)' . pRegex::escape(self::KEY_CLOSE) . '`is', $this->template, $matches, PREG_SET_ORDER);
+        $i = preg_match_all('`' . pRegex::escape(self::KEY_OPEN) .
+                '([a-zA-Z0-9\.]+)' . pRegex::escape(self::KEY_CLOSE) .
+                '`is', $this->template, $matches, PREG_SET_ORDER);
         if($i > 0){
             foreach($matches as $m){
                 $tokens->add($m[1]);
