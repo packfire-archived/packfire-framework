@@ -58,9 +58,13 @@ class pApplication extends pBucketUser implements IApplication {
         $this->services->put('router', $this->loadRouter());
         pServiceLoader::loadConfig($this->services);
         
-        $databaseConfig = $this->service('config.app')->get('database', 'default');
-        $this->services->put('database.driver', pDbConnectorFactory::create($databaseConfig));
-        $this->services->put('database', $this->service('database.driver')->database());
+        $databaseConfigs = $this->service('config.app')->get('database');
+        foreach($databaseConfigs as $key => $databaseConfig){
+            $this->services->put('database.' . $key . '.driver',
+                    pDbConnectorFactory::create($databaseConfig));
+            $this->services->put('database' . ($key == 'default' ? '' : '.' . $key),
+                    $this->service('database.' . $key . '.driver')->database());
+        }
         
         $storageId = $this->service('config.app')->get('session', 'storageId');
         $storage = null;
