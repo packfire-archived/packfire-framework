@@ -13,36 +13,28 @@ pload('packfire.collection.pMap');
 class pFormFeedback extends pBucketUser {
     
     /**
-     * Read the feedback messge for a particular field and message type
-     * @param string $field The field the message is targeted to.
-     * @param string $type The type of message
-     * @return string Returns the feedback message
+     * Read the feedback for the previous form.
+     * Note that feedback is cleared from session when read.
+     * @return pMap Returns the collection of feedback 
      * @since 1.0-sofia
      */
-    public function read($field, $type){
+    public function read(){
         $session = $this->service('session');
         $feedback = $session->get('form.feedback');
         if($feedback == null){
             $feedback = new pMap();
         }
-        $message = $feedback->get($field . '-' . $type);
-        return $message;
+        $this->clear();
+        return $feedback;
     }
     
     /**
-     * Send feedback to the form for a particular field
-     * @param string $field The field the message is targeted to.
-     * @param string $type The type of message
-     * @param string $message The feedback
+     * Set the feedback to session
+     * @param pMap $feedback The collection of feedback
      * @since 1.0-sofia
      */
-    public function feedback($field, $type, $message){
+    public function feedback($feedback){
         $session = $this->service('session');
-        $feedback = $session->get('form.feedback');
-        if($feedback == null){
-            $feedback = new pMap();
-        }
-        $feedback->set($field . '-' . $type, $message);
         $session->set('form.feedback', $feedback);
     }
     
@@ -51,8 +43,7 @@ class pFormFeedback extends pBucketUser {
      * @since 1.0-sofia 
      */
     public function clear(){
-        $session = $this->service('session');
-        $session->remove('form.feedback');
+        $this->service('session')->remove('form.feedback');
     }
     
 }

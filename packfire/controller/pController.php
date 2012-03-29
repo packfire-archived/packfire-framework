@@ -70,11 +70,19 @@ abstract class pController extends pBucketUser implements IAppResponse {
     private $filters;
     
     /**
-     * A collect of loaded models
+     * A collection of loaded models
      * @var pMap
      * @since 1.0-sofia
      */
     private $models;
+    
+    
+    /**
+     * A collection of all the errors from the filtering 
+     * @var pMap
+     * @since 1.0-sofia 
+     */
+    private $errors;
     
     /**
      * Create a new pController object
@@ -89,6 +97,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         $this->params = new pMap();
         $this->filters = new pMap();
         $this->state = new pMap();
+        $this->errors = new pMap();
     }
     
     /**
@@ -208,13 +217,57 @@ abstract class pController extends pBucketUser implements IAppResponse {
                     $value = $filter($value);
                 }
             }catch(pValidationException $vEx){
-                if(!$message){
-                    $message = 'Invalid input: your input has failed the validation process. ' . $vEx->getMessage();
-                }
-                $this->service('form.feedback')->feedback($name, 'error', $message);
+                $this->error($name, $vEx, $message);
+            }catch(Exception $ex){
+                $this->error($name, $ex);
             }
             $this->params[$name] = $value;
         }
+    }
+    
+    /**
+     * Get all the errors set to the controller
+     * @return pMap Returns the list of errors
+     * @since 1.0-sofia
+     */
+    public function errors(){
+        return $this->errors;
+    }
+    
+    /**
+     * Set an error to the controller
+     * @param string $target The name of the field that the error is targeted to
+     * @param Exception $exception The exception that occurred
+     * @param string $message (optional) The message to go with the error
+     * @since 1.0-sofia
+     */
+    protected function error($target, $exception, $message = null){
+        if(!$this->errors->keyExists($target)){
+            $this->errors[$target] = new pList();
+        }
+        if(!$message){
+            $message = $exception->getMessage();
+        }
+        $this->errors[$target]->add($message);
+    }
+
+
+    /**
+     * Check if any error has been set to the controller
+     * @return boolean Returns true if an error has been set, false otherwise.  
+     * @since 1.0-sofia
+     */
+    public function hasError(){
+        return $this->errors->count() > 0;
+    }
+    
+    /**
+     * Check if the controller is error free or not
+     * @return boolean Returns true if there is no error set, false otherwise.
+     * @since 1.0-sofia
+     */
+    public function isErrorFree(){
+        return $this->errors->count() == 0;
     }
     
     /**
@@ -252,6 +305,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
             $this->activate($action);
             $this->$action();
             $this->deactivate($action);
+            $this->service('form.feedback')->feedback($this->errors);
         }else{
             throw new pHttpException(404);
         }
