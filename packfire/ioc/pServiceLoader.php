@@ -55,7 +55,11 @@ class pServiceLoader implements IServiceLoader {
         
         if(class_exists($class)){
             $reflect  = new ReflectionClass($class);
-            $instance = $reflect->newInstanceArgs($params);
+            if($params){
+                $instance = $reflect->newInstanceArgs($params);
+            }else{
+                $instance = $reflect->newInstance();
+            }
         }
         return $instance;
     }
