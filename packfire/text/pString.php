@@ -87,32 +87,40 @@ class pString implements Countable {
 
     /**
      * Replaces occurances of $a with $b in the string
-     * @param pString|array|pList $a A string, or a collection of string, to be replaced
-     * @param pString|array|pList $b A string, or a collection of string, to be the replacement
-     * @param integer $limit (optional) The maximum number of occurances to replace
+     * @param pString|array|pList $search A string, or a collection of string,
+     *               to be searched and replace in
+     * @param pString|array|pList $replacement A string, or a collection of 
+     *              string, to be the replacement
+     * @param integer $limit (optional) The maximum occurances of replacement
      * @return pString Returns the resulting string
      * @since 1.0-sofia
      */
-    public function replace($a, $b, $limit = null) {
-        // todo pList to array
+    public function replace($search, $replacement, $limit = null) {
+        if($search instanceof pList){
+            $search = $search->toArray();
+        }
+        if($replacement instanceof pList){
+            $replacement = $replacement->toArray();
+        }
         if ($limit !== null) {
-            return new pString(str_replace($a, $b, $this->value(), $limit));
+            return new pString(str_replace($search, $replacement, $this->value(), $limit));
         } else {
-            return new pString(str_replace($a, $b, $this->value()));
+            return new pString(str_replace($search, $replacement, $this->value()));
         }
     }
 
     /**
      * Find the position of the first occurance of the string $s in the string
-     * @param pString|string $s The string to search for
+     * @param pString|string $string The string to search for
      * @param integer $offset (optional) The position to start searching for
-     * @return integer A non-negative number indicating the position of $s in the string, or -1 if not found. 
+     * @return integer A non-negative number indicating the position of $s in
+     *                 the string, or -1 if not found. 
      */
-    public function indexOf($s, $offset = 0) {
-        if (!($s instanceof pString)) {
-            $s = new pString($s);
+    public function indexOf($string, $offset = 0) {
+        if (!($string instanceof pString)) {
+            $string = new pString($string);
         }
-        $result = strpos($this->value(), $s->value(), $offset);
+        $result = strpos($this->value(), $string->value(), $offset);
         if ($result === false) {
             return -1;
         }
@@ -160,7 +168,9 @@ class pString implements Countable {
     /**
      * Fetch a part of the string.
      * @param integer $start The starting position of the string to fetch from
-     * @param integer $length (optional) The number of characters to fetch. If not specified, the method will fetch from start to the end of the string
+     * @param integer $length (optional) The number of characters to fetch. If
+     *                        this is not specified, the method will fetch from 
+     *                        start to the end of the string
      * @return pString Returns the part of the string fetched.
      * @since 1.0-sofia
      */
