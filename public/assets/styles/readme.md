@@ -3,4 +3,4 @@
 
 ___
 
-This folder contains your application Cascading Stylesheets (CSS).
+This folder contains your application Cascading Stylesheets (CSS) files.
