@@ -2,6 +2,7 @@
 pload('packfire.io.file.pPath');
 pload('pYamlConfig');
 pload('pIniConfig');
+pload('pPhpConfig');
 
 /**
  * Factory class to create the appropriate Config class
@@ -18,12 +19,14 @@ class pConfigFactory {
      * @param string $file Path to the configuration file
      * @return pConfig Returns the loaded configuration, or NULL if failed to
      *                 find the appropriate configuration parser.
+     * @since 1.0-sofia
      */
     public function load($file){
         $map = array(
             'yml' => 'pYamlConfig',
             'yaml' => 'pYamlConfig',
             'ini' => 'pIniConfig',
+            'php' => 'pPhpConfig',
         );
         $ext = pPath::extension($file);
         if(array_key_exists($ext, $map)){
