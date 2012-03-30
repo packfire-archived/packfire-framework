@@ -110,7 +110,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
             $view->setBucket($this->services);
         }
         $output = $view->render();
-        $this->response->body($output);
+        $this->response()->body($output);
     }
     
     /**
