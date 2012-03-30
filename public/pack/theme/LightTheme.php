@@ -11,7 +11,7 @@
 class LightTheme extends AppTheme {
     
     public function render() {
-        $this->fields()->add('style', 'light');
+        $this->define('style', 'light');
     }
     
 }

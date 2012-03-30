@@ -29,9 +29,20 @@ abstract class pTheme {
     /**
      * Get the theme settings defined
      * @return pMap Returns a map of theme settings
+     * @since 1.0-sofia
      */
     public function fields(){
         return $this->fields;
+    }
+    
+    /**
+     * Define a theme setting
+     * @param string $name The name of the theme setting.
+     * @param mixed $value The value of the theme setting.
+     * @since 1.0-sofia 
+     */
+    public function define($name, $value){
+        $this->fields->add($name, $value);
     }
     
     /**

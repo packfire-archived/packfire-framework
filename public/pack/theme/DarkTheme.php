@@ -12,7 +12,7 @@ pload('app.AppTheme');
 class DarkTheme extends AppTheme {
     
     public function render() {
-        $this->fields()->add('style', 'dark');
+        $this->define('style', 'dark');
     }
     
 }
