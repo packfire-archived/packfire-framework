@@ -10,11 +10,12 @@ Configuration files can be of the following formats:
 
 - YAML (*.yml, *.yaml)
 - INI Configuration File Format (*.ini)
+- PHP File that returns an array (*.php)
 
 ##app.yml
 
 `app.yml` configuration file contains the application configuration settings. 
-
+	
 Note how we have another application configuration file called `app.local.yml`. This `local` file is loaded instead of the default one if the environment of the application is set to `local`. This applies to all the configuration file: if the environment-specific version of the configuration file exists, that file will be loaded. Otherwise the default file is loaded.
 
 ##ioc.yml
