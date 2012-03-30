@@ -17,7 +17,7 @@ pload('packfire.exception.pHttpException');
 pload('packfire.database.pDbConnectorFactory');
 pload('packfire.datetime.pTimer');
 pload('packfire.debugger.pDebugger');
-pload('packfire.debugger.pConsoleDebugOutput');
+pload('packfire.debugger.console.pConsoleDebugOutput');
 
 /**
  * Application class
@@ -159,8 +159,9 @@ class pApplication extends pBucketUser implements IApplication {
     public function handleException($exception){
         if($this->service('config.app')->get('app', 'debug')){
             $this->service('debugger')->exception($exception);
+        }else{
+            $this->exceptionHandler->handle($exception);
         }
-        $this->exceptionHandler->handle($exception);
     }
     
     /**

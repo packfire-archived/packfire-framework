@@ -15,6 +15,10 @@
  */
 define('__PACKFIRE_CLASS__', '../packfire/Packfire.php');
 
+/**
+ * Set the application environment.
+ * Determines what configuration files to be loaded. 
+ */
 define('__ENVIRONMENT__' , '');
 
 // include the main Packfire class
