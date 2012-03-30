@@ -73,6 +73,20 @@ class pDebugger extends pBucketUser {
     }
     
     /**
+     * Log the SQL query performed.
+     * @param string $sql The query string.
+     * @param string $type (optional) Defaults to 'query'. Can be 'query'
+     *               or 'prepared'. 
+     * @since 1.0-sofia
+     */
+    public function query($sql, $type = 'query'){
+        $dbts = debug_backtrace();
+        $dbt = $dbts[1];
+        $where = sprintf('%s:%d', pPath::baseName($dbt['file']), $dbt['line']);
+        $this->output->write($sql, $where, $type);
+    }
+    
+    /**
      * Perform output when the debugger is destroyed, supposedly application end execution.
      * @internal
      * @ignore 

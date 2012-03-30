@@ -1,4 +1,5 @@
 <?php
+pload('packfire.ioc.pBucketUser');
 
 /**
  * A connector that helps to connect to the database
@@ -8,7 +9,7 @@
  * @package packfire.database
  * @since 1.0-sofia
  */
-abstract class pDbConnector {
+abstract class pDbConnector extends pBucketUser {
     
     /**
      * The PDO object
@@ -60,6 +61,9 @@ abstract class pDbConnector {
      * @since 1.0-sofia
      */
     public function prepare($query){
+        if($this->service('config.app')->get('app', 'debug')){
+            $this->service('debugger')->query($query, 'prepare');
+        }
         return $this->pdo->prepare($query);
     }
     
@@ -70,6 +74,9 @@ abstract class pDbConnector {
      * @since 1.0-sofia
      */
     public function query($query){
+        if($this->service('config.app')->get('app', 'debug')){
+            $this->service('debugger')->query($query);
+        }
         return $this->pdo->query($query);
     }
     
