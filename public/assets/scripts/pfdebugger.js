@@ -1,3 +1,12 @@
+/**
+ * Packfire Debugger 
+ * This is the JavaScript file required for the pConsoleDebugOutput to work
+ * properly. 
+ * 
+ * File is part of Packfire Framework
+ * Licensed under http://www.opensource.org/licenses/bsd-license New BSD License
+ */
+
 var PfConsoleDebugger = {
     
     showByTab: function(type){
@@ -39,19 +48,18 @@ var PfConsoleDebugger = {
 
 
 if (document.getElementsByClassName == undefined) {
-	document.getElementsByClassName = function(className)
-	{
-		var hasClassName = new RegExp("(?:^|\\s)" + className + "(?:$|\\s)");
-		var allElements = document.getElementsByTagName("*");
-		var results = [];
+	document.getElementsByClassName = function(className){
+            var hasClassName = new RegExp("(?:^|\\s)" + className + "(?:$|\\s)");
+            var allElements = document.getElementsByTagName("*");
+            var results = [];
 
-		var element;
-		for (var i = 0; (element = allElements[i]) != null; i++) {
-			var elementClass = element.className;
-			if (elementClass && elementClass.indexOf(className) != -1 && hasClassName.test(elementClass))
-				results.push(element);
-		}
+            var element;
+            for (var i = 0; (element = allElements[i]) != null; i++) {
+                    var elementClass = element.className;
+                    if (elementClass && elementClass.indexOf(className) != -1 && hasClassName.test(elementClass))
+                            results.push(element);
+            }
 
-		return results;
+            return results;
 	}
 }
