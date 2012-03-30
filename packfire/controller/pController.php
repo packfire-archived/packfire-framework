@@ -277,7 +277,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
      * @since 1.0-sofia
      */
     public function run($route, $action){
-        if($this->service('security') && !$this->service('security')->authenticate()){
+        if($this->service('security') && !$this->service('security')->authenticate($this->service('security.token'))){
             throw new pAuthenticationException('Could not authenticate user.');
         }
         $this->route = $route;
@@ -290,7 +290,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         $action = 'do' . ucFirst($action);
         
         if($this->restful){
-            $httpMethodCall = strtolower($route->httpMethod()) . ucFirst($action);
+            $httpMethodCall = strtolower($this->request->method()) . ucFirst($action);
             if(is_callable(array($this, $httpMethodCall))){
                 $action = $httpMethodCall;
             }
