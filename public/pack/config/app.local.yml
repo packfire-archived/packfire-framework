@@ -23,11 +23,11 @@ routing:
   enabled: true
 
 database:
-  default: 
-    driver: mysql
-    host: localhost
-    dbname: packfire
-    user: root 
-    password: password
+#  default: 
+#    driver: mysql
+#    host: localhost
+#    dbname: packfire
+#    user: root 
+#    password: password
 
 ...
