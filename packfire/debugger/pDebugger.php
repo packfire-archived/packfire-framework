@@ -12,6 +12,14 @@ pload('pConsoleDebugOutput');
 class pDebugger extends pBucketUser {
     
     /**
+     * State whether the debugger is enabled or not.
+     * By default, the debugger is enabled.
+     * @var boolean
+     * @since 1.0-sofia
+     */
+    private $enabled = true;
+    
+    /**
      * The output channel to write logs to
      * @var IDebugOutput
      * @since 1.0-sofia
@@ -25,6 +33,20 @@ class pDebugger extends pBucketUser {
      */
     public function __construct($output){
         $this->output = $output;
+    }
+    
+    /**
+     * Check whether the debugger is enabled or not
+     * @param boolean $enable Set whether the debugger is enabled or not.
+     *                  True to enable the debugger and false to disable it.
+     * @return boolean Returns true if the debugger is enabled, false otherwise.
+     * @since 1.0-sofia
+     */
+    public function enabled($enable = null){
+        if(func_num_args()){
+            $this->enabled = $enable;
+        }
+        return $this->enabled;
     }
 
     /**
@@ -45,9 +67,9 @@ class pDebugger extends pBucketUser {
      * @since 1.0-sofia 
      */
     public function log($message){
-        $dbt = reset(debug_backtrace());
-        $where = sprintf('%s:%d', pPath::baseName($dbt['file']), $dbt['line']);
-        $this->output->write($message, $where, __FUNCTION__);
+        if($this->enabled){
+            $this->output->write($message, $where, __FUNCTION__);
+        }
     }
     
     /**
@@ -56,9 +78,13 @@ class pDebugger extends pBucketUser {
      * @since 1.0-sofia
      */
     public function exception($exception){
-        $where = sprintf('%s:%d', pPath::baseName($exception->getFile()), $exception->getLine());
-        $message = sprintf('Error %s: %s', $exception->getCode(), $exception->getMessage());
-        $this->output->write($message, $where, __FUNCTION__);
+        if($this->enabled){
+            $where = sprintf('%s:%d',
+                    pPath::baseName($exception->getFile()), $exception->getLine());
+            $message = sprintf('Error %s: %s', $exception->getCode(),
+                    $exception->getMessage());
+            $this->output->write($message, $where, __FUNCTION__);
+        }
     }
     
     /**
@@ -67,9 +93,13 @@ class pDebugger extends pBucketUser {
      * @since 1.0-sofia 
      */
     public function timeCheck(){
-        $dbt = reset(debug_backtrace());
-        $message = sprintf('Time taken from application loaded to reach %s line %s', $dbt['file'], $dbt['line']);
-        $this->output->write($message, $this->service('timer.app.start')->result() . 's', __FUNCTION__);
+        if($this->enabled){
+            $dbt = reset(debug_backtrace());
+            $message = sprintf('Time taken from application loaded to reach %s line %s',
+                    $dbt['file'], $dbt['line']);
+            $this->output->write($message,
+                    $this->service('timer.app.start')->result() . 's', __FUNCTION__);
+        }
     }
     
     /**
@@ -80,19 +110,24 @@ class pDebugger extends pBucketUser {
      * @since 1.0-sofia
      */
     public function query($sql, $type = 'query'){
-        $dbts = debug_backtrace();
-        $dbt = $dbts[1];
-        $where = sprintf('%s:%d', pPath::baseName($dbt['file']), $dbt['line']);
-        $this->output->write($sql, $where, $type);
+        if($this->enabled){
+            $dbts = debug_backtrace();
+            $dbt = $dbts[1];
+            $where = sprintf('%s:%d', pPath::baseName($dbt['file']), $dbt['line']);
+            $this->output->write($sql, $where, $type);
+        }
     }
     
     /**
-     * Perform output when the debugger is destroyed, supposedly application end execution.
+     * Perform output when the debugger is destroyed, supposedly application
+     * end execution.
      * @internal
      * @ignore 
      */
     public function __destruct(){
-        $this->output->output();
+        if($this->enabled){
+            $this->output->output();
+        }
     }
     
 }
