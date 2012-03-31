@@ -55,10 +55,12 @@ class pDebugger extends pBucketUser {
      * @since 1.0-sofia 
      */
     public function dump($value){
-        $output = var_export($value, true);
-        $dbt = reset(debug_backtrace());
-        $where = sprintf('%s:%d', pPath::baseName($dbt['file']), $dbt['line']);
-        $this->output->write($output, $where, __FUNCTION__);
+        if($this->enabled){
+            $output = var_export($value, true);
+            $dbt = reset(debug_backtrace());
+            $where = sprintf('%s:%d', pPath::baseName($dbt['file']), $dbt['line']);
+            $this->output->write($output, $where, __FUNCTION__);
+        }
     }
     
     /**
