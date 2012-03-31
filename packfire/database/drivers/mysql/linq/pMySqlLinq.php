@@ -148,12 +148,16 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
     
     /**
      * Fetch the result 
+     * @param array|pMap $params (optional) The parameter values to be set
      * @return pList Returns the list of result fetched.
      * @since 1.0-sofia
      */
-    public function fetch(){
+    public function fetch($params = array()){
         $query = $this->query();
         $statement = $this->driver->prepare($query);
+        foreach($params as $key => $value){
+            $statement->bindParam($key, $value);
+        }
         $statement->execute();
         $list = $statement->fetchAll(PDO::FETCH_NUM);
         if($this->reverse){
