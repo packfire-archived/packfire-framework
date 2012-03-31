@@ -61,9 +61,7 @@ abstract class pDbConnector extends pBucketUser {
      * @since 1.0-sofia
      */
     public function prepare($query){
-        if($this->service('config.app')->get('app', 'debug')){
-            $this->service('debugger')->query($query, 'prepare');
-        }
+        $this->service('debugger')->query($query, 'prepare');
         return $this->pdo->prepare($query);
     }
     
@@ -74,9 +72,7 @@ abstract class pDbConnector extends pBucketUser {
      * @since 1.0-sofia
      */
     public function query($query){
-        if($this->service('config.app')->get('app', 'debug')){
-            $this->service('debugger')->query($query);
-        }
+        $this->service('debugger')->query($query);
         return $this->pdo->query($query);
     }
     

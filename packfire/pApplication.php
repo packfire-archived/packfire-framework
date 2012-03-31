@@ -74,9 +74,8 @@ class pApplication extends pBucketUser implements IApplication {
             $storage = new pSessionStorage();
         }
         $this->services->put('session', new pSession($storage));
-        if($this->service('config.app')->get('app', 'debug')){
-            $this->services->put('debugger', new pDebugger(new pConsoleDebugOutput()));
-        }
+        $this->services->put('debugger', new pDebugger(new pConsoleDebugOutput()));
+        $this->service('debugger')->enabled($this->service('config.app')->get('app', 'debug'));
     }
     
     /**
@@ -157,11 +156,8 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     public function handleException($exception){
-        if($this->service('config.app')->get('app', 'debug')){
-            $this->service('debugger')->exception($exception);
-        }else{
-            $this->exceptionHandler->handle($exception);
-        }
+        $this->service('debugger')->exception($exception);
+        $this->exceptionHandler->handle($exception);
     }
     
     /**
