@@ -55,6 +55,8 @@ class pApplication extends pBucketUser implements IApplication {
         $this->services->put('config.app', array('pAppConfig', 'load'));
         $this->services->put('config.routing', array('pRouterConfig', 'load'));
         $this->services->put('exception.handler', new pExceptionHandler());
+        $this->services->put('debugger', new pDebugger(new pConsoleDebugOutput()));
+        $this->service('debugger')->enabled($this->service('config.app')->get('app', 'debug'));
         $this->services->put('router', $this->loadRouter());
         pServiceLoader::loadConfig($this->services);
         
@@ -74,8 +76,6 @@ class pApplication extends pBucketUser implements IApplication {
             $storage = new pSessionStorage();
         }
         $this->services->put('session', new pSession($storage));
-        $this->services->put('debugger', new pDebugger(new pConsoleDebugOutput()));
-        $this->service('debugger')->enabled($this->service('config.app')->get('app', 'debug'));
     }
     
     /**
