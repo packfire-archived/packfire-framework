@@ -98,6 +98,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         $this->filters = new pMap();
         $this->state = new pMap();
         $this->errors = new pMap();
+        $this->models = new pMap();
     }
     
     /**
