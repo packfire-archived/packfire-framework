@@ -79,6 +79,13 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
     private $reverse = false;
     
     /**
+     * The mapping function that will map the columns
+     * @var Closure|callback
+     * @since 1.0-sofia 
+     */
+    private $mapping;
+    
+    /**
      * Create a new pMySqlLinq
      * @param pDbConnector $driver The connector to connect
      * @param string $source The name of the table
@@ -144,6 +151,7 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         $this->reverse = false;
         $this->selects = new pList();
         $this->where = null;
+        $this->mapping = null;
     }
     
     /**
@@ -163,15 +171,35 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         if($this->reverse){
             $list = array_reverse($list);
         }
+        if($this->mapping){
+            $map = $this->mapping;
+            $result = array();
+            foreach($list as $index => $row){
+                $row = $map($row);
+                $result[$index] = $row;
+            }
+            $list = $result;
+        }
         $this->reset();
         return new pList($list);
+    }
+    
+    /**
+     * Set the method to walk through the rows to map the columns to properties
+     * @param Closure|callback $selector Set the selector to perform mapping
+     * @returns pMySqlLinq Returns the LINQ object for chaining
+     * @since 1.0-sofia
+     */
+    public function map($selector){
+        $this->mapping = $selector;
+        return $this;
     }
     
     /**
      * Start the LINQ statement
      * @param string $source The name of the table to fetch from
      * @param pDbConnector $driver The connector to connect
-     * @return pMySqlLinq
+     * @return pMySqlLinq Returns the new LINQ object
      * @since 1.0-sofia
      */
     public static function from($source, $driver = null){
