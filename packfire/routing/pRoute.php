@@ -3,13 +3,14 @@ pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpMethod');
 
 /**
-* A URL rewrite/routing entry
-*
-* @author Sam-Mauris Yong / mauris@hotmail.sg
-* @license http://www.opensource.org/licenses/bsd-license New BSD License
-* @package packfire.routing
-* @since 1.0-sofia
-*/
+ * A URL rewrite/routing entry
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire.routing
+ * @since 1.0-sofia
+ */
 class pRoute {
     
     /**
