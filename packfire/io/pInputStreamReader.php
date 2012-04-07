@@ -13,12 +13,14 @@ class pInputStreamReader {
     /**
      * The stream to read
      * @var IInputStream
+     * @since 1.0-sofia
      */
     private $stream;
     
     /**
      * Create a new pInputStreamReader
      * @param IInputStream $stream The input stream to read.
+     * @since 1.0-sofia
      */
     public function __construct($stream){
         $this->stream = $stream;
@@ -28,6 +30,7 @@ class pInputStreamReader {
     /**
      * Get the stream object
      * @return IInputStream Returns the input stream
+     * @since 1.0-sofia
      */
     public function stream(){
         return $this->stream;
@@ -36,6 +39,7 @@ class pInputStreamReader {
     /**
      * Read until a newline character.
      * @return string Returns the data read from the stream.
+     * @since 1.0-sofia
      */
     public function line(){
         return $this->until("\n");
@@ -46,6 +50,7 @@ class pInputStreamReader {
      * the starting position until the end of the file will be returned.
      * @param string|array|pList $search The text to read until. 
      * @return string Returns the data read from the stream.
+     * @since 1.0-sofia
      */
     public function until($search){
         $found = false;
@@ -77,8 +82,16 @@ class pInputStreamReader {
         return $buffer;
     }
     
+    /**
+     * strpos array implementation
+     * @param string $string The string to look in
+     * @param string $search The substring to look for
+     * @return array Returns the resulting array or null if not found.
+     * @since 1.0-sofia
+     * @internal
+     */
     private static function strposa($string, $search){
-        $result = false;
+        $result = null;
         foreach($search as $text){
             $tpos = strpos($string, $text);
             if($tpos !== false && (!$result || $tpos < $result['position'])){
