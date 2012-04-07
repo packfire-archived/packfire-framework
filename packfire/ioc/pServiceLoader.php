@@ -3,9 +3,10 @@ pload('IServiceLoader');
 pload('packfire.config.framework.pIoCConfig');
 
 /**
- * pServiceLoader Description
+ * The service loader
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.ioc
  * @since 1.0-sofia
@@ -15,12 +16,14 @@ class pServiceLoader implements IServiceLoader {
     /**
      * The full package
      * @var string
+     * @since 1.0-sofia
      */
     private $package;
     
     /**
      * The parameters 
      * @var array|pList
+     * @since 1.0-sofia
      */
     private $params;
     
@@ -75,7 +78,8 @@ class pServiceLoader implements IServiceLoader {
         foreach($services as $key => $service){
             $service = new pMap($service);
             if($service->keyExists('class')){
-                $loader = new self($service->get('class'), $service->get('parameters'));
+                $loader = new self($service->get('class'),
+                        $service->get('parameters'));
                 $bucket->put($key, array($loader, 'load'));
             }else{
                 // todo throw exception no class defined

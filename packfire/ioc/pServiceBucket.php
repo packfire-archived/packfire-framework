@@ -6,6 +6,7 @@ pload('IBucketUser');
  * A bucket containing all the services
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.ioc
  * @since 1.0-sofia
@@ -31,9 +32,8 @@ class pServiceBucket {
      * Handles when the get{serviceName}Service() method is called in the class
      * @param string $name Name of the method
      * @param mixed $arguments Arguments. Ignored.
-     * @since 1.0-sofia
      * @internal
-     * @ignore
+     * @since 1.0-sofia
      */
     public function __call($name, $arguments) {
         if(substr($name, 0, 3) == 'get' && substr($name, -7) == 'Service'){
