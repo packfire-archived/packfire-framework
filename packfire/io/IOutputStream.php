@@ -11,8 +11,19 @@ pload('IStream');
  */
 interface IOutputStream extends IStream {
     
+    /**
+     * Write to the output stream
+     * @param string $data The data to write 
+     * @param integer $offset (optional) The offset to start writing from
+     * @param integer $length (optional) The amount of data to write and replace
+     * @since 1.0-sofia
+     */
     public function write($data, $offset = null, $length = null);
     
+    /**
+     * Performs flushing operation
+     * @since 1.0-sofia 
+     */
     public function flush();
     
 }

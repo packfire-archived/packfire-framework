@@ -12,5 +12,4 @@ pload('IOutputStream');
  */
 interface IIOStream extends IInputStream, IOutputStream {
     
-    
 }

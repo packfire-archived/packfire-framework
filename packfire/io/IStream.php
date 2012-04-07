@@ -10,8 +10,16 @@
  */
 interface IStream {
     
+    /**
+     * Open the stream for access
+     * @since 1.0-sofia 
+     */
     public function open();
     
+    /**
+     * Close the stream and release resources
+     * @since 1.0-sofia 
+     */
     public function close();
     
 }
