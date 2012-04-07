@@ -1,4 +1,5 @@
 <?php
+pload('packfire.ioc.pBucketUser');
 pload('pConsoleDebugOutput');
 
 /**
@@ -58,7 +59,8 @@ class pDebugger extends pBucketUser {
         if($this->enabled){
             $output = var_export($value, true);
             $dbt = reset(debug_backtrace());
-            $where = sprintf('%s:%d', pPath::baseName($dbt['file']), $dbt['line']);
+            $where = sprintf('%s:%d', pPath::baseName($dbt['file']),
+                    $dbt['line']);
             $this->output->write($output, $where, __FUNCTION__);
         }
     }
@@ -70,7 +72,7 @@ class pDebugger extends pBucketUser {
      */
     public function log($message){
         if($this->enabled){
-            $this->output->write($message, $where, __FUNCTION__);
+            $this->output->write($message);
         }
     }
     
@@ -82,7 +84,8 @@ class pDebugger extends pBucketUser {
     public function exception($exception){
         if($this->enabled){
             $where = sprintf('%s:%d',
-                    pPath::baseName($exception->getFile()), $exception->getLine());
+                    pPath::baseName($exception->getFile()),
+                    $exception->getLine());
             $message = sprintf('Error %s: %s', $exception->getCode(),
                     $exception->getMessage());
             $this->output->write($message, $where, __FUNCTION__);
@@ -91,16 +94,19 @@ class pDebugger extends pBucketUser {
     
     /**
      * Do a time check log.
-     * Time taken from the application load to reach the time check will be shown on the log
+     * Time taken from the application load to reach the time check will be 
+     * shown on the log
      * @since 1.0-sofia 
      */
     public function timeCheck(){
         if($this->enabled){
             $dbt = reset(debug_backtrace());
-            $message = sprintf('Time taken from application loaded to reach %s line %s',
+            $message = sprintf(
+                    'Time taken from application loaded to reach %s line %s',
                     $dbt['file'], $dbt['line']);
             $this->output->write($message,
-                    $this->service('timer.app.start')->result() . 's', __FUNCTION__);
+                    $this->service('timer.app.start')->result() . 's',
+                    __FUNCTION__);
         }
     }
     
@@ -115,7 +121,8 @@ class pDebugger extends pBucketUser {
         if($this->enabled){
             $dbts = debug_backtrace();
             $dbt = $dbts[1];
-            $where = sprintf('%s:%d', pPath::baseName($dbt['file']), $dbt['line']);
+            $where = sprintf('%s:%d', pPath::baseName($dbt['file']),
+                    $dbt['line']);
             $this->output->write($sql, $where, $type);
         }
     }
