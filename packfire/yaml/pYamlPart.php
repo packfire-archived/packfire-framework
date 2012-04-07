@@ -43,6 +43,7 @@ class pYamlPart {
     /**
      * Quotation markers
      * @return array Returns an array of quote markers
+     * @since 1.0-sofia 
      */
     public static function quotationMarkers(){
         return array('"', '\'');
