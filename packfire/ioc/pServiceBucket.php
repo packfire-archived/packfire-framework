@@ -1,6 +1,7 @@
 <?php
 pload('packfire.collection.pMap');
 pload('IBucketUser');
+pload('IServiceBucket');
 
 /**
  * A bucket containing all the services
@@ -11,7 +12,7 @@ pload('IBucketUser');
  * @package packfire.ioc
  * @since 1.0-sofia
  */
-class pServiceBucket {
+class pServiceBucket implements IServiceBucket {
     
     /**
      * The hash map of services stored in the bucket.
