@@ -1,4 +1,15 @@
 <?php
+/**
+ * The small fire you bring around in your pack to go around setting forests
+ * on flames. Spark your web applications with Packfire today!
+ *
+ * @link http://www.github.com/packfire
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire
+ * @since 1.0-sofia
+ */
 
 /**
  * The root folder of the framework
@@ -20,14 +31,8 @@ pload('packfire.io.file.pFileStream');
 pload('packfire.datetime.pDateTime');
 
 /**
- * The small fire you bring around in your pack to go around setting forests
- * on flames. Spark your web applications with Packfire today!
- *
- * @link http://www.github.com/thephpdeveloper/packfire
- * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire
- * @since 1.0-sofia
+ * Provides functionality to boot the application
+ * @since 1.0-sofia 
  */
 class Packfire {
     
