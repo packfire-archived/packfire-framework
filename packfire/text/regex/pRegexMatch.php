@@ -3,7 +3,8 @@
 /**
  * Represents a regular expression match created from pRegex
  *
- * @author Sam-Mauris Yong / hellclanner at live dot com
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.text.regex
  * @since 1.0-sofia
@@ -37,7 +38,7 @@ class pRegexMatch {
 
     /**
      * Get the regular expression pRegex object that this match originated from
-     * @return pRegex
+     * @return pRegex Returns the regular expression object
      * @since 1.0-sofia
      */
     public function regex(){
@@ -46,7 +47,7 @@ class pRegexMatch {
 
     /**
      * Get the text that matched the pattern
-     * @return string
+     * @return string Returns the text that matched the pattern
      * @since 1.0-sofia
      */
     public function match(){
