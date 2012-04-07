@@ -1,4 +1,5 @@
 <?php
+pload('packfire.io.file.pPath');
 pload('packfire.debugger.IDebugOutput');
 
 /**
@@ -38,7 +39,8 @@ class pConsoleDebugOutput implements IDebugOutput {
      * Write the log message to the console
      * @param string $message The message to write to the console
      * @param string $value (optional) The secondary value to the message
-     * @param string $type (optional) The type of message written, defaults to 'log'.
+     * @param string $type (optional) The type of message written, 
+     *              defaults to 'log'.
      * @since 1.0-sofia
      */
     public function write($message, $value = null, $type = 'log') {
@@ -66,7 +68,8 @@ class pConsoleDebugOutput implements IDebugOutput {
      * @since 1.0-sofia 
      */
     public function output(){
-        $template = new pTemplate(file_get_contents(pPath::path(__FILE__) . '/template.html'));
+        $template = new pTemplate(file_get_contents(pPath::path(__FILE__) 
+                . '/template.html'));
         
         $lines = '';
         foreach($this->buffer as $line){
@@ -76,7 +79,10 @@ class pConsoleDebugOutput implements IDebugOutput {
         
         $tabs = '';
         foreach($this->types as $type => $count){
-            $tabs .= '<a href="#debugger-' . $type . '" onclick="PfConsoleDebugger.showByTab(\'' . $type . '\');return false;">' . $type . ' (' . $count . ')</a>';
+            $tabs .= '<a href="#debugger-' . $type 
+                    . '" onclick="PfConsoleDebugger.showByTab(\'' 
+                    . $type . '\');return false;">' 
+                    . $type . ' (' . $count . ')</a>';
         }
         $template->fields()->add('tabs', $tabs);
         
