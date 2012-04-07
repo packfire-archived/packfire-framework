@@ -20,7 +20,7 @@ class pStringLengthValidator implements IValidator {
     
     /**
      * Create a new data type validator pDataTypeValidator
-     * @param string $type The type of the variable to check against
+     * @param string $length The type of the variable to check against
      * @since 1.0-sofia
      */
     public function __construct($length){

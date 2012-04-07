@@ -38,7 +38,7 @@ class pTextStream implements IIOStream {
 
     /**
      * Nothing to do here
-     * @ignore me... #foreveralone
+     * @ignore me... foreveralone
      * @since 1.0-sofia
      */
     public function close() {
@@ -47,7 +47,7 @@ class pTextStream implements IIOStream {
 
     /**
      * Nothing to do here
-     * @ignore me... #foreveralone
+     * @ignore me... foreveralone
      * @since 1.0-sofia
      */
     public function open() {

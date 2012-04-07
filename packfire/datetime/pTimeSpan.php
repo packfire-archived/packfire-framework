@@ -55,7 +55,7 @@ class pTimeSpan extends pTime {
 
     /**
      * Get or set the day component of the time
-     * @param integer $dat (optional) Set the day value with an integer. Must
+     * @param integer $day (optional) Set the day value with an integer. Must
      *                     be an non-negative number.
      * @return integer Returns the day component of the time
      * @since 1.0-sofia

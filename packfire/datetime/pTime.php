@@ -59,9 +59,9 @@ class pTime extends pDateTimeComponent implements IComparable {
 
     /**
      * Get or set the millisecond component of the time
-     * @param double|integer $a (optional) Set the millisecond value with an
-     *                          double or integer from 0 to 999 that represents
-     *                          the 1000 milliseconds in a second.
+     * @param double|integer $millisecond (optional) Set the millisecond value
+     *                          with an double or integer from 0 to 999 that 
+     *                          represents the 1000 milliseconds in a second.
      * @return double|integer Returns the millisecond component of the time
      * @since 1.0-sofia
      */
@@ -78,8 +78,8 @@ class pTime extends pDateTimeComponent implements IComparable {
 
     /**
      * Get or set the second component of the time
-     * @param integer $a (optional) Set the second value with an integer from 0
-     *                   to 59 that represents the 60 seconds in 1 minute
+     * @param integer $second (optional) Set the second value with an integer 
+     *                   from 0 to 59 that represents the 60 seconds in 1 minute
      * @return integer Returns the second component of the time
      * @since 1.0-sofia
      */
