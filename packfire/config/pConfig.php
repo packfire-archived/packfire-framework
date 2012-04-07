@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Configuration file
+ * A generic configuration storage
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.config
  * @since 1.0-sofia
@@ -57,6 +58,7 @@ abstract class pConfig {
      * 
      * Example:
      * <code>$value = $config->get('app', 'name'); // $data = array('app' => array('name' => 'Packfire')); </code>
+     * <code>$value = $config->get('database', 'default', 'host'); // $data = array('database' => array('default' => array('host' => 'localhost'))); </code>
      * 
      * @param string $key,... The key of the data to load. 
      * @return mixed Returns the data read or NULL if the key is not found.
