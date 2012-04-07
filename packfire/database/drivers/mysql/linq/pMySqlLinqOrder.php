@@ -4,11 +4,12 @@
  * A MySQL LINQ Order statement
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.database.drivers.mysql.linq
  * @since 1.0-sofia
  */
-class pMySqlLinqOrder {
+class pMySqlLinqOrder implements IMySqlLinqQuery {
     
     /**
      * The field to sort
@@ -37,8 +38,8 @@ class pMySqlLinqOrder {
     }
     
     /**
-     * Create the statement
-     * @return string
+     * Create and get the statement
+     * @return string Returns the resulting statement
      * @since 1.0-sofia
      */
     public function create(){
