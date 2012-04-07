@@ -1,60 +1,70 @@
 <?php
+pload('packfire.collection.pList');
 
+/**
+ * Provides funtionalities to work with the file system
+ * 
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package packfire.io.file
+ * @since 1.0-sofia
+ */
 class pFileSystem {
 
     /**
      * Check whether a file exists in the file system
-     * @param string $f Path name to the file
-     * @return boolean TRUE if the file exists, FALSE otherwise.
+     * @param string $file Path name to the file
+     * @return boolean Returns true if the file exists, false otherwise.
      * @static
      */
-    public static function fileExists($f){
-        return (bool)is_file($f);
+    public static function fileExists($file){
+        return (bool)is_file($file);
     }
 
     /**
      * Check whether a path directory exists in the file system
-     * @param string $f Path name to the directory
-     * @return boolean TRUE if the directory exists, FALSE otherwise.
+     * @param string $path Path name to the directory
+     * @return boolean Returns true if the directory exists, false otherwise.
      * @static
      */
-    public static function pathExists($p){
-        return (bool)is_dir($p);
+    public static function pathExists($path){
+        return (bool)is_dir($path);
     }
 
     /**
      * Get the available disk space of a specific directory
-     * @param string $d The directory path
-     * @return double
+     * @param string $dir The directory path
+     * @return double Returns the amount of disk free space in bytes
      * @link http://php.net/disk-free-space
      * @static
      */
-    public static function freeSpace($d){
-        return disk_free_space($d);
+    public static function freeSpace($dir){
+        return disk_free_space($dir);
     }
 
     /**
      * Get the total disk space of a specific directory
-     * @param string $d The directory path
-     * @return double
+     * @param string $dir The directory path
+     * @return double Returns the amount of disk free space in bytes
      * @link http://php.net/disk-total-space
      * @static
      */
-    public static function totalSpace($d){
-        return disk_total_space($d);
+    public static function totalSpace($dir){
+        return disk_total_space($dir);
     }
 
     /**
      * Search for files given a particular pattern
      * @param string $pattern Pattern to use for search. See link for more info.
-     * @param integer $flags (optional) Flags to use for the pattern search. See link for more info.
+     * @param integer $flags (optional) Flags to use for the pattern search.
      * @return RaiseCollection The collection of files matching the pattern.
      * @link http://php.net/glob
      * @static
      */
     public static function pathSearch($pattern, $flags = 0){
-        $a = glob($pattern, $flags);
-        return new pList($a);
+        $result = glob($pattern, $flags);
+        return new pList($result);
     }
     
 }

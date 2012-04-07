@@ -5,6 +5,7 @@ pload('pPathPart');
  * Functionalities working with file system paths
  * 
  * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.io.file
  * @since 1.0-sofia
@@ -12,14 +13,16 @@ pload('pPathPart');
 class pPath {
     
     /**
-     * Path
+     * The working path
      * @var string
+     * @since 1.0-sofia
      */
     private $path;
     
     /**
      * Create a new pPath object
-     * @param type $path 
+     * @param string $path The path to work with
+     * @since 1.0-sofia
      */
     public function __construct($path){
         $this->path = $path;
@@ -29,7 +32,8 @@ class pPath {
      * Create the directory path recursively.
      * @param integer $perm (optional) Permissions of the directory path.
      *                      Defaults to 0777
-     * @return boolean TRUE if the creation was successful, FALSE otherwise.
+     * @return boolean Returns true if the creation was successful,
+     *      false otherwise.
      * @link http://php.net/mkdir
      * @since 1.0-sofia
      */
@@ -39,7 +43,7 @@ class pPath {
 
     /**
      * Remove the path
-     * @return boolean TRUE if the directory is deleted, FALSE otherwise.
+     * @return boolean Returns true if the directory is deleted, false otherwise.
      * @link http://php.net/rmdir
      * @since 1.0-sofia
      */
@@ -50,8 +54,8 @@ class pPath {
     /**
      * Empty the entire folder
      * 
-     * Note that this method does not remove the folder itself, but clears
-     * the content.
+     * Note that this method does not remove the folder itself, but clears its
+     * own content.
      * 
      * @since 1.0-sofia
      */
@@ -79,7 +83,7 @@ class pPath {
      * @param string $relative,... The relative path that will navigate from
      *                             $path. e.g. '../../test/example/run.html'
      *                             More relative paths can be appended.
-     * @return string The final combined path
+     * @return string Returns the final combined path
      * @since 1.0-sofia
      */
     public static function combine($path, $relative){
@@ -112,15 +116,14 @@ class pPath {
                     $path .= '/' . $p;
                 }
             }
-
-        return str_replace('/', self::directorySeparator(), $path);
+            return str_replace('/', self::directorySeparator(), $path);
         }
     }
 
     /**
-     * Get the absolute path to PHP's temp folder
-     * @return string
-     * @static
+     * Get the absolute path to system's temporary directory
+     * @return string Returns the system temporary directory
+     * @since 1.0-sofia
      */
     public static function tempPath(){
         return sys_get_temp_dir();
@@ -129,8 +132,7 @@ class pPath {
     /**
      * Get only the file name from a path name
      * @param string $p The path name e.g. /home/user/public/test.html
-     * @return string The file name e.g. test
-     * @static
+     * @return string Returns the file name e.g. 'test'
      * @see pPath::pathInfo()
      */
     public static function fileName($p){
@@ -140,8 +142,7 @@ class pPath {
     /**
      * Get the file name together with the file extension from a path name
      * @param string $p The path name e.g. /home/user/public/test.html
-     * @return string The file name e.g. test.html
-     * @static
+     * @return string Returns the file name e.g. 'test.html'
      * @see pPath::pathInfo()
      */
     public static function baseName($p){
@@ -151,8 +152,7 @@ class pPath {
     /**
      * Get file extension from a path name
      * @param string $p The path name e.g. /home/user/public/test.html
-     * @return string The file name e.g. html
-     * @static
+     * @return string Returns the file extension e.g. 'html'
      * @see pPath::pathInfo()
      */
     public static function extension($p){
@@ -162,8 +162,7 @@ class pPath {
     /**
      * Get only the directory path from a path name
      * @param string $p The path name e.g. /home/user/public/test.html
-     * @return string The directory path e.g. /home/user/public/
-     * @static
+     * @return string Returns the directory path e.g. 'home/user/public'
      * @see pPath::pathInfo()
      */
     public static function path($p){
@@ -172,30 +171,32 @@ class pPath {
 
     /**
      * Get information about a directory path
-     * @param string $p The path name to get information abotu
-     * @param string $a (optional) Particular information to retrieve. False to return all the information in an array
-     * @return string|array
+     * @param string $path The path name to get information about
+     * @param string $info (optional) Particular information to retrieve. 
+     *          False to return all the information in an array.
+     * @return string|array Returns the path information
      * @link http://php.net/pathinfo
-     * @static
+     * @since 1.0-sofia
      */
-    public static function pathInfo($p, $a = false){
-        if($a == pPathPart::FILENAME && version_compare(PHP_VERSION, '5.2', '<')){   
+    public static function pathInfo($path, $info = false){
+        if($info == pPathPart::FILENAME && version_compare(PHP_VERSION, '5.2', '<')){   
             // compatibility for "5.2.0 - The PATHINFO_FILENAME constant was added. "
-            $basename =  self::baseName($p);
-            $ext = self::extension($p);
+            $basename =  self::baseName($path);
+            $ext = self::extension($path);
             return substr($basename, 0, strlen($basename) - strlen($ext) - 1);
         }
-        $k = pathinfo($p);
-        if($a){
-            return $k[$a];
+        $result = pathinfo($path);
+        if($info){
+            $result = $result[$info];
         }
-        return $k;
+        return $result;
     }
 
     /**
-     * Get the application's current working directory (usually from the application root)
-     * @return string
-     * @static
+     * Get the application's current working directory
+     *          (usually from the application root)
+     * @return string Returns the application current working path
+     * @since 1.0-sofia
      */
     public static function currentWorkingPath(){
         return getcwd();
@@ -203,7 +204,8 @@ class pPath {
 
     /**
      * Get the directory path of the current PHP script
-     * @return string
+     * @return string Returns the current script path
+     * @since 1.0-sofia
      */
     public static function scriptPath(){
         return self::path($_SERVER['SCRIPT_FILENAME']);
@@ -213,7 +215,7 @@ class pPath {
      * Resolves a directory path
      * @param string $p The directory path to resolve
      * @return string The resolved directory path
-     * @static
+     * @since 1.0-sofia
      */
     public static function resolve($p){
         return realpath($p);
@@ -221,10 +223,12 @@ class pPath {
 
     /**
      * Fetch the path to the file containing a specific class.
-     * If the class is defined in the PHP core or PHP extension, NULL
-     * will be returned
+     * If the class is defined in the PHP core or PHP extension, null
+     * will be returned instead.
      * @param string $class Name of the class
-     * @return string|null
+     * @return string Returns the path to the file of a class or null 
+     *          if not found.
+     * @since 1.0-sofia
      */
     public static function classPathName($class){
         $r = new ReflectionClass($class);

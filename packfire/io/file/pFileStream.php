@@ -8,6 +8,7 @@ pload('packfire.io.IIOStream');
  * when opened. Instead the file will be created on the first write operation.
  * 
  * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.io.file
  * @since 1.0-sofia
