@@ -2,9 +2,10 @@
 pload('pDateTime');
 
 /**
- * pDatePeriod Description
+ * A date period representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.datetime
  * @since 1.0-sofia
@@ -57,7 +58,8 @@ class pDatePeriod implements Iterator {
      * Create a new pDatePeriod object
      * @param pDateTime $startDate The start date
      * @param pTimeSpan $interval The interval between dates
-     * @param integer|pDateTime $occurances/$endDate The number of occurance or end date
+     * @param integer|pDateTime $occurances/$endDate The number of occurance 
+     *          or end date
      * @since 1.0-sofia
      */
     public function __construct($startDate, $interval, $endDate){
