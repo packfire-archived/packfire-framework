@@ -13,12 +13,14 @@ abstract class pDatabase {
     /**
      * The database connector
      * @var pDbConnector
+     * @since 1.0-sofia
      */
     protected $driver;
     
     /**
-     * Create a new pDatabase
-     * @param pDbConnector $driver 
+     * Create a new pDatabase object
+     * @param pDbConnector $driver The connector to access database
+     * @since 1.0-sofia
      */
     public function __construct($driver){
         $this->driver = $driver;
