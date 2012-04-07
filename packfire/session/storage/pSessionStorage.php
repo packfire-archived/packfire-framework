@@ -7,7 +7,7 @@ pload('packfire.session.bucket.pSessionBucket');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package package
+ * @package packfire.session.storage
  * @since 1.0-sofia
  */
 class pSessionStorage implements ISessionStorage {
