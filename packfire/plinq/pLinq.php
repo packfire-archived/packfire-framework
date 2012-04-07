@@ -129,7 +129,7 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
         if($condition){
             $copy->where($condition);
         }
-        return $copy->finalize()->count();
+        return count($copy->finalize());
     }
 
     /**
@@ -358,7 +358,7 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
         if($field){
             $worker = $worker->select($field);
         }
-        $result = $worker->finalize()->toArray();
+        $result = $worker->finalize();
         return array_sum($result);
     }
     
