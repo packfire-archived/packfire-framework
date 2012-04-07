@@ -5,12 +5,18 @@ pload('packfire.session.bucket.ISessionBucket');
  * Session Storage interface
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.session.storage
  * @since 1.0-sofia
  */
 interface ISessionStorage extends ISessionBucket {
     
+    /**
+     * Regenerate the session
+     * @param boolean $delete Set if the previous session should be deleted
+     * @since 1.0-sofia 
+     */
     public function regenerate($delete = false);
     
     /**
