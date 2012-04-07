@@ -1,4 +1,6 @@
 <?php
+pload('packfire.collection.pList');
+pload('packfire.collection.pMap');
 pload('packfire.io.file.pPath');
 pload('packfire.debugger.IDebugOutput');
 
