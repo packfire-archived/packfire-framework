@@ -29,7 +29,7 @@ abstract class pLinqWorkerQuery implements ILinqWorkerQuery {
     }
     
     /**
-     * Get the worker
+     * Get the worker working for this query
      * @return Closure|callback Returns the registered worker
      * @since 1.0-sofia 
      */

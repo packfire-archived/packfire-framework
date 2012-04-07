@@ -11,6 +11,11 @@ pload('ILinqQuery');
  */
 interface ILinqWorkerQuery extends ILinqQuery {
     
+    /**
+     * Get the worker for the query
+     * @return Closure|callback
+     * @since 1.0-sofia 
+     */
     public function worker();
     
 }
