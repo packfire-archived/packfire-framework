@@ -13,7 +13,7 @@ interface ISorter {
     
     /**
      * Perform the sorting operation
-     * @params ISortable $sortable The sortable object
+     * @param ISortable $sortable The sortable object
      * @since 1.0-sofia
      */
     public function sort($sortable);

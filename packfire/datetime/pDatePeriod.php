@@ -58,17 +58,17 @@ class pDatePeriod implements Iterator {
      * Create a new pDatePeriod object
      * @param pDateTime $startDate The start date
      * @param pTimeSpan $interval The interval between dates
-     * @param integer|pDateTime $occurances/$endDate The number of occurance 
+     * @param integer|pDateTime $endDateOrOccurances The number of occurance 
      *          or end date
      * @since 1.0-sofia
      */
-    public function __construct($startDate, $interval, $endDate){
+    public function __construct($startDate, $interval, $endDateOrOccurances){
         $this->startDate = $startDate;
         $this->interval = $interval;
-        if($endDate instanceof pDateTime){
-            $this->endDate = $endDate;
+        if($endDateOrOccurances instanceof pDateTime){
+            $this->endDate = $endDateOrOccurances;
         }else{
-            $this->occurances = $endDate;
+            $this->occurances = $endDateOrOccurances;
         }
     }
     

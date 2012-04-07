@@ -1,6 +1,7 @@
 <?php
-pload('packfire.text.regex.pRegexMatch');
+pload('pRegexMatch');
 pload('packfire.text.pString');
+pload('packfire.collection.pList');
 pload('packfire.collection.pMap');
 
 /**
@@ -22,8 +23,9 @@ class pRegex {
     private $regex;
 
     /**
-     * Create a new pRegex
-     * @param string $regex The regular expression pattern that this pRegex will use
+     * Create a new pRegex object
+     * @param string $regex The regular expression pattern to use
+     * @since 1.0-sofia
      */
     public function __construct($regex){
         $this->regex($regex);
@@ -33,6 +35,7 @@ class pRegex {
      * Get or set the regular expression that is used in this pRegex
      * @param string $regex (optional) If present, the old value will be overriden by this value.
      * @return string Returns the regular expression.
+     * @since 1.0-sofia
      */
     public function regex($regex = null){
         if(func_num_args() == 1){
@@ -42,10 +45,13 @@ class pRegex {
     }
 
     /**
-     * Perform a perl-compatible regular expression (PCRE) match to match within the subject
+     * Perform a perl-compatible regular expression (PCRE) match to match 
+     * within the subject
      * @param string $subject The input string
-     * @return pList A list that contains all the RaiseRegexMatch found in the subject
+     * @return pList A list that contains all the pRegexMatch found 
+     *          in the subject
      * @link http://php.net/manual/en/function.preg-match.php
+     * @since 1.0-sofia
      */
     public function match($subject){
         $match = array();
@@ -58,10 +64,12 @@ class pRegex {
     }
 
     /**
-     * Perform a perl-compatible regular expression (PCRE) match to match all matches within the subject
+     * Perform a perl-compatible regular expression (PCRE) match to match all 
+     * matches within the subject
      * @param string $subject The input string
      * @return pList Returns the set of match collections
      * @link http://www.php.net/manual/en/function.preg-match-all.php
+     * @since 1.0-sofia
      */
     public function matchAll($subject){
         $m = array();
@@ -80,10 +88,13 @@ class pRegex {
     /**
      * Perform a perl-compatible regular expression search and replace
      * @param string $subject The input string
-     * @param string|array|pList $replacement The string or collection of replacements
-     * @param integer $limit (Optional) If set, the number of search and replace operations will be limited by this limit.
+     * @param string|array|pList $replacement The string or collection
+     *                  of replacements
+     * @param integer $limit (Optional) If set, the number of search and replace
+     *                  operations will be limited by this limit.
      * @return string|pList
      * @link http://www.php.net/manual/en/function.preg-replace.php
+     * @since 1.0-sofia
      */
     public function replace($subject, $replacement, $limit = -1){
         $result = preg_replace($this->regex, $replacement, $subject, $limit);
@@ -94,15 +105,21 @@ class pRegex {
     }
 
     /**
-     * Perform a perl-compatible regular expression search and replaceusing a callback
+     * Perform a perl-compatible regular expression search and replace using a
+     *  callback
      * @param string|pList|array $subject The input string
-     * @param callback $callback A callback that will be called and passed an array of matched elements in the subject string. The callback should return the replacement string.
-     * @param integer $limit (Optional) If set, the number of search and replace operations will be limited by this limit.
-     * @return string|pList
+     * @param callback $callback A callback that will be called and passed an
+     *                  array of matched elements in the subject string. The 
+     *                  callback should return the replacement string.
+     * @param integer $limit (Optional) If set, the number of search and replace
+     *                  operations will be limited by this limit.
+     * @return string|pList Returns the parsed result
      * @link http://www.php.net/manual/en/function.preg-replace-callback.php
+     * @since 1.0-sofia
      */
     public function replaceCallback($subject, $callback, $limit = -1){
-        $result = preg_replace_callback($this->regex, $callback, $subject, $limit);
+        $result = preg_replace_callback($this->regex, $callback,
+                $subject, $limit);
         if(is_array($result)){
             $result = new pList($result);
         }
@@ -110,17 +127,21 @@ class pRegex {
     }
     
     /**
-     * Find the position of the first occurrance of regular expression match in the string
-     * @param pString|string $s The string to search for
+     * Find the position of the first occurrance of regular expression match 
+     * in the string
+     * @param pString|string $subject The string to search for
      * @param integer $offset (optional) The position to start searching for
-     * @return integer A non-negative number indicating the position of $s in the string, or -1 if not found. 
+     * @return integer A non-negative number indicating the position of $s in
+     *               the string, or -1 if not found. 
+     * @since 1.0-sofia
      */
     public function indexOf($subject, $offset = 0){
         if(!($subject instanceof pString)){
             $subject = new pString($subject);
         }
         $match = array(array(''));
-        $i = preg_match($this->regex(), $subject, $match, PREG_OFFSET_CAPTURE , $offset);
+        $i = preg_match($this->regex(), $subject, $match,
+                PREG_OFFSET_CAPTURE , $offset);
         $result = -1;
         if($i){
             $result = $subject->indexOf($match[0][0], $offset);
@@ -129,17 +150,21 @@ class pRegex {
     }
     
     /**
-     * Find the position of the last occurrance of perl compatible regular expression match in the string
-     * @param pString|string $s The string to search for
+     * Find the position of the last occurrance of perl compatible regular
+     *           expression match in the string
+     * @param pString|string $subject The string to search for
      * @param integer $offset (optional) The position to start searching for
-     * @return integer A non-negative number indicating the position of $s in the string, or -1 if not found. 
+     * @return integer A non-negative number indicating the position of $s in
+     *                       the string, or -1 if not found. 
+     * @since 1.0-sofia
      */
     public function lastIndexOf($subject, $offset = 0){
         if(!($subject instanceof pString)){
             $subject = new pString($subject);
         }
         $match = array(array(''));
-        $i = preg_match_all($this->regex(), $subject, $match, PREG_SET_ORDER , $offset);
+        $i = preg_match_all($this->regex(), $subject, $match,
+                PREG_SET_ORDER , $offset);
         if($i){
             $match = end($match);
             return $subject->lastIndexOf($match[0], $offset);
@@ -150,8 +175,8 @@ class pRegex {
     /**
      * Escapes / add slashes to special characters in Regex operation
      * @param string $text The text to perform escaping
-     * @return string
-     * @static
+     * @return string Returns the escaped string
+     * @since 1.0-sofia
      */
     public static function escape($text) {
         $spec  = '"\'^$.[]|()?*+{}/!';

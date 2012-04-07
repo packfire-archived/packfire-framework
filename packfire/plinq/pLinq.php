@@ -387,7 +387,7 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
     
     /**
      * Set the condition to filter the elements
-     * @param Closure|callback The filtering condition
+     * @param Closure|callback $condition The filtering condition
      * @return pLinq Returns the pLinq object for chaining purposes
      * @since 1.0-sofia
      */
@@ -398,8 +398,7 @@ class pLinq implements ILinq, IteratorAggregate, Countable {
     
     /**
      * Get the iterator for foreach access.
-     * @return \ArrayIterator 
-     * @ignore
+     * @return ArrayIterator Returns the ArrayIterator for access
      * @internal
      * @since 1.0-sofia
      */

@@ -135,7 +135,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * Forward the request to another controller
-     * @param string $controller Package of the controller to load
+     * @param string $package Package of the controller to load
      * @param string $action (optional) The action to execute
      * @since 1.0-sofia
      */

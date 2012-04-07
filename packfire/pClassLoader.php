@@ -51,7 +51,7 @@ class pClassLoader {
      * <code>    packfire.yaml.pYaml</code>
      * 
      * If your file is located in the application folder:
-     * <code    public/packfire/app/AppView.php</code>
+     * <code>    public/packfire/app/AppView.php</code>
      * The package name will then be:
      * <code>   app.AppView</code>
      * 

@@ -27,7 +27,7 @@ abstract class pConfig {
     
     /**
      * Create a new configuration file
-     * @param string $name Name of the configuration file to load
+     * @param string $file Name of the configuration file to load
      * @since 1.0-sofia
      */
     public function __construct($file){

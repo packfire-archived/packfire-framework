@@ -117,39 +117,39 @@ class pHttpResponse implements IAppResponse {
     
     /**
      * Get or set the status code of the HTTP response
-     * @param string $v (optional) If set, the new value will be set.
+     * @param string $code (optional) If set, the new value will be set.
      * @return string Returns the HTTP status code
      * @since 1.0-sofia
      */
-    public function code($c = null){
+    public function code($code = null){
         if(func_num_args() == 1){
-            $this->code = $c;
+            $this->code = $code;
         }
         return $this->code;
     }
 
     /**
      * Get or set the version of the HTTP response
-     * @param string $v (optional) If set, the new value will be set.
+     * @param string $version (optional) If set, the new value will be set.
      * @return string Returns the HTTP version
      * @since 1.0-sofia
      */
-    public function version($v = null){
+    public function version($version = null){
         if(func_num_args() == 1){
-            $this->version = $v;
+            $this->version = $version;
         }
         return $this->version;
     }
 
     /**
      * Get or set the body of the HTTP response
-     * @param string $b (optional) If set, the new value will be set.
+     * @param string $body (optional) If set, the new value will be set.
      * @return string Returns the body response
      * @since 1.0-sofia
      */
-    public function body($b = null){
+    public function body($body = null){
         if(func_num_args() == 1){
-            $this->body = $b;
+            $this->body = $body;
         }
         return $this->body;
     }

@@ -96,7 +96,7 @@ class pHttpRequest {
     
     /**
      * Parse the string format of the HTTP request into this object
-     * @param string $s The string to be parsed
+     * @param string $strRequest The string to be parsed
      * @return pHttpRequest Returns the request object
      * @since 1.0-sofia
      */
@@ -150,7 +150,7 @@ class pHttpRequest {
 
     /**
      * Get or set the URI of the HTTP request
-     * @param string $u (optional) If set, the new value will be set.
+     * @param string $uri (optional) If set, the new value will be set.
      * @return string Returns the URI of the request
      * @since 1.0-sofia
      */

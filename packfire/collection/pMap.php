@@ -34,7 +34,7 @@ class pMap extends pList implements IMap {
     
     /**
      * Add a new item to the map
-     * @param string|pKeyValuePair $key The key name
+     * @param string|pKeyValuePair $keyOrKVP The key name
      * @param mixed $value (optional) The item to enter. Ignored if a
      *                     pKeyValuePair is entered in the first argument.
      * @since 1.0-sofia
@@ -133,8 +133,8 @@ class pMap extends pList implements IMap {
     
     /**
      * Get the difference between this collection and another
-     * @param pList|array $a The collection to compare against
-     * @return pMap
+     * @param pList|array $set The collection to compare against
+     * @return pMap Returns the difference
      * @since 1.0-sofia
      */
     public function difference($set){

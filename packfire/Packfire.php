@@ -39,7 +39,7 @@ class Packfire {
     /**
      * Start the framework execution
      * This is the entry point: this is it.
-     * @param IApplication The application to start running
+     * @param IApplication $app The application to start running
      * @since 1.0-sofia
      */
     public function fire($app){

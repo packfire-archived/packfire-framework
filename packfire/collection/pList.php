@@ -206,7 +206,7 @@ class pList implements IList {
     
     /**
      * Get the difference between this collection and another
-     * @param IList|array $a The collection to compare against
+     * @param IList|array $set The collection to compare against
      * @return IList
      * @since 1.0-sofia
      */

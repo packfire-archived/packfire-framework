@@ -24,16 +24,15 @@ class pLogger implements ILogger {
     private $log;
     
     /**
-     * Create a new Logger
-     * @param string|IFile|ILog $log
+     * Create a new pLogger object
+     * @param string|IFile|ILog $log The log file to write to
      * @since 1.0-sofia
      */
-    public function __construct($log, $context = null){
+    public function __construct($log){
         if(is_string($log)){
             $log = self::logFactory($log);
         }
         $this->log = $log;
-        $this->context = $context;
     }
     
     /**

@@ -208,7 +208,7 @@ class pFile implements IFile {
 
     /**
      * Get or set the Last Modified attribute of the file
-     * @param pDateTime $dt (optional) The datetime to set to
+     * @param pDateTime $datetime (optional) The datetime to set to
      * @return pDateTime The last modified timestamp of the file.
      * @since 1.0-sofia
      */
