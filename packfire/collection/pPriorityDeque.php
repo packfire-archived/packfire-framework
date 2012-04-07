@@ -1,15 +1,15 @@
 <?php
-pload('pQueue');
+pload('pDeque');
 
 /**
- * Priority Queue Implementation
+ * A deque with priority
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.collection
  * @since 1.0-sofia
  */
-class pPriorityQueue extends pQueue {
+class pPriorityDeque extends pDeque {
     
     /**
      * The comparator function to perform the sorting
@@ -19,7 +19,7 @@ class pPriorityQueue extends pQueue {
     private $comparator;
     
     /**
-     * Create a new pPriorityQueue object
+     * Create a new pPriorityDeque object
      * @param Closure|callback $comparator The comparator to perform the sort
      * @since 1.0-sofia
      */

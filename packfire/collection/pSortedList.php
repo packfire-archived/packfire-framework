@@ -1,15 +1,15 @@
 <?php
-pload('pQueue');
+pload('pList');
 
 /**
- * Priority Queue Implementation
+ * A sorted list
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.collection
  * @since 1.0-sofia
  */
-class pPriorityQueue extends pQueue {
+class pSortedList extends pList {
     
     /**
      * The comparator function to perform the sorting
@@ -19,7 +19,7 @@ class pPriorityQueue extends pQueue {
     private $comparator;
     
     /**
-     * Create a new pPriorityQueue object
+     * Create a new pSortedList object
      * @param Closure|callback $comparator The comparator to perform the sort
      * @since 1.0-sofia
      */
