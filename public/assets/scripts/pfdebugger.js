@@ -4,6 +4,7 @@
  * properly. 
  * 
  * File is part of Packfire Framework
+ * Copyright (c) 2010-2012, Sam-Mauris Yong
  * Licensed under http://www.opensource.org/licenses/bsd-license New BSD License
  */
 
