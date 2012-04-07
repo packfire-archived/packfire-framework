@@ -11,7 +11,7 @@ pload('pMySqlLinqOrder');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database.divers.mysql.linq
+ * @package packfire.database.drivers.mysql.linq
  * @since 1.0-sofia
  */
 class pMySqlLinq extends pMySqlTable implements IOrderedLinq {

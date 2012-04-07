@@ -8,7 +8,7 @@ pload('packfire.database.drivers.mysql.linq.pMySqlLinq');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database.divers.mysql
+ * @package packfire.database.drivers.mysql
  * @since 1.0-sofia
  */
 class pMySqlTable extends pDbTable {
