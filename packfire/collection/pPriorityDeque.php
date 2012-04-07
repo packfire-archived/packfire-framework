@@ -38,4 +38,14 @@ class pPriorityDeque extends pDeque {
         usort($this->array, $this->comparator);
     }
     
+    /**
+     * Enqueue the item to the front of the queue, giving the item priority.
+     * @param mixed $item The item to enqueue
+     * @since 1.0-sofia
+     */
+    public function enqueueFront($item) {
+        parent::enqueueFront($item);
+        usort($this->array, $this->comparator);
+    }
+    
 }
