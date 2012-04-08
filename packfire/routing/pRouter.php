@@ -49,7 +49,8 @@ class pRouter {
     
     /**
      * Add a new routing entry to the router
-     * @param string $key The routing key that uniquely identify this routing entry.
+     * @param string $key The routing key that uniquely identify this
+     *               routing entry.
      * @param pRoute $route  The route entry
      * @since 1.0-sofia
      */
@@ -81,26 +82,41 @@ class pRouter {
         }
         
         foreach ($this->routes as $route) {
-            // check whether HTTP method matches for RESTful routing
             
+            // check whether HTTP method matches for RESTful routing
             if(!$route->httpMethod() || 
-                    (is_string($route->httpMethod()) && strtolower($route->httpMethod()) == $method)
-                    || (is_array($route->httpMethod()) && in_array($method, $route->httpMethod()))){
-                $t = new pTemplate($route->rewrite());
-                $tokens = $t->tokens();
-                foreach ($tokens as $a) {
-                    $v = $route->params()->get($a);
-                    if (!$v) {
-                        $v = '(*)';
+                    (is_string($route->httpMethod())
+                    && strtolower($route->httpMethod()) == $method)
+                    || (is_array($route->httpMethod())
+                    && in_array($method, $route->httpMethod()))){
+                
+                $template = new pTemplate($route->rewrite());
+                $tokens = $template->tokens();
+                foreach ($tokens as $token) {
+                    $value = $route->params()->get($token);
+                    if (!$value) {
+                        $value = '(*)';
                     }
-                    $t->fields()->add($a, '(?P<' . $a . '>' . $v . ')');
+                    $template->fields()->add($token,
+                            '(?P<' . $token . '>' . $value . ')');
                 }
                 $matches = array();
-                $i = preg_match('`^' . $t->parse() . '([/]{0,1})$`is', $url, $matches);
-                if ($i) {
+                
+                // perform the URL matching
+                $matchResult = preg_match('`^' . $template->parse() .
+                        '([/]{0,1})$`is', $url, $matches);
+                if ($matchResult) {
                     $params = array();
-                    foreach ($tokens as $a) {
-                        $params[$a] = $matches[$a];
+                    foreach ($tokens as $key) {
+                        $params[$key] = $matches[$key];
+                    }
+                    if($method == 'get'){
+                        foreach($_GET as $key => $value){
+                            if(!array_key_exists($key, $params)){ 
+                                // checking to prevent normal injection
+                                $params[$key] = $value; 
+                            }
+                        }
                     }
                     $route->params()->append($params);
                     return $route;
@@ -115,7 +131,8 @@ class pRouter {
      * Get the URL for a particular routing key
      * @param string $key The routing key that uniquely identify the routing
      *                    entry to fetch.
-     * @param array|pMap $params (optional) The parameters to insert into the URL.
+     * @param array|pMap $params (optional) The parameters to insert into
+     *                   the URL.
      * @return string Returns the URL
      * @since 1.0-sofia
      */
@@ -123,14 +140,15 @@ class pRouter {
         $route = $this->routes->get($key);
         if($route === null){
             throw new pNullException(
-                    sprintf('Routing route "%s" is not found in the router\'s entries.', $key));
+                    sprintf('Routing route "%s" was not found in the'
+                            . ' router\'s entries.', $key));
         }
-        $t = new pTemplate($route->rewrite());
+        $template = new pTemplate($route->rewrite());
         foreach($params as $name => $value){
-            $t->fields()->add($name, pUrl::encode($value));
+            $template->fields()->add($name, pUrl::encode($value));
         }
 
-        return $t->parse();
+        return $template->parse();
     }
     
 }
