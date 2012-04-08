@@ -45,7 +45,7 @@ class pDebugger extends pBucketUser {
      * @since 1.0-sofia
      */
     public function enabled($enable = null){
-        if(func_num_args()){
+        if(func_num_args() == 1){
             $this->enabled = $enable;
         }
         return $this->enabled;
