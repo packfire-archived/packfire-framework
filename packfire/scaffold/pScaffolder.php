@@ -1,64 +1,130 @@
 <?php
+pload('packfire.controller.pController');
 
 /**
- * Provides functionalities to build models, entities and tables in the database.
+ * Provides functionalities to build models, entities and 
+ * tables in the database.
+ * 
+ * Note that the pScaffolder is actually a controller which you can directly
+ * use in your routing or forward requests.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.scaffold
  * @since 1.0-sofia
  */
-class pScaffolder {
+class pScaffolder extends pController {
     
     /**
-     * Name of the table or model to work on
-     * @var string
+     * The database / schema to work with
+     * @var pDbSchema|pDatabase 
      * @since 1.0-sofia
      */
-    private $name;
+    private $database;
+    
+    public function activate($action) {
+        $this->database = $this->service('database.scaffold');
+    }
     
     /**
-     * 
-     * @param string $name
-     * @param pMap|array $parameters 
-     * @return IView
+     * Process the request and determine what to do
+     * @throws pHttpException Thrown when the action is inappropriate
      * @since 1.0-sofia
      */
-    public function scaffold($name, $parameters){
-        $this->name = $name;
-        switch($parameters['action']){
-            case 'build':
-                break;
-            case 'add':
-                break;
-            case 'view':
-                break;
-            case 'delete':
-                break;
-            case 'drop':
-                break;
+    public function doIndex(){
+        $table = $this->params['use'];
+        if($table){
+            switch($this->params['action']){
+                case 'build':
+                    $this->doBuild();
+                    break;
+                case 'add':
+                    $this->doAdd();
+                    break;
+                case 'edit':
+                    $this->doEdit();
+                    break;
+                case 'view':
+                    $this->doView();
+                    break;
+                case 'delete':
+                    $this->doDelete();
+                    break;
+                case 'drop':
+                    $this->doDrop();
+                    break;
+                default:
+                    // oops, page not found!
+                    throw new pHttpException(404);
+                    break;
+            }
+        }else{
+            switch($this->params['action']){
+                default:
+                    // no table to work with, list tables
+                    $this->doList();
+                    break;
+            }
         }
     }
     
-    protected function build(){
+    /**
+     * Since no table was selected, we could just list the tables
+     * available in the database and show a table creation form
+     * @since 1.0-sofia
+     */
+    public function doList(){
         
     }
     
-    protected function add(){
+    /**
+     * Perform the creation of a new table
+     * @since 1.0-sofia 
+     */
+    public function doBuild(){
         
     }
     
-    protected function view(){
+    /**
+     * Show the form to add a new row to the table
+     * and process the addition
+     * @since 1.0-sofia 
+     */
+    protected function doAdd(){
         
     }
     
-    protected function delete(){
+    /**
+     * Show the table information and its rows / data
+     * @since 1.0-sofia 
+     */
+    protected function doView(){
         
     }
     
-    protected function drop(){
+    /**
+     * Edit a single row
+     * @since 1.0-sofia 
+     */
+    protected function doEdit(){
         
     }
     
+    /**
+     * Perform deletion of one row
+     * @since 1.0-sofia 
+     */
+    protected function doDelete(){
+        
+    }
+    
+    /**
+     * Removal of a table
+     * @since 1.0-sofia 
+     */
+    protected function doDrop(){
+        
+    }
     
 }
