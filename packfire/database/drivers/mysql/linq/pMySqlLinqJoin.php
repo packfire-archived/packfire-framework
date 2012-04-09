@@ -1,4 +1,5 @@
 <?php
+pload('IMySqlLinqQuery');
 
 /**
  * A MySQL LINQ Join statement
