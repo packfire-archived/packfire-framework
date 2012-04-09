@@ -23,3 +23,28 @@ function pload($package){
     }
     $loader->load($package);
 }
+
+/**
+ * A self-executing function with scoping and context.
+ * This function emulates the using keyword found in C#.
+ * 
+ * @param Closure|callback $func The function to execute
+ * @return mixed
+ * @example
+ * <code>using($this->service('debugger'), function($debug){
+ *      $debug->enabled(true);
+ *      $debug->log('cool here');
+ *      $debug->timeCheck();
+ * });</code>
+ * 
+ * @since 1.0-sofia
+ */
+function using($func){
+    if(func_num_args() > 1){
+        $args = func_get_args();
+        $func = array_pop($args);
+        return call_user_func_array($func, $args);
+    }else{
+        return $func();
+    }
+}
