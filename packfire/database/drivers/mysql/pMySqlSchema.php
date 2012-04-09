@@ -88,4 +88,20 @@ class pMySqlSchema extends pDbSchema {
         return new pMySqlLinq($this->driver, $table);
     }
     
+    
+    /**
+     * Get a list of tables in the schema
+     * @return pList Returns a list of table names
+     * @since 1.0-sofia 
+     */
+    public function tables(){
+        $statement = $this->driver->query('SHOW TABLES IN `' . $this->name . '`');
+        $data = $statement->fetchAll();
+        $tables = new pList();
+        foreach($data as $row){
+            $tables[] = $row[0];
+        }
+        return $tables;
+    }
+    
 }
