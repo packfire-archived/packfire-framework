@@ -44,21 +44,62 @@ abstract class pDbTable {
     public function name(){
         return $this->name;
     }
-    
+
+    /**
+     * Add a column to the table
+     * @param pDbColumn $column The new column to add to the table
+     * @since 1.0-sofia
+     */    
     public abstract function add($column);
     
+    /**
+     * Remove a column from the table
+     * @param string|pDbColumn $column The column to remove
+     * @since 1.0-sofia
+     */
     public abstract function remove($column);
     
+    /**
+     * Insert a row into the table
+     * @param array|pMap $row The row to insert into the table
+     * @since 1.0-sofia
+     */
     public abstract function insert($row);
     
+    /**
+     * Get a row from the table by its primary keys
+     * @param array|pMap $row The row's primary keys
+     * @return array
+     * @since 1.0-sofia
+     */
     public abstract function get($row);
     
+    /**
+     * Delete rows from the table
+     * @param array|pMap $row The conditions to delete the rows
+     * @since 1.0-sofia
+     */
     public abstract function delete($row);
     
+    /**
+     * Update a row in the table
+     * @param array|pMap $row The row with the updated information and primary key
+     * @since 1.0-sofia
+     */
     public abstract function update($row);
-    
+        
+    /**
+     * Get the columns of the table
+     * @return pList Returns a list of pDbColumn objects
+     * @since 1.0-sofia
+     */
     public abstract function columns();
-    
+        
+    /**
+     * Get the list of primary keys of the table
+     * @return pList Returns a list of pDbColumn objects
+     * @since 1.0-sofia
+     */
     public abstract function pk();
     
 }
