@@ -137,13 +137,17 @@ class pYamlParser {
                 $line = $this->read->line();
             }
         }
-        $line = $this->prepareLine($line);
-        $trimmed = trim($line);
-        $indentation = 0;
-        if(strlen($trimmed) > 0){
-            $indentation = strpos($line, $trimmed);
+        if(substr(trim($line), 0, 1) == '#'){
+            return $this->nextLine();
+        }else{
+            $line = $this->prepareLine($line);
+            $trimmed = trim($line);
+            $indentation = 0;
+            if(strlen($trimmed) > 0){
+                $indentation = strpos($line, $trimmed);
+            }
+            return array($line, $trimmed, $indentation);
         }
-        return array($line, $trimmed, $indentation);
     }
     
     /**
