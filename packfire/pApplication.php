@@ -120,11 +120,19 @@ class pApplication extends pBucketUser implements IApplication {
                     list($package, $class) =
                             pClassLoader::resolvePackageClass($class);
 
-                    if(substr($class, -11) != 'Controller'){
-                        $package .= 'Controller';
-                        $class .= 'Controller';
+                    if($package == $class){
+                        // only class name is provided, so we use
+                        // the controllers in the controller folder
+                        if(substr($class, -11) != 'Controller'){
+                            $package .= 'Controller';
+                            $class .= 'Controller';
+                        }
+                        pload('controller.' . $package);
+                    }else{
+                        // woah we've got a badass here
+                        // this is to load a custom class
+                        pload($package);
                     }
-                    pload('controller.' . $package);
                 }
 
                 if(class_exists($class)){
