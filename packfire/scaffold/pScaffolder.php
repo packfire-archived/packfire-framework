@@ -101,6 +101,26 @@ class pScaffolder extends pController {
      * @since 1.0-sofia 
      */
     protected function doView(){
+        $table = $this->database->from($this->params['use']);
+        $columns = $table->columns();
+        $page = $this->params->get('page');
+        $total = $table->count()->get(0);
+        $rowPerPage = 20;
+        
+        $total = ceil($total / $rowPerPage);
+        
+        if($page == null || $page < 1 || $page > $total){
+            $page = 1;
+        }
+        --$page;
+        
+        $rows = $table->limit($page * $rowPerPage, $rowPerPage)->fetch();
+        
+        $this->state['columns'] = $columns;
+        $this->state['rows'] = $rows;
+        $this->state['page'] = $page;
+        $this->state['rowPerPage'] = $rowPerPage;
+        $this->state['total'] = $total;
         
     }
     
