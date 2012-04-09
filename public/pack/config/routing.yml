@@ -19,5 +19,9 @@ themeSwitch:
   actual: "ThemeSwitch"
   params:
     theme: "([a-zA-Z0-9]+)"
+    
+scaffold:
+  rewrite: "/build"
+  actual: "packfire.scaffold.pScaffolder"
   
 ...
