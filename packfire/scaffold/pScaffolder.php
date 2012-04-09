@@ -1,6 +1,5 @@
 <?php
 pload('packfire.controller.pController');
-pload('packfire.scaffold.list.pScaffoldDbListView');
 
 /**
  * Provides functionalities to build models, entities and 
@@ -19,7 +18,7 @@ class pScaffolder extends pController {
     
     /**
      * The database / schema to work with
-     * @var pDbSchema 
+     * @var pDbSchema|pDatabase 
      * @since 1.0-sofia
      */
     private $database;
@@ -34,9 +33,9 @@ class pScaffolder extends pController {
      * @since 1.0-sofia
      */
     public function doIndex(){
-        $table = $this->params->get('use');
+        $table = $this->params['use'];
         if($table){
-            switch($this->params->get('action')){
+            switch($this->params['action']){
                 case 'build':
                     $this->doBuild();
                     break;
@@ -46,6 +45,9 @@ class pScaffolder extends pController {
                 case 'edit':
                     $this->doEdit();
                     break;
+                case 'view':
+                    $this->doView();
+                    break;
                 case 'delete':
                     $this->doDelete();
                     break;
@@ -53,11 +55,12 @@ class pScaffolder extends pController {
                     $this->doDrop();
                     break;
                 default:
-                    $this->doView();
+                    // oops, page not found!
+                    throw new pHttpException(404);
                     break;
             }
         }else{
-            switch($this->params->get('action')){
+            switch($this->params['action']){
                 default:
                     // no table to work with, list tables
                     $this->doList();
@@ -72,11 +75,7 @@ class pScaffolder extends pController {
      * @since 1.0-sofia
      */
     public function doList(){
-        $tables = $this->database->tables();
-        $this->state = new pMap();
-        $this->state->add('url', $this->request->url()->path());
-        $this->state->add('tables', $tables);
-        $this->render(new pScaffoldDbListView($this->state));
+        
     }
     
     /**
