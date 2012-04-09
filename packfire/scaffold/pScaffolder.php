@@ -1,6 +1,8 @@
 <?php
 pload('packfire.controller.pController');
 pload('packfire.scaffold.list.pScaffoldDbListView');
+pload('packfire.scaffold.view.pScaffoldTableView');
+
 
 /**
  * Provides functionalities to build models, entities and 
@@ -116,12 +118,13 @@ class pScaffolder extends pController {
         
         $rows = $table->limit($page * $rowPerPage, $rowPerPage)->fetch();
         
+        $this->state['table'] = $this->params['use'];
         $this->state['columns'] = $columns;
         $this->state['rows'] = $rows;
         $this->state['page'] = $page;
         $this->state['rowPerPage'] = $rowPerPage;
         $this->state['total'] = $total;
-        
+        $this->render(new pScaffoldTableView($this->state));
     }
     
     /**
