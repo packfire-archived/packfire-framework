@@ -52,7 +52,11 @@ abstract class pView extends pBucketUser implements IView {
      */
     protected function define($key, $value = null){
         if(func_num_args() == 1){
-            return $this->fields[$key];
+            if(is_string($key)){
+                return $this->fields[$key];
+            }else{
+                $this->fields->append($key);
+            }
         }else{
             $this->fields[$key] = $value;
         }
