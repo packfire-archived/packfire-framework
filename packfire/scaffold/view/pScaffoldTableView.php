@@ -18,6 +18,7 @@ class pScaffoldTableView extends pView {
     private $state;
     
     public function __construct($state){
+        parent::__construct();
         $this->state = $state;
     }
     
@@ -26,11 +27,14 @@ class pScaffoldTableView extends pView {
                 file_get_contents(pPath::path(__FILE__) . '/viewTemplate.html')
             ));
         extract($this->state->toArray());
+        $tableDisplay = $table . ' (' . $total . ')';
         $this->define('title', 'Packfire Scaffolding - '
-                . $table);
-        
+                . $tableDisplay);
+        $this->define('tableName', $tableDisplay);
+        $this->define('rowCount', $total);
+        $dataTable = '';
         if($total == 0){
-            
+            $dataTable = '<div class="message">No data found in table.</div>';
         }else{
             foreach($rows as $row){
                 foreach($columns as $idx => $column){
@@ -38,6 +42,9 @@ class pScaffoldTableView extends pView {
                 }
             }
         }
+        $this->define(array(
+                'dataTable' => $dataTable
+            ));
     }
     
 }

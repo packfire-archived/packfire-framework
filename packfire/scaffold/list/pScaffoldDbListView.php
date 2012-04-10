@@ -18,6 +18,7 @@ class pScaffoldDbListView extends pView {
     private $state;
     
     public function __construct($state){
+        parent::__construct();
         $this->state = $state;
     }
     
