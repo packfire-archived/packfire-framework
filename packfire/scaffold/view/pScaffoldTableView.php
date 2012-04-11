@@ -36,11 +36,20 @@ class pScaffoldTableView extends pView {
         if($total == 0){
             $dataTable = '<div class="message">No data found in table.</div>';
         }else{
-            foreach($rows as $row){
-                foreach($columns as $idx => $column){
-
-                }
+            $dataTable = '<table>';
+            $dataTable .= '<tr>';
+            foreach($columns as $idx => $column){
+                $dataTable .= '<th>' . $column->name() . '</th>';
             }
+            $dataTable .= '</tr>';
+            foreach($rows as $row){
+                $dataTable .= '<tr>';
+                foreach($columns as $idx => $column){
+                    $dataTable .= '<td>' . $row[$idx] . '</td>';
+                }
+                $dataTable .= '</tr>';
+            }
+            $dataTable .= '</table>';
         }
         $this->define(array(
                 'dataTable' => $dataTable

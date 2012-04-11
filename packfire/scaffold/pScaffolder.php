@@ -107,11 +107,12 @@ class pScaffolder extends pController {
         $columns = $table->columns();
         $page = $this->params->get('page');
         $total = $table->count()->get(0);
+        
         $rowPerPage = 20;
         
-        $total = ceil($total / $rowPerPage);
+        $totalPages = ceil($total / $rowPerPage);
         
-        if($page == null || $page < 1 || $page > $total){
+        if($page == null || $page < 1 || $page > $totalPages){
             $page = 1;
         }
         --$page;
