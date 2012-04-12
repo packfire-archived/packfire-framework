@@ -322,7 +322,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         
         // disable debugger if non-HTML output
         $type = $this->response()->headers()->get('Content-Type');
-        if(strpos(strtolower($type), 'html') === null){
+        if(strpos(strtolower($type), 'html') === false){
             $this->service('debugger')->enabled(false);
         }
     }
