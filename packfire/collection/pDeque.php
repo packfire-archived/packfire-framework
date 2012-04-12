@@ -11,7 +11,7 @@ pload('pQueue');
  * @package packfire.collection
  * @since 1.0-sofia
  */
-class pDeque extends pQueue {
+class pDeque extends pQueue implements IDeque {
     
     /**
      * Enqueue the item to the front of the queue, giving the item priority.
