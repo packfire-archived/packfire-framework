@@ -11,7 +11,7 @@
  */
 interface IDeque extends IQueue {
     
-    public function enqueueFront();
+    public function enqueueFront($item);
     
     public function back();
     

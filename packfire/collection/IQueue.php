@@ -13,7 +13,7 @@ interface IQueue {
     
     public function dequeue();
     
-    public function enqueue();
+    public function enqueue($item);
     
     public function front();
     
