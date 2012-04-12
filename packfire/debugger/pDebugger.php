@@ -39,7 +39,7 @@ class pDebugger extends pBucketUser {
     
     /**
      * Check whether the debugger is enabled or not
-     * @param boolean $enable Set whether the debugger is enabled or not.
+     * @param boolean $enable (optional) Set whether the debugger is enabled or not.
      *                  True to enable the debugger and false to disable it.
      * @return boolean Returns true if the debugger is enabled, false otherwise.
      * @since 1.0-sofia
