@@ -1,5 +1,6 @@
 <?php
 pload('pList');
+pload('IStack');
 
 /**
  * A stack of items that allows pushing and popping operations.
@@ -10,7 +11,7 @@ pload('pList');
  * @package packfire.collection
  * @since 1.0-sofia
  */
-class pStack extends pList {
+class pStack extends pList implements IStack {
     
     /**
      * Push an item into the top of the stack.
