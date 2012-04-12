@@ -1,5 +1,6 @@
 <?php
 pload('pList');
+pload('IQueue');
 
 /**
  * A Queue that can be enqueued from the back and dequeued from the front of the
@@ -11,7 +12,7 @@ pload('pList');
  * @package packfire.collection
  * @since 1.0-sofia
  */
-class pQueue extends pList{
+class pQueue extends pList implements IQueue {
     
     /**
      * Enqueue an item to the back of the queue.
