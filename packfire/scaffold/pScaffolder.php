@@ -39,9 +39,6 @@ class pScaffolder extends pController {
         $table = $this->params->get('use');
         if($table){
             switch($this->params->get('action')){
-                case 'build':
-                    $this->doBuild();
-                    break;
                 case 'add':
                     $this->doAdd();
                     break;
@@ -60,6 +57,9 @@ class pScaffolder extends pController {
             }
         }else{
             switch($this->params->get('action')){
+                case 'build':
+                    $this->doBuild();
+                    break;
                 default:
                     // no table to work with, list tables
                     $this->doList();
@@ -83,6 +83,7 @@ class pScaffolder extends pController {
     
     /**
      * Perform the creation of a new table
+     * Select model or build from the scaffolder
      * @since 1.0-sofia 
      */
     public function doBuild(){
@@ -125,6 +126,7 @@ class pScaffolder extends pController {
         $this->state['page'] = $page;
         $this->state['rowPerPage'] = $rowPerPage;
         $this->state['total'] = $total;
+        $this->state->add('url', $this->request->url()->path());
         $this->render(new pScaffoldTableView($this->state));
     }
     

@@ -28,10 +28,6 @@ class pScaffoldTableView extends pView {
             ));
         extract($this->state->toArray());
         $tableDisplay = $table . ' (' . $total . ')';
-        $this->define('title', 'Packfire Scaffolding - '
-                . $tableDisplay);
-        $this->define('tableName', $tableDisplay);
-        $this->define('rowCount', $total);
         $dataTable = '';
         if($total == 0){
             $dataTable = '<div class="message">No data found in table.</div>';
@@ -41,19 +37,25 @@ class pScaffoldTableView extends pView {
             foreach($columns as $idx => $column){
                 $dataTable .= '<th>' . $column->name() . '</th>';
             }
+            $dataTable .= '<th>' . 'Options' . '</th>';
             $dataTable .= '</tr>';
             foreach($rows as $row){
                 $dataTable .= '<tr>';
                 foreach($columns as $idx => $column){
                     $dataTable .= '<td>' . $row[$idx] . '</td>';
                 }
+                $dataTable .= '<td>' . 'Edit Delete' . '</td>';
                 $dataTable .= '</tr>';
             }
             $dataTable .= '</table>';
         }
         $this->define(array(
-                'dataTable' => $dataTable
-            ));
+            'title' => 'Packfire Scaffolding - ' . $tableDisplay,
+            'dataTable' => $dataTable,
+            'rowCount' => $total,
+            'tableName' => $tableDisplay,
+            'url' => $url
+        ));
     }
     
 }

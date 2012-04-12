@@ -40,7 +40,10 @@ class pScaffoldDbListView extends pView {
         }else{
             $list = '<div class="message">No tables found in this schema.</div>';
         }
-        $this->define('list', $list);
+        $this->define(array(
+            'list' => $list,
+            'url' => $this->state['url']
+        ));
     }
     
 }
