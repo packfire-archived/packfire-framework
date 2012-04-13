@@ -3,4 +3,4 @@
 
 ___
 
-The model folder contains all your AppModel implementations. 
+The model folder contains all your model implementations. 
