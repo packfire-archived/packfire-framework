@@ -53,7 +53,7 @@ abstract class pView extends pBucketUser implements IView {
     
     /**
      * Define a template field to populate.
-     * @param string $key Name of the field
+     * @param string|array|pMap $key Name of the field
      * @param mixed $value (optional) Set the template field value
      * @return mixed Returns the current value set at $key if $value is not set.
      * @since 1.0-sofia
