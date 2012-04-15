@@ -104,7 +104,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * Render the view for this controller
-     * @param IView $view 
+     * @param IView $view The view object to be rendered
      * @since 1.0-sofia
      */
     public function render($view){
@@ -308,7 +308,6 @@ abstract class pController extends pBucketUser implements IAppResponse {
             $this->$action();
             $this->postProcess();
             $this->deactivate($action);
-            
         }else{
             throw new pHttpException(404);
         }

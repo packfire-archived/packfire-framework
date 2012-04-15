@@ -6,29 +6,22 @@ pload('app.AppView');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package candice.view
+ * @package candice.view.home
  * @since 1.0-sofia
  */
-class HomeView extends AppView {
+class HomeIndexView extends AppView {
     
-    protected $data;
-    
-    public function __construct($state){
-        $this->data = $state;
-        parent::__construct();
-    }
-
     protected function create() {
         $theme = $this->service('session')->get('theme', 'dark');
         if(!in_array($theme, array('dark', 'light'))){
             $theme = 'light';
         }
-        $this->template('home')->theme($theme);
+        $this->theme($theme);
         
-        $rootUrl = $this->service('config.app')->get('app', 'rootUrl');
+        $rootUrl = $this->route('home');
         $this->define('rootUrl', $rootUrl . '/');
-        $this->define('title', $this->data['title']);
-        $this->define('message', $this->data['message']);
+        $this->define('title', $this->state['title']);
+        $this->define('message', $this->state['message']);
         $this->define('version', $this->service('config.app')->get('app', 'version'));
         
         $this->define('themeDark', $this->route('themeSwitch', array('theme' => 'dark')));

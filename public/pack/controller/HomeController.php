@@ -1,6 +1,5 @@
 <?php
 pload('app.AppController');
-pload('view.HomeView');
 
 /**
  * Handles interaction for home
@@ -18,7 +17,7 @@ class HomeController extends AppController {
             'title' => 'Bring the fire around in a pack.',
             'message' => 'Packfire is a clean and well thought web framework for developers of all walks to scaffold and bring up websites quickly and hassle-free. You\'ll be surprised at how fast you can build a web application with a pack of fire.'
         );
-        $this->render(new HomeView($this->state));
+        $this->render();
     }
     
 }
