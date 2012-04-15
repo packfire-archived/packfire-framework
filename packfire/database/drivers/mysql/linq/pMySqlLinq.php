@@ -126,9 +126,11 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         }
         if($this->orderings->count() > 0){
             $query .= 'ORDER BY ';
+            $orders = array();
             foreach($this->orderings as $order){
-                $query .= $order->create() . ' ';
+                $orders[] = $order->create();
             }
+            $query .= implode(', ', $orders) . ' ';
         }
         if($this->limit !== null && $this->offset !== null){
             $query .= 'LIMIT ' . $this->offset . ', ' . $this->limit . ' ';
