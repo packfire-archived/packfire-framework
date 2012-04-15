@@ -15,6 +15,13 @@ pload('packfire.template.pTemplate');
 abstract class pView extends pBucketUser implements IView {
     
     /**
+     * The state that is passed from the controller
+     * @var pMap
+     * @since 1.0-sofia
+     */
+    protected $state;
+    
+    /**
      * The fields in the view defined
      * @var pMap
      * @since 1.0-sofia
@@ -40,6 +47,7 @@ abstract class pView extends pBucketUser implements IView {
      * @since 1.0-sofia
      */
     public function __construct(){
+        $this->state = new pMap();
         $this->fields = new pMap();
     }
     
@@ -60,6 +68,15 @@ abstract class pView extends pBucketUser implements IView {
         }else{
             $this->fields[$key] = $value;
         }
+    }
+    
+    /**
+     * Set the state from the controller to the view
+     * @param pMap $state The state of the controller passed to the view.
+     * @since 1.0-sofia
+     */
+    public function state($state){
+        $this->state = $state;
     }
     
     /**

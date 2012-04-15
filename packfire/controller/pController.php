@@ -44,7 +44,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * The controller state
-     * @var mixed
+     * @var pMap
      * @since 1.0-sofia
      */
     protected $state;
@@ -111,6 +111,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         if($view instanceof IBucketUser){
             $view->setBucket($this->services);
         }
+        $view->state($this->state);
         $output = $view->render();
         $this->response()->body($output);
     }
