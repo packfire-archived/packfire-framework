@@ -127,6 +127,7 @@ class pApplication extends pBucketUser implements IApplication {
                             $package .= 'Controller';
                             $class .= 'Controller';
                         }
+                        pload('app.AppController');
                         pload('controller.' . $package);
                     }else{
                         // woah we've got a badass here
