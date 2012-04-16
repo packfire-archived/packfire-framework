@@ -26,6 +26,9 @@ class HomeIndexView extends AppView {
         
         $this->define('themeDark', $this->route('themeSwitch', array('theme' => 'dark')));
         $this->define('themeLight', $this->route('themeSwitch', array('theme' => 'light')));
+        
+        $this->filter('title', 'htmlentities|trim');
+        $this->filter('message', 'htmlentities|trim');
     }
 
 }

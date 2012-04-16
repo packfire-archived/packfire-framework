@@ -1,6 +1,8 @@
 <?php
 pload('IView');
+pload('packfire.collection.pList');
 pload('packfire.collection.pMap');
+pload('packfire.filter.IFilter');
 pload('packfire.template.pTemplate');
 
 /**
@@ -29,6 +31,13 @@ abstract class pView extends pBucketUser implements IView {
     private $fields;
     
     /**
+     * The filters for the output fields
+     * @var pList
+     * @since 1.0-sofia
+     */
+    private $filters;
+    
+    /**
      * The template for the view to render
      * @var pTemplate 
      * @since 1.0-sofia
@@ -49,6 +58,7 @@ abstract class pView extends pBucketUser implements IView {
     public function __construct(){
         $this->state = new pMap();
         $this->fields = new pMap();
+        $this->filters = new pList();
     }
     
     /**
@@ -67,6 +77,32 @@ abstract class pView extends pBucketUser implements IView {
             }
         }else{
             $this->fields[$key] = $value;
+        }
+    }
+    
+    /**
+     * Set filters to a parameter.
+     * 
+     * @param string $name Name of the parameter to add filters to
+     * @param IFilter|Closure|callback|array|IList $filter The controller filter,
+     *              closure or callback that will process the parameter.
+     *              If $filter is an array the method will run through the array
+     *              recursively.
+     * @since 1.0-sofia
+     */
+    protected function filter($name, $filter){
+        if(is_string($filter)){
+            $ex = explode('|', $filter);
+            if(count($ex) > 1){
+                $filter = $ex;
+            }
+        }
+        if(is_array($filter) || $filter instanceof IList){
+            foreach($filter as $f){
+                $this->filter($name, $f);
+            }
+        }else{
+            $this->filters[] = array($name, $filter);
         }
     }
     
@@ -144,6 +180,21 @@ abstract class pView extends pBucketUser implements IView {
         }
         
         if($this->template){
+            foreach($this->filters as $filter){
+                $name = $filter[0];
+                $filter = $filter[1];
+                $value = $this->fields[$name];
+                if(class_exists($filter)){
+                    $filter = new $filter();
+                }
+                if($filter instanceof IFilter){
+                    $value = $filter->filter($value);
+                }elseif($filter instanceof Closure || is_callable($filter)){
+                    $value = $filter($value);
+                }
+                $this->fields[$name] = $value;
+            }
+            
             $this->template->fields()->append($this->fields);
             if($output){
                 $this->template->fields()->add('view.output', $output);

@@ -1,7 +1,7 @@
 <?php
 pload('packfire.IAppResponse');
 pload('packfire.collection.IList');
-pload('IControllerFilter');
+pload('packfire.filter.IFilter');
 pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.net.http.pRedirectResponse');
@@ -198,7 +198,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
      * Set filters to a parameter.
      * 
      * @param string $name Name of the parameter to add filters to
-     * @param IControllerFilter|Closure|callback|array|IList $filter The controller filter,
+     * @param IFilter|Closure|callback|array|IList $filter The controller filter,
      *              closure or callback that will process the parameter.
      *              If $filter is an array the method will run through the array
      *              recursively.
@@ -206,14 +206,23 @@ abstract class pController extends pBucketUser implements IAppResponse {
      * @since 1.0-sofia
      */
     protected function filter($name, $filter, $message = null){
+        if(is_string($filter)){
+            $ex = explode('|', $filter);
+            if(count($ex) > 1){
+                $filter = $ex;
+            }
+        }
         if(is_array($filter) || $filter instanceof IList){
             foreach($filter as $f){
-                $this->filter($name, $f);
+                $this->filter($name, $f, $message);
             }
         }else{
             $value = $this->params[$name];
+            if(class_exists($filter)){
+                $filter = new $filter();
+            }
             try{
-                if($filter instanceof IControllerFilter){
+                if($filter instanceof IFilter){
                     $value = $filter->filter($value);
                 }elseif($filter instanceof Closure || is_callable($filter)){
                     $value = $filter($value);

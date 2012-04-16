@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Controller Parameter Filter abstraction
+ * Filter abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -9,7 +9,7 @@
  * @package packfire.controller
  * @since 1.0-sofia
  */
-interface IControllerFilter {
+interface IFilter {
     
     public function filter($value);
     

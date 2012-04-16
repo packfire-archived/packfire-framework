@@ -1,5 +1,5 @@
 <?php
-pload('IControllerFilter');
+pload('packfire.filter.IFilter');
 pload('packfire.exception.pValidationException');
 
 /**
@@ -11,7 +11,7 @@ pload('packfire.exception.pValidationException');
  * @package packfire.controller
  * @since 1.0-sofia
  */
-class pValidationFilter implements IControllerFilter {
+class pValidationFilter implements IFilter {
     
     /**
      * The validator
