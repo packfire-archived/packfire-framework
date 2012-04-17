@@ -136,29 +136,33 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * Forward the request to another controller
-     * @param string $package Package of the controller to load
+     * @param string|pController $package Package of the controller to load
      * @param string $action (optional) The action to execute
      * @since 1.0-sofia
      */
     protected function forward($package, $action = null){
-        list($package, $class) = pClassLoader::resolvePackageClass($controller);
+        list($package, $class) = pClassLoader::resolvePackageClass($package);
 
-        if(substr($class, -11) != 'Controller'){
-            $package .= 'Controller';
-            $class .= 'Controller';
-        }
-        
-        if(!class_exists($class)){
-            pload('controller.' . $package);
-        }
-        
-        if(is_subclass_of($class, 'pController')){
-            $controller = new $class($this->request, $this->response);
-            $controller->state = $this->state;
-            $controller->setBucket($this->services);
-            $controller->run($this->route, $action);
-            $this->state = $controller->state;
-            $this->response = $controller->response();
+        if($package == $this && $action != null){
+            $this->run($this->route, $action);
+        }else{
+            if(substr($class, -11) != 'Controller'){
+                $package .= 'Controller';
+                $class .= 'Controller';
+            }
+
+            if(!class_exists($class)){
+                pload('controller.' . $package);
+            }
+
+            if(is_subclass_of($class, 'pController')){
+                $controller = new $class($this->request, $this->response);
+                $controller->state = $this->state;
+                $controller->setBucket($this->services);
+                $controller->run($this->route, $action);
+                $this->state = $controller->state;
+                $this->response = $controller->response();
+            }
         }
     }
     
