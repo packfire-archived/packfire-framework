@@ -222,7 +222,8 @@ abstract class pController extends pBucketUser implements IAppResponse {
             }
         }else{
             $value = $this->params[$name];
-            if(class_exists($filter)){
+            // if it is a name of class, create a new instance
+            if(is_string($filter) && class_exists($filter)){
                 $filter = new $filter();
             }
             try{
