@@ -293,11 +293,14 @@ abstract class pController extends pBucketUser implements IAppResponse {
      * @since 1.0-sofia
      */
     public function run($route, $action){
-        if($this->service('security') && !$this->service('security')->authenticate($this->service('security.token'))){
-            throw new pAuthenticationException('Could not authenticate user.');
-        }
         $this->route = $route;
         $this->params = $route->params();
+        if($this->service('security')){
+            $this->service('security')->context($this);
+            if(!$this->service('security')->authenticate()){
+                throw new pAuthenticationException('Could not authenticate user.');
+            }
+        }
         
         if(!$action){
             $action = 'index';
@@ -325,6 +328,15 @@ abstract class pController extends pBucketUser implements IAppResponse {
         }else{
             throw new pHttpException(404);
         }
+    }
+    
+    /**
+     * Get a copy of the controller's parameters.
+     * Note that this is read only.
+     * @return pMap Returns a pMap containing the parameters
+     */
+    public function params(){
+        return new pMap($this->params->toArray());
     }
     
     /**

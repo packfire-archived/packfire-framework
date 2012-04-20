@@ -14,12 +14,18 @@ pload('ISecurityModule');
 class pSecurityModule extends pBucketUser implements ISecurityModule {
     
     /**
+     * The security module context
+     * @var mixed
+     * @since 1.0-sofia
+     */
+    private $context;
+    
+    /**
      * Authenticate the user
-     * @param mixed $token The authentication token
      * @return boolean Returns true if the user is authenticated, false otherwise.
      * @since 1.0-sofia
      */
-    public function authenticate($token) {
+    public function authenticate() {
         return true;
     }
 
@@ -50,6 +56,13 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
      */
     public function deauthenticate(){
         $this->identity(null);
+    }
+    
+    public function context($context = null){
+        if(func_num_args() == 1){
+            $this->context = $context;
+        }
+        return $this->context;
     }
     
 }

@@ -30,16 +30,23 @@ interface ISecurityModule {
         
     /**
      * Authenticate the user
-     * @param mixed $token The authentication token
      * @return boolean Returns true if the user is authenticated, false otherwise.
      * @since 1.0-sofia
      */
-    public function authenticate($token);
+    public function authenticate();
     
     /**
      * Deauthenticate the user
      * @since 1.0-sofia 
      */
     public function deauthenticate();
+    
+    /**
+     * Get or set the security context
+     * @param mixed $context (optional) Set the security context
+     * @return mixed Returns the security context
+     * @since 1.0-sofia 
+     */
+    public function context($context = null);
     
 }
