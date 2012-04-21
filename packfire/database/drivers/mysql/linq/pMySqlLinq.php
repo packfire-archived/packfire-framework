@@ -87,6 +87,13 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
     private $mapping;
     
     /**
+     * The parameters set to the query
+     * @var pMap
+     * @since 1.0-sofia
+     */
+    private $params;
+    
+    /**
      * Create a new pMySqlLinq
      * @param pDbConnector $driver The connector to connect
      * @param string $source The name of the table
@@ -155,6 +162,7 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         $this->selects = new pList();
         $this->where = null;
         $this->mapping = null;
+        $this->params = new pMap();
     }
     
     /**
@@ -164,11 +172,10 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
      * @since 1.0-sofia
      */
     public function fetch($params = array()){
-        $query = $this->query();
-        $statement = $this->driver->prepare($query);
-        foreach($params as $key => $value){
-            $statement->bindParam($key, $value);
+        if(func_num_args() == 1){
+            $this->params($params);
         }
+        $statement = $this->prepare();
         $statement->execute();
         $list = $statement->fetchAll(PDO::FETCH_NUM);
         if($this->reverse){
@@ -188,6 +195,20 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
     }
     
     /**
+     * Prepare the statement and bind parameters
+     * @return PDOStatement Returns the statement prepared.
+     * @since 1.0-sofia 
+     */
+    private function prepare(){
+        $query = $this->query();
+        $statement = $this->driver->prepare($query);
+        foreach($this->params as $key => &$value){
+            $statement->bindParam($key, $value);
+        }
+        return $statement;
+    }
+    
+    /**
      * Set the method to walk through the rows to map the columns to properties
      * @param Closure|callback $selector Set the selector to perform mapping
      * @returns pMySqlLinq Returns the LINQ object for chaining
@@ -195,6 +216,29 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
      */
     public function map($selector){
         $this->mapping = $selector;
+        return $this;
+    }
+    
+    /**
+     * Set a parameter to be binded to the query
+     * @param string $key The name of the parameter
+     * @param mixed $value The value of the parameter 
+     * @returns pMySqlLinq Returns the LINQ object for chaining
+     * @since 1.0-sofia
+     */
+    public function param($key, $value){
+        $this->params[$key] = $value;
+        return $this;
+    }
+    
+    /**
+     * Add an array of parameters to the query
+     * @param pMap|array $params The parameters to be binded
+     * @returns pMySqlLinq Returns the LINQ object for chaining
+     * @since 1.0-sofia
+     */
+    public function params($params = null){
+        $this->params = new pMap($params);
         return $this;
     }
     
@@ -250,11 +294,10 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         $this->selects = new pList(array(
             'AVERAGE(' . $field . ')'
         ));
-        $query = $this->query();
-        $statement = $this->driver->query($query);
+        $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
+        return reset($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
     /**
@@ -264,17 +307,14 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
      * @since 1.0-sofia
      */
     public function count($condition = null) {
-        $this->selects = new pList(array(
-            'COUNT(*)'
-        ));
+        $this->select('COUNT(*)');
         if($condition){
             $this->where($condition);
         }
-        $query = $this->query();
-        $statement = $this->driver->query($query);
+        $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
+        return reset($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
     /**
@@ -406,8 +446,7 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         $this->selects = new pList(array(
             'MAX(' . $field . ')'
         ));
-        $query = $this->query();
-        $statement = $this->driver->query($query);
+        $statement = $this->prepare();
         $statement->execute();
         $this->reset();
         return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
@@ -423,8 +462,7 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         $this->selects = new pList(array(
             'MIN(' . $field . ')'
         ));
-        $query = $this->query();
-        $statement = $this->driver->query($query);
+        $statement = $this->prepare();
         $statement->execute();
         $this->reset();
         return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
@@ -504,8 +542,7 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
         $this->selects = new pList(array(
             'SUM(' . $field . ')'
         ));
-        $query = $this->query();
-        $statement = $this->driver->query($query);
+        $statement = $this->prepare();
         $statement->execute();
         $this->reset();
         return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
