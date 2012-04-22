@@ -1,4 +1,5 @@
 <?php
+pload('IQueue');
 
 /**
  * A Deque Abstraction

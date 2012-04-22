@@ -1,4 +1,5 @@
 <?php
+pload('IDeque');
 pload('pQueue');
 
 /**
