@@ -12,6 +12,10 @@ pload('pConfig');
  */
 class pIniConfig extends pConfig {
     
+    /**
+     * Read the configuration file 
+     * @since 1.0-sofia
+     */
     protected function read() {
         $this->data = parse_ini_file($this->file, true);
     }

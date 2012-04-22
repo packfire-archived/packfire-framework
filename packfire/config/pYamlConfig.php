@@ -14,6 +14,10 @@ pload('packfire.io.file.pFileInputStream');
  */
 class pYamlConfig extends pConfig {
     
+    /**
+     * Read the configuration file 
+     * @since 1.0-sofia
+     */
     protected function read() {
         $stream = new pFileInputStream($this->file);
         $yaml = new pYaml($stream);

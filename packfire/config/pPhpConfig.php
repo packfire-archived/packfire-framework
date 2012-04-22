@@ -12,6 +12,10 @@ pload('pConfig');
  */
 class pPhpConfig extends pConfig {    
     
+    /**
+     * Read the configuration file 
+     * @since 1.0-sofia
+     */
     protected function read() {
         $this->data = include($this->file);
     }
