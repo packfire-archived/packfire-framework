@@ -63,7 +63,7 @@ class pGraph {
      * @since 1.0-sofia
      */
     public function find($start, $end){
-        $dijkstra = new Dijkstra($this);
+        $dijkstra = new pDijkstra($this);
         $path = $dijkstra->start($this->get($start))
                 ->end($this->get($end))->find();
         return $path;
