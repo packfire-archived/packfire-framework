@@ -127,10 +127,6 @@ class pDijkstra {
         foreach($connections as $id => $cost){
             /* @var $connection IVertex */
             $connection = $this->graph->get($id);
-            if($vertex->id() == $connection->id()){
-                echo 'dead';
-                break;
-            }
             $connection->setPotential($vertex->potential() + $cost, $vertex);
             
             foreach($this->paths as $path){
