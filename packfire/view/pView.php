@@ -195,6 +195,12 @@ abstract class pView extends pBucketUser implements IView {
                 $this->fields[$name] = $value;
             }
             
+            // allow you to use another view in a view.
+            foreach($this->fields as $key => $field){
+                if($field instanceof IView){
+                    $this->fields[$key] = $field->render();
+                }
+            }
             $this->template->fields()->append($this->fields);
             if($output){
                 $this->template->fields()->add('view.output', $output);
