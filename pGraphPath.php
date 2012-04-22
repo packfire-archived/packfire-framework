@@ -45,7 +45,7 @@ class pGraphPath {
      * @since 1.0-sofia
      */
     public function distance($vertex = null){
-        if($vertex){
+        if(func_num_args() == 1){
             return $this->vertices->get($vertex)->potential();
         }else{
             return $this->vertices->last()->potential();
