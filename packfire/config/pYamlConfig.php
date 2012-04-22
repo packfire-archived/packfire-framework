@@ -1,7 +1,7 @@
 <?php
 pload('pConfig');
 pload('packfire.yaml.pYaml');
-pload('packfire.io.file.pFileStream');
+pload('packfire.io.file.pFileInputStream');
 
 /**
  * A YAML Configuration File
@@ -15,7 +15,7 @@ pload('packfire.io.file.pFileStream');
 class pYamlConfig extends pConfig {
     
     protected function read() {
-        $stream = new pFileStream($this->file);
+        $stream = new pFileInputStream($this->file);
         $yaml = new pYaml($stream);
         $this->data = $yaml->read(); 
     }
