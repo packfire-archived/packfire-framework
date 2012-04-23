@@ -13,7 +13,7 @@
 /**
  * Location of the Packfire class
  */
-define('__PACKFIRE_CLASS__', '../packfire/Packfire.php');
+define('__PACKFIRE_PATH__', '../packfire');
 
 /**
  * Set the application environment.
@@ -22,7 +22,7 @@ define('__PACKFIRE_CLASS__', '../packfire/Packfire.php');
 define('__ENVIRONMENT__' , '');
 
 // include the main Packfire class
-$ok = @include(__PACKFIRE_CLASS__);
+$ok = @include(__PACKFIRE_PATH__ . '/Packfire.php');
 if($ok){
     pload('app.Application');
     // IMMA FIRIN' MA LAZOR
