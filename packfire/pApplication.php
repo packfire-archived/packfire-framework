@@ -18,6 +18,7 @@ pload('packfire.database.pDbConnectorFactory');
 pload('packfire.datetime.pTimer');
 pload('packfire.debugger.pDebugger');
 pload('packfire.debugger.console.pConsoleDebugOutput');
+pload('packfire.controller.pCALoader');
 
 /**
  * Application class
@@ -105,7 +106,7 @@ class pApplication extends pBucketUser implements IApplication {
         if(is_null($route)){
             throw new pHttpException(404);
         }else{
-            if(strpos($route->actual(), ':')){
+            if(is_string($route->actual()) && strpos($route->actual(), ':')){
                 list($class, $action) = explode(':', $route->actual());
             }else{
                 $class = $route->actual();
@@ -115,36 +116,10 @@ class pApplication extends pBucketUser implements IApplication {
             if($class instanceof Closure){
                 $response = $class($request, $route, $response);
             }else{
-                if(is_string($class)){
-                    // call controller
-
-                    list($package, $class) =
-                            pClassLoader::resolvePackageClass($class);
-
-                    if($package == $class){
-                        // only class name is provided, so we use
-                        // the controllers in the controller folder
-                        if(substr($class, -11) != 'Controller'){
-                            $package .= 'Controller';
-                            $class .= 'Controller';
-                        }
-                        pload('app.AppController');
-                        pload('controller.' . $package);
-                    }else{
-                        // woah we've got a badass here
-                        // this is to load a custom class
-                        pload($package);
-                    }
-                }
-
-                if(class_exists($class)){
-                    $controller = new $class($request, $response);
-                    if($controller instanceof IBucketUser){
-                        $controller->setBucket($this->services);
-                    }
-                    $controller->run($route, $action);
-                    $response = $controller;
-                }
+                $caLoader = new pCALoader($class, $action, $request, $route, $response);
+                $caLoader->copyBucket($this);
+                $caLoader->load();
+                $response = $caLoader;
             }
         }
         return $response;
@@ -186,6 +161,24 @@ class pApplication extends pBucketUser implements IApplication {
                     $data->get('method'), $data->get('params'));
             $router->add($key, $route);
         }
+        $app = $this;
+        $directControllerAccessRoute = new pRoute('/{class}/{action}',
+                function($request, $route, $response) use($app) {
+                    $class = $route->params()->get('class');
+                    $action = $route->params()->get('action');
+                    $route->params()->removeAt('class');
+                    $route->params()->removeAt('action');
+                    $caLoader = new pCALoader($class, $action, $request, $route, $response);
+                    $caLoader->copyBucket($app);
+                    $caLoader->load(true);
+                    return $caLoader;
+                },
+                null,
+                new pMap(array(
+                    'class' => '([a-zA-Z0-9\_]+)',
+                    'action' => '([a-zA-Z0-9\_]+)'
+                )));
+        $router->add('packfire.DCARoute', $directControllerAccessRoute);
         return $router;
     }
     

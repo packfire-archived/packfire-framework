@@ -29,6 +29,15 @@ abstract class pBucketUser implements IBucketUser {
     }
     
     /**
+     * Copy the bucket from another user
+     * @param IBucketUser $user The user to copy the IoC bucket from
+     * @since 1.0-sofia
+     */
+    public function copyBucket($user){
+        $this->services = $user->services;
+    }
+    
+    /**
      * Get a service from the Service Bucket
      * @param string $service Name of the service to retrieve
      * @return object Returns the service object

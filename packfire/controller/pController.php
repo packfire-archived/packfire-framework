@@ -51,10 +51,19 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * Flags whether this controller uses RESTful controller actions
+     * Defaults to true.
      * @var boolean
      * @since 1.0-sofia
      */
     protected $restful = true;
+    
+    /**
+     * Flags whether to allow direct access to the controller actions
+     * Defaults to false
+     * @var boolean
+     * @since 1.0s-sofia
+     */
+    protected $directAccess = false;
     
     /**
      * Controller Parameters
@@ -109,7 +118,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
      */
     public function render($view){
         if($view instanceof IBucketUser){
-            $view->setBucket($this->services);
+            $view->copyBucket($this);
         }
         $view->state($this->state);
         $output = $view->render();
@@ -239,6 +248,16 @@ abstract class pController extends pBucketUser implements IAppResponse {
             }
             $this->params[$name] = $value;
         }
+    }
+    
+    /**
+     * Check if direct access is enabled on the controller
+     * @return boolean Returns true if direct access is enabled,
+     *           false otherwise.
+     * @since 1.0s-sofia
+     */
+    public function directAccess(){
+        return $this->directAccess;
     }
     
     /**
