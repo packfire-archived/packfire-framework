@@ -1,6 +1,7 @@
 <?php
 pload('pDateTimeComponent');
 pload('pDateTime');
+pload('pDateComparator');
 pload('packfire.collection.sort.IComparable');
 
 /**
@@ -132,8 +133,12 @@ class pDate extends pDateTimeComponent implements IComparable {
         $leapCount = round(($deltaYear / 4) 
                 - ($deltaYear / 100) 
                 + ($deltaYear / 400));
+        $monthDays = 0;
+        for($month = 1; $month <= $this->month; ++$month){
+            $monthDays += pDateTime::daysInMonth($month, $this->year);
+        }
         return $this->day 
-                + pDateTime::daysInMonth($this->month, $this->year) 
+                + $monthDays
                 + $leapCount * 366 
                 + ($this->year - $leapCount) * 365;
     }
@@ -161,7 +166,7 @@ class pDate extends pDateTimeComponent implements IComparable {
     public function subtract($timeSpan){
         $temp = new self($this->year, $this->month, $this->year);
         
-        $temp->day($temp->day + $timeSpan->day());
+        $temp->day($temp->day - $timeSpan->day());
         
         return $temp;
     }
