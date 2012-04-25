@@ -21,25 +21,25 @@ class pString implements Countable {
 
     /**
      * Create a new pString object
-     * @param string|pString $v The string value to initialize with
+     * @param string|pString $value The string value to initialize with
      * @since 1.0-sofia
      */
-    function __construct($v = '') {
-        if($v instanceof pString){
-            $v = $v->value();
+    function __construct($value = '') {
+        if($value instanceof pString){
+            $value = $value->value();
         }
-        $this->value($v);
+        $this->value = $value;
     }
 
     /**
      * Get or set the internal string value
-     * @param string $v (optional) Set the new value of the string
+     * @param string $value (optional) Set the new value of the string
      * @return string Returns the internal string value.
      * @since 1.0-sofia
      */
-    public function value($v = null) {
+    public function value($value = null) {
         if (func_num_args() == 1) {
-            $this->value = $v;
+            $this->value = $value;
         }
         return $this->value;
     }
@@ -92,22 +92,17 @@ class pString implements Countable {
      *               to be searched and replace in
      * @param pString|array|pList $replacement A string, or a collection of 
      *              string, to be the replacement
-     * @param integer $limit (optional) The maximum occurances of replacement
      * @return pString Returns the resulting string
      * @since 1.0-sofia
      */
-    public function replace($search, $replacement, $limit = null) {
+    public function replace($search, $replacement) {
         if($search instanceof pList){
             $search = $search->toArray();
         }
         if($replacement instanceof pList){
             $replacement = $replacement->toArray();
         }
-        if ($limit !== null) {
-            return new pString(str_replace($search, $replacement, $this->value(), $limit));
-        } else {
-            return new pString(str_replace($search, $replacement, $this->value()));
-        }
+        return new pString(str_replace($search, $replacement, $this->value()));
     }
 
     /**
