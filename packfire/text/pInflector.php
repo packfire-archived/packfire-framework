@@ -68,6 +68,7 @@ class pInflector {
         'phenomenon' => 'phenomena',
         'polyhedron' => 'polyhedra',
         'criterion' => 'criteria',
+        'anus' => 'anuses',
         'boy' => 'boys',
         'maze' => 'mazes',
         'day' => 'days',
@@ -126,7 +127,10 @@ class pInflector {
      * @since 1.0-sofia
      */
     public static function isCapitalLetterWord($word){
-        return ucfirst($word) == $word;
+        if(strlen($word) > 0){
+            return self::isWordUpperCase($word[0]);
+        }
+        return false;
     }
 
     /**
@@ -138,6 +142,12 @@ class pInflector {
     public static function singular($word){
 
         $lc = strtolower($word);
+        
+        // already a singular, return it!
+        if(array_key_exists($lc, self::$irregularPlural)){
+            return $word;
+        }
+        
         // check for special words
         $swk = array_search($lc, self::$irregularPlural);
         if($swk !== false){
@@ -151,7 +161,7 @@ class pInflector {
 
         $aeiou = array('a', 'e', 'i', 'o', 'u');
         // penny => pennies
-        if(substr($lc, -3) == 'ies' && in_array(substr($lc, -4, 1), $aeiou)){
+        if(substr($lc, -3) == 'ies' && !in_array(substr($lc, -4, 1), $aeiou)){
             return self::retainForm($word, substr($word, 0, strlen($word) - 3) . 'y');
         }
 
@@ -160,6 +170,8 @@ class pInflector {
             return self::retainForm($word, substr($word, 0, strlen($word) - 1) . 'us');
         }
         // box => boxes
+        // matches
+        // mashes
         $endWith = array('xes', 'ses', 'zes', 'shes', 'ches');
         foreach($endWith as $ew){
             if(substr($lc, -strlen($ew)) == $ew){
@@ -183,6 +195,12 @@ class pInflector {
     public static function plural($word){
 
         $lc = strtolower($word);
+        
+        // already a plural? return it!
+        if(in_array($lc, self::$irregularPlural)){
+            return $word;
+        }
+        
         // check for special words
         if(array_key_exists($lc, self::$irregularPlural)){
             return self::retainForm($word, self::$irregularPlural[$lc]);
@@ -192,12 +210,19 @@ class pInflector {
         if(substr($lc, -3) == 'key'){
             return self::retainForm($word, $word . 's');
         }
+        if(substr($lc, -4) == 'keys'){
+            return $word;
+        }
         
         $aeiou = array('a', 'e', 'i', 'o', 'u');
         // penny => pennies
-        if(substr($lc, -1) == 'y' && in_array(substr($lc, -2, 1), $aeiou)){
+        if(substr($lc, -1) == 'y' && !in_array(substr($lc, -2, 1), $aeiou)){
             return self::retainForm($word,
                     substr($word, 0, strlen($word) - 1) . 'ies');
+        }
+        // penny => pennies
+        if(substr($lc, -3) == 'ies' && !in_array(substr($lc, -4, 1), $aeiou)){
+            return $word;
         }
 
         // alumnus => alumni
@@ -205,6 +230,14 @@ class pInflector {
             return self::retainForm($word,
                     substr($word, 0, strlen($word) - 2) . 'i');
         }
+        
+        $endWith = array('xes', 'ses', 'zes', 'shes', 'ches');
+        foreach($endWith as $ew){
+            if(substr($lc, -strlen($ew)) == $ew){
+                return $word;
+            }
+        }
+        
         // box => boxes
         $endWith = array('x', 's', 'z', 'sh', 'ch');
         foreach($endWith as $ew){
@@ -212,9 +245,15 @@ class pInflector {
                 return self::retainForm($word, $word . 'es');
             }
         }
-
-        // oh well we have no choice
-        return self::retainForm($word, $word . 's');
+        
+        if(substr($lc, -1) == 's'){
+            // since the word ends with an s, then just return it,
+            // probably in its plural form already
+            return $word;
+        }else{
+            // oh well we have no choice
+            return self::retainForm($word, $word . 's');
+        }
     }
 
     /**
