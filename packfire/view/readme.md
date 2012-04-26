@@ -1,7 +1,7 @@
 #packfire.view
-To help you manage your application's view classes easily, Packfire has included functionalities that allow you to ceate and reuse view. In addition, the default templating engine design is simple and great to use. The `pView` class prepares the data loaded by the controller for the template to parse.
+To help you manage your application's view classes easily, Packfire has included functionalities that allow you to create and reuse view. The `pView` abstract class prepares the data loaded by the controller for the template to parse.
 
-The View component of Packfire separates your View logic and HTML code, which allows web designers and developers to work on front-end development with more ease and haste as PHP view formatting codes are isolated from the HTML code.
+The View component of Packfire separates your View manipulation logic and HTML code, which allows web designers and developers to work on front-end development with more ease and haste as PHP view formatting codes are isolated from the HTML code.
 
 ##Using pView
 
