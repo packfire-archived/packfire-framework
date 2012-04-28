@@ -4,6 +4,7 @@ pload('pDate');
 pload('pTimeSpan');
 pload('pDateTimeFormat');
 pload('packfire.exception.pInvalidArgumentException');
+pload('pDateTimeComparator');
 
 /**
  * A date and time representation
@@ -57,12 +58,11 @@ class pDateTime extends pDate {
     public function timezone($timezone = null){
         if(func_num_args() == 1 && $this->timezone != $timezone){
             $dt = self::convertTimezone($this, $timezone);
-            $this->year = $dt->year;
+            $this->year = $dt->year();
             $this->month = $dt->month;
             $this->day = $dt->day;
             $this->time = $dt->time;
             $this->timezone = $dt->timezone;
-            unset($dt);
         }
         return $this->timezone;
     }
@@ -116,7 +116,7 @@ class pDateTime extends pDate {
         if($year instanceof pDate){
             $year = $year->year();
         }
-        return (($year % 4 == 0) && ($year % 100 != 0) || ($year % 400 == 0));
+        return (($year % 400 == 0) || (($year % 4 == 0) && ($year % 100 != 0)));
     }
 
     /**
@@ -208,7 +208,7 @@ class pDateTime extends pDate {
      * @param pDateTime $dateTime The date time object
      * @param double $target The destination timezone to set the date time to.
      *                       In the form of hours from -12 to 12
-     * return pDateTime Returns the date time in the converted time zone
+     * @return pDateTime Returns the date time in the converted time zone
      * @throws pInvalidArgumentException
      * @since 1.0-sofia
      */
@@ -309,16 +309,24 @@ class pDateTime extends pDate {
         }
         $date = parent::subtract($tspan);
         $datetime = new self($date->year(), $date->month(), $date->day());
+        $datetime->time = $this->time->subtract(new pTime());
+        $timeWork = null;
         if($period instanceof pDateTime){
-            $time = $datetime->time->subtract($period->time);
-            $diff = $time->totalSeconds() - $datetime->time->totalSeconds();
-            if(abs($diff) > 86400){ // if difference is more than 24hrs
+            $timeWork = $period->time;
+        }elseif($period instanceof pTimeSpan){
+            $timeWork = $period;
+        }
+        if($timeWork){
+            $time = $this->time->subtract($timeWork);
+            $diff = $this->time->totalSeconds() - $time->totalSeconds();
+            if($diff > 86400 || $diff < -0){ // if difference is more than 24hrs
                 if($diff > 0){
                     $datetime->day($datetime->day + 1);
                 }else{
                     $datetime->day($datetime->day - 1);
                 }
             }
+            $datetime->time = $time;
         }
         $result = $datetime;
         
