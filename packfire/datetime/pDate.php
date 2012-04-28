@@ -20,21 +20,21 @@ class pDate extends pDateTimeComponent implements IComparable {
      * @var integer
      * @since 1.0-sofia
      */
-    private $day = 0;
+    protected $day = 0;
 
     /**
      * Month of the year (1 to 12)
      * @var integer
      * @since 1.0-sofia
      */
-    private $month = 0;
+    protected $month = 0;
 
     /**
      * The year
      * @var integer
      * @since 1.0-sofia
      */
-    private $year = 0;
+    protected $year = 0;
     
     /**
      * Create a new Grerogian calendar date with Year, Month, Day
