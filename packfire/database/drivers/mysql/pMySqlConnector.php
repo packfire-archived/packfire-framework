@@ -12,27 +12,20 @@ pload('packfire.database.pDbConnector');
  */
 class pMySqlConnector extends pDbConnector {
     
-    public function processDataType($value){
-        switch(gettype($value)){
-            case 'integer':
-                $value = (int)$value;
-                break;
-            case 'string':
-                $value = '\'' . mysql_real_escape_string($value) . '\'';
-                break;
-            case 'float':
-            case 'double':
-                $value = (double)$value;
-                break;
-            case 'object':
-                if($value instanceof pDbExpression){
-                    $value = $value->expression();
-                }elseif($value instanceof pDbCommand){
-                    $value = $value->query();
-                }
-                break;
+    /**
+     *
+     * @param PDOStatement $statement
+     * @param array|pMap $params 
+     * @since 1.0-sofia
+     */
+    public function binder($statement, $params){
+        foreach($params as $name => $value){
+            if($value instanceof pDbExpression){
+                $statement->bindValue($name, $value->expression(), PDO::PARAM_STMT);
+            }else{
+                $statement->bindValue($name, $value);
+            }
         }
-        return $value;
     }
     
     public function translateType($type) {

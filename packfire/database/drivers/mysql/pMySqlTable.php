@@ -75,11 +75,13 @@ class pMySqlTable extends pDbTable {
     public function get($row){
         $linq = new pMySqlLinq($this->driver, $this->name);
         $pks = array();
+        $params = array();
         foreach($this->pk() as $column){
-            $pks[] = '`'.$column->name().'` = ' . $this->driver->processDataType($row[$column->name()]);
+            $pks[] = '`' . $column->name() . '` = :' . $column->name();
+            $params[$column->name()] = $row[$column->name()];
         }
         $query .= implode(' AND ', $pks);
-        return $linq->where($query)->fetch()->first();
+        return $linq->where($query)->params($params)->fetch()->first();
     }
     
     /**
@@ -90,11 +92,15 @@ class pMySqlTable extends pDbTable {
     public function delete($row) {
         $query = 'DELETE FROM `%s` WHERE ';
         $where = array();
+        $params = array();
         foreach($this->columns() as $column){
-            $where[] = '`'.$column->name().'` = ' . $this->driver->processDataType($row[$column->name()]);
+            $where[] = '`' . $column->name() . '` = :' . $column->name();
+            $params[$column->name()] = $row[$column->name()];
         }
         $query .= implode(' AND ', $where);
-        $this->driver->query(sprintf($query, $this->name));
+        $statement = $this->driver->prepare(sprintf($query, $this->name));
+        $this->driver->binder($statement, $params);
+        $statement->execute();
     }
 
     /**
@@ -106,15 +112,19 @@ class pMySqlTable extends pDbTable {
         $query = 'INSERT INTO `%s` (';
         $columns = array();
         $values = array();
+        $params = array();
         foreach($this->columns() as $column){
             if(array_key_exists($column->name(), $row)){
                 $columns[] = '`' . $column->name() . '`';
-                $values[] = $this->driver->processDataType($row[$column->name()]);
+                $params[$column->name()] = $row[$column->name()];
+                $values[] = $column->name();
             }
         }
         $query .= implode(', ', $columns) . ') VALUES (';
         $query .= implode(', ', $values) . ')';
-        $this->driver->query(sprintf($query, $this->name));
+        $statement = $this->driver->prepare(sprintf($query, $this->name));
+        $this->driver->binder($statement, $params);
+        $statement->execute();
     }
 
     /**
@@ -126,16 +136,20 @@ class pMySqlTable extends pDbTable {
         $query = 'UPDATE `%s` SET ';
         $data = array();
         $pks = array();
+        $params = array();
         foreach($this->columns() as $column){
+            $params[$column->name()] = $row[$column->name()];
             if($column->type() == 'pk'){
-                $pks[] = '`'.$column->name().'` = ' . $this->driver->processDataType($row[$column->name()]);
+                $pks[] = '`'.$column->name().'` = :' . $column->name();
             }else{
-                $data[] = '`'.$column->name().'` = ' . $this->driver->processDataType($row[$column->name()]);
+                $data[] = '`'.$column->name().'` = :' . $column->name();
             }
         }
         $query .= implode(', ', $data) . ' WHERE ';
         $query .= implode(' AND ', $pks);
-        $this->driver->query(sprintf($query, $this->name));
+        $statement = $this->driver->prepare(sprintf($query, $this->name));
+        $this->driver->binder($statement, $params);
+        $statement->execute();
     }
     
     /**
