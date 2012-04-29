@@ -41,7 +41,7 @@ class pTemplate implements ITemplate {
     private $fields;
     
     /**
-     * Create a new template
+     * Create a new pTemplate object
      * @param string $template The template to use
      * @since 1.0-sofia
      */
@@ -60,8 +60,8 @@ class pTemplate implements ITemplate {
     }
 
     /**
-     * Parses the template fields into the template and return the final result
-     * @return string
+     * Parses the template fields into the template
+     * @return string Returns the parsed template
      * @since 1.0-sofia
      */
     public function parse(){
@@ -93,6 +93,22 @@ class pTemplate implements ITemplate {
             }
         }
         return $tokens;
+    }
+    
+    /**
+     * Set fields to the template
+     * @param mixed $set The fields to be set
+     * @since 1.0-sofia
+     */
+    public function set($set){
+        if(is_object($set)){
+            $set = get_object_vars($set);
+        }
+        if(is_array($set)){
+            foreach($set as $key => $value){
+                $this->fields->add($key, $value);
+            }
+        }
     }
     
 }
