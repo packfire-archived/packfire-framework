@@ -1,8 +1,10 @@
 <?php
-pload('packfire.template.pHtmlTemplate');
+pload('packfire.template.pTemplate');
+pload('packfire.template.moustache.pMoustacheTemplate');
+
 
 /**
- * AppTemplate Description
+ * Application Template Loading Buddy
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -13,17 +15,19 @@ pload('packfire.template.pHtmlTemplate');
 class AppTemplate {
     
     /**
-     * 
-     * @param type $name
-     * @param type $context
-     * @return \class 
+     * Load a template from the template folder
+     * @param string $name Name of the template to load
+     * @param string $context The environmental context
+     * @return ITemplate Returns the template
+     * @since 1.0-sofia
      */
     public static function load($name, $context = __ENVIRONMENT__){
         $path = __APP_ROOT__ . 'pack/template/' . $name;
+        
         // parsers
         $extensions = array(
-            'html' => 'pTemplate',
-            'htm' => 'pTemplate',
+            'html' => 'pMoustacheTemplate',
+            'htm' => 'pMoustacheTemplate',
         );
         
         $template = null;

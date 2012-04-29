@@ -201,7 +201,7 @@ abstract class pView extends pBucketUser implements IView {
                     $this->fields[$key] = $field->render();
                 }
             }
-            $this->template->fields()->append($this->fields);
+            $this->template->set($this->fields);
             if($output){
                 $this->template->fields()->add('view.output', $output);
             }
