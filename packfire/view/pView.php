@@ -39,7 +39,7 @@ abstract class pView extends pBucketUser implements IView {
     
     /**
      * The template for the view to render
-     * @var pTemplate 
+     * @var ITemplate 
      * @since 1.0-sofia
      */
     private $template;
@@ -117,7 +117,7 @@ abstract class pView extends pBucketUser implements IView {
     
     /**
      * Set the template used by the view
-     * @param pTemplate $template (optional) The template to use
+     * @param ITemplate $template (optional) The template to use
      * @return pView Returns an instance of self for chaining.
      * @since 1.0-sofia
      */
