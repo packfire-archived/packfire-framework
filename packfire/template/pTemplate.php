@@ -1,4 +1,5 @@
 <?php
+pload('ITemplate');
 pload('packfire.collection.pMap');
 pload('packfire.text.regex.pRegex');
 
@@ -11,7 +12,7 @@ pload('packfire.text.regex.pRegex');
  * @package packfire.template
  * @since 1.0-sofia
  */
-class pTemplate {
+class pTemplate implements ITemplate {
 
     /**
      * The template tag opening key 

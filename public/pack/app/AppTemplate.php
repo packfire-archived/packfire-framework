@@ -22,9 +22,8 @@ class AppTemplate {
         $path = __APP_ROOT__ . 'pack/template/' . $name;
         // parsers
         $extensions = array(
-            'html' => 'pHtmlTemplate',
-            'htm' => 'pHtmlTemplate',
-            //'md' => 'pMarkdownTemplate',
+            'html' => 'pTemplate',
+            'htm' => 'pTemplate',
         );
         
         $template = null;
