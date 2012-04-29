@@ -13,16 +13,17 @@ pload('pTime');
 class pTimeSpan extends pTime {
 
     /**
-     * Number of d
+     * Number of days
      * @var integer
      * @since 1.0-sofia
      */
-    private $day = 0;
+    protected $day = 0;
     
     /**
      * Create a new pTimeSpan object
      * @param integer $seconds (optional) The number of seconds to initialize
      *                         the time span with.
+     * @since 1.0-sofia
      */
     public function __construct($seconds = null){
         if(func_num_args() == 1){
@@ -75,7 +76,8 @@ class pTimeSpan extends pTime {
 
     /**
      * Get the total number of seconds in this time span
-     * @return integer|double
+     * @return integer|double Returns the total number of seconds
+     * @since 1.0-sofia
      */
     public function totalSeconds(){
         return $this->day * 86400.0 
@@ -87,7 +89,8 @@ class pTimeSpan extends pTime {
 
     /**
      * Get the total number of minutes in this time span
-     * @return integer|double
+     * @return integer|double Returns the total number of minutes
+     * @since 1.0-sofia
      */
     public function totalMinutes(){
         return $this->day * 1440 
@@ -99,7 +102,8 @@ class pTimeSpan extends pTime {
 
     /**
      * Get the total number of hours in this time span
-     * @return integer|double
+     * @return integer|double Returns the total number of hours
+     * @since 1.0-sofia
      */
     public function totalHours(){
         return $this->day * 24 
@@ -111,7 +115,8 @@ class pTimeSpan extends pTime {
 
     /**
      * Get the total number of days in this time span
-     * @return integer|double
+     * @return integer|double Returns the total number of days
+     * @since 1.0-sofia
      */
     public function totalDays(){
         return $this->day 
@@ -125,14 +130,16 @@ class pTimeSpan extends pTime {
      * Add another time span to this time span.
      * @param pTimeSpan $time The amount of time to add.
      * @return pTimeSpan Returns the resulting pTimeSpan from the addition operation.
+     * @since 1.0-sofia
      */
     public function add($time){
         $temp = new self();
         
-        $temp->millisecond($this->millisecond + $time->millisecond);
-        $temp->second($this->second + $time->second);
-        $temp->minute($this->minute + $time->minute);
+        $temp->day($this->day + $time->day);
         $temp->hour($this->hour + $time->hour);
+        $temp->minute($this->minute + $time->minute);
+        $temp->second($this->second + $time->second);
+        $temp->millisecond($this->millisecond + $time->millisecond);
         
         return $temp;
     }
@@ -146,11 +153,11 @@ class pTimeSpan extends pTime {
     public function subtract($time){
         $temp = new self();
         
-        $temp->millisecond($this->millisecond - $time->millisecond);
-        $temp->second($this->second - $time->second);
-        $temp->minute($this->minute - $time->minute);
-        $temp->hour($this->hour - $time->hour);
         $temp->day($this->day - $time->day);
+        $temp->hour($this->hour - $time->hour);
+        $temp->minute($this->minute - $time->minute);
+        $temp->second($this->second - $time->second);
+        $temp->millisecond($this->millisecond - $time->millisecond);
         
         return $temp;
     }
