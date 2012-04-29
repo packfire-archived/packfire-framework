@@ -1,0 +1,14 @@
+*~
+*.bak
+Thumbs.db
+desktop.ini
+composer.lock
+.DS_Store
+.buildpath
+.project
+.settings
+.tmpoj
+.tmp
+.idea
+nbproject/
+/.git-rewrite/

@@ -1,0 +1,121 @@
+#
+# YAML Configuration File - classmap
+#     Package mapping to class files
+#
+# Author      : Sam-Mauris Yong / mauris@hotmail.sg
+# Copyright   : Copyright (c) 2010-2012, Sam-Mauris Yong
+# License     : http://www.opensource.org/licenses/bsd-license New BSD License
+#
+
+---
+
+application:
+
+framework:
+  
+  "collection.sort.IComparable": "collection/sort/IComparable.php"
+  "collection.sort.IComparator": "collection/sort/IComparator.php"
+  "collection.sort.ISortable": "collection/sort/ISortable.php"
+  "collection.sort.ISorter": "collection/sort/ISorter.php"
+  "collection.sort.pObjectFieldComparator": "collection/sort/pObjectFieldComparator.php"
+  "collection.sort.pObjectSelectedFieldComparator": "collection/sort/pObjectSelectedFieldComparator.php"
+  "collection.sort.pPropertyComparator": "collection/sort/pPropertyComparator.php"
+  
+  "collection.IIterable": "collection/IIterable.php"
+  "collection.IList": "collection/IList.php"
+  "collection.IMap": "collection/IMap.php"
+  "collection.ISet": "collection/ISet.php"
+  "collection.pDeque": "collection/pDeque.php"
+  "collection.pIterator": "collection/pIterator.php"
+  "collection.pKeyValuePair": "collection/pKeyValuePair.php"
+  "collection.pList": "collection/pList.php" 
+  "collection.pMap": "collection/pMap.php"
+  "collection.pQueue": "collection/pQueue.php"
+  "collection.pStack": "collection/pStack.php"
+  
+  "config.pAppConfig": "config/pAppConfig.php"
+  "config.pConfig": "config/pConfig.php"
+  "config.pConfigFactory": "config/pConfigFactory.php"
+  "config.pFrameworkConfig": "config/pFrameworkConfig.php"
+  "config.pIniConfig": "config/pIniConfig.php"
+  "config.pRouterConfig": "config/pRouterConfig.php"
+  "config.pYamlConfig": "config/pYamlConfig.php"
+  
+  "datetime.pDate": "datetime/pDate.php"
+  "datetime.pDateComparator": "datetime/pDateComparator.php"
+  "datetime.pDatePeriod": "datetime/pDatePeriod.php"
+  "datetime.pDateTime": "datetime/pDateTime.php"
+  "datetime.pDateTimeComparator": "datetime/pDateTimeComparator.php"
+  "datetime.pDateTimeComponent": "datetime/pDateTimeComponent.php"
+  "datetime.pDateTimeFormat": "datetime/pDateTimeFormat.php"
+  "datetime.pDaysOfWeek": "datetime/pDaysOfWeek.php"
+  "datetime.pMonth": "datetime/pMonth.php"
+  "datetime.pTime": "datetime/pTime.php"
+  "datetime.pTimeComparator": "datetime/pTimeComparator.php"
+  "datetime.pTimeSpan": "datetime/pTimeSpan.php"
+  "datetime.pTimer": "datetime/pTimer.php"
+  
+  "exception.pException": "exception/pException.php"
+  
+  "io.file.pFile": "io/file/pFile.php"
+  "io.file.pFileStream": "io/file/pFileStream.php"
+  "io.file.pFileSystem": "io/file/pFileSystem.php"
+  "io.file.pFileType": "io/file/pFileType.php"
+  "io.file.pPath": "io/file/pPath.php"
+  "io.file.pPathPart": "io/file/pPathPart.php"
+  "io.IIOStream": "io/IIOStream.php"
+  "io.IInputStream": "io/IInputStream.php"
+  "io.IOutputStream": "io/IOutputStream.php"
+  "io.IStream": "io/IStream.php"
+  "io.pInputStreamReader": "io/pInputStreamReader.php"
+
+  "net.http.pHttpClient": "net/http/pHttpClient.php"
+  "net.http.pHttpClientBrowser": "net/http/pHttpClientBrowser.php"
+  "net.http.pHttpClientOS": "net/http/pHttpClientOS.php"
+  "net.http.pHttpClientRequest": "net/http/pHttpClientRequest.php"
+  "net.http.pHttpCooke": "net/http/pHttpCookie.php"
+  "net.http.pHttpMethod": "net/http/pHttpMethod.php"
+  "net.http.pHttpRequest": "net/http/pHttpRequest.php"
+  "net.http.pHttpResponse": "net/http/pHttpResponse.php"
+  "net.http.pHttpResponseCode": "net/http/pHttpResponseCode.php"
+  "net.http.pHttpVersion": "net/http/pHttpVersion.php"
+  "net.http.pRedirectResponse": "net/http/pRedirectResponse.php"
+  "net.http.pUrl": "net/http/pUrl.php"
+  
+  "routing.pRoute": "routing/pRoute.php"
+  "routing.pRouter": "routing/pRouter.php"
+  
+  "template.pHtmlTemplate": "template/pHtmlTemplate.php"
+  "template.pTemplate": "template/pTemplate.php"
+  
+  "text.regex.pRegex": "text/regex/pRegex.php"
+  "text.regex.pRegexMatch": "text/regex/pRegexMatch.php"
+  
+  "text.pNewline": "text/pNewline.php"
+  "text.pString": "text/pString.php"
+  "text.pText": "text/pText.php"
+  "text.pString": "text/pTextStream.php"
+  
+  "view.IView": "view/IView.php"
+  "view.pTheme": "view/pTheme.php"
+  "view.pView": "view/pView.php"
+  
+  "yaml.pYaml": "yaml/pYaml.php"
+  "yaml.pYamlInline": "yaml/pYamlInline.php"
+  "yaml.pYamlParser": "yaml/pYamlParser.php"
+  "yaml.pYamlPart": "yaml/pYamlPart.php"
+  "yaml.pYamlReference": "yaml/pYamlReference.php"
+  "yaml.pYamlValue": "yaml/pYamlValue.php"
+  
+  "IAppResponse": "IAppResponse.php"
+  "IApplication": "IApplication.php"
+  "IRunnable": "IRunnable.php"
+  "Packfire": "Packfire.php"
+  "pAppResponse": "pAppResponse.php"
+  "pApplication": "pApplication.php"
+  "pClassLoader": "pClassLoader.php"
+  "pController": "pController.php"
+  "pModel": "pModel.php"
+  "pObject": "pObject.php"
+  
+...

@@ -1,0 +1,33 @@
+/* 
+    Document   : light
+    Created on : Feb 18, 2012, 1:39:32 PM
+    Author     : Sam-Mauris Yong / mauris@hotmail.sg
+    Copyright  : Copyright (c) 2010-2012, Sam-Mauris Yong
+    Description:
+        A dark theme to the page
+*/
+
+body{
+    background:#F5F5F5;
+    color: #333;
+}
+
+a, a:visited{
+    color:#000;
+    text-decoration:underline;
+}
+
+a:hover{
+    color:#EE9922;
+    text-decoration:none;
+}
+
+#themeSwitch a, #themeSwitch a:visited {
+    background:#EE9922;
+    color:#FFF;
+}
+
+#themeSwitch a:hover{
+    background:#333;
+    color:#FFF;
+}

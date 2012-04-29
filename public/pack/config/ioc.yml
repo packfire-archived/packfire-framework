@@ -1,0 +1,32 @@
+#
+# YAML Configuration File - IoC
+#     Inversion of Control - services definition
+#
+# Author      : Sam-Mauris Yong / mauris@hotmail.sg
+# Copyright   : Copyright (c) 2010-2012, Sam-Mauris Yong
+# License     : http://www.opensource.org/licenses/bsd-license New BSD License
+#
+
+---
+#serviceName:
+#  class: className
+#  parameters:
+#    - param1
+#    - param2
+
+#security: # the security module is optional. The default security module does not identify or authenticate the users
+#  class: app.AppSecurityModule
+session.flash:
+  class: packfire.session.pSessionFlash
+form.feedback:
+  class: packfire.form.pFormFeedback
+logger:
+  class: packfire.log.pLogger
+  parameters: 
+    - 'pack/storage/log/default.log'
+session.storage.default:
+  class: packfire.session.storage.pSessionStorage
+  parameters: []
+    
+
+...
