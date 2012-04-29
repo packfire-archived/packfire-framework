@@ -57,7 +57,7 @@ class pTextStream implements IIOStream {
     
     /**
      * Get the length of the stream.
-     * @return Returns the length of the stream.
+     * @return integer Returns the length of the stream.
      * @since 1.0-sofia
      */
     public function length() {
@@ -138,7 +138,7 @@ class pTextStream implements IIOStream {
     public function write($data, $offset = null, $length = null) {
         switch(func_num_args()){
             case 3:
-                if(null !== $offset){
+                if(null === $offset){
                     $offset = $this->pointer;
                 }
                 $this->buffer = substr($this->buffer, 0, $offset)
