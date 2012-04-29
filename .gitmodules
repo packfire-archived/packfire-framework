@@ -1,3 +1,6 @@
 [submodule "moustache"]
         path = packfire/template/moustache
         url = git@github.com:packfire/packfire-moustache.git
+[submodule "graph"]
+        path = packfire/graph
+        url = git@github.com:packfire/packfire-dijkstra.git
