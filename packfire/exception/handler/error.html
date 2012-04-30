@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{title}</title>
-        <base href="{rootUrl}" target="_top" />
+        <title>{{title}}</title>
+        <base href="{{rootUrl}}" target="_top" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style type="text/css">
             
@@ -38,17 +38,19 @@
     </head>
     <body>
         <div id="universe">
-            <h1>{title}</h1>
+            <h1>{{title}}</h1>
             <div id="message">
                 <p>
                     An exception has occurred while rendering the page.
                 </p>
                 <p>
-                    <pre style="margin-left:20px">{message}</pre>
+                    <pre style="margin-left:20px">{{message}}</pre>
                 </p>
             </div>
-            <div id="file">Occurred at <b>{file}:{line}</b></div>
-            <div id="stack"><pre>{stack}</pre></div>
+            <div id="file">Occurred at <b>{{file}}:{{line}}</b></div>
+            {{#stack}}
+                <div id="stack"><pre>{{stack}}</pre></div>
+            {{/#stack}}
         </div>
     </body>
 </html>

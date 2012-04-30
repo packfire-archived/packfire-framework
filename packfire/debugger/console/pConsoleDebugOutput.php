@@ -3,6 +3,7 @@ pload('packfire.collection.pList');
 pload('packfire.collection.pMap');
 pload('packfire.io.file.pPath');
 pload('packfire.debugger.IDebugOutput');
+pload('packfire.template.moustache.pMoustacheTemplate');
 
 /**
  * Provides Client-side GUI debugging console output
@@ -16,11 +17,11 @@ pload('packfire.debugger.IDebugOutput');
 class pConsoleDebugOutput implements IDebugOutput {
     
     /**
-     * The output buffer
+     * 
      * @var pList
-     * since 1.0-sofia
+     * @since 1.0-sofia
      */
-    private $buffer;
+    private $lines;
     
     /**
      * The types of log that has been entered
@@ -34,7 +35,7 @@ class pConsoleDebugOutput implements IDebugOutput {
      * @since 1.0-sofia 
      */
     public function __construct(){
-        $this->buffer = new pList();
+        $this->lines = new pList();
         $this->types = new pMap();
     }
 
@@ -50,20 +51,14 @@ class pConsoleDebugOutput implements IDebugOutput {
         if($type == 'dump'){
             $message = '<pre>' . $message . '</pre>';
         }
-        if(func_num_args() == 1){
-            $this->buffer->add(sprintf('<div class="pfLine %s">' .
-                    '<div class="pfMessage"><b>%s</b>: %s</div><div class="pfClear"></div></div>',
-                    $type, $type, $message));
-        }else{
-            $this->buffer->add(
-                sprintf('<div class="pfLine %s"><div class="pfMessage"><b>%s</b>: %s</div>' .
-                        '<div class="pfValue">%s</div><div class="pfClear"></div></div>',
-                        $type, $type, $message, $value));
-        }
+        $this->lines->add(
+                    array('type' => $type, 'message' => $message, 'value' => $value)
+                );
         if(!$this->types->keyExists($type)){
             $this->types->add($type, 0);
         }
         $this->types->add($type, $this->types[$type] + 1);
+        exit;
     }
     
     /**
@@ -71,27 +66,20 @@ class pConsoleDebugOutput implements IDebugOutput {
      * @since 1.0-sofia 
      */
     public function output(){
-        $template = new pTemplate(file_get_contents(pPath::path(__FILE__) 
-                . '/template.html'));
+        $template = new pMoustacheTemplate(
+                file_get_contents(pPath::path(__FILE__) . '/template.html'));
         
-        $lines = '';
-        foreach($this->buffer as $line){
-            $lines .= $line;
-        }
-        $template->fields()->add('lines', $lines);
+        $template->fields()->add('lines', $this->lines);
         
-        $tabs = '';
+        $tabs = array();
         foreach($this->types as $type => $count){
-            $tabs .= '<a href="#debugger-' . $type 
-                    . '" onclick="PfConsoleDebugger.showByTab(\'' 
-                    . $type . '\');return false;">' 
-                    . $type . ' (' . $count . ')</a>';
+            $tabs[] = array('type' => $type, 'count' => $count);
         }
         $template->fields()->add('tabs', $tabs);
         
-        $template->fields()->add('totalCount', $this->buffer->count());
+        $template->fields()->add('totalCount', $this->lines->count());
         
-        echo $template->parse();   
+        echo $template->parse();
     }
     
 }

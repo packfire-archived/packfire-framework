@@ -1,6 +1,6 @@
 <?php
 pload('packfire.view.pView');
-pload('packfire.template.pHtmlTemplate');
+pload('packfire.template.pMoustacheTemplate');
 
 /**
  * pExceptionPageView Description
@@ -35,7 +35,7 @@ class pExceptionPageView extends pView {
      * @since 1.0-sofia 
      */
     protected function create() {
-        $this->template(new pTemplate(file_get_contents(dirname(__FILE__) 
+        $this->template(new pMoustacheTemplate(file_get_contents(dirname(__FILE__) 
                 . DIRECTORY_SEPARATOR . 'error.html')));
         $this->define('title', 'Error ' . $this->exception->getCode());
         $this->define('file',  $this->exception->getFile());

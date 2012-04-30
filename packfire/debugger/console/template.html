@@ -71,11 +71,21 @@
     <div id="pfDebuggerTabs">
         <span style="float:right; line-height:30px;">Packfire Debugger</span>
         <a href="#debugger-minimize" id="pfDebuggerMinimize">_</a>
-        <a href="#debugger-all" onclick="PfConsoleDebugger.showByTab('pfLine');return false;">All ({totalCount})</a>
-        {tabs}
+        <a href="#debugger-all" onclick="PfConsoleDebugger.showByTab('pfLine');return false;">All ({{totalCount}})</a>
+        {{#tabs}}
+            <a href="#debugger-{{type}}" onclick="PfConsoleDebugger.showByTab('{{type}}');return false;">{{type}} ({{count}})</a>
+        {{/tabs}}
     </div>
     <div id="pfDebuggerConsole">
-        {lines}
+        {{#lines}}
+            <div class="pfLine {{type}}">
+                <div class="pfMessage"><b>{{type}}</b>: {{&message}}</div>
+                {{#value}}
+                    <div class="pfValue">{{value}}</div>
+                {{/value}}
+                <div class="pfClear"></div>
+            </div>
+        {{/lines}}
     </div>
 </div>
 <script type="text/javascript" src="assets/scripts/pfdebugger.js"></script>
