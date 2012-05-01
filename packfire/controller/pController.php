@@ -314,7 +314,14 @@ abstract class pController extends pBucketUser implements IAppResponse {
     public function run($route, $action){
         $this->route = $route;
         $this->params = $route->params();
-        if($this->service('security')){
+        $securityEnabled = $this->service('security') 
+                && !$this->service('config.app')->get('secuity', 'disabled');
+        if($securityEnabled){
+            if($this->service('config.app')->get('secuity', 'override')){
+                $this->service('security')
+                        ->identity($this->service('config.app')
+                                ->get('secuity', 'identity'));
+            }
             $this->service('security')->context($this);
             if(!$this->service('security')->authenticate()){
                 throw new pAuthenticationException('Could not authenticate user.');
@@ -334,7 +341,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
             }
         }
         
-        if($this->service('security') && !$this->service('security')->authorize($route)){
+        if($securityEnabled && !$this->service('security')->authorize($route)){
             throw new pAuthorizationException('Could not authorize user to access route.');
         }
         

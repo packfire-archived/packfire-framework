@@ -58,7 +58,6 @@ class pConsoleDebugOutput implements IDebugOutput {
             $this->types->add($type, 0);
         }
         $this->types->add($type, $this->types[$type] + 1);
-        exit;
     }
     
     /**

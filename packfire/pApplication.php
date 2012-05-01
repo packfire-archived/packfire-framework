@@ -168,7 +168,7 @@ class pApplication extends pBucketUser implements IApplication {
                     $action = $route->params()->get('action');
                     $route->params()->removeAt('class');
                     $route->params()->removeAt('action');
-                    $caLoader = new pCALoader($class, $action, $request, $route, $response);
+                    $caLoader = new pCALoader(ucfirst($class), $action, $request, $route, $response);
                     $caLoader->copyBucket($app);
                     $caLoader->load(true);
                     return $caLoader;

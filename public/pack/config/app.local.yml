@@ -13,7 +13,12 @@ app:
   version: "1.0-sofia"
   rootUrl: "http://localhost/packfire/public"
   debug: true
-  
+
+security:
+  disabled: true
+  override: false
+  identity: null
+
 session:
   name: packfire
   lifetime: 3600
