@@ -1,7 +1,9 @@
 <?php
+pload('packfire.database.IDbLinq');
 pload('packfire.plinq.IOrderedLinq');
 pload('packfire.database.drivers.mysql.pMySqlTable');
 pload('packfire.collection.pList');
+pload('packfire.collection.pMap');
 pload('pMySqlLinqJoin');
 pload('pMySqlLinqOrder');
 
@@ -15,7 +17,7 @@ pload('pMySqlLinqOrder');
  * @package packfire.database.drivers.mysql.linq
  * @since 1.0-sofia
  */
-class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
+class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
 
     /**
      * The list of selects
@@ -589,6 +591,82 @@ class pMySqlLinq extends pMySqlTable implements IOrderedLinq {
      */
     public function thenByDesc($field) {
         $this->orderings->add(new pMySqlLinqOrder($field, true));
+        return $this;
+    }
+
+    /**
+     * Set the model for the LINQ query
+     * @param pDbModel|array|pList $model The model or collection of models to fetch
+     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @since 1.0-sofia
+     */
+    public function model($model) {
+        if(func_num_args() == 1){
+            if(is_array($model) || $model instanceof pList){
+                $args = $model;
+            }else{
+                $args = array($model);
+            }
+        }else{
+            $args = func_get_args();
+        }
+        $mapping = array();
+        foreach($args as $name => $arg){
+            /* @var $arg pDbModel */
+            $columns = new pList();
+            $properties = new pList();
+            $class = get_class($arg);
+            
+            $map = $arg->map();
+            $table = '';
+            if($arg->dbName()){
+                $table = $arg->dbName() . '.';
+            }
+            foreach($map as $column => $property){
+                if(is_array($property)){
+                    foreach($property as $key => $value){
+                        $columns[] = $key;
+                        $properties[] = $value;
+                    }
+                }else{
+                    $columns[] = $column;
+                    $properties[] = $property;
+                }
+            }
+            $mapping->add(array(
+                'name' => $name,
+                'class' => $class,
+                'columns' => $columns,
+                'properties' => $properties
+            ));
+        }
+        $columns = new pList();
+        foreach($mapping as $instance){
+            $columns->append($instance['columns']);
+        }
+        $this->select();
+        $this->mapping = function($row)
+                use ($class, $mapping){
+            $result = array();
+            $columnIndex = 0;
+            foreach($mapping as $instance){
+                $class = $instance['class'];
+                $obj = new $class();
+                foreach($instance['properties'] as $property){
+                    $obj->$property = $row[$columnIndex];
+                    ++$columnIndex;
+                }
+                $name = $class;
+                if(is_string($instance['name'])){
+                    $name = $instance['name'];
+                }
+                $result[$name] = $obj;
+            }
+            if(count($result) == 0){
+                $result = reset($result);
+            }
+            return $result;
+        };
         return $this;
     }
     

@@ -80,7 +80,7 @@ abstract class pDbSchema {
     /**
      * Start the LINQ expression from a table
      * @param string $table The table to work with
-     * @return ILinq Returns the LINQ object to start chaining
+     * @return ILinq|IDbLinq Returns the LINQ object to start chaining
      * @since 1.0-sofia
      */
     public abstract function from($table);
