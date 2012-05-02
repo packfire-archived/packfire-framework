@@ -633,18 +633,18 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
                     $properties[] = $property;
                 }
             }
-            $mapping->add(array(
+            $mapping[] = array(
                 'name' => $name,
                 'class' => $class,
                 'columns' => $columns,
                 'properties' => $properties
-            ));
+            );
         }
         $columns = new pList();
         foreach($mapping as $instance){
             $columns->append($instance['columns']);
         }
-        $this->select();
+        $this->select($columns);
         $this->mapping = function($row)
                 use ($class, $mapping){
             $result = array();
@@ -662,7 +662,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
                 }
                 $result[$name] = $obj;
             }
-            if(count($result) == 0){
+            if(count($result) == 1){
                 $result = reset($result);
             }
             return $result;

@@ -315,7 +315,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         $this->route = $route;
         $this->params = $route->params();
         $securityEnabled = $this->service('security') 
-                && !$this->service('config.app')->get('secuity', 'disabled');
+                && !$this->service('config.app')->get('security', 'disabled');
         if($securityEnabled){
             if($this->service('config.app')->get('secuity', 'override')){
                 $this->service('security')
