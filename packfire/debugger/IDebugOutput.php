@@ -11,8 +11,20 @@
  */
 interface IDebugOutput {
     
+    /**
+     * Write the log message to the debugging output channel
+     * @param string $message The message to write
+     * @param string $value (optional) The secondary value to the message
+     * @param string $type (optional) The type of message written, 
+     *              defaults to 'log'.
+     * @since 1.0-sofia
+     */
     public function write($message, $value = null, $type = 'log');
     
+    /**
+     * Output
+     * @since 1.0-sofia 
+     */
     public function output();
     
 }

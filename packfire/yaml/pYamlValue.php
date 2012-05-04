@@ -25,37 +25,37 @@ class pYamlValue {
         $length = strlen($line);
         $position = 0;
         $escape = false;
-        $string = false;
         $openQuote = null;
         $start = null;
         $removals = array();
-        while($position < $length){
+        $doLoop = true;
+        while($position < $length && $doLoop){
             switch($line[$position]){
                 case '\\':
-                    $escape = true;
+                    $escape = !$escape;
                     break;
                 case "\n":
-                    if(!$string && $start !== null){
+                    if(!$openQuote && $start !== null){
                         $removals[$start] = $position;
                         $start = null;
+                        $doLoop = false;
                     }
                     break;
                 case '#':
                     if(!$string){
                         $start = $position;
+                        $doLoop = false;
                     }
                     break;
                 case '"':
                 case '\'':
                     if(!$escape){
-                        if($string){
+                        if($openQuote){
                             if($openQuote == $line[$position]){
                                 $openQuote = null;
-                                $string = false;
                             }
                         }else{
                             $openQuote = $line[$position];
-                            $string = true;
                         }
                     }
                 default:
@@ -67,7 +67,7 @@ class pYamlValue {
             ++$position;
         }
         if($start !== null){
-            $removals[$start] = strlen($line);
+            $removals[$start] = $length;
         }
         $offset = 0;
         foreach($removals as $start => $end){
@@ -113,29 +113,27 @@ class pYamlValue {
      */
     public static function translateScalar($scalar){
         $result = $scalar;
-        switch($scalar){
-            case 'true':
-            case 'TRUE':
-                $result = true;
-                break;
-            case 'false':
-            case 'FALSE':
-                $result = false;
-                break;
-            case 'null':
-            case 'NULL':
-                $result = null;
-                break;
-        }
-        if(is_numeric($result)){
-            $result += 0;
-        }
         $quoted = self::isQuoted($result);
         if(!$quoted || ($quoted && $result[0] != '\'')){
             $result = self::unescape($result);
         }
         if($quoted){
             $result = self::stripQuote($result);
+        }
+        if(is_string($result)){
+            switch(strtolower($scalar)){
+                case 'true':
+                    $result = true;
+                    break;
+                case 'false':
+                    $result = false;
+                    break;
+                case 'null':
+                    $result = null;
+                    break;
+            }
+        }else if(is_numeric($result)){
+            $result += 0;
         }
         return $result;
     }

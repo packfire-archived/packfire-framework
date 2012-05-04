@@ -158,7 +158,9 @@ class pYamlParser {
      */
     public function parseKeyValue($line){
         $position = 0;
-        $key = pYamlInline::load($line)->parseScalar($position, array(pYamlPart::KEY_VALUE_SEPARATOR), false);
+        $key = pYamlInline::load($line)
+                ->parseScalar($position,
+                        array(pYamlPart::KEY_VALUE_SEPARATOR), false);
         $after = $position + 2;
         if($after >= strlen($line)){
             $value = null;
@@ -183,6 +185,9 @@ class pYamlParser {
         $trimmed = '';
         while($trimmed == '' && $this->read->stream()->tell() < $this->read->stream()->length()){
             list($line, $trimmed, $indentation) = $this->nextLine();
+            if(!$line){
+                continue;
+            }
             if($minLevel > $indentation){
                 break;
             }
@@ -258,7 +263,8 @@ class pYamlParser {
                     break;
                 case '>': // folded literal block
                     $value = trim($this->fetchBlock($minLevel));
-                    $value = preg_replace(array('`\n\s+([^\s]+)`', '`([^\n]+)\n([^\n]+)`'), array("\n".'$1', '$1 $2'), $value);
+                    $value = preg_replace(array('`\n\s+([^\s]+)`', '`([^\n]+)\n([^\n]+)`'),
+                            array("\n".'$1', '$1 $2'), $value);
                     $result = str_replace("\n\n", "\n", $value);
                     break;
                 case '*': // refer to reference
@@ -305,24 +311,20 @@ class pYamlParser {
                 
                 list($key, $value) = $this->parseKeyValue(substr($trimmed, 2));
                 
-                if($key == pYamlValue::stripQuote(substr($trimmed, 2)) && $key !== '' && $value === null){
+                if($key == pYamlValue::stripQuote(substr($trimmed, 2))
+                        && $key !== '' && $value === null){
                     // - value
                     $result[] = $this->fetchFullValue($key, $minLevel + 2);
                 }elseif('' === $key && $value === null){
                     // - 
                     //   value
                     $result[] = $this->parseBlock($minLevel + 2);
-//                }elseif('' === $key && null !== $value){
-//                    // - {key: value}
-//                    // - [value]
-//                    $this->postline = $line;
-//                    $result[] = $this->parseBlock($minLevel + 2);
                 }else{
                     // - key: value
                     if($value === null){
                         $lastLine = str_repeat(' ', $indentation + 2) . $key . ': ';
                     }else{
-                        $lastLine = str_repeat(' ', $indentation + 2) .$key . ': ' . $value;
+                        $lastLine = str_repeat(' ', $indentation + 2) . $key . ': ' . $value;
                     }
                     $this->postline = $lastLine;
                     $result[] = $this->parseMapItems($indentation + 2);

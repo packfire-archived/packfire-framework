@@ -9,6 +9,7 @@ pload('pLinqDistinctQuery');
 pload('pLinqReverseQuery');
 pload('pLinqOrderByQuery');
 pload('pLinqJoinQuery');
+pload('pLinqGroupByQuery');
 pload('packfire.exception.pNullException');
 
 /**
