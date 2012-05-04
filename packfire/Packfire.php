@@ -30,6 +30,8 @@ pload('packfire.net.http.pHttpClientRequest');
 pload('packfire.io.file.pFileStream');
 pload('packfire.datetime.pDateTime');
 
+define('__PACKFIRE_START__', pDateTime::microtime());
+
 /**
  * Provides functionality to boot the application
  * @since 1.0-sofia 
