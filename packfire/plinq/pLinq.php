@@ -21,7 +21,7 @@ pload('packfire.exception.pNullException');
  * @package packfire.plinq
  * @since 1.0-sofia
  */
-class pLinq implements ILinq, IteratorAggregate, Countable {
+class pLinq implements ILinq, IteratorAggregate {
     
     /**
      * The queue of query processes

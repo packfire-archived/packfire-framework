@@ -9,7 +9,7 @@
  * @package packfire.plinq
  * @since 1.0-sofia
  */
-interface ILinq {
+interface ILinq extends Countable {
     
     public static function from($source);
     
@@ -26,8 +26,6 @@ interface ILinq {
     public function distinct();
     
     public function groupBy($field);
-    
-    public function count($condition = null);
     
     public function sum($field = null);
     
