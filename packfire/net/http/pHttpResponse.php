@@ -1,5 +1,5 @@
 <?php
-pload('packfire.IAppResponse');
+pload('packfire.response.IAppResponse');
 pload('pHttpVersion');
 pload('pHttpResponseCode');
 pload('packfire.text.pNewline');

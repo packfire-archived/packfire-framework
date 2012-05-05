@@ -1,14 +1,14 @@
 <?php
-pload('pHttpResponse');
-pload('pHttpResponseCode');
+pload('packfire.net.pHttpResponse');
+pload('packfire.net.pHttpResponseCode');
 
 /**
- * pRedirectResponse Description
+ * A response that indicates that the browser should redirect to another URL.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.net.http
+ * @package packfire.response
  * @since 1.0-sofia
  */
 class pRedirectResponse extends pHttpResponse {

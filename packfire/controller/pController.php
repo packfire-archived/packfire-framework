@@ -97,7 +97,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
     /**
      * Create a new pController object
      * @param pHttpClientRequest $request The client's request
-     * @param pHttpResponse $response The response object
+     * @param IAppResponse $response The response object
      * @since 1.0-sofia
      */
     public function __construct($request, $response){
