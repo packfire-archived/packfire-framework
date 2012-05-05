@@ -38,13 +38,13 @@ class pYamlValue {
                     if(!$openQuote && $start !== null){
                         $removals[$start] = $position;
                         $start = null;
-                        $doLoop = false;
+                        $position = $length;
                     }
                     break;
                 case '#':
-                    if(!$string){
+                    if($openQuote === null){
                         $start = $position;
-                        $doLoop = false;
+                        $position = $length;
                     }
                     break;
                 case '"':
@@ -56,6 +56,10 @@ class pYamlValue {
                             }
                         }else{
                             $openQuote = $line[$position];
+                            $pos = strpos($line, $line[$position], $position + 1) ;
+                            if($pos !== false){
+                                $position = $pos - 1;
+                            }
                         }
                     }
                 default:

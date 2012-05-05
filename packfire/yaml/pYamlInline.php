@@ -98,7 +98,6 @@ class pYamlInline {
     public function parseKeyValue(&$position = 0, $breakers = array('{', pYamlPart::KEY_VALUE_SEPARATOR,'#', "\n")){
         $result = array();
         $key = $this->parseScalar($position, $breakers, false);
-        ++$position;
         $value = null;
         $value = $this->parseValue($position, $breakers);
         if($key){
@@ -106,7 +105,6 @@ class pYamlInline {
         }else{
             $result[] = $value;
         }
-        --$position;
         return $result;
     }
     
@@ -154,17 +152,20 @@ class pYamlInline {
      */
     private function parseNormalScalar(&$position = 0,
             $breakers = array('#', "\n")){
-        $offset = $position;
+        $offset = null;
         $line = $this->line;
-        $length = $this->length;
-        while($position < $length){
-            if(in_array($line[$position], $breakers)){
-                --$position;
-                break;
+        foreach($breakers as $breaker){
+            $pos = strpos($line, $breaker, $position);
+            if(null === $offset || ($pos !== false && $pos < $offset)){
+                $offset = $pos;
             }
-            ++$position;
         }
-        return substr($line, $offset, $position - $offset + 1);
+        if(null == $offset){
+            $offset = strlen($line);
+        }
+        $result = substr($line, $position, $offset - $position);
+        $position = $offset + 1;
+        return $result;
     }
     
     /**
@@ -193,7 +194,8 @@ class pYamlInline {
             }
             ++$position;
         }
-        return substr($line, $offset, $position - $offset + 1);
+        $result = substr($line, $offset, $position - $offset + 1);
+        return $result;
     }
     
     /**

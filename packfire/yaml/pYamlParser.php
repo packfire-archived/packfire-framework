@@ -161,11 +161,11 @@ class pYamlParser {
         $key = pYamlInline::load($line)
                 ->parseScalar($position,
                         array(pYamlPart::KEY_VALUE_SEPARATOR), false);
-        $after = $position + 2;
+        $after = $position;
         if($after >= strlen($line)){
             $value = null;
         }else{
-            $value = substr($line, $after);
+            $value = trim(substr($line, $after));
             if($key[0] == '[' || $key[0] == '{'){
                 $key = $key . pYamlPart::KEY_VALUE_SEPARATOR . $value;
                 $value = null;
@@ -298,8 +298,11 @@ class pYamlParser {
         $indentation = $minLevel;
         $line = null;
         while($minLevel <= $indentation){
-            
             list($line, $trimmed, $indentation) = $this->nextLine();
+            if($trimmed == pYamlPart::DOC_END){
+                $this->postline = $line;
+                break;
+            }
             
             if($trimmed == ''){
                 break;
@@ -310,7 +313,6 @@ class pYamlParser {
                     || ltrim($line) == pYamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE)){
                 
                 list($key, $value) = $this->parseKeyValue(substr($trimmed, 2));
-                
                 if($key == pYamlValue::stripQuote(substr($trimmed, 2))
                         && $key !== '' && $value === null){
                     // - value
@@ -349,6 +351,10 @@ class pYamlParser {
         $line = null;
         while($minLevel <= $indentation){
             list($line, $trimmed, $indentation) = $this->nextLine();
+            if($trimmed == pYamlPart::DOC_END){
+                $this->postline = $line;
+                break;
+            }
             
             if($trimmed == ''){
                 break;
