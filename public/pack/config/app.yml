@@ -35,11 +35,11 @@ database:
 #    dbname: packfire
 #    user: root 
 #    password: password
-  scaffold:
-    driver: mysql
-    host: localhost
-    dbname: packfire
-    user: root 
-    password: password
+#  scaffold:
+#    driver: mysql
+#    host: localhost
+#    dbname: packfire
+#    user: root 
+#    password: password
 
 ...

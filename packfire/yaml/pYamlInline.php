@@ -44,8 +44,7 @@ class pYamlInline {
      * @since 1.0-sofia
      */
     public static function load($line){
-        $inline = new self($line);
-        return $inline;
+        return new self($line);
     }
     
     /**

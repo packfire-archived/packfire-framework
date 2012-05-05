@@ -3,6 +3,7 @@ pload('pYamlInline');
 pload('packfire.collection.pMap');
 pload('pYamlReference');
 pload('pYamlPart');
+pload('packfire.text.pNewline');
 
 /**
  * Contains constants that identify parts of the document
@@ -117,7 +118,7 @@ class pYamlParser {
      * @since 1.0-sofia
      */
     private function prepareLine($line){
-        $line = str_replace(array("\r\n", "\r"), array("\n", "\n"), $line);
+        $line = pNewline::neutralize($line);
         $line = pYamlValue::stripComment($line);
         return $line;
     }
@@ -167,7 +168,7 @@ class pYamlParser {
         }else{
             $value = trim(substr($line, $after));
             if($key[0] == '[' || $key[0] == '{'){
-                $key = $key . pYamlPart::KEY_VALUE_SEPARATOR . $value;
+                $key = $line;
                 $value = null;
             }
         }

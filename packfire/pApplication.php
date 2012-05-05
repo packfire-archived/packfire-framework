@@ -44,7 +44,6 @@ class pApplication extends pBucketUser implements IApplication {
      */
     public function __construct(){
         $this->services = new pServiceBucket();
-        $this->services->put('timer.app.start', new pTimer(true));
         $this->loadExceptionHandler();
         $this->loadBucket();
     }
@@ -161,18 +160,8 @@ class pApplication extends pBucketUser implements IApplication {
                     $data->get('method'), $data->get('params'));
             $router->add($key, $route);
         }
-        $app = $this;
         $directControllerAccessRoute = new pRoute('/{class}/{action}',
-                function($request, $route, $response) use($app) {
-                    $class = $route->params()->get('class');
-                    $action = $route->params()->get('action');
-                    $route->params()->removeAt('class');
-                    $route->params()->removeAt('action');
-                    $caLoader = new pCALoader(ucfirst($class), $action, $request, $route, $response);
-                    $caLoader->copyBucket($app);
-                    $caLoader->load(true);
-                    return $caLoader;
-                },
+                array($this, 'directAccessProcessor'),
                 null,
                 new pMap(array(
                     'class' => '([a-zA-Z0-9\_]+)',
@@ -180,6 +169,17 @@ class pApplication extends pBucketUser implements IApplication {
                 )));
         $router->add('packfire.DCARoute', $directControllerAccessRoute);
         return $router;
+    }
+    
+    private function directAccessProcessor($request, $route, $response){
+        $class = $route->params()->get('class');
+        $action = $route->params()->get('action');
+        $route->params()->removeAt('class');
+        $route->params()->removeAt('action');
+        $caLoader = new pCALoader(ucfirst($class), $action, $request, $route, $response);
+        $caLoader->copyBucket($this);
+        $caLoader->load(true);
+        return $caLoader;
     }
     
 }

@@ -1,6 +1,8 @@
 <?php
+pload('packfire.datetime.pDateTime');
 pload('packfire.ioc.pBucketUser');
-pload('pConsoleDebugOutput');
+pload('packfire.debugger.console.pConsoleDebugOutput');
+pload('packfire.debugger.profiler.pProfiler');
 
 /**
  * The debugger to help you debug in your application
@@ -29,12 +31,21 @@ class pDebugger extends pBucketUser {
     private $output;
     
     /**
+     *
+     * @var pProfiler
+     * @since 1.0-sofia 
+     */
+    private $profiler;
+    
+    /**
      * Create a new pDebugger object
      * @param IDebugOutput $output The output to write the debugging logs to
      * @since 1.0-sofia
      */
     public function __construct($output){
         $this->output = $output;
+        $this->profiler = new pProfiler();
+        //$this->profiler->start();
     }
     
     /**
@@ -46,6 +57,13 @@ class pDebugger extends pBucketUser {
      */
     public function enabled($enable = null){
         if(func_num_args() == 1){
+            if($this->enabled != $enable){
+                if($enable){
+                    //$this->profiler->start();
+                }else{
+                    //$this->profiler->stop();
+                }
+            }
             $this->enabled = $enable;
         }
         return $this->enabled;
@@ -113,7 +131,7 @@ class pDebugger extends pBucketUser {
                     'Time taken from application loaded to reach %s line %s',
                     $dbt['file'], $dbt['line']);
             $this->output->write($message,
-                    $this->service('timer.app.start')->result() . 's',
+                    (pDateTime::microtime() - __PACKFIRE_START__) . 's',
                     __FUNCTION__);
         }
     }
@@ -136,6 +154,16 @@ class pDebugger extends pBucketUser {
     }
     
     /**
+     *
+     * @param pProfileEntry $entry 
+     */
+    public function profile($entry){
+        if($this->enabled){
+            $this->output->write($entry->call() . ' at ' . $entry->caller() . ' / ' . $entry->file(), $entry->execTime(), __FUNCTION__);
+        }
+    }
+    
+    /**
      * Perform output when the debugger is destroyed, supposedly application
      * end execution.
      * @internal
@@ -143,6 +171,17 @@ class pDebugger extends pBucketUser {
      */
     public function __destruct(){
         if($this->enabled){
+            $this->timeCheck();
+            pload('packfire.plinq.pLinq');
+//            $entries = pLinq::from($this->profiler->entries());
+//            $grouped = $entries->groupBy(function($x){return $x->call();})->toList();
+//            foreach($grouped as $kvp){
+//                $this->dump($kvp);
+//            }
+            foreach($this->profiler->entries() as $entry){
+                $this->profile($entry);
+            }
+            $this->timeCheck();
             $this->output->output();
         }
     }

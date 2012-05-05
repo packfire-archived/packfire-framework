@@ -24,19 +24,18 @@ class pYamlValue {
     public static function stripComment($line){
         $length = strlen($line);
         $position = 0;
-        $escape = false;
         $openQuote = null;
         $start = null;
-        $removals = array();
+        $end = null;
         $doLoop = true;
         while($position < $length && $doLoop){
             switch($line[$position]){
                 case '\\':
-                    $escape = !$escape;
+                    ++$position;
                     break;
                 case "\n":
                     if(!$openQuote && $start !== null){
-                        $removals[$start] = $position;
+                        $end = $position;
                         $start = null;
                         $position = $length;
                     }
@@ -49,36 +48,25 @@ class pYamlValue {
                     break;
                 case '"':
                 case '\'':
-                    if(!$escape){
-                        if($openQuote){
-                            if($openQuote == $line[$position]){
-                                $openQuote = null;
-                            }
-                        }else{
-                            $openQuote = $line[$position];
-                            $pos = strpos($line, $line[$position], $position + 1) ;
-                            if($pos !== false){
-                                $position = $pos - 1;
-                            }
+                    if($openQuote){
+                        if($openQuote == $line[$position]){
+                            $openQuote = null;
+                        }
+                    }else{
+                        $openQuote = $line[$position];
+                        $pos = strpos($line, $line[$position], $position + 1) ;
+                        if($pos !== false){
+                            $position = $pos - 1;
                         }
                     }
-                default:
-                    if($escape){
-                        $escape = false;
-                    }
-                    break;
             }
             ++$position;
         }
         if($start !== null){
-            $removals[$start] = $length;
-        }
-        $offset = 0;
-        foreach($removals as $start => $end){
-            $start -= $offset;
-            $end -= $offset;
+            if($end === null){
+                $end = $length;
+            }
             $line = substr($line, 0, $start) . substr($line, $end);
-            $offset += ($end - $start);
         }
         return $line;
     }
