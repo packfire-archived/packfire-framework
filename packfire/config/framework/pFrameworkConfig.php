@@ -26,30 +26,17 @@ class pFrameworkConfig {
     public static function load($name, $context = __ENVIRONMENT__){
         $path = __APP_ROOT__ . 'pack/config/' . $name;
         
-        // parsers
-        $testFiles = array(
-            'yml' => 'pYamlConfig',
-            'yaml' => 'pYamlConfig',
-            'ini' => 'pIniConfig',
-        );
+        $map = array_keys(pConfigType::typeMap());
         
         $factory = new pConfigFactory();
-        
-        if($context){
-            foreach($testFiles as $type => $class){
-                if(is_file($path . '.' . $context . '.' . $type)){
-                    return $factory->load($path . '.' . $context . '.' . $type);
-                }
+        foreach($map as $type){
+            if($context && is_file($path . '.' . $context . '.' . $type)){
+                return $factory->load($path . '.' . $context . '.' . $type);
             }
-        }
-        
-        // fall back if with context the file is not found
-        foreach($testFiles as $type => $class){
-            if(is_file($path . '.' .  $type)){
+            if(is_file($path . '.' . $type)){
                 return $factory->load($path . '.' . $type);
             }
         }
-        
         return null;
     }
     

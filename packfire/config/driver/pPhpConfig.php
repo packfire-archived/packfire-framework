@@ -1,5 +1,5 @@
 <?php
-pload('pConfig');
+pload('packfire.config.pConfig');
 
 /**
  * A PHP configuration file that returns an array of configuration information.

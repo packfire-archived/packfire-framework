@@ -1,8 +1,10 @@
 <?php
-pload('pConfig');
+pload('packfire.config.pConfig');
+pload('packfire.yaml.pYaml');
+pload('packfire.io.file.pFileInputStream');
 
 /**
- * An INI configuration file
+ * A YAML Configuration File
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -10,14 +12,16 @@ pload('pConfig');
  * @package packfire.config
  * @since 1.0-sofia
  */
-class pIniConfig extends pConfig {
+class pYamlConfig extends pConfig {
     
     /**
      * Read the configuration file 
      * @since 1.0-sofia
      */
     protected function read() {
-        $this->data = parse_ini_file($this->file, true);
+        $stream = new pFileInputStream($this->file);
+        $yaml = new pYaml($stream);
+        $this->data = $yaml->read(); 
     }
     
 }

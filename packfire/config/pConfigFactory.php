@@ -1,8 +1,9 @@
 <?php
 pload('packfire.io.file.pPath');
-pload('pYamlConfig');
-pload('pIniConfig');
-pload('pPhpConfig');
+pload('pConfigType');
+pload('packfire.config.driver.pYamlConfig');
+pload('packfire.config.driver.pIniConfig');
+pload('packfire.config.driver.pPhpConfig');
 
 /**
  * Factory class to create the appropriate Config class
@@ -23,12 +24,7 @@ class pConfigFactory {
      * @since 1.0-sofia
      */
     public function load($file){
-        $map = array(
-            'yml' => 'pYamlConfig',
-            'yaml' => 'pYamlConfig',
-            'ini' => 'pIniConfig',
-            'php' => 'pPhpConfig',
-        );
+        $map = pConfigType::typeMap();
         $ext = pPath::extension($file);
         if(array_key_exists($ext, $map)){
             $class = $map[$ext];
