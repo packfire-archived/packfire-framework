@@ -158,10 +158,11 @@ class pClassLoader {
         }
         $path = null;
         if($framework){
-            $path = __PACKFIRE_ROOT__ . str_replace('.', DIRECTORY_SEPARATOR, substr($package, 8));
+            $path = __PACKFIRE_ROOT__ . str_replace('.', DIRECTORY_SEPARATOR, substr($package, 9));
         }else{
-            $path = __APP_ROOT__ . DIRECTORY_SEPARATOR . str_replace('.', DIRECTORY_SEPARATOR, $package);
+            $path = __APP_ROOT__ . str_replace('.', DIRECTORY_SEPARATOR, $package);
         }
+        $path .= self::EXT;
         return $path;
     }
     
