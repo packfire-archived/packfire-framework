@@ -1,4 +1,5 @@
 <?php
+pload('pClassAccess');
 
 /**
  * A class property generator

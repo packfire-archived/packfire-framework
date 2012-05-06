@@ -1,7 +1,9 @@
 <?php
+pload('pClassAccess');
+pload('packfire.collection.pList');
 
 /**
- * pClassMethod Description
+ * A class method generator
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
