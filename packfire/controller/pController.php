@@ -1,10 +1,10 @@
 <?php
-pload('packfire.IAppResponse');
+pload('packfire.response.IAppResponse');
 pload('packfire.collection.IList');
 pload('packfire.filter.IFilter');
 pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
-pload('packfire.net.http.pRedirectResponse');
+pload('packfire.response.pRedirectResponse');
 pload('packfire.ioc.pBucketUser');
 pload('packfire.exception.pHttpException');
 pload('packfire.exception.pAuthenticationException');
