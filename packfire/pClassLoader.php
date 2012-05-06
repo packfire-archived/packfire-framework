@@ -26,7 +26,7 @@ class pClassLoader {
     private $loadedClasses;
     
     /**
-     * Create a new pClassLoader 
+     * Create a new pClassLoader object
      * @since 1.0-sofia
      */
     public function __construct(){
@@ -142,6 +142,27 @@ class pClassLoader {
             return array($packageClass, $class);
         }
         return $result;
+    }
+    
+    /**
+     * Reverse engineer a given package into a path to the class
+     * @param string $package The full package to reverse engineer
+     * @return string Returns the path after reverse engineering
+     * @since 1.0-sofia
+     */
+    public static function reverseEngineer($package){
+        $framework = false;
+        if(strpos($package, '.') !== false){
+            $part = explode('.', $package);
+            $framework = (count($part) > 1 && 'packfire' == reset($part));
+        }
+        $path = null;
+        if($framework){
+            $path = __PACKFIRE_ROOT__ . str_replace('.', DIRECTORY_SEPARATOR, substr($package, 8));
+        }else{
+            $path = __APP_ROOT__ . DIRECTORY_SEPARATOR . str_replace('.', DIRECTORY_SEPARATOR, $package);
+        }
+        return $path;
     }
     
 }

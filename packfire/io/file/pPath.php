@@ -116,7 +116,7 @@ class pPath {
                     $path .= '/' . $p;
                 }
             }
-            return str_replace('/', self::directorySeparator(), $path);
+            return str_replace('/', DIRECTORY_SEPARATOR, $path);
         }
     }
 

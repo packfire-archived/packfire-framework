@@ -171,7 +171,7 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function rename($newname){
-        $newname = pPath::path($this->pathname) . pPath::directorySeparator() 
+        $newname = pPath::path($this->pathname) . DIRECTORY_SEPARATOR
                 . pPath::baseName($newname);
         $ok = rename($this->pathname, $newname);
         if($ok){    
@@ -193,7 +193,7 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function move($newdir){
-        $newdir = $newdir . pPath::directorySeparator()
+        $newdir = $newdir . DIRECTORY_SEPARATOR
                 . pPath::baseName($this->pathname);
         $ok = rename($this->pathname, $newdir);
         if($ok){    
