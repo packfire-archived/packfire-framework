@@ -7,3 +7,6 @@
 [submodule "public"]
 	path = public
 	url = git@github.com:packfire/app-structure.git
+[submodule "packfire/generator/resource/application"]
+	path = packfire/generator/resource/application
+	url = git@github.com:packfire/app-structure.git
