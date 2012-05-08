@@ -4,3 +4,6 @@
 [submodule "graph"]
         path = packfire/graph
         url = git@github.com:packfire/packfire-dijkstra.git
+[submodule "public"]
+	path = public
+	url = git@github.com:packfire/app-structure.git
