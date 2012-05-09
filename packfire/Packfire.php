@@ -117,15 +117,19 @@ class Packfire {
      * @since 1.0-sofia
      */
     public function processResponse($response){
-        $response = $response->response();
-        header($response->version() . ' ' . $response->code());
-        foreach($response->headers() as $key => $value){
-            header($key . ': ' . $value);
+        if($response instanceof IAppResponse){
+            $response = $response->response();
         }
-        foreach($response->cookies() as $cookie){
-            $cookie->set();
+        if($response instanceof pHttpResponse){
+            header($response->version() . ' ' . $response->code());
+            foreach($response->headers() as $key => $value){
+                header($key . ': ' . $value);
+            }
+            foreach($response->cookies() as $cookie){
+                $cookie->set();
+            }
+            echo $response->body();
         }
-        echo $response->body();
     }
     
 }

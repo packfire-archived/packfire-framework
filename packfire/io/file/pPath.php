@@ -50,6 +50,29 @@ class pPath {
     public function delete(){
         return (bool)rmdir($this->path);
     }
+    
+    /**
+     * Copy a path and its contents to another
+     * @param string $source The source path to copy from
+     * @param string $destination The destination path to copy to
+     * @since 1.0-sofia
+     */
+    public static function copy($source, $destination){
+        $dir = opendir($source); 
+        mkdir($destination, 0777, true); 
+        while(false !== ( $file = readdir($dir))) { 
+            if(($file != '.') && ($file != '..')){ 
+                if(is_dir($source . DIRECTORY_SEPARATOR . $file)){ 
+                    $this->copy($source . DIRECTORY_SEPARATOR . $file,
+                            $destination . DIRECTORY_SEPARATOR . $file); 
+                }else{
+                    copy($source . DIRECTORY_SEPARATOR . $file,
+                            $destination . DIRECTORY_SEPARATOR . $file); 
+                } 
+            } 
+        } 
+        closedir($dir); 
+    }
 
     /**
      * Empty the entire folder

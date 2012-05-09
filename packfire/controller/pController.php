@@ -370,11 +370,15 @@ abstract class pController extends pBucketUser implements IAppResponse {
      * @since 1.0-sofia 
      */
     private function postProcess(){
-        $this->service('form.feedback')->feedback($this->errors);
+        if($this->service('form.feedback')){
+            $this->service('form.feedback')->feedback($this->errors);
+        }
         
         // disable debugger if non-HTML output
         $type = $this->response()->headers()->get('Content-Type');
-        if($type != null && strpos(strtolower($type), 'html') === false){
+        if($this->service('debugger') 
+                && $type != null 
+                && strpos(strtolower($type), 'html') === false){
             $this->service('debugger')->enabled(false);
         }
     }
