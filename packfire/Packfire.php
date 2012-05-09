@@ -23,6 +23,13 @@ define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEP
  */
 define('__APP_ROOT__', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
 
+/**
+ * Packfire Framework's current version
+ * @since 1.0-sofia 
+ */
+define('__PACKFIRE_VERSION__', '1.0-sofia');
+
+// load the helper file
 require(__PACKFIRE_ROOT__ . 'helper.php');
 
 pload('packfire.net.http.pHttpClient');
