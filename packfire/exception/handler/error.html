@@ -47,10 +47,10 @@
                     <pre style="margin-left:20px">{{message}}</pre>
                 </p>
             </div>
+            {{#debug}}
             <div id="file">Occurred at <b>{{file}}:{{line}}</b></div>
-            {{#stack}}
                 <div id="stack"><pre>{{stack}}</pre></div>
-            {{/#stack}}
+            {{/#debug}}
         </div>
     </body>
 </html>

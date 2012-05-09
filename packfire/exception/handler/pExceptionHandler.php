@@ -11,7 +11,7 @@ pload('pExceptionPageView');
  * @package packfire.exception.handler
  * @since 1.0-sofia
  */
-class pExceptionHandler implements IExceptionHandler {
+class pExceptionHandler extends pBucketUser implements IExceptionHandler {
 
     /**
      * Handle the exception
@@ -20,6 +20,7 @@ class pExceptionHandler implements IExceptionHandler {
      */
     public function handle($exception) {
         $view = new pExceptionPageView($exception);
+        $view->copyBucket($this);
         echo $view->render();
         exit;
     }

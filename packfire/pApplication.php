@@ -53,9 +53,9 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     protected function loadBucket(){
+        $this->services->put('exception.handler', new pExceptionHandler());
         $this->services->put('config.app', array('pAppConfig', 'load'));
         $this->services->put('config.routing', array('pRouterConfig', 'load'));
-        $this->services->put('exception.handler', new pExceptionHandler());
         $this->services->put('debugger', new pDebugger(new pConsoleDebugOutput()));
         $this->service('debugger')->enabled($this->service('config.app')->get('app', 'debug'));
         $this->services->put('router', $this->loadRouter());
@@ -85,10 +85,9 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     protected function loadExceptionHandler(){
-        $handler = new pExceptionHandler();
+        $handler = $this->service('exception.handler');
         $errorhandler = new pErrorHandler($handler);
         set_error_handler(array($errorhandler, 'handle'), E_ALL);
-        $this->exceptionHandler = $handler;
         set_exception_handler(array($this, 'handleException'));
     }
     
@@ -142,7 +141,7 @@ class pApplication extends pBucketUser implements IApplication {
      */
     public function handleException($exception){
         $this->service('debugger')->exception($exception);
-        $this->exceptionHandler->handle($exception);
+        $this->service('exception.handler')->handle($exception);
     }
     
     /**

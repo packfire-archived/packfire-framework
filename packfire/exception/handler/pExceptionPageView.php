@@ -40,6 +40,7 @@ class pExceptionPageView extends pView {
         $this->define('title', 'Error ' . $this->exception->getCode());
         $this->define('file',  $this->exception->getFile());
         $this->define('line',  $this->exception->getLine());
+        $this->define('debug', $this->service('config.app')->get('app', 'debug'));
         $this->define('message',  $this->exception->getMessage());
         $this->define('stack', $this->exception->getTraceAsString());
     }
