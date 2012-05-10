@@ -74,14 +74,14 @@ class pSetupApplication implements IApplication {
                     echo "   "  . $root . "\n\n";
                     $framework = null;
                     while($framework == null){
-                        echo "Where did you install Packfire Framework?";
+                        echo "Where did you install Packfire Framework?\n";
                         echo "> ";
                         $framework = fgets(STDIN);
                         echo "\n";
-                        echo "Setting Framework to " . $framework . "\n";
+                        echo "Setting Framework to " . $framework . "\n\n";
                         if(!file_exists(pPath::combine($framework, 'Packfire.php'))){
                             $framework = null;
-                            echo "Setup could not locate Packfire Framework installed at that location.";
+                            echo "Error: Setup could not locate Packfire Framework installed at that location.\n\n";
                         }
                     }
                     echo "Copying files... ";
