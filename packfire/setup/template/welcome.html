@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Packfire Setup - Packfire Framework for PHP v{{version}}</title>
+        <base href="{{rootUrl}}" target="_top" />
+        <link rel="shortcut icon" href="packfire-favicon.ico" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lekton' rel='stylesheet' type='text/css'>
+        <!--[if lt IE 9]>
+	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <style type="text/css">
+            html, body, #universe{
+                height:100%;
+            }
+            body{
+                background:#f5f5f5;
+                margin:0px;
+                font: normal 15px/2.0 'Cabin', Helvetica, Arial, sans-serif;
+            }
+            #universe{
+                
+            }
+            #distanceCheat{
+                width:5px;
+                height:50%;
+                float:left;
+                margin-bottom: -200px;
+            }
+            h1{
+                font-family: 'Arvo', Helvetica, Arial, sans-serif;
+                font-size: 30px;
+                line-height: 1.0;
+            }
+            a, a:visited{
+                color:#E92;
+                text-decoration:none;
+            }
+            a:hover{
+                color:#FFF;
+                text-decoration:underline;
+            }
+            #box{
+                margin:0px auto;
+                position:relative;
+                text-align:left;
+                width:60%;
+                min-width:400px;
+                height:400px;
+                clear:left;
+                background:#333 url('http://i.imgur.com/NBeeL.png') bottom right no-repeat;
+                color:#FFF;
+                border-radius: 5px;
+                box-shadow: 3px 3px 12px rgba(0,0,0,0.5);
+                max-width:800px;
+            }
+            .box-padding{
+                padding:20px;
+            }
+            #version{
+                float:right;
+            }
+            #asciiFire{
+                font-size:12px;
+            }
+            #message{
+                max-width:360px;
+            }
+            #options{
+                margin:20px 0 0;
+            }
+            #options a, #options a:visited{
+                font-size:16px;
+                border-radius: 5px;
+                display:block;
+                float:left;
+                background:#E92;
+                background: -webkit-gradient(linear, left top, left bottom, from(#FB5), to(#E92));
+                background: -moz-linear-gradient(top, #FB5, #E92);
+                color:#F5F5F5;
+                text-decoration:none;
+                margin-right:20px;
+                padding: 25px 15px;
+                height:30px;
+                width:130px;
+                text-align:center;
+                box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            }
+            #options a:hover{
+                background:#F5F5F5;
+                background: -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(#CCC));
+                background: -moz-linear-gradient(top, #F5F5F5, #CCC);
+                color:#333;
+            }
+            #options a:active{
+                background:#EEE;
+                color:#333;
+                margin-top:1px;
+                box-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+            }
+            
+            @media screen and (max-width: 400px) {
+                #box{
+                    border-radius: 0px;
+                    box-shadow:none;
+                    clear:none;
+                    height:auto;
+                    max-width:none;
+                    background-image: none;
+                    width:auto;
+                    min-width:200px;
+                }
+                #distanceCheat{
+                    display:none;
+                }
+                #options a, #options a:visited{
+                    float:none;
+                    margin: 0 0 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="universe">
+            <div id="distanceCheat"></div>
+            <div id="box">
+                <div class="box-padding">
+                <div id="version">version {{version}} | <a href="http://github.com/packfire" target="_blank">web</a></div>
+                <pre id="asciiFire">   )
+  ) \
+ / ) (
+ \(_)/</pre>
+                <h1>Welcome to Packfire</h1>
+                <div id="message">Packfire is a clean and well thought web
+                    framework for developers of all walks to scaffold and
+                    bring up websites quickly and hassle-free. </div>
+                <div id="options">
+                    <a href="setup.php?install">Install Packfire</a>
+                    <a href="setup.php?create">Create Application</a>
+                </div>
+            </div></div>
+        </div>
+    </body>
+</html>
