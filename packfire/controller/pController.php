@@ -22,8 +22,8 @@ pload('packfire.exception.pAuthorizationException');
 abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
-     * The client request to this controller
-     * @var pHttpClientRequest
+     * The request to this controller
+     * @var IAppRequest
      * @since 1.0-sofia
      */
     protected $request;
@@ -44,7 +44,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * The controller state
-     * @var pMap
+     * @var pMap|mixed
      * @since 1.0-sofia
      */
     protected $state;
@@ -96,7 +96,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * Create a new pController object
-     * @param pHttpClientRequest $request The client's request
+     * @param IAppRequest $request The client's request
      * @param IAppResponse $response The response object
      * @since 1.0-sofia
      */
@@ -109,6 +109,15 @@ abstract class pController extends pBucketUser implements IAppResponse {
         $this->state = new pMap();
         $this->errors = new pMap();
         $this->models = new pMap();
+    }
+    
+    /**
+     * Get the state of the controller
+     * @return pMap|mixed Returns the state of the controller
+     * @since 1.0-sofia
+     */
+    public function state(){
+        return $this->state;
     }
     
     /**
@@ -334,7 +343,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         
         $action = 'do' . ucFirst($action);
         
-        if($this->restful){
+        if($this->restful && $this->request instanceof pHttpRequest){
             $httpMethodCall = strtolower($this->request->method()) . ucFirst($action);
             if(is_callable(array($this, $httpMethodCall))){
                 $action = $httpMethodCall;
@@ -348,11 +357,21 @@ abstract class pController extends pBucketUser implements IAppResponse {
         if(is_callable(array($this, $action))){            
             // call the controller action
             $this->activate($action);
+            ob_start();
             $this->$action();
+            $output = ob_get_contents();
+            ob_end_clean();
+            if($output && $this->state instanceof pMap){
+                $this->state['output'] = $output;
+            }
             $this->postProcess();
             $this->deactivate($action);
         }else{
-            throw new pHttpException(404);
+            if($this->request instanceof pHttpRequest){
+                throw new pHttpException(404);
+            }else{
+                throw new pInvalidRequestException('The action is not found in the controller.');
+            }
         }
     }
     

@@ -33,6 +33,7 @@ define('__PACKFIRE_VERSION__', '1.0-sofia');
 require(__PACKFIRE_ROOT__ . 'helper.php');
 
 pload('packfire.net.http.pHttpClient');
+pload('packfire.application.pCommandRequest');
 pload('packfire.net.http.pHttpClientRequest');
 pload('packfire.io.file.pFileStream');
 pload('packfire.datetime.pDateTime');
@@ -68,53 +69,57 @@ class Packfire {
      * @since 1.0-sofia
      */
     private function loadRequest(){
-        $client = new pHttpClient($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']);
-        $request = new pHttpClientRequest($client);
-        
-        $request->method($_SERVER['REQUEST_METHOD']);
-        $request->uri($_SERVER['REQUEST_URI']);
-        $request->version($_SERVER['SERVER_PROTOCOL']);
-        // changed to stream to prevent Denial Of Service
-        $request->body(new pFileStream('php://input'));
-        $request->time(pDateTime::fromTimestamp($_SERVER['REQUEST_TIME']));
-        if(array_key_exists('HTTP_HOST', $_SERVER)){
-            $request->headers()->add('Host', $_SERVER['HTTP_HOST'], true);
-        }
-        if(array_key_exists('HTTP_REFERER', $_SERVER)){
-            $request->headers()->add('Referer', $_SERVER['HTTP_REFERER'], true);
-        }
-        if(array_key_exists('HTTP_CONNECTION', $_SERVER)){
-            $request->headers()->add('Connection', $_SERVER['HTTP_CONNECTION'], true);
-        }
-        if(array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)){
-            $request->headers()->add('Accept-Language', $_SERVER['HTTP_ACCEPT_LANGUAGE'], true);
-        }
-        if(array_key_exists('HTTP_ACCEPT_ENCODING', $_SERVER)){
-            $request->headers()->add('Accept-Encoding', $_SERVER['HTTP_ACCEPT_ENCODING'], true);
-        }
-        if(array_key_exists('HTTP_ACCEPT_CHARSET', $_SERVER)){
-            $request->headers()->add('Accept-Charset', $_SERVER['HTTP_ACCEPT_CHARSET'], true);
-        }
-        if(array_key_exists('HTTP_ACCEPT', $_SERVER)){
-            $request->headers()->add('Accept', $_SERVER['HTTP_ACCEPT'], true);
-        }
-        if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){
-            $request->headers()->add('User-Agent', $_SERVER['HTTP_USER_AGENT'], true);
-        }
+        if(array_key_exists('argc', $_SERVER) && $_SERVER['argc'] > 0){
+            $request = new pCommandRequest();
+        }else{
+            $client = new pHttpClient($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']);
+            $request = new pHttpClientRequest($client);
 
-        foreach ($_COOKIE as $k => $v) {
-            $request->cookies()->add($k, $v);
-        }
+            $request->method($_SERVER['REQUEST_METHOD']);
+            $request->uri($_SERVER['REQUEST_URI']);
+            $request->version($_SERVER['SERVER_PROTOCOL']);
+            // changed to stream to prevent Denial Of Service
+            $request->body(new pFileStream('php://input'));
+            $request->time(pDateTime::fromTimestamp($_SERVER['REQUEST_TIME']));
+            if(array_key_exists('HTTP_HOST', $_SERVER)){
+                $request->headers()->add('Host', $_SERVER['HTTP_HOST'], true);
+            }
+            if(array_key_exists('HTTP_REFERER', $_SERVER)){
+                $request->headers()->add('Referer', $_SERVER['HTTP_REFERER'], true);
+            }
+            if(array_key_exists('HTTP_CONNECTION', $_SERVER)){
+                $request->headers()->add('Connection', $_SERVER['HTTP_CONNECTION'], true);
+            }
+            if(array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)){
+                $request->headers()->add('Accept-Language', $_SERVER['HTTP_ACCEPT_LANGUAGE'], true);
+            }
+            if(array_key_exists('HTTP_ACCEPT_ENCODING', $_SERVER)){
+                $request->headers()->add('Accept-Encoding', $_SERVER['HTTP_ACCEPT_ENCODING'], true);
+            }
+            if(array_key_exists('HTTP_ACCEPT_CHARSET', $_SERVER)){
+                $request->headers()->add('Accept-Charset', $_SERVER['HTTP_ACCEPT_CHARSET'], true);
+            }
+            if(array_key_exists('HTTP_ACCEPT', $_SERVER)){
+                $request->headers()->add('Accept', $_SERVER['HTTP_ACCEPT'], true);
+            }
+            if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){
+                $request->headers()->add('User-Agent', $_SERVER['HTTP_USER_AGENT'], true);
+            }
 
-        foreach ($_POST as $k => $v) {
-            $request->post()->add($k, $v);
-        }
+            foreach ($_COOKIE as $k => $v) {
+                $request->cookies()->add($k, $v);
+            }
 
-        foreach ($_GET as $k => $v) {
-            $request->get()->add($k, $v);
-        }
+            foreach ($_POST as $k => $v) {
+                $request->post()->add($k, $v);
+            }
 
-        $request->https((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'));
+            foreach ($_GET as $k => $v) {
+                $request->get()->add($k, $v);
+            }
+
+            $request->https((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'));
+        }
         return $request;
     }
     
