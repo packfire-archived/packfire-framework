@@ -63,7 +63,7 @@ class pPath {
         while(false !== ( $file = readdir($dir))) { 
             if(($file != '.') && ($file != '..')){ 
                 if(is_dir($source . DIRECTORY_SEPARATOR . $file)){ 
-                    $this->copy($source . DIRECTORY_SEPARATOR . $file,
+                    self::copy($source . DIRECTORY_SEPARATOR . $file,
                             $destination . DIRECTORY_SEPARATOR . $file); 
                 }else{
                     copy($source . DIRECTORY_SEPARATOR . $file,
