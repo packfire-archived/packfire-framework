@@ -341,12 +341,12 @@ abstract class pController extends pBucketUser implements IAppResponse {
             $action = 'index';
         }
         
-        $action = 'do' . ucFirst($action);
+        $call = 'do' . ucFirst($action);
         
         if($this->restful && $this->request instanceof pHttpRequest){
             $httpMethodCall = strtolower($this->request->method()) . ucFirst($action);
-            if(is_callable(array($this, $httpMethodCall))){
-                $action = $httpMethodCall;
+            if(method_exists($this, $httpMethodCall)){
+                $call = $httpMethodCall;
             }
         }
         
@@ -354,18 +354,18 @@ abstract class pController extends pBucketUser implements IAppResponse {
             throw new pAuthorizationException('Could not authorize user to access route.');
         }
         
-        if(is_callable(array($this, $action))){            
+        if(method_exists($this, $call)){
             // call the controller action
-            $this->activate($action);
+            $this->activate($call);
             ob_start();
-            $this->$action();
+            $this->$call();
             $output = ob_get_contents();
             ob_end_clean();
             if($output && $this->state instanceof pMap){
                 $this->state['output'] = $output;
             }
             $this->postProcess();
-            $this->deactivate($action);
+            $this->deactivate($call);
         }else{
             if($this->request instanceof pHttpRequest){
                 throw new pHttpException(404);
