@@ -58,6 +58,9 @@ class pPath {
      * @since 1.0-sofia
      */
     public static function copy($source, $destination){
+        if($source == $destination){
+            return;
+        }
         $dir = opendir($source); 
         mkdir($destination, 0777, true); 
         while(false !== ( $file = readdir($dir))) { 
