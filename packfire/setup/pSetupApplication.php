@@ -115,12 +115,14 @@ class pSetupApplication implements IApplication {
     protected function loadHttpCall($request, $controller){
         $route = new pRoute('', '', $request->method(), $request->params());
         if($request->get()->count() > 0){
-            switch(strtolower($request->get()->first())){
+            switch(strtolower($request->get()->keys()->first())){
                 case 'install':
                     $controller->run($route, 'installFramework');
+                    $controller->render(new pSetupInstallView());
                     break;
                 case 'create':
                     $controller->run($route, 'createApplication');
+                    $controller->render(new pSetupCreateView());
                     break;
             }
         }else{

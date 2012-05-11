@@ -17,7 +17,11 @@ class pSetupController extends pController {
     
     public function doInstallFramework(){
         $root = $this->params->get('root');
-        pPath::copy(__PACKFIRE_ROOT__, $root);
+        if($root && __PACKFIRE_ROOT__ != $root){
+            pPath::copy(__PACKFIRE_ROOT__, $root);
+        }
+        $this->state['complete'] = true;
+        $this->state['root'] = $root;
     }
     
     public function getInstallFramework(){
@@ -27,8 +31,15 @@ class pSetupController extends pController {
     public function doCreateApplication(){
         $root = $this->params->get('root');
         $packfire = $this->params->get('packfire');
-        $generator = new pAppGenerator($root, $packfire);
-        $generator->generate();
+        if($root && $packfire){
+            $generator = new pAppGenerator($root, $packfire);
+            $generator->generate();
+            $this->state['complete'] = true;
+            $this->state['root'] = $root;
+            $this->state['packfire'] = $packfire;
+        }else{
+            $this->state['fail'] = true;
+        }
     }
     
     public function getCreateApplication(){
