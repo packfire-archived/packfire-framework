@@ -52,13 +52,13 @@ class pSetupApplication implements IApplication {
         $route = new pRoute('', '', '');
         echo "\nPackfire Framework Setup\n";
         echo "------------------------\n";
+        $route = new pRoute('', '', '');
         switch(strtolower($instruction)){
             case 'install':
                 $root = $request->params()->get(2);
                 if($root){
                     echo "Setup will now install Packfire Framework to: \n";
                     echo "   "  . $root . "\n\n";
-                    $route = new pRoute('', '', '', array('root' => $request->params()->get(2)));
                     echo "Copying files... ";
                     $controller->run($route, 'installFramework');
                     echo "Done!\n\n";
@@ -85,10 +85,6 @@ class pSetupApplication implements IApplication {
                         }
                     }
                     echo "Copying files... ";
-                    $route = new pRoute('', '', '', array(
-                            'root' => $request->params()->get(2),
-                            'packfire' => trim($framework)
-                        ));
                     $controller->run($route, 'createApplication');
                     echo "Done!\n\n";
                     echo "Creation of a new Packfire Application is now complete.\n";

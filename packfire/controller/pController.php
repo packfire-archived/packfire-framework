@@ -109,6 +109,10 @@ abstract class pController extends pBucketUser implements IAppResponse {
         $this->state = new pMap();
         $this->errors = new pMap();
         $this->models = new pMap();
+        
+        if($this->request instanceof pCommandRequest){
+            $this->params = $this->request->params();
+        }
     }
     
     /**
@@ -322,7 +326,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
      */
     public function run($route, $action){
         $this->route = $route;
-        $this->params = $route->params();
+        $this->params->append($route->params());
         $securityEnabled = $this->service('security') 
                 && !$this->service('config.app')->get('security', 'disabled');
         if($securityEnabled){
