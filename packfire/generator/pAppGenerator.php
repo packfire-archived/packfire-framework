@@ -78,7 +78,7 @@ class pAppGenerator {
                 pPath::combine($this->root, '.htaccess'));
         $this->renderFile($path . '/resource/application/index.php',
                 pPath::combine($this->root, 'index.php'),
-                array('packfirePath' => $this->packfire));
+                array('packfirePath' => addslashes($this->packfire)));
         
         $this->renderFile($path . '/resource/application/assets/images/readme.md',
                 pPath::combine($this->root, 'assets/images/readme.md'));

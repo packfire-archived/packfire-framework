@@ -617,7 +617,15 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
             $properties = new pList();
             $class = get_class($arg);
             
-            $map = $arg->map();
+            $map = array();
+            if($arg instanceof pDbModel){
+                $map = $arg->map();
+            }else{
+                $props = get_object_vars($arg);
+                foreach($props as $key => $value){
+                    $map[$key] = $key;
+                }
+            }
             $table = '';
             if($arg->dbName()){
                 $table = $arg->dbName() . '.';
