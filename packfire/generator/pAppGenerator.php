@@ -97,11 +97,11 @@ class pAppGenerator {
         $this->renderFile($path . '/resource/application/assets/styles/readme.md',
                 pPath::combine($this->root, 'assets/styles/readme.md'));
         $this->renderFile($path . '/resource/application/assets/styles/dark.css',
-                pPath::combine($this->root, 'assets/styles/dark.js'));
+                pPath::combine($this->root, 'assets/styles/dark.css'));
         $this->renderFile($path . '/resource/application/assets/styles/global.css',
-                pPath::combine($this->root, 'assets/styles/global.js'));
+                pPath::combine($this->root, 'assets/styles/global.css'));
         $this->renderFile($path . '/resource/application/assets/styles/light.css',
-                pPath::combine($this->root, 'assets/styles/light.js'));
+                pPath::combine($this->root, 'assets/styles/light.css'));
         
         $this->renderFile($path . '/resource/application/pack/app/AppController.php',
                 pPath::combine($this->root, 'pack/app/AppController.php'));
