@@ -1,9 +1,8 @@
 <?php
-pload('packfire.response.IAppResponse');
+pload('packfire.application.IAppResponse');
 pload('packfire.collection.IList');
 pload('packfire.filter.IFilter');
 pload('packfire.collection.pMap');
-pload('packfire.net.http.pHttpResponse');
 pload('packfire.response.pRedirectResponse');
 pload('packfire.ioc.pBucketUser');
 pload('packfire.exception.pHttpException');
@@ -111,6 +110,9 @@ abstract class pController extends pBucketUser implements IAppResponse {
         $this->models = new pMap();
         
         if($this->request instanceof pCommandRequest){
+            $this->params = $this->request->params();
+        }else if($this->request instanceof pHttpRequest
+                && $this->request->method() == pHttpMethod::POST){
             $this->params = $this->request->params();
         }
     }

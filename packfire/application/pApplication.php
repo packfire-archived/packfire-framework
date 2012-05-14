@@ -53,7 +53,6 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     protected function loadBucket(){
-        $this->services->put('exception.handler', new pExceptionHandler());
         $this->services->put('config.app', array('pAppConfig', 'load'));
         $this->services->put('config.routing', array('pRouterConfig', 'load'));
         $this->services->put('debugger', new pDebugger(new pConsoleDebugOutput()));
@@ -85,6 +84,7 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     protected function loadExceptionHandler(){
+        $this->services->put('exception.handler', new pExceptionHandler());
         $handler = $this->service('exception.handler');
         $errorhandler = new pErrorHandler($handler);
         set_error_handler(array($errorhandler, 'handle'), E_ALL);
@@ -93,7 +93,7 @@ class pApplication extends pBucketUser implements IApplication {
     
     /**
      * Receive a request, process, and respond.
-     * @param pHttpClientRequest $request The request made
+     * @param IAppRequest $request The request made
      * @return IAppResponse Returns the http response
      * @since 1.0-sofia
      */
@@ -111,14 +111,10 @@ class pApplication extends pBucketUser implements IApplication {
                 $action = '';
             }
 
-            if($class instanceof Closure){
-                $response = $class($request, $route, $response);
-            }else{
-                $caLoader = new pCALoader($class, $action, $request, $route, $response);
-                $caLoader->copyBucket($this);
-                $caLoader->load();
-                $response = $caLoader;
-            }
+            $caLoader = new pCALoader($class, $action, $request, $route, $response);
+            $caLoader->copyBucket($this);
+            $caLoader->load();
+            $response = $caLoader;
         }
         return $response;
     }
@@ -170,6 +166,14 @@ class pApplication extends pBucketUser implements IApplication {
         return $router;
     }
     
+    /**
+     * Callback for Direct Controller Access Routing
+     * @param IAppRequest $request The request
+     * @param pRoute $route The route called
+     * @param IAppResponse $response The response
+     * @return pCALoader Returns the loader
+     * @since 1.0-sofia
+     */
     private function directAccessProcessor($request, $route, $response){
         $class = $route->params()->get('class');
         $action = $route->params()->get('action');

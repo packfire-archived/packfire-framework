@@ -1,6 +1,6 @@
 <?php
 pload('packfire.ioc.pBucketUser');
-pload('packfire.IAppResponse');
+pload('packfire.application.IAppResponse');
 pload('packfire.pClassLoader');
 
 /**
@@ -51,11 +51,11 @@ class pCALoader extends pBucketUser implements IAppResponse {
     
     /**
      * Create a new pCALoader object
-     * @param string $package
-     * @param string $action
-     * @param pHttpClientRequest $request
-     * @param pRoute $route
-     * @param IAppResponse $response 
+     * @param string $package The package to load the class
+     * @param string $action The action to be loaded
+     * @param IAppRequest $request The application request to load with
+     * @param pRoute $route The route that was called
+     * @param IAppResponse $response The response object
      * @since 1.0-sofia
      */
     public function __construct($package, $action, $request, $route, $response){
@@ -67,9 +67,9 @@ class pCALoader extends pBucketUser implements IAppResponse {
     }
     
     /**
-     * Perform the loading
+     * Perform the loading process
      * @param boolean $directAccess (optional) Flags if the access is a direct
-     *                          access (DCA). Defaults to false.
+     *                access (DCA). Defaults to false.
      * @since 1.0-sofia
      */
     public function load($directAccess = false){
@@ -95,15 +95,26 @@ class pCALoader extends pBucketUser implements IAppResponse {
                 pload($package);
             }
         }
-        $controller = new $class($this->request, $this->response);
-        if($controller->directAccess() || 
-                (!$controller->directAccess() && !$directAccess)){
-            if($controller instanceof IBucketUser){
-                $controller->copyBucket($this);
+        
+        if(is_string($class) && class_exists($class)){
+            /* @var $controller pController */
+            $controller = new $class($this->request, $this->response);
+            if($controller->directAccess() || 
+                    (!$controller->directAccess() && !$directAccess)){
+                if($controller instanceof IBucketUser){
+                    $controller->copyBucket($this);
+                }
+                $controller->run($this->route, $this->action);
+                $this->response = $controller;
+            }else{
+                // throw 403 because the controller action exists, but
+                // forbidden access because direct access was disabled
+                throw new pHttpException(403);
             }
-            $controller->run($this->route, $this->action);
-            $this->response = $controller;
+        }else if(is_callable($class)){
+            $this->response = call_user_func($class, $request, $route, $response);
         }else{
+            // oops! the class is really not found (:
             throw new pHttpException(404);
         }
     }

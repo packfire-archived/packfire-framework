@@ -86,9 +86,9 @@ class pRouter {
             // check whether HTTP method matches for RESTful routing
             if(!$route->httpMethod() || 
                     (is_string($route->httpMethod())
-                    && strtolower($route->httpMethod()) == $method)
+                    && $route->httpMethod() == strtolower($method))
                     || (is_array($route->httpMethod())
-                    && in_array($method, $route->httpMethod()))){
+                    && in_array(strtolower($method), $route->httpMethod()))){
                 
                 $template = new pTemplate($route->rewrite());
                 $tokens = $template->tokens();
@@ -105,6 +105,7 @@ class pRouter {
                 // perform the URL matching
                 $matchResult = preg_match('`^' . $template->parse() .
                         '([/]{0,1})$`is', $url, $matches);
+                
                 if ($matchResult) {
                     $params = array();
                     foreach ($tokens as $key) {
