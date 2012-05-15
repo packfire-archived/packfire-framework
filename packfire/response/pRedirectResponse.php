@@ -1,6 +1,6 @@
 <?php
-pload('packfire.net.pHttpResponse');
-pload('packfire.net.pHttpResponseCode');
+pload('packfire.net.http.pHttpResponse');
+pload('packfire.net.http.pHttpResponseCode');
 
 /**
  * A response that indicates that the browser should redirect to another URL.

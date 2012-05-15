@@ -1,5 +1,5 @@
 <?php
-pload('packfire.net.pHttpResponse');
+pload('packfire.net.http.pHttpResponse');
 
 /**
  * A Response that indicates that the response is JSON
