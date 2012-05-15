@@ -72,9 +72,12 @@
         <span style="float:right; line-height:30px;">Packfire Debugger</span>
         <a href="#debugger-minimize" id="pfDebuggerMinimize">_</a>
         <a href="#debugger-all" onclick="PfConsoleDebugger.showByTab('pfLine');return false;">All ({{totalCount}})</a>
+        <a href="#debugger-profiler" onclick="PfConsoleDebugger.showByTab('profiler');return false;">Profiler</a>
         {{#tabs}}
             <a href="#debugger-{{type}}" onclick="PfConsoleDebugger.showByTab('{{type}}');return false;">{{type}} ({{count}})</a>
         {{/tabs}}
+    </div>
+    <div id="pfDebuggerProfiling">
     </div>
     <div id="pfDebuggerConsole">
         {{#lines}}

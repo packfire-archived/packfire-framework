@@ -43,20 +43,6 @@ class pProfiler {
         $call = null;
         $file = null;
         if(array_key_exists(1, $trace)){
-//            $func_args = array();
-//            foreach($trace[1]["args"] as $arg){
-//                if(is_object($arg)){
-//                    $arg = get_class($arg);
-//                }else if(is_string($arg)){
-//                    $arg = '\'' . $arg . '\'';
-//                }else if(is_array($arg)){
-//                    $arg = 'array(' .count($arg).')';
-//                }else if(is_resource($arg)){
-//                    $arg = 'resource(' . get_resource_type($arg) . ')';
-//                }
-//                $func_args[] = $arg;
-//            }
-//            $call = $trace[1]["function"] . '(' . implode(', ', $func_args) . ')';
             $call = $trace[1]["function"] . '()';
             if(array_key_exists('file', $trace[1])){
                 $file = $trace[1]["file"] . ': ' . $trace[1]["line"];
@@ -66,11 +52,13 @@ class pProfiler {
         if(array_key_exists(2, $trace)){
             $caller = $trace[2]["function"].'()';
             if(array_key_exists('file', $trace[2])){
-                $caller .= ' at ' . $trace[2]["file"] . ': ' . $trace[2]["line"];
+                $caller .= ' at ' . $trace[2]["file"]
+                        . ': ' . $trace[2]["line"];
             }
         }
         $now = pDateTime::microtime();
-        $this->entries->add(new pProfileEntry($now, $call, memory_get_usage(true), $now - $time, $file, $caller));
+        $this->entries->add(new pProfileEntry($now, $call,
+                memory_get_usage(true), $now - $time, $file, $caller));
         $time = $now;
     }
     
