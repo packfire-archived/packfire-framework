@@ -69,10 +69,14 @@ class Packfire {
      * @since 1.0-sofia
      */
     private function loadRequest(){
-        if(array_key_exists('argc', $_SERVER) && $_SERVER['argc'] > 0){
+        if(php_sapi_name() == "cli") {
             $request = new pCommandRequest();
         }else{
-            $client = new pHttpClient($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']);
+            $agent = null;
+            if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){
+                $agent = $_SERVER['HTTP_USER_AGENT'];
+            }
+            $client = new pHttpClient($_SERVER['REMOTE_ADDR'], $agent);
             $request = new pHttpClientRequest($client);
 
             $request->method($_SERVER['REQUEST_METHOD']);

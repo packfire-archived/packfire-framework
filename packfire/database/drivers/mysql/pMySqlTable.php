@@ -77,8 +77,10 @@ class pMySqlTable extends pDbTable {
         $pks = array();
         $params = array();
         foreach($this->pk() as $column){
-            $pks[] = '`' . $column->name() . '` = :' . $column->name();
-            $params[$column->name()] = $row[$column->name()];
+            if(array_key_exists($column->name(), $row)){
+                $pks[] = '`' . $column->name() . '` = :' . $column->name();
+                $params[$column->name()] = $row[$column->name()];
+            }
         }
         $query .= implode(' AND ', $pks);
         return $linq->where($query)->params($params)->fetch()->first();
@@ -94,12 +96,13 @@ class pMySqlTable extends pDbTable {
         $where = array();
         $params = array();
         foreach($this->columns() as $column){
-            $where[] = '`' . $column->name() . '` = :' . $column->name();
-            $params[$column->name()] = $row[$column->name()];
+            if(array_key_exists($column->name(), $row)){
+                $where[] = '`' . $column->name() . '` = :' . $column->name();
+                $params[$column->name()] = $row[$column->name()];
+            }
         }
         $query .= implode(' AND ', $where);
-        $statement = $this->driver->prepare(sprintf($query, $this->name));
-        $this->driver->binder($statement, $params);
+        $statement = $this->driver->binder(sprintf($query, $this->name), $params);
         $statement->execute();
     }
 
@@ -122,8 +125,7 @@ class pMySqlTable extends pDbTable {
         }
         $query .= implode(', ', $columns) . ') VALUES (';
         $query .= implode(', ', $values) . ')';
-        $statement = $this->driver->prepare(sprintf($query, $this->name));
-        $this->driver->binder($statement, $params);
+        $statement = $this->driver->binder(sprintf($query, $this->name), $params);
         $statement->execute();
     }
 
@@ -147,8 +149,7 @@ class pMySqlTable extends pDbTable {
         }
         $query .= implode(', ', $data) . ' WHERE ';
         $query .= implode(' AND ', $pks);
-        $statement = $this->driver->prepare(sprintf($query, $this->name));
-        $this->driver->binder($statement, $params);
+        $statement = $this->driver->binder(sprintf($query, $this->name), $params);
         $statement->execute();
     }
     

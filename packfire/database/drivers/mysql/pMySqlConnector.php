@@ -14,18 +14,28 @@ class pMySqlConnector extends pDbConnector {
     
     /**
      *
-     * @param PDOStatement $statement
+     * @param string $query
      * @param array|pMap $params 
+     * @returns PDOStatement
      * @since 1.0-sofia
      */
-    public function binder($statement, $params){
+    public function binder($query, $params){
+        $values = array();
         foreach($params as $name => $value){
             if($value instanceof pDbExpression){
-                $statement->bindValue($name, $value->expression(), PDO::PARAM_STMT);
+                if(substr($name, 0, 1) != ':'){
+                    $name = ':' . $name;
+                }
+                $query = str_replace($name, $value->expression(), $query);
             }else{
-                $statement->bindValue($name, $value);
+                $values[$name] = $value;
             }
         }
+        $statement = $this->prepare($query);
+        foreach($values as $name => $value){
+            $statement->bindValue($name, $value);
+        }
+        return $statement;
     }
     
     public function translateType($type) {
