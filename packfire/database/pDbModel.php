@@ -14,19 +14,12 @@ pload('packfire.collection.pMap');
 abstract class pDbModel extends pModel {
     
     /**
-     * Name of the model in the database 
-     * @var string
-     * @since 1.0-sofia 
-     */
-    protected $dbName;
-    
-    /**
      * Get name of the model in the database 
      * @return string Returns the name of the model, or null if there isn't.
      * @since 1.0-sofia
      */
     public function dbName(){
-        return $this->dbName;
+        return strtolower(get_class($this)) . 's';
     }
     
     /**

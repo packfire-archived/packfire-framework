@@ -117,7 +117,7 @@ class pMySqlTable extends pDbTable {
             if(array_key_exists($column->name(), $row)){
                 $columns[] = '`' . $column->name() . '`';
                 $params[$column->name()] = $row[$column->name()];
-                $values[] = $column->name();
+                $values[] = ':' . $column->name();
             }
         }
         $query .= implode(', ', $columns) . ') VALUES (';
