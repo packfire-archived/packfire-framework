@@ -10,7 +10,8 @@
  * @since 1.0-sofia
  */
 
-define('__PACKFIRE_PATH__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
+define('__PACKFIRE_PATH__', pathinfo(__FILE__, PATHINFO_DIRNAME) .
+        DIRECTORY_SEPARATOR . 'packfire' . DIRECTORY_SEPARATOR);
 
 $ok = include(__PACKFIRE_PATH__ . '/Packfire.php');
 if($ok){
