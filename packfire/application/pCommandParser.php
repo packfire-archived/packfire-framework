@@ -63,7 +63,7 @@ class pCommandParser {
                 $keyEnd = $length;
             }
             $part = substr($line, $keyStart, $keyEnd - $keyStart);
-            if($startChar == '-' || $startChar == '/'){ 
+            if($startChar == '-' || ($startChar == '/' && ($keyEnd - $keyStart) == 2)){ 
                 $lastKey = $this->cleanKey($part);
                 $this->keys->add($lastKey);
             }else{
