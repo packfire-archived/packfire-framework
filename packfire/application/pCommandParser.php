@@ -69,7 +69,7 @@ class pCommandParser {
     private function isKey($part){
         $result = false;
         $firstChar = substr($part, 0, 1);
-        if ($firstChar == '-' || $firstChar == '/'){
+        if ($firstChar == '-' || ($firstChar == '/' && strlen($part) == 2)){
             $result = true;
         }
         return $result;
@@ -86,7 +86,7 @@ class pCommandParser {
             $key = substr($key, 2);
         }else{
             $firstChar = substr($key, 0, 1);
-            if ($firstChar == '-' || $firstChar == '/'){
+            if ($firstChar == '-' || ($firstChar == '/' && strlen($key) == 2)){
                 $key = substr($key, 1);
             }
         }
