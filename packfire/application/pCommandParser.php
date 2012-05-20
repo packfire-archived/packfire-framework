@@ -29,50 +29,50 @@ class pCommandParser {
     
     /**
      * Create a new pCommandParser object
-     * @param string $line The argument line to be parsed
+     * @param array|pMap $arguments (optional) The argument to be parsed.
+     *              If not specified, the arguments will be taken from 
+     *              $_SERVER['args'].
      * @since 1.0-sofia
      */
-    public function __construct($line){
-        $this->parse($line);
+    public function __construct($arguments = null){
+        if(!$arguments){
+            $arguments = $_SERVER['argv'];
+        }
+        $this->parse($arguments);
     }
     
     /**
      * Parses the command line into keys and result
-     * @param string $line The argument line to be parsed
+     * @param array|pMap $arguments The arguments to be parsed
      * @since 1.0-sofia
      */
-    private function parse($line){
+    private function parse($arguments){
         $this->result = new pMap();
         $this->keys = new pList();
-        $position = 0;
-        $length = strlen($line);
         $lastKey = null;
-        $position = $this->parserFindNext($line, $position, '-');
-        while($position < $length){
-            $keyStart = $position;
-            $startChar = substr($line, $position, 1);
-            if($startChar == '"' || $startChar == '\''){
-                ++$position;
-                $keyEnd = $this->parserFindNext($line, $position, $startChar) + 1;
-            }else if ($startChar == '-' || $startChar == '/'){
-                $keyEnd = $this->parserFindNext($line, $position, array(' ', '='));
-            }else{
-                $keyEnd = $this->parserFindNext($line, $position, ' ');
-            }
-            if($position == $keyEnd){
-                $keyEnd = $length;
-            }
-            $part = substr($line, $keyStart, $keyEnd - $keyStart);
-            if($startChar == '-' || ($startChar == '/' && ($keyEnd - $keyStart) == 2)){ 
-                $lastKey = $this->cleanKey($part);
+        foreach($arguments as $arg){
+            if($this->isKey($arg)){
+                $lastKey = $this->cleanKey($arg);
                 $this->keys->add($lastKey);
             }else{
-                if($lastKey != null){
-                    $this->set($lastKey, $part);
-                }
+                $this->set($lastKey, $arg);
             }
-            $position = $keyEnd + 1;
         }
+    }
+    
+    /**
+     * Check if an argument is a switch key
+     * @param string $part The argument part
+     * @return boolean Returns true if the switch is a key, and false otherwise
+     * @since 1.0-sofia
+     */
+    private function isKey($part){
+        $result = false;
+        $firstChar = substr($part, 0, 1);
+        if ($firstChar == '-' || $firstChar == '/'){
+            $result = true;
+        }
+        return $result;
     }
     
     /**
@@ -86,7 +86,7 @@ class pCommandParser {
             $key = substr($key, 2);
         }else{
             $firstChar = substr($key, 0, 1);
-            if ($firstChar == '-' && $firstChar == '/'){
+            if ($firstChar == '-' || $firstChar == '/'){
                 $key = substr($key, 1);
             }
         }
@@ -111,36 +111,6 @@ class pCommandParser {
         }else{
             $this->result->add($key, $value);
         }
-    }
-    
-    /**
-     * Look for the next occurance of a string
-     * @param string $line The line to be processed
-     * @param string $position The starting position to look for
-     * @param pList|array|string $find The string to search for
-     * @return integer The position returned. If not found, $position is returned.
-     * @since 1.0-sofia
-     */
-    private function parserFindNext($line, $position, $find){
-        $result = null;
-        if(is_array($find) || $find instanceof pList){
-            foreach($find as $findpart){
-                $tmp = $this->parserFindNext($line, $position, $findpart);
-                if($tmp != $position && (is_null($result) || $tmp < $result)){
-                    $result = $tmp;
-                }
-            }
-            if(is_null($result)){
-                $result = $position;
-            }
-        }else{
-            $result = $position;
-            $tmp = strpos($line, $find, $position);
-            if($tmp !== false){
-                $result = $tmp;
-            }
-        }
-        return $result;
     }
     
     /**
@@ -175,7 +145,7 @@ class pCommandParser {
                     $result->append($altResult);
                 }else if($result instanceof pList){
                     $result->add($altResult);
-                }else{
+                }else if($altResult != null){
                     $result = new pList(array($result, $altResult));
                 }
             }

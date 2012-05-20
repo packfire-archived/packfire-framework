@@ -19,7 +19,7 @@ class pCommandRequest implements IAppRequest {
      * @since 1.0-sofia
      */
     public function params() {
-        $parser = new pCommandParser(implode(' ', $_SERVER['argv']));
+        $parser = new pCommandParser();
         return $parser->result();
     }
     

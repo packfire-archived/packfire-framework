@@ -33,13 +33,13 @@ class pSetupApplication implements IApplication {
     }
     
     protected function loadCliCall($request, $controller){
-        $cliParser = new pCommandParser(implode(' ', $_SERVER['argv']));
+        $cliParser = new pCommandParser();
         $route = new pRoute('', '', '');
         echo "\nPackfire Framework\n";
         echo "------------------------\n";
-        $route = new pRoute('', '', '');
         if($cliParser->isFlagged('-i', '--install')){
-                $root = $request->params()->get('install');
+                $root = $cliParser->getValue('-i', '--install');
+                $controller->params()->add('root', $root);
                 if($root){
                     echo "Setup will now install Packfire Framework to: \n";
                     echo "   "  . $root . "\n\n";
@@ -51,7 +51,8 @@ class pSetupApplication implements IApplication {
                     echo "Invalid parameters supplied.\nPackfire Setup will now exit.\n";
                 }
         }elseif($cliParser->isFlagged('-c', '--create')){
-                $root = $request->params()->get('create');
+                $root = $cliParser->getValue('-c', '--create');
+                $controller->params()->add('root', $root);
                 if($root){
                     echo "Packfire will now create a new application to: \n";
                     echo "   "  . $root . "\n\n";

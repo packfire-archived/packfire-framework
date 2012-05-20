@@ -383,11 +383,10 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * Get a copy of the controller's parameters.
-     * Note that this is read only.
      * @return pMap Returns a pMap containing the parameters
      */
     public function params(){
-        return new pMap($this->params->toArray());
+        return $this->params;
     }
     
     /**

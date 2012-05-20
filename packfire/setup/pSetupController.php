@@ -16,7 +16,7 @@ pload('packfire.setup.view.*');
 class pSetupController extends pController {
     
     public function doInstallFramework(){
-        $root = $this->params->get('install');
+        $root = $this->params->get('root');
         if($root && __PACKFIRE_ROOT__ != $root){
             pPath::copy(__PACKFIRE_ROOT__, $root);
         }
@@ -29,7 +29,7 @@ class pSetupController extends pController {
     }
     
     public function doCreateApplication(){
-        $root = $this->params->get('create');
+        $root = $this->params->get('root');
         $packfire = $this->params->get('packfire');
         if($root && $packfire){
             $generator = new pAppGenerator($root, $packfire);
