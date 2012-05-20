@@ -1,5 +1,6 @@
 <?php
 pload('IAppRequest');
+pload('pCommandParser');
 
 /**
  * A request made via the command line
@@ -14,13 +15,12 @@ class pCommandRequest implements IAppRequest {
     
     /**
      * Get the CLI arguments
-     * @return pList Returns the parameters 
+     * @return pMap Returns the parameters 
      * @since 1.0-sofia
      */
     public function params() {
-        $result = new pList();
-        $result->append($_SERVER['argv']);
-        return $result;
+        $parser = new pCommandParser(implode(' ', $_SERVER['argv']));
+        return $parser->result();
     }
     
 }

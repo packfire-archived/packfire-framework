@@ -8,4 +8,4 @@
  * Visitors to this file will be redirected to the public folder.
  */
 
-header('Location: packfire/setup.php');
+header('Location: setup.php');
