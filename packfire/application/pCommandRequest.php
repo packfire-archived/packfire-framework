@@ -14,7 +14,7 @@ pload('pCommandParser');
 class pCommandRequest implements IAppRequest {
     
     /**
-     * Get the CLI arguments
+     * Get the CLI arguments from the command parser
      * @return pMap Returns the parameters 
      * @since 1.0-sofia
      */

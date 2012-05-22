@@ -72,12 +72,15 @@ class pClassLoader {
             $search = self::prepareDirectorySearch($package);
         }
         $files = glob($search, GLOB_NOSORT);
-        
-        foreach($files as $f){
-            $ok = include_once($f);
-            if($ok){
-                $this->loadedClasses[$package][] = basename($f, self::EXT);
+        if($files){
+            foreach($files as $f){
+                $ok = include_once($f);
+                if($ok){
+                    $this->loadedClasses[$package][] = basename($f, self::EXT);
+                }
             }
+        }else{
+            throw new pInvalidRequestException('Dependency required but not found: "' . $package . '"');
         }
     } 
     

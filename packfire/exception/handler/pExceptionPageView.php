@@ -1,9 +1,9 @@
 <?php
 pload('packfire.view.pView');
-pload('packfire.template.pMoustacheTemplate');
+pload('packfire.template.moustache.pMoustacheTemplate');
 
 /**
- * pExceptionPageView Description
+ * Exception display view
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

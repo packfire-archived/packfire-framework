@@ -16,11 +16,21 @@ pload('packfire.ioc.pServiceBucket');
  */
 class pSetupApplication implements IApplication {
     
+    /**
+     * Handle the exception for the setup application
+     * @param Exception $exception The exception to be handled.
+     * @since 1.0-sofia
+     */
     public function handleException($exception) {
         var_dump($exception);
         die('Exception Occurred');
     }
     
+    /**
+     * Receive and work on the request
+     * @param IAppRequest $request The application request
+     * @return IAppResponse Returns the response if the request is through HTTP.
+     */
     public function receive($request) {
         $controller = new pSetupController($request, new pHttpResponse());
         $controller->setBucket(new pServiceBucket());
@@ -32,6 +42,12 @@ class pSetupApplication implements IApplication {
         }
     }
     
+    /**
+     * Command Line Interface call loader
+     * @param IAppRequest $request The request for the application
+     * @param pController $controller The controller to call
+     * @since 1.0-sofia
+     */
     protected function loadCliCall($request, $controller){
         $cliParser = new pCommandParser();
         $route = new pRoute('', '', '');
@@ -94,6 +110,13 @@ class pSetupApplication implements IApplication {
         }
     }
     
+    /**
+     * HTTP web call loader
+     * @param IAppRequest $request The request for the application
+     * @param pController $controller The controller to call
+     * @return IAppResponse The response to the HTTP call.
+     * @since 1.0-sofia
+     */
     protected function loadHttpCall($request, $controller){
         $route = new pRoute('', '', $request->method(), $request->params());
         if($request->get()->count() > 0){
