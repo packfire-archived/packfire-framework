@@ -231,7 +231,8 @@ class pFile implements IFile {
         if(func_num_args() == 1){
             $ok = chmod($this->pathname, $p);
             if(!$ok){
-                // todo file permission change fail
+                throw new pIOException('Failed to perform file permission'
+                        . ' change for file "' . $this->pathname . '".');
             }
             return $p;
         }else{

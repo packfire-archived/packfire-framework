@@ -1,5 +1,6 @@
 <?php
 pload('IServiceLoader');
+pload('packfire.exception.pServiceException');
 pload('packfire.config.framework.pIoCConfig');
 
 /**
@@ -82,7 +83,10 @@ class pServiceLoader implements IServiceLoader {
                         $service->get('parameters'));
                 $bucket->put($key, array($loader, 'load'));
             }else{
-                // todo throw exception no class defined
+                throw new pServiceException('Service "' . $key
+                        . '" defined in the service configuration'
+                        . ' file "ioc.yml" contains not conain a'
+                        . ' class definition.');
             }
         }
     }
