@@ -1,7 +1,7 @@
 <?php
 pload('pLinqWorkerQuery');
 pload('packfire.collection.pList');
-pload('packfire.collection.IComparator');
+pload('packfire.collection.sort.IComparator');
 
 /**
  * A LINQ Order By Query

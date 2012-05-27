@@ -1,5 +1,4 @@
 <?php
-pload('packfire.controller.IControllerFilter');
 
 /**
  * Validator abstraction
