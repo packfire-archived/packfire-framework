@@ -1,5 +1,6 @@
 <?php
 pload('pTime');
+pload('packfire.exception.pInvalidArgumentException');
 
 /**
  * A period of time.
@@ -49,7 +50,7 @@ class pTimeSpan extends pTime {
         if(func_num_args() == 1){
             if($hour != $this->hour){
                 $hour = $this->processNextComponent($hour, 'day', 24);
-                $this->hour = (int)$hour;
+                $this->hour = $hour + 0;
             }
         }
         return $this->hour;
@@ -66,9 +67,10 @@ class pTimeSpan extends pTime {
         if(func_num_args() == 1){
             if($day != $this->day){
                 if($day < 0){
-                    // todo throw exception cannot less than zero
+                    throw new pInvalidArgumentException('pTimeSpan::day() '.
+                            ' does not accept a negative first argument.');
                 }
-                $this->day = (int)$day;
+                $this->day = $day + 0;
             }
         }
         return $this->day;

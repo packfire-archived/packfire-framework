@@ -61,7 +61,7 @@ class pDate extends pDateTimeComponent implements IComparable {
                 $day--;
                 $day = $this->processNextComponent($day, 'month',
                         pDateTime::daysInMonth($this->month, $this->year)) + 1;
-                $this->day = (int)$day;
+                $this->day = $day + 0;
             }
         }
         return $this->day;
@@ -79,7 +79,7 @@ class pDate extends pDateTimeComponent implements IComparable {
             if($month != $this->month){
                 $month--;
                 $month = $this->processNextComponent($month, 'year', 12) + 1;
-                $this->month = (int)$month;
+                $this->month = $month + 0;
             }
         }
         return $this->month;
@@ -95,7 +95,7 @@ class pDate extends pDateTimeComponent implements IComparable {
     public function year($year = null){
         if(func_num_args() == 1){
             if($year != $this->year){
-                $this->year = (int)$year;
+                $this->year = $year + 0;
             }
         }
         return $this->year;

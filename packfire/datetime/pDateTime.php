@@ -94,7 +94,7 @@ class pDateTime extends pDate {
             $month += 12;
             $year--;
         }
-        $century = (int)($year / 100);
+        $century = $this->century();
         $year = $year % 100;
         $t = $this->day() + (int)(26 * ($month + 1) / 10) 
                 + $year + (int)($year / 4) 
@@ -173,12 +173,12 @@ class pDateTime extends pDate {
             $ts = time();
         }
         $dt = new pDateTime(
-                (int) gmdate('o', $ts),
-                (int) gmdate('n', $ts),
-                (int) gmdate('j', $ts),
-                (int) gmdate('G', $ts),
-                (int) gmdate('i', $ts),
-                (int) gmdate('s', $ts)
+                gmdate('o', $ts) + 0,
+                gmdate('n', $ts) + 0,
+                gmdate('j', $ts) + 0,
+                gmdate('G', $ts) + 0,
+                gmdate('i', $ts) + 0,
+                gmdate('s', $ts) + 0
             );
         
         return $dt;
