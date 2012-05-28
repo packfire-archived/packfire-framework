@@ -90,7 +90,7 @@ class pTextStream implements IIOStream {
         if(is_callable($position)){
             $position = $position($this);
         }
-        if($position >= 0 && $position < $this->length()){
+        if($position >= 0 && $position <= $this->length()){
             $this->pointer = $position;
         }else{
             throw new pOutOfRangeException(
@@ -152,9 +152,10 @@ class pTextStream implements IIOStream {
                 $this->seek($offset + strlen($data));
                 break;
             default:
-                $this->buffer = substr($this->buffer, 0, $this->tell())
-                    . $data . substr($this->buffer, $this->tell());
-                $this->seek($this->tell() + strlen($data));
+                $position = $this->tell();
+                $this->buffer = substr($this->buffer, 0, $position)
+                    . $data . substr($this->buffer, $position);
+                $this->seek($position + strlen($data));
                 break;
         }
     }
