@@ -3,6 +3,8 @@ pload('IAppRequest');
 pload('pCommandParser');
 
 /**
+ * pCommandRequest class
+ * 
  * A request made via the command line
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

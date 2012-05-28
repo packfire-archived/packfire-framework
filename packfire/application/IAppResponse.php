@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Application response abstraction
+ * IAppResponse interface
+ * 
+ * Abstraction for application response
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

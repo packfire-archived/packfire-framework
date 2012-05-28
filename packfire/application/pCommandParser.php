@@ -3,7 +3,9 @@ pload('packfire.collection.pList');
 pload('packfire.collection.pMap');
 
 /**
- * A parser that will process the command line
+ * pCommandParser class
+ * 
+ * A parser that will process the command line arguments
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

@@ -2,8 +2,10 @@
 pload('IAppResponse');
 
 /**
- * Application response
- * Decorator pattern
+ * pAppResponse class
+ * 
+ * A application response that stores a internal response to implement
+ * decorator pattern.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

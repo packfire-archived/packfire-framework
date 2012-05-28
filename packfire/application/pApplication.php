@@ -21,7 +21,9 @@ pload('packfire.debugger.console.pConsoleDebugOutput');
 pload('packfire.controller.pCALoader');
 
 /**
- * Application class
+ * pApplication class
+ * 
+ * The default web serving application class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
