@@ -94,7 +94,7 @@ class pDateTime extends pDate {
             $month += 12;
             $year--;
         }
-        $century = $this->century();
+        $century = (int)($year / 100);
         $year = $year % 100;
         $t = $this->day() + (int)(26 * ($month + 1) / 10) 
                 + $year + (int)($year / 4) 
