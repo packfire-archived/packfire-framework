@@ -1,4 +1,5 @@
 <?php
+pload('packfire.exception.pMissingDependencyException');
 pload('packfire.collection.pList');
 
 /**
@@ -80,7 +81,7 @@ class pClassLoader {
                 }
             }
         }else{
-            throw new pInvalidRequestException('Dependency required but not found: "' . $package . '"');
+            throw new pMissingDependencyException('Dependency required but not found: "' . $package . '"');
         }
     } 
     
