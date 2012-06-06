@@ -292,7 +292,10 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
      * @param string $field The field to calculate the average
      * @since 1.0-sofia
      */
-    public function average($field) {
+    public function average($field = null) {
+        if(!$field){
+            $field = '*';
+        }
         $this->selects = new pList(array(
             'AVERAGE(' . $field . ')'
         ));

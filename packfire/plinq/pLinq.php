@@ -45,11 +45,11 @@ class pLinq implements ILinq, IteratorAggregate {
      */
     public function __construct($collection, $queries = null){
         if($queries){
-            $this->queue = $queries;
+            $this->queue = new pList($queries);
         }else{
             $this->queue = new pList();
         }
-        if(is_array($collection)){
+        if(is_array($collection) || $collection instanceof pList){
             $collection = new pList($collection);
         }
         $this->collection = $collection;
@@ -115,7 +115,12 @@ class pLinq implements ILinq, IteratorAggregate {
      * @return integer|double Returns the average from of the field.
      * @since 1.0-sofia
      */
-    public function average($field) {
+    public function average($field = null) {
+        if(!$field){
+            $field = function($x){
+                    return $x;
+                };
+        }
         $result = self::from($this->collection, $this->queue)->select($field)->finalize();
         return array_sum($result) / count($result);
     }

@@ -30,15 +30,16 @@ class pServiceBucket implements IServiceBucket {
     }
     
     /**
-     * Handles when the get{serviceName}Service() method is called in the class
+     * Handles when the {serviceName}Service() method is called in the class
+     * e.g. databaseService()
      * @param string $name Name of the method
      * @param mixed $arguments Arguments. Ignored.
      * @internal
      * @since 1.0-sofia
      */
     public function __call($name, $arguments) {
-        if(substr($name, 0, 3) == 'get' && substr($name, -7) == 'Service'){
-            $service = substr($name, 3, strlen($name) - 10);
+        if(substr($name, -7) == 'Service'){
+            $service = substr($name, 0, strlen($name) - 7);
             return $this->pick($service);
         }
     }

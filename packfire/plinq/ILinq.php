@@ -33,7 +33,7 @@ interface ILinq extends Countable {
     
     public function max($field = null);
     
-    public function average($field);
+    public function average($field = null);
     
     public function limit($offset, $length = null);
     
