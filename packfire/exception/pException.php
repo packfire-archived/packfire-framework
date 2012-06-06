@@ -1,4 +1,5 @@
 <?php
+pload('packfire.net.http.pHttpResponseCode');
 
 /**
  * A generic exception
@@ -12,6 +13,7 @@
 class pException extends Exception {
     
     public function __construct($message, $code = null) {
+        header('HTTP/1.1 ' . pHttpResponseCode::HTTP_503);
         parent::__construct($message, $code);
     }
     

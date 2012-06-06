@@ -14,8 +14,10 @@ pload('packfire.net.http.pHttpResponseCode');
 class pHttpException extends pException{
     
     public function __construct($httpCode){
-        parent::__construct(constant('pHttpResponseCode::HTTP_' . $httpCode),
+        $http = constant('pHttpResponseCode::HTTP_' . $httpCode);
+        parent::__construct($http,
                 $httpCode);
+        header('HTTP/1.1 ' . $http);
     }
     
 }
