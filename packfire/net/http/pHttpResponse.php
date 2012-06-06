@@ -91,7 +91,7 @@ class pHttpResponse implements IAppResponse {
                 if(strlen($line) > 0){
                     if($body === null){
                         $separator = strpos($line, ':');
-                        if($c){
+                        if($separator !== false){
                             $key = trim(substr($line, 0, $separator));
                             $value = trim(substr($line, $separator + 1));
                             if($response->headers()->keyExists($key)){

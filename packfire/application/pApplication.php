@@ -176,7 +176,7 @@ class pApplication extends pBucketUser implements IApplication {
      * @return pCALoader Returns the loader
      * @since 1.0-sofia
      */
-    private function directAccessProcessor($request, $route, $response){
+    public function directAccessProcessor($request, $route, $response){
         $class = $route->params()->get('class');
         $action = $route->params()->get('action');
         $route->params()->removeAt('class');

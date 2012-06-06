@@ -112,7 +112,7 @@ class pCALoader extends pBucketUser implements IAppResponse {
                 throw new pHttpException(403);
             }
         }else if(is_callable($class)){
-            $this->response = call_user_func($class, $request, $route, $response);
+            $this->response = call_user_func($class, $this->request, $this->route, $this->response);
         }else{
             // oops! the class is really not found (:
             throw new pHttpException(404);
