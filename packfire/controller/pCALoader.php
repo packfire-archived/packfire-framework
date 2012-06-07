@@ -88,7 +88,11 @@ class pCALoader extends pBucketUser implements IAppResponse {
                     $class .= 'Controller';
                 }
                 pload('app.AppController');
-                pload('controller.' . $package);
+                try{
+                    pload('controller.' . $package);
+                }catch(pMissingDependencyException $ex){
+                    
+                }
             }else{
                 // woah we've got a badass here
                 // this is to load a custom class

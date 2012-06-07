@@ -12,6 +12,6 @@ pload('pException');
  */
 class pAuthenticationException extends pException {
     
-    
+    protected $responseCode = pHttpResponseCode::HTTP_403;
     
 }
