@@ -95,11 +95,11 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * Create a new pController object
-     * @param IAppRequest $request The client's request
-     * @param IAppResponse $response The response object
+     * @param IAppRequest $request (optional) The client's request
+     * @param IAppResponse $response (optional) The response object
      * @since 1.0-sofia
      */
-    public function __construct($request, $response){
+    public function __construct($request = null, $response = null){
         $this->request = $request;
         $this->response = $response;
         
@@ -137,7 +137,10 @@ abstract class pController extends pBucketUser implements IAppResponse {
         }
         $view->state($this->state);
         $output = $view->render();
-        $this->response()->body($output);
+        $response = $this->response();
+        if($response){
+            $response->body($output);
+        }
     }
     
     /**
@@ -399,7 +402,11 @@ abstract class pController extends pBucketUser implements IAppResponse {
         }
         
         // disable debugger if non-HTML output
-        $type = $this->response()->headers()->get('Content-Type');
+        $response = $this->response();
+        $type = null;
+        if($response){
+            $type = $response->headers()->get('Content-Type');
+        }
         if($this->service('debugger') 
                 && $type != null 
                 && strpos(strtolower($type), 'html') === false){

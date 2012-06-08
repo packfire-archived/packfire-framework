@@ -1,5 +1,7 @@
 <?php
 pload('packfire.exception.pMissingDependencyException');
+pload('packfire.net.http.pHttpResponse');
+pload('app.Application');
 
 if(!class_exists('PHPUnit_Framework_TestCase')){
     throw new pMissingDependencyException('PHPUnit required, but not found'
@@ -8,6 +10,8 @@ if(!class_exists('PHPUnit_Framework_TestCase')){
 
 /**
  * pControllerTest abstract class
+ * 
+ * Provides PHPUnit testing integratation for Controllers
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -26,6 +30,31 @@ abstract class pControllerTest extends PHPUnit_Framework_TestCase {
      * @since 1.0-sofia
      */
     protected $controller;
+    
+    /**
+     * Load a controller instance and set it to $controller
+     * @param string $controller Name of the controller to load
+     * @param IAppRequest $request (optional) The request to send to the controller
+     * @param IAppResponse $response (optional) The response to send to the controller
+     * @since 1.0-sofia
+     */
+    public function loadController($controller, $request = null, $response = null){
+        if(substr($controller, -10) != 'Controller'){
+            $controller .= 'Controller';
+        }
+        
+        if($response == null){
+            $response = new pHttpResponse();
+        }
+        
+        if(!class_exists($controller)){
+            pload('controller.' . $controller);
+        }
+        $this->controller = new $controller($request, $response);
+        
+        $application = new Application();
+        $this->controller->copyBucket($application);
+    }
     
     /**
      * Run an action of the controller

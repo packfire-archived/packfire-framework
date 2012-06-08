@@ -15,7 +15,9 @@ class pException extends Exception {
     protected $responseCode = pHttpResponseCode::HTTP_503;
     
     public function __construct($message, $code = null) {
-        header('HTTP/1.1 ' . $this->responseCode);
+        if (!headers_sent()) { // takes care HTTP or not
+            header('HTTP/1.1 ' . $this->responseCode);
+        }
         parent::__construct($message, $code);
     }
     

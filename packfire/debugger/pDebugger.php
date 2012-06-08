@@ -170,7 +170,7 @@ class pDebugger extends pBucketUser {
      * @ignore 
      */
     public function __destruct(){
-        if($this->enabled){
+        if($this->enabled && __ENVIRONMENT__ != 'test'){
             $this->timeCheck();
             pload('packfire.plinq.pLinq');
 //            $entries = pLinq::from($this->profiler->entries());

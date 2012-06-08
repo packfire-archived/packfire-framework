@@ -146,6 +146,14 @@ class pAppGenerator {
         $this->renderFile($path . '/resource/application/pack/model/readme.md',
                 pPath::combine($this->root, 'pack/model/readme.md'));
         
+        $this->renderFile($path . '/resource/application/pack/test/readme.md',
+                pPath::combine($this->root, 'pack/test/readme.md'));
+        $this->renderFile($path . '/resource/application/pack/test/bootstrap.php',
+                pPath::combine($this->root, 'pack/test/bootstrap.php',
+                array('packfirePath' => addslashes($this->packfire))));
+        $this->renderFile($path . '/resource/application/pack/test/configuration.xml',
+                pPath::combine($this->root, 'pack/test/configuration.xml'));
+        
         $this->renderFile($path . '/resource/application/pack/storage/cache/readme.md',
                 pPath::combine($this->root, 'pack/storage/cache/readme.md'));
         $this->renderFile($path . '/resource/application/pack/storage/log/readme.md',

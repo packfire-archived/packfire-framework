@@ -15,13 +15,17 @@
  * The root folder of the framework
  * @since 1.0-sofia
  */
-define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
+if(!defined('__PACKFIRE_ROOT__')){
+    define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
+}
 
 /**
  * The root folder of the application front controller
  * @since 1.0-sofia
  */
-define('__APP_ROOT__', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
+if(!defined('__APP_ROOT__')){
+    define('__APP_ROOT__', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
+}
 
 /**
  * Packfire Framework's current version
