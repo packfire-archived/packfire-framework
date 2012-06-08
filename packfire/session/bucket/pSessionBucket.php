@@ -31,7 +31,7 @@ class pSessionBucket implements ISessionBucket {
      * @param string $id The ID of the session bucket
      * @since 1.0-sofia
      */
-    public function __construct($id = null){
+    public function __construct($id){
         $this->id = $id;
         $this->data = array();
     }

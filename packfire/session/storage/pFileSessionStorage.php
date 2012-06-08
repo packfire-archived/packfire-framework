@@ -1,4 +1,5 @@
 <?php
+pload('pSessionStorage');
 
 /**
  * File storage for session
@@ -19,7 +20,7 @@ class pFileSessionStorage extends pSessionStorage {
     private $path;
     
     /**
-     * Create a new pFileSessionStorage
+     * Create a new pFileSessionStorage object
      * @param string $path Path to the storage location
      * @since 1.0-sofia
      */

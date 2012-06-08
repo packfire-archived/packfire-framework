@@ -76,13 +76,22 @@ class pSession implements ISession {
     }
     
     /**
-     * Get a session bucket 
+     * Fetch a session bucket 
      * @param string $bucket Name of the bucket to fetch
-     * @return string Returns the bucket
+     * @return pSessionBucket Returns the bucket
      * @since 1.0-sofia
      */
     public function bucket($bucket){
         return $this->storage->bucket($bucket);
+    }
+    
+    /**
+     * Register a session bucket 
+     * @param pSessionBucket $bucket The session bucket to register
+     * @since 1.0-sofia
+     */
+    public function register($bucket){
+        return $this->storage->register($bucket);
     }
     
 }
