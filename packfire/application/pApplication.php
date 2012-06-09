@@ -9,6 +9,7 @@ pload('packfire.ioc.pServiceBucket');
 pload('packfire.config.framework.pAppConfig');
 pload('packfire.config.framework.pRouterConfig');
 pload('packfire.session.pSession');
+pload('packfire.session.pMessenger');
 pload('packfire.session.storage.pSessionStorage');
 pload('packfire.ioc.pServiceLoader');
 pload('packfire.exception.handler.pExceptionHandler');
@@ -79,6 +80,7 @@ class pApplication extends pBucketUser implements IApplication {
             $storage = new pSessionStorage();
         }
         $this->services->put('session', new pSession($storage));
+        $this->services->put('messenger', 'pMessenger');
     }
     
     /**
