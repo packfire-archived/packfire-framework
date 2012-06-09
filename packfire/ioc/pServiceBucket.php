@@ -79,6 +79,9 @@ class pServiceBucket implements IServiceBucket {
                 if(is_callable($service)){
                     $service = call_user_func($service);
                     $this->services[$serviceName] = $service;
+                }elseif(is_string($service) && class_exists($service)){
+                    $service = new $service();
+                    $this->services[$serviceName] = $service;
                 }
                 $result = $service;
             }
