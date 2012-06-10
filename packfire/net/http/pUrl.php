@@ -1,4 +1,6 @@
 <?php
+pload('packfire.io.file.pPath');
+pload('packfire.collection.pMap');
 
 /**
  * A URL representation
