@@ -15,7 +15,7 @@ class pRoute {
     
     /**
      * The HTTP method that this URL route will cater for. Defaults to GET.
-     * @var string
+     * @var string|pList|array
      * @since 1.0-sofia
      */
     private $httpMethod = pHttpMethod::GET;
@@ -45,7 +45,7 @@ class pRoute {
      * Create a new pRoute entry
      * @param string $rewrite Rewritten version of the URL
      * @param string $actual Name of the controller class to route to
-     * @param string $method (optional) The HTTP Method to filter for, defaults to null.
+     * @param string|pList|array $method (optional) The HTTP Method to filter for, defaults to null.
      *                       When set to NULL, all HTTP methods to this route entry will
      *                       be called and handling of the HTTP method should be done
      *                       in the Controller.

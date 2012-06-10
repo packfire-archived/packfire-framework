@@ -69,17 +69,14 @@ class pRouter {
     
     /**
      * Perform routing operation and return the route entry
-     * @param pHttpClientRequest $clientRequest The client request
-     * @return pRoute Returns the route found based on the request
+     * @param pHttpRequest $request The HTTP request to perform routing
+     * @return pRoute Returns the route found based on the request or NULL
+     *              if no suitable route is found.
      * @since 1.0-sofia
      */
-    public function route($clientRequest){        
-        $url = '/' . (string)$clientRequest->get()->get(self::KEY);
-        $method = strtolower($clientRequest->method());
-        
-        if ($url == null) {
-            $url == '';
-        }
+    public function route($request){        
+        $url = '/' . (string)$request->get()->get(self::KEY);
+        $method = strtolower($request->method());
         
         foreach ($this->routes as $route) {
             
