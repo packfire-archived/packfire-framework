@@ -20,7 +20,7 @@ class pJsonSerializer implements ISerializer {
      * @param ISerializable|mixed $data The data to be serialized.
      * @since 1.0-sofia
      */
-    public function serialize($stream, $data){
+    public static function serialize($stream, $data){
         if($data instanceof ISerializable){
             $data = $data->serialize();
         }
@@ -34,7 +34,7 @@ class pJsonSerializer implements ISerializer {
      * @return mixed Returns the data unserialized
      * @since 1.0-sofia
      */
-    public function deserialize($stream){
+    public static function deserialize($stream){
         $buffer = '';
         while($data = $stream->read(1024)){
             $buffer .= $data;
