@@ -14,12 +14,71 @@ pload('ISerializer');
  */
 class pXmlSerializer implements ISerializer {
     
-    public function serialize($stream, $data) {
-        
+    /**
+     * Serialize data into XML string and write to output stream
+     * @param IOutputStream $stream The stream to write the output data to
+     * @param mixed $data The data to write 
+     * @since 1.0-sofia
+     */
+    public static function serialize($stream, $data) {
+        self::writeXml($stream, $data, 'root');
     }
     
-    public function deserialize($stream) {
-        
+    /**
+     * Deserialize a XML input stream into data
+     * @param IInputStream $stream The stream to read the data from 
+     * @return mixed Returns the original data
+     * @since 1.0-sofia
+     */
+    public static function deserialize($stream) {
+        if(!class_exists('DOMDocument')){
+            throw new pMissingDependencyException('DOM is required by pXmlSerializer but extension not enabled.');
+        }
+        $xml = $stream->read($stream->length());
+        $doc = new DOMDocument();
+        $doc->loadXML($xml);
+        if($doc->childNodes->length > 0){
+            $data = self::processNode($doc->childNodes->item(0));
+            return $data;
+        }
+        return null;
+    }
+    
+    /**
+     * Process a DOM node
+     * @param DOMNode $node The node to process
+     * @return mixed Returns the data processed from the node
+     * @since 1.0-sofia
+     */
+    private static function processNode($node){
+        $object = array();
+        $name = $node->nodeName;
+        if($node->childNodes->length == 1
+                && $node->childNodes->item(0) instanceof DOMText){
+            $key = $node->attributes->getNamedItem('key');
+            $type = $node->attributes->getNamedItem('type');
+            $value = $node->childNodes->item(0)->wholeText;
+            if($type){
+                settype($value, $type->value);
+            }
+            $key = $key ? (string)$key->value : $name;
+            $object[$key] = $value;
+        }elseif($node instanceof DOMNode){
+            foreach($node->childNodes as $child){
+                $object = $object + self::processNode($child);
+            }
+            if(substr($name, 0, 6) == 'class.'){
+                $class = substr($name, 6);
+                if(class_exists($class)){
+                    $data = $object;
+                    $object = new $class();
+                    foreach($data as $key => $value){
+                        $object->$key = $value;
+                    }
+                }
+            }
+        }
+        return $object;
     }
     
     /**
@@ -33,12 +92,13 @@ class pXmlSerializer implements ISerializer {
      */
     private static function writeXml($stream, $data, $block, $attributes = array()) {
         if(is_object($data)){
-            $block = 'class:' . get_class($object);
-            $data = get_object_vars($object);
+            $block = 'class.' . get_class($data);
+            $data = get_object_vars($data);
         }
         $stream->write('<' . $block);
         foreach($attributes as $key => $value){
-            $stream->write(' ' . $key . '="' . htmlspecialchars($value, ENT_QUOTES) . '"');
+            $stream->write(' ' . $key . '="'
+                    . htmlspecialchars($value, ENT_QUOTES) . '"');
         }
         $stream->write('>');
         self::writeItemXml($stream, $data);
