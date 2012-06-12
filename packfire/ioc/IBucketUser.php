@@ -19,6 +19,13 @@ interface IBucketUser {
     public function setBucket($bucket);
     
     /**
+     * Copy the bucket from another user
+     * @param IBucketUser $user The user to copy the IoC bucket from
+     * @since 1.0-sofia
+     */
+    public function copyBucket($user);
+    
+    /**
      * Get a service to use
      * @param string $service Name of the service to use
      * @return mixed Returns the service

@@ -44,9 +44,6 @@ abstract class pBucketUser implements IBucketUser {
      * @since 1.0-sofia
      */
     public function service($service){
-        if($this->services == null){
-            debug_print_backtrace();
-        }
         return $this->services->pick($service);
     }
     
