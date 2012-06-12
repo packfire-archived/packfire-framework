@@ -2,6 +2,8 @@
 pload('packfire.net.http.pHttpResponse');
 
 /**
+ * pJsonResponse class
+ * 
  * A Response that indicates that the response is JSON
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

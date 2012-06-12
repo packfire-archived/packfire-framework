@@ -3,6 +3,8 @@ pload('packfire.net.http.pHttpResponse');
 pload('packfire.net.http.pHttpResponseCode');
 
 /**
+ * pRedirectResponse class
+ * 
  * A response that indicates that the browser should redirect to another URL.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
