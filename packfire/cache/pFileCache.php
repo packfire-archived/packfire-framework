@@ -1,7 +1,9 @@
 <?php
 pload('ICache');
+pload('packfire.io.file.pFile');
 pload('packfire.io.file.pPath');
 pload('packfire.io.file.pFileSystem');
+pload('packfire.data.serialization.pPhpSerializer');
 
 /**
  * pFileCache class
@@ -98,6 +100,8 @@ class pFileCache implements ICache {
 
     public function set($id, $value, $expiry) {
         $file = self::filePath($id);
+        $fileTouch = new pFile($file);
+        $fileTouch->create();
         $stream = new pFileStream($file);
         $stream->open();
         $value = pPhpSerializer::serialize($stream, $value);
