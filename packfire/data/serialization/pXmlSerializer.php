@@ -39,7 +39,7 @@ class pXmlSerializer implements ISerializer {
         $doc->loadXML($xml);
         if($doc->childNodes->length > 0){
             $data = self::processNode($doc->childNodes->item(0));
-            return $data;
+            return reset($data);
         }
         return null;
     }
@@ -65,7 +65,7 @@ class pXmlSerializer implements ISerializer {
             $object[$key] = $value;
         }elseif($node instanceof DOMNode){
             foreach($node->childNodes as $child){
-                $object = $object + self::processNode($child);
+                $object += self::processNode($child);
             }
             if(substr($name, 0, 6) == 'class.'){
                 $class = substr($name, 6);
@@ -77,6 +77,9 @@ class pXmlSerializer implements ISerializer {
                     }
                 }
             }
+            $key = $node->attributes->getNamedItem('key');
+            $key = $key ? (string)$key->value : $name;
+            $object = array($key => $object);
         }
         return $object;
     }
@@ -127,7 +130,7 @@ class pXmlSerializer implements ISerializer {
         } else {
             if(is_string($item)){
                 $stream->write(htmlspecialchars($item, ENT_QUOTES));
-            }elseif(is_boolean($item)){
+            }elseif(is_bool($item)){
                 $stream->write($item ? 'true' : 'false');
             }else{
                 $stream->write($item);
