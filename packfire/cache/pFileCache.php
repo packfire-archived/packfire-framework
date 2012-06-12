@@ -99,13 +99,6 @@ class pFileCache implements ICache {
     }
 
     public function set($id, $value, $expiry) {
-        $file = self::filePath($id);
-        $fileTouch = new pFile($file);
-        $fileTouch->create();
-        $stream = new pFileStream($file);
-        $stream->open();
-        $value = pPhpSerializer::serialize($stream, $value);
-        $stream->close();
         if($expiry instanceof pDateTime){
             $expiry = $expiry->toTimestamp();
         }else if($expiry instanceof pTimeSpan){
@@ -113,6 +106,13 @@ class pFileCache implements ICache {
         }else{
             $expiry = time() + 3600; // default to 1 hour cache?
         }
+        $file = self::filePath($id);
+        $fileTouch = new pFile($file);
+        $fileTouch->create();
+        $stream = new pFileStream($file);
+        $stream->open();
+        $value = pPhpSerializer::serialize($stream, $value);
+        $stream->close();
         chmod($file, 0777);
         touch($file, $expiry);
     }
