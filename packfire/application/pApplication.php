@@ -33,13 +33,6 @@ pload('packfire.controller.pCALoader');
 class pApplication extends pBucketUser implements IApplication {
     
     /**
-     * The exception handler
-     * @var IExceptionHandler
-     * @since 1.0-sofia
-     */
-    private $exceptionHandler;
-    
-    /**
      * Create the pApplication object 
      * @since 1.0-sofia
      */
@@ -94,25 +87,46 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     public function receive($request){
-        $router = $this->loadRouter();
-        $response = $this->prepareResponse($request);
-        $route = $router->route($request);
-        if(is_null($route)){
-            throw new pHttpException(404);
-        }else{
-            if(is_string($route->actual()) && strpos($route->actual(), ':')){
-                list($class, $action) = explode(':', $route->actual());
+        if($request instanceof pHttpRequest){
+            $router = $this->loadRouter();
+            $response = $this->prepareResponse($request);
+            /* @var pRoute $route */
+            $route = null;
+            if($this->service('config.app')->get('routing', 'caching') && $this->service('cache')){
+                $cache = $this->service('cache');
+                $id = 'route.' . $request->uri() . $request->method() . $request->queryString() . sha1(json_encode($request->post()->toArray()));
+                if($cache->check($id)){
+                    $route = $cache->get($id);
+                }else{
+                    $route = $router->route($request);
+                    if($this->service('cache')){
+                        $cache->set($id, $route, new pTimeSpan(7200));
+                    }
+                }
             }else{
-                $class = $route->actual();
-                $action = '';
+                $route = $router->route($request);
             }
-
-            $caLoader = new pCALoader($class, $action, $request, $route, $response);
-            $caLoader->copyBucket($this);
-            $caLoader->load();
-            $response = $caLoader;
+            if(is_null($route)){
+                throw new pHttpException(404);
+            }else{
+                if(is_string($route->actual()) && strpos($route->actual(), ':')){
+                    list($class, $action) = explode(':', $route->actual());
+                }else{
+                    $class = $route->actual();
+                    $action = '';
+                }
+                
+                if($route->actual() == 'directControllerAccessRoute'){
+                    $response = $this->directAccessProcessor($request, $route, $response);
+                }else{
+                    $caLoader = new pCALoader($class, $action, $request, $route, $response);
+                    $caLoader->copyBucket($this);
+                    $caLoader->load();
+                    $response = $caLoader;
+                }
+            }
+            return $response;
         }
-        return $response;
     }
     
     /**
@@ -152,7 +166,7 @@ class pApplication extends pBucketUser implements IApplication {
             $router->add($key, $route);
         }
         $directControllerAccessRoute = new pRoute('/{class}/{action}',
-                array($this, 'directAccessProcessor'),
+                'directControllerAccessRoute',
                 null,
                 new pMap(array(
                     'class' => '([a-zA-Z0-9\_]+)',
