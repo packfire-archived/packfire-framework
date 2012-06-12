@@ -57,13 +57,13 @@ class pDebugger extends pBucketUser {
      */
     public function enabled($enable = null){
         if(func_num_args() == 1){
-            if($this->enabled != $enable){
-                if($enable){
-                    //$this->profiler->start();
-                }else{
-                    //$this->profiler->stop();
-                }
-            }
+//            if($this->enabled != $enable){
+//                if($enable){
+//                    //$this->profiler->start();
+//                }else{
+//                    //$this->profiler->stop();
+//                }
+//            }
             $this->enabled = $enable;
         }
         return $this->enabled;

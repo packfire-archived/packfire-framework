@@ -20,7 +20,8 @@ class pSessionLoader extends pBucketUser {
         $storage = null;
         if($storageId){
             $storage = $this->service($storageId);
-        }else{
+        }
+        if(!$storage){
             $storage = new pSessionStorage();
             $this->services->put($storageId, $storage);
         }

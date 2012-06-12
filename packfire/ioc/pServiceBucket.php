@@ -49,8 +49,7 @@ class pServiceBucket implements IServiceBucket {
      * @param string $name The service identifier. Case-insensitive.
      * @param callback|Closure|object $resolver Either the object instance or
      *        the resolver function / method that will creates and return the
-     *        object. Object returned must be an instance of the IService
-     *        interface. The callback can accept the first parameter as the
+     *        object. The callback can accept the first parameter as the
      *        pServiceBucket that requested for the execution.
      * @since 1.0-sofia
      */
@@ -63,15 +62,14 @@ class pServiceBucket implements IServiceBucket {
      * Pick out a service instance by the service identifier
      * @param string $serviceName The unique identifier of the service.
      *                            Case-insensitive.
-     * @return object Returns the service instance, or NULL if not found.
+     * @return mixed Returns the service instance, or NULL if not found.
      * @since 1.0-sofia 
      */
     public function pick($serviceName){
         $result = null;
         
-        if(method_exists($this, 'get' . $serviceName . 'Service')){
-            $result = $this->{'get' . $serviceName . 'Service'}();
-            $this->put($serviceName, $result);
+        if(method_exists($this,  $serviceName . 'Service')){
+            $result = $this->{$serviceName . 'Service'}();
         }else{
             $serviceName = strtolower($serviceName);
             if($this->services->keyExists($serviceName)){
@@ -99,7 +97,7 @@ class pServiceBucket implements IServiceBucket {
      * @since 1.0-sofia
      */
     public function contains($serviceName){
-        return method_exists($this, 'get' . $serviceName . 'Service')
+        return method_exists($this, $serviceName . 'Service')
                 || $this->services->keyExists(strtolower($serviceName));
     }
     

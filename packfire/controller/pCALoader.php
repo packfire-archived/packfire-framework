@@ -65,7 +65,7 @@ class pCALoader extends pBucketUser implements IAppResponse {
         $this->route = $route;
         $this->response = $response;
     }
-    
+
     /**
      * Perform the loading process
      * @param boolean $directAccess (optional) Flags if the access is a direct
@@ -104,10 +104,8 @@ class pCALoader extends pBucketUser implements IAppResponse {
             /* @var $controller pController */
             $controller = new $class($this->request, $this->response);
             if($controller->directAccess() || 
-                    (!$controller->directAccess() && !$directAccess)){
-                if($controller instanceof IBucketUser){
-                    $controller->copyBucket($this);
-                }
+                        (!$controller->directAccess() && !$directAccess)){
+                $controller->copyBucket($this);
                 $controller->run($this->route, $this->action);
                 $this->response = $controller;
             }else{
