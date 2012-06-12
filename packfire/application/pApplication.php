@@ -8,9 +8,7 @@ pload('packfire.ioc.pBucketUser');
 pload('packfire.ioc.pServiceBucket');
 pload('packfire.config.framework.pAppConfig');
 pload('packfire.config.framework.pRouterConfig');
-pload('packfire.session.pSession');
-pload('packfire.session.pMessenger');
-pload('packfire.session.storage.pSessionStorage');
+pload('packfire.session.pSessionLoader');
 pload('packfire.ioc.pServiceLoader');
 pload('packfire.exception.handler.pExceptionHandler');
 pload('packfire.exception.handler.pErrorHandler');
@@ -72,15 +70,9 @@ class pApplication extends pBucketUser implements IApplication {
                     $this->service('database' . $dbPackage . '.driver')->database());
         }
         
-        $storageId = $this->service('config.app')->get('session', 'storageId');
-        $storage = null;
-        if($storageId){
-            $storage = $this->service($storageId);
-        }else{
-            $storage = new pSessionStorage();
-        }
-        $this->services->put('session', new pSession($storage));
-        $this->services->put('messenger', 'pMessenger');
+        $sessionLoader = new pSessionLoader();
+        $sessionLoader->copyBucket($this);
+        $sessionLoader->load();
     }
     
     /**
