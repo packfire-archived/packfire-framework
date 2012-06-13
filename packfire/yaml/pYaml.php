@@ -1,5 +1,5 @@
 <?php
-pload('packfire.io.pInputStreamReader');
+pload('packfire.io.pStreamReader');
 pload('pYamlParser');
 
 /**
@@ -26,7 +26,7 @@ class pYaml {
      * @since 1.0-sofia
      */
     public function __construct($stream){
-        $reader = new pInputStreamReader($stream);
+        $reader = new pStreamReader($stream);
         $reader->stream()->seek(0);
         $this->parser = new pYamlParser($reader);
     }

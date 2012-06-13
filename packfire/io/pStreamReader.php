@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * pStreamReader class
+ * 
  * Provides extended reading operations to an IInputStream
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -9,7 +11,7 @@
  * @package packfire.io
  * @since 1.0-sofia
  */
-class pInputStreamReader {
+class pStreamReader {
     
     /**
      * The stream to read
@@ -19,7 +21,7 @@ class pInputStreamReader {
     private $stream;
     
     /**
-     * Create a new pInputStreamReader
+     * Create a new pStreamReader object
      * @param IInputStream $stream The input stream to read.
      * @since 1.0-sofia
      */
