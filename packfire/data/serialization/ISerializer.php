@@ -1,7 +1,9 @@
 <?php
 
 /**
- * ISerializer Description
+ * ISerializer interface
+ * 
+ * Serializer abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -11,8 +13,8 @@
  */
 interface ISerializer {
     
-    public static function serialize($stream, $data);
+    public function serialize($stream, $data = null);
     
-    public static function deserialize($stream);
+    public function deserialize($stream);
     
 }

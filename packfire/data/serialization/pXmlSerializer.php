@@ -20,8 +20,22 @@ class pXmlSerializer implements ISerializer {
      * @param mixed $data The data to write 
      * @since 1.0-sofia
      */
-    public static function serialize($stream, $data) {
-        self::writeXml($stream, $data, 'root');
+    public function serialize($stream, $data = null) {
+        if(func_num_args() == 1){
+            $data = $stream;
+            $stream = new pTextStream();
+            if($data instanceof ISerializable){
+                $data = $data->serialize();
+            }
+            self::writeXml($stream, $data, 'root');
+            $stream->seek(0);
+            return $stream->read($stream->length());
+        }else{
+            if($data instanceof ISerializable){
+                $data = $data->serialize();
+            }
+            self::writeXml($stream, $data, 'root');
+        }
     }
     
     /**
@@ -30,11 +44,16 @@ class pXmlSerializer implements ISerializer {
      * @return mixed Returns the original data
      * @since 1.0-sofia
      */
-    public static function deserialize($stream) {
+    public function deserialize($stream) {
+        $xml = '';
+        if($stream instanceof IInputStream){
+            $xml = $stream->read($stream->length());
+        }else{
+            $xml = $stream;
+        }
         if(!class_exists('DOMDocument')){
             throw new pMissingDependencyException('DOM is required by pXmlSerializer but extension not enabled.');
         }
-        $xml = $stream->read($stream->length());
         $doc = new DOMDocument();
         $doc->loadXML($xml);
         if($doc->childNodes->length > 0){

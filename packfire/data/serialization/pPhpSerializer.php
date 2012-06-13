@@ -20,24 +20,36 @@ class pPhpSerializer implements ISerializer {
      * @param ISerializable|mixed $data The data to be serialized.
      * @since 1.0-sofia
      */
-    public static function serialize($stream, $data){
-        if($data instanceof ISerializable){
-            $data = $data->serialize();
+    public function serialize($stream, $data = null){
+        if(func_num_args() == 1){
+            $data = $stream;
+            if($data instanceof ISerializable){
+                $data = $data->serialize();
+            }
+            return serialize($data);
+        }else{
+            if($data instanceof ISerializable){
+                $data = $data->serialize();
+            }
+            $buffer = serialize($data);
+            $stream->write($buffer);
         }
-        $buffer = serialize($data);
-        $stream->write($buffer);
     }
     
     /**
      * Deserialize the serialized data from the stream
-     * @param IInputStream $stream The stream to read the serialized data from
+     * @param IInputStream $stream|string The stream to read the serialized data from
      * @return mixed Returns the data unserialized
      * @since 1.0-sofia
      */
-    public static function deserialize($stream){
+    public function deserialize($stream){
         $buffer = '';
-        while($data = $stream->read(1024)){
-            $buffer .= $data;
+        if($stream instanceof IInputStream){
+            while($data = $stream->read(1024)){
+                $buffer .= $data;
+            }
+        }else{
+            $buffer = $stream;
         }
         return unserialize($buffer);
     }
