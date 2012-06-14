@@ -40,11 +40,15 @@ abstract class pBucketUser implements IBucketUser {
     /**
      * Get a service from the Service Bucket
      * @param string $service Name of the service to retrieve
-     * @return object Returns the service object
+     * @return object Returns the service object or null if no service found.
      * @since 1.0-sofia
      */
     public function service($service){
-        return $this->services->pick($service);
+        if($this->services){
+            return $this->services->pick($service);
+        }else{
+            return null;
+        }
     }
     
 }
