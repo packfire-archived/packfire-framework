@@ -84,6 +84,8 @@ class pSetupApplication implements IApplication {
                             echo "Error: Setup could not locate Packfire Framework installed at that location.\n\n";
                         }
                     }
+                    
+                    $controller->params()->add('packfire', $framework);
                     echo "Setting Framework to " . $framework . "\n\n";
                     echo "Copying files... ";
                     $controller->run($route, 'createApplication');
