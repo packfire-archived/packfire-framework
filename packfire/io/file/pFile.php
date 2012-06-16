@@ -1,9 +1,14 @@
 <?php
 pload('IFile');
+pload('pFileSystem');
+pload('pFileStream');
+pload('packfire.datetime.pDateTime');
 pload('packfire.exception.pIOException');
 
 /**
- * A file
+ * pFile class
+ * 
+ * File operations provider
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -31,11 +36,15 @@ class pFile implements IFile {
     
     /**
      * Get the file size
-     * @return integer
+     * @return integer Returns the file size or NULL if the file is not found.
      * @since 1.0-sofia
      */
     public function size(){
-        return filesize($this->pathname);
+        if($this->exists()){
+            return filesize($this->pathname);
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -91,7 +100,7 @@ class pFile implements IFile {
     /**
      * Append the file content
      * @param string $ctn The additional file content to append
-     * @return bool Returns true if successful, false otherwise/
+     * @return bool Returns true if successful, false otherwise.
      * @throws pIOException
      * @since 1.0-sofia
      */
@@ -156,7 +165,7 @@ class pFile implements IFile {
 
     /**
      * Get the entire pathname to the file
-     * @return string
+     * @return string Returns the string to the entire pathname
      * @since 1.0-sofia
      */
     public function pathname(){
@@ -166,7 +175,6 @@ class pFile implements IFile {
     /**
      * Rename the file
      * @param string $newname The new name to give to the file
-     * @return boolean Returns true if the rename is successful, false otherwise.
      * @throws pIOException
      * @since 1.0-sofia
      */
@@ -187,8 +195,6 @@ class pFile implements IFile {
     /**
      * Move the file to another directory path
      * @param string $newdir The new directory path to move the file to
-     * @return boolean Returns true if the move operation is successful,
-     *                 false otherwise.
      * @throws pIOException
      * @since 1.0-sofia
      */
