@@ -2,7 +2,6 @@
 pload('packfire.datetime.pDateTime');
 pload('packfire.ioc.pBucketUser');
 pload('packfire.debugger.console.pConsoleDebugOutput');
-pload('packfire.debugger.profiler.pProfiler');
 
 /**
  * The debugger to help you debug in your application
@@ -31,21 +30,11 @@ class pDebugger extends pBucketUser {
     private $output;
     
     /**
-     *
-     * @var pProfiler
-     * @since 1.0-sofia 
-     */
-    private $profiler;
-    
-    /**
      * Create a new pDebugger object
-     * @param IDebugOutput $output The output to write the debugging logs to
      * @since 1.0-sofia
      */
-    public function __construct($output){
-        $this->output = $output;
-        $this->profiler = new pProfiler();
-        //$this->profiler->start();
+    public function __construct(){
+        $this->output = $this->service('debugger.output');
     }
     
     /**
@@ -57,13 +46,6 @@ class pDebugger extends pBucketUser {
      */
     public function enabled($enable = null){
         if(func_num_args() == 1){
-//            if($this->enabled != $enable){
-//                if($enable){
-//                    //$this->profiler->start();
-//                }else{
-//                    //$this->profiler->stop();
-//                }
-//            }
             $this->enabled = $enable;
         }
         return $this->enabled;
@@ -171,16 +153,6 @@ class pDebugger extends pBucketUser {
      */
     public function __destruct(){
         if($this->enabled && __ENVIRONMENT__ != 'test'){
-            $this->timeCheck();
-            pload('packfire.plinq.pLinq');
-//            $entries = pLinq::from($this->profiler->entries());
-//            $grouped = $entries->groupBy(function($x){return $x->call();})->toList();
-//            foreach($grouped as $kvp){
-//                $this->dump($kvp);
-//            }
-            foreach($this->profiler->entries() as $entry){
-                $this->profile($entry);
-            }
             $this->timeCheck();
             $this->output->output();
         }

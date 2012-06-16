@@ -49,7 +49,8 @@ class pApplication extends pBucketUser implements IApplication {
     protected function loadBucket(){
         $this->services->put('config.app', array('pAppConfig', 'load'));
         $this->services->put('config.routing', array('pRouterConfig', 'load'));
-        $this->services->put('debugger', new pDebugger(new pConsoleDebugOutput()));
+        $this->services->put('debugger.output', new pConsoleDebugOutput());
+        $this->services->put('debugger', new pDebugger());
         $this->service('debugger')->enabled($this->service('config.app')->get('app', 'debug'));
         $this->services->put('router', $this->loadRouter());
         pServiceLoader::loadConfig($this->services);
