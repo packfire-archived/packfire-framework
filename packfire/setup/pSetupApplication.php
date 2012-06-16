@@ -72,19 +72,7 @@ class pSetupApplication implements IApplication {
                 if($root){
                     echo "Packfire will now create a new application to: \n";
                     echo "   "  . $root . "\n\n";
-                    $framework = $cliParser->getValue('-p', '--packfire');
-                    
-                    while($framework == null){
-                        echo "Where did you install Packfire Framework?\n";
-                        echo "> ";
-                        $framework = fgets(STDIN);
-                        echo "\n";
-                        if(!file_exists(pPath::combine($framework, 'Packfire.php'))){
-                            $framework = null;
-                            echo "Error: Setup could not locate Packfire Framework installed at that location.\n\n";
-                        }
-                    }
-                    
+                    $framework = dirname(__FILE__).'/..';
                     $controller->params()->add('packfire', $framework);
                     echo "Setting Framework to " . $framework . "\n\n";
                     echo "Copying files... ";
@@ -100,12 +88,10 @@ class pSetupApplication implements IApplication {
                 echo "To use the setup:\n";
                 echo "   packfire [-i | --install] [root]\n";
                 echo "   packfire [-c | --create] [root]\n";
-                echo "   packfire [-c | --create] [root] [-p | --packfire] [packfire]\n";
                 echo "   packfire [-h | --help]\n";
                 echo "\nOptions:\n";
                 echo "   -i or --install : Install the Framework\n";
                 echo "   -c or --create : Create a new Packfire Application\n";
-                echo "   -p or --packfire : Set the Packfire Framework\n          Directory when installing\n";
                 echo "   -h or --help : Show this help screen\n";
                 echo "   root : The root directory to install framework\n          or create new application\n";
                 echo "\n";
