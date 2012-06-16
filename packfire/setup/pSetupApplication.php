@@ -88,12 +88,10 @@ class pSetupApplication implements IApplication {
                 echo "To use the setup:\n";
                 echo "   packfire [-i | --install] [root]\n";
                 echo "   packfire [-c | --create] [root]\n";
-                echo "   packfire [-c | --create] [root] [-p | --packfire] [packfire]\n";
                 echo "   packfire [-h | --help]\n";
                 echo "\nOptions:\n";
                 echo "   -i or --install : Install the Framework\n";
                 echo "   -c or --create : Create a new Packfire Application\n";
-                echo "   -p or --packfire : Set the Packfire Framework\n          Directory when installing\n";
                 echo "   -h or --help : Show this help screen\n";
                 echo "   root : The root directory to install framework\n          or create new application\n";
                 echo "\n";
