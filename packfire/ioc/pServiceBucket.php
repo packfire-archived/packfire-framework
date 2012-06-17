@@ -54,7 +54,10 @@ class pServiceBucket implements IServiceBucket {
      * @since 1.0-sofia
      */
     public function put($name, $resolver){
-        $name = strtolower($name);
+        $name = strtolower($name);        
+        if($resolver instanceof IBucketUser){
+            $resolver->setBucket($this);
+        }
         $this->services[$name] = $resolver;
     }
     

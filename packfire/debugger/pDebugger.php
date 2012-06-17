@@ -1,7 +1,6 @@
 <?php
 pload('packfire.datetime.pDateTime');
 pload('packfire.ioc.pBucketUser');
-pload('packfire.debugger.console.pConsoleDebugOutput');
 
 /**
  * The debugger to help you debug in your application
@@ -23,18 +22,11 @@ class pDebugger extends pBucketUser {
     private $enabled = true;
     
     /**
-     * The output channel to write logs to
-     * @var IDebugOutput
-     * @since 1.0-sofia
-     */
-    private $output;
-    
-    /**
      * Create a new pDebugger object
      * @since 1.0-sofia
      */
     public function __construct(){
-        $this->output = $this->service('debugger.output');
+        
     }
     
     /**
@@ -68,7 +60,7 @@ class pDebugger extends pBucketUser {
                 $dbt = reset(debug_backtrace());
                 $where = sprintf('%s:%d', pPath::baseName($dbt['file']),
                         $dbt['line']);
-                $this->output->write($output, $where, __FUNCTION__);
+                $this->output()->write($output, $where, __FUNCTION__);
             }
         }
     }
@@ -80,7 +72,7 @@ class pDebugger extends pBucketUser {
      */
     public function log($message){
         if($this->enabled){
-            $this->output->write($message);
+            $this->output()->write($message);
         }
     }
     
@@ -96,7 +88,7 @@ class pDebugger extends pBucketUser {
                     $exception->getLine());
             $message = sprintf('Error %s: %s', $exception->getCode(),
                     $exception->getMessage());
-            $this->output->write($message, $where, __FUNCTION__);
+            $this->output()->write($message, $where, __FUNCTION__);
         }
     }
     
@@ -112,7 +104,7 @@ class pDebugger extends pBucketUser {
             $message = sprintf(
                     'Time taken from application loaded to reach %s line %s',
                     $dbt['file'], $dbt['line']);
-            $this->output->write($message,
+            $this->output()->write($message,
                     (pDateTime::microtime() - __PACKFIRE_START__) . 's',
                     __FUNCTION__);
         }
@@ -131,18 +123,17 @@ class pDebugger extends pBucketUser {
             $dbt = $dbts[1];
             $where = sprintf('%s:%d', pPath::baseName($dbt['file']),
                     $dbt['line']);
-            $this->output->write($sql, $where, $type);
+            $this->output()->write($sql, $where, $type);
         }
     }
     
     /**
-     *
-     * @param pProfileEntry $entry 
+     * Get the output method
+     * @return IDebugOutput Returns the debugging output method
+     * @since 1.0-sofia
      */
-    public function profile($entry){
-        if($this->enabled){
-            $this->output->write($entry->call() . ' at ' . $entry->caller() . ' / ' . $entry->file(), $entry->execTime(), __FUNCTION__);
-        }
+    private function output(){
+        return $this->service('debugger.output');
     }
     
     /**
@@ -154,7 +145,7 @@ class pDebugger extends pBucketUser {
     public function __destruct(){
         if($this->enabled && __ENVIRONMENT__ != 'test'){
             $this->timeCheck();
-            $this->output->output();
+            $this->output()->output();
         }
     }
     
