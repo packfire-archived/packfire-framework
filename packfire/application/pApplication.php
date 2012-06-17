@@ -49,10 +49,8 @@ class pApplication extends pBucketUser implements IApplication {
     protected function loadBucket(){
         $this->services->put('config.app', array('pAppConfig', 'load'));
         $this->services->put('config.routing', array('pRouterConfig', 'load'));
-        $this->services->put('debugger.output', new pConsoleDebugOutput());
         $this->services->put('debugger', new pDebugger());
         $this->service('debugger')->enabled($this->service('config.app')->get('app', 'debug'));
-        $this->services->put('router', $this->loadRouter());
         pServiceLoader::loadConfig($this->services);
         
         $databaseConfigs = $this->service('config.app')->get('database');
@@ -89,8 +87,10 @@ class pApplication extends pBucketUser implements IApplication {
      */
     public function receive($request){
         if($request instanceof pHttpRequest){
-            $router = $this->loadRouter();
             $response = $this->prepareResponse($request);
+            /* @var pRouter $router */
+            $router = $this->service('router');
+            $router->load();
             /* @var pRoute $route */
             $route = null;
             if($this->service('config.app')->get('routing', 'caching') && $this->service('cache')){
@@ -149,32 +149,6 @@ class pApplication extends pBucketUser implements IApplication {
     public function handleException($exception){
         $this->service('debugger')->exception($exception);
         $this->service('exception.handler')->handle($exception);
-    }
-    
-    /**
-     * Load the router and its configuration
-     * @return pRouter Returns the router
-     * @since 1.0-sofia
-     */
-    private function loadRouter(){
-        $router = new pRouter();
-        $settings = $this->service('config.routing');
-        $routes = $settings->get();
-        foreach($routes as $key => $data){
-            $data = new pMap($data);
-            $route = new pRoute($data->get('rewrite'), $data->get('actual'),
-                    $data->get('method'), $data->get('params'));
-            $router->add($key, $route);
-        }
-        $directControllerAccessRoute = new pRoute('/{class}/{action}',
-                'directControllerAccessRoute',
-                null,
-                new pMap(array(
-                    'class' => '([a-zA-Z0-9\_]+)',
-                    'action' => '([a-zA-Z0-9\_]+)'
-                )));
-        $router->add('packfire.DCARoute', $directControllerAccessRoute);
-        return $router;
     }
     
     /**

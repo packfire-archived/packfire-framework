@@ -3,6 +3,7 @@ pload('packfire.collection.pMap');
 pload('packfire.template.pTemplate');
 pload('packfire.net.http.pUrl');
 pload('packfire.exception.pNullException');
+pload('packfire.ioc.pBucketUser');
 
 /**
  * Handles URL rewritting and controller routing
@@ -13,7 +14,7 @@ pload('packfire.exception.pNullException');
  * @package packfire.routing
  * @since 1.0-sofia
  */
-class pRouter {
+class pRouter extends pBucketUser {
     
     /**
      * The routing key to use
@@ -45,6 +46,29 @@ class pRouter {
     public function __construct($rewrite = true){
         $this->rewrite = $rewrite;
         $this->routes = new pMap();
+    }
+    
+    /**
+     * Perform loading of routes from the routing configuration file
+     * @since 1.0-sofia
+     */
+    public function load(){
+        $settings = $this->service('config.routing');
+        $routes = $settings->get();
+        foreach($routes as $key => $data){
+            $data = new pMap($data);
+            $route = new pRoute($data->get('rewrite'), $data->get('actual'),
+                    $data->get('method'), $data->get('params'));
+            $this->add($key, $route);
+        }
+        $directControllerAccessRoute = new pRoute('/{class}/{action}',
+                'directControllerAccessRoute',
+                null,
+                new pMap(array(
+                    'class' => '([a-zA-Z0-9\_]+)',
+                    'action' => '([a-zA-Z0-9\_]+)'
+                )));
+        $this->add('packfire.DCARoute', $directControllerAccessRoute);
     }
     
     /**
