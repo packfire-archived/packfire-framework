@@ -1,5 +1,7 @@
 <?php
+pload('packfire.config.pConfigType');
 pload('packfire.config.pConfigFactory');
+pload('IFrameworkConfig');
 
 /**
  * Framework Application configuration parser
@@ -10,7 +12,7 @@ pload('packfire.config.pConfigFactory');
  * @package packfire.config.framework
  * @since 1.0-sofia
  */
-class pFrameworkConfig {
+abstract class pFrameworkConfig implements IFrameworkConfig {
     
     /**
      * Load an application configuration file located the the config folder.
@@ -23,7 +25,7 @@ class pFrameworkConfig {
      *                 or NULL if the file is not recognized or not found.
      * @since 1.0-sofia
      */
-    public static function load($name, $context = __ENVIRONMENT__){
+    protected static function execute($name, $context){
         $path = __APP_ROOT__ . 'pack/config/' . $name;
         
         $map = array_keys(pConfigType::typeMap());

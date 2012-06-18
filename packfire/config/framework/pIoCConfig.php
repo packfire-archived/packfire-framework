@@ -2,6 +2,8 @@
 pload('pFrameworkConfig');
 
 /**
+ * pIoCConfig class
+ * 
  * IoC Service Bucket Configuration
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -23,7 +25,7 @@ class pIoCConfig extends pFrameworkConfig {
      * @since 1.0-sofia
      */
     public static function load($context = __ENVIRONMENT__) {
-        return parent::load('ioc', $context);
+        return self::execute('ioc', $context);
     }
     
 }

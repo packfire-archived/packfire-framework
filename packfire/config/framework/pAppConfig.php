@@ -2,6 +2,8 @@
 pload('pFrameworkConfig');
 
 /**
+ * pAppConfig class
+ * 
  * Application configuration parser
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -23,7 +25,7 @@ class pAppConfig extends pFrameworkConfig {
      * @since 1.0-sofia
      */
     public static function load($context = __ENVIRONMENT__) {
-        return parent::load('app', $context);
+        return self::execute('app', $context);
     }
     
 }

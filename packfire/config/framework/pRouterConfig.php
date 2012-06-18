@@ -2,6 +2,8 @@
 pload('pFrameworkConfig');
 
 /**
+ * pRouterConfig class
+ * 
  * Router configuration parser
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -23,7 +25,7 @@ class pRouterConfig extends pFrameworkConfig {
      * @since 1.0-sofia
      */
     public static function load($context = __ENVIRONMENT__) {
-        return parent::load('routing', $context);
+        return self::execute('routing', $context);
     }
     
 }

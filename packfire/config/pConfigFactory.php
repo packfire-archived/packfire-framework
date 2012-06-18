@@ -1,11 +1,10 @@
 <?php
 pload('packfire.io.file.pPath');
 pload('pConfigType');
-pload('packfire.config.driver.pYamlConfig');
-pload('packfire.config.driver.pIniConfig');
-pload('packfire.config.driver.pPhpConfig');
 
 /**
+ * pConfigFactory
+ * 
  * Factory class to create the appropriate Config class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
