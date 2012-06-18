@@ -142,7 +142,8 @@ class pClassLoader {
     public static function resolvePackageClass($packageClass){
         $result = array($packageClass, $packageClass);
         if(strpos($packageClass, '.') !== false){
-            $class = end(explode('.', $packageClass));
+            $pack = explode('.', $packageClass);
+            $class = end($pack);
             return array($packageClass, $class);
         }
         return $result;

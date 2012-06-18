@@ -136,7 +136,7 @@ class pYamlValue {
      * @return string Returns the processed text
      * @since 1.0-sofia
      */
-    public function unescape($text){
+    public static function unescape($text){
         $replace = array(
             '\n' => "\n",
             '\r' => "\r",
