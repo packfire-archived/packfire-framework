@@ -21,6 +21,13 @@ class pMemCache implements ICache {
      */
     private $memcache;
     
+    /**
+     * Create a new pMemCache object
+     * @param string $host The host that is hosting the memcache server
+     * @param integer $port (optional) The port to connect to
+     * @param integer $timeout (optional) Connection time out
+     * @since 1.0-sofia
+     */
     public function __construct($host, $port = null, $timeout = null) {
         $this->memcache = new Memcache();
         $this->memcache->connect($host, $port, $timeout);
