@@ -74,8 +74,8 @@ class pAppGenerator {
      */
     public function generate(){
         $path = dirname(__FILE__);
-        $this->renderFile($path . '/resource/application/packfire-favicon.ico',
-                pPath::combine($this->root, 'packfire-favicon.ico'));
+        $this->renderFile($path . '/resource/application/favicon.ico',
+                pPath::combine($this->root, 'favicon.ico'));
         $this->renderFile($path . '/resource/application/.htaccess',
                 pPath::combine($this->root, '.htaccess'));
         $this->renderFile($path . '/resource/application/index.php',
@@ -163,8 +163,8 @@ class pAppGenerator {
         $this->renderFile($path . '/resource/application/pack/storage/temp/readme.md',
                 pPath::combine($this->root, 'pack/storage/temp/readme.md'));
         
-        $this->renderFile($path . '/resource/application/pack/template/homeIndex.html',
-                pPath::combine($this->root, 'pack/template/homeIndex.html'));
+        $this->renderFile($path . '/resource/application/pack/template/HomeIndex.html',
+                pPath::combine($this->root, 'pack/template/HomeIndex.html'));
         $this->renderFile($path . '/resource/application/pack/template/readme.md',
                 pPath::combine($this->root, 'pack/template/readme.md'));
         
