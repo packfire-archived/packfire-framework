@@ -128,18 +128,20 @@ abstract class pController extends pBucketUser implements IAppResponse {
     
     /**
      * Render the view for this controller
-     * @param IView $view The view object to be rendered
+     * @param IView $view (optional) The view object to be rendered
      * @since 1.0-sofia
      */
-    public function render($view){
-        if($view instanceof IBucketUser){
-            $view->copyBucket($this);
-        }
-        $view->state($this->state);
-        $output = $view->render();
-        $response = $this->response();
-        if($response){
-            $response->body($output);
+    public function render($view = null){
+        if($view){
+            if($view instanceof IBucketUser){
+                $view->copyBucket($this);
+            }
+            $view->state($this->state);
+            $output = $view->render();
+            $response = $this->response();
+            if($response){
+                $response->body($output);
+            }
         }
     }
     
