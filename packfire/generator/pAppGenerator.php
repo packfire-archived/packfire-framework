@@ -3,6 +3,8 @@ pload('packfire.io.file.pPath');
 pload('packfire.template.moustache.pMoustacheTemplate');
 
 /**
+ * pAppGenerator class
+ * 
  * Generates a new copy of application
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -177,6 +179,9 @@ class pAppGenerator {
                 pPath::combine($this->root, 'pack/view/home/HomeIndexView.php'));
         $this->renderFile($path . '/resource/application/pack/view/readme.md',
                 pPath::combine($this->root, 'pack/view/readme.md'));
+        
+        $storagePath = new pPath(pPath::combine($this->root, 'pack/storage'));
+        $storagePath->permission(0666);
     }
     
 }

@@ -40,6 +40,43 @@ class pPath {
     public function create($perm = 0777){
         return (bool)mkdir($this->path, $perm, true);
     }
+    
+    /**
+     * Get the permission of the directory
+     * @param integer $permission (optional) The permission to set the directory and its contents to
+     * @return integer Returns the permission of the directory
+     * @link http://php.net/chmod
+     * @since 1.0-sofia
+     */
+    public function permission($permission = null){
+        if(func_num_args() == 1){
+            self::setPermission($this->path, $permission);
+            return $permission;
+        }else{
+            return fileperms($this->path);
+        }
+    }
+    
+    /**
+     * Set permission for a path recursively
+     * @param string $path The path to set permission
+     * @param integer $permission The permission to set the path and contents to
+     * @since 1.0-sofia
+     */
+    private static function setPermission($path, $permission) {
+        static $ignore = array('cgi-bin', '.', '..');
+        $dir = @opendir($path);
+        while (false !== ($file = readdir($dir))) {
+            if (!in_array($file, $ignore)) {
+                $file = $path . DIRECTORY_SEPARATOR . $file;
+                chmod($file, $permission);
+                if (is_dir($file)) {
+                    self::setPermission($file, $permission);
+                } 
+            }
+        }
+        closedir($dir);
+    }
 
     /**
      * Remove the path

@@ -229,18 +229,19 @@ class pFile implements IFile {
 
     /**
      * Get the permission of the file
-     * @return integer The permission to set to.
+     * @param integer $permission (optional) The permission to set to.
+     * @return integer Returns the permission of the file
      * @link http://php.net/chmod
      * @since 1.0-sofia
      */
-    public function permissions($p = null){
+    public function permission($permission = null){
         if(func_num_args() == 1){
-            $ok = chmod($this->pathname, $p);
+            $ok = chmod($this->pathname, $permission);
             if(!$ok){
                 throw new pIOException('Failed to perform file permission'
                         . ' change for file "' . $this->pathname . '".');
             }
-            return $p;
+            return $permission;
         }else{
             return fileperms($this->pathname);
         }
