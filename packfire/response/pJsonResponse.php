@@ -1,5 +1,6 @@
 <?php
 pload('packfire.net.http.pHttpResponse');
+pload('packfire.data.serialization.pJsonSerializer');
 
 /**
  * pJsonResponse class
@@ -26,7 +27,8 @@ class pJsonResponse extends pHttpResponse {
         if(is_string($object)){ // probably already encoded
             $this->body($object); 
         }else{
-            $this->body(json_encode($object));
+            $serializer = new pJsonSerializer();
+            $this->body($serializer->serialize($object));
         }
     }
     

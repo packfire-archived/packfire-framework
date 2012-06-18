@@ -1,7 +1,6 @@
 <?php
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.data.serialization.pXmlSerializer');
-pload('packfire.text.pTextStream');
 
 /**
  * pXmlResponse class
@@ -28,10 +27,9 @@ class pXmlResponse extends pHttpResponse {
         if(is_string($object)){ // probably already encoded
             $this->body($object); 
         }else{
-            $stream = new pTextStream('<?xml version="1.0" encoding="UTF-8" ?>' . "\n");
-            pXmlSerializer::serialize($stream, $object);
-            $stream->seek(0);
-            $this->body($stream->read($stream->length()));
+            $serializer = new pXmlSerializer();
+            $this->body('<?xml version="1.0" encoding="UTF-8" ?>'
+                    . "\n" . $serializer->serialize($object));
         }
     }
     
