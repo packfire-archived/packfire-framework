@@ -92,7 +92,8 @@ class pFileCache implements ICache {
         if(self::isCacheFresh($file)){
             $stream = new pFileStream($file);
             $stream->open();
-            $value = pPhpSerializer::deserialize($stream);
+            $serializer = new pPhpSerializer();
+            $value = $serializer->deserialize($stream);
             $stream->close();
         }
         return $value;
@@ -111,7 +112,8 @@ class pFileCache implements ICache {
         $fileTouch->create();
         $stream = new pFileStream($file);
         $stream->open();
-        $value = pPhpSerializer::serialize($stream, $value);
+        $serializer = new pPhpSerializer();
+        $value = $serializer->serialize($stream, $value);
         $stream->close();
         chmod($file, 0777);
         touch($file, $expiry);
