@@ -2,7 +2,9 @@
 pload('pList');
 
 /**
- * A sorted list
+ * pSortedList class
+ * 
+ * A list that will always be sorted
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -21,11 +23,14 @@ class pSortedList extends pList {
     
     /**
      * Create a new pSortedList object
-     * @param Closure|callback $comparator The comparator to perform the sort
+     * @param Closure|callback|IComparator $comparator The comparator to perform the sort
      * @since 1.0-sofia
      */
     public function __construct($comparator) {
         parent::__construct();
+        if($comparator instanceof IComparator){
+            $comparator = array($comparator, 'compare');
+        }
         $this->comparator = $comparator;
     }
     
