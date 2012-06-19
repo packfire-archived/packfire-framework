@@ -181,7 +181,7 @@ class pAppGenerator {
                 pPath::combine($this->root, 'pack/view/readme.md'));
         
         $storagePath = new pPath(pPath::combine($this->root, 'pack/storage'));
-        $storagePath->permission(0666);
+        $storagePath->permission(0777);
     }
     
 }
