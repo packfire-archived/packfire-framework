@@ -1,9 +1,9 @@
 [submodule "moustache"]
         path = packfire/template/moustache
-        url = git://github.com/packfire/packfire-moustache.git
+        url = https://github.com/packfire/packfire-moustache.git
 [submodule "graph"]
         path = packfire/graph
-        url = git://github.com/packfire/packfire-dijkstra.git
+        url = https://github.com/packfire/packfire-dijkstra.git
 [submodule "packfire/generator/resource/application"]
 	path = packfire/generator/resource/application
-	url = git://github.com/packfire/app-structure.git
+	url = https://github.com/packfire/app-structure.git
