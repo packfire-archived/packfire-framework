@@ -76,6 +76,7 @@ class pCALoader extends pBucketUser implements IAppResponse {
         $class = $this->package;
         if(is_string($this->package)){
             // call controller
+            $isView = substr($class, -4) == 'View';
 
             list($package, $class) =
                     pClassLoader::resolvePackageClass($this->package);
@@ -83,40 +84,64 @@ class pCALoader extends pBucketUser implements IAppResponse {
             if($package == $class){
                 // only class name is provided, so we use
                 // the controllers in the controller folder
-                if(substr($class, -11) != 'Controller'){
-                    $package .= 'Controller';
-                    $class .= 'Controller';
+                
+                if($isView){
+                    pload('app.AppView');
+                    try{
+                        pload('view.' . $package);
+                    }catch(pMissingDependencyException $ex){
+                        // it is an attempt to load, so no need the exception
+                    }
+                }else{
+                    if(substr($class, -11) != 'Controller'){
+                        $package .= 'Controller';
+                        $class .= 'Controller';
+                    }
+                    pload('app.AppController');
+                    try{
+                        pload('controller.' . $package);
+                    }catch(pMissingDependencyException $ex){
+                        // it is an attempt to load, so no need the exception
+                    }
                 }
-                pload('app.AppController');
-                try{
-                    pload('controller.' . $package);
-                }catch(pMissingDependencyException $ex){
-                    
-                }
+                
             }else{
                 // woah we've got a badass here
                 // this is to load a custom class
                 pload($package);
             }
-        }
-        
-        if(is_string($class) && class_exists($class)){
-            /* @var $controller pController */
-            $controller = new $class($this->request, $this->response);
-            if($controller->directAccess() || 
-                        (!$controller->directAccess() && !$directAccess)){
-                $controller->copyBucket($this);
-                $controller->run($this->route, $this->action);
-                $this->response = $controller;
+            
+            if(class_exists($class)){
+                if($isView){
+                    /* @var $view pView */
+                    $view = new $class();
+                    if($view instanceof IBucketUser){
+                        $view->copyBucket($this);
+                    }
+                    $output = $view->render();
+                    $this->response()->body($output);
+                }else{
+                    /* @var $controller pController */
+                    $controller = new $class($this->request, $this->response);
+                    if($controller->directAccess() || 
+                                (!$controller->directAccess() && !$directAccess)){
+                        $controller->copyBucket($this);
+                        $controller->run($this->route, $this->action);
+                        $this->response = $controller;
+                    }else{
+                        // throw 403 because the controller action exists, but
+                        // forbidden access because direct access was disabled
+                        throw new pHttpException(403);
+                    }
+                }
             }else{
-                // throw 403 because the controller action exists, but
-                // forbidden access because direct access was disabled
-                throw new pHttpException(403);
+                // oops! the class is really not found (:
+                throw new pHttpException(404);
             }
         }else if(is_callable($class)){
             $this->response = call_user_func($class, $this->request, $this->route, $this->response);
         }else{
-            // oops! the class is really not found (:
+            // oops! no idea what you've given me as $class
             throw new pHttpException(404);
         }
     }

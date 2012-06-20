@@ -85,7 +85,6 @@ abstract class pController extends pBucketUser implements IAppResponse {
      */
     private $models;
     
-    
     /**
      * A collection of all the errors from the filtering 
      * @var pMap
