@@ -28,11 +28,15 @@ abstract class pConfig {
     /**
      * Create a new configuration file
      * @param string $file Name of the configuration file to load
+     * @param pConfig $default (optional) The default configuration data to load with.
      * @since 1.0-sofia
      */
-    public function __construct($file){
+    public function __construct($file, $default = null){
         $this->file = $file;
         $this->read();
+        if($default){
+            $this->data = array_merge($default->data, $this->data);
+        }
     }
     
     /**

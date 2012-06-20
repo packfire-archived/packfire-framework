@@ -31,12 +31,15 @@ abstract class pFrameworkConfig implements IFrameworkConfig {
         $map = array_keys(pConfigType::typeMap());
         
         $factory = new pConfigFactory();
+        $default = null;
         foreach($map as $type){
-            if($context && is_file($path . '.' . $context . '.' . $type)){
-                return $factory->load($path . '.' . $context . '.' . $type);
-            }
             if(is_file($path . '.' . $type)){
-                return $factory->load($path . '.' . $type);
+                $default = $factory->load($path . '.' . $type);
+            }
+            if($context && is_file($path . '.' . $context . '.' . $type)){
+                return $factory->load($path . '.' . $context . '.' . $type, $default);
+            }elseif($default){
+                return $default;
             }
         }
         return null;

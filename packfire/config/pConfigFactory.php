@@ -22,12 +22,12 @@ class pConfigFactory {
      *                 find the appropriate configuration parser.
      * @since 1.0-sofia
      */
-    public function load($file){
+    public function load($file, $default = null){
         $map = pConfigType::typeMap();
         $ext = pPath::extension($file);
         if(array_key_exists($ext, $map)){
             $class = $map[$ext];
-            return new $class($file);
+            return new $class($file, $default);
         }else{
             return null;
         }
