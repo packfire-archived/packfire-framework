@@ -22,6 +22,7 @@ class pFileCache implements ICache {
      * The path to the storage location for pFileCache
      * @var string
      * @static
+     * @since 1.0-sofia
      */
     private static $storePath;
     
@@ -44,7 +45,17 @@ class pFileCache implements ICache {
      */
     private static function filePath($id){
         return pPath::combine(self::$storePath,
-                __CLASS__ . '-' . hash('sha1', __CLASS__ . $id) . '.cache');
+                __CLASS__ . '-' . self::idCleaner($id) . '.cache');
+    }
+    
+    /**
+     * Cleans the ID into friendly for the file systems.
+     * @param string $id The ID to be cleaned
+     * @return string Returns the cleaned ID with lower case a-z, 0-9 and dash.
+     * @since 1.0-sofia
+     */
+    private static function idCleaner($id){
+        return strtolower(trim(preg_replace(array('`[^a-z0-9\-]+`', '`[\-]{1,}`'), '-', $id), '-'));
     }
     
     /**
