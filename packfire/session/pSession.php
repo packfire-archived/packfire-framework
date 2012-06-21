@@ -26,7 +26,6 @@ class pSession implements ISession {
      */
     public function __construct($storage){
         $this->storage = $storage;
-        session_start();
         $this->storage->load();
     }
     
@@ -82,7 +81,12 @@ class pSession implements ISession {
      * @since 1.0-sofia
      */
     public function bucket($bucket){
-        return $this->storage->bucket($bucket);
+        $result = $this->storage->bucket($bucket);
+        if(!$result){
+            $result = new pSessionBucket($bucket);
+            $this->storage->register($result);
+        }
+        return $result;
     }
     
     /**

@@ -47,7 +47,13 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
      * @since 1.0-sofia
      */
     public function identity($newIdentity = null) {
-        return $newIdentity;
+        if(func_num_args() == 1){
+            $this->service('session')->bucket(__CLASS__)
+                    ->set('identity', $newIdentity);
+            return $newIdentity;
+        }
+        return $this->service('session')->bucket(__CLASS__)
+                ->get('identity');
     }
     
     /**
@@ -58,6 +64,12 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
         $this->identity(null);
     }
     
+    /**
+     * Get or set the security context
+     * @param mixed $context (optional) Set the security context
+     * @return mixed Returns the security context
+     * @since 1.0-sofia 
+     */
     public function context($context = null){
         if(func_num_args() == 1){
             $this->context = $context;

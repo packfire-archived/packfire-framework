@@ -23,6 +23,17 @@ class pSessionLoader extends pBucketUser {
             $storage = new pSessionStorage();
             $this->services->put($storageId, $storage);
         }
+        /* @var $config pConfig */
+        $config = $this->service('config.app');
+        session_name($config->get('session', 'name'));
+        session_set_cookie_params(
+                $config->get('session', 'lifetime'),
+                $config->get('session', 'path'),
+                $config->get('session', 'domain'),
+                $config->get('session', 'secure'),
+                $config->get('session', 'http')
+            );
+        session_start();
         $this->services->put('session', new pSession($storage));
     }
     

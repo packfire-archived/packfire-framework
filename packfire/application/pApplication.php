@@ -61,10 +61,11 @@ class pApplication extends pBucketUser implements IApplication {
             $this->services->put('database' . $dbPackage,
                     $this->service('database' . $dbPackage . '.driver')->database());
         }
-        
-        $sessionLoader = new pSessionLoader();
-        $sessionLoader->copyBucket($this);
-        $sessionLoader->load();
+        if($this->service('config.app')->get('session', 'enabled')){
+            $sessionLoader = new pSessionLoader();
+            $sessionLoader->copyBucket($this);
+            $sessionLoader->load();
+        }
     }
     
     /**

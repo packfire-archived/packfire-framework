@@ -23,12 +23,19 @@ class pSessionStorage implements ISessionStorage {
     private $buckets;
     
     /**
+     * The overall storage
+     * @var pSessionBucket
+     * @since 1.0-sofia
+     */
+    private $overallBucket;
+    
+    /**
      * Create a new pSessionStorage object
      * @since 1.0-sofia 
      */
     public function __construct(){
         $this->buckets = new pMap();
-        $this->register(new pSessionBucket($this->id()));
+        $this->overallBucket = new pSessionBucket($this->id());
         $this->registerHandler();
         $this->registerShutdown();
     }
@@ -51,7 +58,7 @@ class pSessionStorage implements ISessionStorage {
      * @since 1.0-sofia
      */
     public function get($key, $default = null) {
-        return $this->bucket($this->id())->get($key, $default);
+        return $this->overallBucket->get($key, $default);
     }
 
     /**
@@ -60,7 +67,7 @@ class pSessionStorage implements ISessionStorage {
      * @since 1.0-sofia
      */
     public function remove($key) {
-        $this->bucket($this->id())->remove($key);
+        $this->overallBucket->remove($key);
     }
 
     /**
@@ -70,7 +77,7 @@ class pSessionStorage implements ISessionStorage {
      * @since 1.0-sofia
      */
     public function set($key, $data) {
-        $this->bucket($this->id())->set($key, $data);
+        $this->overallBucket->set($key, $data);
     }
     
     /**
@@ -126,13 +133,15 @@ class pSessionStorage implements ISessionStorage {
     }
     
     public function clear() {
-        $this->bucket($this->id())->clear();
+        $this->overallBucket->clear();
     }
 
     public function load(&$data = null) {
         if(func_num_args() == 0){
             $data = &$_SESSION;
         }
+        
+        $this->overallBucket->load($data);
         
         foreach($this->buckets as $id => $bucket){
             if(!array_key_exists($id, $data)){
@@ -144,7 +153,7 @@ class pSessionStorage implements ISessionStorage {
     }
 
     public function has($key){
-        $this->bucket($this->id())->has($key);
+        $this->overallBucket->has($key);
     }
     
 }
