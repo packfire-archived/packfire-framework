@@ -31,10 +31,6 @@ class pMessenger extends pBucketUser {
      */
     private function session(){
         $bucket = $this->service('session')->bucket(__CLASS__);
-        if(null == $bucket){
-            $bucket = new pSessionBucket(__CLASS__);
-            $this->service('session')->register($bucket);
-        }
         return $bucket;
     }
     
