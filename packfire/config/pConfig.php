@@ -1,4 +1,5 @@
 <?php
+pload('packfire.collection.pArrayHelper');
 
 /**
  * A generic configuration storage
@@ -35,7 +36,8 @@ abstract class pConfig {
         $this->file = $file;
         $this->read();
         if($default){
-            $this->data = array_merge($default->data, $this->data);
+            $this->data = pArrayHelper::mergeRecursiveDistinct(
+                    $default->data, $this->data);
         }
     }
     
