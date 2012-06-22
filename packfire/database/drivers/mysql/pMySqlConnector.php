@@ -13,31 +13,11 @@ pload('packfire.database.pDbConnector');
 class pMySqlConnector extends pDbConnector {
     
     /**
-     *
-     * @param string $query
-     * @param array|pMap $params 
-     * @returns PDOStatement
-     * @since 1.0-sofia
+     * Translates data type
+     * @param string $type The input data type
+     * @return string The translated data type
+     * @since 1.0-sofia 
      */
-    public function binder($query, $params){
-        $values = array();
-        foreach($params as $name => $value){
-            if($value instanceof pDbExpression){
-                if(substr($name, 0, 1) != ':'){
-                    $name = ':' . $name;
-                }
-                $query = str_replace($name, $value->expression(), $query);
-            }else{
-                $values[$name] = $value;
-            }
-        }
-        $statement = $this->prepare($query);
-        foreach($values as $name => $value){
-            $statement->bindValue($name, $value);
-        }
-        return $statement;
-    }
-    
     public function translateType($type) {
         $types = array(
             'pk' => 'int(11) NOT NULL auto_increment',
@@ -53,6 +33,11 @@ class pMySqlConnector extends pDbConnector {
         return $type;
     }
     
+    /**
+     * Get the database representation
+     * @return pDatabase|pDbSchema Returns the database representation object
+     * @since 1.0-sofia 
+     */
     public function database(){
         $database = new pMySqlDatabase($this);
         if($this->config['dbname']){

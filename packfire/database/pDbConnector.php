@@ -41,6 +41,32 @@ abstract class pDbConnector extends pBucketUser {
     }
     
     /**
+     * Prepare and bind a statement for execution
+     * @param string $query The query to be prepared
+     * @param array|pMap $params (optional) The parameters of the query
+     * @returns PDOStatement Returns the PDOStatement ready to be executed.
+     * @since 1.0-sofia
+     */
+    public function binder($query, $params = array()){
+        $values = array();
+        foreach($params as $name => $value){
+            if($value instanceof pDbExpression){
+                if(substr($name, 0, 1) != ':'){
+                    $name = ':' . $name;
+                }
+                $query = str_replace($name, $value->expression(), $query);
+            }else{
+                $values[$name] = $value;
+            }
+        }
+        $statement = $this->prepare($query);
+        foreach($values as $name => $value){
+            $statement->bindValue($name, $value);
+        }
+        return $statement;
+    }
+    
+    /**
      * Translates data type
      * @param string $type The input data type
      * @return string The translated data type
