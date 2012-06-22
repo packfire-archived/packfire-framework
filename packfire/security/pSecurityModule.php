@@ -48,12 +48,16 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
      */
     public function identity($newIdentity = null) {
         if(func_num_args() == 1){
-            $this->service('session')->bucket(__CLASS__)
-                    ->set('identity', $newIdentity);
-            return $newIdentity;
+            if($this->service('session')){
+                $this->service('session')->bucket(__CLASS__)
+                       ->set('identity', $newIdentity);
+            }
         }
-        return $this->service('session')->bucket(__CLASS__)
-                ->get('identity');
+        if($this->service('session')){
+            return $this->service('session')->bucket(__CLASS__)
+                    ->get('identity');
+        }
+        return $newIdentity;
     }
     
     /**

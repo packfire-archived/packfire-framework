@@ -1,4 +1,5 @@
 <?php
+pload('IConfig');
 pload('packfire.collection.pArrayHelper');
 
 /**
@@ -10,7 +11,7 @@ pload('packfire.collection.pArrayHelper');
  * @package packfire.config
  * @since 1.0-sofia
  */
-abstract class pConfig {
+abstract class pConfig implements IConfig {
     
     /**
      * The pathname to the configuration file
