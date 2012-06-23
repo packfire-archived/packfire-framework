@@ -16,13 +16,6 @@ pload('packfire.collection.pMap');
 class pCommandParser {
     
     /**
-     * The keys set in the argument line
-     * @var pList
-     * @since 1.0-sofia
-     */
-    private $keys;
-    
-    /**
      * The result of the parsing
      * @var pMap
      * @since 1.0-sofia
@@ -50,14 +43,24 @@ class pCommandParser {
      */
     private function parse($arguments){
         $this->result = new pMap();
-        $this->keys = new pList();
         $lastKey = null;
-        foreach($arguments as $arg){
-            if($this->isKey($arg)){
+        foreach($arguments as $idx => $arg){
+            $equalsPos = strpos($arg, '=');
+            if($equalsPos !== false){
+                $key = substr($arg, 0, $equalsPos);
+                $arg = substr($arg, $equalsPos + 1);
+                $this->set($this->cleanKey($key), $arg);
+                $lastKey = null;
+            }elseif($this->isFlag($arg)){
+                $arg = $this->cleanKey($arg);
+                foreach(str_split($arg) as $argument){
+                    $this->set($argument, true);
+                }
+                $lastKey = null;
+            }elseif($this->isKey($arg)){
                 $lastKey = $this->cleanKey($arg);
-                $this->keys->add($lastKey);
             }else{
-                $this->set($lastKey, $arg);
+                $this->set($lastKey ? $lastKey : $idx, $arg);
             }
         }
     }
@@ -68,11 +71,32 @@ class pCommandParser {
      * @return boolean Returns true if the switch is a key, and false otherwise
      * @since 1.0-sofia
      */
+    private function isFlag($part){
+        $result = false;
+        $len = strlen($part);
+        if($len > 1){
+            // if it is only -vfc not -v=5
+            if($part[0] == '-' && $part[1] != '-' && strpos($part, '=') === false){
+                $result = true;
+            }elseif($part[0] == '/'){ // if only it is /a not /activate
+                $result = $len == 2;
+            }
+        }
+        return $result;
+    }
+    
+    /**
+     * Check if an part is an argument key
+     * @param string $part The argument part
+     * @return boolean Returns true if the switch is a key, and false otherwise
+     * @since 1.0-sofia
+     */
     private function isKey($part){
         $result = false;
-        $firstChar = substr($part, 0, 1);
-        if ($firstChar == '-' || ($firstChar == '/' && strlen($part) == 2)){
-            $result = true;
+        if(strlen($part) > 0){
+            if (substr($part, 0 ,2) == '--' || $part[0] == '/'){
+                $result = true;
+            }
         }
         return $result;
     }
@@ -88,7 +112,7 @@ class pCommandParser {
             $key = substr($key, 2);
         }else{
             $firstChar = substr($key, 0, 1);
-            if ($firstChar == '-' || ($firstChar == '/' && strlen($key) == 2)){
+            if ($firstChar == '-' || $firstChar == '/'){
                 $key = substr($key, 1);
             }
         }
@@ -121,9 +145,7 @@ class pCommandParser {
      * @since 1.0-sofia
      */
     public function result(){
-        $map = new pMap($this->result->toArray());
-        $map->append($this->keys);
-        return $map;
+        return $this->result;
     }
     
     /**
@@ -165,10 +187,11 @@ class pCommandParser {
      */
     public function isFlagged($switch, $alternate = null){
         $switch = $this->cleanKey($switch);
-        $result = $this->keys->contains($switch);
+        $keys = $this->result->keys();
+        $result = $keys->contains($switch);
         if($alternate){
             $alternate = $this->cleanKey($alternate);
-            $result = $result || $this->keys->contains($alternate);
+            $result = $result || $keys->contains($alternate);
         }
         return $result;
     }

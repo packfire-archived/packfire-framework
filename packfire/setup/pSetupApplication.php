@@ -102,9 +102,11 @@ class pSetupApplication implements IApplication {
                 echo "\nVisit us at http://github.com/packfire\n";
                 echo "\nFramework Version: " . __PACKFIRE_VERSION__ . "\n\n";
                 echo "To use the setup:\n";
-                echo "   packfire [-i | --install] [root]\n";
-                echo "   packfire [-c | --create] [root]\n";
-                echo "   packfire [-c | --create] [root] [-p | --packfire] [packfire]\n";
+                echo "   packfire -i=/path/dir\n";
+                echo "   packfire --install /path/dir\n";
+                echo "   packfire -c=/path/dir\n";
+                echo "   packfire --create /path/dir\n";
+                echo "   packfire --create /path/dir --packfire /path/dir\n";
                 echo "   packfire [-h | --help]\n";
                 echo "\nOptions:\n";
                 echo "   -i or --install : Install the Framework\n";
