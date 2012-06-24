@@ -140,11 +140,13 @@ class pMySqlTable extends pDbTable {
         $pks = array();
         $params = array();
         foreach($this->columns() as $column){
-            $params[$column->name()] = $row[$column->name()];
-            if($column->type() == 'pk'){
-                $pks[] = '`'.$column->name().'` = :' . $column->name();
-            }else{
-                $data[] = '`'.$column->name().'` = :' . $column->name();
+            if(array_key_exists($column->name(), $row)){
+                $params[$column->name()] = $row[$column->name()];
+                if($column->type() == 'pk'){
+                    $pks[] = '`'.$column->name().'` = :' . $column->name();
+                }else{
+                    $data[] = '`'.$column->name().'` = :' . $column->name();
+                }
             }
         }
         $query .= implode(', ', $data) . ' WHERE ';

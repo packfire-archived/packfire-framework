@@ -221,7 +221,11 @@ abstract class pController extends pBucketUser implements IAppResponse {
     public function model($model, $forceReload = false){
         if($forceReload || !$this->models->keyExists($model)){
             pload('model.' . $model);
-            $this->models[$model] = new $model();
+            $obj = new $model();
+            if($obj instanceof pBucketUser){
+                $obj->copyBucket($this);
+            }
+            $this->models[$model] = $obj;
         }
         return $this->models[$model];
     }

@@ -76,6 +76,12 @@ class pMessenger extends pBucketUser {
      * @since 1.0-sofia 
      */
     public function check($name, $recepient = null){
+        if(func_num_args() == 1){
+            $trace = debug_backtrace();
+            $trace = next($trace);
+            $recepient = (array_key_exists('class', $trace) ?
+                    $trace['class'] . ':' : '') . $trace['function'];
+        }
         return $this->session()->has($this->buildKey($name, $recepient));
     }
     
@@ -89,6 +95,12 @@ class pMessenger extends pBucketUser {
      * @since 1.0-sofia
      */
     public function read($name, $recepient = null){
+        if(func_num_args() == 1){
+            $trace = debug_backtrace();
+            $trace = next($trace);
+            $recepient = (array_key_exists('class', $trace) ?
+                    $trace['class'] . ':' : '') . $trace['function'];
+        }
         $key = $this->buildKey($name, $recepient);
         $content = $this->session()->get($key);
         $this->session()->remove($key);

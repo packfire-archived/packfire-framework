@@ -1,4 +1,5 @@
 <?php
+pload('IDbModel');
 pload('packfire.pModel');
 pload('packfire.collection.pMap');
 
@@ -11,7 +12,7 @@ pload('packfire.collection.pMap');
  * @package packfire.database
  * @since 1.0-sofia
  */
-abstract class pDbModel extends pModel {
+abstract class pDbModel extends pModel implements IDbModel {
     
     /**
      * Get name of the model in the database 
@@ -24,7 +25,7 @@ abstract class pDbModel extends pModel {
     
     /**
      * Get the mapping for the model
-     * @return pMap
+     * @return pMap Returns the mapping for the database modelling
      * @since 1.0-sofia
      */
     public function map(){
