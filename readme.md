@@ -4,7 +4,7 @@ Packfire is a clean and well thought web framework for developers of all walks t
 
 Packfire comes under the long and difficult experiences from the development of web frameworks phpRaise and Samstyle PHP Framework. Many of Packfire's components and features are also based on the designs used in ASP.NET, Java and other popular frameworks.
 
-If you're a fan of anonymous functions and closures, you'll love Packfire. In PHP 5.3, you can take advantage of closures to help write your code in simple and expressive syntax.
+If you're a fan of anonymous functions and closures, you'll love Packfire. In PHP 5.3, you can take advantage of closures and code-chaining to help write your code in simple and expressive syntax.
 
 ##A word from the Developer
 
@@ -34,4 +34,15 @@ We are greatly appreciative of your input to help make Packfire a better framewo
 
 If you need more information on the source code, do feel free to take a look at the `readme.md` usage guide in directories within the framework directory. We are still in the process of development and writing more documentation and tutorial for the framework (pssst… do help us with the documentations too!). 
 
-A list of features and their progress are listed on the [Features](https://github.com/packfire/framework/wiki/Features) page.
+- [Features](http://github.com/packfire/framework/wiki/Features) / [Issues Tracker](http://github.com/packfire/framework/issues)
+- [Development Blog](http://packfire.tumblr.com/)
+- [@packfire on Twitter](http://twitter.com/packfire)
+- [Facebook page](http://facebook.com/packfire)
+- [YouTube channel](https://www.youtube.com/channel/UCu0KZBrcqqRLG-2im1gf6qg)
+- [Google+ page](https://plus.google.com/106494570352998281538/posts)
+
+##License
+
+Packfire Framework is released open source under the [New BSD License](https://github.com/packfire/framework/blob/master/license/packfire.license.txt).
+
+The Packfire logo and branding, and all works derived and created by the author, Sam-Mauris Yong, are released under the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported](https://github.com/packfire/framework/blob/master/license/packfire-content.license.txt). Sharing is welcome when properly attributed, but no commercial use and no derivatives.
