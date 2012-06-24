@@ -75,6 +75,16 @@ class pInflector {
         'has' => 'have',
         'is' => 'are'
     );
+    
+    /**
+     * Get the position of the first uppercase letter in the subject
+     * @param string $subject The subject line to search
+     * @return integer Returns the number of the first uppercase letter.
+     */
+    public static function firstUpperCase($subject){
+        $replaced = preg_replace('`^([a-z]*)[A-Z].*`', '$1', $subject);
+        return $replaced == $subject ? false : strlen($replaced);
+    }
 
     /**
      * Attempt to retain the casing form of the original word into the new word
@@ -265,7 +275,7 @@ class pInflector {
      *          from pInflector::plural()
      * @return string
      * @see pInflector::plural()
-     * @static
+     * @since 1.0-sofia
      */
     public static function quantify($num, $singular, $plural = null){
         return $num == 1 ? $singular :
