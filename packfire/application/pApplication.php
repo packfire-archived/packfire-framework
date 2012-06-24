@@ -89,10 +89,10 @@ class pApplication extends pBucketUser implements IApplication {
     public function receive($request){
         if($request instanceof pHttpRequest){
             $response = $this->prepareResponse($request);
-            /* @var pRouter $router */
             $router = $this->service('router');
+            /* @var $router pRouter */
             $router->load();
-            /* @var pRoute $route */
+            /* @var $route pRoute */
             $route = null;
             if($this->service('config.app')->get('routing', 'caching') && $this->service('cache')){
                 $cache = $this->service('cache');

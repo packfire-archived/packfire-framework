@@ -155,11 +155,11 @@ class pYamlInline {
         $line = $this->line;
         foreach($breakers as $breaker){
             $pos = strpos($line, $breaker, $position);
-            if(null === $offset || ($pos !== false && $pos < $offset)){
+            if($pos !== false && (null === $offset || $pos < $offset)){
                 $offset = $pos;
             }
         }
-        if(null == $offset){
+        if(!$offset){
             $offset = strlen($line);
         }
         $result = substr($line, $position, $offset - $position);

@@ -325,6 +325,24 @@ abstract class pController extends pBucketUser implements IAppResponse {
     }
     
     /**
+     * Handler for authorization error
+     * @throws pAuthorizationException
+     * @since 1.0-sofia 
+     */
+    protected function handleAuthorization(){
+        throw new pAuthorizationException('Could not authorize user to access route.');
+    }
+    
+    /**
+     * Handler for authentication error
+     * @throws pAuthenticationException
+     * @since 1.0-sofia 
+     */
+    protected function handleAuthentication(){
+        throw new pAuthenticationException('Could not authenticate user.');
+    }
+    
+    /**
      * Run the controller with the route
      * @param pRoute $route The route that called for this controller
      * @param string $action The action to perform
@@ -343,7 +361,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
             }
             $this->service('security')->context($this);
             if(!$this->service('security')->authenticate()){
-                throw new pAuthenticationException('Could not authenticate user.');
+                $this->handleAuthentication();
             }
         }
         
@@ -361,7 +379,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         }
         
         if($securityEnabled && !$this->service('security')->authorize($route)){
-            throw new pAuthorizationException('Could not authorize user to access route.');
+            $this->handleAuthorization();
         }
         
         if(method_exists($this, $call)){
