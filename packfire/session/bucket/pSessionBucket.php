@@ -86,6 +86,9 @@ class pSessionBucket implements ISessionBucket {
      */
     public function load(&$data = null) {
         $this->data = &$data;
+        if($this->data == null){
+            $this->data = array();
+        }
     }
     
     /**
