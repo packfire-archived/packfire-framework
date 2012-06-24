@@ -14,6 +14,13 @@ pload('packfire.net.http.pHttpMethod');
 class pRoute {
     
     /**
+     * The name of the route
+     * @var string
+     * @since 1.0-sofia
+     */
+    private $name;
+    
+    /**
      * The HTTP method that this URL route will cater for. Defaults to GET.
      * @var string|pList|array
      * @since 1.0-sofia
@@ -42,7 +49,8 @@ class pRoute {
     private $params;
 
     /**
-     * Create a new pRoute entry
+     * Create a new pRoute object
+     * @param string $name The name of the route
      * @param string $rewrite Rewritten version of the URL
      * @param string $actual Name of the controller class to route to
      * @param string|pList|array $method (optional) The HTTP Method to filter for, defaults to null.
@@ -52,16 +60,27 @@ class pRoute {
      * @param pMap|array $params (optional) Parameters of the URL route
      * @since 1.0-sofia
      */
-    function __construct($rewrite, $actual, $method = null, $params = array()){
+    function __construct($name, $rewrite, $actual, $method = null, $params = array()){
+        $this->name = $name;
         $this->rewrite = $rewrite;
         $this->actual = $actual;
         $this->httpMethod = $method;
         $this->params = new pMap($params);
     }
+
+    /**
+     * Get the name of the route
+     * @return string Returns name of the route
+     * @since 1.0-sofia
+     */
+    public function name(){
+        return $this->name;
+    }
     
     /**
      * Get the HTTP method for this URL route
      * @return string Returns the HTTP method
+     * @since 1.0-sofia
      */
     public function httpMethod(){
         return $this->httpMethod;
@@ -70,6 +89,7 @@ class pRoute {
     /**
      * Get the rewritten relative-to-host URL
      * @return string Returns the relative URL
+     * @since 1.0-sofia
      */
     public function rewrite(){
         return $this->rewrite;
@@ -78,6 +98,7 @@ class pRoute {
     /**
      * Get the name of the controller class to route to
      * @return string Returns the controller class name
+     * @since 1.0-sofia
      */
     public function actual(){
         return $this->actual;
@@ -86,6 +107,7 @@ class pRoute {
     /**
      * Get the hash map of parameters for the route
      * @return pMap Returns a hash map
+     * @since 1.0-sofia
      */
     public function params(){
         return $this->params;

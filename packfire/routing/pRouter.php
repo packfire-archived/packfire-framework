@@ -57,11 +57,13 @@ class pRouter extends pBucketUser {
         $routes = $settings->get();
         foreach($routes as $key => $data){
             $data = new pMap($data);
-            $route = new pRoute($data->get('rewrite'), $data->get('actual'),
+            $route = new pRoute($key, $data->get('rewrite'), $data->get('actual'),
                     $data->get('method'), $data->get('params'));
             $this->add($key, $route);
         }
-        $directControllerAccessRoute = new pRoute('/{class}/{action}',
+        $directControllerAccessRoute = new pRoute(
+                'packfire.directControllerAccess',
+                '/{class}/{action}',
                 'directControllerAccessRoute',
                 null,
                 new pMap(array(
