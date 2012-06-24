@@ -366,6 +366,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
             $this->service('security')->context($this);
             if(!$this->service('security')->authenticate()){
                 $this->handleAuthentication();
+                return;
             }
         }
         
@@ -384,6 +385,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         
         if($securityEnabled && !$this->service('security')->authorize($route)){
             $this->handleAuthorization();
+            return;
         }
         
         if(method_exists($this, $call)){
