@@ -19,7 +19,7 @@ class pObservable implements IObservable {
      * @var array
      * @since 1.0-sofia
      */
-    private $observers = array();
+    protected $observers = array();
     
     public function attach($observer) {
         if(!in_array($observer, $this->observers)){
