@@ -28,10 +28,10 @@ class pObservable implements IObservable {
     }
 
     public function detach($observer) {
-        if(!(is_array($observer) || $observer instanceof pList)){
-            $observer = array($obserser);
+        $keys = array_keys($this->observers, $observer, true);
+        foreach($keys as $key){
+            unset($this->observers[$key]);
         }
-        $this->observers = array_diff($this->observers, $observer);
     }
 
     public function notify($arg = null) {
