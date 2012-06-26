@@ -1,5 +1,5 @@
 <?php
-pload('packfire.database.pDbConnector');
+pload('packfire.database.connectors.pPdoConnector');
 
 /**
  * Provides functionalities to and operations of a MySQL table
@@ -10,7 +10,7 @@ pload('packfire.database.pDbConnector');
  * @package packfire.database.drivers.mysql
  * @since 1.0-sofia
  */
-class pMySqlConnector extends pDbConnector {
+class pMySqlConnector extends pPdoConnector {
     
     /**
      * Translates data type
@@ -35,6 +35,9 @@ class pMySqlConnector extends pDbConnector {
     
     /**
      * Get the database representation
+     * If there is no dbname defined in the config, the method returns a
+     * pMySqlDatabase object. If a dbname is defined, the method will select
+     * the schema and return a pMySqlSchema object.
      * @return pDatabase|pDbSchema Returns the database representation object
      * @since 1.0-sofia 
      */
