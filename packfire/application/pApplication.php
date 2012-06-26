@@ -118,7 +118,7 @@ class pApplication extends pBucketUser implements IApplication {
                     $action = '';
                 }
                 
-                if($route->actual() == 'directControllerAccessRoute'){
+                if($route->name() == 'packfire.directControllerAccess'){
                     $response = $this->directAccessProcessor($request, $route, $response);
                 }else{
                     $caLoader = new pCALoader($class, $action, $request, $route, $response);
