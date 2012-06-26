@@ -81,7 +81,7 @@ class pMap extends pList implements IMap {
     }
 
     /**
-     * Get the key of an item in the list.
+     * Get the index of an item occurring first in the map.
      * @param mixed $item The item to look for.
      * @return string Returns the key of the item found, or null if not found.
      * @since 1.0-sofia
@@ -91,7 +91,7 @@ class pMap extends pList implements IMap {
     }
 
     /**
-     * Get the key of an item from the back of the list. 
+     * Get the key of an item from the back of the map. 
      * @param mixed $item The item to look for.
      * @return string Returns the key of the item from the back if found, or
      *                 NULL if it is not found.
@@ -111,14 +111,28 @@ class pMap extends pList implements IMap {
         return array_key_exists($key, $this->array);
     }
     
+    /**
+     * Remove an item from the array. If there are multiple counts of the same
+     * item, they are all removed.
+     * @param mixed $item The item to remove.
+     * @return integer Returns the number of items removed from the list
+     * @since 1.0-sofia
+     */
     public function remove($item) {
-        foreach($this->array as $key => $value) {
-            if ($value === $item){
-                unset($this->array[$key]);
-            }
+        $keys = array_keys($this->array, $item, true);
+        foreach($keys as $key){
+            unset($this->array[$key]);
         }
+        return count($keys);
     }
     
+    /**
+     * Remove an item by its key.
+     * @param integer|string $index Index of the item to remove.
+     * @returns mixed Returns the item removed from the list
+     * @throws pOutOfRangeException
+     * @since 1.0-sofia
+     */
     public function removeAt($index) {
         if($this->offsetExists($index)){
             $item = $this->array[$index];
