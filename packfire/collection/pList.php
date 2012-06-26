@@ -104,7 +104,7 @@ class pList implements IList {
     }
 
     /**
-     * Get the index of an item in the list.
+     * Get the index of an item occurring first in the list.
      * @param mixed $item The item to look for.
      * @return integer Returns the index of the item found, or null if not found.
      * @since 1.0-sofia
@@ -150,15 +150,16 @@ class pList implements IList {
      * Remove an item from the array. If there are multiple counts of the same
      * item, they are all removed.
      * @param mixed $item The item to remove.
+     * @return integer Returns the number of items removed from the list
      * @since 1.0-sofia
      */
     public function remove($item) {
-        foreach($this->array as $key => $value) {
-            if ($value === $item){
-                unset($this->array[$key]);
-            }
+        $keys = array_keys($this->array, $item, true);
+        foreach($keys as $key){
+            unset($this->array[$key]);
         }
         $this->array = array_values($this->array);
+        return count($keys);
     }
     
     /**
