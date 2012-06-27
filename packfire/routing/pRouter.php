@@ -4,6 +4,7 @@ pload('packfire.template.pTemplate');
 pload('packfire.net.http.pUrl');
 pload('packfire.exception.pNullException');
 pload('packfire.ioc.pBucketUser');
+pload('pRoute');
 
 /**
  * Handles URL rewritting and controller routing
@@ -38,7 +39,7 @@ class pRouter extends pBucketUser {
     private $rewrite;
     
     /**
-     * Create a new pRouter
+     * Create a new pRouter object
      * @param boolean $rewrite (optional) Flag whether rewritting is enabled or
      *                         disabled. Defaults to true.
      * @since 1.0-sofia 

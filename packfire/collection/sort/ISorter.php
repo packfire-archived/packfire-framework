@@ -1,7 +1,10 @@
 <?php
+pload('IComparator');
 
 /**
- * A sorter that sorts a sortable.
+ * ISorter interface
+ * 
+ * A sorter that sorts a something sortable.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -9,13 +12,13 @@
  * @package packfire.collection.sort
  * @since 1.0-sofia
  */
-interface ISorter {
+interface ISorter extends IComparator {
     
     /**
      * Perform the sorting operation
-     * @param ISortable $sortable The sortable object
+     * @param mixed $sortable Something sortable
      * @since 1.0-sofia
      */
-    public function sort($sortable);
+    public function sort(&$sortable);
     
 }

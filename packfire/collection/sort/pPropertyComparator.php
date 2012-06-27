@@ -2,6 +2,8 @@
 pload('IComparator');
 
 /**
+ * pPropertyComparator abstract class
+ * 
  * Compares two objects based on their properties
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

@@ -1,4 +1,5 @@
 <?php
+pload('packfire.database.IDbConnector');
 pload('packfire.ioc.pBucketUser');
 
 /**
@@ -10,7 +11,7 @@ pload('packfire.ioc.pBucketUser');
  * @package packfire.database
  * @since 1.0-sofia
  */
-abstract class pDbConnector extends pBucketUser {
+abstract class pPdoConnector extends pBucketUser implements IDbConnector {
     
     /**
      * The PDO object
@@ -27,7 +28,7 @@ abstract class pDbConnector extends pBucketUser {
     protected $config;
     
     /**
-     * Create the connector based on the configuration provided.
+     * Create a new pDbConnector object
      * @param array|pMap $config An array of configuration
      * @since 1.0-sofia
      */
@@ -73,13 +74,6 @@ abstract class pDbConnector extends pBucketUser {
      * @since 1.0-sofia 
      */
     public abstract function translateType($type);
-    
-    /**
-     * Get the database representation
-     * @return pDatabase|pDbSchema Returns the database representation object
-     * @since 1.0-sofia 
-     */
-    public abstract function database();
     
     /**
      * Create a PDOStatement and prepare it for execution 

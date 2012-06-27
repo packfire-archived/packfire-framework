@@ -49,7 +49,8 @@ class pMySqlTable extends pDbTable {
 
     /**
      * Remove a column from the table
-     * @param string|pDbColumn $column The column to remove
+     * @param string|pDbColumn $column The column or the name of the column to
+     *              remove from the table.
      * @since 1.0-sofia
      */
     public function remove($column) {
@@ -58,9 +59,9 @@ class pMySqlTable extends pDbTable {
         }
         $this->driver->query(sprintf('ALTER TABLE `%s` DROP `%s`', $this->name, $column));
         $this->columns();
-        foreach($this->columns as $col){
-            if($col->name() == $column){
-                $this->columns->remove($col);
+        foreach($this->columns as $item){
+            if($item->name() == $column){
+                $this->columns->remove($item);
                 break;
             }
         }
@@ -69,7 +70,7 @@ class pMySqlTable extends pDbTable {
     /**
      * Get a row from the table by its primary keys
      * @param array|pMap $row The row's primary keys
-     * @return array
+     * @return array Returns the row data
      * @since 1.0-sofia
      */
     public function get($row){
@@ -193,12 +194,12 @@ class pMySqlTable extends pDbTable {
     
     /**
      * Get the list of primary keys of the table
-     * @return pList Returns a list of pDbColumn objects
+     * @return pList Returns a list of pDbColumn objects of the primary keys
      * @since 1.0-sofia
      */
     public function pk(){
         if(!$this->primaryKeys){
-            $statement = $this->driver->query('SHOW COLUMNS FROM `%s` WHERE `Key` =  \'PRI\'', $this->name);
+            $statement = $this->driver->query(sprintf('SHOW COLUMNS FROM `%s` WHERE `Key` =  \'PRI\'', $this->name));
             $cols = $statement->fetchAll();
             $columns = new pList();
             foreach($cols as $col){

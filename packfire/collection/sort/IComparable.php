@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * IComparable interface
+ * 
  * An interface that allows comparing to another object.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
