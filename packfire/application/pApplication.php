@@ -1,7 +1,5 @@
 <?php
 pload('IApplication');
-pload('packfire.routing.pRoute');
-pload('packfire.routing.pRouter');
 pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.ioc.pBucketUser');
@@ -90,6 +88,9 @@ class pApplication extends pBucketUser implements IApplication {
         if($request instanceof pHttpRequest){
             $response = $this->prepareResponse($request);
             $router = $this->service('router');
+            if(!$router){
+                throw new pMissingDependencyException('Router service missing.');
+            }
             /* @var $router pRouter */
             $router->load();
             /* @var $route pRoute */

@@ -76,13 +76,6 @@ abstract class pPdoConnector extends pBucketUser implements IDbConnector {
     public abstract function translateType($type);
     
     /**
-     * Get the database representation
-     * @return pDatabase|pDbSchema Returns the database representation object
-     * @since 1.0-sofia 
-     */
-    public abstract function database();
-    
-    /**
      * Create a PDOStatement and prepare it for execution 
      * @param string $query The statement
      * @return PDOStatement Returns the PDOStatement object
