@@ -1,5 +1,10 @@
 <?php
 pload('ICache');
+pload('packfire.exception.pMissingDependencyException');
+
+if(!class_exists('Memcache')){
+    throw new pMissingDependencyException('pMemCache requires the Memcache extension in order to run properly.');
+}
 
 /**
  * pMemCache class
