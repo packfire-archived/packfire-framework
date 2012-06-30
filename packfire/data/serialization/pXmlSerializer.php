@@ -1,5 +1,8 @@
 <?php
 pload('ISerializer');
+pload('ISerializable');
+pload('packfire.io.IInputStream');
+pload('packfire.text.pTextStream');
 
 /**
  * pXmlSerializer class

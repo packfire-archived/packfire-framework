@@ -1,5 +1,7 @@
 <?php
 pload('ISerializer');
+pload('ISerializable');
+pload('packfire.io.IInputStream');
 
 /**
  * pPhpSerializer class

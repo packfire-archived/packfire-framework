@@ -11,6 +11,7 @@ pload('packfire.ioc.pServiceLoader');
 pload('packfire.exception.handler.pExceptionHandler');
 pload('packfire.exception.handler.pErrorHandler');
 pload('packfire.exception.pHttpException');
+pload('packfire.exception.pMissingDependencyException');
 pload('packfire.database.pDbConnectorFactory');
 pload('packfire.datetime.pTimer');
 pload('packfire.debugger.pDebugger');
