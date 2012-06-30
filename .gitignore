@@ -10,5 +10,3 @@ composer.lock
 .tmpoj
 .tmp
 .idea
-nbproject/
-/.git-rewrite/
