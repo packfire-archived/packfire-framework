@@ -136,10 +136,6 @@ class pAppGenerator {
         $this->renderFile($path . '/resource/application/pack/config/readme.md',
                 pPath::combine($this->root, 'pack/config/readme.md'));
         
-        $this->renderFile($path . '/resource/application/pack/controller/HomeController.php',
-                pPath::combine($this->root, 'pack/controller/HomeController.php'));
-        $this->renderFile($path . '/resource/application/pack/controller/ThemeSwitchController.php',
-                pPath::combine($this->root, 'pack/controller/ThemeSwitchController.php'));
         $this->renderFile($path . '/resource/application/pack/controller/readme.md',
                 pPath::combine($this->root, 'pack/controller/readme.md'));
         
@@ -163,20 +159,12 @@ class pAppGenerator {
         $this->renderFile($path . '/resource/application/pack/storage/temp/readme.md',
                 pPath::combine($this->root, 'pack/storage/temp/readme.md'));
         
-        $this->renderFile($path . '/resource/application/pack/template/HomeIndex.html',
-                pPath::combine($this->root, 'pack/template/HomeIndex.html'));
         $this->renderFile($path . '/resource/application/pack/template/readme.md',
                 pPath::combine($this->root, 'pack/template/readme.md'));
         
         $this->renderFile($path . '/resource/application/pack/theme/readme.md',
                 pPath::combine($this->root, 'pack/theme/readme.md'));
-        $this->renderFile($path . '/resource/application/pack/theme/DarkTheme.php',
-                pPath::combine($this->root, 'pack/theme/DarkTheme.php'));
-        $this->renderFile($path . '/resource/application/pack/theme/LightTheme.php',
-                pPath::combine($this->root, 'pack/theme/LightTheme.php'));
         
-        $this->renderFile($path . '/resource/application/pack/view/home/HomeIndexView.php',
-                pPath::combine($this->root, 'pack/view/home/HomeIndexView.php'));
         $this->renderFile($path . '/resource/application/pack/view/readme.md',
                 pPath::combine($this->root, 'pack/view/readme.md'));
         
