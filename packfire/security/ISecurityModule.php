@@ -1,7 +1,9 @@
 <?php
 
 /**
- * ISecurityModule Description
+ * ISecurityModule interface
+ * 
+ * Provides interface for security module
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
