@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * pDatabase abstract class
+ * 
  * Abstraction of a database representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

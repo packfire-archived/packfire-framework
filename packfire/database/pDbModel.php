@@ -4,7 +4,9 @@ pload('packfire.pModel');
 pload('packfire.collection.pMap');
 
 /**
- * pDbModel Description
+ * pDbModel abstract class
+ * 
+ * A generic abstract implementation for database models
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

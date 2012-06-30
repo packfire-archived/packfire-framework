@@ -1,7 +1,9 @@
 <?php
 
 /**
- * A MySQL LINQ query
+ * IMySqlLinqQuery interface
+ * 
+ * A MySQL LINQ query interface
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

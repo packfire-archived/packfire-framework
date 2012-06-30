@@ -2,6 +2,8 @@
 pload('packfire.plinq.ILinq');
 
 /**
+ * IDbLinq interface
+ * 
  * An abstract database LINQ interface
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

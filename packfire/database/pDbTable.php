@@ -2,6 +2,8 @@
 pload('packfire.collection.pMap');
 
 /**
+ * pDbTable abstract class
+ * 
  * Abstraction of a database table
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

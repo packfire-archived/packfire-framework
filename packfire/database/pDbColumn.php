@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * pDbColumn class
+ * 
  * A database table column
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

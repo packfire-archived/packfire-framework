@@ -2,6 +2,8 @@
 pload('packfire.database.connectors.pPdoConnector');
 
 /**
+ * pMySqlConnector class
+ * 
  * Provides functionalities to and operations of a MySQL table
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

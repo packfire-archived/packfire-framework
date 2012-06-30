@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Database Connector Factory
+ * pDbConnectorFactory
+ * 
  * Creates database connector
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

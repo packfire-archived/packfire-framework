@@ -2,7 +2,9 @@
 pload('packfire.database.pDatabase');
 
 /**
- * A MySQL Database
+ * pMySqlDatabase class
+ * 
+ * A MySQL Database representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

@@ -2,6 +2,8 @@
 pload('IMySqlLinqQuery');
 
 /**
+ * pMySqlLinqJoin class
+ * 
  * A MySQL LINQ Join statement
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

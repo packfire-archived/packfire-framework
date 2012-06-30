@@ -2,6 +2,8 @@
 pload('IMySqlLinqQuery');
 
 /**
+ * pMySqlLinqOrder class 
+ * 
  * A MySQL LINQ Order statement
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
