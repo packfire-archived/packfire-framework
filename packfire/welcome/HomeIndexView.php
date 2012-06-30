@@ -11,7 +11,7 @@ pload('DarkTheme');
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package candice.view.home
+ * @package packfire.welcome
  * @since 1.0-sofia
  */
 class HomeIndexView extends pView {
