@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- see http://www.phpunit.de/wiki/Documentation -->
+<!--phpunit bootstrap="/path/to/bootstrap.php"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="true">
+</phpunit-->
+
+<phpunit bootstrap="bootstrap.php"
+    colors="false">
+    <testsuites>
+        <testsuite name="Packfire">
+            <directory>packfire</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <const name="__ROOT__" value="D:/wamp/www/packfire/packfire/" />
+    </php>
+</phpunit>
