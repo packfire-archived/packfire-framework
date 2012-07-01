@@ -4,6 +4,8 @@ pload('packfire.database.pDbColumn');
 pload('packfire.database.drivers.mysql.linq.pMySqlLinq');
 
 /**
+ * pMySqlTable class
+ * 
  * Provides functionalities to and operations of a MySQL table
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

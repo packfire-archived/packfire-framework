@@ -1,5 +1,6 @@
 <?php
 pload('ICache');
+pload('packfire.exception.pMissingDependencyException');
 
 if(!function_exists('apc_fetch')){
     throw new pMissingDependencyException('pApcCache requires the APC PECL extension in order to run properly.');

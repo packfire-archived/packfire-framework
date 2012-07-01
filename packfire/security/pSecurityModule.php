@@ -3,7 +3,9 @@ pload('packfire.ioc.pBucketUser');
 pload('ISecurityModule');
 
 /**
- * The default security module
+ * pSecurityModule class
+ * 
+ * The default security module implementation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

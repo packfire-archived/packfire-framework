@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * pDbSchema abstract class
+ * 
  * Abstraction of a database schema
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

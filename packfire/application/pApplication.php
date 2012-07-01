@@ -1,21 +1,14 @@
 <?php
 pload('IApplication');
-pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.ioc.pBucketUser');
-pload('packfire.ioc.pServiceBucket');
-pload('packfire.config.framework.pAppConfig');
-pload('packfire.config.framework.pRouterConfig');
-pload('packfire.session.pSessionLoader');
 pload('packfire.ioc.pServiceLoader');
 pload('packfire.exception.handler.pExceptionHandler');
 pload('packfire.exception.handler.pErrorHandler');
 pload('packfire.exception.pHttpException');
-pload('packfire.database.pDbConnectorFactory');
-pload('packfire.datetime.pTimer');
-pload('packfire.debugger.pDebugger');
-pload('packfire.debugger.console.pConsoleDebugOutput');
+pload('packfire.exception.pMissingDependencyException');
 pload('packfire.controller.pCALoader');
+pload('pAppServiceBucket');
 
 /**
  * pApplication class
@@ -35,35 +28,8 @@ class pApplication extends pBucketUser implements IApplication {
      * @since 1.0-sofia
      */
     public function __construct(){
-        $this->services = new pServiceBucket();
+        $this->services = new pAppServiceBucket();
         $this->loadExceptionHandler();
-        $this->loadBucket();
-    }
-    
-    /**
-     * Load the bucket of services 
-     * @since 1.0-sofia
-     */
-    protected function loadBucket(){
-        $this->services->put('config.app', array('pAppConfig', 'load'));
-        $this->services->put('config.routing', array('pRouterConfig', 'load'));
-        $this->services->put('debugger', new pDebugger());
-        $this->service('debugger')->enabled($this->service('config.app')->get('app', 'debug'));
-        pServiceLoader::loadConfig($this->services);
-        
-        $databaseConfigs = $this->service('config.app')->get('database');
-        foreach($databaseConfigs as $key => $databaseConfig){
-            $dbPackage = ($key == 'default' ? '' : '.' . $key);
-            $this->services->put('database' . $dbPackage 
-                    . '.driver', pDbConnectorFactory::create($databaseConfig));
-            $this->services->put('database' . $dbPackage,
-                    $this->service('database' . $dbPackage . '.driver')->database());
-        }
-        if($this->service('config.app')->get('session', 'enabled')){
-            $sessionLoader = new pSessionLoader();
-            $sessionLoader->copyBucket($this);
-            $sessionLoader->load();
-        }
     }
     
     /**

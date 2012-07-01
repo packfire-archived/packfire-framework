@@ -115,9 +115,7 @@ class pCALoader extends pBucketUser implements IAppResponse {
                 if($isView){
                     /* @var $view pView */
                     $view = new $class();
-                    if($view instanceof IBucketUser){
-                        $view->copyBucket($this);
-                    }
+                    $view->copyBucket($this);
                     $output = $view->render();
                     $this->response()->body($output);
                 }else{

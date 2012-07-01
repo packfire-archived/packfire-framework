@@ -1,5 +1,6 @@
 <?php
 pload('ISerializer');
+pload('ISerializable');
 
 /**
  * pJsonSerializer class

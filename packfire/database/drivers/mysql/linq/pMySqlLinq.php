@@ -8,6 +8,8 @@ pload('pMySqlLinqJoin');
 pload('pMySqlLinqOrder');
 
 /**
+ * pMySqlLinq class
+ * 
  * Provides LINQ functionality to a MySQL table on top of the existing MySQL
  * table functionalities.
  *

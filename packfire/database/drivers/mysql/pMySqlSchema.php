@@ -5,6 +5,8 @@ pload('pMySqlTable');
 pload('packfire.database.drivers.mysql.linq.pMySqlLinq');
 
 /**
+ * pMySqlSchema class
+ * 
  * Provides functionalities to and operations of a MySQL Schema
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

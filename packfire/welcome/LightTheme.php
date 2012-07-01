@@ -1,19 +1,21 @@
 <?php
-pload('packfire.plinq.ILinq');
+pload('packfire.view.pTheme');
 
 /**
- * IDbLinq interface
+ * LightTheme class
  * 
- * An abstract database LINQ interface
+ * Provides rendering for light theme
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database
+ * @package packfire.welcome
  * @since 1.0-sofia
  */
-interface IDbLinq extends ILinq {
+class LightTheme extends pTheme {
     
-    public function model($model);
+    public function render() {
+        $this->define('style', 'light');
+    }
     
 }

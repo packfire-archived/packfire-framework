@@ -1,8 +1,15 @@
 <?php
 pload('packfire.database.IDbConnector');
 pload('packfire.ioc.pBucketUser');
+pload('packfire.exception.pMissingDependencyException');
+
+if(!class_exists('PDO')){
+    throw new pMissingDependencyException('pPdoConnector requires the PDO extension in order to run properly.');
+}
 
 /**
+ * pPdoConnector class
+ * 
  * A connector that helps to connect to the database
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
