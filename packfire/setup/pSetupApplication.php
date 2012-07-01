@@ -51,68 +51,81 @@ class pSetupApplication implements IApplication {
     protected function loadCliCall($request, $controller){
         $cliParser = new pCommandParser();
         $route = new pRoute('', '', '');
-        echo "\nPackfire Framework\n";
-        echo "------------------------\n";
+        echo 'Packfire Framework' . __PACKFIRE_VERSION__ . "\n";
         if($cliParser->isFlagged('-i', '--install')){
-                $root = $cliParser->getValue('-i', '--install');
-                $controller->params()->add('root', $root);
-                if($root){
-                    echo "Setup will now install Packfire Framework to: \n";
-                    echo "   "  . $root . "\n\n";
-                    echo "Copying files... ";
-                    $controller->run($route, 'installFramework');
-                    echo "Done!\n\n";
-                    echo "Installation of Packfire Framework is now complete.\n";
-                }else{
-                    echo "Invalid parameters supplied.\nPackfire Setup will now exit.\n";
-                }
+            echo "------------------------\n";
+            $root = $cliParser->getValue('-i', '--install');
+            $controller->params()->add('root', $root);
+            if($root){
+                echo "Installing Packfire Framework to: \n";
+                echo "   "  . $root . "\n\n";
+                echo "Copying files... ";
+                $controller->run($route, 'installFramework');
+                echo "Done!\n\n";
+                echo "Installation of Packfire Framework is now complete.\n";
+            }else{
+                echo "Invalid parameters supplied.\nPackfire Setup will now exit.\n";
+            }
         }elseif($cliParser->isFlagged('-c', '--create')){
-                $root = $cliParser->getValue('-c', '--create');
-                $controller->params()->add('root', $root);
-                if($root){
-                    echo "Packfire will now create a new application to: \n";
-                    echo "   "  . $root . "\n\n";
-                    $framework = $cliParser->getValue('-p', '--packfire');
-                    
-                    while($framework == null){
-                        echo "Where did you install Packfire Framework?\n";
-                        echo "Enter blank to set installation path to '" . __PACKFIRE_ROOT__ . "'\n";
-                        echo "> ";
-                        $framework = fgets(STDIN);
-                        if($framework == ''){
-                            $framework = __PACKFIRE_ROOT__;
-                        }
-                        echo "\n";
-                        if(!file_exists(pPath::combine($framework, 'Packfire.php'))){
-                            $framework = null;
-                            echo "Error: Setup could not locate Packfire Framework installed at that location.\n\n";
-                        }
+            echo "------------------------\n";
+            $root = $cliParser->getValue('-c', '--create');
+            $controller->params()->add('root', $root);
+            if($root){
+                echo "Creating a new Packfire application to: \n";
+                echo "   "  . $root . "\n\n";
+                $framework = $cliParser->getValue('-p', '--packfire');
+
+                while($framework == null){
+                    echo "Where did you install Packfire Framework?\n";
+                    echo "Enter blank to set installation path to '" . __PACKFIRE_ROOT__ . "'\n";
+                    echo "> ";
+                    $framework = fgets(STDIN);
+                    if($framework == ''){
+                        $framework = __PACKFIRE_ROOT__;
                     }
-                    
-                    $controller->params()->add('packfire', $framework);
-                    echo "Setting Framework to " . $framework . "\n\n";
-                    echo "Copying files... ";
-                    $controller->run($route, 'createApplication');
-                    echo "Done!\n\n";
-                    echo "Creation of a new Packfire Application is now complete.\n";
-                }else{
-                    echo "Invalid parameters supplied.\nPackfire Setup will now exit.\n";
+                    echo "\n";
+                    if(!file_exists(pPath::combine($framework, 'Packfire.php'))){
+                        $framework = null;
+                        echo "Error: Setup could not locate Packfire Framework installed at that location.\n\n";
+                    }
                 }
+
+                $controller->params()->add('packfire', $framework);
+                echo "Setting Framework to " . $framework . "\n\n";
+                echo "Copying files... ";
+                $controller->run($route, 'createApplication');
+                echo "Done!\n\n";
+                echo "Creation of a new Packfire Application is now complete.\n";
+            }else{
+                echo "Invalid parameters supplied.\nPackfire Setup will now exit.\n";
+            }
+        }elseif($cliParser->getValue(1) == 'version' || $cliParser->isFlagged('-v', '--version')){
+            
+        }elseif($cliParser->getValue(1) == 'test' || $cliParser->isFlagged('-t', '--test')){
+            echo "------------------------\n";
+            echo "Performing unit tests with ";
+            system('phpunit --version');
+            chdir('test');
+            system('phpunit --bootstrap bootstrap.php -c configuration.xml .');
         }else{
-                echo "\nVisit us at http://github.com/packfire\n";
-                echo "\nFramework Version: " . __PACKFIRE_VERSION__ . "\n\n";
+                echo "------------------------\n";
+                echo "\nVisit us at http://mauris.sg/packfire\n\n";
                 echo "To use the setup:\n";
                 echo "   packfire -i=/path/dir\n";
                 echo "   packfire --install /path/dir\n";
+                echo "   packfire [version|-v|--version]\n";
+                echo "   packfire [test|-t|--test]\n";
                 echo "   packfire -c=/path/dir\n";
                 echo "   packfire --create /path/dir\n";
                 echo "   packfire --create /path/dir --packfire /path/dir\n";
                 echo "   packfire [-h | --help]\n";
                 echo "\nOptions:\n";
-                echo "   -i or --install : Install the Framework\n";
-                echo "   -c or --create : Create a new Packfire Application\n";
-                echo "   -p or --packfire : Set the Packfire Framework\n          Directory when installing\n";
-                echo "   -h or --help : Show this help screen\n";
+                echo "   -i or --install :\tInstall the Framework\n";
+                echo "   -c or --create :\tCreate a new Packfire Application\n";
+                echo "   -v or --version :\tDisplay the version of Packfire Framework\n";
+                echo "   -t or --test :\tRun the tests for Packfire Framework with PHPUnit\n";
+                echo "   -p or --packfire :\tSet the Packfire Framework\n          Directory when installing\n";
+                echo "   -h or --help :\tShow this help screen\n";
                 echo "   root : The root directory to install framework\n          or create new application\n";
                 echo "\n";
         }
