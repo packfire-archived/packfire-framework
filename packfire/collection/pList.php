@@ -64,7 +64,10 @@ class pList implements IList {
      */
     public function add($item) {
         $this->array[] = $item;
-        return end(array_keys($this->array));
+        end($this->array);
+        $key = key($this->array);
+        reset($this->array);
+        return $key;
     }
 
     /**

@@ -51,7 +51,7 @@ class pSetupApplication implements IApplication {
     protected function loadCliCall($request, $controller){
         $cliParser = new pCommandParser();
         $route = new pRoute('', '', '');
-        echo 'Packfire Framework' . __PACKFIRE_VERSION__ . "\n";
+        echo 'Packfire Framework ' . __PACKFIRE_VERSION__ . "\n";
         if($cliParser->isFlagged('-i', '--install')){
             echo "------------------------\n";
             $root = $cliParser->getValue('-i', '--install');
