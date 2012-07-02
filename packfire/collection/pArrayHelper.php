@@ -23,7 +23,7 @@ class pArrayHelper {
      * @return array Returns the resulting array
      * @since 1.0-sofia
      */
-    public function mergeRecursiveDistinct($array1, $array2){
+    public static function mergeRecursiveDistinct($array1, $array2){
         $merged = $array1;
         if(func_num_args() > 2){
             $args = func_get_args();
