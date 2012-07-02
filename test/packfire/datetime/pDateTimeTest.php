@@ -106,7 +106,7 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
     public function testNow() {
         $now = pDateTime::now();
         $this->assertInstanceOf('pDateTime', $now);
-        $this->assertEquals(date('Y'), $now->year());
+        $this->assertEquals(gmdate('Y'), $now->year());
     }
 
     /**
@@ -115,12 +115,12 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
     public function testFromTimestamp() {
         $timestamp = time();
         $obj = pDateTime::fromTimestamp($timestamp);
-        $this->assertEquals(date('j', $timestamp), $obj->day());
-        $this->assertEquals(date('Y', $timestamp), $obj->year());
-        $this->assertEquals(date('m', $timestamp), $obj->month());
-        $this->assertEquals(date('H', $timestamp), $obj->time()->hour());
-        $this->assertEquals(date('i', $timestamp), $obj->time()->minute());
-        $this->assertEquals(date('s', $timestamp), $obj->time()->second());
+        $this->assertEquals(gmdate('j', $timestamp), $obj->day());
+        $this->assertEquals(gmdate('Y', $timestamp), $obj->year());
+        $this->assertEquals(gmdate('m', $timestamp), $obj->month());
+        $this->assertEquals(gmdate('H', $timestamp), $obj->time()->hour());
+        $this->assertEquals(gmdate('i', $timestamp), $obj->time()->minute());
+        $this->assertEquals(gmdate('s', $timestamp), $obj->time()->second());
     }
 
     /**
@@ -130,12 +130,12 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
         $timestamp = $this->object->toTimestamp();
         $this->assertInternalType('integer', $timestamp);
         $this->assertTrue($timestamp > 0);
-        $this->assertEquals($this->object->day(), date('j', $timestamp));
-        $this->assertEquals($this->object->month(), date('m', $timestamp));
-        $this->assertEquals($this->object->year(), date('Y', $timestamp));
-        $this->assertEquals($this->object->time()->hour(), date('H', $timestamp));
-        $this->assertEquals($this->object->time()->minute(), date('i', $timestamp));
-        $this->assertEquals($this->object->time()->second(), date('s', $timestamp));
+        $this->assertEquals($this->object->day(), gmdate('j', $timestamp));
+        $this->assertEquals($this->object->month(), gmdate('m', $timestamp));
+        $this->assertEquals($this->object->year(), gmdate('Y', $timestamp));
+        $this->assertEquals($this->object->time()->hour(), gmdate('H', $timestamp));
+        $this->assertEquals($this->object->time()->minute(), gmdate('i', $timestamp));
+        $this->assertEquals($this->object->time()->second(), gmdate('s', $timestamp));
     }
 
     /**
@@ -185,16 +185,16 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
      */
     public function testFromString2() {
         $case = pDateTime::fromString('today');
-        $this->assertEquals(date('Y'), $case->year());
-        $this->assertEquals(date('m'), $case->month());
-        $this->assertEquals(date('j'), $case->day());
+        $this->assertEquals(gmdate('Y'), $case->year());
+        $this->assertEquals(gmdate('m'), $case->month());
+        $this->assertEquals(gmdate('j'), $case->day());
     }
 
     /**
      * @covers pDateTime::fromString
      */
     public function testFromString3() {
-        $case = pDateTime::fromString('1998-7-3 05:24:13');
+        $case = pDateTime::fromString('1998-7-3 05:24:13+0000');
         $this->assertEquals(1998, $case->year());
         $this->assertEquals(7, $case->month());
         $this->assertEquals(3, $case->day());
@@ -209,7 +209,7 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
     public function testToISO8601() {
         $time = time();
         $obj = pDateTime::fromTimestamp($time);
-        $this->assertEquals(date(pDateTimeFormat::ISO8601, $time), $obj->toISO8601());
+        $this->assertEquals(gmdate(pDateTimeFormat::ISO8601, $time), $obj->toISO8601());
     }
 
     /**
@@ -218,7 +218,7 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
     public function testToRFC822() {
         $time = time();
         $obj = pDateTime::fromTimestamp($time);
-        $this->assertEquals(date(pDateTimeFormat::RFC822, $time), $obj->toRFC822());
+        $this->assertEquals(gmdate(pDateTimeFormat::RFC822, $time), $obj->toRFC822());
     }
 
     /**
@@ -232,7 +232,7 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
             pDateTimeFormat::RFC3339
         );
         foreach($formats as $format){
-            $this->assertEquals(date($format, $this->object->toTimestamp()),
+            $this->assertEquals(gmdate($format, $this->object->toTimestamp()),
                     $this->object->format($format));
         }
     }
@@ -268,12 +268,12 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
      */
     public function testCalculateAge() {
         $birthday = new pDateTime(2010, 1, 1);
-        $this->assertEquals(date('Y') - 2010, pDateTime::calculateAge($birthday));
+        $this->assertEquals(gmdate('Y') - 2010, pDateTime::calculateAge($birthday));
         
         // test that if birthday is next month, the age is one year less
         $now = pDateTime::now();
         $birthday = new pDateTime(2010, $now->month() + 1, $now->day());
-        $this->assertEquals(date('Y', $now->toTimestamp()) - 2011, pDateTime::calculateAge($birthday));
+        $this->assertEquals(gmdate('Y', $now->toTimestamp()) - 2011, pDateTime::calculateAge($birthday));
     }
 
     /**
