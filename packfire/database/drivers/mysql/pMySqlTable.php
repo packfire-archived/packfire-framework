@@ -91,21 +91,27 @@ class pMySqlTable extends pDbTable {
     
     /**
      * Delete rows from the table
-     * @param array|pMap $row The conditions to delete the rows
+     * @param array|pMap $row (optional) The conditions to delete the rows. If
+     *          this is not specified, all rows from the table will be deleted.
      * @since 1.0-sofia
      */
-    public function delete($row) {
-        $query = 'DELETE FROM `%s` WHERE ';
-        $where = array();
-        $params = array();
-        foreach($this->columns() as $column){
-            if(array_key_exists($column->name(), $row)){
-                $where[] = '`' . $column->name() . '` = :' . $column->name();
-                $params[$column->name()] = $row[$column->name()];
+    public function delete($row = null) {
+        $query = 'DELETE FROM `%s`';
+        if($row){
+            $query .= ' WHERE ';
+            $where = array();
+            $params = array();
+            foreach($this->columns() as $column){
+                if(array_key_exists($column->name(), $row)){
+                    $where[] = '`' . $column->name() . '` = :' . $column->name();
+                    $params[$column->name()] = $row[$column->name()];
+                }
             }
+            $query .= implode(' AND ', $where);
+            $statement = $this->driver->binder(sprintf($query, $this->name), $params);
+        }else{
+            $statement = $this->driver->prepare(sprintf($query, $this->name));
         }
-        $query .= implode(' AND ', $where);
-        $statement = $this->driver->binder(sprintf($query, $this->name), $params);
         $statement->execute();
     }
 

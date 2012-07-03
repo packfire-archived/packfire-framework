@@ -169,11 +169,11 @@ abstract class pController extends pBucketUser implements IAppResponse {
      * @since 1.0-sofia
      */
     protected function forward($package, $action = null){
-        list($package, $class) = pClassLoader::resolvePackageClass($package);
-
+        
         if($package == $this && $action != null){
             $this->run($this->route, $action);
         }else{
+            list($package, $class) = pClassLoader::resolvePackageClass($package);
             if(substr($class, -11) != 'Controller'){
                 $package .= 'Controller';
                 $class .= 'Controller';

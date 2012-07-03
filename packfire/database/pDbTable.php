@@ -78,10 +78,11 @@ abstract class pDbTable {
     
     /**
      * Delete rows from the table
-     * @param array|pMap $row The conditions to delete the rows
+     * @param array|pMap $row (optional) The conditions to delete the rows. If
+     *          this is not specified, all rows from the table will be deleted.
      * @since 1.0-sofia
      */
-    public abstract function delete($row);
+    public abstract function delete($row = null);
     
     /**
      * Update a row in the table
