@@ -237,7 +237,11 @@ class pDateTime extends pDate {
      * @since 1.0-sofia
      */
     public static function fromString($s) {
-        return self::fromTimestamp(strtotime($s));
+        $reset = date_default_timezone_get();
+        date_default_timezone_set('UTC');
+        $time = strtotime($s);
+        date_default_timezone_set($reset);
+        return self::fromTimestamp($time);
     }
 
     /**
