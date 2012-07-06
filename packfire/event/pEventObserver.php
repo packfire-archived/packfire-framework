@@ -23,14 +23,23 @@ class pEventObserver implements IObserver {
     
     /**
      * Create a new pEventObserver class
+     * @param Closure|callback $handler The event handler that will receive the
+     *              notification on the update.
      * @since 1.0-elenor
      */
     public function __construct($handler){
         $this->handler = $handler;
     }
     
+    /**
+     * Notify the observer that the observable has been updated
+     * @param IOberservable|object $observable The object being observed
+     * @param mixed $arg (optional) The additional event arguments.
+     * @since 1.0-elenor
+     */
     public function updated($observable, $arg = null) {
         // pass the arguments to the handler to handle.
+        var_dump('ok');
         call_user_func_array($this->handler, func_get_args());
     }
 

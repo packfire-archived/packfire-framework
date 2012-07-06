@@ -24,6 +24,22 @@ class pEventHandler implements IEventHandler {
     private $events = array();
     
     /**
+     * The event listener holding this event handler
+     * @var object
+     * @since 1.0-elenor
+     */
+    private $listener;
+    
+    /**
+     * Create a new pObservableEvent object
+     * @param object $listener The event listener holding this handler
+     * @since 1.0-elenor
+     */
+    public function __construct($listener){
+        $this->listener = $listener;
+    }
+    
+    /**
      * Bind an event listener to an event of the class
      * @param string $event The name of the event
      * @param IObserver|Closure|callback $listener The function, method or
@@ -31,11 +47,11 @@ class pEventHandler implements IEventHandler {
      * @since 1.0-elenor
      */
     public function on($event, $listener){
-        if(!in_array($event, $this->events)){
-            $this->events[$event] = new pObservableEvent($this);
+        if(!array_key_exists($event, $this->events)){
+            $this->events[$event] = new pObservableEvent($this->listener);
         }
         if(is_callable($listener)){
-            $listener = new pEventObserver($handler);
+            $listener = new pEventObserver($listener);
         }
         $this->events[$event]->attach($listener);
     }
@@ -48,7 +64,7 @@ class pEventHandler implements IEventHandler {
      * @since 1.0-elenor
      */
     public function trigger($event, $args = null){
-        if(in_array($event, $this->events)){
+        if(array_key_exists($event, $this->events)){
             if(func_num_args() == 1){
                 $this->events[$event]->notify($args);
             }else{

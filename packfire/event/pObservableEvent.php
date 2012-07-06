@@ -16,29 +16,35 @@ class pObservableEvent extends pObservable {
     
     /**
      * The event listener holding this event handler
-     * @var pEventListener
+     * @var object
      * @since 1.0-elenor
      */
-    private $event;
+    private $listener;
     
     /**
      * Create a new pObservableEvent object
-     * @param pEventListener $event The event listener holding this handler
+     * @param object $listener The event listener holding this handler
      * @since 1.0-elenor
      */
-    public function __construct($event){
-        $this->event = $event;
+    public function __construct($listener){
+        $this->listener = $listener;
     }
     
+    /**
+     * Notify all observers
+     * @param mixed $arg (optional) The additional information about this
+     *              notification to send to the observers.
+     * @since 1.0-elenor 
+     */
     public function notify($arg = null) {
         /* @var $observer IObserver */
         if(func_num_args() == 1){
             foreach($this->observers as $observer){
-                $observer->updated($this->event, $arg);
+                $observer->updated($this->listener, $arg);
             }
         }else{
             foreach($this->observers as $observer){
-                $observer->updated($this->event);
+                $observer->updated($this->listener);
             }
         }
     }
