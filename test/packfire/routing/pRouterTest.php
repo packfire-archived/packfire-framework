@@ -20,8 +20,10 @@ class pRouterTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->object = new pRouter;
-        $this->object->add('route.home', new pRoute('route.home', '/home', 'Rest'));
-        $this->object->add('route.homeData', new pRoute('route.homeData', '/home/{data}', 'Rest', null, array('data' => '([0-9]+)')));
+        $config = new pMap(array('rewrite' => '/home', 'actual' => 'Rest'));
+        $this->object->add('route.home', new pRoute('route.home', $config));
+        $config = new pMap(array('rewrite' => '/home/{data}', 'actual' => 'Rest', 'method' => null, 'params' => array('data' => '([0-9]+)')));
+        $this->object->add('route.homeData', new pRoute('route.homeData', $config));
     }
 
     /**
@@ -37,7 +39,8 @@ class pRouterTest extends PHPUnit_Framework_TestCase {
      */
     public function testAdd() {
         $this->assertCount(2, $this->object->entries());
-        $this->object->add('route.test', new pRoute('route.test', '/test', 'Rest:cool'));
+        $config = new pMap(array('rewrite' => '/test', 'actual' => 'Rest:cool'));
+        $this->object->add('route.test', new pRoute('route.test', $config));
         $this->assertCount(3, $this->object->entries());
         $this->assertEquals('/test', $this->object->entries()->get('route.test')->rewrite());
     }

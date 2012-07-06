@@ -9,6 +9,7 @@ pload('packfire.exception.pHttpException');
 pload('packfire.exception.pMissingDependencyException');
 pload('packfire.controller.pCALoader');
 pload('pAppServiceBucket');
+pload('packfire.response.pRedirectResponse');
 
 /**
  * pApplication class
@@ -75,8 +76,11 @@ class pApplication extends pBucketUser implements IApplication {
             }else{
                 $route = $router->route($request);
             }
+            
             if(is_null($route)){
                 throw new pHttpException(404);
+            }elseif($route instanceof pRedirectRoute){
+                $response = new pRedirectResponse($route->redirect(), $route->code());
             }else{
                 if(is_string($route->actual()) && strpos($route->actual(), ':')){
                     list($class, $action) = explode(':', $route->actual());

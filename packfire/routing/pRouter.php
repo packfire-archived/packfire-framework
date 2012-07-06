@@ -1,10 +1,10 @@
 <?php
 pload('packfire.collection.pMap');
-pload('packfire.template.pTemplate');
 pload('packfire.net.http.pUrl');
 pload('packfire.exception.pNullException');
 pload('packfire.ioc.pBucketUser');
 pload('pRoute');
+pload('pRedirectRoute');
 
 /**
  * Handles URL rewritting and controller routing
@@ -58,8 +58,7 @@ class pRouter extends pBucketUser {
         $routes = $settings->get();
         foreach($routes as $key => $data){
             $data = new pMap($data);
-            $route = new pRoute($key, $data->get('rewrite'), $data->get('actual'),
-                    $data->get('method'), $data->get('params'));
+            $route = self::routeFactory($key, $data);
             $this->add($key, $route);
         }
         $directControllerAccessRoute = new pRoute(
@@ -72,6 +71,22 @@ class pRouter extends pBucketUser {
                     'action' => '([a-zA-Z0-9\_]+)'
                 )));
         $this->add('packfire.DCARoute', $directControllerAccessRoute);
+    }
+    
+    /**
+     * Factory manufature the route based on the configuration
+     * @param string $key Name of the route
+     * @param pMap $data The configuration of the route
+     * @return IRoute Returns the route manufactured
+     * @since 1.0-elenor
+     */
+    private static function routeFactory($key, $data){
+        if($data->get('redirect')){
+            $route = new pRedirectRoute($key, $data);
+        }else{
+            $route = new pRoute($key, $data);
+        }
+        return $route;
     }
     
     /**
@@ -106,46 +121,8 @@ class pRouter extends pBucketUser {
         $method = strtolower($request->method());
         
         foreach ($this->routes as $route) {
-            
-            // check whether HTTP method matches for RESTful routing
-            if(!$route->httpMethod() || 
-                    (is_string($route->httpMethod())
-                    && $route->httpMethod() == strtolower($method))
-                    || (is_array($route->httpMethod())
-                    && in_array(strtolower($method), $route->httpMethod()))){
-                
-                $template = new pTemplate($route->rewrite());
-                $tokens = $template->tokens();
-                foreach ($tokens as $token) {
-                    $value = $route->params()->get($token);
-                    if (!$value) {
-                        $value = '(*)';
-                    }
-                    $template->fields()->add($token,
-                            '(?P<' . $token . '>' . $value . ')');
-                }
-                $matches = array();
-                
-                // perform the URL matching
-                $matchResult = preg_match('`^' . $template->parse() .
-                        '([/]{0,1})$`is', $url, $matches);
-                
-                if ($matchResult) {
-                    $params = array();
-                    foreach ($tokens as $key) {
-                        $params[$key] = $matches[$key];
-                    }
-                    if($method == 'get'){
-                        foreach($_GET as $key => $value){
-                            if(!array_key_exists($key, $params)){ 
-                                // checking to prevent normal injection
-                                $params[$key] = $value; 
-                            }
-                        }
-                    }
-                    $route->params()->append($params);
-                    return $route;
-                }
+            if($route->match($method, $url)){
+                return $route;
             }
         }
         

@@ -1,6 +1,8 @@
 <?php
+pload('IRoute');
 pload('packfire.collection.pMap');
 pload('packfire.net.http.pHttpMethod');
+pload('packfire.template.pTemplate');
 
 /**
  * A URL rewrite/routing entry
@@ -11,7 +13,7 @@ pload('packfire.net.http.pHttpMethod');
  * @package packfire.routing
  * @since 1.0-sofia
  */
-class pRoute {
+class pRoute implements IRoute {
     
     /**
      * The name of the route
@@ -51,21 +53,18 @@ class pRoute {
     /**
      * Create a new pRoute object
      * @param string $name The name of the route
-     * @param string $rewrite Rewritten version of the URL
-     * @param string $actual Name of the controller class to route to
-     * @param string|pList|array $method (optional) The HTTP Method to filter for, defaults to null.
-     *                       When set to NULL, all HTTP methods to this route entry will
-     *                       be called and handling of the HTTP method should be done
-     *                       in the Controller.
-     * @param pMap|array $params (optional) Parameters of the URL route
+     * @param array|pMap $data The configuration data entry
      * @since 1.0-sofia
      */
-    function __construct($name, $rewrite, $actual, $method = null, $params = array()){
+    function __construct($name, $data){
+        if(!($data instanceof pMap)){
+            $data = new pMap($data);
+        }
         $this->name = $name;
-        $this->rewrite = $rewrite;
-        $this->actual = $actual;
-        $this->httpMethod = $method;
-        $this->params = new pMap($params);
+        $this->rewrite = $data->get('rewrite');
+        $this->actual = $data->get('actual');
+        $this->httpMethod = $data->get('method');
+        $this->params = new pMap($data->get('params'));
     }
 
     /**
@@ -111,6 +110,51 @@ class pRoute {
      */
     public function params(){
         return $this->params;
+    }
+    
+    public function match($method, $url){
+        
+        // check whether HTTP method matches for RESTful routing
+        if(!$this->httpMethod() || 
+                (is_string($this->httpMethod)
+                && $this->httpMethod == strtolower($method))
+                || (is_array($this->httpMethod)
+                && in_array(strtolower($method), $this->httpMethod))){
+            
+            $template = new pTemplate($this->rewrite);
+            $tokens = $template->tokens();
+            foreach ($tokens as $token) {
+                $value = $this->params->get($token);
+                if (!$value) {
+                    $value = '(*)';
+                }
+                $template->fields()->add($token,
+                        '(?P<' . $token . '>' . $value . ')');
+            }
+            $matches = array();
+
+            // perform the URL matching
+            $matchResult = preg_match('`^' . $template->parse() .
+                    '([/]{0,1})$`is', $url, $matches);
+
+            if ($matchResult) {
+                $params = array();
+                foreach ($tokens as $key) {
+                    $params[$key] = $matches[$key];
+                }
+                if($method == 'get'){
+                    foreach($_GET as $key => $value){
+                        if(!array_key_exists($key, $params)){ 
+                            // checking to prevent injection
+                            $params[$key] = $value; 
+                        }
+                    }
+                }
+                $this->params->append($params);
+                return true;
+            }
+        }
+        return false;
     }
     
 }
