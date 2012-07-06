@@ -79,7 +79,7 @@ class pSetupApplication implements IApplication {
                     echo "Where did you install Packfire Framework?\n";
                     echo "Enter blank to set installation path to '" . __PACKFIRE_ROOT__ . "'\n";
                     echo "> ";
-                    $framework = fgets(STDIN);
+                    $framework = trim(fgets(STDIN));
                     if($framework == ''){
                         $framework = __PACKFIRE_ROOT__;
                     }

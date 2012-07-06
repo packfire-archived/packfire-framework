@@ -374,7 +374,11 @@ abstract class pController extends pBucketUser implements IAppResponse {
             $action = 'index';
         }
         
-        $call = 'do' . ucFirst($action);
+        if(method_exists($this, $action)){
+            $call = $action;
+        }else{
+            $call = 'do' . ucFirst($action);
+        }
         
         if($this->restful && $this->request instanceof pHttpRequest){
             $httpMethodCall = strtolower($this->request->method()) . ucFirst($action);
