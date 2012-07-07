@@ -27,7 +27,9 @@ class pYaml {
      */
     public function __construct($stream){
         $reader = new pStreamReader($stream);
-        $reader->stream()->seek(0);
+        if($stream->seekable()){
+            $stream->seek(0);
+        }
         $this->parser = new pYamlParser($reader);
     }
     

@@ -68,8 +68,7 @@ class pStreamReader {
                 if(is_array($search)){
                     $result = self::strposa($buffer, $search);
                     if($result){
-                        $search = $result['text'];
-                        $pos = $result['position'];
+                        list($search, $pos) = $result;
                     }
                 }else{
                     $pos = strpos($buffer, $search);
@@ -88,7 +87,7 @@ class pStreamReader {
     /**
      * strpos array implementation
      * @param string $string The string to look in
-     * @param string $search The substring to look for
+     * @param array $search The substrings to look for
      * @return array Returns the resulting array or null if not found.
      * @since 1.0-sofia
      * @internal
@@ -97,14 +96,24 @@ class pStreamReader {
         $result = null;
         foreach($search as $text){
             $tpos = strpos($string, $text);
-            if($tpos !== false && (!$result || $tpos < $result['position'])){
+            if($tpos !== false && (!$result || $tpos < $result[0])){
                 $result = array(
-                    'position' => $tpos,
-                    'text' => $text
+                    $tpos,
+                    $text
                 );
             }
         }
         return $result;
+    }
+    
+    /**
+     * Check if the stream has more data
+     * @return boolean Returns true if more data is available for reading, false
+     *          otherwise.
+     * @since 1.0-elenor
+     */
+    public function hasMore(){
+        return $this->stream->tell() < $this->stream->length();
     }
     
 }
