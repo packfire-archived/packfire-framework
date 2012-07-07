@@ -18,7 +18,11 @@ class pRouteTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new pRoute('test.home', '/testing/{home}', 'Home:helloWorld', 'POST', array('home' => '([a-zA-Z0-9])'));
+        $config = new pMap(array('rewrite' => '/testing/{home}',
+            'actual' => 'Home:helloWorld',
+            'method' => 'POST',
+            'params' => array('home' => '([a-zA-Z0-9])')));
+        $this->object = new pRoute('test.home', $config);
     }
 
     /**

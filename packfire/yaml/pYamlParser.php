@@ -18,7 +18,7 @@ class pYamlParser {
     
     /**
      * The reader to read in data from the input stream
-     * @var pInputStreamReader
+     * @var pStreamReader
      * @since 1.0-sofia
      */
     private $read;
@@ -39,7 +39,7 @@ class pYamlParser {
     
     /**
      * Create the parser based on the pInputStreamReader
-     * @param pInputStreamReader $reader The reader that helps to read the data
+     * @param pStreamReader $reader The reader that helps to read the data
      *                                   from the YAML stream.
      * @since 1.0-sofia
      */
@@ -74,7 +74,7 @@ class pYamlParser {
         $this->reference = new pMap(); // reset the reference
                                        //does not support cross document
         // the overall Map
-        while($this->read->stream()->tell() < $this->read->stream()->length()){
+        while($this->read->hasMore()){
             $data = $this->parseBlock();
             $items = count($data);
             foreach($data as $k => $v){
@@ -102,13 +102,6 @@ class pYamlParser {
      */
     public function findDocumentStart(){
         $this->read->until(pYamlPart::DOC_START);
-        
-        // Some methods are capable of parsing values
-        // with closures like the following: 
-       
-//        $this->read->stream()->seek(function($x){
-//            return $x->tell() + 3;
-//        });
     }
     
     /**
@@ -138,7 +131,7 @@ class pYamlParser {
                 $line = $this->read->line();
             }
         }
-        if(substr(trim($line), 0, 1) == '#'){
+        if(substr(ltrim($line), 0, 1) == '#'){
             return $this->nextLine();
         }else{
             $line = $this->prepareLine($line);
@@ -184,11 +177,8 @@ class pYamlParser {
     public function parseBlock($minLevel = 0){
         $result = array();
         $trimmed = '';
-        while($trimmed == '' && $this->read->stream()->tell() < $this->read->stream()->length()){
+        while($trimmed == '' && $this->read->hasMore()){
             list($line, $trimmed, $indentation) = $this->nextLine();
-            if(!$line){
-                continue;
-            }
             if($minLevel > $indentation){
                 break;
             }
@@ -229,7 +219,7 @@ class pYamlParser {
      */
     private function hasKeyValueLine($line){
         list($key, ) = $this->parseKeyValue($line);
-        return $key !== $line;
+        return $key != $line;
     }
     
     /**
@@ -324,10 +314,11 @@ class pYamlParser {
                     $result[] = $this->parseBlock($minLevel + 2);
                 }else{
                     // - key: value
+                    $indent = str_repeat(' ', $indentation + 2);
                     if($value === null){
-                        $lastLine = str_repeat(' ', $indentation + 2) . $key . ': ';
+                        $lastLine = $indent . $key . ': ';
                     }else{
-                        $lastLine = str_repeat(' ', $indentation + 2) . $key . ': ' . $value;
+                        $lastLine = $indent . ': ' . $value;
                     }
                     $this->postline = $lastLine;
                     $result[] = $this->parseMapItems($indentation + 2);

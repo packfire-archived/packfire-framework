@@ -29,7 +29,8 @@ class pViewTest extends PHPUnit_Framework_TestCase {
         $this->object->setBucket($services);
         
         $router = new pRouter();
-        $router->add('home', new pRoute('home', '/home', 'Rest'));
+        $config = new pMap(array('rewrite' => '/home', 'actual' => 'Rest'));
+        $router->add('home', new pRoute('home', $config));
         $services->put('router', $router);
         
         $config = new tMockConfig();

@@ -17,11 +17,7 @@ require(__PACKFIRE_ROOT__ . 'pClassLoader.php');
  * @since 1.0-sofia 
  */
 function pload($package){
-    static $loader = null;
-    if(!$loader){
-        $loader = new pClassLoader();
-    }
-    $loader->load($package);
+    pClassLoader::load($package);
 }
 
 /**

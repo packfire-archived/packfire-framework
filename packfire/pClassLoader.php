@@ -24,23 +24,15 @@ class pClassLoader {
      * @var array
      * @since 1.0-sofia
      */
-    private $loadedClasses;
-    
-    /**
-     * Create a new pClassLoader object
-     * @since 1.0-sofia
-     */
-    public function __construct(){
-        $this->loadedClasses = array();
-    }
+    private static $loadedClasses = array();
     
     /**
      * Get the list of loaded classes
      * @return array Returns the list of loaded classes
      * @since 1.0-sofia
      */
-    public function loaded(){
-        return $this->loadedClasses;
+    public static function loaded(){
+        return self::$loadedClasses;
     }
     
     /**
@@ -59,11 +51,11 @@ class pClassLoader {
      * @param string $package The package to load. 
      * @since 1.0-sofia
      */
-    public function load($package){
-        if(array_key_exists($package, $this->loadedClasses)){
+    public static function load($package){
+        if(in_array($package, self::$loadedClasses)){
             return;
         }else{
-            $this->loadedClasses[$package] = array();
+            self::$loadedClasses[] = $package;
         }
         
         $search = '';
@@ -74,11 +66,8 @@ class pClassLoader {
         }
         $files = glob($search, GLOB_NOSORT);
         if($files){
-            foreach($files as $f){
-                $ok = include_once($f);
-                if($ok){
-                    $this->loadedClasses[$package][] = basename($f, self::EXT);
-                }
+            foreach($files as $file){
+                include_once($file);
             }
         }else{
             throw new pMissingDependencyException('Dependency required but not found: "' . $package . '"');
@@ -101,9 +90,8 @@ class pClassLoader {
         next($a);
         next($a);
         $trace = current($a);
-        $path = $trace['file'];
-        $path = pathinfo($path, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
-        $search = $path . $package . self::EXT;
+        $search = pathinfo($trace['file'], PATHINFO_DIRNAME)
+                . DIRECTORY_SEPARATOR . $package . self::EXT;
         return $search;
     }
     
@@ -120,8 +108,9 @@ class pClassLoader {
             $path = implode(DIRECTORY_SEPARATOR, $packages);
             $search = __PACKFIRE_ROOT__ . $path . self::EXT;
         }else{
-            $path = 'pack' . DIRECTORY_SEPARATOR . ($root ? ($root . DIRECTORY_SEPARATOR) : '')
-                . implode(DIRECTORY_SEPARATOR, $packages);
+            $path = 'pack' . DIRECTORY_SEPARATOR
+                    . ($root ? ($root . DIRECTORY_SEPARATOR) : '')
+                    . implode(DIRECTORY_SEPARATOR, $packages);
             $search = __APP_ROOT__ . $path . self::EXT;
         }
         return $search;
