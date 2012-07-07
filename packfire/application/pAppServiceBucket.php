@@ -40,12 +40,14 @@ class pAppServiceBucket extends pServiceBucket {
         pServiceLoader::loadConfig($this);
         
         $databaseConfigs = $this->pick('config.app')->get('database');
-        foreach($databaseConfigs as $key => $databaseConfig){
-            $dbPackage = ($key == 'default' ? '' : '.' . $key);
-            $this->put('database' . $dbPackage 
-                    . '.driver', pDbConnectorFactory::create($databaseConfig));
-            $this->put('database' . $dbPackage,
-                    $this->pick('database' . $dbPackage . '.driver')->database());
+        if($databaseConfigs){
+            foreach($databaseConfigs as $key => $databaseConfig){
+                $dbPackage = ($key == 'default' ? '' : '.' . $key);
+                $this->put('database' . $dbPackage 
+                        . '.driver', pDbConnectorFactory::create($databaseConfig));
+                $this->put('database' . $dbPackage,
+                        array($this->pick('database' . $dbPackage . '.driver'), 'database'));
+            }
         }
         if($this->pick('config.app')->get('session', 'enabled')){
             $sessionLoader = new pSessionLoader();
