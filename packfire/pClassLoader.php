@@ -1,6 +1,5 @@
 <?php
 pload('packfire.exception.pMissingDependencyException');
-pload('packfire.collection.pList');
 
 /**
  * Loads and prepares other classes for use.
