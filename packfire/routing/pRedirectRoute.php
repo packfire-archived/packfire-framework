@@ -64,8 +64,7 @@ class pRedirectRoute implements IRoute {
         // perform the URL matching
         $matchResult = preg_match('`^' . $template->parse() .
                 '([/]{0,1})$`is', $url, $matches);
-
-        var_dump($matchResult);
+        
         if ($matchResult) {
             return true;
         }

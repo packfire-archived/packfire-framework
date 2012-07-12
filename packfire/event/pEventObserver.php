@@ -39,7 +39,6 @@ class pEventObserver implements IObserver {
      */
     public function updated($observable, $arg = null) {
         // pass the arguments to the handler to handle.
-        var_dump('ok');
         call_user_func_array($this->handler, func_get_args());
     }
 
