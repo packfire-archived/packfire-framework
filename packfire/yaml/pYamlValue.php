@@ -108,6 +108,8 @@ class pYamlValue {
         $quoted = self::isQuoted($result);
         if(!$quoted || ($quoted && $result[0] != '\'')){
             $result = self::unescape($result);
+        }elseif($quoted && $result[0] == '\''){
+            $result = self::unescapeQuote($result);
         }
         if($quoted){
             $result = self::stripQuote($result);
@@ -131,20 +133,32 @@ class pYamlValue {
     }
     
     /**
+     * Unescapes slash-quotes within the quotes if the text is quoted
+     * @param string $text The text to process
+     * @return string Returns the processed text
+     * @since 1.0-elenor
+     */
+    private static function unescapeQuote($text){
+        return  preg_replace('`([^\\\\])\\\\' . $text[0] . '`ism', '$1'.$text[0], $text);
+    }
+    
+    /**
      * Process and unescape characters from a text
      * @param string $text The text to process
      * @return string Returns the processed text
      * @since 1.0-sofia
      */
     public static function unescape($text){
+        if(self::isQuoted($text)){
+            $text = self::unescapeQuote($text);
+        }
         $replace = array(
             '\n' => "\n",
             '\r' => "\r",
             '\t' => "\t",
             '\0' => "\0",
         );
-        $text = str_replace(array_keys($replace), $replace, $text);
-        return $text;
+        return str_replace(array_keys($replace), $replace, $text);
     }
     
 }
