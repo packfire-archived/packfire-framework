@@ -85,7 +85,7 @@ class pYamlParser {
      */
     public function parse(){
         $this->reference = new pMap(); // reset the reference
-                                       //does not support cross document        
+                                       //does not support cross document
         $result = $this->parseBlock();
         return $result;
     }
@@ -127,7 +127,7 @@ class pYamlParser {
      * @return array Returns an array containing [$key, $value]
      * @since 1.0-sofia
      */
-    public function parseKeyValue($line){
+    private function parseKeyValue($line){
         $position = 0;
         $key = pYamlInline::load($line)->parseScalar($position,
                         array(pYamlPart::KEY_VALUE_SEPARATOR), false);
@@ -149,7 +149,7 @@ class pYamlParser {
      * @return array Returns the array of data parsed
      * @since 1.0-sofia
      */
-    public function parseBlock(){
+    private function parseBlock(){
         $result = array();
         $next = true;
         while(!$this->trimmedLine){
@@ -258,6 +258,7 @@ class pYamlParser {
                 break;
             }
             
+            $next = true;
             if($this->trimmedLine){
                 $bulletCheck = substr($this->trimmedLine, 0, 2);
                 if(($bulletCheck == pYamlPart::SEQUENCE_ITEM_BULLET
@@ -275,7 +276,9 @@ class pYamlParser {
                     }elseif('' === $key && $value === null){
                         // - 
                         //   value
+                        $this->nextLine();
                         $result[] = $this->parseBlock();
+                        $next = false;
                     }else{
                         // - key: value
                         $this->line = str_repeat(' ', $this->indentation) . $lineValue;
@@ -284,7 +287,7 @@ class pYamlParser {
                     }
                 }
             }
-            if($minLevel == $this->indentation){
+            if($next && $minLevel == $this->indentation){
                 $next = $this->nextLine();
                 if(!$next){
                     break;
