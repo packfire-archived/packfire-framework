@@ -85,9 +85,7 @@ class pYamlParser {
      */
     public function parse(){
         $this->reference = new pMap(); // reset the reference
-                                       //does not support cross document
-        // the overall Map
-        
+                                       //does not support cross document        
         $result = $this->parseBlock();
         return $result;
     }
@@ -152,35 +150,30 @@ class pYamlParser {
      * @since 1.0-sofia
      */
     public function parseBlock(){
-        $this->nextLine();
-        $minLevel = $this->indentation;
         $result = array();
-        while($minLevel <= $this->indentation){
+        $next = true;
+        while(!$this->trimmedLine){
             if(pYamlPart::DOC_END == $this->trimmedLine){
+                $next = false;
                 break;
             }
             
-            $doNext = true;
-            if($this->trimmedLine){
-                if($this->trimmedLine[0] == '{'){
-                    $result = pYamlInline::load(trim($this->fetchBlock()))->parseMap();
-                }elseif($this->trimmedLine[0] == '['){
-                    $result = pYamlInline::load(trim($this->fetchBlock()))->parseSequence();
-                }elseif(substr($this->trimmedLine, 0, 2) == pYamlPart::SEQUENCE_ITEM_BULLET
-                        || $this->trimmedLine == pYamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE){
-                    $result = $this->parseSequenceItems();
-                    $doNext = false;
-                }else{
-                    if($this->hasKeyValueLine($this->trimmedLine)){
-                        $result = $this->parseMapItems();
-                        $doNext = false;
-                    }
-                }
+            $next = $this->nextLine();
+            if(!$next){
+                break;
             }
-            if($doNext){
-                $next = $this->nextLine();
-                if(!$next){
-                    break;
+        }
+        if($next && $this->trimmedLine){
+            if($this->trimmedLine[0] == '{'){
+                $result = pYamlInline::load(trim($this->fetchBlock()))->parseMap();
+            }elseif($this->trimmedLine[0] == '['){
+                $result = pYamlInline::load(trim($this->fetchBlock()))->parseSequence();
+            }elseif(substr($this->trimmedLine, 0, 2) == pYamlPart::SEQUENCE_ITEM_BULLET
+                    || $this->trimmedLine == pYamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE){
+                $result = $this->parseSequenceItems();
+            }else{
+                if($this->hasKeyValueLine($this->trimmedLine)){
+                    $result = $this->parseMapItems();
                 }
             }
         }
@@ -260,7 +253,7 @@ class pYamlParser {
         $result = array();
         
         $minLevel = $this->indentation;
-        while($minLevel <= $this->indentation){
+        while($minLevel == $this->indentation){
             if(pYamlPart::DOC_END == $this->trimmedLine){
                 break;
             }
@@ -291,9 +284,11 @@ class pYamlParser {
                     }
                 }
             }
-            $next = $this->nextLine();
-            if(!$next){
-                break;
+            if($minLevel == $this->indentation){
+                $next = $this->nextLine();
+                if(!$next){
+                    break;
+                }
             }
         }
         return $result;
@@ -309,15 +304,18 @@ class pYamlParser {
     private function parseMapItems(){
         $result = array();
         $minLevel = $this->indentation;
-        while($minLevel <= $this->indentation){
+        while($minLevel == $this->indentation){
             if(pYamlPart::DOC_END == $this->trimmedLine){
                 break;
             }
+            $next = true;
             if($this->trimmedLine){
                 list($key, $value) = $this->parseKeyValue($this->trimmedLine);
                 if($value === null){
                     // key is on its own...
+                    $this->nextLine();
                     $value = $this->parseBlock();
+                    $next = false;
                 }else{
                     // we've got a value and key!
                     $this->line = $value;
@@ -327,9 +325,12 @@ class pYamlParser {
                 }
                 $result[$key] = $value;
             }
-            $next = $this->nextLine();
-            if(!$next){
-                break;
+            
+            if($next && $minLevel == $this->indentation){
+                $next = $this->nextLine();
+                if(!$next){
+                    break;
+                }
             }
         }
         return $result;
