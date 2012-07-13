@@ -54,7 +54,7 @@ class pYamlInline {
      * @return mixed The value parsed.
      * @since 1.0-sofia
      */
-    public function parseValue(&$position = 0, $breakers = array('{', ':','#', "\n")){
+    public function parseValue(&$position = 0, $breakers = array('{', ':', "\n")){
         $line = $this->line;
         $length = $this->length;
         $eov = false;
@@ -77,6 +77,7 @@ class pYamlInline {
                     break;
                 default:
                     $value = $this->parseScalar($position, $breakers);
+                    --$position;
                     $eov = true;
                     break;
             }
@@ -94,10 +95,10 @@ class pYamlInline {
      * @return array Returns the array ($key => $value) data parsed from the line. 
      * @since 1.0-sofia
      */
-    public function parseKeyValue(&$position = 0, $breakers = array('{', pYamlPart::KEY_VALUE_SEPARATOR,'#', "\n")){
+    public function parseKeyValue(&$position = 0,
+            $breakers = array('{', pYamlPart::KEY_VALUE_SEPARATOR, "\n")){
         $result = array();
         $key = $this->parseScalar($position, $breakers, false);
-        $value = null;
         $value = $this->parseValue($position, $breakers);
         if($key){
             $result[$key] = $value;
@@ -118,7 +119,7 @@ class pYamlInline {
      * @since 1.0-sofia
      */
     public function parseScalar(&$position = 0,
-            $breakers = array('#', "\n"),
+            $breakers = array("\n"),
             $translate = true){
         $result = '';
         $line = $this->line;
@@ -150,7 +151,7 @@ class pYamlInline {
      * @since 1.0-sofia
      */
     private function parseNormalScalar(&$position = 0,
-            $breakers = array('#', "\n")){
+            $breakers = array("\n")){
         $offset = null;
         $line = $this->line;
         foreach($breakers as $breaker){
