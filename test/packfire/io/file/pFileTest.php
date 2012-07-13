@@ -135,24 +135,30 @@ class pFileTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @covers pFile::lastModified
-     * @todo Implement testLastModified().
      */
-    public function testLastModified() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testLastModified() {        
+        $lmdt = $this->normalFile->lastModified();
+        $this->assertInstanceOf('pDateTime', $lmdt);
+        $this->assertEquals(filemtime($this->normalFile->pathname()), $lmdt->toTimestamp());
+    }
+
+    /**
+     * @covers pFile::lastModified
+     */
+    public function testLastModified2() {
+        try{
+            $this->ghostFile->lastModified();
+        }catch(pIOException $ex){
+            $this->assertInstanceOf('Exception', $ex);
+        }
     }
 
     /**
      * @covers pFile::permissions
-     * @todo Implement testPermissions().
      */
     public function testPermissions() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $permission = $this->normalFile->permission();
+        $this->assertEquals(substr(decoct(fileperms($this->normalFile->pathname())), 2), $permission);
     }
 
     /**

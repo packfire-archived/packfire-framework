@@ -220,10 +220,20 @@ class pFile implements IFile {
      */
     public function lastModified($datetime = null){
         if(func_num_args() == 1){
-            touch($this->pathname, $datetime->toTimestamp());
+            $ok = @touch($this->pathname, $datetime->toTimestamp());
+            if(!$ok){
+                throw new pIOException('Failed to set last modified time for'
+                        . ' file "'. $this->pathname . '".');
+            }
             return $datetime;
         }else{
-            return pDateTime::fromTimestamp(filemtime($this->pathname));
+            $time = @filemtime($this->pathname);
+            if($time){
+                return pDateTime::fromTimestamp($time);
+            }else{
+                throw new pIOException('Failed to retrieve last modified time'
+                        . ' for file "'. $this->pathname . '".');
+            }
         }
     }
 
@@ -236,14 +246,20 @@ class pFile implements IFile {
      */
     public function permission($permission = null){
         if(func_num_args() == 1){
-            $ok = chmod($this->pathname, $permission);
+            $ok = @chmod($this->pathname, $permission);
             if(!$ok){
                 throw new pIOException('Failed to perform file permission'
                         . ' change for file "' . $this->pathname . '".');
             }
             return $permission;
         }else{
-            return fileperms($this->pathname);
+            $perm = @fileperms($this->pathname);
+            if($perm){
+                return substr(decoct($perm), 2);
+            }else{
+                throw new pIOException('Failed to retrieve file permission'
+                        . ' for file "' . $this->pathname . '".');
+            }
         }
     }
     
