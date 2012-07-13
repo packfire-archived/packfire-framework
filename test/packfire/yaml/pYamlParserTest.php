@@ -41,6 +41,28 @@ class pYamlParserTest extends PHPUnit_Framework_TestCase {
         $parser->findDocumentStart();
         return $parser;
     }
+    /**
+     * @covers pYamlParser::parse
+     */
+    public function testParse2() {
+        $object = $this->createParser('files/sample2.yml');
+        $result = $object->parse();
+        
+        $this->assertCount(8, $result);
+        
+        $this->assertEquals(array('receipt', 'date', 'customer', 'items', 'bill-to', 'ship-to', 'specialDelivery', 'note'), array_keys($result));
+        
+        $this->assertCount(2, $result['items']);
+        
+        // test reference
+        $this->assertEquals($result['bill-to'], $result['ship-to']);
+        
+        // test folded text
+        $this->assertEquals("Follow the Yellow Brick Road to the Emerald City.\nPay no attention to the man behind the curtain.", $result['specialDelivery']);
+        
+        // the new line preserved literal block
+        $this->assertEquals("There once was a man from Darjeeling\nWho got on a bus bound for Ealing\n    It said on the door\n    \"Please don't spit on the floor\"\nSo he carefully spat on the ceiling", $result['note']);
+    }
     
     /**
      * @covers pYamlParser::parse
@@ -50,17 +72,48 @@ class pYamlParserTest extends PHPUnit_Framework_TestCase {
         $result = $object->parse();
         $this->assertInternalType('array', $result);
         $this->assertCount(5, $result);
+        
+        $this->assertEquals(array('app', 'security', 'session', 'routing', 'database'), array_keys($result));
+        
+        $this->assertTrue(array_key_exists('app', $result));
+        $this->assertEquals(array(
+            'version' => '1.0',
+            'rootUrl' => 'http://localhost',
+            'debug' => false
+        ), $result['app']);
+        
+        $this->assertTrue(array_key_exists('security', $result));
+        $this->assertEquals(array(
+            'disabled' => false,
+            'override' => false,
+            'identity' => null
+        ), $result['security']);
+        
+        $this->assertTrue(array_key_exists('session', $result));
+        $this->assertEquals(array(
+            'enabled' => false,
+            'name' => 'packfire',
+            'lifetime' => 3600,
+            'http' => true,
+            'secure' => false
+        ), $result['session']);
+        
+        $this->assertCount(2, $result['database']);
     }
-
+    
     /**
-     * @covers pYamlParser::findDocumentStart
-     * @todo Implement testFindDocumentStart().
+     * @covers pYamlParser::parse
      */
-    public function testFindDocumentStart() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testParse3() {
+        $object = $this->createParser('files/sample3.yml');
+        $result = $object->parse();
+        
+        $this->assertInternalType('array', $result);
+        
+        $this->assertCount(7, $result);
+        
+        $this->assertEquals(array('security', 'messenger', 'logger', 'session.storage', 'cache', 'debugger.output', 'router'), array_keys($result));
+        
     }
 
 }

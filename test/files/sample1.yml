@@ -20,7 +20,7 @@ security:
     
 session:
   enabled: false
-  name: tavis
+  name: packfire
   lifetime: 3600
   http: true
   secure: false

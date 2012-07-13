@@ -194,7 +194,6 @@ class pYamlParser {
     /**
      * Fetch the full value by checking subsequent lines too
      * @param string $value What we have for the value so far...
-     * @param string $minLevel The indentation level
      * @return string|array Returns the value parsed.
      * @since 1.0-sofia
      */
@@ -208,17 +207,21 @@ class pYamlParser {
                         $result = trim($this->fetchBlock());
                     }
                     $result = pYamlInline::load($result)->parseMap();
+                    $this->nextLine();
                     break;
                 case '[':
                     if($lastchar != ']'){
                         $result = trim($this->fetchBlock());
                     }
                     $result = pYamlInline::load($result)->parseSequence();
+                    $this->nextLine();
                     break;
                 case '|': // newlines preserved literal blocks
+                    $this->nextLine();
                     $result = trim($this->fetchBlock());
                     break;
                 case '>': // folded literal block
+                    $this->nextLine();
                     $result = trim($this->fetchBlock());
                     $result = preg_replace(array('`\n\s+([^\s]+)`', '`([^\n]+)\n([^\n]+)`'),
                             array("\n".'$1', '$1 $2'), $result);
@@ -229,14 +232,17 @@ class pYamlParser {
                     if($this->reference->keyExists($referenceName)){
                         $result = $this->reference->get($referenceName);
                     }
+                    $this->nextLine();
                     break;
                 case '&': // reference creation
                     $referenceName = substr($this->trimmedLine, 1);
+                    $this->nextLine();
                     $result= new pYamlReference($this->parseBlock());
                     $this->reference[$referenceName] = $result;
                     break;
                 default: // normal scalar value
                     $result = pYamlInline::load($this->trimmedLine)->parseScalar();
+                    $this->nextLine();
                     break;
             }
         }
@@ -253,7 +259,7 @@ class pYamlParser {
         $result = array();
         
         $minLevel = $this->indentation;
-        while($minLevel == $this->indentation){
+        while(!$this->trimmedLine || $minLevel == $this->indentation){
             if(pYamlPart::DOC_END == $this->trimmedLine){
                 break;
             }
@@ -270,9 +276,11 @@ class pYamlParser {
 
                     if($key == $cleanLineValue && '' !== $key && null === $value){
                         // - value
-                        $this->line = str_repeat(' ', $this->indentation) . $lineValue;
+                        $this->line = str_repeat(' ', $this->indentation + 2) . $lineValue;
                         $this->trimmedLine = $lineValue;
+                        $this->indentation += 2;
                         $result[] = $this->fetchFullValue();
+                        $next = false;
                     }elseif('' === $key && $value === null){
                         // - 
                         //   value
@@ -281,13 +289,15 @@ class pYamlParser {
                         $next = false;
                     }else{
                         // - key: value
-                        $this->line = str_repeat(' ', $this->indentation) . $lineValue;
+                        $this->line = str_repeat(' ', $this->indentation + 2) . $lineValue;
                         $this->trimmedLine = $lineValue;
+                        $this->indentation += 2;
                         $result[] = $this->parseMapItems();
+                        $next = false;
                     }
                 }
             }
-            if($next && $minLevel == $this->indentation){
+            if($next){
                 $next = $this->nextLine();
                 if(!$next){
                     break;
@@ -307,18 +317,16 @@ class pYamlParser {
     private function parseMapItems(){
         $result = array();
         $minLevel = $this->indentation;
-        while($minLevel == $this->indentation){
+        while(!$this->trimmedLine || $minLevel == $this->indentation){
             if(pYamlPart::DOC_END == $this->trimmedLine){
                 break;
             }
-            $next = true;
             if($this->trimmedLine){
                 list($key, $value) = $this->parseKeyValue($this->trimmedLine);
                 if($value === null){
                     // key is on its own...
                     $this->nextLine();
                     $value = $this->parseBlock();
-                    $next = false;
                 }else{
                     // we've got a value and key!
                     $this->line = $value;
@@ -327,9 +335,7 @@ class pYamlParser {
                     $value = $this->fetchFullValue();
                 }
                 $result[$key] = $value;
-            }
-            
-            if($next && $minLevel == $this->indentation){
+            }else{
                 $next = $this->nextLine();
                 if(!$next){
                     break;
@@ -341,7 +347,6 @@ class pYamlParser {
     
     /**
      * Fetch a block based on the indentation
-     * @param integer $minIndentation The block's indentation level
      * @return string The block's data.
      * @since 1.0-sofia
      */
@@ -349,8 +354,8 @@ class pYamlParser {
         $text = '';
         $minIndent = $this->indentation;
         
-        while($minIndent <= $this->indentation){
-            $text .= $this->line;
+        while(!$this->trimmedLine || $minIndent <= $this->indentation){
+            $text .= substr($this->line, $minIndent);
             $next = $this->nextLine();
             if(!$next){
                 break;
