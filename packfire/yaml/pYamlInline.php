@@ -121,22 +121,19 @@ class pYamlInline {
     public function parseScalar(&$position = 0,
             $breakers = array("\n"),
             $translate = true){
-        $result = '';
         $line = $this->line;
         $length = $this->length;
-        if($length > 0){
-            if($length > 1 && in_array($line[$position],
-                    pYamlPart::quotationMarkers())){
-                $result = $this->parseQuotedString($position);
-            }else{
-                $result = $this->parseNormalScalar($position, $breakers);
-            }
+        if($length > 1 && in_array($line[$position],
+                pYamlPart::quotationMarkers())){
+            $result = $this->parseQuotedString($position);
+            // skip additional data till the breaker
+            $this->parseNormalScalar($position, $breakers);
+        }elseif($length > 0){
+            $result = $this->parseNormalScalar($position, $breakers);
         }
         $result = trim($result);
         if($translate){
             $result = pYamlValue::translateScalar($result);
-        }else{
-            $result = pYamlValue::stripQuote($result);
         }
         return $result;
     }
@@ -194,7 +191,7 @@ class pYamlInline {
             }
             ++$position;
         }
-        $result = substr($line, $offset, $position - $offset + 1);
+        $result = substr($line, $offset + 1, $position - $offset - 1);
         return $result;
     }
     

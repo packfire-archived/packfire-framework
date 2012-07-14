@@ -28,7 +28,7 @@ logger:
     - 'pack/storage/log/default.log'
 
 #set the session storage method
-session.storage:
+"session.storage"  :
   class: packfire.session.storage.pSessionStorage
   parameters: []
   
@@ -43,5 +43,3 @@ debugger.output:
 router:
   class: packfire.routing.pRouter
   
-
-...
