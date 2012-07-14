@@ -5,8 +5,8 @@ pload('packfire.ioc.pServiceBucket');
 pload('packfire.routing.pRouter');
 pload('packfire.routing.pRoute');
 pload('packfire.template.pTemplate');
-require_once(dirname(__FILE__) . '/../../mocks/tMockView.php');
-require_once(dirname(__FILE__) . '/../../mocks/tMockConfig.php');
+require_once('mocks/tMockView.php');
+require_once('mocks/tMockConfig.php');
 
 /**
  * Test class for pView.
@@ -29,12 +29,12 @@ class pViewTest extends PHPUnit_Framework_TestCase {
         $this->object->setBucket($services);
         
         $router = new pRouter();
-        $config = new pMap(array('rewrite' => '/home', 'actual' => 'Rest'));
-        $router->add('home', new pRoute('home', $config));
+        $configData = new pMap(array('rewrite' => '/home', 'actual' => 'Rest'));
+        $router->add('home', new pRoute('home', $configData));
         $services->put('router', $router);
         
-        $config = new tMockConfig();
-        $services->put('config.app', $config);
+        $mockConfig = new tMockConfig();
+        $services->put('config.app', $mockConfig);
     }
 
     /**

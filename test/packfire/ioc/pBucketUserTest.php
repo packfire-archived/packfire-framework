@@ -1,8 +1,8 @@
 <?php
 
 pload('packfire.ioc.pBucketUser');
-require_once(dirname(__FILE__) . '/../../mocks/tMockBucketUser.php');
-require_once(dirname(__FILE__) . '/../../mocks/tMockServiceBucket.php');
+require_once('mocks/tMockBucketUser.php');
+require_once('mocks/tMockServiceBucket.php');
 
 /**
  * Test class for pBucketUser.

@@ -1,7 +1,7 @@
 <?php
 
 pload('packfire.routing.pRouter');
-require_once(dirname(__FILE__) . '/../../mocks/tMockRouteRequest.php');
+require_once('mocks/tMockRouteRequest.php');
 
 /**
  * Test class for pRouter.

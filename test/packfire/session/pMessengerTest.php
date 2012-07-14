@@ -3,7 +3,7 @@
 pload('packfire.session.pMessenger');
 pload('packfire.ioc.pServiceBucket');
 pload('packfire.session.pSessionLoader');
-require_once(dirname(__FILE__) . '/../../mocks/tMockSessionStorage.php');
+require_once('mocks/tMockSessionStorage.php');
 
 /**
  * Test class for pMessenger.
