@@ -2,4 +2,6 @@ language: php
 php:
   - 5.3
   - 5.4
-script: phpunit --bootstrap ./test/bootstrap.php -c ./test/configuration.xml ./test
+before_script:
+  - cd ./test
+script: phpunit --bootstrap bootstrap.php -c configuration.xml .
