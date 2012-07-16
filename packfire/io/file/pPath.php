@@ -123,13 +123,23 @@ class pPath {
      * @since 1.0-sofia
      */
     public function clear(){
-        $dir = dir($this->path);
+        self::emptyDir($this->path);
+    }
+    
+    /**
+     * Recursively empties directories
+     * @param string $path The directory to empty
+     * @since 1.0-elenor
+     */
+    private static function emptyDir($path){
+        $dir = dir($path);
         while (($entry = $dir->read()) !== false) {
             $tp = self::combine($dir->path, '/' . $entry);
             $isdir = is_dir($tp);
-            if($entry != '.' && $entry != '..'){
+            if($entry == '.' || $entry == '..'){
+            }else{
                 if($isdir){
-                    self::clear($tp);
+                    self::emptyDir($tp);
                     rmdir($tp);
                 }else{
                     unlink($tp);
