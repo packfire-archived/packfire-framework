@@ -1,6 +1,7 @@
 <?php
 
 pload('packfire.ioc.pServiceBucket');
+require_once('mocks/tMockConfig.php');
 
 /**
  * Test class for pServiceBucket.
