@@ -49,7 +49,7 @@ class pSetupApplication implements IApplication {
      * @since 1.0-sofia
      */
     protected function loadCliCall($request, $controller){
-        $cliParser = new pCommandParser();
+        $cliParser = new pCommandParser($_SERVER['argv']);
         $route = new pRoute('', '', '');
         echo 'Packfire Framework ' . __PACKFIRE_VERSION__ . "\n";
         if($cliParser->isFlagged('-i', '--install')){

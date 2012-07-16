@@ -24,15 +24,10 @@ class pCommandParser {
     
     /**
      * Create a new pCommandParser object
-     * @param array|pMap $arguments (optional) The argument to be parsed.
-     *              If not specified, the arguments will be taken from 
-     *              $_SERVER['args'].
+     * @param array|pMap $arguments The argument to be parsed.
      * @since 1.0-sofia
      */
-    public function __construct($arguments = null){
-        if(!$arguments){
-            $arguments = $_SERVER['argv'];
-        }
+    public function __construct($arguments){
         $this->parse($arguments);
     }
     
@@ -62,6 +57,9 @@ class pCommandParser {
             }else{
                 $this->set($lastKey ? $lastKey : $idx, $arg);
             }
+        }
+        if($lastKey){
+            $this->set($lastKey, true);
         }
     }
     

@@ -19,14 +19,14 @@ class pCommandParserTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->object = new pCommandParser(array(
-            '-ab',
-            'test',
-            '--cat',
-            'file',
-            '-d=fetch',
-            '/e=mail',
-            '/fly=linus'
-        ));
+                    '-ab',
+                    'test',
+                    '--cat',
+                    'file',
+                    '-d=fetch',
+                    '/e=mail',
+                    '/fly=linus'
+                ));
     }
 
     /**
