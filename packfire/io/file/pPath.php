@@ -54,7 +54,7 @@ class pPath {
             self::setPermission($this->path, $permission);
             return $permission;
         }else{
-            return fileperms($this->path);
+            return substr(decoct(fileperms($this->path)), 2);
         }
     }
     
@@ -300,8 +300,8 @@ class pPath {
      * @return string The resolved directory path
      * @since 1.0-sofia
      */
-    public static function resolve($p){
-        return realpath($p);
+    public static function resolve($path){
+        return realpath($path);
     }
 
     /**
