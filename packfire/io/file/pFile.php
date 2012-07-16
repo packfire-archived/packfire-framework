@@ -53,8 +53,8 @@ class pFile implements IFile {
      */
     public function create(){
         if(!$this->exists()){
-            $handle = fopen($this->pathname, 'w');
-            fclose($handle);
+            $handle = @fopen($this->pathname, 'w');
+            @fclose($handle);
         }
     }
     
@@ -73,7 +73,7 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function delete(){
-        $ok = unlink($this->pathname);
+        $ok = @unlink($this->pathname);
         if(!$ok){
             throw new pIOException(
                     sprintf('An error occurred deleting file \'%s\'.',
@@ -89,7 +89,7 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function write($content){
-        $ok = file_put_contents($this->pathname, $content);
+        $ok = @file_put_contents($this->pathname, $content);
         if(!$ok){
             throw new pIOException(
                     sprintf('Failed to write content file \'%s\'.', $this->pathname)
@@ -105,9 +105,9 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function append($ctn){
-        $link = fopen($this->pathname, 'a');
+        $link = @fopen($this->pathname, 'a');
         if($link){
-            $ok = fwrite($link, $ctn);
+            $ok = @fwrite($link, $ctn);
             if(!$ok){
             throw new pIOException(
                     sprintf('An error occurred while appending '.
@@ -129,7 +129,7 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function read(){
-        $content = file_get_contents($this->pathname);
+        $content = @file_get_contents($this->pathname);
         if($content === false){
             throw new pIOException(
                     sprintf('An error occurred reading file \'%s\'.',
@@ -152,7 +152,7 @@ class pFile implements IFile {
             $destination = pPath::combine($destination,
                     pPath::baseName($this->pathname));
         }
-        $ok = (bool)copy($this->pathname, $destination);
+        $ok = @copy($this->pathname, $destination);
         if($ok){
             return new self($destination);
         }else{
@@ -181,7 +181,7 @@ class pFile implements IFile {
     public function rename($newname){
         $newname = pPath::path($this->pathname) . DIRECTORY_SEPARATOR
                 . pPath::baseName($newname);
-        $ok = rename($this->pathname, $newname);
+        $ok = @rename($this->pathname, $newname);
         if($ok){    
             $this->pathname = $newname;
         }else{
@@ -201,7 +201,7 @@ class pFile implements IFile {
     public function move($newdir){
         $newdir = $newdir . DIRECTORY_SEPARATOR
                 . pPath::baseName($this->pathname);
-        $ok = rename($this->pathname, $newdir);
+        $ok = @rename($this->pathname, $newdir);
         if($ok){    
             $this->pathname = $newdir;
         }else{
