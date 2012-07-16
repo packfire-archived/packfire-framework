@@ -218,11 +218,11 @@ class pYamlParser {
                     break;
                 case '|': // newlines preserved literal blocks
                     $this->nextLine();
-                    $result = trim($this->fetchBlock());
+                    $result = pNewLine::neutralize(trim($this->fetchBlock()));
                     break;
                 case '>': // folded literal block
                     $this->nextLine();
-                    $result = trim($this->fetchBlock());
+                    $result = pNewLine::neutralize(trim($this->fetchBlock()));
                     $result = preg_replace(array('`\n\s+([^\s]+)`', '`([^\n]+)\n([^\n]+)`'),
                             array("\n".'$1', '$1 $2'), $result);
                     $result = str_replace("\n\n", "\n", $result);
@@ -355,7 +355,11 @@ class pYamlParser {
         $minIndent = $this->indentation;
         
         while(!$this->trimmedLine || $minIndent <= $this->indentation){
-            $text .= substr($this->line, $minIndent);
+            if(!$this->trimmedLine){
+                $text .= "\n";
+            }else{
+                $text .= substr($this->line, $minIndent);
+            }
             $next = $this->nextLine();
             if(!$next){
                 break;

@@ -33,7 +33,7 @@ class pYamlParserTest extends PHPUnit_Framework_TestCase {
     
     private function createParser($text){
         if(is_file($text)){
-            $text = new pFileStream($text);
+            $text = new pFileInputStream($text);
         }else{
             $text = new pTextStream($text);
         }
