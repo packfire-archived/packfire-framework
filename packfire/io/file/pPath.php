@@ -1,5 +1,6 @@
 <?php
 pload('pPathPart');
+pload('pFileSystem');
 
 /**
  * Functionalities working with file system paths
@@ -124,6 +125,15 @@ class pPath {
      */
     public function clear(){
         self::emptyDir($this->path);
+    }
+    
+    /**
+     * Check if the path exists or not.
+     * @return boolean Returns true if the path exists, false otherwise.
+     * @since 1.0-elenor
+     */
+    public function exists(){
+        return pFileSystem::pathExists($this->path);
     }
     
     /**
