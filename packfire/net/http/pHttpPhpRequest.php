@@ -29,6 +29,13 @@ class pHttpPhpRequest extends pHttpClientRequest {
     private $phpSelf;
     
     /**
+     * The path info provided
+     * @var string
+     * @since 1.0-elenor
+     */
+    private $pathInfo;
+    
+    /**
      * Create a new pPhpHttpRequest
      * @param pHttpClient $client The client making the request
      * @param array $server The $_SERVER variables to pass in
@@ -38,6 +45,17 @@ class pHttpPhpRequest extends pHttpClientRequest {
         parent::__construct($client);
         $this->scriptName = $server['SCRIPT_NAME'];
         $this->phpSelf = $server['PHP_SELF'];
+        if(array_key_exists('ORIG_PATH_INFO', $server)){
+            $this->pathInfo = $server['ORIG_PATH_INFO'];
+        }elseif(array_key_exists('PATH_INFO', $server)){
+            $this->pathInfo = $server['PATH_INFO'];
+        }else{
+            if($this->scriptName == $this->phpSelf){
+                $this->pathInfo = '/';
+            }else{
+                $this->pathInfo = substr($this->phpSelf, strlen($this->scriptName));
+            }
+        }
     }
     
     /**
@@ -56,6 +74,15 @@ class pHttpPhpRequest extends pHttpClientRequest {
      */
     public function phpSelf(){
         return $this->phpSelf;
+    }
+    
+    /**
+     * Get the path info
+     * @return string Returns the path info
+     * @since 1.0-elenor
+     */
+    public function pathInfo(){
+        return $this->pathInfo;
     }
     
 }

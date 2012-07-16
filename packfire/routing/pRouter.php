@@ -18,13 +18,6 @@ pload('pRedirectRoute');
 class pRouter extends pBucketUser {
     
     /**
-     * The routing key to use
-     * (as defined in .htaccess) 
-     * @since 1.0-sofia
-     */
-    const KEY = '_urlroute_';
-    
-    /**
      * The collection of routing entries
      * @var pMap
      * @since 1.0-sofia
@@ -120,11 +113,7 @@ class pRouter extends pBucketUser {
      * @since 1.0-sofia
      */
     public function route($request){
-        if($request->scriptName() == $request->phpSelf()){
-            $url = '/';
-        }else{
-            $url = substr($request->phpSelf(), strlen($request->scriptName()));
-        }
+        $url = $request->pathInfo();
         $method = strtolower($request->method());
         
         foreach ($this->routes as $route) {
