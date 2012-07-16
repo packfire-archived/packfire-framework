@@ -38,7 +38,7 @@ require(__PACKFIRE_ROOT__ . 'helper.php');
 
 pload('packfire.net.http.pHttpClient');
 pload('packfire.application.pCommandRequest');
-pload('packfire.net.http.pHttpClientRequest');
+pload('packfire.net.http.pHttpPhpRequest');
 pload('packfire.io.file.pFileStream');
 pload('packfire.datetime.pDateTime');
 
@@ -81,7 +81,7 @@ class Packfire {
                 $agent = $_SERVER['HTTP_USER_AGENT'];
             }
             $client = new pHttpClient($_SERVER['REMOTE_ADDR'], $agent);
-            $request = new pHttpClientRequest($client);
+            $request = new pHttpPhpRequest($client, $_SERVER);
 
             $request->method($_SERVER['REQUEST_METHOD']);
             $request->uri($_SERVER['REQUEST_URI']);

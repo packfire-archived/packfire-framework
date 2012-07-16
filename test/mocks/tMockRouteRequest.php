@@ -1,6 +1,6 @@
 <?php
 pload('packfire.collection.pMap');
-pload('packfire.net.http.pHttpRequest');
+pload('packfire.net.http.pHttpPhpRequest');
 pload('packfire.net.http.pHttpMethod');
 
 /**
@@ -12,11 +12,12 @@ pload('packfire.net.http.pHttpMethod');
  * @package packfire.test
  * @since 1.0-sofia
  */
-class tMockRouteRequest extends pHttpRequest {
+class tMockRouteRequest extends pHttpPhpRequest {
     
     private $route = '';
     
-    public function __construct($uri){
+    public function __construct($uri, $server){
+        parent::__construct(null, $server);
         $this->route = $uri;
     }
     

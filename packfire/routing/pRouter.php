@@ -114,13 +114,17 @@ class pRouter extends pBucketUser {
     
     /**
      * Perform routing operation and return the route entry
-     * @param pHttpRequest $request The HTTP request to perform routing
+     * @param pHttpPhpRequest $request The HTTP request to perform routing
      * @return pRoute Returns the route found based on the request or NULL
      *              if no suitable route is found.
      * @since 1.0-sofia
      */
-    public function route($request){        
-        $url = '/' . (string)$request->get()->get(self::KEY);
+    public function route($request){
+        if($request->scriptName() == $request->phpSelf()){
+            $url = '/';
+        }else{
+            $url = substr($request->phpSelf(), strlen($request->scriptName()));
+        }
         $method = strtolower($request->method());
         
         foreach ($this->routes as $route) {
