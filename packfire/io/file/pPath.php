@@ -217,9 +217,20 @@ class pPath {
      * @param string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the file name e.g. 'test'
      * @see pPath::pathInfo()
+     * @since 1.0-sofia
      */
-    public static function fileName($p){
-        return self::pathInfo($p, pPathPart::FILENAME);
+    public static function fileName($path){
+        return self::pathInfo($path, pPathPart::FILENAME);
+    }
+    
+    /**
+     * Normalize the directory slashes to the operating system's native slash
+     * @param string $path The path to normalize
+     * @return string Returns the path normalized
+     * @since 1.0-elenor
+     */
+    public static function normalize($path){
+        return str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
     }
 
     /**
@@ -227,6 +238,7 @@ class pPath {
      * @param string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the file name e.g. 'test.html'
      * @see pPath::pathInfo()
+     * @since 1.0-sofia
      */
     public static function baseName($p){
         return self::pathInfo($p, pPathPart::BASENAME);
@@ -237,6 +249,7 @@ class pPath {
      * @param string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the file extension e.g. 'html'
      * @see pPath::pathInfo()
+     * @since 1.0-sofia
      */
     public static function extension($p){
         return self::pathInfo($p, pPathPart::EXTENSION);
@@ -247,6 +260,7 @@ class pPath {
      * @param string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the directory path e.g. 'home/user/public'
      * @see pPath::pathInfo()
+     * @since 1.0-sofia
      */
     public static function path($p){
         return self::pathInfo($p, pPathPart::DIRECTORY);
@@ -261,13 +275,8 @@ class pPath {
      * @link http://php.net/pathinfo
      * @since 1.0-sofia
      */
-    public static function pathInfo($path, $info = false){
-        if($info == pPathPart::FILENAME && version_compare(PHP_VERSION, '5.2', '<')){   
-            // compatibility for "5.2.0 - The PATHINFO_FILENAME constant was added. "
-            $basename =  self::baseName($path);
-            $ext = self::extension($path);
-            return substr($basename, 0, strlen($basename) - strlen($ext) - 1);
-        }
+    public static function pathInfo($path, $info = null){
+        $path = self::normalize($path);
         $result = pathinfo($path);
         if($info){
             $result = $result[$info];

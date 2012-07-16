@@ -169,8 +169,10 @@ class pPathTest extends PHPUnit_Framework_TestCase {
      * @covers pPath::path
      */
     public function testPath() {
-        $this->assertEquals('C:\\michael\\jackson\\this_is_it', pPath::path('C:\\michael\\jackson\\this_is_it\\test.bak'));
-        $this->assertEquals('/opt/ion/is/not/yours', pPath::path('/opt/ion/is/not/yours/test.bin'));
+        $this->assertEquals('C:' . DIRECTORY_SEPARATOR . 'michael' . DIRECTORY_SEPARATOR . 'jackson' . DIRECTORY_SEPARATOR . 'this_is_it',
+                pPath::path('C:\\michael\\jackson\\this_is_it\\test.bak'));
+        $this->assertEquals('' . DIRECTORY_SEPARATOR . 'opt' . DIRECTORY_SEPARATOR . 'ion' . DIRECTORY_SEPARATOR . 'is' . DIRECTORY_SEPARATOR . 'not' . DIRECTORY_SEPARATOR . 'yours',
+                pPath::path('/opt/ion/is/not/yours/test.bin'));
         $this->assertEquals('jordan', pPath::path('jordan\\test.bak'));
         $this->assertEquals('runner', pPath::path('runner/test.bin'));
     }
