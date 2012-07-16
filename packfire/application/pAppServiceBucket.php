@@ -5,6 +5,7 @@ pload('packfire.database.pDbConnectorFactory');
 pload('packfire.session.pSessionLoader');
 pload('packfire.config.framework.pAppConfig');
 pload('packfire.config.framework.pRouterConfig');
+pload('packfire.ioc.pServiceLoader');
 
 /**
  * pAppServiceBucket class
@@ -35,24 +36,30 @@ class pAppServiceBucket extends pServiceBucket {
     protected function load(){
         $this->put('config.app', array('pAppConfig', 'load'));
         $this->put('config.routing', array('pRouterConfig', 'load'));
-        $this->put('debugger', new pDebugger());
-        $this->pick('debugger')->enabled($this->pick('config.app')->get('app', 'debug'));
         pServiceLoader::loadConfig($this);
+        if($this->pick('config.app')){
+            // load the debugger
+            $this->put('debugger', new pDebugger());
+            $this->pick('debugger')->enabled($this->pick('config.app')->get('app', 'debug'));
         
-        $databaseConfigs = $this->pick('config.app')->get('database');
-        if($databaseConfigs){
-            foreach($databaseConfigs as $key => $databaseConfig){
-                $dbPackage = ($key == 'default' ? '' : '.' . $key);
-                $this->put('database' . $dbPackage 
-                        . '.driver', pDbConnectorFactory::create($databaseConfig));
-                $this->put('database' . $dbPackage,
-                        array($this->pick('database' . $dbPackage . '.driver'), 'database'));
+            // load database drivers and configurations
+            $databaseConfigs = $this->pick('config.app')->get('database');
+            if($databaseConfigs){
+                foreach($databaseConfigs as $key => $databaseConfig){
+                    $dbPackage = ($key == 'default' ? '' : '.' . $key);
+                    $this->put('database' . $dbPackage 
+                            . '.driver', pDbConnectorFactory::create($databaseConfig));
+                    $this->put('database' . $dbPackage,
+                            array($this->pick('database' . $dbPackage . '.driver'), 'database'));
+                }
             }
-        }
-        if($this->pick('config.app')->get('session', 'enabled')){
-            $sessionLoader = new pSessionLoader();
-            $sessionLoader->setBucket($this);
-            $sessionLoader->load();
+            
+            // load the session
+            if($this->pick('config.app')->get('session', 'enabled')){
+                $sessionLoader = new pSessionLoader();
+                $sessionLoader->setBucket($this);
+                $sessionLoader->load();
+            }
         }
     }
 

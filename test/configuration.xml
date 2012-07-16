@@ -17,6 +17,6 @@
         </testsuite>
     </testsuites>
     <php>
-        <const name="__ROOT__" value="D:/wamp/www/packfire/packfire/" />
+        <const name="__ENVIRONMENT__" value="test" />
     </php>
 </phpunit>

@@ -75,18 +75,20 @@ class pServiceLoader implements IServiceLoader {
      */
     public static function loadConfig($bucket){
         $servicesConfig = pIoCConfig::load();
-        $services = $servicesConfig->get();
-        foreach($services as $key => $service){
-            $service = new pMap($service);
-            if($service->keyExists('class')){
-                $loader = new self($service->get('class'),
-                        $service->get('parameters'));
-                $bucket->put($key, array($loader, 'load'));
-            }else{
-                throw new pServiceException('Service "' . $key
-                        . '" defined in the service configuration'
-                        . ' file "ioc.yml" contains not conain a'
-                        . ' class definition.');
+        if($servicesConfig){
+            $services = $servicesConfig->get();
+            foreach($services as $key => $service){
+                $service = new pMap($service);
+                if($service->keyExists('class')){
+                    $loader = new self($service->get('class'),
+                            $service->get('parameters'));
+                    $bucket->put($key, array($loader, 'load'));
+                }else{
+                    throw new pServiceException('Service "' . $key
+                            . '" defined in the service configuration'
+                            . ' file "ioc.yml" contains not conain a'
+                            . ' class definition.');
+                }
             }
         }
     }
