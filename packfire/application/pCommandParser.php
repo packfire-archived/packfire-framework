@@ -56,6 +56,7 @@ class pCommandParser {
                 $lastKey = $this->cleanKey($arg);
             }else{
                 $this->set($lastKey ? $lastKey : $idx, $arg);
+                $lastKey = null;
             }
         }
         if($lastKey){
