@@ -20,6 +20,7 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->object = new pDateTime(1999, 6, 24, 10, 30, 35);
+        date_default_timezone_set('UTC');
     }
 
     /**
@@ -27,7 +28,7 @@ class pDateTimeTest extends PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-        
+        date_default_timezone_set(ini_get('date.timezone'));
     }
 
     /**
