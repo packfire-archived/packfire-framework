@@ -1,5 +1,6 @@
 <?php
 
+pload('packfire.ioc.pServiceBucket');
 pload('packfire.application.pAppServiceBucket');
 
 /**
@@ -18,7 +19,7 @@ class pAppServiceBucketTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new pAppServiceBucket;
+        $this->object = new pAppServiceBucket(new pServiceBucket());
     }
 
     /**
@@ -33,8 +34,9 @@ class pAppServiceBucketTest extends PHPUnit_Framework_TestCase {
      * @covers pAppServiceBucket::load
      */
     public function testLoad(){
+        $this->object->load();
         $this->assertTrue($this->object->contains('config.app'));
-        $this->assertTrue($this->object->contains('config.routing'));
+        $this->assertFalse($this->object->contains('config.routing'));
     }
 
 }

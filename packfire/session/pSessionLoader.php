@@ -1,5 +1,5 @@
 <?php
-pload('packfire.ioc.pBucketUser');
+pload('packfire.ioc.pBucketLoader');
 pload('packfire.session.storage.pSessionStorage');
 pload('packfire.session.pSession');
 
@@ -14,17 +14,17 @@ pload('packfire.session.pSession');
  * @package packfire.session
  * @since 1.0-sofia
  */
-class pSessionLoader extends pBucketUser {
+class pSessionLoader extends pBucketLoader {
     
     public function load(){
         $storageId = 'session.storage';
-        $storage = $this->service($storageId);
+        $storage = $this->pick($storageId);
         if(!$storage){
             $storage = new pSessionStorage();
-            $this->services->put($storageId, $storage);
+            $this->put($storageId, $storage);
         }
         /* @var $config pConfig */
-        $config = $this->service('config.app');
+        $config = $this->pick('config.app');
         session_name($config->get('session', 'name'));
         session_set_cookie_params(
                 $config->get('session', 'lifetime'),
@@ -34,7 +34,7 @@ class pSessionLoader extends pBucketUser {
                 $config->get('session', 'http')
             );
         session_start();
-        $this->services->put('session', new pSession($storage));
+        $this->put('session', new pSession($storage));
     }
     
 }

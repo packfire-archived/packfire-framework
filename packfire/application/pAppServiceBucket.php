@@ -1,5 +1,5 @@
 <?php
-pload('packfire.ioc.pServiceBucket');
+pload('packfire.ioc.pBucketLoader');
 pload('packfire.debugger.pDebugger');
 pload('packfire.database.pDbConnectorFactory');
 pload('packfire.session.pSessionLoader');
@@ -10,7 +10,7 @@ pload('packfire.ioc.pServiceLoader');
 /**
  * pAppServiceBucket class
  * 
- * Application service bucket that loads the application's core services as well
+ * Application service bucket that loads the application's core services
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -18,24 +18,14 @@ pload('packfire.ioc.pServiceLoader');
  * @package packfire.application
  * @since 1.0-sofia
  */
-class pAppServiceBucket extends pServiceBucket {
-    
-    /**
-     * Create a new pAppServiceBucket object
-     * @since 1.0-sofia 
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->load();
-    }
+class pAppServiceBucket extends pBucketLoader {
     
     /**
      * Perform loading
      * @since 1.0-sofia 
      */
-    protected function load(){
+    public function load(){
         $this->put('config.app', array('pAppConfig', 'load'));
-        $this->put('config.routing', array('pRouterConfig', 'load'));
         pServiceLoader::loadConfig($this);
         if($this->pick('config.app')){
             // load the debugger
@@ -52,13 +42,6 @@ class pAppServiceBucket extends pServiceBucket {
                     $this->put('database' . $dbPackage,
                             array($this->pick('database' . $dbPackage . '.driver'), 'database'));
                 }
-            }
-            
-            // load the session
-            if($this->pick('config.app')->get('session', 'enabled')){
-                $sessionLoader = new pSessionLoader();
-                $sessionLoader->setBucket($this);
-                $sessionLoader->load();
             }
         }
     }
