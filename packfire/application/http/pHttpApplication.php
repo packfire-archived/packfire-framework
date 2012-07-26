@@ -1,14 +1,15 @@
 <?php
-pload('IApplication');
+pload('packfire.application.IApplication');
 pload('packfire.net.http.pHttpResponse');
 pload('packfire.ioc.pBucketUser');
-pload('packfire.ioc.pServiceLoader');
+pload('packfire.ioc.pServiceBucket');
+pload('packfire.application.pAppServiceBucket');
+pload('pHttpServiceBucket');
 pload('packfire.exception.handler.pExceptionHandler');
 pload('packfire.exception.handler.pErrorHandler');
 pload('packfire.exception.pHttpException');
 pload('packfire.exception.pMissingDependencyException');
 pload('packfire.controller.pCALoader');
-pload('pAppServiceBucket');
 pload('packfire.response.pRedirectResponse');
 
 /**
@@ -19,23 +20,29 @@ pload('packfire.response.pRedirectResponse');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.application
- * @since 1.0-sofia
+ * @package packfire.application.http
+ * @since 1.0-elenor
  */
-class pApplication extends pBucketUser implements IApplication {
+class pHttpApplication extends pBucketUser implements IApplication {
     
     /**
      * Create the pApplication object 
-     * @since 1.0-sofia
+     * @since 1.0-elenor
      */
     public function __construct(){
-        $this->services = new pAppServiceBucket();
+        $this->services = new pServiceBucket();
+        
+        $coreLoader = new pAppServiceBucket($this->services);
+        $coreLoader->load();
+        $httpLoader = new pHttpServiceBucket($this->services);
+        $httpLoader->load();
+        
         $this->loadExceptionHandler();
     }
     
     /**
      * Load the exception handler and prepare handlers
-     * @since 1.0-sofia
+     * @since 1.0-elenor
      */
     protected function loadExceptionHandler(){
         $this->services->put('exception.handler', new pExceptionHandler());
@@ -49,57 +56,55 @@ class pApplication extends pBucketUser implements IApplication {
      * Receive a request, process, and respond.
      * @param IAppRequest $request The request made
      * @return IAppResponse Returns the http response
-     * @since 1.0-sofia
+     * @since 1.0-elenor
      */
     public function receive($request){
-        if($request instanceof pHttpRequest){
-            $response = $this->prepareResponse($request);
-            $router = $this->service('router');
-            if(!$router){
-                throw new pMissingDependencyException('Router service missing.');
-            }
-            /* @var $router pRouter */
-            $router->load();
-            /* @var $route pRoute */
-            $route = null;
-            if($this->service('config.app')->get('routing', 'caching') && $this->service('cache')){
-                $cache = $this->service('cache');
-                $id = 'route.' . $request->uri() . $request->method() . $request->queryString() . sha1(json_encode($request->post()->toArray()));
-                if($cache->check($id)){
-                    $route = $cache->get($id);
-                }else{
-                    $route = $router->route($request);
-                    if($this->service('cache')){
-                        $cache->set($id, $route, new pTimeSpan(7200));
-                    }
-                }
+        $response = $this->prepareResponse($request);
+        $router = $this->service('router');
+        if(!$router){
+            throw new pMissingDependencyException('Router service missing.');
+        }
+        /* @var $router pRouter */
+        $router->load();
+        /* @var $route pRoute */
+        $route = null;
+        if($this->service('config.app')->get('routing', 'caching') && $this->service('cache')){
+            $cache = $this->service('cache');
+            $id = 'route.' . $request->uri() . $request->method() . $request->queryString() . sha1(json_encode($request->post()->toArray()));
+            if($cache->check($id)){
+                $route = $cache->get($id);
             }else{
                 $route = $router->route($request);
-            }
-            
-            if(is_null($route)){
-                throw new pHttpException(404);
-            }elseif($route instanceof pRedirectRoute){
-                $response = new pRedirectResponse($route->redirect(), $route->code());
-            }else{
-                if(is_string($route->actual()) && strpos($route->actual(), ':')){
-                    list($class, $action) = explode(':', $route->actual());
-                }else{
-                    $class = $route->actual();
-                    $action = '';
-                }
-                
-                if($route->name() == 'packfire.directControllerAccess'){
-                    $response = $this->directAccessProcessor($request, $route, $response);
-                }else{
-                    $caLoader = new pCALoader($class, $action, $request, $route, $response);
-                    $caLoader->copyBucket($this);
-                    $caLoader->load();
-                    $response = $caLoader;
+                if($this->service('cache')){
+                    $cache->set($id, $route, new pTimeSpan(7200));
                 }
             }
-            return $response;
+        }else{
+            $route = $router->route($request);
         }
+
+        if(is_null($route)){
+            throw new pHttpException(404);
+        }elseif($route instanceof pRedirectRoute){
+            $response = new pRedirectResponse($route->redirect(), $route->code());
+        }else{
+            if(is_string($route->actual()) && strpos($route->actual(), ':')){
+                list($class, $action) = explode(':', $route->actual());
+            }else{
+                $class = $route->actual();
+                $action = '';
+            }
+
+            if($route->name() == 'packfire.directControllerAccess'){
+                $response = $this->directAccessProcessor($request, $route, $response);
+            }else{
+                $caLoader = new pCALoader($class, $action, $request, $route, $response);
+                $caLoader->copyBucket($this);
+                $caLoader->load();
+                $response = $caLoader;
+            }
+        }
+        return $response;
     }
     
     /**
