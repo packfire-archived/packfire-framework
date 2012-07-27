@@ -29,7 +29,7 @@ class HomeIndexView extends pView {
         $this->define('rootUrl', $rootUrl);
         $this->define('title', $this->state['title']);
         $this->define('message', $this->state['message']);
-        $this->define('version', $this->service('config.app')->get('app', 'version'));
+        $this->define('version', __PACKFIRE_VERSION__);
         
         $this->define('themeDark', $this->route('themeSwitch', array('theme' => 'dark')));
         $this->define('themeLight', $this->route('themeSwitch', array('theme' => 'light')));

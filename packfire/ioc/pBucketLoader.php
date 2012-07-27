@@ -30,12 +30,6 @@ abstract class pBucketLoader implements IServiceBucket, IServiceLoader {
     }
     
     /**
-     * Perform service loading
-     * @since 1.0-elenor
-     */
-    public abstract function load();
-    
-    /**
      * Put a service into the service bucket.
      * @param string $name The service identifier. Case-insensitive.
      * @param callback|Closure|object $resolver Either the object instance or
