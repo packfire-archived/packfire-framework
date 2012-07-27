@@ -1,9 +1,7 @@
 <?php
-pload('packfire.application.IApplication');
+pload('packfire.application.pServiceApplication');
 pload('packfire.net.http.pHttpResponse');
-pload('packfire.ioc.pBucketUser');
-pload('packfire.ioc.pServiceBucket');
-pload('packfire.application.pAppServiceBucket');
+pload('packfire.application.pServiceAppLoader');
 pload('pHttpServiceBucket');
 pload('packfire.exception.handler.pExceptionHandler');
 pload('packfire.exception.handler.pErrorHandler');
@@ -23,17 +21,14 @@ pload('packfire.response.pRedirectResponse');
  * @package packfire.application.http
  * @since 1.0-elenor
  */
-class pHttpApplication extends pBucketUser implements IApplication {
+class pHttpApplication extends pServiceApplication {
     
     /**
-     * Create the pApplication object 
+     * Create the pHttpApplication object 
      * @since 1.0-elenor
      */
     public function __construct(){
-        $this->services = new pServiceBucket();
-        
-        $coreLoader = new pAppServiceBucket($this->services);
-        $coreLoader->load();
+        parent::__construct();
         $httpLoader = new pHttpServiceBucket($this->services);
         $httpLoader->load();
         

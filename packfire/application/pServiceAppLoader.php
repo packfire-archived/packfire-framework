@@ -8,7 +8,7 @@ pload('packfire.config.framework.pRouterConfig');
 pload('packfire.ioc.pServiceLoader');
 
 /**
- * pAppServiceBucket class
+ * pServiceAppLoader class
  * 
  * Application service bucket that loads the application's core services
  *
@@ -18,7 +18,7 @@ pload('packfire.ioc.pServiceLoader');
  * @package packfire.application
  * @since 1.0-sofia
  */
-class pAppServiceBucket extends pBucketLoader {
+class pServiceAppLoader extends pBucketLoader {
     
     /**
      * Perform loading
