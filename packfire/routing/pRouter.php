@@ -1,4 +1,5 @@
 <?php
+pload('packfire.ioc.ILoadable');
 pload('packfire.collection.pMap');
 pload('packfire.net.http.pUrl');
 pload('packfire.exception.pNullException');
@@ -15,7 +16,7 @@ pload('pRedirectRoute');
  * @package packfire.routing
  * @since 1.0-sofia
  */
-class pRouter extends pBucketUser implements IService {
+class pRouter extends pBucketUser implements ILoadable {
     
     /**
      * The collection of routing entries

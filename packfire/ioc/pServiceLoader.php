@@ -1,5 +1,5 @@
 <?php
-pload('IServiceLoader');
+pload('ILoadable');
 pload('packfire.exception.pServiceException');
 pload('packfire.config.framework.pIoCConfig');
 
