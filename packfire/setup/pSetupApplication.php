@@ -2,7 +2,7 @@
 pload('packfire.application.IApplication');
 pload('pSetupController');
 pload('packfire.net.http.pHttpMethod');
-pload('packfire.routing.pRoute');
+pload('packfire.routing.http.pHttpRoute');
 pload('packfire.ioc.pServiceBucket');
 
 /**
@@ -50,7 +50,7 @@ class pSetupApplication implements IApplication {
      */
     protected function loadCliCall($request, $controller){
         $cliParser = new pCommandParser($_SERVER['argv']);
-        $route = new pRoute('', '', '');
+        $route = new pHttpRoute('', '', '');
         echo 'Packfire Framework ' . __PACKFIRE_VERSION__ . "\n";
         if($cliParser->isFlagged('-i', '--install')){
             echo "------------------------\n";
@@ -139,7 +139,7 @@ class pSetupApplication implements IApplication {
      * @since 1.0-sofia
      */
     protected function loadHttpCall($request, $controller){
-        $route = new pRoute('', '', $request->method(), $request->params());
+        $route = new pHttpRoute('', '', $request->method(), $request->params());
         if($request->get()->count() > 0){
             switch(strtolower($request->get()->keys()->first())){
                 case 'install':
