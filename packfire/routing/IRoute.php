@@ -22,13 +22,12 @@ interface IRoute {
     public function __construct($name, $data);
     
     /**
-     * Check whether the route matches the URL request
-     * @param string $method The HTTP request made by the client
-     * @param string $url The URL requested by the client
+     * Check whether the route matches the request
+     * @param IAppRequest $locator The locator requested by the client
      * @return boolean Returns true if the route matches, false otherwise
      * @since 1.0-elenor 
      */
-    public function match($method, $url);
+    public function match($request);
     
     /**
      * Get the name of the route

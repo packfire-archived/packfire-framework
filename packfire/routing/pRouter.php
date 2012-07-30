@@ -1,11 +1,8 @@
 <?php
 pload('packfire.ioc.ILoadable');
 pload('packfire.collection.pMap');
-pload('packfire.net.http.pUrl');
 pload('packfire.exception.pNullException');
 pload('packfire.ioc.pBucketUser');
-pload('pRoute');
-pload('pRedirectRoute');
 
 /**
  * Handles URL rewritting and controller routing
@@ -16,7 +13,7 @@ pload('pRedirectRoute');
  * @package packfire.routing
  * @since 1.0-sofia
  */
-class pRouter extends pBucketUser implements ILoadable {
+abstract class pRouter extends pBucketUser implements ILoadable {
     
     /**
      * The collection of routing entries
@@ -26,48 +23,13 @@ class pRouter extends pBucketUser implements ILoadable {
     private $routes;
     
     /**
-     * Flags whether rewritting is enabled or disabled.
-     * @var boolean 
-     * @since 1.0-sofia
-     */
-    private $rewrite;
-    
-    /**
      * Create a new pRouter object
      * @param boolean $rewrite (optional) Flag whether rewritting is enabled or
      *                         disabled. Defaults to true.
      * @since 1.0-sofia 
      */
-    public function __construct($rewrite = true){
-        $this->rewrite = $rewrite;
+    public function __construct(){
         $this->routes = new pMap();
-    }
-    
-    /**
-     * Perform loading of routes from the routing configuration file
-     * @since 1.0-sofia
-     */
-    public function load(){
-        $settings = $this->service('config.routing');
-        $routes = $settings->get();
-        foreach($routes as $key => $data){
-            $data = new pMap($data);
-            $route = self::routeFactory($key, $data);
-            $this->add($key, $route);
-        }
-        $config = new pMap(array(
-            'rewrite' => '/{class}/{action}',
-            'actual' => 'directControllerAccessRoute',
-            'method' => null,
-            'params' => new pMap(array(
-                'class' => '([a-zA-Z0-9\_]+)',
-                'action' => '([a-zA-Z0-9\_]+)'
-            ))
-        ));
-        $directControllerAccessRoute = new pRoute(
-                'packfire.directControllerAccess',
-                $config);
-        $this->add('packfire.DCARoute', $directControllerAccessRoute);
     }
     
     /**
@@ -77,14 +39,7 @@ class pRouter extends pBucketUser implements ILoadable {
      * @return IRoute Returns the route manufactured
      * @since 1.0-elenor
      */
-    private static function routeFactory($key, $data){
-        if($data->get('redirect')){
-            $route = new pRedirectRoute($key, $data);
-        }else{
-            $route = new pRoute($key, $data);
-        }
-        return $route;
-    }
+    protected abstract function routeFactory($key, $data);
     
     /**
      * Add a new routing entry to the router
@@ -111,14 +66,11 @@ class pRouter extends pBucketUser implements ILoadable {
      * @param pHttpPhpRequest $request The HTTP request to perform routing
      * @return pRoute Returns the route found based on the request or NULL
      *              if no suitable route is found.
-     * @since 1.0-sofia
+     * @since 1.0-elenor
      */
     public function route($request){
-        $url = $request->pathInfo();
-        $method = strtolower($request->method());
-        
         foreach ($this->routes as $route) {
-            if($route->match($method, $url)){
+            if($route->match($request)){
                 return $route;
             }
         }
@@ -142,12 +94,17 @@ class pRouter extends pBucketUser implements ILoadable {
                     sprintf('Routing route "%s" was not found in the'
                             . ' router\'s entries.', $key));
         }
-        $template = new pTemplate($route->rewrite());
-        foreach($params as $name => $value){
-            $template->fields()->add($name, pUrl::encode($value));
-        }
 
-        return $template->parse();
+        return $this->prepareRoute($route, $params);
     }
+    
+    /**
+     * Prepare a route with the parameters
+     * @param pHttpRoute $route The route to be prepared
+     * @param array|pMap $params The parameters to prepare
+     * @return string The final route URL
+     * @since 1.0-elenor
+     */
+    protected abstract function prepareRoute($route, $params);
     
 }
