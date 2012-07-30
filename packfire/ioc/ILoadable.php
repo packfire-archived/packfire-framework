@@ -1,7 +1,9 @@
 <?php
 
 /**
- * ServiceLoader abstraction
+ * ILoadable interface
+ * 
+ * An object that can be loaded
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -9,7 +11,7 @@
  * @package packfire.ioc
  * @since 1.0-sofia
  */
-interface IServiceLoader {
+interface ILoadable {
     
     /**
      * Load the service

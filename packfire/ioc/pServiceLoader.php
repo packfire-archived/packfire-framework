@@ -4,7 +4,9 @@ pload('packfire.exception.pServiceException');
 pload('packfire.config.framework.pIoCConfig');
 
 /**
- * The service loader
+ * pServiceLoader class
+ * 
+ * The service loader for ioc.yml file
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -12,7 +14,7 @@ pload('packfire.config.framework.pIoCConfig');
  * @package packfire.ioc
  * @since 1.0-sofia
  */
-class pServiceLoader implements IServiceLoader {
+class pServiceLoader implements ILoadable {
     
     /**
      * The full package

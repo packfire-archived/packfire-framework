@@ -1,6 +1,6 @@
 <?php
 pload('IServiceBucket');
-pload('IServiceLoader');
+pload('ILoadable');
 
 /**
  * pBucketLoader abstract class
@@ -11,7 +11,7 @@ pload('IServiceLoader');
  * @package packfire.ioc
  * @since 1.0-elenor
  */
-abstract class pBucketLoader implements IServiceBucket, IServiceLoader {
+abstract class pBucketLoader implements IServiceBucket, ILoadable {
     
     /**
      * The service bucket to be decorated

@@ -15,7 +15,7 @@ pload('pRedirectRoute');
  * @package packfire.routing
  * @since 1.0-sofia
  */
-class pRouter extends pBucketUser {
+class pRouter extends pBucketUser implements IService {
     
     /**
      * The collection of routing entries
