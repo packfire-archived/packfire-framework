@@ -116,7 +116,7 @@ class pHttpRoute implements IRoute {
     
     /**
      * Check whether the route matches the request
-     * @param IAppRequest $locator The locator requested by the client
+     * @param IAppRequest $request The locator requested by the client
      * @return boolean Returns true if the route matches, false otherwise
      * @since 1.0-elenor 
      */
