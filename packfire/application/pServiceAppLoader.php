@@ -4,7 +4,6 @@ pload('packfire.debugger.pDebugger');
 pload('packfire.database.pDbConnectorFactory');
 pload('packfire.session.pSessionLoader');
 pload('packfire.config.framework.pAppConfig');
-pload('packfire.config.framework.pRouterConfig');
 pload('packfire.ioc.pServiceLoader');
 
 /**

@@ -2,9 +2,9 @@
 pload('pFrameworkConfig');
 
 /**
- * pRouterConfig class
+ * pHttpRouterConfig class
  * 
- * Router configuration parser
+ * Router configuration parser for HTTP routes
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -12,7 +12,7 @@ pload('pFrameworkConfig');
  * @package packfire.config.framework
  * @since 1.0-sofia
  */
-class pRouterConfig extends pFrameworkConfig {
+class pHttpRouterConfig extends pFrameworkConfig {
     
     /**
      * Load the routing configuration file located the the config folder.

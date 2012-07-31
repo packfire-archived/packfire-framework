@@ -24,8 +24,6 @@ abstract class pRouter extends pBucketUser implements ILoadable {
     
     /**
      * Create a new pRouter object
-     * @param boolean $rewrite (optional) Flag whether rewritting is enabled or
-     *                         disabled. Defaults to true.
      * @since 1.0-sofia 
      */
     public function __construct(){

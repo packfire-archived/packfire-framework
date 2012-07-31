@@ -56,10 +56,10 @@ class pHttpApplication extends pServiceApplication {
     public function receive($request){
         $response = $this->prepareResponse($request);
         $router = $this->service('router');
+        /* @var $router pRouter */
         if(!$router){
             throw new pMissingDependencyException('Router service missing.');
         }
-        /* @var $router pRouter */
         $router->load();
         /* @var $route pRoute */
         $route = null;

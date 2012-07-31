@@ -4,7 +4,7 @@ pload('pFrameworkConfig');
 /**
  * pRouterConfig class
  * 
- * Router configuration parser
+ * Router configuration parser for CLI
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -12,7 +12,7 @@ pload('pFrameworkConfig');
  * @package packfire.config.framework
  * @since 1.0-sofia
  */
-class pRouterConfig extends pFrameworkConfig {
+class pCliRouterConfig extends pFrameworkConfig {
     
     /**
      * Load the routing configuration file located the the config folder.
@@ -25,7 +25,7 @@ class pRouterConfig extends pFrameworkConfig {
      * @since 1.0-sofia
      */
     public static function load($context = __ENVIRONMENT__) {
-        return self::execute('routing', $context);
+        return self::execute('clirouting', $context);
     }
     
 }

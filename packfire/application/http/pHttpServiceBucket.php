@@ -1,7 +1,8 @@
 <?php
 pload('packfire.ioc.pBucketLoader');
 pload('packfire.session.pSessionLoader');
-pload('packfire.config.framework.pRouterConfig');
+pload('packfire.config.framework.pHttpRouterConfig');
+pload('packfire.routing.http.pHttpRouter');
 
 /**
  * pHttpServiceBucket class
@@ -21,7 +22,8 @@ class pHttpServiceBucket extends pBucketLoader {
      * @since 1.0-elenor
      */
     public function load(){
-        $this->put('config.routing', array('pRouterConfig', 'load'));
+        $this->put('config.routing', array('pHttpRouterConfig', 'load'));
+        $this->put('router', new pHttpRouter());
         if($this->pick('config.app') && $this->pick('config.app')->get('session', 'enabled')){
             // load the session
             $sessionLoader = new pSessionLoader($this);
