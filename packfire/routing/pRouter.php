@@ -33,6 +33,20 @@ abstract class pRouter extends pBucketUser implements ILoadable {
     }
     
     /**
+     * Perform loading of routes from the routing configuration file
+     * @since 1.0-elenor
+     */
+    public function load(){
+        $settings = $this->service('config.routing');
+        $routes = $settings->get();
+        foreach($routes as $key => $data){
+            $data = new pMap($data);
+            $route = $this->routeFactory($key, $data);
+            $this->add($key, $route);
+        }
+    }
+    
+    /**
      * Factory manufature the route based on the configuration
      * @param string $key Name of the route
      * @param pMap $data The configuration of the route
@@ -49,7 +63,11 @@ abstract class pRouter extends pBucketUser implements ILoadable {
      * @since 1.0-sofia
      */
     public function add($key, $route){
-        $this->routes[$key] = $route;
+        if($this->routes){
+            $this->routes[$key] = $route;
+        }else{
+            throw new pInvalidRequestException('Router has not been loaded before the add request was called.');
+        }
     }
     
     /**
@@ -69,9 +87,11 @@ abstract class pRouter extends pBucketUser implements ILoadable {
      * @since 1.0-elenor
      */
     public function route($request){
-        foreach ($this->routes as $route) {
-            if($route->match($request)){
-                return $route;
+        if($this->routes){
+            foreach ($this->routes as $route) {
+                if($route->match($request)){
+                    return $route;
+                }
             }
         }
         
@@ -88,14 +108,18 @@ abstract class pRouter extends pBucketUser implements ILoadable {
      * @since 1.0-sofia
      */
     public function to($key, $params = array()){
-        $route = $this->routes->get($key);
-        if($route === null){
-            throw new pNullException(
-                    sprintf('Routing route "%s" was not found in the'
-                            . ' router\'s entries.', $key));
-        }
+        if($this->routes){
+            $route = $this->routes->get($key);
+            if($route === null){
+                throw new pNullException(
+                        sprintf('Routing route "%s" was not found in the'
+                                . ' router\'s entries.', $key));
+            }
 
-        return $this->prepareRoute($route, $params);
+            return $this->prepareRoute($route, $params);
+        }else{
+            return null;
+        }
     }
     
     /**

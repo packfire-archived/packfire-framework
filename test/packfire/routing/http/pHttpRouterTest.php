@@ -19,7 +19,7 @@ class pHttpRouterTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new pHttpRouter;
+        $this->object = new pHttpRouter();
         $config = new pMap(array('rewrite' => '/home', 'actual' => 'Rest'));
         $this->object->add('route.home', new pHttpRoute('route.home', $config));
         $config = new pMap(array('rewrite' => '/home/{data}', 'actual' => 'Rest', 'method' => null, 'params' => array('data' => '([0-9]+)')));

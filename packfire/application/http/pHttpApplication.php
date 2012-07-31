@@ -78,7 +78,7 @@ class pHttpApplication extends pServiceApplication {
             $route = $router->route($request);
         }
 
-        if(is_null($route)){
+        if(!$route){
             throw new pHttpException(404);
         }elseif($route instanceof pRedirectRoute){
             $response = new pRedirectResponse($route->redirect(), $route->code());

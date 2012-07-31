@@ -23,13 +23,7 @@ class pHttpRouter extends pRouter {
      * @since 1.0-elenor
      */
     public function load(){
-        $settings = $this->service('config.routing');
-        $routes = $settings->get();
-        foreach($routes as $key => $data){
-            $data = new pMap($data);
-            $route = $this->routeFactory($key, $data);
-            $this->add($key, $route);
-        }
+        parent::load();
         $config = new pMap(array(
             'rewrite' => '/{class}/{action}',
             'actual' => 'directControllerAccessRoute',
