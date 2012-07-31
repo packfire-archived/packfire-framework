@@ -4,6 +4,8 @@ pload('packfire.application.IAppResponse');
 pload('packfire.pClassLoader');
 
 /**
+ * pCALoader class
+ * 
  * Controller Access Loader
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -12,7 +14,7 @@ pload('packfire.pClassLoader');
  * @package packfire.controller
  * @since 1.0-sofia
  */
-class pCALoader extends pBucketUser implements IAppResponse {
+class pCALoader extends pBucketUser {
     
     /**
      * The package name
@@ -70,6 +72,7 @@ class pCALoader extends pBucketUser implements IAppResponse {
      * Perform the loading process
      * @param boolean $directAccess (optional) Flags if the access is a direct
      *                access (DCA). Defaults to false.
+     * @return boolean Returns true if loaded successfully, false otherwise.
      * @since 1.0-sofia
      */
     public function load($directAccess = false){
@@ -125,23 +128,24 @@ class pCALoader extends pBucketUser implements IAppResponse {
                                 (!$controller->directAccess() && !$directAccess)){
                         $controller->copyBucket($this);
                         $controller->run($this->route, $this->action);
-                        $this->response = $controller;
+                        $this->response = $controller->response();
                     }else{
-                        // throw 403 because the controller action exists, but
+                        // the controller action exists, but
                         // forbidden access because direct access was disabled
-                        throw new pHttpException(403);
+                        return false;
                     }
                 }
             }else{
                 // oops! the class is really not found (:
-                throw new pHttpException(404);
+                return false;
             }
         }else if(is_callable($class)){
             $this->response = call_user_func($class, $this->request, $this->route, $this->response);
         }else{
             // oops! no idea what you've given me as $class
-            throw new pHttpException(404);
+            return false;
         }
+        return true;
     }
     
     /**
@@ -150,7 +154,7 @@ class pCALoader extends pBucketUser implements IAppResponse {
      * @since 1.0-sofia
      */
     public function response(){
-        return $this->response->response();
+        return $this->response;
     }
     
 }

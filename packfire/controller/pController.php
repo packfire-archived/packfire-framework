@@ -18,7 +18,7 @@ pload('packfire.exception.pAuthorizationException');
  * @package packfire.controller
  * @since 1.0-sofia
  */
-abstract class pController extends pBucketUser implements IAppResponse {
+abstract class pController extends pBucketUser {
     
     /**
      * The request to this controller
@@ -375,10 +375,17 @@ abstract class pController extends pBucketUser implements IAppResponse {
             $call = 'do' . ucFirst($action);
         }
         
-        if($this->restful && $this->request instanceof pHttpRequest){
-            $httpMethodCall = strtolower($this->request->method()) . ucFirst($action);
-            if(method_exists($this, $httpMethodCall)){
-                $call = $httpMethodCall;
+        if($this->restful){
+            if($this->request instanceof pHttpRequest){
+                $httpMethodCall = strtolower($this->request->method()) . ucFirst($action);
+                if(method_exists($this, $httpMethodCall)){
+                    $call = $httpMethodCall;
+                }
+            }elseif($this->request instanceof pCliAppRequest){
+                $httpMethodCall = strtolower('cli') . ucFirst($action);
+                if(method_exists($this, $httpMethodCall)){
+                    $call = $httpMethodCall;
+                }
             }
         }
         
@@ -394,7 +401,10 @@ abstract class pController extends pBucketUser implements IAppResponse {
             $this->$call();
             $output = ob_get_contents();
             ob_end_clean();
-            if($output && $this->state instanceof pMap){
+            if($this->response instanceof pCliAppResponse){
+                $this->response->output($output);
+            }
+            if($output && (is_array($this->state) || $this->state instanceof pMap)){
                 $this->state['output'] = $output;
             }
             $this->postProcess();
@@ -423,13 +433,12 @@ abstract class pController extends pBucketUser implements IAppResponse {
     private function postProcess(){
         
         // disable debugger if non-HTML output
-        $response = $this->response();
         $type = null;
-        if($response){
-            $type = $response->headers()->get('Content-Type');
+        if($this->response instanceof pHttpResponse){
+            $type = $this->response->headers()->get('Content-Type');
         }
         if($this->service('debugger') 
-                && $type != null 
+                && $type 
                 && strpos(strtolower($type), 'html') === false){
             $this->service('debugger')->enabled(false);
         }

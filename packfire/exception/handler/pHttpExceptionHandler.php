@@ -11,7 +11,7 @@ pload('pExceptionPageView');
  * @package packfire.exception.handler
  * @since 1.0-sofia
  */
-class pExceptionHandler extends pBucketUser implements IExceptionHandler {
+class pHttpExceptionHandler extends pBucketUser implements IExceptionHandler {
 
     /**
      * Handle the exception

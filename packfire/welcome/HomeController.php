@@ -15,12 +15,23 @@ pload('HomeIndexView');
  */
 class HomeController extends pController {
     
-    function doIndex(){
+    function message(){
         $this->state = array(
             'title' => 'Bring the fire around in a pack.',
             'message' => 'Packfire is a clean and well thought web framework for developers of all walks to scaffold and bring up websites quickly and hassle-free. You\'ll be surprised at how fast you can build a web application with a pack of fire.'
         );
+    }
+    
+    function getIndex(){
+        $this->forward($this, 'message');
         $this->render(new HomeIndexView());
+    }
+    
+    function cliIndex(){
+        $this->forward($this, 'message');
+        echo 'Packfire Framework ' . __PACKFIRE_VERSION__ 
+                . "\n" . '-----------------------------' . "\n\n";
+        echo $this->state['message'] . "\n";
     }
     
 }

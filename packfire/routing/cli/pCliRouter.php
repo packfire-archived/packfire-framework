@@ -1,5 +1,6 @@
 <?php
 pload('packfire.routing.pRouter');
+pload('pCliRoute');
 
 /**
  * pCliRouter class
@@ -13,6 +14,14 @@ pload('packfire.routing.pRouter');
  * @since 1.0-elenor
  */
 class pCliRouter extends pRouter {
+    
+    /**
+     * Perform loading of routes from the routing configuration file
+     * @since 1.0-elenor
+     */
+    public function load(){
+        parent::load();
+    }
     
     /**
      * Prepare a route with the parameters

@@ -1,5 +1,7 @@
 <?php
-pload('packfire.');
+pload('packfire.ioc.pBucketLoader');
+pload('packfire.routing.cli.pCliRouter');
+pload('packfire.config.framework.pCliRouterConfig');
 
 /**
  * pCliServiceBucket class
@@ -19,6 +21,8 @@ class pCliServiceBucket extends pBucketLoader {
      * @since 1.0-elenor
      */
     public function load(){
+        $this->put('config.routing', array('pCliRouterConfig', 'load'));
+        $this->put('router', new pCliRouter());
         if($this->pick('config.app')){
             // load the debugger
             $this->put('debugger', new pDebugger());

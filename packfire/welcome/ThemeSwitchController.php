@@ -16,7 +16,7 @@ pload('packfire.validator.pMatchValidator');
  */
 class ThemeSwitchController extends AppController {
     
-    public function doIndex(){
+    public function index(){
         $this->filter('theme', array(
                 'trim',
                 new pValidationFilter(new pMatchValidator(array('dark', 'light'))

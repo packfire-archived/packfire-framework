@@ -36,11 +36,13 @@ abstract class pRouter extends pBucketUser implements ILoadable {
      */
     public function load(){
         $settings = $this->service('config.routing');
-        $routes = $settings->get();
-        foreach($routes as $key => $data){
-            $data = new pMap($data);
-            $route = $this->routeFactory($key, $data);
-            $this->add($key, $route);
+        if($settings){
+            $routes = $settings->get();
+            foreach($routes as $key => $data){
+                $data = new pMap($data);
+                $route = $this->routeFactory($key, $data);
+                $this->add($key, $route);
+            }
         }
     }
     

@@ -1,9 +1,8 @@
 <?php
 pload('packfire.application.pServiceApplication');
 pload('pHttpAppResponse');
-pload('packfire.application.pServiceAppLoader');
 pload('pHttpServiceBucket');
-pload('packfire.exception.handler.pExceptionHandler');
+pload('packfire.exception.handler.pHttpExceptionHandler');
 pload('packfire.exception.handler.pErrorHandler');
 pload('packfire.exception.pHttpException');
 pload('packfire.exception.pMissingDependencyException');
@@ -29,10 +28,10 @@ class pHttpApplication extends pServiceApplication {
      */
     public function __construct(){
         parent::__construct();
+        $this->loadExceptionHandler();
+        
         $httpLoader = new pHttpServiceBucket($this->services);
         $httpLoader->load();
-        
-        $this->loadExceptionHandler();
     }
     
     /**
@@ -40,7 +39,7 @@ class pHttpApplication extends pServiceApplication {
      * @since 1.0-elenor
      */
     protected function loadExceptionHandler(){
-        $this->services->put('exception.handler', new pExceptionHandler());
+        $this->services->put('exception.handler', new pHttpExceptionHandler());
         $handler = $this->service('exception.handler');
         $errorhandler = new pErrorHandler($handler);
         set_error_handler(array($errorhandler, 'handle'), E_ALL);
@@ -92,8 +91,11 @@ class pHttpApplication extends pServiceApplication {
             }else{
                 $caLoader = new pCALoader($class, $action, $request, $route, $response);
                 $caLoader->copyBucket($this);
-                $caLoader->load();
-                $response = $caLoader;
+                if($caLoader->load()){
+                    $response = $caLoader->response();
+                }else{
+                    throw new pHttpException(404);
+                }
             }
         }else{
             throw new pHttpException(404);

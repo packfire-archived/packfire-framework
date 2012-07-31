@@ -14,10 +14,10 @@
 interface IAppResponse {
     
     /**
-     * Get the internal response
-     * @return IAppResponse Returns the internal response
-     * @since 1.0-sofia
+     * Get the output of the response
+     * @return string The output of the response
+     * @since 1.0-elenor
      */
-    public function response();
+    public function output();
     
 }

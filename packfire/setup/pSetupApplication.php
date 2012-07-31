@@ -30,6 +30,7 @@ class pSetupApplication implements IApplication {
      * Receive and work on the request
      * @param IAppRequest $request The application request
      * @return IAppResponse Returns the response if the request is through HTTP.
+     * @since 1.0-elenor
      */
     public function receive($request) {
         $controller = new pSetupController($request, new pHttpResponse());

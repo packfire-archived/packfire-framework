@@ -137,9 +137,6 @@ class Packfire {
      * @since 1.0-sofia
      */
     public function processResponse($response){
-        if($response instanceof IAppResponse){
-            $response = $response->response();
-        }
         if($response instanceof pHttpResponse){
             header($response->version() . ' ' . $response->code());
             foreach($response->headers() as $key => $value){
@@ -148,8 +145,8 @@ class Packfire {
             foreach($response->cookies() as $cookie){
                 $cookie->set();
             }
-            echo $response->body();
         }
+        echo $response->output();
     }
     
 }

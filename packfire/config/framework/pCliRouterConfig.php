@@ -2,7 +2,7 @@
 pload('pFrameworkConfig');
 
 /**
- * pRouterConfig class
+ * pCliRouterConfig class
  * 
  * Router configuration parser for CLI
  *
@@ -10,7 +10,7 @@ pload('pFrameworkConfig');
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package packfire.config.framework
- * @since 1.0-sofia
+ * @since 1.0-elenor
  */
 class pCliRouterConfig extends pFrameworkConfig {
     
@@ -22,7 +22,7 @@ class pCliRouterConfig extends pFrameworkConfig {
      *                        what values are loaded.
      * @return pConfig Returns a pConfig that has read and parsed the configuration file,
      *                 or NULL if the file is not recognized or not found.
-     * @since 1.0-sofia
+     * @since 1.0-elenor
      */
     public static function load($context = __ENVIRONMENT__) {
         return self::execute('clirouting', $context);

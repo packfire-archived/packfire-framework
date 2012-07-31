@@ -13,8 +13,8 @@ pload('packfire.application.IAppResponse');
  */
 class pHttpAppResponse extends pHttpResponse implements IAppResponse {
     
-    public function response(){
-        return $this;
+    public function output(){
+        return $this->body();
     }
     
 }

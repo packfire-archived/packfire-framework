@@ -29,6 +29,13 @@ class pCliRoute implements IRoute {
     private $params;
     
     /**
+     * The name of the controller class to route to
+     * @var string
+     * @since 1.0-elenor
+     */
+    private $actual;
+    
+    /**
      * Create a new pCliRoute object
      * @param string $name The name of the route
      * @param array|pMap $data The data retrieved from the settings
@@ -36,7 +43,8 @@ class pCliRoute implements IRoute {
      */
     public function __construct($name, $data) {
         $this->name = $name;
-        $this->params = $data;
+        $this->actual = $data->get('actual');
+        $this->params = $data->get('params');
     }
 
     /**
@@ -48,18 +56,38 @@ class pCliRoute implements IRoute {
      */
     public function match($request) {
         $ok = true;
-        foreach($this->params as $key => $param){
-            $subject = $request->params()->get($key);
-            if(is_string($param)){
-                $ok = preg_match('`' . $param . '`is', $subject);
-            }else{
-                $ok = $subject === $param;
-            }
-            if(!$ok){
-                break;
+        if($this->params){
+            foreach($this->params as $key => $param){
+                $subject = $request->params()->get($key);
+                if(is_string($param)){
+                    $ok = preg_match('`' . $param . '`is', $subject);
+                }else{
+                    $ok = $subject === $param;
+                }
+                if(!$ok){
+                    break;
+                }
             }
         }
         return $ok;
+    }
+    
+    /**
+     * The parameters in this routing
+     * @var pMap
+     * @since 1.0-elenor
+     */
+    public function params(){
+        return $this->params;
+    }
+    
+    /**
+     * Get the name of the controller class to route to
+     * @return string Returns the controller class name
+     * @since 1.0-elenor
+     */
+    public function actual(){
+        return $this->actual;
     }
 
     /**

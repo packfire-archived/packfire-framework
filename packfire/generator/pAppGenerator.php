@@ -141,6 +141,8 @@ class pAppGenerator {
                 pPath::combine($this->root, 'pack/config/ioc.yml'));
         $this->renderFile($path . '/resource/application/pack/config/routing.yml',
                 pPath::combine($this->root, 'pack/config/routing.yml'));
+        $this->renderFile($path . '/resource/application/pack/config/clirouting.yml',
+                pPath::combine($this->root, 'pack/config/clirouting.yml'));
         $this->renderFile($path . '/resource/application/pack/config/readme.md',
                 pPath::combine($this->root, 'pack/config/readme.md'));
         

@@ -1,4 +1,5 @@
 <?php
+pload('packfire.application.IAppResponse');
 
 /**
  * IAppResponse interface
@@ -11,10 +12,15 @@
  * @package packfire.application.cli
  * @since 1.0-elenor
  */
-class pCliResponse implements IAppResponse {
+class pCliAppResponse implements IAppResponse {
     
-    public function response(){
-        return $this;
+    private $output;
+    
+    public function output($output = null){
+        if(func_num_args() == 1){
+            $this->output = $output;
+        }
+        return $this->output;
     }
     
 }
