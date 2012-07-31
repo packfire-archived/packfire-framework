@@ -1,5 +1,5 @@
 <?php
-pload('IAppRequest');
+pload('packfire.application.IAppRequest');
 pload('pCommandParser');
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-pload('packfire.application.pCommandRequest');
+pload('packfire.application.cli.pCommandRequest');
 
 /**
  * Test class for pCommandRequest.

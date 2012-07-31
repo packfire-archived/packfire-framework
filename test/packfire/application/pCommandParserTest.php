@@ -1,6 +1,6 @@
 <?php
 
-pload('packfire.application.pCommandParser');
+pload('packfire.application.cli.pCommandParser');
 
 /**
  * Test class for pCommandParser.

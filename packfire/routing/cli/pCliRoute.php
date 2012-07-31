@@ -12,8 +12,19 @@ pload('packfire.routing.IRoute');
  */
 class pCliRoute implements IRoute {
     
+    private $name;
+    
+    private $params;
+    
+    /**
+     * Create a new pCliRoute object
+     * @param string $name The name of the route
+     * @param array|pMap $data The data retrieved from the settings
+     * @since 1.0-elenor
+     */
     public function __construct($name, $data) {
-        
+        $this->name = $name;
+        $this->params = $data;
     }
 
     public function match($request) {
@@ -21,7 +32,7 @@ class pCliRoute implements IRoute {
     }
 
     public function name() {
-        
+        return $this->name;
     }
     
 }

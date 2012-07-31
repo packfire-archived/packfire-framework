@@ -37,7 +37,7 @@ define('__PACKFIRE_VERSION__', '1.0-elenor');
 require(__PACKFIRE_ROOT__ . 'helper.php');
 
 pload('packfire.net.http.pHttpClient');
-pload('packfire.application.pCommandRequest');
+pload('packfire.application.cli.pCommandRequest');
 pload('packfire.net.http.pHttpPhpRequest');
 pload('packfire.io.file.pFileStream');
 pload('packfire.datetime.pDateTime');
