@@ -16,6 +16,11 @@ pload('packfire.template.pTemplate');
  */
 class pHttpRouter extends pRouter {
     
+    /**
+     * Whether HTTP routing is enabled or not
+     * @var boolean
+     * @since 1.0-elenor
+     */
     private $enabled = true;
     
     /**
@@ -24,6 +29,7 @@ class pHttpRouter extends pRouter {
      */
     public function load(){
         parent::load();
+        $this->enabled = $this->service('config.app')->get('routing', 'enabled');
         $config = new pMap(array(
             'rewrite' => '/{class}/{action}',
             'actual' => 'directControllerAccessRoute',
