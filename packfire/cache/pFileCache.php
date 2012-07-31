@@ -126,7 +126,7 @@ class pFileCache implements ICache {
         $serializer = new pPhpSerializer();
         $value = $serializer->serialize($stream, $value);
         $stream->close();
-        chmod($file, 0777);
+        @chmod($file, 0755);
         touch($file, $expiry);
     }
 
