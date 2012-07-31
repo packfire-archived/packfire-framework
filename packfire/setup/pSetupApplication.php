@@ -3,6 +3,7 @@ pload('packfire.application.IApplication');
 pload('pSetupController');
 pload('packfire.net.http.pHttpMethod');
 pload('packfire.routing.http.pHttpRoute');
+pload('packfire.application.http.pHttpAppResponse');
 pload('packfire.ioc.pServiceBucket');
 
 /**
@@ -33,7 +34,7 @@ class pSetupApplication implements IApplication {
      * @since 1.0-elenor
      */
     public function receive($request) {
-        $controller = new pSetupController($request, new pHttpResponse());
+        $controller = new pSetupController($request, new pHttpAppResponse());
         $controller->setBucket(new pServiceBucket());
         if($request instanceof pCliAppRequest){
             // CLI mode
@@ -156,6 +157,6 @@ class pSetupApplication implements IApplication {
             $controller->run($route, 'welcome');
             $controller->render(new pSetupWelcomeView());
         }
-        return $controller;
+        return $controller->response();
     }
 }
