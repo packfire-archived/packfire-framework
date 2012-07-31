@@ -24,10 +24,15 @@ class pHttpServiceBucket extends pBucketLoader {
     public function load(){
         $this->put('config.routing', array('pHttpRouterConfig', 'load'));
         $this->put('router', new pHttpRouter());
-        if($this->pick('config.app') && $this->pick('config.app')->get('session', 'enabled')){
-            // load the session
-            $sessionLoader = new pSessionLoader($this);
-            $sessionLoader->load();
+        if($this->pick('config.app')){
+            // load the debugger
+            $this->put('debugger', new pDebugger());
+            $this->pick('debugger')->enabled($this->pick('config.app')->get('app', 'debug'));
+            if($this->pick('config.app')->get('session', 'enabled')){
+                // load the session
+                $sessionLoader = new pSessionLoader($this);
+                $sessionLoader->load();
+            }
         }
     }
 

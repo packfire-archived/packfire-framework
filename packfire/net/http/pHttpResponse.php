@@ -15,7 +15,7 @@ pload('packfire.exception.pParseException');
  * @package packfire.net.http
  * @since 1.0-sofia
  */
-class pHttpResponse implements IAppResponse {
+class pHttpResponse {
 
     /**
      * The HTTP Version of the Status-Line in the HTTP response
@@ -186,10 +186,6 @@ class pHttpResponse implements IAppResponse {
         }
         $buffer .=  pNewline::UNIX . $this->body();
         return $buffer;
-    }
-    
-    public function response() {
-        return $this;
     }
     
 }

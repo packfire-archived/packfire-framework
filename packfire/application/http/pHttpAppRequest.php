@@ -1,5 +1,6 @@
 <?php
-pload('pHttpClientRequest');
+pload('packfire.net.http.pHttpClientRequest');
+pload('packfire.application.IAppRequest');
 
 /**
  * pHttpPhpRequest class
@@ -12,7 +13,7 @@ pload('pHttpClientRequest');
  * @package packfire.net.http
  * @since 1.0-elenor
  */
-class pHttpPhpRequest extends pHttpClientRequest {
+class pHttpAppRequest extends pHttpClientRequest implements IAppRequest {
     
     /**
      * The script name called
@@ -56,6 +57,20 @@ class pHttpPhpRequest extends pHttpClientRequest {
                 $this->pathInfo = substr($this->phpSelf, strlen($this->scriptName));
             }
         }
+    }
+    
+    /**
+     * Get the parameters of the request based on the HTTP method
+     * @return pMap Returns the parameters 
+     * @since 1.0-sofia
+     */
+    public function params(){
+        $result = new pMap();
+        $result->append($this->get());
+        if($this->method() == pHttpMethod::POST){
+            $result->append($this->post());
+        }
+        return $result;
     }
     
     /**

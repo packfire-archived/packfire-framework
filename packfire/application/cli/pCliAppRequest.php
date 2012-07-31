@@ -3,7 +3,7 @@ pload('packfire.application.IAppRequest');
 pload('pCommandParser');
 
 /**
- * pCommandRequest class
+ * pCliAppRequest class
  * 
  * A request made via the command line
  *
@@ -13,7 +13,7 @@ pload('pCommandParser');
  * @package packfire.application.cli
  * @since 1.0-sofia
  */
-class pCommandRequest implements IAppRequest {
+class pCliAppRequest implements IAppRequest {
     
     /**
      * The parameters of the command request

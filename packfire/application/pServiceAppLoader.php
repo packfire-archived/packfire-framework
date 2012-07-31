@@ -27,10 +27,6 @@ class pServiceAppLoader extends pBucketLoader {
         $this->put('config.app', array('pAppConfig', 'load'));
         pServiceLoader::loadConfig($this);
         if($this->pick('config.app')){
-            // load the debugger
-            $this->put('debugger', new pDebugger());
-            $this->pick('debugger')->enabled($this->pick('config.app')->get('app', 'debug'));
-        
             // load database drivers and configurations
             $databaseConfigs = $this->pick('config.app')->get('database');
             if($databaseConfigs){

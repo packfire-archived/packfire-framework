@@ -1,4 +1,5 @@
 <?php
+pload('packfire.');
 
 /**
  * pCliServiceBucket class
@@ -18,7 +19,11 @@ class pCliServiceBucket extends pBucketLoader {
      * @since 1.0-elenor
      */
     public function load(){
-        
+        if($this->pick('config.app')){
+            // load the debugger
+            $this->put('debugger', new pDebugger());
+            $this->pick('debugger')->enabled(false);
+        }
     }
     
 }

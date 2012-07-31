@@ -1,5 +1,4 @@
 <?php
-pload('packfire.application.IAppRequest');
 pload('packfire.text.pNewline');
 pload('packfire.text.pTextStream');
 pload('pUrl');
@@ -15,7 +14,7 @@ pload('pHttpMethod');
  * @package packfire.net.http
  * @since 1.0-sofia
  */
-class pHttpRequest implements IAppRequest {
+class pHttpRequest {
     
     /**
      * The method of request, e.g. GET, POST, HEAD
@@ -139,20 +138,6 @@ class pHttpRequest implements IAppRequest {
             }
         }
         return $request;
-    }
-    
-    /**
-     * Get the parameters of the request based on the HTTP method
-     * @return pMap Returns the parameters 
-     * @since 1.0-sofia
-     */
-    public function params(){
-        $result = new pMap();
-        $result->append($this->get());
-        if($this->method() == pHttpMethod::POST){
-            $result->append($this->post());
-        }
-        return $result;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 pload('packfire.application.pServiceApplication');
-pload('packfire.net.http.pHttpResponse');
+pload('pHttpAppResponse');
 pload('packfire.application.pServiceAppLoader');
 pload('pHttpServiceBucket');
 pload('packfire.exception.handler.pExceptionHandler');
@@ -44,7 +44,6 @@ class pHttpApplication extends pServiceApplication {
         $handler = $this->service('exception.handler');
         $errorhandler = new pErrorHandler($handler);
         set_error_handler(array($errorhandler, 'handle'), E_ALL);
-        set_exception_handler(array($this, 'handleException'));
     }
     
     /**
@@ -77,12 +76,10 @@ class pHttpApplication extends pServiceApplication {
         }else{
             $route = $router->route($request);
         }
-
-        if(!$route){
-            throw new pHttpException(404);
-        }elseif($route instanceof pRedirectRoute){
+        
+        if($route instanceof pRedirectRoute){
             $response = new pRedirectResponse($route->redirect(), $route->code());
-        }else{
+        }elseif($route){
             if(is_string($route->actual()) && strpos($route->actual(), ':')){
                 list($class, $action) = explode(':', $route->actual());
             }else{
@@ -98,7 +95,10 @@ class pHttpApplication extends pServiceApplication {
                 $caLoader->load();
                 $response = $caLoader;
             }
+        }else{
+            throw new pHttpException(404);
         }
+
         return $response;
     }
     
@@ -109,7 +109,7 @@ class pHttpApplication extends pServiceApplication {
      * @since 1.0-sofia
      */
     protected function prepareResponse($request){
-        $response = new pHttpResponse();
+        $response = new pHttpAppResponse();
         return $response;
     }
     
