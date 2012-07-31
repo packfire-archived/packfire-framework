@@ -28,19 +28,19 @@ class pRedirectResponseTest extends PHPUnit_Framework_TestCase {
     public function testResponse(){
         $url = 'http://example.com/';
         $object = new pRedirectResponse($url);
-        $this->assertEquals($object, $object->response());
         $this->assertEquals(pHttpResponseCode::HTTP_302, $object->code());
         $this->assertEquals($url, $object->headers()->get('Location'));
         $this->assertEquals('', $object->body());
+        $this->assertEquals('', $object->output());
     }
     
     public function testResponse2(){
         $url = 'http://example.com/';
         $object = new pRedirectResponse($url, pHttpResponseCode::HTTP_301);
-        $this->assertEquals($object, $object->response());
         $this->assertEquals(pHttpResponseCode::HTTP_301, $object->code());
         $this->assertEquals($url, $object->headers()->get('Location'));
         $this->assertEquals('', $object->body());
+        $this->assertEquals('', $object->output());
     }
 
 }

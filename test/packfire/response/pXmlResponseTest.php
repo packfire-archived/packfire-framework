@@ -30,9 +30,9 @@ class pXmlResponseTest extends PHPUnit_Framework_TestCase {
             'data' => 5
         );
         $object = new pXmlResponse($data);
-        $this->assertEquals($object, $object->response());
         $this->assertEquals('application/xml', $object->headers()->get('Content-Type'));
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8" ?>' . "\n" . '<root><data type="integer">5</data></root>', $object->body());
+        $this->assertEquals($object->body(), $object->output());
     }
 
 }

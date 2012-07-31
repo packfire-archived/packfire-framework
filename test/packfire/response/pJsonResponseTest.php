@@ -29,9 +29,9 @@ class pJsonResponseTest extends PHPUnit_Framework_TestCase {
             'data' => 5
         );
         $object = new pJsonResponse($data);
-        $this->assertEquals($object, $object->response());
         $this->assertEquals('application/json', $object->headers()->get('Content-Type'));
         $this->assertEquals(json_encode($data), $object->body());
+        $this->assertEquals($object->body(), $object->output());
     }
 
 }
