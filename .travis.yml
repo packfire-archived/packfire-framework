@@ -1,10 +1,12 @@
+# Packfire Framework
+#
+# this file provides configuration for Travis Continuous Integration
+# See Packfire on TravisCI at http://travis-ci.org/packfire/framework
+
 language: php
 php:
   - 5.3
   - 5.3.3
   - 5.4
 
-before_script:
-
-  - chmod +x packfire.sh
-script: ./packfire.sh test
+script: sh packfire.sh test
