@@ -1,3 +1,4 @@
 @echo off
 REM Packfire's executable setup shell script
-php %0.php %*
+SET SETUPPATH = %~dp0
+php %SETUPPATH%setup.php %*

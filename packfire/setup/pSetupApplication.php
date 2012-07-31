@@ -3,6 +3,7 @@ pload('packfire.application.IApplication');
 pload('pSetupController');
 pload('packfire.net.http.pHttpMethod');
 pload('packfire.routing.http.pHttpRoute');
+pload('packfire.application.cli.pCliAppResponse');
 pload('packfire.application.http.pHttpAppResponse');
 pload('packfire.ioc.pServiceBucket');
 
@@ -39,6 +40,7 @@ class pSetupApplication implements IApplication {
         if($request instanceof pCliAppRequest){
             // CLI mode
             $this->loadCliCall($request, $controller);
+            return new pCliAppResponse();
         }else{
             return $this->loadHttpCall($request, $controller);
         }
@@ -55,7 +57,7 @@ class pSetupApplication implements IApplication {
         $route = new pHttpRoute('', '', '');
         echo 'Packfire Framework ' . __PACKFIRE_VERSION__ . "\n";
         if($cliParser->isFlagged('-i', '--install')){
-            echo "------------------------\n";
+            echo "-----------------------------\n";
             $root = $cliParser->getValue('-i', '--install');
             $controller->params()->add('root', $root);
             if($root){
@@ -69,7 +71,7 @@ class pSetupApplication implements IApplication {
                 echo "Invalid parameters supplied.\nPackfire Setup will now exit.\n";
             }
         }elseif($cliParser->isFlagged('-c', '--create')){
-            echo "------------------------\n";
+            echo "-----------------------------\n";
             $root = $cliParser->getValue('-c', '--create');
             $controller->params()->add('root', $root);
             if($root){
@@ -104,13 +106,13 @@ class pSetupApplication implements IApplication {
         }elseif($cliParser->getValue(1) == 'version' || $cliParser->isFlagged('-v', '--version')){
             
         }elseif($cliParser->getValue(1) == 'test' || $cliParser->isFlagged('-t', '--test')){
-            echo "------------------------\n";
+            echo "-----------------------------\n";
             echo "Performing unit tests with ";
             system('phpunit --version');
             chdir('test');
             system('phpunit --bootstrap bootstrap.php -c configuration.xml .');
         }else{
-                echo "------------------------\n";
+                echo "-----------------------------\n";
                 echo "\nVisit us at http://mauris.sg/packfire\n\n";
                 echo "To use the setup:\n";
                 echo "   packfire -i=/path/dir\n";
