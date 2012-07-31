@@ -34,7 +34,7 @@ class pSetupApplication implements IApplication {
     public function receive($request) {
         $controller = new pSetupController($request, new pHttpResponse());
         $controller->setBucket(new pServiceBucket());
-        if($request instanceof pCommandRequest){
+        if($request instanceof pCliAppRequest){
             // CLI mode
             $this->loadCliCall($request, $controller);
         }else{

@@ -79,8 +79,19 @@ class pAppGenerator {
         $this->renderFile($path . '/resource/application/.htaccess',
                 pPath::combine($this->root, '.htaccess'));
         $this->renderFile($path . '/resource/application/index.php',
-                pPath::combine($this->root, 'index.php'),
+                pPath::combine($this->root, 'index.php'));
+        
+        $this->renderFile($path . '/resource/application/pack/constants.php',
+                pPath::combine($this->root, 'pack/constants.php'),
                 array('packfirePath' => addslashes($this->packfire)));
+        $this->renderFile($path . '/resource/application/pack/torch.php',
+                pPath::combine($this->root, 'pack/torch.php'));
+        $this->renderFile($path . '/resource/application/pack/torch',
+                pPath::combine($this->root, 'pack/torch'));
+        $this->renderFile($path . '/resource/application/pack/torch.bat',
+                pPath::combine($this->root, 'pack/torch.bat'));
+        $this->renderFile($path . '/resource/application/pack/readme.md',
+                pPath::combine($this->root, 'pack/readme.md'));
         
         $this->renderFile($path . '/resource/application/assets/images/readme.md',
                 pPath::combine($this->root, 'assets/images/readme.md'));
@@ -121,9 +132,6 @@ class pAppGenerator {
                 pPath::combine($this->root, 'pack/app/Application.php'));
         $this->renderFile($path . '/resource/application/pack/app/readme.md',
                 pPath::combine($this->root, 'pack/app/readme.md'));
-        
-        $this->renderFile($path . '/resource/application/pack/readme.md',
-                pPath::combine($this->root, 'pack/readme.md'));
         
         $this->renderFile($path . '/resource/application/pack/config/app.local.yml',
                 pPath::combine($this->root, 'pack/config/app.local.yml'));
@@ -169,7 +177,7 @@ class pAppGenerator {
                 pPath::combine($this->root, 'pack/view/readme.md'));
         
         $storagePath = new pPath(pPath::combine($this->root, 'pack/storage'));
-        $storagePath->permission(0777);
+        $storagePath->permission(0755);
     }
     
 }
