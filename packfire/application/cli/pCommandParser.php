@@ -10,7 +10,7 @@ pload('packfire.collection.pMap');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.application
+ * @package packfire.application.cli
  * @since 1.0-sofia
  */
 class pCommandParser {
