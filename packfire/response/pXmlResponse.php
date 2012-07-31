@@ -1,5 +1,5 @@
 <?php
-pload('packfire.net.http.pHttpResponse');
+pload('packfire.application.http.pHttpAppResponse');
 pload('packfire.data.serialization.pXmlSerializer');
 
 /**
@@ -13,7 +13,7 @@ pload('packfire.data.serialization.pXmlSerializer');
  * @package packfire.response
  * @since 1.0-sofia
  */
-class pXmlResponse extends pHttpResponse {
+class pXmlResponse extends pHttpAppResponse {
     
     /**
      * Create a new pXmlResponse object

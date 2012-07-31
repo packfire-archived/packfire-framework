@@ -74,7 +74,7 @@ class Packfire {
      */
     private function loadRequest(){
         if(php_sapi_name() == "cli") {
-            $request = new pCommandRequest();
+            $request = new pCliAppRequest();
         }else{
             $agent = null;
             if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){

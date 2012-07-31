@@ -108,12 +108,7 @@ abstract class pController extends pBucketUser implements IAppResponse {
         $this->errors = new pMap();
         $this->models = new pMap();
         
-        if($this->request instanceof pCommandRequest){
-            $this->params = $this->request->params();
-        }else if($this->request instanceof pHttpRequest
-                && $this->request->method() == pHttpMethod::POST){
-            $this->params = $this->request->params();
-        }
+        $this->params = $this->request->params();
     }
     
     /**

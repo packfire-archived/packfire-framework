@@ -1,5 +1,5 @@
 <?php
-pload('packfire.net.http.pHttpResponse');
+pload('packfire.application.http.pHttpAppResponse');
 pload('packfire.net.http.pHttpResponseCode');
 
 /**
@@ -13,7 +13,7 @@ pload('packfire.net.http.pHttpResponseCode');
  * @package packfire.response
  * @since 1.0-sofia
  */
-class pRedirectResponse extends pHttpResponse {
+class pRedirectResponse extends pHttpAppResponse {
     
     /**
      * Create a new pRedirectResponse object
