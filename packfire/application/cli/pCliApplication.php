@@ -81,7 +81,7 @@ class pCliApplication extends pServiceApplication {
             if($caLoader->load()){
                 $response = $caLoader->response();
             }else{
-            throw new pInvalidRequestException('No route found.');
+                throw new pInvalidRequestException('No route found.');
             }
         }else{
             throw new pInvalidRequestException('No default route specified.');

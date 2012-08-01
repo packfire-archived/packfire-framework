@@ -81,8 +81,8 @@ abstract class pRouter extends pBucketUser implements ILoadable {
     
     /**
      * Perform routing operation and return the route entry
-     * @param pHttpPhpRequest $request The HTTP request to perform routing
-     * @return pRoute Returns the route found based on the request or NULL
+     * @param IAppRequest $request The HTTP request to perform routing
+     * @return IRoute Returns the route found based on the request or NULL
      *              if no suitable route is found.
      * @since 1.0-elenor
      */

@@ -2,7 +2,6 @@
 <html>
     <head>
         <title>Packfire Setup - Packfire Framework for PHP v{{version}}</title>
-        <base href="{{rootUrl}}" target="_top" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
@@ -161,13 +160,13 @@
             <div id="distanceCheat"></div>
             <div id="box">
                 <div class="box-padding">
-                <div id="version">version {{version}} | <a href="http://github.com/packfire" target="_blank">web</a></div>
+                <div id="version">version {{version}} | <a href="http://mauris.sg/packfire" target="_blank">web</a></div>
                 <h1>Create Packfire Application</h1>
                 {{#complete}}
                     <div class="message">A new Packfire Application has been successfully created at {{root}}.</div>
                     <div id="options">
-                        <a href="setup.php?install">Install Framework</a>
-                        <a href="setup.php">Back</a>
+                        <a href="../install/">Install Framework</a>
+                        <a href="../">Back</a>
                     </div>
                 {{/complete}}
                 {{#fail}}
@@ -181,7 +180,7 @@
                         <input type="text" name="packfire" value="{{packfire}}" />
                         <div id="options">
                             <input type="submit" value="Create" />
-                            <a href="setup.php">Back</a>
+                            <a href="../">Back</a>
                         </div>
                     </form>
                 {{/complete}}

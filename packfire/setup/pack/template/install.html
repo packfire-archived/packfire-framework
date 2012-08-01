@@ -2,7 +2,6 @@
 <html>
     <head>
         <title>Packfire Setup - Packfire Framework for PHP v{{version}}</title>
-        <base href="{{rootUrl}}" target="_top" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
@@ -161,7 +160,7 @@
             <div id="distanceCheat"></div>
             <div id="box">
                 <div class="box-padding">
-                <div id="version">version {{version}} | <a href="http://github.com/packfire" target="_blank">web</a></div>
+                <div id="version">version {{version}} | <a href="http://mauris.sg/packfire" target="_blank">web</a></div>
                 <h1>Install Packfire Framework</h1>
                 {{#fail}}
                     <div class="message">Failed to create your application due to missing parameters.</div>
@@ -172,15 +171,15 @@
                         <input type="text" name="root" value="{{root}}" />
                         <div id="options">
                             <input type="submit" value="Install" />
-                            <a href="setup.php">Back</a>
+                            <a href="..">Back</a>
                         </div>
                     </form>
                 {{/complete}}
                 {{#complete}}
                     <div class="message">Packfire Framework has been successfully installed to {{root}}.</div>
                     <div id="options">
-                        <a href="setup.php?create">Create Application</a>
-                        <a href="setup.php">Back</a>
+                        <a href="../create/">Create Application</a>
+                        <a href="../">Back</a>
                     </div>
                 {{/complete}}
             </div></div>

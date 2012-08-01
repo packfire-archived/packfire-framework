@@ -8,4 +8,19 @@
  * Visitors to this file will be redirected to the public folder.
  */
 
-header('Location: setup.php');
+
+define('__PACKFIRE_PATH__', pathinfo(__FILE__, PATHINFO_DIRNAME) .
+        DIRECTORY_SEPARATOR . 'packfire' . DIRECTORY_SEPARATOR);
+
+define('__APP_ROOT__', __PACKFIRE_PATH__ . 'setup' . DIRECTORY_SEPARATOR);
+
+define('__ENVIRONMENT__', 'setup');
+
+$ok = include(__PACKFIRE_PATH__ . '/Packfire.php');
+if($ok){
+    pload('app.pSetupHttpApplication');
+    $packfire = new Packfire();
+    $packfire->fire(new pSetupHttpApplication());
+}else{
+    
+}

@@ -1,0 +1,25 @@
+#
+# YAML Configuration File - routing
+#     Routing for the CLI application goes here
+#
+# Author      : Sam-Mauris Yong / mauris@hotmail.sg
+# Copyright   : Copyright (c) 2010-2012, Sam-Mauris Yong
+# License     : http://www.opensource.org/licenses/bsd-license New BSD License
+#
+
+---
+
+install:
+  actual: "controller.pSetupController:installFramework"
+  params:
+    install: '.*'
+    
+create:
+  actual: "controller.pSetupController:createApplication"
+  params:
+    create: '.*'
+
+home:
+  actual: "controller.pSetupController:welcome"
+
+...
