@@ -92,12 +92,12 @@ class pSetupController extends pController {
         echo "   "  . $root . "\n\n";
         $framework = $this->params->get('packfire');
 
-        while($framework == null){
+        while(!$framework){
             echo "Where did you install Packfire Framework?\n";
             echo "Enter blank to set installation path to '" . __PACKFIRE_ROOT__ . "'\n";
             echo "> ";
             $framework = trim(fgets(STDIN));
-            if($framework == ''){
+            if(!$framework){
                 $framework = __PACKFIRE_ROOT__;
             }
             echo "\n";

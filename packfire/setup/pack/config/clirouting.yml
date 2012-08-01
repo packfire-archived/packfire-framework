@@ -12,32 +12,52 @@
 install:
   actual: "controller.pSetupController:installFramework"
   remap:
-    i: install
+    'i': 'root'
+    'install': 'root'
   params:
-    install: '.*'
+    root: '.*'
+    
+createProfile:
+  actual: "controller.pSetupController:createApplication"
+  remap:
+    'c': 'root'
+    'create': 'root'
+    'p': 'packfire'
+  params:
+    root: '.*'
+    packfire: '.*'
     
 create:
   actual: "controller.pSetupController:createApplication"
   remap:
-    c: create
+    'c': 'root'
+    'create': 'root'
   params:
-    create: '.*'
+    root: '.*'
 
 phpunitRun:
   actual: "controller.pSetupController:unitTest"
   remap:
-    1: 'test'
     't': 'test'
   params:
     'test': true
 
+phpunitRun2:
+  actual: "controller.pSetupController:unitTest"
+  params:
+    1: 'test'
+
 packfireVersion:
   actual: "controller.pSetupController:version"
   remap:
-    1: 'version'
     'v': 'version'
   params:
     'version': true
+
+packfireVersion:
+  actual: "controller.pSetupController:version"
+  params:
+    1: 'version'
 
 home:
   actual: "controller.pSetupController:welcome"
