@@ -11,13 +11,33 @@
 
 install:
   actual: "controller.pSetupController:installFramework"
+  remap:
+    i: install
   params:
     install: '.*'
     
 create:
   actual: "controller.pSetupController:createApplication"
+  remap:
+    c: create
   params:
     create: '.*'
+
+phpunitRun:
+  actual: "controller.pSetupController:unitTest"
+  remap:
+    1: 'test'
+    't': 'test'
+  params:
+    'test': true
+
+packfireVersion:
+  actual: "controller.pSetupController:version"
+  remap:
+    1: 'version'
+    'v': 'version'
+  params:
+    'version': true
 
 home:
   actual: "controller.pSetupController:welcome"

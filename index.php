@@ -8,7 +8,6 @@
  * Visitors to this file will be redirected to the public folder.
  */
 
-
 define('__PACKFIRE_PATH__', pathinfo(__FILE__, PATHINFO_DIRNAME) .
         DIRECTORY_SEPARATOR . 'packfire' . DIRECTORY_SEPARATOR);
 

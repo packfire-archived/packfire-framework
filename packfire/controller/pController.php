@@ -397,16 +397,7 @@ abstract class pController extends pBucketUser {
         if(method_exists($this, $call)){
             // call the controller action
             $this->activate($call);
-            ob_start();
             $this->$call();
-            $output = ob_get_contents();
-            ob_end_clean();
-            if($this->response instanceof pCliAppResponse){
-                $this->response->output($output);
-            }
-            if($output && (is_array($this->state) || $this->state instanceof pMap)){
-                $this->state['output'] = $output;
-            }
             $this->postProcess();
             $this->deactivate($call);
         }else{

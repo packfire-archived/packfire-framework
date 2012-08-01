@@ -18,6 +18,23 @@ pload('view.pSetupCreateView');
  */
 class pSetupController extends pController {
     
+    public function version(){
+        echo 'Packfire Framework ' . __PACKFIRE_VERSION__ . "\n";
+    }
+    
+    private function unitTest(){
+        system('phpunit --version');
+        chdir('test');
+        system('phpunit --bootstrap bootstrap.php -c configuration.xml .');
+    }
+    
+    public function cliUnitTest(){
+        $this->version();
+        echo "-----------------------------\n";
+        echo "Performing unit tests with ";
+        $this->unitTest();
+    }
+    
     private function installFramework(){
         $root = trim($this->params->get('root'));
         if($root && __PACKFIRE_ROOT__ != $root){
@@ -33,6 +50,8 @@ class pSetupController extends pController {
     }
     
     public function cliInstallFramework(){
+        $this->version();
+        echo "-----------------------------\n";
         $root = trim($this->params->get('root'));
         if($root){
             echo "Installing Packfire Framework to: \n";
@@ -66,6 +85,8 @@ class pSetupController extends pController {
     }
     
     public function cliCreateApplication(){
+        $this->version();
+        echo "-----------------------------\n";
         $root = trim($this->params->get('root'));
         echo "Creating a new Packfire application to: \n";
         echo "   "  . $root . "\n\n";
@@ -94,6 +115,7 @@ class pSetupController extends pController {
     }
     
     public function cliWelcome(){
+        $this->version();
         echo "-----------------------------\n";
         echo "\nVisit us at http://mauris.sg/packfire\n\n";
         echo "To use the setup:\n";

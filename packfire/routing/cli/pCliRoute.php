@@ -36,6 +36,13 @@ class pCliRoute implements IRoute {
     private $actual;
     
     /**
+     * The parameters remapping
+     * @var pMap
+     * @since 1.0-elenor
+     */
+    private $remap;
+    
+    /**
      * Create a new pCliRoute object
      * @param string $name The name of the route
      * @param array|pMap $data The data retrieved from the settings
@@ -45,24 +52,31 @@ class pCliRoute implements IRoute {
         $this->name = $name;
         $this->actual = $data->get('actual');
         $this->params = $data->get('params');
+        $this->remap = $data->get('remap');
     }
 
     /**
      * Check whether the route matches the request
-     * @param IAppRequest $request The request to check
+     * @param pCliAppRequest $request The request to check
      * @return boolean Returns true if the route matches the request, false
      *                      otherwise.
      * @since 1.0-elenor
      */
     public function match($request) {
         $ok = true;
+        $params = $request->params();
+        $this->remap($params);
         if($this->params){
             foreach($this->params as $key => $param){
-                $subject = $request->params()->get($key);
-                if(is_string($param)){
-                    $ok = preg_match('`' . $param . '`is', $subject);
+                if($params->keyExists($key)){
+                    $subject = $params->get($key);
+                    if(is_string($param)){
+                        $ok = preg_match('`' . $param . '`is', $subject);
+                    }else{
+                        $ok = $subject == $param;
+                    }
                 }else{
-                    $ok = $subject === $param;
+                    $ok = false;
                 }
                 if(!$ok){
                     break;
@@ -70,9 +84,26 @@ class pCliRoute implements IRoute {
             }
         }
         if($ok){
-            
+            $this->params = $params;
         }
         return $ok;
+    }
+    
+    /**
+     * Perform remapping of arguments
+     * @param pMap $params The parameters to be remapped
+     * @since 1.0-elenor
+     */
+    private function remap($params){
+        if($this->remap){
+            foreach($this->remap as $source => $target){
+                if($params->keyExists($source)){
+                    $value = $params->get($source);
+                    $params->removeAt($source);
+                    $params->add($target, $value);
+                }
+            }
+        }
     }
     
     /**
