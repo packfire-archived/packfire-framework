@@ -87,7 +87,8 @@ class pHttpApplication extends pServiceApplication {
             }
 
             if($route->name() == 'packfire.directControllerAccess'){
-                $response = $this->directAccessProcessor($request, $route, $response);
+                $caLoader = $this->directAccessProcessor($request, $route, $response);
+                $response = $caLoader->response();
             }else{
                 $caLoader = new pCALoader($class, $action, $request, $route, $response);
                 $caLoader->copyBucket($this);
