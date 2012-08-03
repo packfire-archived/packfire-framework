@@ -61,7 +61,7 @@ class pHttpApplication extends pServiceApplication {
         $router->load();
         /* @var $route pRoute */
         $route = null;
-        if($this->service('config.app')->get('routing', 'caching') && $this->service('cache')){
+        if($this->service('config.app') && $this->service('config.app')->get('routing', 'caching') && $this->service('cache')){
             $cache = $this->service('cache');
             $id = 'route.' . $request->uri() . $request->method() . $request->queryString() . sha1(json_encode($request->post()->toArray()));
             if($cache->check($id)){

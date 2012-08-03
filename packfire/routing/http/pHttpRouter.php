@@ -29,7 +29,9 @@ class pHttpRouter extends pRouter {
      */
     public function load(){
         parent::load();
-        $this->enabled = $this->service('config.app')->get('routing', 'enabled');
+        if($this->service('config.app')){
+            $this->enabled = $this->service('config.app')->get('routing', 'enabled');
+        }
         $config = new pMap(array(
             'rewrite' => '/{class}/{action}',
             'actual' => 'directControllerAccessRoute',
