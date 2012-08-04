@@ -34,7 +34,7 @@ class pEventHandlerTest extends PHPUnit_Framework_TestCase {
      * @covers pEventHandler::trigger
      */
     public function testCombined() {
-        $this->object->on('click', function($obj, $arg){
+        $this->object->on('click', function($obj, $arg = null){
             $obj->assertNull($arg);
             $obj->assertInstanceOf('PHPUnit_Framework_TestCase', $obj);
         });

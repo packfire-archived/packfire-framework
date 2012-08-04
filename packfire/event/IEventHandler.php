@@ -1,4 +1,5 @@
 <?php
+pload('IEventWatchable');
 
 /**
  * IEventHandler interface
@@ -11,16 +12,7 @@
  * @package packfire.event
  * @since 1.0-elenor
  */
-interface IEventHandler {
-    
-    /**
-     * Bind an event listener to an event of the class
-     * @param string $event The name of the event
-     * @param IObserver|Closure|callback $listener The function, method or
-     *              observer to listen to this event
-     * @since 1.0-elenor
-     */
-    public function on($event, $listener);
+interface IEventHandler extends IEventWatchable {
     
     /**
      * Trigger an event in this handler

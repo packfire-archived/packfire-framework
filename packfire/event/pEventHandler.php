@@ -31,7 +31,7 @@ class pEventHandler implements IEventHandler {
     private $listener;
     
     /**
-     * Create a new pObservableEvent object
+     * Create a new pEventHandler object
      * @param object $listener The event listener holding this handler
      * @since 1.0-elenor
      */
@@ -65,7 +65,7 @@ class pEventHandler implements IEventHandler {
      */
     public function trigger($event, $args = null){
         if(array_key_exists($event, $this->events)){
-            if(func_num_args() == 1){
+            if(func_num_args() == 2){
                 $this->events[$event]->notify($args);
             }else{
                 $this->events[$event]->notify();
