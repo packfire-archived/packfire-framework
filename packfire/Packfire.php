@@ -31,7 +31,7 @@ if(!defined('__APP_ROOT__')){
  * Packfire Framework's current version
  * @since 1.0-sofia 
  */
-define('__PACKFIRE_VERSION__', '1.0-elenor');
+define('__PACKFIRE_VERSION__', '1.1-sofia');
 
 // load the helper file
 require(__PACKFIRE_ROOT__ . 'helper.php');
