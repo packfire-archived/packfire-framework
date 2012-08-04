@@ -1,6 +1,6 @@
 <?php
 pload('IDbModel');
-pload('packfire.pModel');
+pload('packfire.model.pModel');
 pload('packfire.collection.pMap');
 
 /**
