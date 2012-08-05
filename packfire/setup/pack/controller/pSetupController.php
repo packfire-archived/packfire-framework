@@ -106,7 +106,7 @@ class pSetupController extends pController {
                 echo "Error: Setup could not locate Packfire Framework installed at that location.\n\n";
             }
         }
-
+        $this->params->add('packfire', $framework);
         echo "Setting Framework to " . $framework . "\n\n";
         echo "Copying files... ";
         $this->createApplication();

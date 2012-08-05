@@ -108,7 +108,9 @@ abstract class pController extends pBucketUser {
         $this->errors = new pMap();
         $this->models = new pMap();
         
-        $this->params = $this->request->params();
+        if($request){
+            $this->params = $this->request->params();
+        }
     }
     
     /**
@@ -397,7 +399,10 @@ abstract class pController extends pBucketUser {
         if(method_exists($this, $call)){
             // call the controller action
             $this->activate($call);
-            $this->$call();
+            $result = $this->$call();
+            if($result instanceof IAppResponse){
+                $this->response = $result;
+            }
             $this->postProcess();
             $this->deactivate($call);
         }else{
