@@ -45,7 +45,7 @@ class pMySqlConnector extends pPdoConnector {
      */
     public function database(){
         $database = new pMySqlDatabase($this);
-        if($this->config['dbname']){
+        if(array_key_exists('dbname', $this->config) && $this->config['dbname']){
             $database = $database->select($this->config['dbname']);
         }
         return $database;

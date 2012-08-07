@@ -43,8 +43,13 @@ abstract class pPdoConnector extends pBucketUser implements IDbConnector {
         $this->config = $config;
         $username = $config['user'];
         $password = $config['password'];
-        $dsn = sprintf('%s:host=%s;dbname=%s', $config['driver'], $config['host'], $config['dbname']);
-        unset($config['host'], $config['driver'], $config['dbname'], $config['user'], $config['password']);
+        if(array_key_exists('dbname', $config) && $config['dbname']){
+            $dsn = sprintf('%s:host=%s;dbname=%s', $config['driver'], $config['host'], $config['dbname']);
+            unset($config['dbname']);
+        }else{
+            $dsn = sprintf('%s:host=%s', $config['driver'], $config['host']);
+        }
+        unset($config['host'], $config['driver'], $config['user'], $config['password']);
         $this->pdo = new PDO($dsn, $username, $password, $config);
     }
     
