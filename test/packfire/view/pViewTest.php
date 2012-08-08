@@ -27,12 +27,12 @@ class pViewTest extends PHPUnit_Framework_TestCase {
         $this->object = new tMockView();
         $services = new pServiceBucket();
         $this->object->setBucket($services);
-        
+
         $router = new pHttpRouter();
         $configData = new pMap(array('rewrite' => '/home', 'actual' => 'Rest'));
         $router->add('home', new pHttpRoute('home', $configData));
         $services->put('router', $router);
-        
+
         $mockConfig = new tMockConfig();
         $services->put('config.app', $mockConfig);
     }
@@ -50,8 +50,8 @@ class pViewTest extends PHPUnit_Framework_TestCase {
      */
     public function testCreate() {
         $this->object->state(new pMap(array('tag' => 'five  ')));
-        $this->object->using(new pTemplate('data: {tag} route: {route}'));
-        $this->assertEquals('data: five route: http://example.com/test/home', $this->object->render());
+        $this->object->using(new pTemplate('data: {tag} route: {route} {binder}'));
+        $this->assertEquals('data: five route: http://example.com/test/home test2', $this->object->render());
     }
 
 }
