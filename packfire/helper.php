@@ -44,3 +44,19 @@ function using($func){
         return $func();
     }
 }
+
+/**
+ * Elaborate the data type of a variable
+ * @param mixed $var The variable to elaborate
+ * @return string Returns the elaborated data type of the variable
+ * @since 1.1-sofia
+ */
+function dtype($var){
+    $result = gettype($var);
+    if($result == 'object'){
+        $result = get_class($var) . '/' . spl_object_hash($var);
+    }elseif($result == 'resource'){
+        $result = 'resource/' . get_resource_type($var) . '/' . intval($var);
+    }
+    return $result;
+}
