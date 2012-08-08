@@ -1,5 +1,6 @@
 <?php
 pload('packfire.view.pView');
+require_once('mocks/tSampleModel.php');
 
 /**
  * tMockView class
@@ -21,6 +22,9 @@ class tMockView extends pView {
             $this->define($key, $value);
             $this->filter($key, 'trim');
         }
+        $object = new pObjectObserver(new tSampleModel());
+        $this->bind('binder', $object, 'title');
+        $object->title = 'test2';
         $this->define('route', $this->route('home'));
     }
 

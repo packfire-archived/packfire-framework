@@ -4,6 +4,7 @@ pload('packfire.collection.pList');
 pload('packfire.collection.pMap');
 pload('packfire.filter.IFilter');
 pload('packfire.template.pTemplate');
+pload('packfire.model.pObjectObserver');
 
 /**
  * The generic view class.
@@ -68,7 +69,7 @@ abstract class pView extends pBucketUser implements IView {
      * @return mixed Returns the current value set at $key if $value is not set.
      * @since 1.0-sofia
      */
-    protected function define($key, $value = null){
+    public function define($key, $value = null){
         if(func_num_args() == 1){
             if(is_string($key)){
                 return $this->fields[$key];
@@ -77,6 +78,33 @@ abstract class pView extends pBucketUser implements IView {
             }
         }else{
             $this->fields[$key] = $value;
+        }
+    }
+    
+    /**
+     * Bind a object property to a template field.
+     * As the object property gets updated, the template field gets updated too.
+     * 
+     * @param string $key The template field to bind to
+     * @param pObjectObserver $object The object to be binded
+     * @param string $property The property of the object to bind to the
+     *                  template field.
+     * @since 1.1-sofia
+     */
+    public function bind($key, $object, $property){
+        if($object instanceof pObjectObserver){
+            $view = $this;
+            $object->on('change', function($src, $eventArgs) use ($view, $key, $property) {
+                if($eventArgs[0] == $property){
+                    $view->define($key, $eventArgs[1]);
+                }
+            });
+        }else{
+            throw new pInvalidArgumentException(
+                    sprintf('pView::bind() expects'
+                        . ' parameter 2 to be an instance of pObjectObserver,'
+                        . ' %s given instead.', dtype($object))
+                    );
         }
     }
     

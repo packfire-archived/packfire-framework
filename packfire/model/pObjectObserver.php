@@ -1,5 +1,6 @@
 <?php
 pload('packfire.event.IEventWatchable');
+pload('packfire.event.pEventHandler');
 
 /**
  * pModelWatcher class
@@ -12,7 +13,7 @@ pload('packfire.event.IEventWatchable');
  * @package packfire.model
  * @since 1.1-sofia
  */
-class pModelWatcher implements IEventWatchable {
+class pObjectObserver implements IEventWatchable {
     
     /**
      * The event handler
