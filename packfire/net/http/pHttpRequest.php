@@ -266,6 +266,7 @@ class pHttpRequest {
     /**
      * Get this request's query string
      * @return string Returns the query string
+     * @since 1.0-sofia
      */
     public function queryString() {
         return http_build_query($this->get()->toArray(), '', '&');
@@ -274,6 +275,7 @@ class pHttpRequest {
     /**
      * Returns the full URL of this request
      * @return pUrl Returns the URL
+     * @since 1.0-sofia
      */
     public function url(){
         $u = new pUrl();
