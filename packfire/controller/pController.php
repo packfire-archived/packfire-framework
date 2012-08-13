@@ -8,6 +8,7 @@ pload('packfire.ioc.pBucketUser');
 pload('packfire.exception.pHttpException');
 pload('packfire.exception.pAuthenticationException');
 pload('packfire.exception.pAuthorizationException');
+pload('packfire..net.http.pHttpRequest');
 
 /**
  * The generic controller class
@@ -415,11 +416,30 @@ abstract class pController extends pBucketUser {
     }
     
     /**
-     * Get a copy of the controller's parameters.
-     * @return pMap Returns a pMap containing the parameters
+     * Get the controller's parameters.
+     * @return pMap Returns pMap containing the parameters
+     * @since 1.0-sofia
      */
     public function params(){
         return $this->params;
+    }
+    
+    /**
+     * Get or set a parameter of the controller's parameters
+     * 
+     * It's a candy for $this->params->get() instead
+     * 
+     * @param string $key The parameter key
+     * @param mixed $value (optional) If set, the parameter will be set to
+     *                      this value.
+     * @return mixed Returns the parameter value or NULL if parameter is not set.
+     * @since 1.1-sofia
+     */
+    public function param($key, $value = null){
+        if(func_num_args() == 2){
+            $this->params->add($key, $value);
+        }
+        return $this->params->get($key);
     }
     
     /**
