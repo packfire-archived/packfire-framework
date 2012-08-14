@@ -72,14 +72,30 @@ class pMySqlLinqJoin implements IMySqlLinqQuery {
      * @since 1.0-sofia
      */
     public function create(){
+        $regex = new pRegex('`^\s*(.+)\s+as\s+(.+)\s*$`is');
+        
+        $source = $this->source;
+        $sourceAlias = $source;
+        $sourceMatches = $regex->match($source);
+        if($sourceMatches->count()){
+            $sourceAlias = $sourceMatches[2]->match();
+        }
+        
+        $target = $this->target;
+        $targetAlias = $target;
+        $targetMatches = $regex->match($target);
+        if($targetMatches->count()){
+            $targetAlias = $targetMatches[2]->match();
+        }
+        
         $join = '';
         if($this->selector){
             $join .= $this->selector .' ';
         }
-        $join .= 'JOIN ' . $this->source . ' ON ';
-        $join .= $this->target . '.' . $this->innerKey;
+        $join .= 'JOIN ' . $source . ' ON ';
+        $join .= $targetAlias . '.' . $this->innerKey;
         $join .= ' = ';
-        $join .= $this->source . '.' . $this->outerKey;
+        $join .= $sourceAlias . '.' . $this->outerKey;
         
         return $join;
     }
