@@ -162,14 +162,23 @@ abstract class pController extends pBucketUser {
     
     /**
      * Forward the request to another controller
-     * @param string|pController $package Package of the controller to load
+     * @param string|pController $package The controller to run the action
      * @param string $action (optional) The action to execute
+     * @param array|pMap (optional) The parameters to send to the action
+     * @return mixed Returns whatever the action's response is.
      * @since 1.0-sofia
      */
-    protected function forward($package, $action = null){
-        
-        if($package == $this && $action != null){
+    protected function forward($package, $action = null, $params = null){        
+        if($package == $this){
+            $origParams = $this->params;
+            $origResponse = $this->response;
+            if($params){
+                $this->params = $params;
+            }
             $this->run($this->route, $action);
+            return $this->response;
+            $this->params = $origParams;
+            $this->response = $origResponse;
         }else{
             list($package, $class) = pClassLoader::resolvePackageClass($package);
             if(substr($class, -11) != 'Controller'){
@@ -184,10 +193,10 @@ abstract class pController extends pBucketUser {
             if(is_subclass_of($class, 'pController')){
                 $controller = new $class($this->request, $this->response);
                 $controller->state = $this->state;
-                $controller->setBucket($this->services);
+                $controller->copyBucket($this);
                 $controller->run($this->route, $action);
                 $this->state = $controller->state;
-                $this->response = $controller->response();
+                return $controller->response;
             }
         }
     }
@@ -247,8 +256,8 @@ abstract class pController extends pBucketUser {
             }
         }
         if(is_array($filter) || $filter instanceof IList){
-            foreach($filter as $f){
-                $this->filter($name, $f, $message);
+            foreach($filter as $fil){
+                $this->filter($name, $fil, $message);
             }
         }else{
             $value = $this->params[$name];
@@ -345,9 +354,10 @@ abstract class pController extends pBucketUser {
     }
     
     /**
-     * Run the controller with the route
+     * Run the controller action with the route
      * @param pRoute $route The route that called for this controller
      * @param string $action The action to perform
+     * @return mixed Returns the result of the action
      * @since 1.0-sofia
      */
     public function run($route, $action){
@@ -401,7 +411,7 @@ abstract class pController extends pBucketUser {
             // call the controller action
             $this->activate($call);
             $result = $this->$call();
-            if($result instanceof IAppResponse){
+            if($result){
                 $this->response = $result;
             }
             $this->postProcess();
@@ -413,6 +423,7 @@ abstract class pController extends pBucketUser {
                 throw new pInvalidRequestException('The action is not found in the controller.');
             }
         }
+        return $this->response;
     }
     
     /**
