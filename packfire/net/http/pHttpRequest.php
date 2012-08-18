@@ -21,69 +21,69 @@ class pHttpRequest {
      * @var string
      * @since 1.0-sofia
      */
-    private $method;
+    protected $method;
 
     /**
      * The requested path / URI e.g. /example/path/to/file.php
      * @var string
      * @since 1.0-sofia
      */
-    private $uri;
+    protected $uri;
 
     /**
      * The HTTP version called upon e.g. HTTP/1.0 or HTTP/1.1
      * @var string
      * @since 1.0-sofia
      */
-    private $version;
+    protected $version;
 
     /**
      * Body of the Request
      * @var IInputStream
      * @since 1.0-sofia
      */
-    private $body;
+    protected $body;
 
     /**
      * DateTime the request was made
      * @var pDateTime
      */
-    private $time;
+    protected $time;
 
     /**
      * An array of the HTTP headers in the HTTP Response
      * @var pMap
      * @since 1.0-sofia
      */
-    private $headers;
+    protected $headers;
 
     /**
      * Whether the request is via HTTPS or not
      * @var boolean
      * @since 1.0-sofia
      */
-    private $https;
+    protected $https;
 
     /**
      * Cookies pertaining to this request
      * @var pMap
      * @since 1.0-sofia
      */
-    private $cookies;
+    protected $cookies;
 
     /**
      * An array of POST data related to this request
      * @var pMap
      * @since 1.0-sofia
      */
-    private $post;
+    protected $post;
 
     /**
      * An array of GET data related to this request
      * @var pMap
      * @since 1.0-sofia
      */
-    private $get;
+    protected $get;
     
     /**
      * Create the pHttpRequest object

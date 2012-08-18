@@ -22,35 +22,35 @@ class pHttpResponse {
      * @var string
      * @since 1.0-sofia
      */
-    private $version = pHttpVersion::HTTP_1_1;
+    protected $version = pHttpVersion::HTTP_1_1;
 
     /**
      * The HTTP Status-Code of the Status-Line in the HTTP response
      * @var string
      * @since 1.0-sofia
      */
-    private $code = pHttpResponseCode::HTTP_200;
+    protected $code = pHttpResponseCode::HTTP_200;
 
     /**
      * Body of the HTTP Response
      * @var string
      * @since 1.0-sofia
      */
-    private $body = '';
+    protected $body = '';
 
     /**
      * An array of the HTTP headers in the HTTP Response
      * @var pMap
      * @since 1.0-sofia
      */
-    private $headers;
+    protected $headers;
 
     /**
      * Cookies to be sent to the client
      * @var pMap
      * @since 1.0-sofia
      */
-    private $cookies;
+    protected $cookies;
     
     /**
      * Create a new pHttpResponse object 
