@@ -1,5 +1,5 @@
 <?php
-pload('packfire.application.http.pHttpAppResponse');
+pload('packfire.net.http.pHttpResponse');
 
 /**
  * pOAuthTokenResponse class
@@ -12,47 +12,49 @@ pload('packfire.application.http.pHttpAppResponse');
  * @license http://www.opensource.org/licenses/bsd-license New BSD Licenseh.response
  * @since 1.1-sofia
  */
-class pOAuthTokenResponse extends pHttpAppResponse {
-    
-    /**
-     * The response token
-     * @var string
-     * @since 1.1-sofia
-     */
-    private $token;
-    
-    /**
-     * The token secret
-     * @var string
-     * @since 1.1-sofia
-     */
-    private $tokenSecret;
-    
-    /**
-     * Get or set response token
-     * @param string $token (optional) Set the token
-     * @return string Returns the token
-     * @since 1.1-sofia
-     */
-    public function token($token = null){
-        if(func_num_args() == 1){
-            $this->token = $token;
-        }
-        return $this->token;
-    }
+class pOAuthResponse extends pHttpResponse {
 
     /**
-     * Get or set response token secret
-     * @param string $tokenSecret (optional) Set the token secret
-     * @return string Returns the token secret
+     * The OAuth parameters
+     * @var pMap
      * @since 1.1-sofia
      */
-    public function tokenSecret($tokenSecret = null){
-        if(func_num_args() == 1){
-            $this->tokenSecret = $tokenSecret;
-        }
-        return $this->tokenSecret;
+    private $oauthParams;
+    
+    /**
+     * Create a new pOAuthResponse object
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->oauthParams = new pMap();
     }
-
+    
+    /**
+     * Get or set the OAuth parameters
+     * @param string $key The OAuth parameter key
+     * @param string $value (optional) If set, this value will be set to the key.
+     * @return string Returns the value of the OAuth parameter if $value is not set.
+     * @since 1.1-sofia
+     */
+    public function oauth($key, $value = null){
+        if(func_num_args() == 2){
+            $this->oauthParams->add($key, $value);
+        }else{
+            return $this->oauthParams->get($key);
+        }
+    }
+    
+    /**
+     * Get or set the body of the OAuth response
+     * @param string $body (optional) If set, the new value will be set.
+     * @return string Returns the body response
+     * @since 1.1-sofia
+     */
+    public function body($body = null){
+        if(func_num_args() == 1){
+            $this->oauthParams->append(parse_str($body));
+        }
+        return http_build_query($this->oauthParams->toArray(), '', '&', 'PHP_QUERY_RFC3986');
+    }
     
 }

@@ -12,7 +12,7 @@ pload('packfire.net.http.pHttpRequest');
  * @package packfire.oauth.request
  * @since 1.1-sofia
  */
-abstract class pOAuthRequest extends pHttpRequest {
+class pOAuthRequest extends pHttpRequest {
     
     /**
      * The OAuth parameters
