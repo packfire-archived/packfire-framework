@@ -15,46 +15,25 @@ pload('packfire.application.http.pHttpAppRequest');
 abstract class pOAuthRequest extends pHttpAppRequest {
     
     /**
-     * The request consumer key
-     * @var string
+     * The OAuth parameters
+     * @var pMap
      * @since 1.1-sofia
      */
-    private $consumerKey;
+    private $oauthParams;
     
-    /**
-     * The signature method to use
-     * @var string
-     * @since 1.1-sofia
-     */
-    private $signatureMethod;
+    public function __construct($client, $server) {
+        parent::__construct($client, $server);
+        $this->oauthParams = new pMap();
+        $this->oauthParams->add(pOAuth::VERSION, '1.0')
+    }
     
-    /**
-     * The signature of the request
-     * @var string
-     * @since 1.1-sofia
-     */
-    private $signature;
-    
-    /**
-     * Timestamp of the request
-     * @var string
-     * @since 1.1-sofia
-     */
-    private $timestamp;
-    
-    /**
-     * Nonce of the request
-     * @var string
-     * @since 1.1-sofia
-     */
-    private $nonce;
-    
-    /**
-     * The OAuth version
-     * @var string
-     * @since 1.1-sofia
-     */
-    private $version;
+    public function oauth($key, $value = null){
+        if(func_num_args() == 2){
+            return $this->oauthParams->add($key, $value);
+        }else{
+            return $this->oauthParams->get($key);
+        }
+    }
     
     /**
      * Get the base signature of the request
@@ -100,83 +79,6 @@ abstract class pOAuthRequest extends pHttpAppRequest {
         }
 
         return http_build_query($params);
-    }
-
-    /**
-     * Get or set the consumer key of the request
-     * @param string $key (optional) Set the consumer key
-     * @return string Returns the consumer key
-     * @since 1.1-sofia
-     */
-    public function consumerKey($key = null){
-        if(func_num_args() == 1){
-            $this->consumerKey = $key;
-        }
-        return $this->consumerKey;
-    }
-
-    /**
-     * Get or set the nonce value
-     * @param string $key (optional) Set the nonce value
-     * @return string Returns the nonce value
-     * @since 1.1-sofia
-     */
-    public function nonce($nonce = null){
-        if(func_num_args() == 1){
-            $this->nonce = $nonce;
-        }
-        return $this->nonce;
-    }
-    /**
-     * Get or set the signature of the request
-     * @param string $key (optional) Set the signature
-     * @return string Returns the signature
-     * @since 1.1-sofia
-     */
-    public function signature($signature = null){
-        if(func_num_args() == 1){
-            $this->signature = $signature;
-        }
-        return $this->signature;
-    }
-    
-    /**
-     * Get or set the signing method
-     * @param string $key (optional) Set the signing method
-     * @return string Returns the signing method
-     * @since 1.1-sofia
-     */
-    public function signatureMethod($method = null){
-        if(func_num_args() == 1){
-            $this->signatureMethod = $method;
-        }
-        return $this->signatureMethod;
-    }
-    
-    /**
-     * Get or set the request timestamp
-     * @param string $key (optional) Set the timestamp
-     * @return string Returns the timestamp
-     * @since 1.1-sofia
-     */
-    public function timestamp($timestamp = null){
-        if(func_num_args() == 1){
-            $this->timestamp = $timestamp;
-        }
-        return $this->timestamp;
-    }
-    
-    /**
-     * Get or set the request OAuth version
-     * @param string $key (optional) Set the OAuth version
-     * @return string Returns the OAuth version
-     * @since 1.1-sofia
-     */
-    public function version($version = null){
-        if(func_num_args() == 1){
-            $this->version = $version;
-        }
-        return $this->version;
     }
     
 }
