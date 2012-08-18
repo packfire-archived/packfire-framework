@@ -14,6 +14,11 @@ pload('packfire.oauth.http.pOAuthRequest');
  */
 class pOAuthAccessTokenRequest extends pOAuthRequest { 
     
+    /**
+     * The request token granted by the service provider
+     * @var string
+     * @since 1.1-sofia
+     */
     private $token;
     
     /**

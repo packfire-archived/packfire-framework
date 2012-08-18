@@ -2,17 +2,17 @@
 pload('packfire.application.http.pHttpAppResponse');
 
 /**
- * pOAuthResponse class
+ * pOAuthTokenResponse class
  * 
- * OAuth Response
+ * OAuth Response for any token requests
  *
+ * @package packfire.oaut
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
- * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.oauth.response
+ * @license http://www.opensource.org/licenses/bsd-license New BSD Licenseh.response
  * @since 1.1-sofia
  */
-abstract class pOAuthResponse extends pHttpAppResponse {
+class pOAuthTokenResponse extends pHttpAppResponse {
     
     /**
      * The response token

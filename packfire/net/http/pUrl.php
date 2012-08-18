@@ -74,7 +74,7 @@ class pUrl {
      * @param string $url (optional) Create the URL object based on a URL string
      * @since 1.0-sofia
      */
-    public function __construct($url = false){
+    public function __construct($url = null){
         if(func_num_args() == 1){
             $parts = parse_url($url);
             foreach($parts as $k => $v){

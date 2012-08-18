@@ -14,6 +14,24 @@ pload('packfire.oauth.http.pOAuthRequest');
  */
 class pOAuthRequestTokenRequest extends pOAuthRequest {
     
+    /**
+     * The callback URL to send the user back in Step D
+     * @var string
+     * @since 1.1-sofia
+     */
+    private $callback;
     
+    /**
+     * Get or set the callback URL to send the user back in Step D
+     * @param string $key (optional) Set the Access Token
+     * @return string Returns the Access Token
+     * @since 1.1-sofia
+     */
+    public function callback($callback = null){
+        if(func_num_args() == 1){
+            $this->callback = $callback;
+        }
+        return $this->callback;
+    }
     
 }
