@@ -98,19 +98,17 @@ class pHttpRequest {
     /**
      * Parse the string format of the HTTP request into this object
      * @param string $strRequest The string to be parsed
-     * @return pHttpRequest Returns the request object
      * @since 1.0-sofia
      */
-    public static function parse($strRequest){
+    public function parse($strRequest){
         $strRequest = pNewline::neutralize($strRequest);
         $lines = explode(pNewline::UNIX, $strRequest);
-        $request = new self();
         if(count($lines) > 0){
             $requestLine = $lines[0];
             list($method, $uri, $version) = explode(' ', $requestLine);
-            $request->method(trim($method));
-            $request->uri(trim($uri));
-            $request->version(trim($version));
+            $this->method(trim($method));
+            $this->uri(trim($uri));
+            $this->version(trim($version));
             unset($lines[0]);
             $body = null;
             foreach($lines as $line){
@@ -120,10 +118,10 @@ class pHttpRequest {
                         if($separator){
                             $key = trim(substr($line, 0, $separator));
                             $value = trim(substr($line, $separator + 1));
-                            if($request->headers()->keyExists($key)){
-                                $request->headers()->get($key)->add(new pList(array($value)));
+                            if($this->headers()->keyExists($key)){
+                                $this->headers()->get($key)->add(new pList(array($value)));
                             }else{
-                                $request->headers()->add($key, new pList(array($value)));
+                                $this->headers()->add($key, new pList(array($value)));
                             }
                         }
                     }else{
@@ -134,10 +132,9 @@ class pHttpRequest {
                 }
             }
             if($body !== null){
-                $request->body(new pTextStream($body));
+                $this->body(new pTextStream($body));
             }
         }
-        return $request;
     }
 
     /**

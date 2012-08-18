@@ -62,26 +62,24 @@ class pHttpResponse {
     }
     
     /**
-     * Parse a HTTP response string into a pHttpResponse object
+     * Parse a HTTP response string into this object
      * @param string $strResponse The response to parse
-     * @return pHttpResponse Returns the pHttpResponse object
      * @throws pParseException
      * @since 1.0-sofia
      */
-    public static function parse($strResponse){
+    public function parse($strResponse){
         $strResponse = pNewline::neutralize($strResponse);
         $lines = explode(pNewline::UNIX, $strResponse);
-        $response = new self();
         if(count($lines) > 0){
             $statusLine = $lines[0];
             $sp = strpos($statusLine, ' ');
             if($sp === false){
                 throw new pParseException(
-                        sprintf('Failed to parse HTTP response')
+                        'Failed to parse HTTP version and code in response'
                     );
             }else{
-                $response->version(trim(substr($statusLine, 0, $sp)));
-                $response->code(trim(substr($statusLine, $sp + 1)));
+                $this->version(trim(substr($statusLine, 0, $sp)));
+                $this->code(trim(substr($statusLine, $sp + 1)));
             }
             unset($lines[0]);
             
@@ -94,10 +92,10 @@ class pHttpResponse {
                         if($separator !== false){
                             $key = trim(substr($line, 0, $separator));
                             $value = trim(substr($line, $separator + 1));
-                            if($response->headers()->keyExists($key)){
-                                $response->headers()->get($key)->add(new pList(array($value)));
+                            if($this->headers()->keyExists($key)){
+                                $this->headers()->get($key)->add(new pList(array($value)));
                             }else{
-                                $response->headers()->add($key, new pList(array($value)));
+                                $this->headers()->add($key, new pList(array($value)));
                             }
                         }
                     }else{
@@ -110,9 +108,8 @@ class pHttpResponse {
             if($body === null){
                 $body = '';
             }
-            $response->body($body);
+            $this->body($body);
         }
-        return $response;
     }
     
     /**
