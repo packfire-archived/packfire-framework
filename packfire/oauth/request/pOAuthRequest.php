@@ -1,5 +1,5 @@
 <?php
-pload('packfire.application.http.pHttpAppRequest');
+pload('packfire.net.http.pHttpRequest');
 
 /**
  * pOAuthRequest class
@@ -12,7 +12,7 @@ pload('packfire.application.http.pHttpAppRequest');
  * @package packfire.oauth.request
  * @since 1.1-sofia
  */
-abstract class pOAuthRequest extends pHttpAppRequest {
+abstract class pOAuthRequest extends pHttpRequest {
     
     /**
      * The OAuth parameters
@@ -21,17 +21,62 @@ abstract class pOAuthRequest extends pHttpAppRequest {
      */
     private $oauthParams;
     
-    public function __construct($client, $server) {
-        parent::__construct($client, $server);
+    /**
+     * Create a new pOAuthRequest object
+     * @since 1.1-sofia
+     */
+    public function __construct() {
+        parent::__construct();
         $this->oauthParams = new pMap();
-        $this->oauthParams->add(pOAuth::VERSION, '1.0')
+        $this->oauthParams->add(pOAuth::VERSION, '1.0');
     }
     
+    /**
+     * Get or set the OAuth parameters
+     * @param string $key The OAuth parameter key
+     * @param string $value (optional) If set, this value will be set to the key.
+     * @return string Returns the value of the OAuth parameter if $value is not set.
+     * @since 1.1-sofia
+     */
     public function oauth($key, $value = null){
         if(func_num_args() == 2){
-            return $this->oauthParams->add($key, $value);
+            $this->oauthParams->add($key, $value);
         }else{
             return $this->oauthParams->get($key);
+        }
+    }
+    
+    /**
+     * Parse the string format of the HTTP request into this object
+     * @param string $strRequest The string to be parsed
+     * @since 1.1-sofia
+     */
+    public function parse($strRequest) {
+        parent::parse($strRequest);
+        
+        foreach($this->get() as $key => $value){
+            if(substr($key, 0, 6) == 'oauth_'){
+                $this->oauthParams->add($key, $value);
+            }
+        }
+        if($this->method() == pHttpMethod::POST){
+            foreach($this->post() as $key => $value){
+                if(substr($key, 0, 6) == 'oauth_'){
+                    $this->oauthParams->add($key, $value);
+                }
+            }
+        }
+        
+        $authHeader = $this->headers()->get('Authorization');
+        if(substr($authHeader, 0, 6) == 'OAuth '){
+            $params = array();
+            $matches = array();
+            if (preg_match_all('/(oauth_[a-z_-]*)=(:?"([^"]*)"|([^,]*))/', $authHeader, $matches)) {
+                foreach ($matches[1] as $i => $h) {
+                    $params[$h] = urldecode(empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]);
+                }
+            }
+            $this->oauthParams->append($params);
         }
     }
     
@@ -58,9 +103,9 @@ abstract class pOAuthRequest extends pHttpAppRequest {
      */
     public function method($m = null){
         if(func_num_args() == 1){
-            $this->method = $m;
+            parent::method($m);
         }
-        return strtoupper($this->method);
+        return strtoupper(parent::method());
     }
     
     /**
