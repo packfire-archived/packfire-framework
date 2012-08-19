@@ -73,7 +73,7 @@ class pOAuthRequest extends pHttpRequest {
             $matches = array();
             if (preg_match_all('/(oauth_[a-z_-]*)=(:?"([^"]*)"|([^,]*))/', $authHeader, $matches)) {
                 foreach ($matches[1] as $i => $h) {
-                    $params[$h] = urldecode(empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]);
+                    $params[$h] = pOAuthHelper::urldecode(empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]);
                 }
             }
             $this->oauthParams->append($params);
@@ -85,7 +85,7 @@ class pOAuthRequest extends pHttpRequest {
      * @return string Returns the generated base signature
      * @since 1.1-sofia
      */
-    public function baseSignature(){
+    public function signatureBase(){
         $parts = pOAuthHelper::urlencode(array(
           $this->method(),
           (string)$this->url(),
@@ -115,15 +115,19 @@ class pOAuthRequest extends pHttpRequest {
      */
     protected function signableParameters() {
         // Grab all parameters
-        $params = $this->params();
+        $params = new pMap($this->get());
+        
+        if(!$this->method() == pHttpMethod::POST){
+            $params->append($this->post());
+        }
 
         // Remove oauth_signature if present
         // Ref: Spec: 9.1.1 ("The oauth_signature parameter MUST be excluded.")
         if ($params->keyExists('oauth_signature')) {
           $params->removeAt('oauth_signature');
         }
-
-        return http_build_query($params);
+        
+        return http_build_query(ksort($params->toArray()), '', '&', PHP_QUERY_RFC3986);
     }
     
 }
