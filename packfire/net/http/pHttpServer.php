@@ -44,10 +44,11 @@ class pHttpServer {
     /**
      * Perform a HTTP request to the server
      * @param pHttpRequest $request The request to send to the server
-     * @return pHttpResponse Returns the HTTP response pHttpResponse object
+     * @param pHttpResponse $response The response object to receive the response
+     * @return pHttpResponse Returns the response object
      * @since 1.0-sofia
      */
-    public function request($request){
+    public function request($request, $response = null){
         if(function_exists('curl_init')){
             // according to RFC 2616, the port number is required in the
             // Host header unless it is port 80.
@@ -85,8 +86,12 @@ class pHttpServer {
             
             //close connection
             curl_close($ch);
-
-            return pHttpResponse::parse($result);
+            
+            if(!$response){
+                $response = new pHttpResponse();
+            }
+            $response->parse($result);
+            return $response;
         }else{
             throw new pMissingDependencyException('CURL extension is required by pHttpServer but is not enabled.');
         }
