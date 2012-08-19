@@ -31,6 +31,13 @@ class pOAuthConsumer {
     private $secret;
     
     /**
+     * Last token secret returned by the service provider
+     * @var string
+     * @since 1.1-sofia
+     */
+    private $tokenSecret;
+    
+    /**
      * The callback URL for the consumer
      * @var string|pUrl
      * @since 1.1-sofia
@@ -101,13 +108,15 @@ class pOAuthConsumer {
         }
         $server = new pHttpServer($url->host(), $url->port());
         $request = $this->createRequest();
+        $request->get()->append($url->params());
         $request->headers()->add('Host',
                 $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
         $request->uri($url->path());
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
-        $request->sign($this->signatureMethod, $this);
+        $request->sign($this->signatureMethod, $this, $this->tokenSecret);
         $response = $server->request($request, new pOAuthResponse());
         /* @var $response pOAuthResponse */
+        $this->tokenSecret = $response->oauth(pOAuth::TOKEN_SECRET);
         return $response;
     }
     
@@ -117,14 +126,16 @@ class pOAuthConsumer {
         }
         $server = new pHttpServer($url->host(), $url->port());
         $request = $this->createRequest();
+        $request->get()->append($url->params());
         $request->headers()->add('Host',
                 $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
         $request->uri($url->path());
         $request->oauth(pOAuth::TOKEN, $requestToken);
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
-        $request->sign($this->signatureMethod, $this);
+        $request->sign($this->signatureMethod, $this, $this->tokenSecret);
         $response = $server->request($request, new pOAuthResponse());
         /* @var $response pOAuthResponse */
+        $this->tokenSecret = $response->oauth(pOAuth::TOKEN_SECRET);
         return $response;
     }
     
@@ -134,12 +145,13 @@ class pOAuthConsumer {
         }
         $server = new pHttpServer($url->host(), $url->port());
         $request = $this->createRequest();
+        $request->get()->append($url->params());
         $request->headers()->add('Host',
                 $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
         $request->uri($url->path());
         $request->oauth(pOAuth::TOKEN, $accessToken);
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
-        $request->sign($this->signatureMethod, $this);
+        $request->sign($this->signatureMethod, $this, $this->tokenSecret);
         $response = $server->request($request, new pOAuthResponse());
         /* @var $response pOAuthResponse */
         return $response;
