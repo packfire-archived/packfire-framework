@@ -52,10 +52,11 @@ class pOAuthResponse extends pHttpResponse {
      */
     public function body($body = null){
         if(func_num_args() == 1){
-            $this->oauthParams->append(parse_str($body));
+            $ouput = array();
+            parse_str(trim($body), $output);
+            $this->oauthParams->append($output);
         }
-        return http_build_query($this->oauthParams->toArray(),
-                '', '&', PHP_QUERY_RFC3986);
+        return pOAuthHelper::buildQuery($this->oauthParams);
     }
-    
+
 }

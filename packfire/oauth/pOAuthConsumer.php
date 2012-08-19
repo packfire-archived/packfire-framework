@@ -1,4 +1,9 @@
 <?php
+pload('packfire.net.http.pHttpServer');
+pload('pOAuth');
+pload('pOAuthRequest');
+pload('pOAuthHelper');
+pload('pOAuthResponse');
 
 /**
  * pOAuthConsumer class
@@ -84,6 +89,7 @@ class pOAuthConsumer {
     
     private function createRequest(){
         $request = new pOAuthRequest();
+        $request->method('GET');
         $request->oauth(pOAuth::CONSUMER_KEY, $this->key);
         $request->oauth(pOAuth::VERSION, '1.0');
         return $request;
@@ -95,6 +101,9 @@ class pOAuthConsumer {
         }
         $server = new pHttpServer($url->host(), $url->port());
         $request = $this->createRequest();
+        $request->headers()->add('Host',
+                $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
+        $request->uri($url->path());
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this);
         $response = $server->request($request, new pOAuthResponse());
@@ -108,6 +117,9 @@ class pOAuthConsumer {
         }
         $server = new pHttpServer($url->host(), $url->port());
         $request = $this->createRequest();
+        $request->headers()->add('Host',
+                $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
+        $request->uri($url->path());
         $request->oauth(pOAuth::TOKEN, $requestToken);
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this);
@@ -122,6 +134,9 @@ class pOAuthConsumer {
         }
         $server = new pHttpServer($url->host(), $url->port());
         $request = $this->createRequest();
+        $request->headers()->add('Host',
+                $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
+        $request->uri($url->path());
         $request->oauth(pOAuth::TOKEN, $accessToken);
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this);

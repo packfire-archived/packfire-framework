@@ -1,5 +1,9 @@
 <?php
 pload('packfire.net.http.pHttpRequest');
+pload('packfire.net.http.pHttpMethod');
+pload('pOAuth');
+pload('pOAuthHelper');
+pload('pOAuthSignature');
 
 /**
  * pOAuthRequest class
@@ -54,29 +58,38 @@ class pOAuthRequest extends pHttpRequest {
     public function parse($strRequest) {
         parent::parse($strRequest);
         
-        foreach($this->get() as $key => $value){
-            if(substr($key, 0, 6) == 'oauth_'){
+        foreach($this->get as $key => $value){
+            if(substr($key, 0, 5) == 'oauth'){
                 $this->oauthParams->add($key, $value);
             }
         }
-        if($this->method() == pHttpMethod::POST){
-            foreach($this->post() as $key => $value){
-                if(substr($key, 0, 6) == 'oauth_'){
+        if($this->method == pHttpMethod::POST){
+            foreach($this->post as $key => $value){
+                if(substr($key, 0, 5) == 'oauth'){
                     $this->oauthParams->add($key, $value);
                 }
             }
         }
         
-        $authHeader = $this->headers()->get('Authorization');
+        $authHeader = $this->headers->get('Authorization');
         if(substr($authHeader, 0, 6) == 'OAuth '){
             $params = array();
             $matches = array();
-            if (preg_match_all('/(oauth_[a-z_-]*)=(:?"([^"]*)"|([^,]*))/', $authHeader, $matches)) {
-                foreach ($matches[1] as $i => $h) {
-                    $params[$h] = pOAuthHelper::urldecode(empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]);
+            if (preg_match_all('/(oauth[a-z_-]*)=(:?"([^"]*)"|([^,]*))/',
+                    $authHeader, $matches)) {
+                foreach ($matches[1] as $i => $key) {
+                    $params[$key] = pOAuthHelper::urldecode(
+                        empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]
+                    );
                 }
             }
             $this->oauthParams->append($params);
+        }else{
+            throw new pOAuthException(
+                sprintf('Request parsed is not a valid OAuth as Authorization'
+                        . ' header is not set as "OAuth", "%s" was given'
+                        . ' instead.', $authHeader)
+            );
         }
     }
     
@@ -86,13 +99,30 @@ class pOAuthRequest extends pHttpRequest {
      * @since 1.1-sofia
      */
     public function signatureBase(){
-        $parts = pOAuthHelper::urlencode(array(
-          $this->method(),
-          (string)$this->url(),
-          $this->signableParameters()
-        ));
+        // Grab all parameters
+        $params = new pMap($this->get);
+        
+        if(!$this->method() == pHttpMethod::POST){
+            $params->append($this->post);
+        }
+        
+        $params->append($this->oauthParams);
 
-        return implode('&', $parts);
+        // Remove oauth_signature if present
+        // Ref: Spec: 9.1.1 ("The oauth_signature parameter MUST be excluded.")
+        if ($params->keyExists('oauth_signature')) {
+            $params->removeAt('oauth_signature');
+        }
+        
+        $kparams = $params->toArray();
+        ksort($kparams);
+        $headerData = array($this->method, (string)$this->url());
+        $pData = array();
+        foreach($kparams as $key => $value){
+            $pData[] = sprintf('%s=%s', $key, $value);
+        }
+        $headerData[] = implode('&', $pData);
+        return implode('&', pOAuthHelper::urlencode($headerData)) ;
     }
     
     /**
@@ -103,31 +133,38 @@ class pOAuthRequest extends pHttpRequest {
      */
     public function method($m = null){
         if(func_num_args() == 1){
-            parent::method($m);
+            $this->method = strtoupper($m);
         }
-        return strtoupper(parent::method());
+        return $this->method;
     }
     
     /**
-     * Get the parameters that can be included in the signature generation
-     * @return string Returns the parameters
+     * Get the hash map of headers
+     * @return pMap Returns the hash map
      * @since 1.1-sofia
      */
-    protected function signableParameters() {
-        // Grab all parameters
-        $params = new pMap($this->get());
-        
-        if(!$this->method() == pHttpMethod::POST){
-            $params->append($this->post());
+    public function headers() {
+        $map = parent::headers();
+        $map->add('Authorization', $this->buildAuthorizationHeader());
+        return $map;
+    }
+    
+    /**
+     * Build the authorization header
+     * @return string Returns the constructed header string value
+     * @since 1.1-sofia
+     */
+    protected function buildAuthorizationHeader(){
+        $params = array();
+        foreach ($this->oauthParams as $key => $value) {
+          if (substr($key, 0, 5) == 'oauth') {
+            $params[] = pOAuthHelper::urlencode($key) .
+                    '="' .
+                    pOAuthHelper::urlencode($value) .
+                    '"';
+          }
         }
-
-        // Remove oauth_signature if present
-        // Ref: Spec: 9.1.1 ("The oauth_signature parameter MUST be excluded.")
-        if ($params->keyExists('oauth_signature')) {
-          $params->removeAt('oauth_signature');
-        }
-        
-        return http_build_query(ksort($params->toArray()), '', '&', PHP_QUERY_RFC3986);
+        return 'OAuth ' . implode(', ', $params);
     }
     
     /**

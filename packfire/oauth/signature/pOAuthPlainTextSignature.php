@@ -1,5 +1,6 @@
 <?php
 pload('packfire.oauth.pOAuthSignature');
+pload('packfire.oauth.pOAuthHelper');
 
 /**
  * pOAuthPlainTextSignature class
@@ -13,9 +14,9 @@ pload('packfire.oauth.pOAuthSignature');
 class pOAuthPlainTextSignature  extends pOAuthSignature {
     
     public function build() {
-        $keyParts = RaiseOAuthUtility::urlEncode(array(
+        $keyParts = pOAuthHelper::urlencode(array(
             $this->consumer->secret(),
-            $this->tokenSecret ? pOAuthHelper::urlencode($this->tokenSecret) : ''
+            $this->tokenSecret ? $this->tokenSecret : ''
         ));
         
         $key = implode('&', $keyParts);
