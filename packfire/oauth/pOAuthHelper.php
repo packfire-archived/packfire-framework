@@ -49,4 +49,18 @@ class pOAuthHelper {
         return str_pad(base_convert(hash('sha256', $nt), 16, 36), 50, '0', STR_PAD_LEFT);
     }
     
+    /**
+     * Builds a query string based on RFC3986 
+     * @param array|pMap $data The data to feed the query string
+     * @return string Returns the final query string
+     * @since 1.1-sofia
+     */
+    public static function buildQuery($data){
+        $pData = array();
+        foreach($data as $key => $value){
+            $pData[] = sprintf('%s=%s', self::urlencode($key), self::urlencode($value));
+        }
+        return implode('&', $pData);
+    }
+    
 }
