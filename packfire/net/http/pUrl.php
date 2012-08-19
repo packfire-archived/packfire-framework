@@ -84,6 +84,16 @@ class pUrl {
                 parse_str($this->query, $this->params);
             }
             unset($this->query);
+            if(!$this->port){
+                switch($this->scheme){
+                    case 'https':
+                        $this->port = 443;
+                        break;
+                    case 'http':
+                        $this->port = 80;
+                        break;
+                }
+            }
         }
         $this->params = new pMap($this->params);
     }
@@ -253,7 +263,6 @@ class pUrl {
      * @since 1.0-sofia
      */
     public static function combine($baseUrl, $relativeUrl){
-        $path = null;
         if($baseUrl == ''){
             $path = $relativeUrl;
         }else{
