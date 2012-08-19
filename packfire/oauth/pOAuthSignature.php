@@ -49,11 +49,11 @@ abstract class pOAuthSignature {
         $registry = new pMap();
         $registry->add('HMAC-SHA1', 'pOAuthHmacSha1Signature');
         $registry->add('PLAINTEXT', 'pOAuthPlainTextSignature');
-        if(substr($name, 0, 6) == 'pOAuth'){
-            return $name;
-        }else{
-            return $registry->get($name);
+        if(substr($name, 0, 6) != 'pOAuth'){
+            $name = $registry->get($name);
         }
+        pload('packfire.oauth.signature.' . $name);
+        return $name;
     }
     
     /**
