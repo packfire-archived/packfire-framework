@@ -140,7 +140,7 @@ class pMap extends pList implements IMap {
             return $item;
         }else{
             throw new pOutOfRangeException(
-                    sprintf('Unable to remove value at key %d from map.', $index)
+                    sprintf('Unable to remove value at key %s from map.', $index)
                 );
         }
     }
