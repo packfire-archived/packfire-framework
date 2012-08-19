@@ -14,11 +14,11 @@ class pOAuthPlainTextSignature  extends pOAuthSignature {
     
     public function build() {
         $keyParts = RaiseOAuthUtility::urlEncode(array(
-          $this->consumer()->secret(),
-          ($this->response() && $this->response()->tokenSecret()) ? $this->response()->tokenSecret() : ""
+            $this->consumer->secret(),
+            $this->tokenSecret ? pOAuthHelper::urlencode($this->tokenSecret) : ''
         ));
+        
         $key = implode('&', $keyParts);
-
         return $key;
 
     }

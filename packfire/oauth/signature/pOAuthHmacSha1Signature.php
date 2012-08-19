@@ -15,11 +15,11 @@ pload('packfire.oauth.pOAuthSignature');
 class pOAuthHmacSha1Signature extends pOAuthSignature {
     
     public function build() {
-        $baseString = $this->request()->baseSignature();
+        $baseString = $this->request->baseSignature();
 
         $keyParts = pOAuthHelper::urlencode(array(
-          $this->consumer()->secret(),
-          ($this->response() && $this->response()->tokenSecret()) ? $this->response()->tokenSecret() : ""
+            $this->consumer->secret(),
+            $this->tokenSecret ? pOAuthHelper::urlencode($this->tokenSecret) : ''
         ));
 
         $key = implode('&', $keyParts);

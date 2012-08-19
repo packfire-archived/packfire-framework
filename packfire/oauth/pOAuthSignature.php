@@ -11,39 +11,49 @@
  */
 abstract class pOAuthSignature {
     
-    
     /**
      * The request parameters that was used
      * @var pOAuthRequest
      * @since 1.1-sofia
      */
-    private $request;
+    protected $request;
     
     /**
      * The OAuth consumer
      * @var pOAuthConsumer
      * @since 1.1-sofia
      */
-    private $consumer;
+    protected $consumer;
     
     /**
-     * The response the OAuth service provider is giving back
-     * @var pOAuthResponse
+     * The token secret provided by the OAuth provider
+     * @var string
      * @since 1.1-sofia
      */
-    private $response;
+    protected $tokenSecret;
     
     /**
      * Create a new pOAuthSignature object
      * @param pOAuthRequest $request The request that uses this signature generation
      * @param pOAuthConsumer $consumer The consumer
-     * @param pOAuthResponse $response The response
+     * @param string $tokenSecret The token secret provided by the OAuth provider
      * @since 1.1-sofia
      */
-    public function __construct($request, $consumer, $response = null){
+    public function __construct($request, $consumer, $tokenSecret = null){
         $this->request = $request;
         $this->consumer = $consumer;
-        $this->response = $response;
+        $this->tokenSecret = $tokenSecret;
+    }
+    
+    public static function load($name){
+        $registry = new pMap();
+        $registry->add('HMAC-SHA1', 'pOAuthHmacSha1Signature');
+        $registry->add('PLAINTEXT', 'pOAuthPlainTextSignature');
+        if(substr($name, 0, 6) == 'pOAuth'){
+            return $name;
+        }else{
+            return $registry->get($name);
+        }
     }
     
     /**
@@ -68,33 +78,6 @@ abstract class pOAuthSignature {
      */
     public function check($signature){
         return $this->build() == $signature;
-    }
-    
-    /**
-     * Get the request sent from the OAuth Consumer
-     * @return pOAuthRequest Returns the request
-     * @since 1.1-sofia
-     */
-    public function request(){
-        return $this->request;
-    }
-
-    /**
-     * Get the OAuth Consumer involved with the request
-     * @return pOAuthConsumer Returns the consumer
-     * @since 1.1-sofia
-     */
-    public function consumer(){
-        return $this->consumer;
-    }
-
-    /**
-     * Get the response the OAuth Service Provider is providing
-     * @return pOAuthResponse Returns the response
-     * @since 1.1-sofia
-     */
-    public function response(){
-        return $this->response;
     }
     
 }
