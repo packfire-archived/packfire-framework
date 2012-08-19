@@ -39,4 +39,14 @@ class pOAuthHelper {
         }
     }
     
+    /**
+     * Generate a random nonce value
+     * @param string $key (optional) Just something like a string you can pass it in.
+     * @return string Returns the random nonce value
+     */
+    public static function generateNonce($key = __FILE__){
+        $nt = microtime(true) . $key . mt_rand();
+        return str_pad(base_convert(hash('sha256', $nt), 16, 36), 50, '0', STR_PAD_LEFT);
+    }
+    
 }

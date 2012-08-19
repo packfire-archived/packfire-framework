@@ -130,4 +130,27 @@ class pOAuthRequest extends pHttpRequest {
         return http_build_query(ksort($params->toArray()), '', '&', PHP_QUERY_RFC3986);
     }
     
+    /**
+     * Sign this request for OAuth interaction
+     * @param string $method The name of the method to use to sign this request
+     * @param pOAuthConsumer $consumer The consumer making the request
+     * @param string $tokenSecret (optional) The token secret provided by the OAuth provider
+     * @since 1.1-sofia
+     */
+    public function sign($method, $consumer, $tokenSecret = null){
+        $sigMethod = pOAuthSignature::load($method);
+        if(!$sigMethod){
+            throw new pInvalidArgumentException(
+                sprintf('pOAuthRequest::sign() expects first parameter $method'
+                        . ' to be the name of a valid OAuth signature method,'
+                        . ' "%s" given instead.', $method)
+            );
+        }
+        /* @var $signer pOAuthSignature */
+        $signer = new $sigMethod($this, $consumer, $tokenSecret);
+        $this->oauth(pOAuth::SIGNATURE_METHOD, $signer->name());
+        $this->oauth(pOAuth::TIMESTAMP, time());
+        $this->oauth(pOAuth::SIGNATURE, $signer->build());
+    }
+    
 }

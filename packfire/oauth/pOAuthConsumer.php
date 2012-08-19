@@ -33,16 +33,26 @@ class pOAuthConsumer {
     private $callback;
     
     /**
+     *
+     * @var pOAuthSignature
+     */
+    private $signatureMethod;
+    
+    /**
      * Create a new pOAuthConsumer object
      * @param string $key The consumer key
      * @param string $secret The secret key
      * @param string|pUrl $callback The callback URL
      * @since 1.1-sofia
      */
-    public function __construct($key, $secret, $callback){
+    public function __construct($key, $secret, $callback, $signatureMethod = null){
         $this->key = $key;
         $this->secret = $secret;
         $this->callback = $callback;
+        if(!$signatureMethod){
+            $signatureMethod = 'pOAuthHmacSha1Signature';
+        }
+        $this->signatureMethod = $signatureMethod;
     }
     
     /**
@@ -70,6 +80,54 @@ class pOAuthConsumer {
      */
     public function callback(){
         return $this->callback;
+    }
+    
+    private function createRequest(){
+        $request = new pOAuthRequest();
+        $request->oauth(pOAuth::CONSUMER_KEY, $this->key);
+        $request->oauth(pOAuth::VERSION, '1.0');
+        return $request;
+    }
+    
+    public function requestTokenRequest($url){
+        if(!($url instanceof pUrl)){
+            $url = new pUrl($url);
+        }
+        $server = new pHttpServer($url->host(), $url->port());
+        $request = $this->createRequest();
+        $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
+        $request->sign($this->signatureMethod, $this);
+        $response = $server->request($request, new pOAuthResponse());
+        /* @var $response pOAuthResponse */
+        return $response;
+    }
+    
+    public function accessTokenRequest($url, $requestToken){
+        if(!($url instanceof pUrl)){
+            $url = new pUrl($url);
+        }
+        $server = new pHttpServer($url->host(), $url->port());
+        $request = $this->createRequest();
+        $request->oauth(pOAuth::TOKEN, $requestToken);
+        $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
+        $request->sign($this->signatureMethod, $this);
+        $response = $server->request($request, new pOAuthResponse());
+        /* @var $response pOAuthResponse */
+        return $response;
+    }
+    
+    public function accessResource($url, $accessToken){
+        if(!($url instanceof pUrl)){
+            $url = new pUrl($url);
+        }
+        $server = new pHttpServer($url->host(), $url->port());
+        $request = $this->createRequest();
+        $request->oauth(pOAuth::TOKEN, $accessToken);
+        $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
+        $request->sign($this->signatureMethod, $this);
+        $response = $server->request($request, new pOAuthResponse());
+        /* @var $response pOAuthResponse */
+        return $response;
     }
     
 }
