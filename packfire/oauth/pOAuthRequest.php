@@ -36,6 +36,24 @@ class pOAuthRequest extends pHttpRequest {
     }
     
     /**
+     * Preload the OAuth request from another HTTP request
+     * @param pHttpRequest $request The request to load data from
+     * @since 1.1-sofia
+     */
+    public function preload($request){
+        $this->get = new pMap($request->get);
+        $this->post = new pMap($request->post);
+        $this->headers = new pMap($request->headers);
+        $this->cookies = new pMap($request->cookies);
+        $this->https = $request->https;
+        $this->version = $request->version;
+        $this->time = pDateTime::fromTimestamp($request->time->toTimestamp());
+        $this->uri = $request->uri;
+        $this->body = $request->body;
+        $this->loadOAuthParameters();
+    }
+    
+    /**
      * Get or set the OAuth parameters
      * @param string $key The OAuth parameter key
      * @param string $value (optional) If set, this value will be set to the key.
@@ -57,7 +75,10 @@ class pOAuthRequest extends pHttpRequest {
      */
     public function parse($strRequest) {
         parent::parse($strRequest);
-        
+        $this->loadOAuthParameters();
+    }
+    
+    protected function loadOAuthParameters(){
         foreach($this->get as $key => $value){
             if(substr($key, 0, 5) == 'oauth'){
                 $this->oauthParams->add($key, $value);
