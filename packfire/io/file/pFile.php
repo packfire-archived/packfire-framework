@@ -73,8 +73,7 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function delete(){
-        $ok = @unlink($this->pathname);
-        if(!$ok){
+        if(!@unlink($this->pathname)){
             throw new pIOException(
                     sprintf('An error occurred deleting file \'%s\'.',
                             $this->pathname)
@@ -89,8 +88,7 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function write($content){
-        $ok = @file_put_contents($this->pathname, $content);
-        if(!$ok){
+        if(!@file_put_contents($this->pathname, $content)){
             throw new pIOException(
                     sprintf('Failed to write content file \'%s\'.', $this->pathname)
                 );
@@ -99,16 +97,15 @@ class pFile implements IFile {
 
     /**
      * Append the file content
-     * @param string $ctn The additional file content to append
+     * @param string $content The additional file content to append
      * @return bool Returns true if successful, false otherwise.
      * @throws pIOException
      * @since 1.0-sofia
      */
-    public function append($ctn){
+    public function append($content){
         $link = @fopen($this->pathname, 'a');
         if($link){
-            $ok = @fwrite($link, $ctn);
-            if(!$ok){
+            if(!@fwrite($link, $content)){
             throw new pIOException(
                     sprintf('An error occurred while appending '.
                             'content to file \'%s\'.', $this->pathname)
@@ -152,8 +149,7 @@ class pFile implements IFile {
             $destination = pPath::combine($destination,
                     pPath::baseName($this->pathname));
         }
-        $ok = @copy($this->pathname, $destination);
-        if($ok){
+        if(@copy($this->pathname, $destination)){
             return new self($destination);
         }else{
             throw new pIOException(
@@ -181,8 +177,7 @@ class pFile implements IFile {
     public function rename($newname){
         $newname = pPath::path($this->pathname) . DIRECTORY_SEPARATOR
                 . pPath::baseName($newname);
-        $ok = @rename($this->pathname, $newname);
-        if($ok){    
+        if(@rename($this->pathname, $newname)){    
             $this->pathname = $newname;
         }else{
             throw new pIOException(
@@ -201,8 +196,7 @@ class pFile implements IFile {
     public function move($newdir){
         $newdir = $newdir . DIRECTORY_SEPARATOR
                 . pPath::baseName($this->pathname);
-        $ok = @rename($this->pathname, $newdir);
-        if($ok){    
+        if(@rename($this->pathname, $newdir)){    
             $this->pathname = $newdir;
         }else{
             throw new pIOException(
@@ -220,15 +214,13 @@ class pFile implements IFile {
      */
     public function lastModified($datetime = null){
         if(func_num_args() == 1){
-            $ok = @touch($this->pathname, $datetime->toTimestamp());
-            if(!$ok){
+            if(!@touch($this->pathname, $datetime->toTimestamp())){
                 throw new pIOException('Failed to set last modified time for'
                         . ' file "'. $this->pathname . '".');
             }
             return $datetime;
         }else{
-            $time = @filemtime($this->pathname);
-            if($time){
+            if($time = @filemtime($this->pathname)){
                 return pDateTime::fromTimestamp($time);
             }else{
                 throw new pIOException('Failed to retrieve last modified time'
@@ -246,15 +238,13 @@ class pFile implements IFile {
      */
     public function permission($permission = null){
         if(func_num_args() == 1){
-            $ok = @chmod($this->pathname, $permission);
-            if(!$ok){
+            if(!@chmod($this->pathname, $permission)){
                 throw new pIOException('Failed to perform file permission'
                         . ' change for file "' . $this->pathname . '".');
             }
             return $permission;
         }else{
-            $perm = @fileperms($this->pathname);
-            if($perm){
+            if($perm = @fileperms($this->pathname)){
                 return substr(decoct($perm), 2);
             }else{
                 throw new pIOException('Failed to retrieve file permission'

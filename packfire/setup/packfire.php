@@ -17,8 +17,7 @@ define('__APP_ROOT__', __PACKFIRE_PATH__ . 'setup' . DIRECTORY_SEPARATOR);
 
 define('__ENVIRONMENT__', 'setup');
 
-$ok = include(__PACKFIRE_PATH__ . '/Packfire.php');
-if($ok){
+if(include(__PACKFIRE_PATH__ . '/Packfire.php')){
     pload('app.pSetupCliApplication');
     $packfire = new Packfire();
     $packfire->fire(new pSetupCliApplication());

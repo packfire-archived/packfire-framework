@@ -141,8 +141,7 @@ class pHttpApplication extends pServiceApplication {
         $route->params()->removeAt('action');
         $caLoader = new pCALoader(ucfirst($class), $action, $request, $route, $response);
         $caLoader->copyBucket($this);
-        $ok = $caLoader->load(true);
-        if(!$ok){
+        if(!$caLoader->load(true)){
             throw new pHttpException(404);
         }
         return $caLoader;
