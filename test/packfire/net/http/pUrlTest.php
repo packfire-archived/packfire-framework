@@ -120,9 +120,9 @@ class pUrlTest extends PHPUnit_Framework_TestCase {
      */
     public function testCombine() {
         $final = pUrl::combine('http://example.com/test', '../object');
-        $this->assertEquals('http://example.com/object', $final);
+        $this->assertEquals('http://example.com/object', (string)$final);
         $final = pUrl::combine('/test/data', '../object/true');
-        $this->assertEquals('/test/object/true', $final);
+        $this->assertEquals('/test/object/true', (string)$final);
     }
 
 }

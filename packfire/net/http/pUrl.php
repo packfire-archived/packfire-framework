@@ -211,28 +211,28 @@ class pUrl {
      * @since 1.0-sofia
      */
     public function __toString(){
-        $s = $this->scheme() . '://';
+        $url = $this->scheme() . '://';
         if($this->user())
         {
-            $s .= $this->user();
+            $url .= $this->user();
             if($this->pass()){
-                $s .= ':' . $this->pass();
+                $url .= ':' . $this->pass();
             }
-            $s .= '@';
+            $url .= '@';
         }
-        $s .= $this->host();
-        if($this->port() != null){
-            $s .= ':'.$this->port();
+        $url .= $this->host();
+        if($this->port() != null && !in_array($this->scheme, array('https', 'http'))){
+            $url .= ':'.$this->port();
         }
-        $s .= $this->path();
+        $url .= $this->path();
         $query = http_build_query($this->params()->toArray());
         if($query){
-            $s .= '?' . $query;
+            $url .= '?' . $query;
         }
         if($this->fragment()){
-            $s .= '#' . $this->fragment();
+            $url .= '#' . $this->fragment();
         }
-        return $s;
+        return $url;
     }
 
     /**
