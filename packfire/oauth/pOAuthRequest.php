@@ -16,7 +16,7 @@ pload('pOAuthSignature');
  * @package packfire.oauth.request
  * @since 1.1-sofia
  */
-class pOAuthRequest extends pHttpRequest {
+class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
     
     /**
      * The OAuth parameters

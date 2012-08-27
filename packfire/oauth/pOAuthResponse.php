@@ -12,7 +12,7 @@ pload('packfire.net.http.pHttpResponse');
  * @license http://www.opensource.org/licenses/bsd-license New BSD Licenseh.response
  * @since 1.1-sofia
  */
-class pOAuthResponse extends pHttpResponse {
+class pOAuthResponse extends pHttpResponse implements IOAuthHttpEntity {
 
     /**
      * The OAuth parameters
