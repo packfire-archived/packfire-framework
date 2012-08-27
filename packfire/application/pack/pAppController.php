@@ -1,6 +1,8 @@
 <?php
 pload('packfire.controller.pController');
 pload('packfire.exception.pMissingDependencyException');
+pload('packfire.text.pInflector');
+pload('packfire.text.pText');
 
 /**
  * pAppController class
@@ -27,22 +29,39 @@ abstract class pAppController extends pController {
         if(func_num_args() == 0){
             $dbt = debug_backtrace();
             $func = ucfirst($dbt[1]['function']);
+            $func2 = null;
+            if(($firstUpper = pInflector::firstUpperCase($dbt[1]['function'])) !== false){
+                $func2 = substr($dbt[1]['function'], $firstUpper);
+            }
+            
             $name = get_class($this);
             if(substr($name, -10) == 'Controller'){
                 $name = substr($name, 0, strlen($name) - 10);
             }
+
             $class = $name . $func . 'View';
-            try{
-                pload('view.' . strtolower($name) . '.' . $class);
-            }catch(pMissingDependencyException $ex){
+            $tries = array(
+                'view.' . strtolower($name) . '.' . $class,
+                'view.' . $class
+            );
+            $class2 = null;
+            if($func2){
+                $class2 = $name . $func2 . 'View';
+                $tries[] = 'view.' . strtolower($name) . '.' . $class2;
+                $tries[] = 'view.' . $class2;
+            }
+            foreach($tries as $try){
                 try{
-                    pload('view.' . $class);
+                    pload($try);
+                    break;
                 }catch(pMissingDependencyException $ex){
-                    
+
                 }
             }
             if(class_exists($class)){
                 $view = new $class();
+            }elseif(class_exists($class2)){
+                $view = new $class2();
             }
         }
         if($view instanceof IView){
@@ -50,9 +69,8 @@ abstract class pAppController extends pController {
         }else{
             throw new pMissingDependencyException(sprintf(
                 'View not rendered because not found.'
-                    . ' Looked for packages "%s" and "%s".',
-                'view.' . strtolower($name) . '.' . $class,
-                'view.' . $class
+                    . ' Looked for packages %s.',
+                pText::listing($tries)
             ));
         }
     }
