@@ -4,6 +4,7 @@ pload('pOAuth');
 pload('pOAuthRequest');
 pload('pOAuthHelper');
 pload('pOAuthResponse');
+pload('pOAuthToken');
 
 /**
  * pOAuthConsumer class
@@ -45,7 +46,7 @@ class pOAuthConsumer {
     private $callback;
     
     /**
-     *
+     * The signature that the consumer will use to sign the requests
      * @var pOAuthSignature
      */
     private $signatureMethod;
@@ -94,6 +95,11 @@ class pOAuthConsumer {
         return $this->callback;
     }
     
+    /**
+     * Create and prepare a request for the consumer
+     * @return pOAuthRequest Returns the prepared request object
+     * @since 1.1-sofia
+     */
     private function createRequest(){
         $request = new pOAuthRequest();
         $request->method('GET');
@@ -102,6 +108,13 @@ class pOAuthConsumer {
         return $request;
     }
     
+    /**
+     * Request the service provider for a request token
+     * @param pUrl|string $url The URL of the end point to request the
+     *                  request token from.
+     * @return pOAuthToken Returns the token provided by the service provider
+     * @since 1.1-sofia
+     */
     public function requestTokenRequest($url){
         if(!($url instanceof pUrl)){
             $url = new pUrl($url);
@@ -117,9 +130,16 @@ class pOAuthConsumer {
         $response = $server->request($request, new pOAuthResponse());
         /* @var $response pOAuthResponse */
         $this->tokenSecret = $response->oauth(pOAuth::TOKEN_SECRET);
-        return $response;
+        return pOAuthToken::load($response);
     }
     
+    /**
+     * Request the service provider for an access token
+     * @param pUrl|string $url The URL of the end point to request the
+     *                  access token from.
+     * @return pOAuthToken Returns the token provided by the service provider
+     * @since 1.1-sofia
+     */
     public function accessTokenRequest($url, $requestToken){
         if(!($url instanceof pUrl)){
             $url = new pUrl($url);
@@ -130,15 +150,23 @@ class pOAuthConsumer {
         $request->headers()->add('Host',
                 $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
         $request->uri($url->path());
-        $request->oauth(pOAuth::TOKEN, $requestToken);
+        $request->oauth(pOAuth::TOKEN, (string)$requestToken);
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
         $response = $server->request($request, new pOAuthResponse());
         /* @var $response pOAuthResponse */
         $this->tokenSecret = $response->oauth(pOAuth::TOKEN_SECRET);
-        return $response;
+        return pOAuthToken::load($response);
     }
     
+    /**
+     * Access the resources securely with an access token granted by the 
+     *      service provider.
+     * @param pUrl|string $url The URL to access the server resources
+     * @param pOAuthToken|string $accessToken The access token
+     * @return pOAuthResponse The response from the server
+     * @since 1.1-sofia
+     */
     public function accessResource($url, $accessToken){
         if(!($url instanceof pUrl)){
             $url = new pUrl($url);
@@ -149,7 +177,7 @@ class pOAuthConsumer {
         $request->headers()->add('Host',
                 $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
         $request->uri($url->path());
-        $request->oauth(pOAuth::TOKEN, $accessToken);
+        $request->oauth(pOAuth::TOKEN, (string)$accessToken);
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
         $response = $server->request($request, new pOAuthResponse());
