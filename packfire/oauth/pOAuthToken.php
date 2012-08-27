@@ -1,4 +1,5 @@
 <?php
+pload('pOAuth');
 
 /**
  * pOAuthToken class
@@ -50,14 +51,24 @@ class pOAuthToken {
     }
     
     /**
-     * Get the token information from the Service provider OAuth response
-     * @param pOAuthResponse $response The response to load from
+     * Get the token information from the Service provider OAuth HTTP entity
+     * @param IOAuthHttpEntity $entity The entity to load from
      * @return pOAuthToken Returns the token information
      * @since 1.1-sofia
      */
-    public static function load($response){
-        return new self($response->oauth(pOAuth::TOKEN),
-                $response->oauth(pOAuth::TOKEN_SECRET));
+    public static function load($entity){
+        return new self($entity->oauth(pOAuth::TOKEN),
+                $entity->oauth(pOAuth::TOKEN_SECRET));
+    }
+    
+    /**
+     * Assign the token to a OAuth HTTP entity
+     * @param IOAuthHttpEntity $entity The response to be assigned
+     * @since 1.1-sofia
+     */
+    public function assign($entity){
+        $entity->oauth(pOAuth::TOKEN, $this->key);
+        $entity->oauth(pOAuth::TOKEN_SECRET, $this->secret);
     }
     
     /**
