@@ -42,6 +42,7 @@ interface IOAuthStore {
      * Creates a new request token and store 
      * @param pOAuthConsumer $consumer The consumer which will hold the request token.
      * @param string $callback (optional) The callback URL provided by the consumer
+     * @return pOAuthToken Returns the request token created with its secret
      * @since 1.1-sofia
      */
     public function createRequestToken($consumer, $callback = null);
@@ -75,12 +76,13 @@ interface IOAuthStore {
     /**
      * Grant an access token over a request token
      * @param pOAuthConsumer $consumer The consumer which will hold the access token.
-     * @param string $requestToken The request token to be overwritten.
-     * @param string $verifier (optional) The verifier of the access token
-     * @return string Returns the access token granted
+     * @param pOAuthToken $requestToken The request token
+     * @return pOAuthToken Returns the access token granted with the secret if
+     *              the consumer has been approved by the user, or NULL if the
+     *              consumer has been rejected.
      * @since 1.1-sofia
      */
-    public function grantAccessToken($consumer, $requestToken, $verifier = null);
+    public function grantAccessToken($consumer, $requestToken);
     
     /**
      * Check if a nonce is valid based on the value combinations
