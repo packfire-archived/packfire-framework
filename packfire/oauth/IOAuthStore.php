@@ -41,11 +41,10 @@ interface IOAuthStore {
     /**
      * Creates a new request token and store 
      * @param pOAuthConsumer $consumer The consumer which will hold the request token.
-     * @param string $requestToken The request token to be inserted
      * @param string $callback (optional) The callback URL provided by the consumer
      * @since 1.1-sofia
      */
-    public function newRequestToken($consumer, $requestToken, $callback = null);
+    public function createRequestToken($consumer, $callback = null);
     
     /**
      * Get the callback URL / string of a consumer based on the token
