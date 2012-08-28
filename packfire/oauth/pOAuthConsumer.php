@@ -180,7 +180,7 @@ class pOAuthConsumer {
         $request->oauth(pOAuth::TOKEN, (string)$accessToken);
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
-        $response = $server->request($request, new pOAuthResponse());
+        $response = $server->request($request);
         /* @var $response pOAuthResponse */
         return $response;
     }
