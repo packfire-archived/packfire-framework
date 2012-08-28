@@ -3,6 +3,8 @@ pload('pOAuthSignature');
 pload('pOAuthResponse');
 pload('pOAuth');
 pload('pOAuthException');
+pload('packfire.net.http.pHttpRequest');
+pload('pOAuthRequest');
 
 /**
  * pOAuthProvider class
@@ -54,6 +56,12 @@ class pOAuthProvider {
     }
     
     public function grantRequestToken($request){
+        if($request instanceof pHttpRequest && !($request instanceof pOAuthRequest)){
+            $reloaded = new pOAuthRequest();
+            $reloaded->preload($request);
+            $request = $reloaded;
+            unset($reloaded);
+        }
         $consumer = $this->store->getConsumer($request->oauth(pOAuth::CONSUMER_KEY));
         if(!$consumer){
             throw new pOAuthException('No consumer found based on request consumer key');
@@ -67,21 +75,25 @@ class pOAuthProvider {
         return $response;
     }
     
-    public function grantAccessToken($request){
+    public function grantAccessToken($request, $verifier = null){
+        if($request instanceof pHttpRequest && !($request instanceof pOAuthRequest)){
+            $reloaded = new pOAuthRequest();
+            $reloaded->preload($request);
+            $request = $reloaded;
+            unset($reloaded);
+        }
         $consumer = $this->store->getConsumer($request->oauth(pOAuth::CONSUMER_KEY));
         if(!$consumer){
             throw new pOAuthException('No consumer found based on request consumer key');
         }
-        $this->verifyRequest($request, $consumer);
-        $this->checkNonce($request, $consumer);
-        $requestToken = pOAuthToken::load($request);
-        
-        $requestStatus = $this->store->checkRequestToken($consumer, $requestToken);
-        if(!$requestStatus){
+        $requestToken = $this->store->getRequestToken($consumer, $request->oauth(pOAuth::TOKEN));
+        if(!$requestToken){
             throw new pOAuthException('Request Token is invalid');
         }
+        $this->verifyRequest($request, $consumer, $requestToken->secret());
+        $this->checkNonce($request, $consumer);
         
-        $token = $this->store->grantAccessToken($consumer, $requestToken);
+        $token = $this->store->grantAccessToken($consumer, $requestToken, $verifier);
         if($token){
             $response = new pOAuthResponse();
             $token->assign($response);
@@ -92,18 +104,23 @@ class pOAuthProvider {
     }
     
     public function verify($request){
+        if($request instanceof pHttpRequest && !($request instanceof pOAuthRequest)){
+            $reloaded = new pOAuthRequest();
+            $reloaded->preload($request);
+            $request = $reloaded;
+            unset($reloaded);
+        }
         $consumer = $this->store->getConsumer($request->oauth(pOAuth::CONSUMER_KEY));
         if(!$consumer){
             throw new pOAuthException('No consumer found based on request consumer key');
         }
-        $this->verifyRequest($request, $consumer);
-        $this->checkNonce($request, $consumer);
-        $accessToken = pOAuthToken::load($request);
-        
-        $accessStatus = $this->store->checkAccessToken($consumer, $accessToken, $request->oauth(pOAuth::VERIFIER));
-        if(!$accessStatus){
+        $accessToken = $this->store->getAccessToken($consumer, $request->oauth(pOAuth::TOKEN), $request->oauth(pOAuth::VERIFIER));
+        if(!$accessToken){
             throw new pOAuthException('Access denied because token token was not granted.');
         }
+        
+        $this->verifyRequest($request, $consumer, $accessToken->secret());
+        $this->checkNonce($request, $consumer);
     }
     
 }

@@ -1,5 +1,8 @@
 <?php
 pload('packfire.net.http.pHttpResponse');
+pload('IOAuthHttpEntity');
+pload('packfire.collection.pMap');
+pload('pOAuthHelper');
 
 /**
  * pOAuthTokenResponse class
@@ -12,7 +15,7 @@ pload('packfire.net.http.pHttpResponse');
  * @license http://www.opensource.org/licenses/bsd-license New BSD Licenseh.response
  * @since 1.1-sofia
  */
-class pOAuthResponse extends pHttpResponse implements IOAuthHttpEntity {
+class pOAuthResponse extends pHttpResponse implements IOAuthHttpEntity, IAppResponse {
 
     /**
      * The OAuth parameters
@@ -52,11 +55,15 @@ class pOAuthResponse extends pHttpResponse implements IOAuthHttpEntity {
      */
     public function body($body = null){
         if(func_num_args() == 1){
-            $ouput = array();
+            $output = array();
             parse_str(trim($body), $output);
             $this->oauthParams->append($output);
         }
         return pOAuthHelper::buildQuery($this->oauthParams);
+    }
+    
+    public function output(){
+        return $this->body();
     }
 
 }

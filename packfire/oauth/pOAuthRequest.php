@@ -4,6 +4,8 @@ pload('packfire.net.http.pHttpMethod');
 pload('pOAuth');
 pload('pOAuthHelper');
 pload('pOAuthSignature');
+pload('IOAuthHttpEntity');
+pload('packfire.collection.pMap');
 
 /**
  * pOAuthRequest class
@@ -49,6 +51,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
         $this->version = $request->version;
         $this->time = pDateTime::fromTimestamp($request->time->toTimestamp());
         $this->uri = $request->uri;
+        $this->method = $request->method;
         $this->body = $request->body;
         $this->loadOAuthParameters();
     }
@@ -62,6 +65,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
      */
     public function oauth($key, $value = null){
         if(func_num_args() == 2){
+            $this->get->add($key, $value);
             $this->oauthParams->add($key, $value);
         }else{
             return $this->oauthParams->get($key);
@@ -105,7 +109,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
                 }
             }
             $this->oauthParams->append($params);
-        }else{
+        }elseif($authHeader){
             throw new pOAuthException(
                 sprintf('Request parsed is not a valid OAuth as Authorization'
                         . ' header is not set as "OAuth", "%s" was given'
@@ -137,12 +141,18 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
         
         $kparams = $params->toArray();
         ksort($kparams);
-        $headerData = array($this->method, (string)$this->url());
+        
+        $url = $this->url();
+        $url->params(array()); // no GET parameters in URL for base signature
+        
+        $headerData = array($this->method, (string)$url);
+        
         $pData = array();
         foreach($kparams as $key => $value){
             $pData[] = sprintf('%s=%s', $key, $value);
         }
         $headerData[] = implode('&', $pData);
+        
         return implode('&', pOAuthHelper::urlencode($headerData)) ;
     }
     
@@ -160,22 +170,11 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
     }
     
     /**
-     * Get the hash map of headers
-     * @return pMap Returns the hash map
-     * @since 1.1-sofia
-     */
-    public function headers() {
-        $map = parent::headers();
-        $map->add('Authorization', $this->buildAuthorizationHeader());
-        return $map;
-    }
-    
-    /**
      * Build the authorization header
      * @return string Returns the constructed header string value
      * @since 1.1-sofia
      */
-    protected function buildAuthorizationHeader(){
+    public function buildAuthorizationHeader(){
         $params = array();
         foreach ($this->oauthParams as $key => $value) {
           if (substr($key, 0, 5) == 'oauth') {

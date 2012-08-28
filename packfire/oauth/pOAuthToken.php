@@ -78,7 +78,7 @@ class pOAuthToken {
      * @since 1.1-sofia
      */
     public function __toString(){
-        return $this->key;
+        return (string)$this->key;
     }
     
 }
