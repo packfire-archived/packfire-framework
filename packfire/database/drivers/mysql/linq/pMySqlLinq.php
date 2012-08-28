@@ -224,6 +224,24 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     }
     
     /**
+     * Set the mapping of each row to be an instance of an object
+     * 
+     * The row data will be passed into a new instance of the object
+     * by the constructor arguments.
+     * 
+     * @param string|object $object The class name or object instance to map to
+     * @returns pMySqlLinq Returns the LINQ object for chaining
+     * @since 1.1-sofia
+     */
+    public function listOf($object){
+        $this->map(function($row) use ($object){
+            $reflection = new ReflectionClass($object);
+            return call_user_func_array(array($reflection, 'newInstance'), $row);
+        });
+        return $this;
+    }
+    
+    /**
      * Set a parameter to be binded to the query
      * @param string $key The name of the parameter
      * @param mixed $value The value of the parameter 
