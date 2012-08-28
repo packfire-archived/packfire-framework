@@ -113,6 +113,9 @@ class Packfire {
             if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){
                 $request->headers()->add('User-Agent', $_SERVER['HTTP_USER_AGENT'], true);
             }
+            if(array_key_exists('HTTP_AUTHORIZATION', $_SERVER)){
+                $request->headers()->add('Authorization', $_SERVER['HTTP_AUTHORIZATION'], true);
+            }
 
             foreach ($_COOKIE as $k => $v) {
                 $request->cookies()->add($k, $v);
