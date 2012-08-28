@@ -45,10 +45,9 @@ class pOAuthProvider {
         }
     }
     
-    protected function checkNonce($request, $consumer){
+    protected function checkNonce($request, $consumer, $token = null){
         $timestamp = $request->oauth(pOAuth::TIMESTAMP);
         $nonce = $request->oauth(pOAuth::NONCE);
-        $token = (string)$request->oauth(pOAuth::TOKEN);
         if(!$this->store->checkNonce($consumer, $token, $timestamp, $nonce)){
             throw new pOAuthException('Replay detected through nonce.');
         }
@@ -91,7 +90,7 @@ class pOAuthProvider {
             throw new pOAuthException('Request Token is invalid');
         }
         $this->verifyRequest($request, $consumer, $requestToken->secret());
-        $this->checkNonce($request, $consumer);
+        $this->checkNonce($request, $consumer, $requestToken);
         
         $token = $this->store->grantAccessToken($consumer, $requestToken, $verifier);
         if($token){
@@ -120,7 +119,7 @@ class pOAuthProvider {
         }
         
         $this->verifyRequest($request, $consumer, $accessToken->secret());
-        $this->checkNonce($request, $consumer);
+        $this->checkNonce($request, $consumer, $accessToken);
     }
     
 }

@@ -55,10 +55,14 @@ class pOAuthConsumer {
      * Create a new pOAuthConsumer object
      * @param string $key The consumer key
      * @param string $secret The secret key
-     * @param string|pUrl $callback The callback URL
+     * @param string|pUrl $callback (optional) The callback URL
+     * @param string|pOAuthSignature (optional) The signature or the name of 
+     *      the signature to sign requests. If not set, HMAC-SHA1 will be 
+     *      used instead.
      * @since 1.1-sofia
      */
-    public function __construct($key, $secret, $callback, $signatureMethod = null){
+    public function __construct($key, $secret,
+            $callback = null, $signatureMethod = null){
         $this->key = $key;
         $this->secret = $secret;
         $this->callback = $callback;

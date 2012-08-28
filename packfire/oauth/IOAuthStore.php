@@ -89,7 +89,7 @@ interface IOAuthStore {
     /**
      * Check if a nonce is valid based on the value combinations
      * @param pOAuthConsumer $consumer The consumer making the request
-     * @param string $token The token of the request
+     * @param pOAuthToken $token The token of the request
      * @param string $timestamp The timestamp of the request
      * @param string $nonce The nonce value to be checked.
      * @since 1.1-sofia
@@ -99,7 +99,7 @@ interface IOAuthStore {
     /**
      * Store a new nonce value and its combination
      * @param pOAuthConsumer $consumer The consumer
-     * @param string $token The token 
+     * @param pOAuthToken $token The token 
      * @param string $timestamp The timestamp of the request
      * @param string $nonce The nonce to be stored
      * @since 1.1-sofia
