@@ -25,10 +25,10 @@ interface IOAuthStore {
      * Checks if the request token is valid
      * @param pOAuthConsumer $consumer The consumer which has the request token.
      * @param string $requestToken The request token to check validity
-     * @return boolean Returns true if the request token is valid, false otherwise.
+     * @return pOAuthToken Returns the token if the token is valid, false otherwise.
      * @since 1.1-sofia
      */
-    public function checkRequestToken($consumer, $requestToken);
+    public function getRequestToken($consumer, $requestToken);
     
     /**
      * Revokes the validity of the request token
@@ -60,10 +60,11 @@ interface IOAuthStore {
      * Checks if the access token is valid
      * @param pOAuthConsumer $consumer The consumer which has the access token.
      * @param string $requestToken The request token to check validity
-     * @return boolean Returns true if the access token is valid, false otherwise.
+     * @param string $verifier (optional) The optional verifier
+     * @return pOAuthToken Returns the token if the token is valid, false otherwise.
      * @since 1.1-sofia
      */
-    public function checkAccessToken($consumer, $accessToken, $verifier = null);
+    public function getAccessToken($consumer, $accessToken, $verifier = null);
     
     /**
      * Revokes the validity of the access token
@@ -77,12 +78,13 @@ interface IOAuthStore {
      * Grant an access token over a request token
      * @param pOAuthConsumer $consumer The consumer which will hold the access token.
      * @param pOAuthToken $requestToken The request token
+     * @param string $verifier (optional) The optional verifier
      * @return pOAuthToken Returns the access token granted with the secret if
      *              the consumer has been approved by the user, or NULL if the
      *              consumer has been rejected.
      * @since 1.1-sofia
      */
-    public function grantAccessToken($consumer, $requestToken);
+    public function grantAccessToken($consumer, $requestToken, $verifier = null);
     
     /**
      * Check if a nonce is valid based on the value combinations
