@@ -17,7 +17,7 @@ pload('pOAuthRequest');
  * @package packfire.oauth
  * @since 1.1-sofia
  */
-class pOAuthProvider {
+class pOAuthProvider extends pBucketUser {
     
     /**
      * The data storage
@@ -35,14 +35,27 @@ class pOAuthProvider {
     
     /**
      * Create a new pOAuthProvider object
-     * @param IOAuthStore $store The data storage for OAuth
+     * @param IOAuthStore $store (optional) The data storage for OAuth. If not set,
+     *          the store will be retrieved from the 'oauth.store' IoC service.
      * @param integer $timeout (optional) The amount of time allowance for timestamps. 
      *          If not set, any timestamps will be allowed.
      * @since 1.1-sofia
      */
-    public function __construct($store, $timeout = null){
+    public function __construct($store = null, $timeout = null){
         $this->store = $store;
         $this->timeout = $timeout;
+    }
+    
+    /**
+     * Get the data storage
+     * @return IOAuthStore The data storage
+     * @since 1.1-sofia
+     */
+    protected function store(){
+        if(!$this->store){
+            $this->store = $this->service('oauth.store');
+        }
+        return $this->store;
     }
     
     /**
@@ -73,10 +86,10 @@ class pOAuthProvider {
     protected function checkNonce($request, $consumer, $token = null){
         $timestamp = $request->oauth(pOAuth::TIMESTAMP);
         $nonce = $request->oauth(pOAuth::NONCE);
-        if(!$this->store->checkNonce($consumer, $token, $timestamp, $nonce)){
+        if(!$this->store()->checkNonce($consumer, $token, $timestamp, $nonce)){
             throw new pOAuthException('Replay detected through nonce.');
         }
-        $this->store->storeNonce($consumer, $token, $timestamp, $nonce);
+        $this->store()->storeNonce($consumer, $token, $timestamp, $nonce);
     }
     
     /**
@@ -106,14 +119,14 @@ class pOAuthProvider {
             unset($reloaded);
         }
         $this->checkTimestamp($request->oauth(pOAuth::TIMESTAMP));
-        $consumer = $this->store->getConsumer($request->oauth(pOAuth::CONSUMER_KEY));
+        $consumer = $this->store()->getConsumer($request->oauth(pOAuth::CONSUMER_KEY));
         if(!$consumer){
             throw new pOAuthException('No consumer found based on request consumer key');
         }
         $this->verifyRequest($request, $consumer);
         $this->checkNonce($request, $consumer);
         
-        $token = $this->store->createRequestToken($consumer);
+        $token = $this->store()->createRequestToken($consumer);
         $response = new pOAuthResponse();
         $token->assign($response);
         return $response;
@@ -135,18 +148,18 @@ class pOAuthProvider {
             unset($reloaded);
         }
         $this->checkTimestamp($request->oauth(pOAuth::TIMESTAMP));
-        $consumer = $this->store->getConsumer($request->oauth(pOAuth::CONSUMER_KEY));
+        $consumer = $this->store()->getConsumer($request->oauth(pOAuth::CONSUMER_KEY));
         if(!$consumer){
             throw new pOAuthException('No consumer found based on request consumer key');
         }
-        $requestToken = $this->store->getRequestToken($consumer, $request->oauth(pOAuth::TOKEN));
+        $requestToken = $this->store()->getRequestToken($consumer, $request->oauth(pOAuth::TOKEN));
         if(!$requestToken){
             throw new pOAuthException('Request Token is invalid');
         }
         $this->verifyRequest($request, $consumer, $requestToken->secret());
         $this->checkNonce($request, $consumer, $requestToken);
         
-        $token = $this->store->grantAccessToken($consumer, $requestToken, $verifier);
+        $token = $this->store()->grantAccessToken($consumer, $requestToken, $verifier);
         if($token){
             $response = new pOAuthResponse();
             $token->assign($response);
@@ -170,11 +183,11 @@ class pOAuthProvider {
             unset($reloaded);
         }
         $this->checkTimestamp($request->oauth(pOAuth::TIMESTAMP));
-        $consumer = $this->store->getConsumer($request->oauth(pOAuth::CONSUMER_KEY));
+        $consumer = $this->store()->getConsumer($request->oauth(pOAuth::CONSUMER_KEY));
         if(!$consumer){
             throw new pOAuthException('No consumer found based on request consumer key');
         }
-        $accessToken = $this->store->getAccessToken($consumer, $request->oauth(pOAuth::TOKEN), $request->oauth(pOAuth::VERIFIER));
+        $accessToken = $this->store()->getAccessToken($consumer, $request->oauth(pOAuth::TOKEN), $request->oauth(pOAuth::VERIFIER));
         if(!$accessToken){
             throw new pOAuthException('Access denied because token token was not granted.');
         }
