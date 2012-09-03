@@ -1,5 +1,5 @@
 <?php
-pload('packfire.view.pView');
+pload('packfire.application.pack.pAppView');
 pload('packfire.template.moustache.pMoustacheTemplate');
 pload('LightTheme');
 pload('DarkTheme');

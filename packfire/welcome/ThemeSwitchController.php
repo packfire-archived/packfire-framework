@@ -1,5 +1,5 @@
 <?php
-pload('app.AppController');
+pload('packfire.application.pack.pAppController');
 pload('packfire.controller.pValidationFilter');
 pload('packfire.validator.pMatchValidator');
 
@@ -14,7 +14,7 @@ pload('packfire.validator.pMatchValidator');
  * @package packfire.welcome
  * @since 1.0-sofia
  */
-class ThemeSwitchController extends AppController {
+class ThemeSwitchController extends pAppController {
     
     public function index(){
         $this->filter('theme', array(

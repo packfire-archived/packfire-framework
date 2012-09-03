@@ -1,5 +1,5 @@
 <?php
-pload('app.AppView');
+pload('packfire.application.pack.pAppView');
 
 /**
  * pHelloWorldView View
@@ -10,7 +10,7 @@ pload('app.AppView');
  * @package packfire.welcome
  * @since 1.0-elenor
  */
-class pHelloWorldView extends pView {
+class pHelloWorldView extends pAppView {
     
     protected function create(){
         echo 'Hello World';
