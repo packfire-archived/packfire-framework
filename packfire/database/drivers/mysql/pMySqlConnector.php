@@ -1,5 +1,6 @@
 <?php
 pload('packfire.database.connectors.pPdoConnector');
+pload('pMySqlDatabase');
 
 /**
  * pMySqlConnector class

@@ -20,9 +20,9 @@ class pDbConnectorFactory {
      * @since 1.0-sofia
      */
     public static function create($config){
-        pload('packfire.database.drivers.' . $config['driver'] . '.*');
         switch($config['driver']){
             case 'mysql':
+                pload('packfire.database.drivers.mysql.pMySqlConnector');
                 return new pMySqlConnector($config);
                 break;
         }

@@ -1,5 +1,6 @@
 <?php
 pload('packfire.database.pDatabase');
+pload('pMySqlSchema');
 
 /**
  * pMySqlDatabase class
