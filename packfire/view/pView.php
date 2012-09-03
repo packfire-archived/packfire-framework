@@ -5,6 +5,7 @@ pload('packfire.collection.pMap');
 pload('packfire.filter.IFilter');
 pload('packfire.template.pTemplate');
 pload('packfire.model.pObjectObserver');
+pload('packfire.ioc.pBucketUser');
 
 /**
  * The generic view class.
