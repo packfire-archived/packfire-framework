@@ -44,17 +44,19 @@ class pHttpAppRequest extends pHttpClientRequest implements IAppRequest {
      */
     public function __construct($client, $server){
         parent::__construct($client);
-        $this->scriptName = $server['SCRIPT_NAME'];
-        $this->phpSelf = $server['PHP_SELF'];
-        if(array_key_exists('ORIG_PATH_INFO', $server)){
-            $this->pathInfo = $server['ORIG_PATH_INFO'];
-        }elseif(array_key_exists('PATH_INFO', $server)){
-            $this->pathInfo = $server['PATH_INFO'];
-        }else{
-            if($this->scriptName == $this->phpSelf){
-                $this->pathInfo = '/';
+        if($server){
+            $this->scriptName = $server['SCRIPT_NAME'];
+            $this->phpSelf = $server['PHP_SELF'];
+            if(array_key_exists('ORIG_PATH_INFO', $server)){
+                $this->pathInfo = $server['ORIG_PATH_INFO'];
+            }elseif(array_key_exists('PATH_INFO', $server)){
+                $this->pathInfo = $server['PATH_INFO'];
             }else{
-                $this->pathInfo = substr($this->phpSelf, strlen($this->scriptName));
+                if($this->scriptName == $this->phpSelf){
+                    $this->pathInfo = '/';
+                }else{
+                    $this->pathInfo = substr($this->phpSelf, strlen($this->scriptName));
+                }
             }
         }
     }
