@@ -1,5 +1,6 @@
 <?php
 pload('ICache');
+pload('packfire.collection.pMap');
 
 /**
  * pMockCache class
@@ -14,16 +15,22 @@ pload('ICache');
  */
 class pMockCache implements ICache {
     
+    private $store;
+    
+    public function __construct(){
+        $this->store = new pMap();
+    }
+    
     public function check($id) {
-        return false;
+        return $this->store->keyExists($id);
     }
 
     public function clear($id) {
-        
+        $this->store->removeAt($id);
     }
 
     public function flush() {
-        
+        $this->store->clear();
     }
 
     public function garbageCollect() {
@@ -31,11 +38,11 @@ class pMockCache implements ICache {
     }
 
     public function get($id, $default = null) {
-        return $default;
+        return $this->store->get($id, $default);
     }
 
     public function set($id, $value, $expiry) {
-        
+        $this->store->add($id, $value);
     }
     
 }
