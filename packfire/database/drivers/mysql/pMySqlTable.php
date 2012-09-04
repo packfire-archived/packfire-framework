@@ -140,10 +140,12 @@ class pMySqlTable extends pDbTable {
 
     /**
      * Update a row in the table
-     * @param array|pMap $row The row with the updated information and primary key
+     * @param array|pMap $row The updated information. Primary key should be
+     *           included here if $where is not set.
+     * @param array|pMap $where (optional) The conditions to update the rows
      * @since 1.0-sofia
      */
-    public function update($row) {
+    public function update($row, $where = null) {
         $query = 'UPDATE `%s` SET ';
         $data = array();
         $pks = array();
@@ -151,14 +153,22 @@ class pMySqlTable extends pDbTable {
         foreach($this->columns() as $column){
             if(array_key_exists($column->name(), $row)){
                 $params[$column->name()] = $row[$column->name()];
-                if($column->type() == 'pk'){
+                if($column->type() == 'pk' && !$where){
                     $pks[] = '`'.$column->name().'` = :' . $column->name();
-                }else{
+                }elseif($column->type() != 'pk'){
                     $data[] = '`'.$column->name().'` = :' . $column->name();
                 }
             }
         }
         $query .= implode(', ', $data) . ' WHERE ';
+        if($where){
+            foreach($this->columns() as $column){
+                if(array_key_exists($column->name(), $where)){
+                    $params[$column->name()] = $where[$column->name()];
+                    $pks[] = '`' . $column->name() . '` = :' . $column->name();
+                }
+            }
+        }
         $query .= implode(' AND ', $pks);
         $statement = $this->driver->binder(sprintf($query, $this->name), $params);
         $statement->execute();

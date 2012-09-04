@@ -86,10 +86,12 @@ abstract class pDbTable {
     
     /**
      * Update a row in the table
-     * @param array|pMap $row The row with the updated information and primary key
+     * @param array|pMap $row The updated information. Primary key should be
+     *           included here if $where is not set.
+     * @param array|pMap $where (optional) The conditions to update the rows
      * @since 1.0-sofia
      */
-    public abstract function update($row);
+    public abstract function update($row, $where = null);
         
     /**
      * Get the columns of the table
