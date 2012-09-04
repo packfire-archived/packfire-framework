@@ -189,7 +189,7 @@ class pOAuthProvider extends pBucketUser {
         }
         $accessToken = $this->store()->getAccessToken($consumer, $request->oauth(pOAuth::TOKEN), $request->oauth(pOAuth::VERIFIER));
         if(!$accessToken){
-            throw new pOAuthException('Access denied because token token was not granted.');
+            throw new pOAuthException('Access denied because access token was not granted.');
         }
         
         $this->verifyRequest($request, $consumer, $accessToken->secret());
