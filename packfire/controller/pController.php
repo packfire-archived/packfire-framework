@@ -428,11 +428,20 @@ abstract class pController extends pBucketUser {
     
     /**
      * Get the controller's parameters.
+     * @param string $arg,... (optional) Select the parameters to retrieve
      * @return pMap Returns pMap containing the parameters
      * @since 1.0-sofia
      */
     public function params(){
-        return $this->params;
+        if(func_num_args() > 0){
+            $result = array();
+            foreach(func_get_args() as $arg){
+                $result[$arg] = $this->params->get($arg);
+            }
+            return $result;
+        }else{
+            return $this->params;
+        }
     }
     
     /**
