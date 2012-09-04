@@ -144,7 +144,7 @@ class pOAuthConsumer {
      * @return pOAuthToken Returns the token provided by the service provider
      * @since 1.1-sofia
      */
-    public function accessTokenRequest($url, $requestToken){
+    public function accessTokenRequest($url, $requestToken, $verifier = null){
         if(!($url instanceof pUrl)){
             $url = new pUrl($url);
         }
@@ -156,6 +156,9 @@ class pOAuthConsumer {
         $request->uri($url->path());
         $request->oauth(pOAuth::TOKEN, (string)$requestToken);
         $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
+        if($verifier){
+            $request->oauth(pOAuth::VERIFIER, $verifier);
+        }
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
         $response = $server->request($request, new pOAuthResponse());
         /* @var $response pOAuthResponse */
