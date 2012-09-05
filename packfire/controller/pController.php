@@ -436,7 +436,7 @@ abstract class pController extends pBucketUser {
         if(func_num_args() > 0){
             $result = array();
             foreach(func_get_args() as $arg){
-                $result[$arg] = $this->params->get($arg);
+                $result[] = $this->params->get($arg);
             }
             return $result;
         }else{
