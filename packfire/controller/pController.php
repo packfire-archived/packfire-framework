@@ -66,13 +66,6 @@ abstract class pController extends pBucketUser {
     protected $directAccess = false;
     
     /**
-     * Controller Parameters
-     * @var pMap
-     * @since 1.0-sofia
-     */
-    protected $params;
-    
-    /**
      * Parameter filters
      * @var pMap 
      * @since 1.0-sofia
@@ -103,15 +96,10 @@ abstract class pController extends pBucketUser {
         $this->request = $request;
         $this->response = $response;
         
-        $this->params = new pMap();
         $this->filters = new pMap();
         $this->state = new pMap();
         $this->errors = new pMap();
         $this->models = new pMap();
-        
-        if($request){
-            $this->params = $this->request->params();
-        }
     }
     
     /**
@@ -161,47 +149,6 @@ abstract class pController extends pBucketUser {
     }
     
     /**
-     * Forward the request to another controller
-     * @param string|pController $package The controller to run the action
-     * @param string $action (optional) The action to execute
-     * @param array|pMap (optional) The parameters to send to the action
-     * @return mixed Returns whatever the action's response is.
-     * @since 1.0-sofia
-     */
-    protected function forward($package, $action = null, $params = null){        
-        if($package == $this){
-            $origParams = $this->params;
-            $origResponse = $this->response;
-            if($params){
-                $this->params = $params;
-            }
-            $this->run($this->route, $action);
-            return $this->response;
-            $this->params = $origParams;
-            $this->response = $origResponse;
-        }else{
-            list($package, $class) = pClassLoader::resolvePackageClass($package);
-            if(substr($class, -11) != 'Controller'){
-                $package .= 'Controller';
-                $class .= 'Controller';
-            }
-
-            if(!class_exists($class)){
-                pload('controller.' . $package);
-            }
-
-            if(is_subclass_of($class, 'pController')){
-                $controller = new $class($this->request, $this->response);
-                $controller->state = $this->state;
-                $controller->copyBucket($this);
-                $controller->run($this->route, $action);
-                $this->state = $controller->state;
-                return $controller->response;
-            }
-        }
-    }
-    
-    /**
      * Get a specific routing URL from the router service
      * @param string $key The routing key
      * @param array $params (optionl) URL Parameters 
@@ -235,49 +182,6 @@ abstract class pController extends pBucketUser {
             $this->models[$model] = $obj;
         }
         return $this->models[$model];
-    }
-    
-    /**
-     * Set filters to a parameter.
-     * 
-     * @param string $name Name of the parameter to add filters to
-     * @param IFilter|Closure|callback|array|IList $filter The controller filter,
-     *              closure or callback that will process the parameter.
-     *              If $filter is an array the method will run through the array
-     *              recursively.
-     * @param string $message (optional) The error message to use when a pValidationException occurs.
-     * @since 1.0-sofia
-     */
-    protected function filter($name, $filter, $message = null){
-        if(is_string($filter)){
-            $ex = explode('|', $filter);
-            if(count($ex) > 1){
-                $filter = $ex;
-            }
-        }
-        if(is_array($filter) || $filter instanceof IList){
-            foreach($filter as $fil){
-                $this->filter($name, $fil, $message);
-            }
-        }else{
-            $value = $this->params[$name];
-            // if it is a name of class, create a new instance
-            if(is_string($filter) && class_exists($filter)){
-                $filter = new $filter();
-            }
-            try{
-                if($filter instanceof IFilter){
-                    $value = $filter->filter($value);
-                }elseif($filter instanceof Closure || is_callable($filter)){
-                    $value = $filter($value);
-                }
-            }catch(pValidationException $vEx){
-                $this->error($name, $vEx, $message);
-            }catch(Exception $ex){
-                $this->error($name, $ex);
-            }
-            $this->params[$name] = $value;
-        }
     }
     
     /**
@@ -362,7 +266,6 @@ abstract class pController extends pBucketUser {
      */
     public function run($route, $action){
         $this->route = $route;
-        $this->params->append($route->params());
         $securityEnabled = $this->service('security') 
                 && !$this->service('config.app')->get('security', 'disabled');
         if($securityEnabled){
@@ -410,7 +313,7 @@ abstract class pController extends pBucketUser {
         if(method_exists($this, $call)){
             // call the controller action
             $this->activate($call);
-            $result = $this->$call();
+            $result = call_user_func_array(array($this, $call), $route->params()->toArray());
             if($result){
                 $this->response = $result;
             }
@@ -427,47 +330,10 @@ abstract class pController extends pBucketUser {
     }
     
     /**
-     * Get the controller's parameters.
-     * @param string $arg,... (optional) Select the parameters to retrieve
-     * @return pMap Returns pMap containing the parameters
-     * @since 1.0-sofia
-     */
-    public function params(){
-        if(func_num_args() > 0){
-            $result = array();
-            foreach(func_get_args() as $arg){
-                $result[] = $this->params->get($arg);
-            }
-            return $result;
-        }else{
-            return $this->params;
-        }
-    }
-    
-    /**
-     * Get or set a parameter of the controller's parameters
-     * 
-     * It's a candy for $this->params->get() instead
-     * 
-     * @param string $key The parameter key
-     * @param mixed $value (optional) If set, the parameter will be set to
-     *                      this value.
-     * @return mixed Returns the parameter value or NULL if parameter is not set.
-     * @since 1.1-sofia
-     */
-    public function param($key, $value = null){
-        if(func_num_args() == 2){
-            $this->params->add($key, $value);
-        }
-        return $this->params->get($key);
-    }
-    
-    /**
      * Perform post-processing after the action is executed
      * @since 1.0-sofia 
      */
     private function postProcess(){
-        
         // disable debugger if non-HTML output
         $type = null;
         if($this->response instanceof pHttpResponse){

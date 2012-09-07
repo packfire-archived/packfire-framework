@@ -154,13 +154,14 @@ class pHttpRoute implements IRoute {
                 }
                 if($method == 'get'){
                     foreach($_GET as $key => $value){
-                        if(!array_key_exists($key, $params)){ 
-                            // checking to prevent injection
+                        // checking to prevent injection
+                        if($this->params->keyExists($key) 
+                                && !array_key_exists($key, $params)){ 
                             $params[$key] = $value; 
                         }
                     }
                 }
-                $this->params->append($params);
+                $this->params = new pMap($params);
                 return true;
             }
         }
