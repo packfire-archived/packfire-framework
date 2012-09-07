@@ -13,7 +13,7 @@ pload('packfire.data.serialization.pJsonSerializer');
  * @package packfire.response
  * @since 1.0-sofia
  */
-class pJsonResponse extends pHttpAppResponse {
+class pJsonResponse extends pHttpAppResponse implements IResponseFormat {
     
     /**
      * Create a new pJsonResponse object

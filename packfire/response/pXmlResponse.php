@@ -13,7 +13,7 @@ pload('packfire.data.serialization.pXmlSerializer');
  * @package packfire.response
  * @since 1.0-sofia
  */
-class pXmlResponse extends pHttpAppResponse {
+class pXmlResponse extends pHttpAppResponse implements IResponseFormat {
     
     /**
      * Create a new pXmlResponse object
