@@ -1,6 +1,7 @@
 <?php
 pload('packfire.application.http.pHttpAppResponse');
 pload('packfire.data.serialization.pJsonSerializer');
+pload('IResponseFormat');
 
 /**
  * pJsonResponse class
