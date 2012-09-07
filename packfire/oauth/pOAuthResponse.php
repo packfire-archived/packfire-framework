@@ -26,10 +26,12 @@ class pOAuthResponse extends pHttpResponse implements IOAuthHttpEntity, IAppResp
     
     /**
      * Create a new pOAuthResponse object
+     * @since 1.1-sofia
      */
     public function __construct() {
         parent::__construct();
         $this->oauthParams = new pMap();
+        $this->headers->add('Content-Type', 'text/plain');
     }
     
     /**
@@ -45,6 +47,17 @@ class pOAuthResponse extends pHttpResponse implements IOAuthHttpEntity, IAppResp
         }else{
             return $this->oauthParams->get($key);
         }
+    }
+    
+    /**
+     * Convert the plain text OAuth response to a different response format
+     * @param string $response The name of the IResponseFormat class to convert
+     *          the OAuth response to, i.e. pJsonResponse, pXmlResponse
+     * @returns IResponseFormat Returns the response created
+     * @since 1.1-sofia
+     */
+    public function format($response){
+        return new $response($this->oauthParams->toArray());
     }
     
     /**
