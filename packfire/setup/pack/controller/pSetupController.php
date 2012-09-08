@@ -35,8 +35,7 @@ class pSetupController extends pController {
         $this->unitTest();
     }
     
-    private function installFramework(){
-        $root = trim($this->params->get('root'));
+    private function installFramework($root){
         if($root && __PACKFIRE_ROOT__ != $root){
             pPath::copy(__PACKFIRE_ROOT__, $root);
         }
@@ -49,15 +48,15 @@ class pSetupController extends pController {
         $this->render(new pSetupInstallView());
     }
     
-    public function cliInstallFramework(){
+    public function cliInstallFramework($root){
         $this->version();
         echo "-----------------------------\n";
-        $root = trim($this->params->get('root'));
+        $root = trim($root);
         if($root){
             echo "Installing Packfire Framework to: \n";
             echo "   "  . $root . "\n\n";
             echo "Copying files... ";
-            $this->installFramework();
+            $this->installFramework($root);
             echo "Done!\n\n";
             echo "Installation of Packfire Framework is now complete.\n";
         }else{
@@ -65,9 +64,7 @@ class pSetupController extends pController {
         }
     }
     
-    private function createApplication(){
-        $root = trim($this->params->get('root'));
-        $packfire = trim($this->params->get('packfire'));
+    private function createApplication($root, $packfire){
         if($root && $packfire){
             $generator = new pAppGenerator($root, $packfire);
             $generator->generate();
@@ -79,18 +76,16 @@ class pSetupController extends pController {
         }
     }
     
-    public function postCreateApplication(){
-        $this->createApplication();
+    public function postCreateApplication($root, $packfire){
+        $this->createApplication($root, $packfire);
         $this->render(new pSetupCreateView());
     }
     
-    public function cliCreateApplication(){
+    public function cliCreateApplication($root, $framework){
         $this->version();
         echo "-----------------------------\n";
-        $root = trim($this->params->get('root'));
         echo "Creating a new Packfire application to: \n";
         echo "   "  . $root . "\n\n";
-        $framework = $this->params->get('packfire');
 
         while(!$framework){
             echo "Where did you install Packfire Framework?\n";
@@ -106,10 +101,9 @@ class pSetupController extends pController {
                 echo "Error: Setup could not locate Packfire Framework installed at that location.\n\n";
             }
         }
-        $this->params->add('packfire', $framework);
         echo "Setting Framework to " . $framework . "\n\n";
         echo "Copying files... ";
-        $this->createApplication();
+        $this->createApplication($root, $framework);
         echo "Done!\n\n";
         echo "Creation of a new Packfire Application is now complete.\n";
     }

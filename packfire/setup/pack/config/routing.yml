@@ -17,6 +17,8 @@ installAct:
   rewrite: "/install"
   method: post
   actual: "controller.pSetupController:installFramework"
+  params:
+    root: (.*)
   
 installView:
   rewrite: "/install"
@@ -27,6 +29,9 @@ createAct:
   rewrite: "/create"
   method: post
   actual: "controller.pSetupController:createApplication"
+  params:
+    root: (.*)
+    packfire: (.*)
   
 createView:
   rewrite: "/create"
