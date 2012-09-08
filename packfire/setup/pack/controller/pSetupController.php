@@ -43,8 +43,8 @@ class pSetupController extends pController {
         $this->state['root'] = $root;
     }
     
-    public function postInstallFramework(){
-        $this->installFramework();
+    public function postInstallFramework($root){
+        $this->installFramework($root);
         $this->render(new pSetupInstallView());
     }
     
