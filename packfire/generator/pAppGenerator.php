@@ -122,14 +122,12 @@ class pAppGenerator {
                 pPath::combine($this->root, 'pack/app/AppModel.php'));
         $this->renderFile($path . '/resource/application/pack/app/AppSecurityModule.php',
                 pPath::combine($this->root, 'pack/app/AppSecurityModule.php'));
-        $this->renderFile($path . '/resource/application/pack/app/AppTemplate.php',
-                pPath::combine($this->root, 'pack/app/AppTemplate.php'));
-        $this->renderFile($path . '/resource/application/pack/app/AppTheme.php',
-                pPath::combine($this->root, 'pack/app/AppTheme.php'));
         $this->renderFile($path . '/resource/application/pack/app/AppView.php',
                 pPath::combine($this->root, 'pack/app/AppView.php'));
         $this->renderFile($path . '/resource/application/pack/app/Application.php',
                 pPath::combine($this->root, 'pack/app/Application.php'));
+        $this->renderFile($path . '/resource/application/pack/app/CliApplication.php',
+                pPath::combine($this->root, 'pack/app/CliApplication.php'));
         $this->renderFile($path . '/resource/application/pack/app/readme.md',
                 pPath::combine($this->root, 'pack/app/readme.md'));
         
