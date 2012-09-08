@@ -23,12 +23,12 @@ class HomeController extends pController {
     }
     
     function getIndex(){
-        $this->forward($this, 'message');
+        $this->message();
         $this->render(new HomeIndexView());
     }
     
     function cliIndex(){
-        $this->forward($this, 'message');
+        $this->message();
         echo 'Packfire Framework ' . __PACKFIRE_VERSION__ 
                 . "\n" . '-----------------------------' . "\n\n";
         echo $this->state['message'] . "\n";

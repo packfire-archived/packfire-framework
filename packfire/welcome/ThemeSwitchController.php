@@ -16,12 +16,8 @@ pload('packfire.validator.pMatchValidator');
  */
 class ThemeSwitchController extends pAppController {
     
-    public function index(){
-        $this->filter('theme', array(
-                'trim',
-                new pValidationFilter(new pMatchValidator(array('dark', 'light'))
-            )));
-        $this->service('session')->set('theme', $this->params['theme']);
+    public function index($theme){
+        $this->service('session')->set('theme', $theme);
         $this->redirect($this->route('home'));
     }
     
