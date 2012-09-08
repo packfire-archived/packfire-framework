@@ -116,7 +116,7 @@ class pHttpRoute implements IRoute {
     
     /**
      * Check whether the route matches the request
-     * @param IAppRequest $request The locator requested by the client
+     * @param pHttpRequest $request The locator requested by the client
      * @return boolean Returns true if the route matches, false otherwise
      * @since 1.0-elenor 
      */
@@ -152,8 +152,15 @@ class pHttpRoute implements IRoute {
                 foreach ($tokens as $key) {
                     $params[$key] = $matches[$key];
                 }
-                if($method == 'get'){
-                    foreach($_GET as $key => $value){
+                foreach($request->get() as $key => $value){
+                    // checking to prevent injection
+                    if($this->params->keyExists($key) 
+                            && !array_key_exists($key, $params)){ 
+                        $params[$key] = $value; 
+                    }
+                }
+                if($method == 'post'){
+                    foreach($request->post() as $key => $value){
                         // checking to prevent injection
                         if($this->params->keyExists($key) 
                                 && !array_key_exists($key, $params)){ 
