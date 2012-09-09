@@ -1,6 +1,14 @@
 <?php
 
 pload('packfire.controller.pCALoader');
+pload('packfire.application.http.pHttpAppRequest');
+pload('packfire.application.http.pHttpAppResponse');
+pload('packfire.application.IAppResponse');
+pload('packfire.ioc.pServiceBucket');
+pload('packfire.session.pSession');
+pload('packfire.routing.http.pHttpRoute');
+pload('packfire.routing.http.pHttpRouter');
+require_once('mocks/tMockSessionStorage.php');
 
 /**
  * Test class for pCALoader.

@@ -1,5 +1,7 @@
 <?php
 
+pload('packfire.session.storage.pSessionStorage');
+
 /**
  * tMockSessionStorage class
  * 

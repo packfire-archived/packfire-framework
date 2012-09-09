@@ -1,6 +1,8 @@
 <?php
 
 pload('packfire.routing.http.pHttpRouter');
+pload('packfire.collection.pMap');
+pload('packfire.routing.http.pHttpRoute');
 require_once('mocks/tMockRouteRequest.php');
 
 /**
