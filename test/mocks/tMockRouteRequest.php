@@ -18,6 +18,7 @@ class tMockRouteRequest extends pHttpAppRequest {
     
     public function __construct($uri, $server){
         parent::__construct(null, $server);
+        parent::method(pHttpMethod::GET);
         $this->route = $uri;
     }
     
@@ -33,16 +34,8 @@ class tMockRouteRequest extends pHttpAppRequest {
         return new pMap(array('data' => 200, '_urlroute_' => $this->route));
     }
 
-    public function headers() {
-        return new pMap();
-    }
-
     public function https($h = null) {
         return false;
-    }
-
-    public function method($m = null) {
-        return pHttpMethod::GET;
     }
 
     public function post() {
