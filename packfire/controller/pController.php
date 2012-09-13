@@ -50,18 +50,10 @@ abstract class pController extends pBucketUser {
     protected $state;
     
     /**
-     * Flags whether this controller uses RESTful controller actions
-     * Defaults to true.
-     * @var boolean
-     * @since 1.0-sofia
-     */
-    protected $restful = true;
-    
-    /**
      * Flags whether to allow direct access to the controller actions
      * Defaults to false
      * @var boolean
-     * @since 1.0s-sofia
+     * @since 1.0-sofia
      */
     protected $directAccess = false;
     
@@ -258,6 +250,22 @@ abstract class pController extends pBucketUser {
     }
     
     /**
+     * Check for action method
+     * @param string $method The method of the request in lower case
+     * @param string $action The name of the controller action in lower camel casing.
+     * @return string Returns the method name
+     * @since 1.1-sofia
+     */
+    private function checkMethod($method, $action){
+        $call = $action;
+        $httpMethodCall = $method . ucfirst($action);
+        if(is_callable(array($this, $httpMethodCall))){
+            $call = $httpMethodCall;
+        }
+        return $call;
+    }
+    
+    /**
      * Run the controller action with the route
      * @param pRoute $route The route that called for this controller
      * @param string $action The action to perform
@@ -281,28 +289,13 @@ abstract class pController extends pBucketUser {
             }
         }
         
-        if(!$action){
-            $action = 'index';
+        $method = strtolower($this->request->method());
+        $call = $this->checkMethod($method, '');
+        if(!$call){
+            $call = $this->checkMethod($method, $action);
         }
-        
-        if(method_exists($this, $action)){
-            $call = $action;
-        }else{
-            $call = 'do' . ucFirst($action);
-        }
-        
-        if($this->restful){
-            if($this->request instanceof pHttpRequest){
-                $httpMethodCall = strtolower($this->request->method()) . ucFirst($action);
-                if(method_exists($this, $httpMethodCall)){
-                    $call = $httpMethodCall;
-                }
-            }elseif($this->request instanceof pCliAppRequest){
-                $httpMethodCall = strtolower('cli') . ucFirst($action);
-                if(method_exists($this, $httpMethodCall)){
-                    $call = $httpMethodCall;
-                }
-            }
+        if(!$call){
+            $call = $this->checkMethod($method, 'index');
         }
         
         if($securityEnabled && !$this->service('security')->authorize($route)){
@@ -310,7 +303,7 @@ abstract class pController extends pBucketUser {
             return;
         }
         
-        if(method_exists($this, $call)){
+        if(is_callable(array($this, $call))){
             // call the controller action
             $this->activate($call);
             $result = call_user_func_array(array($this, $call), $route->params()->toArray());
@@ -320,10 +313,13 @@ abstract class pController extends pBucketUser {
             $this->postProcess();
             $this->deactivate($call);
         }else{
+            $errorMsg = sprintf('The requested action "%s" is not found' 
+                                . ' in the controller "%s".',
+                                $call, get_class($this));
             if($this->request instanceof pHttpRequest){
-                throw new pHttpException(404);
+                throw new pHttpException(404, $errorMsg);
             }else{
-                throw new pInvalidRequestException('The action is not found in the controller.');
+                throw new pInvalidRequestException($errorMsg);
             }
         }
         return $this->response;
