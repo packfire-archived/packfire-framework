@@ -3,6 +3,8 @@ pload('pException');
 pload('packfire.net.http.pHttpResponseCode');
 
 /**
+ * pHttpException class
+ * 
  * A HTTP Exception
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -13,11 +15,17 @@ pload('packfire.net.http.pHttpResponseCode');
  */
 class pHttpException extends pException{
     
-    public function __construct($httpCode){
+    /**
+     * Create a new pHttpException object
+     * @param type $httpCode
+     * @param type $message (optional)
+     * @since 1.0-sofia
+     */
+    public function __construct($httpCode, $message = null){
         $http = constant('pHttpResponseCode::HTTP_' . $httpCode);
-        parent::__construct($http,
+        $this->responseCode = $httpCode;
+        parent::__construct($http . ($message ? ' ' . $message : ''),
                 $httpCode);
-        header('HTTP/1.1 ' . $http);
     }
     
 }
