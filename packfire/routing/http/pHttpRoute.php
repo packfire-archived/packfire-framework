@@ -116,13 +116,20 @@ class pHttpRoute implements IRoute {
     
     /**
      * Check whether the route matches the request
-     * @param pHttpRequest $request The locator requested by the client
+     * @param pHttpAppRequest $request The locator requested by the client
      * @return boolean Returns true if the route matches, false otherwise
      * @since 1.0-elenor 
      */
     public function match($request){
         $url = $request->pathInfo();
-        $method = strtolower($request->method());
+        $oriMethod = $request->method();
+        if($request->headers()->keyExists('X-HTTP-Method')){
+            $oriMethod = $request->headers()->get('X-HTTP-Method');
+        }
+        if($request->headers()->keyExists('X-HTTP-Method-Override')){
+            $oriMethod = $request->headers()->get('X-HTTP-Method-Override');
+        }
+        $method = strtolower($oriMethod);
         
         // check whether HTTP method matches for RESTful routing
         if(!$this->httpMethod() || 
