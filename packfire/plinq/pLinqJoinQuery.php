@@ -7,7 +7,7 @@ pload('ILinqQuery');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.linq
+ * @package packfire.plinq
  * @since 1.0-sofia
  */
 class pLinqJoinQuery implements ILinqQuery {
@@ -17,6 +17,14 @@ class pLinqJoinQuery implements ILinqQuery {
     private $outerKeySelector;
     private $resultSelector;
     
+    /**
+     * Create a new pLinqJoinQuery object
+     * @param mixed $joinCollection
+     * @param mixed $innerKey
+     * @param mixed $outerKey
+     * @param mixed $resultSelector
+     * @since 1.0-sofia
+     */
     public function __construct($joinCollection, $innerKey, $outerKey, $resultSelector){
         $this->joinCollection = $joinCollection;
         $this->innerKeySelector = $innerKey;
@@ -24,6 +32,12 @@ class pLinqJoinQuery implements ILinqQuery {
         $this->resultSelector = $resultSelector;
     }
     
+    /**
+     * Execute the query
+     * @param array $collection The collection to execute upon
+     * @return mixed Returns the result after the query execution
+     * @since 1.0-sofia
+     */
     public function run($collection) {
         $result = array();
         

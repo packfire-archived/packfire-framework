@@ -15,6 +15,12 @@ pload('pLinqWorkerQuery');
  */
 class pLinqGroupByQuery extends pLinqWorkerQuery {
     
+    /**
+     * Execute the query
+     * @param array $collection The collection to execute upon
+     * @return mixed Returns the result after the query execution
+     * @since 1.0-sofia
+     */
     public function run($collection) {
         $grouping = array();
         $worker = $this->worker();

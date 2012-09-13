@@ -34,6 +34,12 @@ class pLinqOrderByQuery extends pLinqWorkerQuery implements IComparator {
         $this->descending = $descending;
     }
     
+    /**
+     * Execute the query
+     * @param array $collection The collection to execute upon
+     * @return mixed Returns the result after the query execution
+     * @since 1.0-sofia
+     */
     public function run($collection) {
         usort($collection, array($this, 'compare'));
         return $collection;
