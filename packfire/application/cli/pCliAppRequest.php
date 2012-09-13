@@ -45,4 +45,13 @@ class pCliAppRequest implements IAppRequest {
         return $this->params;
     }
     
+    /**
+     * Get the method of the application request
+     * @return string Returns the method identifier 'cli'
+     * @since 1.1-sofia
+     */
+    public function method(){
+        return 'cli';
+    }
+    
 }
