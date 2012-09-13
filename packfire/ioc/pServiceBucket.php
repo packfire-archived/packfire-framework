@@ -71,7 +71,7 @@ class pServiceBucket implements IServiceBucket {
     public function pick($serviceName){
         $result = null;
         
-        if(method_exists($this,  $serviceName . 'Service')){
+        if(is_callable(array($this,  $serviceName . 'Service'))){
             $result = $this->{$serviceName . 'Service'}();
         }else{
             $serviceName = strtolower($serviceName);
@@ -100,7 +100,7 @@ class pServiceBucket implements IServiceBucket {
      * @since 1.0-sofia
      */
     public function contains($serviceName){
-        return method_exists($this, $serviceName . 'Service')
+        return is_callable(array($this, $serviceName . 'Service'))
                 || $this->services->keyExists(strtolower($serviceName));
     }
     
