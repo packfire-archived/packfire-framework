@@ -14,6 +14,7 @@ class pHelloWorldView extends pAppView {
     
     protected function create(){
         echo 'Hello World';
+        exit;
     }
 
 }
