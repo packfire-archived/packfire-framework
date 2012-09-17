@@ -121,6 +121,12 @@ class pDebugger extends pBucketUser {
         if($this->enabled){
             $dbts = debug_backtrace();
             $dbt = $dbts[1];
+            if(!array_key_exists('file', $dbt)){
+                $dbt['file'] = '{unknown}';
+            }
+            if(!array_key_exists('line', $dbt)){
+                $dbt['line'] = '{0}';
+            }
             $where = sprintf('%s:%d', pPath::baseName($dbt['file']),
                     $dbt['line']);
             $this->output()->write($sql, $where, $type);
@@ -132,7 +138,7 @@ class pDebugger extends pBucketUser {
      * @return IDebugOutput Returns the debugging output method
      * @since 1.0-sofia
      */
-    private function output(){
+    protected function output(){
         return $this->service('debugger.output');
     }
     
