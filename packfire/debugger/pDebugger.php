@@ -57,7 +57,8 @@ class pDebugger extends pBucketUser {
                 }
             }else{
                 $output = var_export($value, true);
-                $dbt = reset(debug_backtrace());
+                $dbts = debug_backtrace();
+                $dbt = reset($dbts);
                 $where = sprintf('%s:%d', pPath::baseName($dbt['file']),
                         $dbt['line']);
                 $this->output()->write($output, $where, __FUNCTION__);
@@ -100,7 +101,8 @@ class pDebugger extends pBucketUser {
      */
     public function timeCheck(){
         if($this->enabled){
-            $dbt = reset(debug_backtrace());
+            $dbts = debug_backtrace();
+            $dbt = reset($dbts);
             $message = sprintf(
                     'Time taken from application loaded to reach %s line %s',
                     $dbt['file'], $dbt['line']);
