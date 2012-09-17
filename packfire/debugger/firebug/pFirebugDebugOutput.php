@@ -39,8 +39,8 @@ class pFirebugDebugOutput implements IDebugOutput {
         foreach($this->buffer as $line){
             $html .= 'console.' . $line[0] . '(' . json_encode($line[1]) . ');' . "\n";
         }
-        $html = 'console.groupEnd();' . "\n";
-        return '<script type="text/javascript">(function(){' . $html . '})();</script>';
+        $html .= 'console.groupEnd();' . "\n";
+        echo '<script type="text/javascript">(function(){' . $html . '})();</script>';
     }
 
     /**
@@ -62,7 +62,7 @@ class pFirebugDebugOutput implements IDebugOutput {
                 break;
         }
         $this->buffer[] = array($jsFunction,
-            $message . ($value ? ' '. $value : ''));
+            $message . ($value ? ' ['. $value . ']' : ''));
     }
     
 }
