@@ -1,7 +1,7 @@
 <?php
 
 pload('packfire.debugger.pDebugger');
-pload('packfire.debugger.console.pConsoleDebugOutput');
+pload('packfire.debugger.IDebugOutput');
 pload('packfire.ioc.pServiceBucket');
 
 /**
@@ -22,7 +22,7 @@ class pDebuggerTest extends PHPUnit_Framework_TestCase {
     protected function setUp() {
         
         $bucket = new pServiceBucket();
-        $bucket->put('debugger.output', $this->getMock('pConsoleDebugOutput'));
+        $bucket->put('debugger.output', $this->getMock('IDebugOutput'));
         
         /* @var $object pDebugger */
         $this->object = new pDebugger();
