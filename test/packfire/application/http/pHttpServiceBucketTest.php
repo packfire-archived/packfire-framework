@@ -1,6 +1,6 @@
 <?php
 
-pload('packfire.application.http.phttpServiceBucket');
+pload('packfire.application.http.pHttpServiceBucket');
 pload('packfire.ioc.pServiceBucket');
 
 /**
