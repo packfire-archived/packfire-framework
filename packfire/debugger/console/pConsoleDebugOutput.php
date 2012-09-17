@@ -6,6 +6,8 @@ pload('packfire.debugger.IDebugOutput');
 pload('packfire.template.moustache.pMoustacheTemplate');
 
 /**
+ * pConsoleDebugOutput class
+ * 
  * Provides Client-side GUI debugging console output
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
