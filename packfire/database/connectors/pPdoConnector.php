@@ -51,6 +51,7 @@ abstract class pPdoConnector extends pBucketUser implements IDbConnector {
         }
         unset($config['host'], $config['driver'], $config['user'], $config['password']);
         $this->pdo = new PDO($dsn, $username, $password, $config);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     
     /**

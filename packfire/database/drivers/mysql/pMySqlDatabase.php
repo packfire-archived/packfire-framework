@@ -22,7 +22,7 @@ class pMySqlDatabase extends pDatabase {
      * @since 1.0-sofia
      */
     public function select($schema) {
-        $this->driver->query('USE `%s`', $schema);
+        $this->driver->query('USE `' . $schema . '`');
         return new pMySqlSchema($this->driver, $schema);
     }
 
