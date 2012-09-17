@@ -108,12 +108,12 @@ class pHttpClient {
         }elseif(preg_match('`Firefox/([0-9\.]+)`', $this->userAgent, $matched)){
                 $browser_version = $matched[1];
                 $browser = pHttpClientBrowser::FIREFOX;
-        }elseif(preg_match('`Safari/([0-9\.]+)`', $this->userAgent, $matched)){
-                $browser_version = $matched[1];
-                $browser = pHttpClientBrowser::SAFARI;
         }elseif(preg_match('`Chrome/([0-9\.]+)`', $this->userAgent, $matched)){
                 $browser_version = $matched[1];
                 $browser = pHttpClientBrowser::CHROME;
+        }elseif(preg_match('`Safari/([0-9\.]+)`', $this->userAgent, $matched)){
+                $browser_version = $matched[1];
+                $browser = pHttpClientBrowser::SAFARI;
         }else{
             // browser not recognized!
             $browser_version = '';
