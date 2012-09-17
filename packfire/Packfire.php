@@ -148,8 +148,10 @@ class Packfire {
             foreach($response->cookies() as $cookie){
                 $cookie->set();
             }
+            echo $response->output();
+        }elseif($response instanceof pCliAppResponse){
+            exit($response->output());
         }
-        echo $response->output();
     }
     
 }
