@@ -51,10 +51,13 @@ class pClassLoader {
      * @since 1.0-sofia
      */
     public static function load($package){
-        if(in_array($package, self::$loadedClasses)){
+        $lastpos = strrpos($package, '.');
+        $class = $package;
+        if($lastpos !== false){
+            $class = substr($package, $lastpos + 1);
+        }
+        if(class_exists($class)){
             return;
-        }else{
-            self::$loadedClasses[] = $package;
         }
         
         $search = '';
@@ -81,10 +84,7 @@ class pClassLoader {
         // it means there is only a name. 
         // search the current namespace for the class
         $a = debug_backtrace();
-        reset($a);
-        next($a);
-        next($a);
-        $trace = current($a);
+        $trace = $a[2];
         $search = pathinfo($trace['file'], PATHINFO_DIRNAME)
                 . DIRECTORY_SEPARATOR . $package . self::EXT;
         return $search;
@@ -97,15 +97,12 @@ class pClassLoader {
      * @since 1.0-sofia
      */
     private static function prepareDirectorySearch($package){
-        $packages = array_filter(explode('.', $package));
-        $root = array_shift($packages);
-        if($root == 'packfire'){
-            $path = implode(DIRECTORY_SEPARATOR, $packages);
+        if(substr($package, 0, 9) == 'packfire.'){
+            $path = str_replace('.', DIRECTORY_SEPARATOR, substr($package, 8));
             $search = __PACKFIRE_ROOT__ . $path . self::EXT;
         }else{
             $path = 'pack' . DIRECTORY_SEPARATOR
-                    . ($root ? ($root . DIRECTORY_SEPARATOR) : '')
-                    . implode(DIRECTORY_SEPARATOR, $packages);
+                    . str_replace('.', DIRECTORY_SEPARATOR, $package);
             $search = __APP_ROOT__ . $path . self::EXT;
         }
         return $search;
@@ -125,9 +122,9 @@ class pClassLoader {
      */
     public static function resolvePackageClass($packageClass){
         $result = array($packageClass, $packageClass);
-        if(strpos($packageClass, '.') !== false){
-            $pack = explode('.', $packageClass);
-            $class = end($pack);
+        $dotPos = strpos($packageClass, '.');
+        if($dotPos !== false){
+            $class = substr($packageClass, $dotPos + 1);
             return array($packageClass, $class);
         }
         return $result;
