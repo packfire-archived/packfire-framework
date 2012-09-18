@@ -12,7 +12,7 @@ class pLinqOrderByQueryTest extends PHPUnit_Framework_TestCase {
      * @var array
      */
     protected $data;
-    
+
     /**
      * @var pLinqOrderByQuery
      */
@@ -30,7 +30,9 @@ class pLinqOrderByQueryTest extends PHPUnit_Framework_TestCase {
             array('name' => 'Sky', 'age' => 2),
             array('name' => 'Barr', 'age' => 6)
         );
-        $this->object = new pLinqOrderByQuery(function($item){return $item['name'];});
+        $this->object = new pLinqOrderByQuery(function($item) {
+                            return $item['name'];
+                        });
     }
 
     /**
@@ -48,11 +50,11 @@ class pLinqOrderByQueryTest extends PHPUnit_Framework_TestCase {
         $result = $this->object->run($this->data);
         $this->assertEquals(
                 array(
-                    array('name' => 'Barr', 'age' => 6),
-                    array('name' => 'Raine', 'age' => 8),
-                    array('name' => 'Roger', 'age' => 5),
-                    array('name' => 'Sky', 'age' => 2),
-                    array('name' => 'Sofia', 'age' => 17)
+            array('name' => 'Barr', 'age' => 6),
+            array('name' => 'Raine', 'age' => 8),
+            array('name' => 'Roger', 'age' => 5),
+            array('name' => 'Sky', 'age' => 2),
+            array('name' => 'Sofia', 'age' => 17)
                 )
                 , $result);
     }

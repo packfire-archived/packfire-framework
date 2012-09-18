@@ -22,7 +22,13 @@ class pLinqJoinQueryTest extends PHPUnit_Framework_TestCase {
             array('key' => 1, 'name' => 'Ridge'),
             array('key' => 2, 'name' => 'Yong')
         );
-        $this->object = new pLinqJoinQuery($data, function($x){return $x['foreign'];}, function($x){return $x['key'];}, function($a, $b){return $a['name'] . ' ' . $b['name'];});
+        $this->object = new pLinqJoinQuery($data, function($x) {
+                            return $x['foreign'];
+                        }, function($x) {
+                            return $x['key'];
+                        }, function($a, $b) {
+                            return $a['name'] . ' ' . $b['name'];
+                        });
     }
 
     /**
