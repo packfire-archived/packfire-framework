@@ -122,7 +122,7 @@ class pClassLoader {
      */
     public static function resolvePackageClass($packageClass){
         $result = array($packageClass, $packageClass);
-        $dotPos = strpos($packageClass, '.');
+        $dotPos = strrpos($packageClass, '.');
         if($dotPos !== false){
             $class = substr($packageClass, $dotPos + 1);
             return array($packageClass, $class);
