@@ -40,7 +40,7 @@ class pFirebugDebugOutput implements IDebugOutput {
             $html .= 'console.' . $line[0] . '(' . json_encode($line[1]) . ');' . "\n";
         }
         $html .= 'console.groupEnd();' . "\n";
-        echo '<script type="text/javascript">(function(){' . $html . '})();</script>';
+        echo '<script type="text/javascript">(function(){if(console){' . $html . '}})();</script>';
     }
 
     /**
