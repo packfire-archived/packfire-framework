@@ -297,6 +297,12 @@ abstract class pController extends pBucketUser {
         if(!$call){
             $call = $this->checkMethod($method, 'index');
         }
+        if($call){
+            $method = 'do' . ucfirst($call);
+            if(is_callable(array($this, $method))){
+                $call = $method;
+            }
+        }
         
         if($securityEnabled && !$this->service('security')->authorize($route)){
             $this->handleAuthorization();

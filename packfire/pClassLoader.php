@@ -63,12 +63,8 @@ class pClassLoader {
         }else{
             $search = self::prepareDirectorySearch($package);
         }
-        $files = glob($search, GLOB_NOSORT);
-        if($files){
-            foreach($files as $file){
-                include_once($file);
-            }
-        }else{
+        $ok = @include_once($search);
+        if(!$ok){
             throw new pMissingDependencyException('Dependency required but not found: "' . $package . '"');
         }
     } 
