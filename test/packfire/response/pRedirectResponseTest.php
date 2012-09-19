@@ -24,8 +24,8 @@ class pRedirectResponseTest extends PHPUnit_Framework_TestCase {
     protected function tearDown() {
         
     }
-    
-    public function testResponse(){
+
+    public function testResponse() {
         $url = 'http://example.com/';
         $object = new pRedirectResponse($url);
         $this->assertEquals(pHttpResponseCode::HTTP_302, $object->code());
@@ -33,8 +33,8 @@ class pRedirectResponseTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('', $object->body());
         $this->assertEquals('', $object->output());
     }
-    
-    public function testResponse2(){
+
+    public function testResponse2() {
         $url = 'http://example.com/';
         $object = new pRedirectResponse($url, pHttpResponseCode::HTTP_301);
         $this->assertEquals(pHttpResponseCode::HTTP_301, $object->code());

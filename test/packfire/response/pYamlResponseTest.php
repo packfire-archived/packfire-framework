@@ -23,8 +23,8 @@ class pYamlResponseTest extends PHPUnit_Framework_TestCase {
     protected function tearDown() {
         
     }
-    
-    public function testResponse(){
+
+    public function testResponse() {
         $data = array(
             'data' => 5
         );
