@@ -1,5 +1,6 @@
 <?php
 pload('ISession');
+pload('packfire.session.bucket.pSessionBucket');
 
 /**
  * Session service
@@ -84,7 +85,7 @@ class pSession implements ISession {
         $result = $this->storage->bucket($bucket);
         if(!$result){
             $result = new pSessionBucket($bucket);
-            $this->storage->register($result);
+            $this->register($result);
         }
         return $result;
     }
@@ -95,7 +96,7 @@ class pSession implements ISession {
      * @since 1.0-sofia
      */
     public function register($bucket){
-        return $this->storage->register($bucket);
+        $this->storage->register($bucket);
     }
     
 }
