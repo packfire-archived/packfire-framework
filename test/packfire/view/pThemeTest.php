@@ -35,5 +35,13 @@ class pThemeTest extends PHPUnit_Framework_TestCase {
     public function testFields() {
         $this->assertInstanceOf('pMap', $this->object->fields());
     }
+    
+    public function testDefine(){
+        $class = new ReflectionClass('pTheme');
+        $method = $class->getMethod('define');
+        $method->setAccessible(true);
+        $method->invoke($this->object, 'test', 'sim');
+        $this->assertEquals('sim', $this->object->fields()->get('test'));        
+    }
 
 }
