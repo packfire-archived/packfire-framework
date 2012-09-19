@@ -17,7 +17,7 @@ class pObjectFieldComparator implements IComparator{
      * @var string
      * @since 1.0-sofia
      */
-    private $field;
+    protected $field;
     
     /**
      * Create a new pObjectFieldComparator 
@@ -30,16 +30,18 @@ class pObjectFieldComparator implements IComparator{
 
     /**
      * Compare two objects based on the defined field
-     * @param array|object $a The first object to compare
-     * @param array|object $b The second object to compare
+     * @param array|object $one The first object to compare
+     * @param array|object $two The second object to compare
      * @return integer Returns -1 if $a < $b, 1 if $a > $b or 0 otherwise.
      * @since 1.0-sofia
      */
-    function compare($a, $b) {
-        if ($this->access($a) == $this->access($b)) {
+    function compare($one, $two) {
+        $resultOne = $this->access($one);
+        $resultTwo = $this->access($two);
+        if ($resultOne == $resultTwo) {
             return 0;
         }
-        return ($this->access($a) < $this->access($b)) ? -1 : 1;
+        return ($resultOne < $resultTwo) ? -1 : 1;
     }
     
     /**
