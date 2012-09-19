@@ -2,8 +2,6 @@
 pload('packfire.application.pServiceApplication');
 pload('pHttpAppResponse');
 pload('pHttpServiceBucket');
-pload('packfire.exception.handler.pHttpExceptionHandler');
-pload('packfire.exception.handler.pErrorHandler');
 pload('packfire.exception.pHttpException');
 pload('packfire.exception.pMissingDependencyException');
 pload('packfire.controller.pCALoader');
@@ -39,10 +37,6 @@ class pHttpApplication extends pServiceApplication {
      * @since 1.0-elenor
      */
     protected function loadExceptionHandler(){
-        $this->services->put('exception.handler', new pHttpExceptionHandler());
-        $handler = $this->service('exception.handler');
-        $errorhandler = new pErrorHandler($handler);
-        set_error_handler(array($errorhandler, 'handle'), E_ALL);
     }
     
     /**

@@ -3,6 +3,7 @@ pload('packfire.ioc.pBucketLoader');
 pload('packfire.session.pSessionLoader');
 pload('packfire.config.framework.pHttpRouterConfig');
 pload('packfire.routing.http.pHttpRouter');
+pload('packfire.exception.handler.pHttpExceptionHandler');
 
 /**
  * pHttpServiceBucket class
@@ -22,6 +23,7 @@ class pHttpServiceBucket extends pBucketLoader {
      * @since 1.0-elenor
      */
     public function load(){
+        $this->put('exception.handler', new pHttpExceptionHandler());
         $this->put('config.routing', array('pHttpRouterConfig', 'load'));
         $this->put('router', new pHttpRouter());
         if($this->pick('config.app')){

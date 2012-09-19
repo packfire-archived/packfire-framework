@@ -1,6 +1,7 @@
 <?php
 pload('IExceptionHandler');
 pload('pExceptionPageView');
+pload('packfire.exception.handler.pErrorHandler');
 
 /**
  * An exception handler
@@ -12,6 +13,11 @@ pload('pExceptionPageView');
  * @since 1.0-sofia
  */
 class pHttpExceptionHandler extends pBucketUser implements IExceptionHandler {
+    
+    public function __construct(){
+        $errorhandler = new pErrorHandler($this);
+        set_error_handler(array($errorhandler, 'handle'), E_ALL);
+    }
 
     /**
      * Handle the exception
