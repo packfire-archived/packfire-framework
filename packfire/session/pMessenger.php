@@ -77,8 +77,8 @@ class pMessenger extends pBucketUser {
      */
     public function check($name, $recepient = null){
         if(func_num_args() == 1){
-            $trace = debug_backtrace();
-            $trace = next($trace);
+            $traces = debug_backtrace();
+            $trace = next($traces);
             $recepient = (array_key_exists('class', $trace) ?
                     $trace['class'] . ':' : '') . $trace['function'];
         }
@@ -96,8 +96,8 @@ class pMessenger extends pBucketUser {
      */
     public function read($name, $recepient = null){
         if(func_num_args() == 1){
-            $trace = debug_backtrace();
-            $trace = next($trace);
+            $traces = debug_backtrace();
+            $trace = next($traces);
             $recepient = (array_key_exists('class', $trace) ?
                     $trace['class'] . ':' : '') . $trace['function'];
         }
