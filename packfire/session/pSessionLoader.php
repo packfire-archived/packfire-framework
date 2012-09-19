@@ -25,15 +25,17 @@ class pSessionLoader extends pBucketLoader {
         }
         /* @var $config pConfig */
         $config = $this->pick('config.app');
-        session_name($config->get('session', 'name'));
-        session_set_cookie_params(
-                $config->get('session', 'lifetime'),
-                $config->get('session', 'path'),
-                $config->get('session', 'domain'),
-                $config->get('session', 'secure'),
-                $config->get('session', 'http')
-            );
-        session_start();
+        if($config){
+            session_name($config->get('session', 'name'));
+            session_set_cookie_params(
+                    $config->get('session', 'lifetime'),
+                    $config->get('session', 'path'),
+                    $config->get('session', 'domain'),
+                    $config->get('session', 'secure'),
+                    $config->get('session', 'http')
+                );
+            session_start();
+        }
         $this->put('session', new pSession($storage));
     }
     
