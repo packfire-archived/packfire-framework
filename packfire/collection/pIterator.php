@@ -34,11 +34,11 @@ class pIterator implements Countable {
      * @since 1.0-sofia
      */
     public function iterate(){
-        $b = each($this->array);
-        if(!$b){
+        $item = each($this->array);
+        if(!$item){
             return null;
         }
-        return new pKeyValuePair($b['key'], $b['value']);
+        return new pKeyValuePair($item['key'], $item['value']);
     }
 
 

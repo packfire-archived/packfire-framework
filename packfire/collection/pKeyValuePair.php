@@ -38,26 +38,26 @@ class pKeyValuePair {
 
     /**
      * Get or set the key name
-     * @param string|integer $k (optional) Set the key name
+     * @param string|integer $key (optional) Set the key name
      * @return string|integer Returns the key name
      * @since 1.0-sofia
      */
-    public function key($k = false){
+    public function key($key = false){
         if(func_num_args() == 1){
-            $this->key = $k;
+            $this->key = $key;
         }
         return $this->key;
     }
 
     /**
      * Get or set the value of the pKeyValuePair
-     * @param mixed $v (optional) Set the value
+     * @param mixed $value (optional) Set the value
      * @return mixed Returns the value
      * @since 1.0-sofia
      */
-    public function value($v = false){
+    public function value($value = false){
         if(func_num_args() == 1){
-            $this->value = $v;
+            $this->value = $value;
         }
         return $this->value;
     }

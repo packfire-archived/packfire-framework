@@ -13,6 +13,13 @@
  */
 interface IComparator {
     
-    public function compare($a, $b);
+    /**
+     * Compare between two items
+     * @param mixed $one The first item
+     * @param mixed $two The second item
+     * @returns integer Returns -1, 0 or 1 for sorting
+     * @since 1.0-sofia
+     */
+    public function compare($one, $two);
     
 }

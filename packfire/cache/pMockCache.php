@@ -15,34 +15,81 @@ pload('packfire.collection.pMap');
  */
 class pMockCache implements ICache {
     
+    /**
+     * The cache storage
+     * @var pMap
+     * @since 1.0-sofia
+     */
     private $store;
     
+    /**
+     * Create a new pMockCache object
+     * @since 1.0-sofia
+     */
     public function __construct(){
         $this->store = new pMap();
     }
     
-    public function check($id) {
-        return $this->store->keyExists($id);
+    /**
+     * Check if a cache value identified by the identifier is still fresh,
+     *      available and has yet to expire. 
+     * @param string $cacheId The identifier of the cache value
+     * @return boolean Returns true if the cache value is fresh, available and
+     *          has yet to expire. Returns false otherwise.
+     * @since 1.0-sofia
+     */
+    public function check($cacheId) {
+        return $this->store->keyExists($cacheId);
     }
 
-    public function clear($id) {
-        $this->store->removeAt($id);
+    /**
+     * Remove the cache value identified by the identifier
+     * @param string $cacheId The identifier of the cache value
+     * @since 1.0-sofia
+     */
+    public function clear($cacheId) {
+        $this->store->removeAt($cacheId);
     }
 
+    /**
+     * Remove all cache values regardless of their state.
+     * @since 1.0-sofia 
+     */
     public function flush() {
         $this->store->clear();
     }
 
+    /**
+     * Perform garbage collection to remove all expired and stale cache values 
+     * @since 1.0-sofia
+     */
     public function garbageCollect() {
         
     }
 
-    public function get($id, $default = null) {
-        return $this->store->get($id, $default);
+    /**
+     * Retrieve the fresh cache value identified by the identifier if the
+     *          cache is fresh, available and yet to expire.
+     * @param string $cacheId The identifier of the cache value
+     * @param mixed $default (optional) The default value to return if the cache
+     *          is stale, unavailable or expired. Defaults to null.
+     * @return mixed Returns the fresh cache value or default value.
+     * @since 1.0-sofia
+     */
+    public function get($cacheId, $default = null) {
+        return $this->store->get($cacheId, $default);
     }
 
-    public function set($id, $value, $expiry) {
-        $this->store->add($id, $value);
+    /**
+     * Store the cache value uniquely identified by the identifier with expiry
+     * @param string $cacheId The identifier of the cache value
+     * @param mixed $value The cache value to store
+     * @param pDateTime|pTimeSpan $expiry The date time or period of time to 
+     *              expire the cache value.
+     * @since 1.0-sofia
+     */
+    public function set($cacheId, $value, $expiry) {
+        $this->store->add($cacheId, $value);
     }
     
 }
