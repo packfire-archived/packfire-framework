@@ -28,7 +28,7 @@ class pObjectSelectedFieldComparator extends pObjectFieldComparator{
      * @return mixed Returns the field value
      * @since 1.0-sofia
      */
-    private function access($object){
+    protected function access($object){
         $func = $this->field;
         if($func instanceof Closure){
             return $func($object);

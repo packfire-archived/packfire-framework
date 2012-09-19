@@ -50,7 +50,7 @@ class pObjectFieldComparator implements IComparator{
      * @return mixed Returns the field value
      * @since 1.0-sofia
      */
-    private function access($object){
+    protected function access($object){
         if(is_array($object)){
             return $object[$this->field];
         }else{
