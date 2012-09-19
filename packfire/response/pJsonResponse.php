@@ -20,15 +20,17 @@ class pJsonResponse extends pHttpAppResponse implements IResponseFormat {
      * Create a new pJsonResponse object
      * @param mixed $object The JSON object that will be responded to the
      *                      client with
+     * @param string $callback (optional) The callback for JSONP calls
      * @since 1.0-sofia
      */
-    public function __construct($object){
+    public function __construct($object, $callback = null){
         parent::__construct();
-        $this->headers()->add('Content-Type', 'application/json');
-        if(is_string($object)){ // probably already encoded
-            $this->body($object); 
+        $serializer = new pJsonSerializer();
+        if($callback){
+            $this->headers()->add('Content-Type', 'text/javascript');
+            $this->body($callback . '(' . $serializer->serialize($object) . ')');
         }else{
-            $serializer = new pJsonSerializer();
+            $this->headers()->add('Content-Type', 'application/json');
             $this->body($serializer->serialize($object));
         }
     }
