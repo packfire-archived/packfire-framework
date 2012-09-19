@@ -10,7 +10,7 @@
 </phpunit-->
 
 <phpunit bootstrap="bootstrap.php"
-    colors="false">
+    colors="true">
     <testsuites>
         <testsuite name="Packfire">
             <directory>packfire</directory>

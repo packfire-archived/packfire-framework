@@ -26,7 +26,7 @@ class pSetupController extends pController {
         system('phpunit --version');
         chdir('test');
         $status = 0;
-        system('phpunit --bootstrap bootstrap.php -c configuration.xml .', $status);
+        system('phpunit -c configuration.xml .', $status);
         exit($status);
     }
     
