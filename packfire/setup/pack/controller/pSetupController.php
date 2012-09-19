@@ -27,14 +27,14 @@ class pSetupController extends pController {
         chdir('test');
         $status = 0;
         system('phpunit -c configuration.xml .', $status);
-        exit($status);
+        return $status;
     }
     
     public function cliUnitTest(){
         $this->version();
         echo "-----------------------------\n";
         echo "Performing unit tests with ";
-        $this->unitTest();
+        return $this->unitTest();
     }
     
     private function installFramework($root){
