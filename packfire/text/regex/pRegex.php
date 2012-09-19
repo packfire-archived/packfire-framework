@@ -64,6 +64,19 @@ class pRegex {
     }
 
     /**
+     * Perform a perl-compatible regular expression (PCRE) match to match 
+     * within the subject
+     * @param string $subject The input string
+     * @return boolean Returns true if the expression matches the subject,
+     *           or false if otherwise.
+     * @link http://php.net/manual/en/function.preg-match.php
+     * @since 1.1-sofia
+     */
+    public function matches($subject){
+        return (bool)preg_match($this->regex(), $subject);        
+    }
+
+    /**
      * Perform a perl-compatible regular expression (PCRE) match to match all 
      * matches within the subject
      * @param string $subject The input string
@@ -72,12 +85,12 @@ class pRegex {
      * @since 1.0-sofia
      */
     public function matchAll($subject){
-        $m = array();
-        preg_match_all($this->regex(), $subject, $m, PREG_SET_ORDER);
+        $matches = array();
+        preg_match_all($this->regex(), $subject, $matches, PREG_SET_ORDER);
         $finalResult = new pList();
-        foreach($m as $a){
+        foreach($matches as $match){
             $result = new pList();
-            foreach($a as $c){
+            foreach($match as $c){
                 $result->add(new pRegexMatch($this, $c));
             }
             $finalResult[] = $result;
