@@ -155,22 +155,19 @@ class pHttpRoute implements IRoute {
                     '([/]{0,1})$`is', $url, $matches);
 
             if ($matchResult) {
+                $params = array();
+                foreach($this->params as $key => $value){
+                    if($request->get()->keyExists($key)){
+                        $params[$key] = $request->get()->get($key);
+                    }
+                    if($method == 'post' && $request->post()->keyExists($key)){
+                        $params[$key] = $request->post()->get($key);
+                    }
+                }
                 foreach ($tokens as $key) {
-                    $this->params[$key] = $matches[$key];
+                    $params[$key] = $matches[$key];
                 }
-                foreach($request->get() as $key => $value){
-                    if($this->params->keyExists($key)){ 
-                        $this->params[$key] = $value; 
-                    }
-                }
-                if($method == 'post'){
-                    foreach($request->post() as $key => $value){
-                        if($this->params->keyExists($key)){ 
-                            $this->params[$key] = $value; 
-                        }
-                    }
-                }
-                $this->params = new pMap($this->params);
+                $this->params = new pMap($params);
                 return true;
             }
         }
