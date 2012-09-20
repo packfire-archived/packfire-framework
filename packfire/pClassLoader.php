@@ -66,8 +66,9 @@ class pClassLoader {
         }else{
             $search = self::prepareDirectorySearch($package);
         }
-        $ok = @include_once($search);
-        if(!$ok){
+        try{
+            include_once($search);
+        }catch(Exception $ex){
             throw new pMissingDependencyException('Dependency required but not found: "' . $package . '"');
         }
     } 
