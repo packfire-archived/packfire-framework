@@ -31,7 +31,6 @@ class pCliApplication extends pServiceApplication {
      */
     protected function loadExceptionHandler(){
         $this->services->put('exception.handler', new pCliExceptionHandler());
-        $handler = $this->service('exception.handler');
     }
     
     /**
