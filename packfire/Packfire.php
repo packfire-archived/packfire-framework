@@ -41,6 +41,7 @@ pload('packfire.application.cli.pCliAppRequest');
 pload('packfire.application.http.pHttpAppRequest');
 pload('packfire.io.file.pFileStream');
 pload('packfire.datetime.pDateTime');
+pload('packfire.exception.pErrorException');
 
 define('__PACKFIRE_START__', pDateTime::microtime());
 
@@ -57,6 +58,13 @@ class Packfire {
      * @since 1.0-sofia
      */
     public function fire($app){
+        set_error_handler(function($errno, $errstr, $errfile, $errline){
+            $e = new pErrorException($errstr);
+            $e->setCode($errno);
+            $e->setLine($errline);
+            $e->setFile($errfile);
+            throw $e;
+        });
         set_exception_handler(array($app, 'handleException'));
         $request = $this->loadRequest();
         try{
