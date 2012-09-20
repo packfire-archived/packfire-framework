@@ -3,7 +3,6 @@ pload('packfire.application.pServiceApplication');
 pload('pCliAppResponse');
 pload('pCliServiceBucket');
 pload('packfire.exception.handler.pCliExceptionHandler');
-pload('packfire.exception.handler.pErrorHandler');
 pload('packfire.controller.pCALoader');
 pload('packfire.exception.pMissingDependencyException');
 
@@ -33,8 +32,6 @@ class pCliApplication extends pServiceApplication {
     protected function loadExceptionHandler(){
         $this->services->put('exception.handler', new pCliExceptionHandler());
         $handler = $this->service('exception.handler');
-        $errorhandler = new pErrorHandler($handler);
-        set_error_handler(array($errorhandler, 'handle'), E_ALL);
     }
     
     /**
