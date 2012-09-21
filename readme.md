@@ -12,7 +12,11 @@ Packfire comes under the long and difficult experiences from the development of 
 
 ###Status
 
-[![Build Status](https://secure.travis-ci.org/packfire/framework.png?branch=master)](http://travis-ci.org/packfire/framework)
+Packfire Framework uses [Travis Continuous Integration](http://travis-ci.org/) to build and execute PHPUnit unit testing on each of the `git push` the developers make to the repository with thanks to Github Hooks. The following determines the build status for the latest push and it is definitely okay to be failing. 
+
+[![Build Status](https://secure.travis-ci.org/packfire/packfire-framework.png?branch=master)](http://travis-ci.org/packfire/packfire-framework)
+
+We will only release builds that pass the unit tests.
 
 #Get Started
 
