@@ -1,5 +1,6 @@
 <?php
 pload('IComparator');
+pload('pObjectSelectedFieldComparator');
 
 /**
  * pPropertyComparator abstract class
@@ -24,16 +25,11 @@ abstract class pPropertyComparator implements IComparator {
      * @since 1.0-sofia
      */
     private function compareComponent($value1, $value2, $com){
-        $time2com = $value2->$com();
-        $time1com = $value1->$com();
-        $ret = 0;
-        if($time2com > $time1com){
-            $ret = 1;
-        }
-        if($time2com < $time1com){
-            $ret = -1;
-        }       
-        return $ret;
+        $comparator = new pObjectSelectedFieldComparator(
+                function($object)use($com){
+                    return $object->$com();
+                });
+        return $comparator->compare($value2, $value1);
     }
     
     /**
