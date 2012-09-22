@@ -1,5 +1,6 @@
 <?php
 pload('IValidator');
+pload('packfire.text.regex.pRegex');
 
 /**
  * Match Validator
@@ -14,11 +15,11 @@ pload('IValidator');
 class pRegexValidator implements IValidator {
     
     /**
-     * The regular expression object
-     * @var pRegex
+     * The regular expression
+     * @var string
      * @since 1.0-sofia
      */
-    private $regex;
+    private $match;
     
     /**
      * Create a new regular expression validator pRegexValidator
@@ -26,7 +27,7 @@ class pRegexValidator implements IValidator {
      * @since 1.0-sofia
      */
     public function __construct($match){
-        $this->regex = new pRegex($match);
+        $this->match = $match;
     }
     
     /**
@@ -37,8 +38,8 @@ class pRegexValidator implements IValidator {
      * @since 1.0-sofia
      */
     public function validate($value) {
-        $list = $this->regex->match($value);
-        return $list->count() > 0;
+        $regex = new pRegex($this->match);
+        return $regex->matches($value);
     }
     
 }
