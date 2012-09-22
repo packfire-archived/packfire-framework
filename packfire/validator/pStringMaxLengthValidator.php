@@ -10,7 +10,7 @@ pload('IValidator');
  * @package packfire.validator
  * @since 1.0-sofia
  */
-class pStringLengthValidator implements IValidator {
+class pStringMaxLengthValidator implements IValidator {
     
     /**
      * The maximum length of the string 

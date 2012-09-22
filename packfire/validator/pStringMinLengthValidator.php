@@ -10,7 +10,7 @@ pload('IValidator');
  * @package packfire.validator
  * @since 1.0-sofia
  */
-class pStringLengthValidator implements IValidator {
+class pStringMinLengthValidator implements IValidator {
     
     /**
      * The minimum length of the string 
