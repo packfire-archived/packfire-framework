@@ -19,7 +19,12 @@ class pHttpRouteTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $config = new pMap(array('rewrite' => '/home/{data}', 'actual' => 'Rest', 'method' => array('delete'), 'params' => array('data' => '([0-9]+)')));
+        $config = new pMap(array(
+            'rewrite' => '/home/{data}',
+            'actual' => 'Rest',
+            'method' => array('delete'),
+            'params' => array('data' => 'int')
+        ));
         $this->object = new pHttpRoute('test', $config);
     }
 
@@ -63,7 +68,7 @@ class pHttpRouteTest extends PHPUnit_Framework_TestCase {
      * @covers pHttpRoute::params
      */
     public function testParams() {
-        $this->assertEquals(array('data' => '([0-9]+)'), $this->object->params()->toArray());
+        $this->assertEquals(array('data' => 'int'), $this->object->params()->toArray());
     }
 
     /**
@@ -95,6 +100,17 @@ class pHttpRouteTest extends PHPUnit_Framework_TestCase {
         $request->method(pHttpMethod::POST);
         $request->headers()->add('X-HTTP-Method-Override', pHttpMethod::DELETE);
         $this->assertTrue($this->object->match($request));
+    }
+
+    /**
+     * @covers pHttpRoute::match
+     */
+    public function testMatchVarFail() {
+        $request = new tMockRouteRequest('home/20.!0',
+                array('PHP_SELF' => 'index.php/home/20.!0', 'SCRIPT_NAME' => 'index.php'));
+        $request->method(pHttpMethod::POST);
+        $request->headers()->add('X-HTTP-Method-Override', pHttpMethod::DELETE);
+        $this->assertFalse($this->object->match($request));
     }
 
 }

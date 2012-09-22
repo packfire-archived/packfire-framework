@@ -31,7 +31,7 @@ class tMockRouteRequest extends pHttpAppRequest {
     }
 
     public function get() {
-        return new pMap(array('data' => 200, '_urlroute_' => $this->route));
+        return new pMap(array());
     }
 
     public function https($h = null) {

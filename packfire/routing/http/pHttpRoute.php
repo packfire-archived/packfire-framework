@@ -131,6 +131,7 @@ class pHttpRoute implements IRoute {
         }
         $method = strtolower($oriMethod);
         
+        $validation = false;
         // check whether HTTP method matches for RESTful routing
         if(!$this->httpMethod() || 
                 (is_string($this->httpMethod)
@@ -141,37 +142,99 @@ class pHttpRoute implements IRoute {
             $template = new pTemplate($this->rewrite);
             $tokens = $template->tokens();
             foreach ($tokens as $token) {
-                $value = $this->params->get($token);
-                if (!$value) {
-                    $value = '(*)';
-                }
                 $template->fields()->add($token,
-                        '(?P<' . $token . '>' . $value . ')');
+                        '(?P<' . $token . '>(.+))');
             }
-            $matches = array();
-
+            $urlData = array();
+            
+            
             // perform the URL matching
-            $matchResult = preg_match('`^' . $template->parse() .
-                    '([/]{0,1})$`is', $url, $matches);
+            $urlMatch = preg_match('`^' . $template->parse() .
+                    '([/]{0,1})$`is', $url, $urlData);
+            
+            if($urlMatch){
+                $data = array();
+                foreach($urlData as $key => $value){
+                    if($this->params->keyExists($key)){
+                        $data[$key] = $value;
+                    }
+                }
+                $data += $request->get()->toArray();
+                if($method == 'post'){
+                    $data += $request->post()->toArray();
+                }
 
-            if ($matchResult) {
+                $validation = true;
                 $params = array();
                 foreach($this->params as $key => $value){
-                    if($request->get()->keyExists($key)){
-                        $params[$key] = $request->get()->get($key);
-                    }
-                    if($method == 'post' && $request->post()->keyExists($key)){
-                        $params[$key] = $request->post()->get($key);
+                    if(array_key_exists($key, $data)){
+                        $param = $data[$key];
+                        $validation = $this->validateParam($value, $param);
+                        if(!$validation){
+                            break;
+                        }
+                        $params[$key] = $param;
+                    }else{
+                        $validation = false;
+                        break;
                     }
                 }
-                foreach ($tokens as $key) {
-                    $params[$key] = $matches[$key];
+                if($validation){
+                    $this->params = new pMap($params);
                 }
-                $this->params = new pMap($params);
-                return true;
+            }else{
+                $validation = false;
             }
         }
-        return false;
+        return $validation;
+    }
+    
+    protected function validateParam($rule, &$value){
+        $valid = true;
+        $slashPos = strpos($rule, '/');
+        $options = '';
+        if($slashPos !== false){
+            $options = substr($rule, $slashPos + 1);
+            $rule = substr($rule, 0, $slashPos);
+        }
+        switch($rule){
+            case 'any':
+                break;
+            case 'numeric':
+            case 'number':
+                $valid = $valid && is_numeric($value);
+                $value += 0;
+                break;
+            case 'float':
+            case 'real':
+            case 'double':
+                $valid = $valid && is_numeric($value);
+                $valid = $valid && is_float($value + 0);
+                $value += 0;
+                break;
+            case 'integer':
+            case 'int':
+            case 'long':
+                $valid = $valid && is_numeric($value);
+                $valid = $valid && is_int($value + 0);
+                $value += 0;
+                break;
+            case 'bool':
+            case 'boolean':
+                $valid = $valid && in_array(
+                        $value,
+                        array('true', 'false', '0', '1', 'on', 'off'),
+                        true);
+                $value = in_array($value, array('true', '1', 'on'), true);
+                break;
+            case 'regex':
+                $valid = $valid && preg_match($options, $value);
+                break;
+            default:
+                $valid = $valid && ($rule === $value);
+                break;
+        }
+        return (bool)$valid;
     }
     
 }

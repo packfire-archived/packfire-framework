@@ -24,7 +24,7 @@ class pHttpRouterTest extends PHPUnit_Framework_TestCase {
         $this->object = new pHttpRouter();
         $config = new pMap(array('rewrite' => '/home', 'actual' => 'Rest'));
         $this->object->add('route.home', new pHttpRoute('route.home', $config));
-        $config = new pMap(array('rewrite' => '/home/{data}', 'actual' => 'Rest', 'method' => null, 'params' => array('data' => '([0-9]+)')));
+        $config = new pMap(array('rewrite' => '/home/{data}', 'actual' => 'Rest', 'method' => null, 'params' => array('data' => 'int')));
         $this->object->add('route.homeData', new pHttpRoute('route.homeData', $config));
     }
 
@@ -63,7 +63,7 @@ class pHttpRouterTest extends PHPUnit_Framework_TestCase {
                 array('PHP_SELF' => 'index.php/home/200', 'SCRIPT_NAME' => 'index.php'));
         $route = $this->object->route($request);
         $this->assertInstanceOf('pHttpRoute', $route);
-        $this->assertEquals('200', $route->params()->get('data'));
+        $this->assertEquals(200, $route->params()->get('data'));
     }
 
     /**
