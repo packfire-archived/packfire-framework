@@ -2,6 +2,8 @@
 pload('IValidator');
 
 /**
+ * pNumericRangeValidator
+ * 
  * Numerical range validator
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -45,7 +47,7 @@ class pNumericRangeValidator implements IValidator {
      * @since 1.0-sofia
      */
     public function validate($value) {
-        return $this->min < $value && $this->max > $value;
+        return $this->min <= $value && $this->max >= $value;
     }
     
 }
