@@ -31,7 +31,6 @@ class pNumericValidatorTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @covers pNumericValidator::validate
-     * @todo Implement testValidate().
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate(0.5));
