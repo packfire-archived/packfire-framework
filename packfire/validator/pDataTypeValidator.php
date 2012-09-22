@@ -39,7 +39,7 @@ class pDataTypeValidator implements IValidator {
         $type = gettype($value);
         $result = ($type == $this->type);
         if($type == 'object' && !$result){
-            $result = ($type == get_class($value));
+            $result = ($this->type == get_class($value));
         }
         return $result;
     }
