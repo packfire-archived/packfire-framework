@@ -125,7 +125,6 @@ class pSessionTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @covers pSession::register
-     * @todo Implement testRegister().
      */
     public function testRegister() {
         $this->stub->expects($this->once())

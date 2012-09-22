@@ -31,7 +31,6 @@ class pStringMaxLengthValidatorTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @covers pStringMaxLengthValidator::validate
-     * @todo Implement testValidate().
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate('cave'));

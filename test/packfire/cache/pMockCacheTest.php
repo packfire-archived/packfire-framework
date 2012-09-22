@@ -67,7 +67,6 @@ class ICacheTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @covers pMockCache::get
-     * @todo Implement testGet().
      */
     public function testGet() {
         $this->assertNull($this->object->get('test'));

@@ -57,7 +57,6 @@ class pCALoaderTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @covers pCALoader::load
-     * @todo Implement testLoad().
      */
     public function testLoad() {
         $this->assertTrue($this->object->load());
