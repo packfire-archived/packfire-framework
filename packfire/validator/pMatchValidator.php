@@ -1,5 +1,6 @@
 <?php
 pload('IValidator');
+pload('packfire.collection.pList');
 
 /**
  * Match Validator
@@ -15,17 +16,20 @@ class pMatchValidator implements IValidator {
     
     /**
      * The matches to validate against
-     * @var array|IList|mixed
+     * @var array|pList|mixed
      * @since 1.0-sofia
      */
     private $matches;
     
     /**
      * Create a new pMatchValidator
-     * @param array|IList|mixed $matches An array of values or the value to match against
+     * @param array|pList|mixed $matches An array of values or the value to match against
      * @since 1.0-sofia
      */
     public function __construct($matches){
+        if($matches instanceof pList){
+            $matches = $matches->toArray();
+        }
         $this->matches = $matches;
     }
     
@@ -37,7 +41,7 @@ class pMatchValidator implements IValidator {
      * @since 1.0-sofia
      */
     public function validate($value) {
-        if(is_array($this->matches) || $this->matches instanceof IList){
+        if(is_array($this->matches)){
             return in_array($value, $this->matches);
         }else{
             return $this->matches == $value;
