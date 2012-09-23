@@ -42,9 +42,9 @@ class pMatchValidator implements IValidator {
      */
     public function validate($value) {
         if(is_array($this->matches)){
-            return in_array($value, $this->matches);
+            return in_array($value, $this->matches, true);
         }else{
-            return $this->matches == $value;
+            return $this->matches === $value;
         }
     }
     
