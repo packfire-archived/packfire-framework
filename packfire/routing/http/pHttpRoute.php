@@ -202,6 +202,7 @@ class pHttpRoute implements IRoute {
                 break;
             case 'numeric':
             case 'number':
+            case 'num':
                 $valid = $valid && is_numeric($value);
                 $value += 0;
                 break;
@@ -226,6 +227,14 @@ class pHttpRoute implements IRoute {
                         array('true', 'false', '0', '1', 'on', 'off'),
                         true);
                 $value = in_array($value, array('true', '1', 'on'), true);
+                break;
+            case 'alnum':
+                $options = '/^[a-zA-Z0-9]+$/';
+                $valid = $valid && preg_match($options, $value);
+                break;
+            case 'alpha':
+                $options = '/^[a-zA-Z]+$/';
+                $valid = $valid && preg_match($options, $value);
                 break;
             case 'regex':
                 $valid = $valid && preg_match($options, $value);
