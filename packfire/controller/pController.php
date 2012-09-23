@@ -232,21 +232,23 @@ abstract class pController extends pBucketUser {
     }
     
     /**
-     * Handler for authorization error
-     * @throws pAuthorizationException
+     * Handler for authorization of this controller
+     * @return boolean Returns true if the authorization succeeded,
+     *               false otherwise.
      * @since 1.0-sofia 
      */
     protected function handleAuthorization(){
-        throw new pAuthorizationException('Could not authorize user to access route.');
+        return true;
     }
     
     /**
      * Handler for authentication error
-     * @throws pAuthenticationException
+     * @return boolean Returns true if the authorization succeeded,
+     *               false otherwise.
      * @since 1.0-sofia 
      */
     protected function handleAuthentication(){
-        throw new pAuthenticationException('Could not authenticate user.');
+        return true;
     }
     
     /**
@@ -283,9 +285,9 @@ abstract class pController extends pBucketUser {
                                 ->get('secuity', 'identity'));
             }
             $this->service('security')->context($this);
-            if(!$this->service('security')->authenticate()){
-                $this->handleAuthentication();
-                return;
+            if(!$this->service('security')->authenticate() 
+                    || !$this->handleAuthentication()){
+                throw new pAuthenticationException();
             }
         }
         
@@ -304,9 +306,10 @@ abstract class pController extends pBucketUser {
             }
         }
         
-        if($securityEnabled && !$this->service('security')->authorize($route)){
-            $this->handleAuthorization();
-            return;
+        if($securityEnabled &&
+                (!$this->service('security')->authorize($route) 
+                || !$this->handleAuthorization())){
+            throw new pAuthorizationException();
         }
         
         if(is_callable(array($this, $call))){
