@@ -13,7 +13,7 @@ pload('pRegexValidator');
 class pEmailValidator extends pRegexValidator {
     
     /**
-     * Create a new pEmailValidator
+     * Create a new pEmailValidator object
      * @since 1.0-sofia
      */
     public function __construct(){
