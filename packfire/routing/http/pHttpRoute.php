@@ -3,6 +3,11 @@ pload('packfire.routing.IRoute');
 pload('packfire.net.http.pHttpMethod');
 pload('packfire.template.pTemplate');
 pload('packfire.collection.pMap');
+pload('packfire.validator.pSerialValidator');
+pload('packfire.validator.pNumericValidator');
+pload('packfire.validator.pMatchValidator');
+pload('packfire.validator.pRegexValidator');
+pload('packfire.validator.pCallbackValidator');
 
 /**
  * pHttpRoute class
@@ -190,60 +195,64 @@ class pHttpRoute implements IRoute {
     }
     
     protected function validateParam($rule, &$value){
-        $valid = true;
+        $original = $value;
         $slashPos = strpos($rule, '/');
         $options = '';
         if($slashPos !== false){
             $options = substr($rule, $slashPos + 1);
             $rule = substr($rule, 0, $slashPos);
         }
+        $validator = new pSerialValidator();
         switch($rule){
             case 'any':
                 break;
             case 'numeric':
             case 'number':
             case 'num':
-                $valid = $valid && is_numeric($value);
+                $validator->add(new pNumericValidator());
                 $value += 0;
                 break;
             case 'float':
             case 'real':
             case 'double':
-                $valid = $valid && is_numeric($value);
-                $valid = $valid && is_float($value + 0);
+                $validator->add(new pNumericValidator());
+                $validator->add(new pCallbackValidator(function($value){
+                    return is_float($value + 0);
+                }));
                 $value += 0;
                 break;
             case 'integer':
             case 'int':
             case 'long':
-                $valid = $valid && is_numeric($value);
-                $valid = $valid && is_int($value + 0);
+                $validator->add(new pNumericValidator());
+                $validator->add(new pCallbackValidator(function($value){
+                    return is_int($value + 0);
+                }));
                 $value += 0;
                 break;
             case 'bool':
             case 'boolean':
-                $valid = $valid && in_array(
-                        $value,
-                        array('true', 'false', '0', '1', 'on', 'off'),
-                        true);
+                $validator->add(
+                    new pMatchValidator(array('true', 'false', '0', '1', 'on', 'off'))
+                );
                 $value = in_array($value, array('true', '1', 'on'), true);
                 break;
             case 'alnum':
                 $options = '/^[a-zA-Z0-9]+$/';
-                $valid = $valid && preg_match($options, $value);
+                $validator->add(new pRegexValidator($options));
                 break;
             case 'alpha':
                 $options = '/^[a-zA-Z]+$/';
-                $valid = $valid && preg_match($options, $value);
+                $validator->add(new pRegexValidator($options));
                 break;
             case 'regex':
-                $valid = $valid && preg_match($options, $value);
+                $validator->add(new pRegexValidator($options));
                 break;
             default:
-                $valid = $valid && ($rule === $value);
+                $validator->add(new pMatchValidator($rule));
                 break;
         }
-        return (bool)$valid;
+        return $validator->validate($original);
     }
     
 }
