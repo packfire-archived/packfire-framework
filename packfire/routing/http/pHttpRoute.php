@@ -241,6 +241,9 @@ class pHttpRoute implements IRoute {
                 $options = '/^[a-zA-Z0-9]+$/';
                 $validator->add(new pRegexValidator($options));
                 break;
+            case 'email':
+                $validator->add(new pEmailValidator());
+                break;
             case 'alpha':
                 $options = '/^[a-zA-Z]+$/';
                 $validator->add(new pRegexValidator($options));
