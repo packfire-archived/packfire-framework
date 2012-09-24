@@ -8,6 +8,7 @@ pload('packfire.validator.pNumericValidator');
 pload('packfire.validator.pMatchValidator');
 pload('packfire.validator.pRegexValidator');
 pload('packfire.validator.pCallbackValidator');
+pload('packfire.validator.pEmailValidator');
 
 /**
  * pHttpRoute class
