@@ -10,7 +10,7 @@ pload('IExceptionHandler');
  * @package packfire.exception.handler
  * @since 1.0-elenor
  */
-class pCliExceptionHandler extends pBucketUser implements IExceptionHandler {
+class pCliExceptionHandler implements IExceptionHandler {
 
     /**
      * Handle the exception

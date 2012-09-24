@@ -2,6 +2,7 @@
 pload('packfire.ioc.pBucketLoader');
 pload('packfire.routing.cli.pCliRouter');
 pload('packfire.config.framework.pCliRouterConfig');
+pload('packfire.exception.handler.pCliExceptionHandler');
 
 /**
  * pCliServiceBucket class
@@ -21,6 +22,9 @@ class pCliServiceBucket extends pBucketLoader {
      * @since 1.0-elenor
      */
     public function load(){
+        if(!$this->contains('exception.handler')){
+            $this->put('exception.handler', new pCliExceptionHandler());
+        }
         $this->put('config.routing', array('pCliRouterConfig', 'load'));
         $this->put('router', new pCliRouter());
         if($this->pick('config.app')){

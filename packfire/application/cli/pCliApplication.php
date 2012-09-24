@@ -19,18 +19,9 @@ class pCliApplication extends pServiceApplication {
     
     public function __construct(){
         parent::__construct();
-        $this->loadExceptionHandler();
         
         $cliLoader = new pCliServiceBucket($this->services);
         $cliLoader->load();
-    }
-    
-    /**
-     * Load the exception handler and prepare handlers
-     * @since 1.0-elenor
-     */
-    protected function loadExceptionHandler(){
-        $this->services->put('exception.handler', new pCliExceptionHandler());
     }
     
     /**
