@@ -2,7 +2,9 @@
 pload('packfire.collection.pList');
 
 /**
- * A PHP implementation of Moustache,
+ * pMoustache class
+ * 
+ * A PHP implementation of Mustache,
  * a simple logic-less templating system
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

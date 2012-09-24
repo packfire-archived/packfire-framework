@@ -4,6 +4,8 @@ pload('pMoustache');
 pload('packfire.collection.pMap');
 
 /**
+ * pMoustacheTemplate class
+ * 
  * A Packfire template that uses the Moustache
  * logic-less template rendering engine
  *

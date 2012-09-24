@@ -18,6 +18,8 @@ class pAppTemplate {
      * @param string $name Name of the template to load
      * @return ITemplate Returns the template
      * @since 1.0-sofia
+     * 
+     * @todo complete template callback
      */
     public static function load($name){
         $path = __APP_ROOT__ . 'pack/template/' . $name;
