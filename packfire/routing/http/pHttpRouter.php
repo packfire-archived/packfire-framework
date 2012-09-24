@@ -37,14 +37,14 @@ class pHttpRouter extends pRouter {
             'actual' => 'directControllerAccessRoute',
             'method' => null,
             'params' => new pMap(array(
-                'class' => '([a-zA-Z0-9\_]+)',
-                'action' => '([a-zA-Z0-9\_]+)'
+                'class' => 'regex/`^([a-zA-Z0-9\_]+)$`',
+                'action' => 'regex/`^([a-zA-Z0-9\_]+)$`'
             ))
         ));
         $directControllerAccessRoute = new pHttpRoute(
                 'packfire.directControllerAccess',
                 $config);
-        $this->add('packfire.DCARoute', $directControllerAccessRoute);
+        $this->add('packfire.directControllerAccess', $directControllerAccessRoute);
     }
     
     /**
