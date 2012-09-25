@@ -17,6 +17,9 @@ class pTemplateFile extends pTemplate implements ITemplateFile {
      * @since 1.1-sofia
      */
     public function __construct($file){
+        if($file instanceof pFile){
+            $file = $file->pathname();
+        }
         parent::__construct(file_get_contents($file));
     }
     
