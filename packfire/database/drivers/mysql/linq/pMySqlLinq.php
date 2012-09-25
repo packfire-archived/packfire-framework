@@ -339,7 +339,8 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return reset($statement->fetchAll(PDO::FETCH_COLUMN));
+        $data = $statement->fetchAll(PDO::FETCH_COLUMN);
+        return reset($data);
     }
 
     /**
