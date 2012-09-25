@@ -28,6 +28,7 @@ class pAppTemplate {
         $extensions = array(
             'html' => 'packfire.template.moustache.pMoustacheTemplate',
             'htm' => 'packfire.template.moustache.pMoustacheTemplate',
+            'php' => 'packfire.template.pPhpTemplate'
         );
         
         $template = null;

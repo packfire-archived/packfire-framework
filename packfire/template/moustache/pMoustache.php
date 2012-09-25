@@ -251,7 +251,7 @@ class pMoustache {
      */
     protected function partial($name){
         if($this->partials){
-            $template = $this->partials->get($name);
+            $template = $this->partials[$name];
             if($template){
                 $partial = new pMoustache($template);
                 $partial->parameters($this->parameters)
@@ -348,17 +348,25 @@ class pMoustache {
     }
     
     /**
-     * Render the Moustache template
-     * @return string Returns the parsed template
-     * @since 1.0-sofia 
+     * Performs preparation of parameters
+     * @since 1.1-sofia
      */
-    public function render(){
+    protected function loadParameters(){
         if(get_class($this) != __CLASS__){
             $this->parameters = $this;
         }
         if($this->parameters instanceof pList){
             $this->parameters = $this->parameters->toArray();
         }
+    }
+    
+    /**
+     * Render the Moustache template
+     * @return string Returns the parsed template
+     * @since 1.0-sofia 
+     */
+    public function render(){
+        $this->loadParameters();
         $this->buffer = '';
         $this->parse($this->parameters, 0, strlen($this->template));
         return $this->buffer;
