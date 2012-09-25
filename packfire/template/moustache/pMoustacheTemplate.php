@@ -65,7 +65,7 @@ class pMoustacheTemplate implements ITemplate {
      * @since 1.0-sofia
      */
     public function set($set){
-        if(is_object($set)){
+        if(is_object($set) && !($set instanceof pList)){
             $set = get_object_vars($set);
         }
         if(is_array($set) || $set instanceof pList){
