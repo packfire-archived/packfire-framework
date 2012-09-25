@@ -1,7 +1,9 @@
 <?php
 
 /**
- * ITemplate Description
+ * ITemplate interface
+ * 
+ * Interfacing for all template objects
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
