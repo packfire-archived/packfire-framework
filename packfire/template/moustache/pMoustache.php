@@ -36,52 +36,43 @@ class pMoustache {
      * @var string
      * @since 1.0-sofia
      */
-    private $buffer;
+    protected $buffer;
     
     /**
      * The template to be parsed
      * @var string
      * @since 1.0-sofia
      */
-    private $template;
+    protected $template;
     
     /**
      * The parameters to work with
      * @var mixed
      * @since 1.0-sofia
      */
-    private $parameters;
+    protected $parameters;
     
     /**
      * The partials to be included
      * @var array|pMap
      * @since 1.0-sofia
      */
-    private $partials;
+    protected $partials;
     
     /**
      * The escaper callback
      * @var Closure|callback
      * @since 1.0-sofia
      */
-    private $escaper;
+    protected $escaper;
     
     /**
      * Create a new pMoustache object
      * @param string $template (optional) Set the template to render
-     * @param mixed $parameters (optional) The parameters to render the template
-     * @param array|pMap $partials (optional) The partials to supply to the 
-     *                  template
-     * @param Closure|callback $escaper (optional) The escaper function to use
-     *                  to escape the properties
      * @since 1.0-sofia
      */
-    public function __construct($template = null, $parameters = null,
-            $partials = null, $escaper = null){
+    public function __construct($template = null){
         $this->template = $template;
-        $this->parameters = $parameters;
-        $this->partials = $partials;
-        $this->escaper = $escaper;
     }
     
     /**
@@ -139,7 +130,7 @@ class pMoustache {
                         case self::TYPE_OPEN:
                             $position = $start + $tagEnd;
                             $this->findClosingTag($name, $position, $end);
-                            $property = $this->getProperty($scope, $name);
+                            $property = $this->property($scope, $name);
                             if($property !== false && $property !== null){
                                 if(is_scalar($property)){
                                     $property = $scope;
@@ -152,7 +143,7 @@ class pMoustache {
                         case self::TYPE_INVERT:
                             $position = $start + $tagEnd;
                             $this->findClosingTag($name, $position, $end);
-                            $property = $this->getProperty($scope, $name);
+                            $property = $this->property($scope, $name);
                             if($property === false || $property === null){
                                 if(is_scalar($property)){
                                     $property = $scope;
@@ -196,7 +187,7 @@ class pMoustache {
      * @return mixed Returns the property fetched.
      * @since 1.0-sofia
      */
-    private function getProperty($scope, $name){
+    private function property($scope, $name){
         $result = null;
         $higherPower = false;
         if(is_object($scope)){
@@ -217,7 +208,7 @@ class pMoustache {
             $higherPower = true;
         }
         if($higherPower){
-            $result = $this->getProperty($this->parameters, $name);
+            $result = $this->property($this->parameters, $name);
         }
         return $result;
     }
@@ -232,7 +223,7 @@ class pMoustache {
      * @since 1.0-sofia
      */
     private function addToBuffer($scope, $name, $escape = true){
-        $result = $this->getProperty($scope, $name);
+        $result = $this->property($scope, $name);
         if(is_array($result)){
             $result = implode('', $result);
         }
@@ -243,20 +234,31 @@ class pMoustache {
     }
     
     /**
+     * Set the partials to be included into the template
+     * @param mixed $parameters The partials
+     * @return pMoustache Returns self for chaining
+     * @since 1.1-sofia
+     */
+    public function partials($partials){
+        $this->partials = $partials;
+        return $this;
+    }
+    
+    /**
      * Get the partial by name and add to the buffer
      * @param string $name Name of the partial
      * @since 1.0-sofia
      */
     protected function partial($name){
-        if(is_array($this->partials) 
-                && array_key_exists($name, $this->partials)){
-            $partial = $this->partials[$name];
-            $partialMoustache = new pMoustache($partial,
-                    $this->parameters, 
-                    $this->partials, 
-                    $this->escaper);
-            $partialResult = $partialMoustache->render();
-            $this->buffer .= $partialResult;
+        if($this->partials){
+            $template = $this->partials->get($name);
+            if($template){
+                $partial = new pMoustache($template);
+                $partial->parameters($this->parameters)
+                        ->partials($this->partials)
+                        ->escaper($this->escaper);
+                $this->buffer .= $partial->render();
+            }
         }
     }
     

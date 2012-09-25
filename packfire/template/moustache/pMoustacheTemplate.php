@@ -32,7 +32,7 @@ class pMoustacheTemplate implements ITemplate {
     private $parser;
     
     /**
-     * Create a new pMoustacheTemplate
+     * Create a new pMoustacheTemplate object
      * @param string $template The template to be parsed
      * @since 1.0-sofia
      */
