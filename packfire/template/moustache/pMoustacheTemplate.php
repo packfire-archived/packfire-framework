@@ -65,7 +65,14 @@ class pMoustacheTemplate implements ITemplate {
      * @since 1.0-sofia
      */
     public function set($set){
-        $this->fields = $set;
+        if(is_object($set)){
+            $set = get_object_vars($set);
+        }
+        if(is_array($set) || $set instanceof pList){
+            foreach($set as $key => $value){
+                $this->fields->add($key, $value);
+            }
+        }
     }
     
 }

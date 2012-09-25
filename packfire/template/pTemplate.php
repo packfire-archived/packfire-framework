@@ -4,6 +4,8 @@ pload('packfire.collection.pMap');
 pload('packfire.text.regex.pRegex');
 
 /**
+ * pTemplate class
+ * 
  * Provides operations on template parsing.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -101,13 +103,13 @@ class pTemplate implements ITemplate {
      * @since 1.0-sofia
      */
     public function set($set){
+        if(is_object($set)){
+            $set = get_object_vars($set);
+        }
         if(is_array($set) || $set instanceof pList){
             foreach($set as $key => $value){
                 $this->fields->add($key, $value);
             }
-        }
-        if(is_object($set)){
-            $set = get_object_vars($set);
         }
     }
     
