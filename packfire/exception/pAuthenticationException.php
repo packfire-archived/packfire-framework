@@ -1,5 +1,6 @@
 <?php
 pload('pException');
+pload('packfire.net.http.pHttpResponseCode');
 
 /**
  * Authentication exception
@@ -12,6 +13,9 @@ pload('pException');
  */
 class pAuthenticationException extends pException {
     
-    protected $responseCode = pHttpResponseCode::HTTP_403;
+    public function __construct($message, $code = null) {
+        $this->responseCode = pHttpResponseCode::HTTP_403;
+        parent::__construct($message, $code);
+    }
     
 }
