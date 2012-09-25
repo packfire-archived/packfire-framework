@@ -279,15 +279,17 @@ abstract class pController extends pBucketUser {
         $securityEnabled = $this->service('security') 
                 && !$this->service('config.app')->get('security', 'disabled');
         if($securityEnabled){
-            if($this->service('config.app')->get('secuity', 'override')){
-                $this->service('security')
-                        ->identity($this->service('config.app')
-                                ->get('secuity', 'identity'));
+            if($this->service('security')){
+                if($this->service('config.app')->get('secuity', 'override')){
+                    $this->service('security')
+                            ->identity($this->service('config.app')
+                                    ->get('secuity', 'identity'));
+                }
+                $this->service('security')->context($this);
             }
-            $this->service('security')->context($this);
-            if(!$this->service('security')->authenticate() 
+            if(($this->service('security') && !$this->service('security')->authenticate()) 
                     || !$this->handleAuthentication()){
-                throw new pAuthenticationException();
+                throw new pAuthenticationException('User is not authenticated.');
             }
         }
         
@@ -307,9 +309,9 @@ abstract class pController extends pBucketUser {
         }
         
         if($securityEnabled &&
-                (!$this->service('security')->authorize($route) 
+                (($this->service('security') && !$this->service('security')->authorize($route))
                 || !$this->handleAuthorization())){
-            throw new pAuthorizationException();
+            throw new pAuthorizationException('Access not authorized.');
         }
         
         if(is_callable(array($this, $call))){
