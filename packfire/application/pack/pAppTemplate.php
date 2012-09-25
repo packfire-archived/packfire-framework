@@ -18,26 +18,23 @@ class pAppTemplate {
      * @param string $name Name of the template to load
      * @return ITemplate Returns the template
      * @since 1.0-sofia
-     * 
-     * @todo complete template callback
      */
     public static function load($name){
         $path = __APP_ROOT__ . 'pack/template/' . $name;
         
         // parsers
         $extensions = array(
-            'html' => 'packfire.template.moustache.pMoustacheTemplate',
-            'htm' => 'packfire.template.moustache.pMoustacheTemplate',
-            'php' => 'packfire.template.pPhpTemplate'
+            'html' => 'packfire.template.moustache.pMoustacheFile',
+            'htm' => 'packfire.template.moustache.pMoustacheFile',
+            'php' => 'packfire.template.pPhpTemplateFile'
         );
         
         $template = null;
         foreach($extensions as $type => $package){
             if(is_file($path . '.' .  $type)){
-                $fileContent = file_get_contents($path . '.' .  $type);
                 pload($package);
-                list($package, $class) = pClassLoader::resolvePackageClass($package);
-                $template = new $class($fileContent);
+                list(, $class) = pClassLoader::resolvePackageClass($package);
+                $template = new $class($path . '.' .  $type);
             }
         }
         
