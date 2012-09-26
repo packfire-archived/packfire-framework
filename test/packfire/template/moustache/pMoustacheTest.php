@@ -18,7 +18,8 @@ class pMoustacheTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new pMoustache('Hello {{name}}{{#intro}}, my name is {{intro}}{{/intro}}!', array('name' => 'world'));
+        $this->object = new pMoustache('Hello {{name}}{{#intro}}, my name is {{intro}}{{/intro}}!');
+        $this->object->parameters(array('name' => 'world'));
     }
 
     /**
