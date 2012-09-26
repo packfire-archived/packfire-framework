@@ -11,7 +11,7 @@
  * @package packfire.response
  * @since 1.1-sofia
  */
-interface IResponseFormat {
+interface IResponseFormat extends IAppResponse {
     
     /**
      * Create a new instance of IResponseFormat
