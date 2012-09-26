@@ -19,7 +19,7 @@ class pDebugger extends pBucketUser {
      * @var boolean
      * @since 1.0-sofia
      */
-    private $enabled = true;
+    protected $enabled = true;
     
     /**
      * Create a new pDebugger object

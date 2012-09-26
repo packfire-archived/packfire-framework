@@ -18,14 +18,14 @@ class pTimer {
      * @var integer|double
      * @since 1.0-sofia
      */
-    private $startTime = false;
+    private $startTime = null;
 
     /**
      * The end time of the timer
      * @var integer|double
      * @since 1.0-sofia
      */
-    private $endTime = false;
+    private $endTime = null;
 
     /**
      * Creates a new pTimer

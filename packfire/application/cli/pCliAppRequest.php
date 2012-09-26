@@ -20,7 +20,7 @@ class pCliAppRequest implements IAppRequest {
      * @var pMap
      * @since 1.0-elenor
      */
-    private $params;
+    protected $params;
     
     /**
      * Create a new pCliAppRequest object

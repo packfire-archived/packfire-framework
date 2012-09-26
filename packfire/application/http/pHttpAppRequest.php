@@ -20,14 +20,14 @@ class pHttpAppRequest extends pHttpClientRequest implements IAppRequest {
      * @var string
      * @since 1.0-elenor
      */
-    private $scriptName;
+    protected $scriptName;
     
     /**
      * The script name
      * @var string
      * @since 1.0-elenor
      */
-    private $phpSelf;
+    protected $phpSelf;
     
     /**
      * The path info provided
