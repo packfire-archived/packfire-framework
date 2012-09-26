@@ -118,7 +118,6 @@ class pHttpApplication extends pServiceApplication {
      * @since 1.0-sofia
      */
     public function handleException($exception){
-        $this->service('debugger')->exception($exception);
         $this->service('exception.handler')->handle($exception);
     }
     
