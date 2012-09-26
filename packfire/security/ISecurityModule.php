@@ -44,11 +44,11 @@ interface ISecurityModule {
     public function deauthenticate();
     
     /**
-     * Get or set the security context
-     * @param mixed $context (optional) Set the security context
-     * @return mixed Returns the security context
-     * @since 1.0-sofia 
+     * Get or set the request for HTTP checking
+     * @param mixed $context (optional) Set the request
+     * @return mixed Returns the request
+     * @since 1.1-sofia 
      */
-    public function context($context = null);
+    public function request($request = null);
     
 }

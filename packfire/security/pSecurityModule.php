@@ -16,11 +16,11 @@ pload('ISecurityModule');
 class pSecurityModule extends pBucketUser implements ISecurityModule {
     
     /**
-     * The security module context
-     * @var mixed
-     * @since 1.0-sofia
+     * The request made to the application for security checking
+     * @var IAppRequest
+     * @since 1.1-sofia
      */
-    private $context;
+    private $request;
     
     /**
      * Authenticate the user
@@ -71,16 +71,16 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
     }
     
     /**
-     * Get or set the security context
-     * @param mixed $context (optional) Set the security context
-     * @return mixed Returns the security context
-     * @since 1.0-sofia 
+     * Get or set the request for HTTP checking
+     * @param mixed $context (optional) Set the request
+     * @return mixed Returns the request
+     * @since 1.1-sofia 
      */
-    public function context($context = null){
+    public function request($request = null){
         if(func_num_args() == 1){
-            $this->context = $context;
+            $this->request = $request;
         }
-        return $this->context;
+        return $this->request;
     }
     
 }
