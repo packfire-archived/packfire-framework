@@ -24,9 +24,16 @@ class pOAuthToken {
     /**
      * The token secret
      * @var string
+     * @since 1.1-sofia
      */
     private $secret;
     
+    /**
+     * Create a new pOAuthToken object
+     * @param string $key The token identifier
+     * @param string $secret The token secret
+     * @since 1.1-sofia
+     */
     public function __construct($key, $secret){
         $this->key = $key;
         $this->secret = $secret;
