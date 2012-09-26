@@ -58,5 +58,14 @@ class pSecurityModuleTest extends PHPUnit_Framework_TestCase {
     public function testDeauthenticate() {
         $this->assertTrue(method_exists($this->object, 'deauthenticate'));
     }
+    
+    /**
+     * @covers pSecurityModule::request
+     */
+    public function testRequest(){
+        $this->assertNull($this->object->request());
+        $this->assertEquals('test', $this->object->request('test'));
+        $this->assertEquals('test', $this->object->request());
+    }
 
 }

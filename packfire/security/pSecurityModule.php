@@ -20,7 +20,7 @@ class pSecurityModule extends pBucketUser implements ISecurityModule {
      * @var IAppRequest
      * @since 1.1-sofia
      */
-    private $request;
+    protected $request;
     
     /**
      * Authenticate the user
