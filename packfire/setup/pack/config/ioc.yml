@@ -20,12 +20,6 @@
 # the messenger service
 messenger:
   class: packfire.session.pMessenger
-  
-#configure the logging functionality
-logger:
-  class: packfire.log.pLogger
-  parameters: 
-    - 'pack/storage/log/default.log'
 
 #set the session storage method
 session.storage:
@@ -38,6 +32,6 @@ cache:
   
 # this sets the debugger output method
 debugger.output:
-  class: packfire.debugger.console.pConsoleDebugOutput
+  class: packfire.debugger.firebug.pFirebugDebugOutput
 
 ...

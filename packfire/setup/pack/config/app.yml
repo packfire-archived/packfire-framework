@@ -13,7 +13,7 @@ app:
   name: "Welcome to Packfire Framework"
   version: "1.0"
   rootUrl: "http://localhost/packfire"
-  debug: false
+  debug: true
 
 security:
   disabled: true

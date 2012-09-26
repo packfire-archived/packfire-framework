@@ -14,14 +14,5 @@ pload('packfire.application.http.pHttpApplication');
  */
 class pSetupHttpApplication extends pHttpApplication {
     
-    /**
-     * Handle the exception for the setup application
-     * @param Exception $exception The exception to be handled.
-     * @since 1.0-sofia
-     */
-    public function handleException($exception) {
-        var_dump($exception);
-        die('Exception Occurred');
-    }
     
 }
