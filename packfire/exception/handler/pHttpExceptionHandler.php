@@ -48,10 +48,15 @@ class pHttpExceptionHandler extends pBucketUser implements IExceptionHandler {
         $view = new $class($exception);
         $view->copyBucket($this);
         echo $view->render();
-        ob_flush();
+        flush(); 
         
-        if(!$this->service('debugger')->enabled()){
-            $this->service('logger')->log('"' . $exception->getMessage() . '" at ' . $exception->getFile() . ':' . $exception->getLine(), get_class($exception) . ' ' . $exception->getCode());
+        if(!$this->service('debugger')->enabled() && $this->service('logger')){
+            $this->service('logger')->log(
+                    '"' . $exception->getMessage() .
+                        '" at ' . $exception->getFile() . ':' 
+                        . $exception->getLine(),
+                    get_class($exception) . ' ' . $exception->getCode()
+                );
         }
     }
     
