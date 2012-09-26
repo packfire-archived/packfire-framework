@@ -1,7 +1,6 @@
 <?php
 pload('packfire.application.IAppResponse');
 pload('packfire.collection.IList');
-pload('packfire.filter.IFilter');
 pload('packfire.collection.pMap');
 pload('packfire.response.pRedirectResponse');
 pload('packfire.ioc.pBucketUser');

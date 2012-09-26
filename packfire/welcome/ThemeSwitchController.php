@@ -1,7 +1,5 @@
 <?php
 pload('packfire.application.pack.pAppController');
-pload('packfire.controller.pValidationFilter');
-pload('packfire.validator.pMatchValidator');
 
 /**
  * ThemeSwitchController class

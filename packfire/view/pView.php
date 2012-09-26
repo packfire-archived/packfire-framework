@@ -2,7 +2,6 @@
 pload('IView');
 pload('packfire.collection.pList');
 pload('packfire.collection.pMap');
-pload('packfire.filter.IFilter');
 pload('packfire.template.pTemplate');
 pload('packfire.model.pObjectObserver');
 pload('packfire.ioc.pBucketUser');
@@ -113,7 +112,7 @@ abstract class pView extends pBucketUser implements IView {
      * Set filters to a parameter.
      * 
      * @param string $name Name of the parameter to add filters to
-     * @param IFilter|Closure|callback|array|IList $filter The controller filter,
+     * @param Closure|callback|array|IList $filter The controller filter,
      *              closure or callback that will process the parameter.
      *              If $filter is an array the method will run through the array
      *              recursively.
@@ -216,9 +215,7 @@ abstract class pView extends pBucketUser implements IView {
                 if(class_exists($filter)){
                     $filter = new $filter();
                 }
-                if($filter instanceof IFilter){
-                    $value = $filter->filter($value);
-                }elseif($filter instanceof Closure || is_callable($filter)){
+                if($filter instanceof Closure || is_callable($filter)){
                     $value = $filter($value);
                 }
                 $this->fields[$name] = $value;
