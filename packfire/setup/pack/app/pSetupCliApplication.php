@@ -12,7 +12,7 @@ pload('packfire.application.cli.pCliApplication');
  * @package packfire.setup.pack.app
  * @since 1.0-elenor
  */
-class pSetupCliApplication extends pCLiApplication {
+class pSetupCliApplication extends pCliApplication {
     
     /**
      * Handle the exception for the setup application

@@ -78,12 +78,12 @@ class pSetupController extends pController {
         }
     }
     
-    public function postCreateApplication($root, $packfire){
+    public function postCreateApplication($root, $packfire = null){
         $this->createApplication($root, $packfire);
         $this->render(new pSetupCreateView());
     }
     
-    public function cliCreateApplication($root, $framework){
+    public function cliCreateApplication($root, $framework = null){
         $this->version();
         echo "-----------------------------\n";
         echo "Creating a new Packfire application to: \n";

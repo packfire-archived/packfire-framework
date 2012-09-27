@@ -64,12 +64,13 @@ class pCliRoute implements IRoute {
      */
     public function match($request) {
         $ok = true;
-        $params = $request->params();
-        $this->remap($params);
+        $requestParams = $request->params();
+        $params = array();
+        $this->remap($requestParams);
         if($this->params){
             foreach($this->params as $key => $param){
-                if($params->keyExists($key)){
-                    $subject = $params->get($key);
+                if($requestParams->keyExists($key)){
+                    $subject = $requestParams->get($key);
                     if(is_string($param)){
                         $ok = preg_match('`' . $param . '`is', $subject);
                     }else{
@@ -81,10 +82,11 @@ class pCliRoute implements IRoute {
                 if(!$ok){
                     break;
                 }
+                $params[$key] = $subject;
             }
         }
         if($ok){
-            $this->params = $params;
+            $this->params = new pMap($params);
         }
         return $ok;
     }
