@@ -20,10 +20,10 @@ class pHttpRouteTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $config = new pMap(array(
-            'rewrite' => '/home/{data}',
+            'rewrite' => '/home/{data}/{name}',
             'actual' => 'Rest',
             'method' => array('delete'),
-            'params' => array('data' => 'int')
+            'params' => array('data' => 'int', 'object' => array('name' => 'alnum'))
         ));
         $this->object = new pHttpRoute('test', $config);
     }
@@ -54,7 +54,7 @@ class pHttpRouteTest extends PHPUnit_Framework_TestCase {
      * @covers pHttpRoute::rewrite
      */
     public function testRewrite() {
-        $this->assertEquals('/home/{data}', $this->object->rewrite());
+        $this->assertEquals('/home/{data}/{name}', $this->object->rewrite());
     }
 
     /**
@@ -68,15 +68,16 @@ class pHttpRouteTest extends PHPUnit_Framework_TestCase {
      * @covers pHttpRoute::params
      */
     public function testParams() {
-        $this->assertEquals(array('data' => 'int'), $this->object->params()->toArray());
+        $this->assertEquals(array('data' => 'int', 'object' => array('name' => 'alnum')),
+                $this->object->params()->toArray());
     }
 
     /**
      * @covers pHttpRoute::match
      */
     public function testMatch() {
-        $request = new tMockRouteRequest('home/200',
-                array('PHP_SELF' => 'index.php/home/200', 'SCRIPT_NAME' => 'index.php'));
+        $request = new tMockRouteRequest('home/200/test',
+                array('PHP_SELF' => 'index.php/home/200/test', 'SCRIPT_NAME' => 'index.php'));
         $this->assertFalse($this->object->match($request));
     }
 
@@ -84,8 +85,8 @@ class pHttpRouteTest extends PHPUnit_Framework_TestCase {
      * @covers pHttpRoute::match
      */
     public function testMatch2() {
-        $request = new tMockRouteRequest('home/200',
-                array('PHP_SELF' => 'index.php/home/200', 'SCRIPT_NAME' => 'index.php'));
+        $request = new tMockRouteRequest('home/200/jack',
+                array('PHP_SELF' => 'index.php/home/200/jack', 'SCRIPT_NAME' => 'index.php'));
         $request->method(pHttpMethod::POST);
         $request->headers()->add('X-HTTP-Method', pHttpMethod::DELETE);
         $this->assertTrue($this->object->match($request));
@@ -95,8 +96,8 @@ class pHttpRouteTest extends PHPUnit_Framework_TestCase {
      * @covers pHttpRoute::match
      */
     public function testMatch3() {
-        $request = new tMockRouteRequest('home/200',
-                array('PHP_SELF' => 'index.php/home/200', 'SCRIPT_NAME' => 'index.php'));
+        $request = new tMockRouteRequest('home/200/jack',
+                array('PHP_SELF' => 'index.php/home/200/jack', 'SCRIPT_NAME' => 'index.php'));
         $request->method(pHttpMethod::POST);
         $request->headers()->add('X-HTTP-Method-Override', pHttpMethod::DELETE);
         $this->assertTrue($this->object->match($request));

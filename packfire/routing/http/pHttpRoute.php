@@ -161,30 +161,15 @@ class pHttpRoute implements IRoute {
             if($urlMatch){
                 $data = array();
                 foreach($urlData as $key => $value){
-                    if($this->params->keyExists($key)){
-                        $data[$key] = $value;
-                    }
+                    $data[$key] = $value;
                 }
                 $data += $request->get()->toArray();
                 if($method == 'post'){
                     $data += $request->post()->toArray();
                 }
 
-                $validation = true;
                 $params = array();
-                foreach($this->params as $key => $value){
-                    if(array_key_exists($key, $data)){
-                        $param = $data[$key];
-                        $validation = $this->validateParam($value, $param);
-                        if(!$validation){
-                            break;
-                        }
-                        $params[$key] = $param;
-                    }else{
-                        $validation = false;
-                        break;
-                    }
-                }
+                $validation = $this->validateArray($this->params, $data, $params);
                 if($validation){
                     $this->params = new pMap($params);
                 }
@@ -195,6 +180,44 @@ class pHttpRoute implements IRoute {
         return $validation;
     }
     
+    /**
+     * Validate an array of data
+     * @param pList|array $rules The list of rules defined
+     * @param pList|array $data The data to be validated
+     * @param pMap|array $params (reference) The output parameters
+     * @param boolean $validation (reference, optional) The validation boolean
+     * @return boolean Returns true if validation is successful, false otherwise.
+     * @since 1.1-sofia
+     */
+    protected function validateArray($rules, $data, &$params, &$validation = true){
+        foreach($rules as $key => $rule){
+            if(is_array($rule)){
+                $subparams = array();
+                $this->validateArray($rule, $data, $subparams, $validation);
+                $params[$key] = $subparams;
+            }else{
+                if(array_key_exists($key, $data)){
+                    $param = $data[$key];
+                    $validation = $this->validateParam($rule, $param);
+                    $params[$key] = $param;
+                }else{
+                    $validation = false;
+                }
+            }
+            if(!$validation){
+                break;
+            }
+        }
+        return $validation;
+    }
+    
+    /**
+     * Validate a value based on the given rule
+     * @param string $rule The name of the validation rule
+     * @param mixed &$value The value to be validated
+     * @return boolean Returns true if the validation succeeded, false otherwise.
+     * @since 1.1-sofia
+     */
     protected function validateParam($rule, &$value){
         $original = $value;
         $slashPos = strpos($rule, '/');
