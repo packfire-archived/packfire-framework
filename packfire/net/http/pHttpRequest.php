@@ -111,8 +111,8 @@ class pHttpRequest {
             $this->uri($parsedUri->get('path', '/'));
             $getData = array();
             parse_str($parsedUri->get('query', ''), $getData);
-            $this->get()->append($getData);
-            $this->version(trim($version));
+            $this->get->append($getData);
+            $this->version = trim($version);
             unset($lines[0]);
             $body = null;
             foreach($lines as $line){
@@ -123,9 +123,12 @@ class pHttpRequest {
                             $key = trim(substr($line, 0, $separator));
                             $value = trim(substr($line, $separator + 1));
                             if($this->headers()->keyExists($key)){
-                                $this->headers()->get($key)->add(new pList(array($value)));
+                                $firstValue = $this->headers->get($key);
+                                $this->headers->add($key, new pList());
+                                $this->headers->get($key)->add($firstValue);
+                                $this->headers->get($key)->add($value);
                             }else{
-                                $this->headers()->add($key, new pList(array($value)));
+                                $this->headers->add($key, $value);
                             }
                         }
                     }else{
@@ -136,10 +139,10 @@ class pHttpRequest {
                 }
             }
             if($body !== null){
-                $contentType = $this->headers()->get('Content-Type');
+                $contentType = $this->headers->get('Content-Type');
                 if(strtolower($this->method) == 'post'){
                     if(substr($contentType, 0, 19) == 'multipart/form-data'){
-                        
+                        // todo multipart form data parsing
                     }else{
                         $data = array();
                         parse_str(trim($body), $data);
