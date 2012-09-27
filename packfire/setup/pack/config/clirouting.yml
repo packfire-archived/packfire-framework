@@ -15,7 +15,7 @@ install:
     'i': 'root'
     'install': 'root'
   params:
-    root: '.*'
+    root: any
     
 createProfile:
   actual: "controller.pSetupController:createApplication"
@@ -24,8 +24,8 @@ createProfile:
     'create': 'root'
     'p': 'packfire'
   params:
-    root: '.*'
-    packfire: '.*'
+    root: any
+    packfire: any
     
 create:
   actual: "controller.pSetupController:createApplication"
@@ -33,14 +33,14 @@ create:
     'c': 'root'
     'create': 'root'
   params:
-    root: '.*'
+    root: any
 
 phpunitRun:
   actual: "controller.pSetupController:unitTest"
   remap:
     't': 'test'
   params:
-    'test': true
+    'test': value/true
 
 phpunitRun2:
   actual: "controller.pSetupController:unitTest"
@@ -52,7 +52,7 @@ packfireVersion:
   remap:
     'v': 'version'
   params:
-    'version': true
+    'version': value/true
 
 packfireVersion:
   actual: "controller.pSetupController:version"
