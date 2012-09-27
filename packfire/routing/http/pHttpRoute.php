@@ -1,14 +1,8 @@
 <?php
-pload('packfire.routing.IRoute');
+pload('packfire.routing.pRoute');
 pload('packfire.net.http.pHttpMethod');
 pload('packfire.template.pTemplate');
 pload('packfire.collection.pMap');
-pload('packfire.validator.pSerialValidator');
-pload('packfire.validator.pNumericValidator');
-pload('packfire.validator.pMatchValidator');
-pload('packfire.validator.pRegexValidator');
-pload('packfire.validator.pCallbackValidator');
-pload('packfire.validator.pEmailValidator');
 
 /**
  * pHttpRoute class
@@ -21,45 +15,24 @@ pload('packfire.validator.pEmailValidator');
  * @package packfire.routing.http
  * @since 1.0-elenor
  */
-class pHttpRoute implements IRoute {
-    
-    /**
-     * The name of the route
-     * @var string
-     * @since 1.0-elenor
-     */
-    private $name;
+class pHttpRoute extends pRoute {
     
     /**
      * The HTTP method that this URL route will cater for. Defaults to GET.
      * @var string|pList|array
      * @since 1.0-elenor
      */
-    private $httpMethod = pHttpMethod::GET;
+    protected $httpMethod = pHttpMethod::GET;
 
     /**
      * The rewritten relative-to-host URL
      * @var string
      * @since 1.0-sofia
      */
-    private $rewrite;
+    protected $rewrite;
 
     /**
-     * The name of the controller class to route to
-     * @var string
-     * @since 1.0-elenor
-     */
-    private $actual;
-
-    /**
-     * The parameters in this routing
-     * @var pMap
-     * @since 1.0-elenor
-     */
-    private $params;
-
-    /**
-     * Create a new pRoute object
+     * Create a new pHttpRoute object
      * @param string $name The name of the route
      * @param array|pMap $data The configuration data entry
      * @since 1.0-elenor
@@ -180,107 +153,6 @@ class pHttpRoute implements IRoute {
             }
         }
         return $validation;
-    }
-    
-    /**
-     * Validate an array of data
-     * @param pList|array $rules The list of rules defined
-     * @param pList|array $data The data to be validated
-     * @param pMap|array $params (reference) The output parameters
-     * @param boolean $validation (reference, optional) The validation boolean
-     * @return boolean Returns true if validation is successful, false otherwise.
-     * @since 1.1-sofia
-     */
-    protected function validateArray($rules, $data, &$params, &$validation = true){
-        foreach($rules as $key => $rule){
-            if(is_array($rule)){
-                $param = array();
-                $this->validateArray($rule, $data, $param, $validation);
-            }else{
-                if(array_key_exists($key, $data)){
-                    $param = $data[$key];
-                    $validation = $this->validateParam($rule, $param);
-                }else{
-                    $validation = false;
-                }
-            }
-            if(!$validation){
-                break;
-            }
-            $params[$key] = $param;
-        }
-        return $validation;
-    }
-    
-    /**
-     * Validate a value based on the given rule
-     * @param string $rule The name of the validation rule
-     * @param mixed &$value The value to be validated
-     * @return boolean Returns true if the validation succeeded, false otherwise.
-     * @since 1.1-sofia
-     */
-    protected function validateParam($rule, &$value){
-        $original = $value;
-        $slashPos = strpos($rule, '/');
-        $options = '';
-        if($slashPos !== false){
-            $options = substr($rule, $slashPos + 1);
-            $rule = substr($rule, 0, $slashPos);
-        }
-        $validator = new pSerialValidator();
-        switch($rule){
-            case 'any':
-                break;
-            case 'numeric':
-            case 'number':
-            case 'num':
-                $validator->add(new pNumericValidator());
-                $value += 0;
-                break;
-            case 'float':
-            case 'real':
-            case 'double':
-                $validator->add(new pNumericValidator());
-                $validator->add(new pCallbackValidator(function($value){
-                    return is_float($value + 0);
-                }));
-                $value += 0;
-                break;
-            case 'integer':
-            case 'int':
-            case 'long':
-                $validator->add(new pNumericValidator());
-                $validator->add(new pCallbackValidator(function($value){
-                    return is_int($value + 0);
-                }));
-                $value += 0;
-                break;
-            case 'bool':
-            case 'boolean':
-                $validator->add(
-                    new pMatchValidator(array('true', 'false', '0', '1', 'on', 'off'))
-                );
-                $value = in_array($value, array('true', '1', 'on'), true);
-                break;
-            case 'alnum':
-                $options = '/^[a-zA-Z0-9]+$/';
-                $validator->add(new pRegexValidator($options));
-                break;
-            case 'email':
-                $validator->add(new pEmailValidator());
-                break;
-            case 'alpha':
-                $options = '/^[a-zA-Z]+$/';
-                $validator->add(new pRegexValidator($options));
-                break;
-            case 'regex':
-                $validator->add(new pRegexValidator($options));
-                break;
-            default:
-                $validator->add(new pMatchValidator($rule));
-                break;
-        }
-        return $validator->validate($original);
     }
     
 }

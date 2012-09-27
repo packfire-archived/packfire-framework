@@ -1,5 +1,6 @@
 <?php
-pload('packfire.routing.IRoute');
+pload('packfire.routing.pRoute');
+pload('packfire.collection.pMap');
 
 /**
  * pCliRoute class
@@ -12,28 +13,7 @@ pload('packfire.routing.IRoute');
  * @package packfire.routing.cli
  * @since 1.0-elenor
  */
-class pCliRoute implements IRoute {
-    
-    /**
-     * The name of the route
-     * @var string
-     * @since 1.0-elenor
-     */
-    private $name;
-    
-    /**
-     * The route parameters to check
-     * @var pMap
-     * @since 1.0-elenor
-     */
-    private $params;
-    
-    /**
-     * The name of the controller class to route to
-     * @var string
-     * @since 1.0-elenor
-     */
-    private $actual;
+class pCliRoute extends pRoute {
     
     /**
      * The parameters remapping
@@ -64,7 +44,7 @@ class pCliRoute implements IRoute {
      */
     public function match($request) {
         $validation = true;
-        $requestParams = $request->params();
+        $requestParams = new pMap($request->params());
         $params = array();
         $this->remap($requestParams);
         if($this->params){
@@ -72,27 +52,6 @@ class pCliRoute implements IRoute {
         }
         if($validation){
             $this->params = new pMap($params);
-        }
-        return $validation;
-    }
-    
-    protected function validateArray($rules, $data, &$params, &$validation = true){
-        foreach($rules as $key => $rule){
-            if(is_array($rule)){
-                $param = array();
-                $this->validateArray($rule, $data, $param, $validation);
-            }else{
-                if(array_key_exists($key, $data)){
-                    $param = $data[$key];
-                    $validation = (bool)preg_match('`' . $rule . '`is', $param);
-                }else{
-                    $validation = false;
-                }
-            }
-            if(!$validation){
-                break;
-            }
-            $params[$key] = $param;
         }
         return $validation;
     }
@@ -112,33 +71,6 @@ class pCliRoute implements IRoute {
                 }
             }
         }
-    }
-    
-    /**
-     * The parameters in this routing
-     * @var pMap
-     * @since 1.0-elenor
-     */
-    public function params(){
-        return $this->params;
-    }
-    
-    /**
-     * Get the name of the controller class to route to
-     * @return string Returns the controller class name
-     * @since 1.0-elenor
-     */
-    public function actual(){
-        return $this->actual;
-    }
-
-    /**
-     * Get the name of the route entry
-     * @return string Returns the name
-     * @since 1.0-elenor
-     */
-    public function name() {
-        return $this->name;
     }
     
 }
