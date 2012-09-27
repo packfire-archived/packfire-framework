@@ -107,7 +107,11 @@ class pHttpRequest {
             $requestLine = $lines[0];
             list($method, $uri, $version) = explode(' ', $requestLine);
             $this->method(trim($method));
-            $this->uri(trim($uri));
+            $parsedUri = new pMap(parse_url($uri));
+            $this->uri($parsedUri->get('path', '/'));
+            $getData = array();
+            parse_str($parsedUri->get('query', ''), $getData);
+            $this->get()->append($getData);
             $this->version(trim($version));
             unset($lines[0]);
             $body = null;
@@ -132,7 +136,18 @@ class pHttpRequest {
                 }
             }
             if($body !== null){
-                $this->body(new pTextStream($body));
+                $contentType = $this->headers()->get('Content-Type');
+                if(strtolower($this->method) == 'post'){
+                    if(substr($contentType, 0, 19) == 'multipart/form-data'){
+                        
+                    }else{
+                        $data = array();
+                        parse_str(trim($body), $data);
+                        $this->post->append($data);
+                    }
+                }else{
+                    $this->body(new pTextStream($body));
+                }
             }
         }
     }
