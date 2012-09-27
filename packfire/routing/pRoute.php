@@ -68,7 +68,8 @@ abstract class pRoute implements IRoute {
      */
     protected function validateArray($rules, $data, &$params, &$validation = true){
         foreach($rules as $key => $rule){
-            if(is_array($rule) && count($rule) > 0 && reset($rule) && key($rule) !== 0){
+            if(is_array($rule) && count($rule) > 0
+                    && reset($rule) && key($rule) !== 0){
                 $param = array();
                 $this->validateArray($rule, $data, $param, $validation);
             }else{
@@ -93,7 +94,7 @@ abstract class pRoute implements IRoute {
      * @return boolean Returns true if the validation succeeded, false otherwise.
      * @since 1.1-sofia
      */
-    protected function validateParam($rules, &$value){
+    protected function validateParam($rules, &$value, &$data){
         if(is_array($rules)){
             $rules = new pList($rules);
         }
@@ -146,6 +147,18 @@ abstract class pRoute implements IRoute {
                     }));
                     $value += 0;
                     break;
+                case 'min':
+                    $min = $options + 0;
+                    $validator->add(new pCallbackValidator(function($x) use ($min){
+                        return $x >= $min;
+                    }));
+                    break;
+                case 'max':
+                    $max = $options + 0;
+                    $validator->add(new pCallbackValidator(function($x) use ($max){
+                        return $x <= $max;
+                    }));
+                    break;
                 case 'bool':
                 case 'boolean':
                     $validator->add(
@@ -157,6 +170,18 @@ abstract class pRoute implements IRoute {
                     $options = '/^[a-zA-Z0-9]+$/';
                     $validator->add(new pRegexValidator($options));
                     break;
+                case 'strmin':
+                    $min = $options + 0;
+                    $validator->add(new pCallbackValidator(function($x) use ($min){
+                        return strlen($x) >= $min;
+                    }));
+                    break;
+                case 'strmax':
+                    $max = $options + 0;
+                    $validator->add(new pCallbackValidator(function($x) use ($max){
+                        return strlen($x) <= $max;
+                    }));
+                    break;
                 case 'email':
                     $validator->add(new pEmailValidator());
                     break;
@@ -167,6 +192,12 @@ abstract class pRoute implements IRoute {
                 case 'regex':
                     $validator->add(new pRegexValidator($options));
                     break;
+                case 'param':
+                    $match = array_key_exists($options, $data)
+                                    ? $data[$options] : null;
+                    $validator->add(new pMatchValidator($match));
+                    break;
+                case 'equals':
                 case 'value':
                     $value = $options;
                     break;
