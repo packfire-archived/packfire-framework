@@ -144,37 +144,39 @@ class pHttpRoute implements IRoute {
                 && $this->httpMethod == strtolower($method))
                 || (is_array($this->httpMethod)
                 && in_array(strtolower($method), $this->httpMethod))){
-            
-            $template = new pTemplate($this->rewrite);
-            $tokens = $template->tokens();
-            foreach ($tokens as $token) {
-                $template->fields()->add($token,
-                        '(?P<' . $token . '>(.+))');
-            }
-            $urlData = array();
-            
-            
-            // perform the URL matching
-            $urlMatch = preg_match('`^' . $template->parse() .
-                    '([/]{0,1})$`is', $url, $urlData);
-            
-            if($urlMatch){
-                $data = array();
-                foreach($urlData as $key => $value){
-                    $data[$key] = $value;
+            if($this->params){
+                $template = new pTemplate($this->rewrite);
+                $tokens = $template->tokens();
+                foreach ($tokens as $token) {
+                    $template->fields()->add($token,
+                            '(?P<' . $token . '>(.+))');
                 }
-                $data += $request->get()->toArray();
-                if($method == 'post'){
-                    $data += $request->post()->toArray();
-                }
+                $urlData = array();
 
-                $params = array();
-                $validation = $this->validateArray($this->params, $data, $params);
-                if($validation){
-                    $this->params = new pMap($params);
+
+                // perform the URL matching
+                $urlMatch = preg_match('`^' . $template->parse() .
+                        '([/]{0,1})$`is', $url, $urlData);
+
+                if($urlMatch){
+                    $data = array();
+                    foreach($urlData as $key => $value){
+                        $data[$key] = $value;
+                    }
+                    $data += $request->get()->toArray();
+                    if($method == 'post'){
+                        $data += $request->post()->toArray();
+                    }
+
+                    $params = array();
+                    $validation = $this->validateArray($this->params, $data, $params);
+                    if($validation){
+                        $this->params = new pMap($params);
+                    }
+
+                }else{
+                    $validation = false;
                 }
-            }else{
-                $validation = false;
             }
         }
         return $validation;
@@ -192,14 +194,12 @@ class pHttpRoute implements IRoute {
     protected function validateArray($rules, $data, &$params, &$validation = true){
         foreach($rules as $key => $rule){
             if(is_array($rule)){
-                $subparams = array();
-                $this->validateArray($rule, $data, $subparams, $validation);
-                $params[$key] = $subparams;
+                $param = array();
+                $this->validateArray($rule, $data, $param, $validation);
             }else{
                 if(array_key_exists($key, $data)){
                     $param = $data[$key];
                     $validation = $this->validateParam($rule, $param);
-                    $params[$key] = $param;
                 }else{
                     $validation = false;
                 }
@@ -207,6 +207,7 @@ class pHttpRoute implements IRoute {
             if(!$validation){
                 break;
             }
+            $params[$key] = $param;
         }
         return $validation;
     }

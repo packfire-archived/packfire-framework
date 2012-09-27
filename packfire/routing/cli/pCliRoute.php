@@ -63,32 +63,38 @@ class pCliRoute implements IRoute {
      * @since 1.0-elenor
      */
     public function match($request) {
-        $ok = true;
+        $validation = true;
         $requestParams = $request->params();
         $params = array();
         $this->remap($requestParams);
         if($this->params){
-            foreach($this->params as $key => $param){
-                if($requestParams->keyExists($key)){
-                    $subject = $requestParams->get($key);
-                    if(is_string($param)){
-                        $ok = preg_match('`' . $param . '`is', $subject);
-                    }else{
-                        $ok = $subject == $param;
-                    }
-                }else{
-                    $ok = false;
-                }
-                if(!$ok){
-                    break;
-                }
-                $params[$key] = $subject;
-            }
+            $validation = $this->validateArray($this->params, $requestParams->toArray(), $params);
         }
-        if($ok){
+        if($validation){
             $this->params = new pMap($params);
         }
-        return $ok;
+        return $validation;
+    }
+    
+    protected function validateArray($rules, $data, &$params, &$validation = true){
+        foreach($rules as $key => $rule){
+            if(is_array($rule)){
+                $param = array();
+                $this->validateArray($rule, $data, $param, $validation);
+            }else{
+                if(array_key_exists($key, $data)){
+                    $param = $data[$key];
+                    $validation = (bool)preg_match('`' . $rule . '`is', $param);
+                }else{
+                    $validation = false;
+                }
+            }
+            if(!$validation){
+                break;
+            }
+            $params[$key] = $param;
+        }
+        return $validation;
     }
     
     /**
