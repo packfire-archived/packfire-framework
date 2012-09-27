@@ -52,7 +52,9 @@ abstract class pOAuthSignature {
         if(substr($name, 0, 6) != 'pOAuth'){
             $name = $registry->get($name);
         }
-        pload('packfire.oauth.signature.' . $name);
+        if($name){
+            pload('packfire.oauth.signature.' . $name);
+        }
         return $name;
     }
     
