@@ -61,14 +61,14 @@ class pTimeSpan extends pTime {
      * @param integer $day (optional) Set the day value with an integer. Must
      *                     be an non-negative number.
      * @return integer Returns the day component of the time
+     * @throws pInvalidArgumentException Thrown when a negative $day is provided.
      * @since 1.0-sofia
      */
     public function day($day = null){
         if(func_num_args() == 1){
             if($day != $this->day){
                 if($day < 0){
-                    throw new pInvalidArgumentException('pTimeSpan::day() '.
-                            ' does not accept a negative first argument.');
+                    throw new pInvalidArgumentException('pTimeSpan::day', 'day', 'non-negative', $day);
                 }
                 $this->day = $day + 0;
             }

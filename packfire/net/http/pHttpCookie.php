@@ -129,14 +129,15 @@ class pHttpCookie {
      * Get or set the expiry date / time of the cookie
      * @param pDateTime $d (optional) Set the value of expiry date/time.
      * @return pDateTime Returns the expiry date time of the cookie
+     * @throws pInvalidArgumentException Thrown when $expire is not of type pDateTime
      * @since 1.0-sofia
      */
-    public function expire($d = false){
+    public function expire($expire = false){
         if(func_num_args() == 1){
-            if(!($d instanceof pDateTime)){
-                throw new pInvalidArgumentException('pHttpCookie::expire() expects the first argument to be of type pDateTime.');
+            if(!($expire instanceof pDateTime)){
+                throw new pInvalidArgumentException('pHttpCookie::expire', 'datetime', 'of type pDateTime', $expire);
             }
-            $this->expire = $d;
+            $this->expire = $expire;
         }
         return $this->expire;
     }

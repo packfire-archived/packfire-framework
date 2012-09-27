@@ -89,6 +89,7 @@ abstract class pView extends pBucketUser implements IView {
      * @param pObjectObserver $object The object to be binded
      * @param string $property The property of the object to bind to the
      *                  template field.
+     * @throws pInvalidArgumentException Thrown when $object is not an instance of pObjectObserver
      * @since 1.1-sofia
      */
     public function bind($key, $object, $property){
@@ -100,11 +101,8 @@ abstract class pView extends pBucketUser implements IView {
                 }
             });
         }else{
-            throw new pInvalidArgumentException(
-                    sprintf('pView::bind() expects'
-                        . ' parameter 2 to be an instance of pObjectObserver,'
-                        . ' %s given instead.', dtype($object))
-                    );
+            throw new pInvalidArgumentException('pView::bind', 'object',
+                    'an instance of pObjectObserver', dtype($object));
         }
     }
     

@@ -193,6 +193,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
      * @param string $method The name of the method to use to sign this request
      * @param pOAuthConsumer $consumer The consumer making the request
      * @param string $tokenSecret (optional) The token secret provided by the OAuth provider
+     * @throws pInvalidArgumentException Thrown when $method signature method is invalid
      * @since 1.1-sofia
      */
     public function sign($method, $consumer, $tokenSecret = null){
