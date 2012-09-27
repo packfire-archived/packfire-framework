@@ -49,7 +49,9 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
         $this->cookies = new pMap($request->cookies);
         $this->https = $request->https;
         $this->version = $request->version;
-        $this->time = pDateTime::fromTimestamp($request->time->toTimestamp());
+        if($request->time instanceof pDateTime){
+            $this->time = pDateTime::fromTimestamp($request->time->toTimestamp());
+        }
         $this->uri = $request->uri;
         $this->method = $request->method;
         $this->body = $request->body;
@@ -95,9 +97,8 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
                 }
             }
         }
-        
         $authHeader = $this->headers->get('Authorization');
-        if(substr($authHeader, 0, 6) == 'OAuth '){
+        if(is_string($authHeader) && substr($authHeader, 0, 6) == 'OAuth '){
             $params = array();
             $matches = array();
             if (preg_match_all('/(oauth[a-z_-]*)=(:?"([^"]*)"|([^,]*))/',
@@ -195,13 +196,18 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
      * @since 1.1-sofia
      */
     public function sign($method, $consumer, $tokenSecret = null){
-        $sigMethod = pOAuthSignature::load($method);
+        try{
+            $sigMethod = pOAuthSignature::load($method);
+        }catch(pMissingDependencyException $ex){
+        
+        }
         if(!$sigMethod){
             throw new pInvalidArgumentException(
-                sprintf('pOAuthRequest::sign() expects first parameter $method'
-                        . ' to be the name of a valid OAuth signature method,'
-                        . ' "%s" given instead.', $method)
-            );
+                    'pOAuthRequest::sign',
+                    'method',
+                    'the name of a valid OAuth signature method',
+                    $method
+                );
         }
         /* @var $signer pOAuthSignature */
         $signer = new $sigMethod($this, $consumer, $tokenSecret);
