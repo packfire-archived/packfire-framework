@@ -197,6 +197,7 @@ abstract class pRoute implements IRoute {
                                     ? $data[$options] : null;
                     $validator->add(new pMatchValidator($match));
                     break;
+                case 'equal':
                 case 'equals':
                 case 'value':
                     $value = $options;
