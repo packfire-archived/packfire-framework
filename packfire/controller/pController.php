@@ -317,14 +317,12 @@ abstract class pController extends pBucketUser {
         
         if(is_callable(array($this, $call))){
             // call the controller action
-            $this->activate($call);
             $actionInvoker = new pActionInvoker(array($this, $call));
             $result = $actionInvoker->invoke($route->params());
             if($result){
                 $this->response = $result;
             }
             $this->postProcess();
-            $this->deactivate($call);
         }else{
             $errorMsg = sprintf('The requested action "%s" is not found' 
                                 . ' in the controller "%s".',
@@ -353,26 +351,6 @@ abstract class pController extends pBucketUser {
                 && strpos(strtolower($type), 'html') === false){
             $this->service('debugger')->enabled(false);
         }
-    }
-    
-    /**
-     * Called before the action is executed.
-     * Feel free to override this method.
-     * @param string $action The name of the action called.
-     * @since 1.0-sofia 
-     */
-    public function activate($action){
-        
-    }
-    
-    /**
-     * Called after the action is executed.
-     * Feel free to override this method.
-     * @param string $action The name of the action executed.
-     * @since 1.0-sofia 
-     */
-    public function deactivate($action){
-        
     }
     
     /**
