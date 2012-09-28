@@ -7,7 +7,8 @@ pload('packfire.ioc.pBucketUser');
 pload('packfire.exception.pHttpException');
 pload('packfire.exception.pAuthenticationException');
 pload('packfire.exception.pAuthorizationException');
-pload('packfire..net.http.pHttpRequest');
+pload('packfire.net.http.pHttpRequest');
+pload('packfire.core.pActionInvoker');
 
 /**
  * The generic controller class
@@ -317,7 +318,8 @@ abstract class pController extends pBucketUser {
         if(is_callable(array($this, $call))){
             // call the controller action
             $this->activate($call);
-            $result = call_user_func_array(array($this, $call), $route->params()->toArray());
+            $actionInvoker = new pActionInvoker(array($this, $call));
+            $result = $actionInvoker->invoke($route->params());
             if($result){
                 $this->response = $result;
             }
