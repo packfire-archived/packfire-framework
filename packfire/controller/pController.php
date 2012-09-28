@@ -50,14 +50,6 @@ abstract class pController extends pBucketUser {
     protected $state;
     
     /**
-     * Flags whether to allow direct access to the controller actions
-     * Defaults to false
-     * @var boolean
-     * @since 1.0-sofia
-     */
-    protected $directAccess = false;
-    
-    /**
      * Parameter filters
      * @var pMap 
      * @since 1.0-sofia
@@ -174,16 +166,6 @@ abstract class pController extends pBucketUser {
             $this->models[$model] = $obj;
         }
         return $this->models[$model];
-    }
-    
-    /**
-     * Check if direct access is enabled on the controller
-     * @return boolean Returns true if direct access is enabled,
-     *           false otherwise.
-     * @since 1.0s-sofia
-     */
-    public function directAccess(){
-        return $this->directAccess;
     }
     
     /**

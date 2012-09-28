@@ -41,11 +41,20 @@ class pHttpApplication extends pServiceApplication {
     
     /**
      * Receive a request, process, and respond.
-     * @param IAppRequest $request The request made
+     * @param pHttpAppRequest $request The request made
      * @return IAppResponse Returns the http response
      * @since 1.0-elenor
      */
     public function receive($request){
+        $oriMethod = $request->method();
+        if($request->headers()->keyExists('X-HTTP-Method')){
+            $oriMethod = $request->headers()->get('X-HTTP-Method');
+        }
+        if($request->headers()->keyExists('X-HTTP-Method-Override')){
+            $oriMethod = $request->headers()->get('X-HTTP-Method-Override');
+        }
+        $request->method($oriMethod);
+        
         $response = $this->prepareResponse($request);
         $router = $this->service('router');
         /* @var $router pRouter */
@@ -53,6 +62,7 @@ class pHttpApplication extends pServiceApplication {
             throw new pMissingDependencyException('Router service missing.');
         }
         $router->load();
+        
         /* @var $route pRoute */
         $route = null;
         if($request->method() == pHttpMethod::GET 
@@ -88,15 +98,14 @@ class pHttpApplication extends pServiceApplication {
 
             if($route->name() == 'packfire.directControllerAccess'){
                 $caLoader = $this->directAccessProcessor($request, $route, $response);
-                $response = $caLoader->response();
             }else{
                 $caLoader = new pCALoader($class, $action, $request, $route, $response);
-                $caLoader->copyBucket($this);
-                if($caLoader->load()){
-                    $response = $caLoader->response();
-                }else{
-                    throw new pHttpException(404);
-                }
+            }
+            $caLoader->copyBucket($this);
+            if($caLoader->load()){
+                $response = $caLoader->response();
+            }else{
+                throw new pHttpException(404);
             }
         }else{
             throw new pHttpException(404);
@@ -139,10 +148,6 @@ class pHttpApplication extends pServiceApplication {
         $route->params()->removeAt('class');
         $route->params()->removeAt('action');
         $caLoader = new pCALoader(ucfirst($class), $action, $request, $route, $response);
-        $caLoader->copyBucket($this);
-        if(!$caLoader->load(true)){
-            throw new pHttpException(404);
-        }
         return $caLoader;
     }
     

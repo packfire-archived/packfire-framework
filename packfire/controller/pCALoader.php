@@ -70,12 +70,10 @@ class pCALoader extends pBucketUser {
 
     /**
      * Perform the loading process
-     * @param boolean $directAccess (optional) Flags if the access is a direct
-     *                access (DCA). Defaults to false.
      * @return boolean Returns true if loaded successfully, false otherwise.
      * @since 1.0-sofia
      */
-    public function load($directAccess = false){
+    public function load(){
         $class = $this->package;
         if(is_string($this->package)){
             // call controller
@@ -124,16 +122,9 @@ class pCALoader extends pBucketUser {
                 }else{
                     /* @var $controller pController */
                     $controller = new $class($this->request, $this->response);
-                    if($controller->directAccess() || 
-                                (!$controller->directAccess() && !$directAccess)){
-                        $controller->copyBucket($this);
-                        $controller->run($this->route, $this->action);
-                        $this->response = $controller->response();
-                    }else{
-                        // the controller action exists, but
-                        // forbidden access because direct access was disabled
-                        return false;
-                    }
+                    $controller->copyBucket($this);
+                    $controller->run($this->route, $this->action);
+                    $this->response = $controller->response();
                 }
             }else{
                 // oops! the class is really not found (:
