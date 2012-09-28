@@ -1,6 +1,6 @@
 <?php
 
-pload('packfire.controller.pActionInvoker');
+pload('packfire.core.pActionInvoker');
 
 /**
  * Test class for pActionInvoker.
