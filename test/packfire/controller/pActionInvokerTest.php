@@ -12,8 +12,6 @@ class pActionInvokerTest extends PHPUnit_Framework_TestCase {
      * @var pActionInvoker
      */
     protected $object;
-    
-    protected $params = array();
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -31,7 +29,7 @@ class pActionInvokerTest extends PHPUnit_Framework_TestCase {
     }
     
     public function action($name, $age){
-        $this->params = func_get_args();
+        return $name . $age;
     }
 
     /**
@@ -39,8 +37,7 @@ class pActionInvokerTest extends PHPUnit_Framework_TestCase {
      */
     public function testInvoke() {
         $object = new pActionInvoker(array($this, 'action'));
-        $object->invoke(array('age' => 5, 'name' => 'John Smith'));
-        $this->assertEquals(array('John Smith', 5), $this->params);
+        $this->assertEquals('John Smith5', $object->invoke(array('age' => 5, 'name' => 'John Smith')));
     }
 
     /**
@@ -48,11 +45,20 @@ class pActionInvokerTest extends PHPUnit_Framework_TestCase {
      */
     public function testInvoke2() {
         $params = array();
-        $object = new pActionInvoker(function($name, $age) use($params){
+        $object = new pActionInvoker(function($name, $age) use(&$params){
             $params = func_get_args();
+            return true;
         });
-        $object->invoke(array('age' => 5, 'name' => 'John Smith'));
+        $this->assertTrue($object->invoke(array('age' => 5, 'name' => 'John Smith')));
         $this->assertEquals(array('John Smith', 5), $params);
+    }
+
+    /**
+     * @covers pActionInvoker::invoke
+     */
+    public function testInvoke3() {
+        $object = new pActionInvoker('strpos');
+        $this->assertEquals(6, $object->invoke(array('needle' => 'World', 'haystack' => 'Hello World!')));
     }
 
 }
