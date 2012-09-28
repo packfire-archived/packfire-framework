@@ -26,6 +26,7 @@ abstract class pServiceApplication extends pBucketUser implements IApplication {
         
         $coreLoader = new pServiceAppLoader($this->services);
         $coreLoader->load();
+        $this->services->put('events', new pEventHandler($this));
     }
     
 }

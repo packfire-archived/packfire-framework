@@ -29,12 +29,12 @@ class pCALoaderTest extends PHPUnit_Framework_TestCase {
         $request = new pHttpAppRequest(null, null);
         $request->method('GET');
         $this->object = new pCALoader(
-                'packfire.welcome.HomeController',
-                'index',
-                $request,
-                new pHttpRoute('test', array()),
-                new pHttpAppResponse()
-            );
+                        'packfire.welcome.HomeController',
+                        'index',
+                        $request,
+                        new pHttpRoute('test', array()),
+                        new pHttpAppResponse()
+        );
         $bucket = new pServiceBucket();
         $storage = new tMockSessionStorage();
         $bucket->put('session.storage', $storage);
