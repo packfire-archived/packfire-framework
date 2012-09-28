@@ -128,11 +128,20 @@ class pCALoader extends pBucketUser {
                     $output = $view->render();
                     $this->response()->body($output);
                 }else{
-                    /* @var $controller pController */
-                    $controller = new $class($this->request, $this->response);
-                    $controller->copyBucket($this);
-                    $controller->run($this->route, $this->action);
-                    $this->response = $controller->response();
+                    if(self::classInstanceOf($class, 'pController')){
+                        /* @var $controller pController */
+                        $controller = new $class($this->request, $this->response);
+                        $controller->copyBucket($this);
+                        $controller->run($this->route, $this->action);
+                        $this->response = $controller->response();
+                    }else{
+                        $controller = new $class();
+                        if($controller instanceof IBucketUser){
+                            $controller->copyBucket($this);
+                        }
+                        $actionInvoker = new pActionInvoker(array($controller, $this->action));
+                        $this->response = $actionInvoker->invoke($this->route->params());
+                    }
                 }
             }else{
                 // oops! the class is really not found (:
@@ -143,6 +152,28 @@ class pCALoader extends pBucketUser {
             return false;
         }
         return true;
+    }
+    
+    protected static function classInstanceOf($className, $search){
+        $classOnly = !interface_exists($search);
+        $class = new ReflectionClass($className);
+        if(!$class) {
+            return false;
+        }
+        do{
+            $name = $class->getName();
+            if($search == $name) {
+                return true;
+            }
+            if(!$classOnly){
+                $interfaces = $class->getInterfaceNames();
+                if(is_array( $interfaces) && in_array($search, $interfaces)) {
+                    return true;
+                }
+            }
+            $class = $class->getParentClass();
+        } while($class);
+        return false; 
     }
     
     /**
