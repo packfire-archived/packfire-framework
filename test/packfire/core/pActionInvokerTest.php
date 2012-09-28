@@ -31,6 +31,10 @@ class pActionInvokerTest extends PHPUnit_Framework_TestCase {
     public function action($name, $age){
         return $name . $age;
     }
+    
+    public static function staticAction($height, $weight){
+        return floor($weight / pow($height, 2));
+    }
 
     /**
      * @covers pActionInvoker::invoke
@@ -59,6 +63,14 @@ class pActionInvokerTest extends PHPUnit_Framework_TestCase {
     public function testInvoke3() {
         $object = new pActionInvoker('strpos');
         $this->assertEquals(6, $object->invoke(array('needle' => 'World', 'haystack' => 'Hello World!')));
+    }
+
+    /**
+     * @covers pActionInvoker::invoke
+     */
+    public function testInvoke4() {
+        $object = new pActionInvoker('pActionInvokerTest::staticAction');
+        $this->assertEquals(28, $object->invoke(array('weight' => 84, 'height' => '1.72')));
     }
 
 }
