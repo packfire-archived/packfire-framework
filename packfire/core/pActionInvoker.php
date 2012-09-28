@@ -53,7 +53,7 @@ class pActionInvoker {
      */
     public function invoke($params){
         if($params instanceof pMap){
-            $args = $args->toArray();
+            $params = $params->toArray();
         }
         $invokeParams = array();
         if(is_array($this->callback)){
