@@ -3,6 +3,7 @@ pload('IApplication');
 pload('packfire.ioc.pBucketUser');
 pload('pServiceAppLoader');
 pload('packfire.ioc.pServiceBucket');
+pload('packfire.event.pEventHandler');
 
 /**
  * pServiceApplication abstract class
