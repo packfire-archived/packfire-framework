@@ -139,8 +139,6 @@ class pCALoader extends pBucketUser {
                 // oops! the class is really not found (:
                 return false;
             }
-        }else if(is_callable($class)){
-            $this->response = call_user_func($class, $this->request, $this->route, $this->response);
         }else{
             // oops! no idea what you've given me as $class
             return false;
