@@ -38,7 +38,12 @@ abstract class pAppController extends pController {
             if(substr($name, -10) == 'Controller'){
                 $name = substr($name, 0, strlen($name) - 10);
             }
-
+            
+            try{
+                pload('app.AppView');
+            }catch(pMissingDependencyException $ex){
+                
+            }
             $class = $name . $func . 'View';
             $tries = array(
                 'view.' . strtolower($name) . '.' . $class,

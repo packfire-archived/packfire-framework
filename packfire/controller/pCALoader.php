@@ -82,12 +82,16 @@ class pCALoader extends pBucketUser {
             list($package, $class) =
                     pClassLoader::resolvePackageClass($this->package);
 
-            if($package == $class){
+            if($package == $class && !class_exists($class)){
                 // only class name is provided, so we use
                 // the controllers in the controller folder
                 
                 if($isView){
-                    pload('app.AppView');
+                    try{
+                        pload('app.AppView');
+                    }catch(pMissingDependencyException $ex){
+
+                    }
                     try{
                         pload('view.' . $package);
                     }catch(pMissingDependencyException $ex){
@@ -98,7 +102,11 @@ class pCALoader extends pBucketUser {
                         $package .= 'Controller';
                         $class .= 'Controller';
                     }
-                    pload('app.AppController');
+                    try{
+                        pload('app.AppController');
+                    }catch(pMissingDependencyException $ex){
+
+                    }
                     try{
                         pload('controller.' . $package);
                     }catch(pMissingDependencyException $ex){
@@ -106,7 +114,7 @@ class pCALoader extends pBucketUser {
                     }
                 }
                 
-            }else{
+            }elseif(class_exists($class)){
                 // woah we've got a badass here
                 // this is to load a custom class
                 pload($package);
