@@ -77,7 +77,7 @@ abstract class pRoute implements IRoute {
                 if(array_key_exists($key, $data)){
                     $param = $data[$key];
                 }
-                $validation = $this->validateParam($rule, $param);
+                $validation = $this->validateParam($rule, $param, $data);
             }
             if(!$validation){
                 break;
