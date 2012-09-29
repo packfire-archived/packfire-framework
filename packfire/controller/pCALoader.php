@@ -114,7 +114,7 @@ class pCALoader extends pBucketUser {
                     }
                 }
                 
-            }elseif(class_exists($class)){
+            }elseif(!class_exists($class)){
                 // woah we've got a badass here
                 // this is to load a custom class
                 pload($package);
