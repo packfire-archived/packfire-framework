@@ -44,8 +44,10 @@ phpunitRun:
 
 phpunitRun2:
   actual: "controller.pSetupController:unitTest"
-  params:
+  remap:
     1: 'test'
+  params:
+    'test': value/true
 
 packfireVersion:
   actual: "controller.pSetupController:version"
@@ -56,8 +58,10 @@ packfireVersion:
 
 packfireVersion:
   actual: "controller.pSetupController:version"
-  params:
+  remap:
     1: 'version'
+  params:
+    'version': value/true
 
 home:
   actual: "controller.pSetupController:welcome"
