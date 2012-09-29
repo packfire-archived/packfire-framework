@@ -8,5 +8,6 @@ php:
   - 5.3
   - 5.3.3
   - 5.4
-
+env:
+  - databasePassword=""
 script: sh packfire.sh test

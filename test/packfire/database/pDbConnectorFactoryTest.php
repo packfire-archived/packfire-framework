@@ -33,7 +33,7 @@ class pDbConnectorFactoryTest extends PHPUnit_Framework_TestCase {
             'host' => 'localhost',
             'dbname' => 'test',
             'user' => 'root',
-            'password' => ''
+            'password' => array_key_exists('databasePassword', $_ENV) ? $_ENV['databasePassword'] : 'password'
         ));
         $this->assertInstanceOf('pMySqlConnector', $driver);
     }
