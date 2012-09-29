@@ -8,6 +8,6 @@ php:
   - 5.3
   - 5.3.3
   - 5.4
-env:
-  - databasePassword=""
+before_script:
+  - mysqladmin -u root -p'' password password
 script: sh packfire.sh test
