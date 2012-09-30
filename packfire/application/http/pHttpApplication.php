@@ -139,7 +139,7 @@ class pHttpApplication extends pServiceApplication {
      * @param IAppRequest $request The request
      * @param pRoute $route The route called
      * @param IAppResponse $response The response
-     * @return pCALoader Returns the loader
+     * @return pControllerInvoker Returns the loader
      * @since 1.0-sofia
      */
     public function directAccessProcessor($request, $route, $response){
@@ -147,7 +147,7 @@ class pHttpApplication extends pServiceApplication {
         $action = $route->params()->get('action');
         $route->params()->removeAt('class');
         $route->params()->removeAt('action');
-        $caLoader = new pCALoader(ucfirst($class), $action, $request, $route, $response);
+        $caLoader = new pControllerInvoker(ucfirst($class), $action, $request, $route, $response);
         return $caLoader;
     }
     
