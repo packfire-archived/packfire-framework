@@ -1,6 +1,6 @@
 [submodule "graph"]
     path = packfire/graph
-    url = https://github.com/packfire/packfire-dijkstra.git
+    url = http://github.com/packfire/packfire-dijkstra.git
 [submodule "application"]
     path = packfire/generator/resource/application
-    url = https://github.com/packfire/app-structure.git
+    url = http://github.com/packfire/app-structure.git
