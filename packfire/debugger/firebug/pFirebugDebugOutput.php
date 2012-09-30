@@ -34,13 +34,15 @@ class pFirebugDebugOutput implements IDebugOutput {
      * @since 1.1-sofia 
      */
     public function output() {
-        $html = '';
-        $html .= 'console.group("Packfire Framework Debugger");' . "\n";
-        foreach($this->buffer as $line){
-            $html .= 'console.' . $line[0] . '(' . json_encode($line[1]) . ');' . "\n";
+        if($this->buffer){
+            $html = '';
+            $html .= 'console.group("Packfire Framework Debugger");' . "\n";
+            foreach($this->buffer as $line){
+                $html .= 'console.' . $line[0] . '(' . json_encode($line[1]) . ');' . "\n";
+            }
+            $html .= 'console.groupEnd();' . "\n";
+            echo '<script type="text/javascript">(function(){if(console){' . $html . '}})();</script>';
         }
-        $html .= 'console.groupEnd();' . "\n";
-        echo '<script type="text/javascript">(function(){if(console){' . $html . '}})();</script>';
     }
 
     /**
