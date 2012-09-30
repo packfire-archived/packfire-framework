@@ -4,7 +4,9 @@ pload('packfire.config.pConfigFactory');
 pload('IFrameworkConfig');
 
 /**
- * Framework Application configuration parser
+ * pFrameworkConfig class
+ * 
+ * Application configuration parser
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -12,7 +14,7 @@ pload('IFrameworkConfig');
  * @package packfire.config.framework
  * @since 1.0-sofia
  */
-abstract class pFrameworkConfig implements IFrameworkConfig {
+abstract class pFrameworkConfig extends pServiceBucket implements IFrameworkConfig{
     
     /**
      * Load an application configuration file located the the config folder.
@@ -25,7 +27,7 @@ abstract class pFrameworkConfig implements IFrameworkConfig {
      *                 or NULL if the file is not recognized or not found.
      * @since 1.0-sofia
      */
-    protected static function execute($name, $context){
+    protected function loadConfig($name, $context){
         $path = __APP_ROOT__ . 'pack/config/' . $name;
         
         $map = array_keys(pConfigType::typeMap());
