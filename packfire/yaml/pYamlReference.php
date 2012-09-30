@@ -96,9 +96,9 @@ class pYamlReference implements ArrayAccess {
      */
     public function offsetSet($offset, $value) {
         if($offset === null){
-            $this->data[$offset] = $value;
-        }else{
             $this->data[] = $value;
+        }else{
+            $this->data[$offset] = $value;
         }
     }
     
