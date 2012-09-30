@@ -76,7 +76,8 @@ class pServiceLoader implements ILoadable {
      * @since 1.0-sofia
      */
     public static function loadConfig($bucket){
-        $servicesConfig = pIoCConfig::load();
+        $iocConfig = new pIoCConfig();
+        $servicesConfig = $iocConfig->load();
         if($servicesConfig){
             $services = $servicesConfig->get();
             foreach($services as $key => $service){

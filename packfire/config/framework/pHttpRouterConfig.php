@@ -24,8 +24,8 @@ class pHttpRouterConfig extends pFrameworkConfig {
      *                 or NULL if the file is not recognized or not found.
      * @since 1.0-sofia
      */
-    public static function load($context = __ENVIRONMENT__) {
-        return self::execute('routing', $context);
+    public function load($context = __ENVIRONMENT__) {
+        return $this->loadConfig('routing', $context);
     }
     
 }

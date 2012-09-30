@@ -25,7 +25,7 @@ class pCliServiceBucket extends pBucketLoader {
         if(!$this->contains('exception.handler')){
             $this->put('exception.handler', new pCliExceptionHandler());
         }
-        $this->put('config.routing', array('pCliRouterConfig', 'load'));
+        $this->put('config.routing', array(new pCliRouterConfig(), 'load'));
         $this->put('router', new pCliRouter());
         if($this->pick('config.app')){
             // load the debugger

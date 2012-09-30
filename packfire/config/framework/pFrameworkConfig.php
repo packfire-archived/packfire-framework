@@ -2,6 +2,7 @@
 pload('packfire.config.pConfigType');
 pload('packfire.config.pConfigFactory');
 pload('IFrameworkConfig');
+pload('packfire.ioc.pServiceBucket');
 
 /**
  * pFrameworkConfig class

@@ -24,7 +24,7 @@ class pServiceAppLoader extends pBucketLoader {
      * @since 1.0-sofia 
      */
     public function load(){
-        $this->put('config.app', array('pAppConfig', 'load'));
+        $this->put('config.app', array(new pAppConfig(), 'load'));
         pServiceLoader::loadConfig($this);
         if($this->pick('config.app')){
             // load database drivers and configurations

@@ -26,7 +26,7 @@ class pHttpServiceBucket extends pBucketLoader {
         if(!$this->contains('exception.handler')){
             $this->put('exception.handler', new pHttpExceptionHandler());
         }
-        $this->put('config.routing', array('pHttpRouterConfig', 'load'));
+        $this->put('config.routing', array(new pHttpRouterConfig(), 'load'));
         $this->put('router', new pHttpRouter());
         if($this->pick('config.app')){
             // load the debugger
