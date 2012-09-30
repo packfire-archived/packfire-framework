@@ -4,9 +4,9 @@ pload('packfire.application.IAppResponse');
 pload('packfire.pClassLoader');
 
 /**
- * pCALoader class
+ * pControllerInvoker class
  * 
- * Controller Access Loader
+ * Controller Access Invoker
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -14,7 +14,7 @@ pload('packfire.pClassLoader');
  * @package packfire.controller
  * @since 1.0-sofia
  */
-class pCALoader extends pBucketUser {
+class pControllerInvoker extends pBucketUser {
     
     /**
      * The package name
@@ -52,7 +52,7 @@ class pCALoader extends pBucketUser {
     private $response;
     
     /**
-     * Create a new pCALoader object
+     * Create a new pControllerInvoker object
      * @param string $package The package to load the class
      * @param string $action The action to be loaded
      * @param IAppRequest $request The application request to load with

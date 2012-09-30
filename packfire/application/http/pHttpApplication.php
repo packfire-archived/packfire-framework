@@ -4,7 +4,7 @@ pload('pHttpAppResponse');
 pload('pHttpServiceBucket');
 pload('packfire.exception.pHttpException');
 pload('packfire.exception.pMissingDependencyException');
-pload('packfire.controller.pCALoader');
+pload('packfire.controller.pControllerInvoker');
 pload('packfire.response.pRedirectResponse');
 
 /**
@@ -99,7 +99,7 @@ class pHttpApplication extends pServiceApplication {
             if($route->name() == 'packfire.directControllerAccess'){
                 $caLoader = $this->directAccessProcessor($request, $route, $response);
             }else{
-                $caLoader = new pCALoader($class, $action, $request, $route, $response);
+                $caLoader = new pControllerInvoker($class, $action, $request, $route, $response);
             }
             $caLoader->copyBucket($this);
             if($caLoader->load()){

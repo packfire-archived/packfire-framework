@@ -3,7 +3,7 @@ pload('packfire.application.pServiceApplication');
 pload('pCliAppResponse');
 pload('pCliServiceBucket');
 pload('packfire.exception.handler.pCliExceptionHandler');
-pload('packfire.controller.pCALoader');
+pload('packfire.controller.pControllerInvoker');
 pload('packfire.exception.pMissingDependencyException');
 
 /**
@@ -63,7 +63,7 @@ class pCliApplication extends pServiceApplication {
                 $action = '';
             }
             
-            $caLoader = new pCALoader($class, $action, $request, $route, $response);
+            $caLoader = new pControllerInvoker($class, $action, $request, $route, $response);
             $caLoader->copyBucket($this);
             if($caLoader->load()){
                 $response = $caLoader->response();
