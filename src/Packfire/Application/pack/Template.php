@@ -1,4 +1,5 @@
 <?php
+namespace Packfire\Appliation\Pack;
 
 /**
  * pAppTemplate class
@@ -8,10 +9,10 @@
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.application.pack
+ * @package Packfire\Appliation\Pack
  * @since 1.1-sofia
  */
-class pAppTemplate {
+class Template {
     
     /**
      * Load a template from the template folder

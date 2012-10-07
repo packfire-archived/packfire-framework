@@ -1,19 +1,20 @@
 <?php
+namespace Packfire\Application\Cli;
 pload('packfire.collection.pList');
 pload('packfire.collection.pMap');
 
 /**
- * pCommandParser class
+ * CommandParser class
  * 
  * A parser that will process the command line arguments
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.application.cli
+ * @package Packfire\Application\Cli
  * @since 1.0-sofia
  */
-class pCommandParser {
+class CommandParser {
     
     /**
      * The result of the parsing
@@ -23,7 +24,7 @@ class pCommandParser {
     private $result;
     
     /**
-     * Create a new pCommandParser object
+     * Create a new CommandParser object
      * @param array|pMap $arguments The argument to be parsed.
      * @since 1.0-sofia
      */

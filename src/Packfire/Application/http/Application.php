@@ -1,7 +1,8 @@
 <?php
-pload('packfire.application.pServiceApplication');
-pload('pHttpAppResponse');
-pload('pHttpServiceBucket');
+namespace Packfire\Application\Http;
+use Packfire\Application\ServiceApplication;
+use Response;
+use ServiceBucket;
 pload('packfire.exception.pHttpException');
 pload('packfire.exception.pMissingDependencyException');
 pload('packfire.controller.pControllerInvoker');
@@ -15,20 +16,20 @@ pload('packfire.response.pRedirectResponse');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.application.http
+ * @package Packfire\Application\Http
  * @since 1.0-elenor
  */
-class pHttpApplication extends pServiceApplication {
+class Application extends ServiceApplication {
     
     /**
-     * Create the pHttpApplication object 
+     * Create a new Application object 
      * @since 1.0-elenor
      */
     public function __construct(){
         parent::__construct();
         $this->loadExceptionHandler();
         
-        $httpLoader = new pHttpServiceBucket($this->services);
+        $httpLoader = new ServiceBucket($this->services);
         $httpLoader->load();
     }
     
@@ -41,8 +42,8 @@ class pHttpApplication extends pServiceApplication {
     
     /**
      * Receive a request, process, and respond.
-     * @param pHttpAppRequest $request The request made
-     * @return IAppResponse Returns the http response
+     * @param Packfire\Application\Http\Request $request The request made
+     * @return Packfire\Application\IAppResponse Returns the http response
      * @since 1.0-elenor
      */
     public function receive($request){
@@ -116,12 +117,12 @@ class pHttpApplication extends pServiceApplication {
     
     /**
      * Create and prepare the response
-     * @param pHttpRequest $request The request to respond to
-     * @return pHttpResponse Returns the response prepared
+     * @param Packfire\Application\IAppRequest $request The request to respond to
+     * @return Packfire\Application\IAppResponse Returns the response prepared
      * @since 1.0-sofia
      */
     protected function prepareResponse($request){
-        $response = new pHttpAppResponse();
+        $response = new Response();
         return $response;
     }
     

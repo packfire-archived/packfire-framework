@@ -1,19 +1,20 @@
 <?php
+namespace Packfire\Application\Http;
+use Packfire\Application\IAppRequest;
 pload('packfire.net.http.pHttpClientRequest');
-pload('packfire.application.IAppRequest');
 
 /**
- * pHttpPhpRequest class
+ * Request class
  * 
- * A HTTP Request encapsulated by PHP
+ * An application HTTP Request
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.net.http
+ * @package Packfire\Application\Http
  * @since 1.0-elenor
  */
-class pHttpAppRequest extends pHttpClientRequest implements IAppRequest {
+class Request extends pHttpClientRequest implements IAppRequest {
     
     /**
      * The script name called

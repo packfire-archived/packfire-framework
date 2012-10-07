@@ -1,4 +1,5 @@
 <?php
+namespace Packfire\Application\Http;
 pload('packfire.ioc.pBucketLoader');
 pload('packfire.session.pSessionLoader');
 pload('packfire.config.framework.pHttpRouterConfig');
@@ -6,17 +7,17 @@ pload('packfire.routing.http.pHttpRouter');
 pload('packfire.exception.handler.pHttpExceptionHandler');
 
 /**
- * pHttpServiceBucket class
+ * ServiceBucket class
  * 
  * Application service bucket that loads the application's HTTP services
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.application.http
+ * @package Packfire\Application\Http
  * @since 1.0-sofia
  */
-class pHttpServiceBucket extends pBucketLoader {
+class ServiceBucket extends pBucketLoader {
     
     /**
      * Perform loading

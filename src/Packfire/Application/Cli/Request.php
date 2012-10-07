@@ -1,9 +1,10 @@
 <?php
-pload('packfire.application.IAppRequest');
-pload('pCommandParser');
+namespace Packfire\Application\Cli;
+use Packfire\Application\IAppRequest;
+use CommandParser;
 
 /**
- * pCliAppRequest class
+ * Request class
  * 
  * A request made via the command line
  *
@@ -13,7 +14,7 @@ pload('pCommandParser');
  * @package packfire.application.cli
  * @since 1.0-sofia
  */
-class pCliAppRequest implements IAppRequest {
+class Request implements IAppRequest {
     
     /**
      * The parameters of the command request
@@ -32,7 +33,7 @@ class pCliAppRequest implements IAppRequest {
         if(!$arguments){
             $arguments = $_SERVER['argv'];
         }
-        $parser = new pCommandParser($arguments);
+        $parser = new CommandParser($arguments);
         $this->params = $parser->result();
     }
     

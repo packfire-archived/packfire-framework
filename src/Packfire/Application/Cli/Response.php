@@ -1,10 +1,11 @@
 <?php
-pload('packfire.application.IAppResponse');
+namespace Packfire\Application\Cli;
+use Packfire\Application\IAppResponse;
 
 /**
- * IAppResponse interface
+ * Response class
  * 
- * Abstraction for application response
+ * CLI Response to the client
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -12,7 +13,7 @@ pload('packfire.application.IAppResponse');
  * @package packfire.application.cli
  * @since 1.0-elenor
  */
-class pCliAppResponse implements IAppResponse {
+class Response implements IAppResponse {
     
     /**
      * The exit code for the application response

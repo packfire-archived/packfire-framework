@@ -1,20 +1,21 @@
 <?php
+namespace Packfire\Appliation\Pack;
+use Theme;
+use Template;
 pload('packfire.view.pView');
-pload('pAppTemplate');
-pload('pAppTheme');
 
 /**
- * pAppView class
+ * View class
  * 
  * The generic application view class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.application.pack
+ * @package Packfire\Appliation\Pack
  * @since 1.1-sofia
  */
-abstract class pAppView extends pView {
+abstract class View extends pView {
     
     /**
      * Create a new pAppView object
@@ -40,7 +41,7 @@ abstract class pAppView extends pView {
      */
     protected function template($template) {
         if(is_string($template)){
-            $template = pAppTemplate::load($template);
+            $template = Template::load($template);
         }
         return parent::template($template);
     }
@@ -54,7 +55,7 @@ abstract class pAppView extends pView {
      */
     protected function theme($theme) {
         if(is_string($theme)){
-            $theme = pAppTheme::load($theme);
+            $theme = Theme::load($theme);
         }
         return parent::theme($theme);
     }

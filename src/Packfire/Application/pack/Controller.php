@@ -1,11 +1,12 @@
 <?php
+namespace Packfire\Appliation\Pack;
 pload('packfire.controller.pController');
 pload('packfire.exception.pMissingDependencyException');
 pload('packfire.text.pInflector');
 pload('packfire.text.pText');
 
 /**
- * pAppController class
+ * Controller class
  * 
  * The generic application controller class
  *
@@ -15,7 +16,7 @@ pload('packfire.text.pText');
  * @package packfire.application.pack
  * @since 1.1-sofia
  */
-abstract class pAppController extends pController {
+abstract class Controller extends pController {
     
     /**
      * Load and render the view for this controller

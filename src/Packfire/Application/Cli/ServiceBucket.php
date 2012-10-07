@@ -1,21 +1,22 @@
 <?php
+namespace Packfire\Application\Cli;
 pload('packfire.ioc.pBucketLoader');
 pload('packfire.routing.cli.pCliRouter');
 pload('packfire.config.framework.pCliRouterConfig');
 pload('packfire.exception.handler.pCliExceptionHandler');
 
 /**
- * pCliServiceBucket class
+ * ServiceBucket class
  * 
  * The CLI application service bucket loader
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.application.cli
+ * @package Packfire\Application\Cli
  * @since 1.0-elenor
  */
-class pCliServiceBucket extends pBucketLoader {
+class ServiceBucket extends pBucketLoader {
     
     /**
      * Perform loading of services for CLI
