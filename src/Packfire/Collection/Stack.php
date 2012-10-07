@@ -1,17 +1,20 @@
 <?php
-pload('pList');
-pload('IStack');
+namespace Packfire\Collection;
+use ArrayList;
+use IStack;
 
 /**
+ * Stack class
+ * 
  * A stack of items that allows pushing and popping operations.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection
+ * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pStack extends pList implements IStack {
+class pStack extends ArrayList implements IStack {
     
     /**
      * Push an item into the top of the stack.

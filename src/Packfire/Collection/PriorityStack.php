@@ -1,18 +1,19 @@
 <?php
-pload('pList');
+namespace Packfire\Collection;
+use Stack;
 
 /**
- * pSortedList class
+ * PriorityStack
  * 
- * A list that will always be sorted
+ * A stack with priority
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection
+ * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pSortedList extends pList {
+class PriorityStack extends Stack {
     
     /**
      * The comparator function to perform the sorting
@@ -22,15 +23,12 @@ class pSortedList extends pList {
     private $comparator;
     
     /**
-     * Create a new pSortedList object
-     * @param Closure|callback|IComparator $comparator The comparator to perform the sort
+     * Create a new pPriorityStack object
+     * @param Closure|callback $comparator The comparator to perform the sort
      * @since 1.0-sofia
      */
     public function __construct($comparator) {
         parent::__construct();
-        if($comparator instanceof IComparator){
-            $comparator = array($comparator, 'compare');
-        }
         $this->comparator = $comparator;
     }
     

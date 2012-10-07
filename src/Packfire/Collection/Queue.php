@@ -1,18 +1,21 @@
 <?php
-pload('pList');
-pload('IQueue');
+namespace Packfire\Collection;
+use ArrayList;
+use IQueue;
 
 /**
+ * Queue class
+ * 
  * A Queue that can be enqueued from the back and dequeued from the front of the
  * queue.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection
+ * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pQueue extends pList implements IQueue {
+class Queue extends ArrayList implements IQueue {
     
     /**
      * Enqueue an item to the back of the queue.

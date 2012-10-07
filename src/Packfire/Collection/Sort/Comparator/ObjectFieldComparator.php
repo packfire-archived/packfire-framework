@@ -1,16 +1,19 @@
 <?php
-pload('IComparator');
+namespace Packfire\Collection\Sort\Comparator;
+use Packfire\Collection\Sort\IComparator;
 
 /**
+ * ObjectFieldComparator class
+ * 
  * A comparator that compares between two objects based on their field in common.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection.sort
+ * @package Packfire\Collection\Sort\Comparator
  * @since 1.0-sofia
  */
-class pObjectFieldComparator implements IComparator{
+class ObjectFieldComparator implements IComparator {
     
     /**
      * The field to compare
@@ -20,7 +23,7 @@ class pObjectFieldComparator implements IComparator{
     protected $field;
     
     /**
-     * Create a new pObjectFieldComparator 
+     * Create a new ObjectFieldComparator 
      * @param string $field The field of the objects to compare
      * @since 1.0-sofia
      */

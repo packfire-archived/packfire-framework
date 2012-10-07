@@ -1,5 +1,6 @@
 <?php
-pload('IComparator');
+namespace Packfire\Collection\Sort;
+use IComparator;
 
 /**
  * ISorter interface
@@ -9,7 +10,7 @@ pload('IComparator');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection.sort
+ * @package Packfire\Collection\Sort
  * @since 1.0-sofia
  */
 interface ISorter extends IComparator {

@@ -1,18 +1,21 @@
 <?php
-pload('IDeque');
-pload('pQueue');
+namespace Packfire\Collection;
+use IDeque;
+use Queue;
 
 /**
+ * Deque class
+ * 
  * A queue that can be enqueued and dequeued from the front and back of the
  * queue.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection
+ * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pDeque extends pQueue implements IDeque {
+class Deque extends Queue implements IDeque {
     
     /**
      * Enqueue the item to the front of the queue, giving the item priority.

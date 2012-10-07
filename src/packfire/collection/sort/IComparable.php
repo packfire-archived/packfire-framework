@@ -1,4 +1,5 @@
 <?php
+namespace Packfire\Collection\Sort;
 
 /**
  * IComparable interface

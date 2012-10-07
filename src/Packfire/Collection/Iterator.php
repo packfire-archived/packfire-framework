@@ -1,16 +1,19 @@
 <?php
-pload('pKeyValuePair');
+namespace Packfire\Collection;
+use KeyValuePair;
 
 /**
+ * Iterator class
+ * 
  * Iterator that helps to iterator through a list or array
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection
+ * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pIterator implements Countable {
+class Iterator implements Countable {
     
     /**
      * The array to iterate through
@@ -38,7 +41,7 @@ class pIterator implements Countable {
         if(!$item){
             return null;
         }
-        return new pKeyValuePair($item['key'], $item['value']);
+        return new KeyValuePair($item['key'], $item['value']);
     }
 
 
@@ -49,7 +52,7 @@ class pIterator implements Countable {
      *                 returned from this function. Use more() to check this.
      * @return mixed
      * @since 1.0-sofia
-     * @see pIterator::more()
+     * @see Iterator::more()
      */
     public function next(){
         return next($this->array);

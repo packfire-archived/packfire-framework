@@ -1,15 +1,18 @@
 <?php
+namespace Packfire\Collection;
 
 /**
- * A Key and Value pair class
+ * KeyValuePair class
+ * 
+ * A Key and Value pair
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection
+ * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pKeyValuePair {
+class KeyValuePair {
    
     /**
      * The key that identifies the value.

@@ -1,19 +1,23 @@
 <?php
-pload('IMap');
-pload('pList');
+namespace Packfire\Collection;
+use IMap;
+use ArrayList;
+use KeyValuePair;
 pload('packfire.exception.pOutOfRangeException');
 pload('packfire.exception.pInvalidRequestException');
 
 /**
+ * Map class
+ * 
  * A Hash Map
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection
+ * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pMap extends pList implements IMap {
+class Map extends ArrayList implements IMap {
     
     /**
      * Create a new pMap object
@@ -40,7 +44,7 @@ class pMap extends pList implements IMap {
      * @since 1.0-sofia
      */
     public function add($keyOrKVP, $value = null) {
-        if($keyOrKVP instanceof pKeyValuePair){
+        if($keyOrKVP instanceof KeyValuePair){
             $this->array[$keyOrKVP->key()] = $keyOrKVP->value();
         }else{
             $this->array[$keyOrKVP] = $value;
@@ -53,7 +57,7 @@ class pMap extends pList implements IMap {
      * @since 1.0-sofia
      */
     public function keys() {
-        $list = new pList();
+        $list = new ArrayList();
         $list->array = array_keys($this->array);
         return $list;
     }

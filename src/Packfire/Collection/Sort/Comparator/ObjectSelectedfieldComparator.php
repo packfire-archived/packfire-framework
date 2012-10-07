@@ -1,7 +1,10 @@
 <?php
-pload('pObjectFieldComparator');
+namespace Packfire\Collection\Sort\Comparator;
+use ObjectFieldComparator;
 
 /**
+ * ObjectSelectedField class
+ * 
  * A comparator that compares between two objects based on their fields in common
  * defined by a field selector.
  *
@@ -11,10 +14,10 @@ pload('pObjectFieldComparator');
  * @package packfire.collection.sort
  * @since 1.0-sofia
  */
-class pObjectSelectedFieldComparator extends pObjectFieldComparator{
+class ObjectSelectedfieldComparator extends ObjectFieldComparator {
     
     /**
-     * Create a new pObjectSelectedfieldComparator
+     * Create a new ObjectSelectedfieldComparator
      * @param callback|Closure $fieldSelector The field selecting function
      * @since 1.0-sofia
      */

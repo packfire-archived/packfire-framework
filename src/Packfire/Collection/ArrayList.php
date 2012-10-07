@@ -1,18 +1,22 @@
 <?php
+namespace Packfire\Collection;
+use IList;
+use Iterator;
 pload('IList');
-pload('pIterator');
 pload('packfire.exception.pOutOfRangeException');
 
 /**
+ * ArrayList class
+ * 
  * A List of Items
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.collection
+ * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pList implements IList {
+class ArrayList implements IList {
     
     /**
      * The internal array that stores the data
@@ -49,11 +53,11 @@ class pList implements IList {
 
     /**
      * Get the iterator for this list.
-     * @return pIterator Returns a pIterator.
+     * @return Iterator Returns a pIterator.
      * @since 1.0-sofia
      */
     public function iterator() {
-        return new pIterator($this);
+        return new Iterator($this);
     }
 
     /**
