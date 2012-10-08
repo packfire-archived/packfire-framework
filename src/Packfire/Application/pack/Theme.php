@@ -1,9 +1,8 @@
 <?php
 namespace Packfire\Appliation\Pack;
-pload('packfire.view.pTheme');
 
 /**
- * pAppTheme class
+ * Theme class
  * 
  * Loader for application theme classes
  *
@@ -23,7 +22,6 @@ abstract class Theme {
      */
     public static function load($theme){
         $theme = ucfirst($theme) . 'Theme';
-        pload('theme.' . $theme);
         return new $theme();
     }
     

@@ -1,7 +1,8 @@
 <?php
 namespace Packfire\Cache;
+
 use ICache;
-pload('packfire.collection.pMap');
+use Packfire\Collection\Map;
 
 /**
  * pMockCache class
@@ -28,7 +29,7 @@ class pMockCache implements ICache {
      * @since 1.0-sofia
      */
     public function __construct(){
-        $this->store = new pMap();
+        $this->store = new Map();
     }
     
     /**

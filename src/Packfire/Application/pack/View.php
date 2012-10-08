@@ -1,8 +1,9 @@
 <?php
 namespace Packfire\Appliation\Pack;
+
 use Theme;
 use Template;
-pload('packfire.view.pView');
+use Packfire\View\View as CoreView;
 
 /**
  * View class
@@ -15,10 +16,10 @@ pload('packfire.view.pView');
  * @package Packfire\Appliation\Pack
  * @since 1.1-sofia
  */
-abstract class View extends pView {
+abstract class View extends CoreView {
     
     /**
-     * Create a new pAppView object
+     * Create a new View object
      * @since 1.1-sofia 
      */
     public function __construct(){
@@ -36,7 +37,7 @@ abstract class View extends pView {
      * Set the template for the view class
      * @param ITemplate|string $template The template or name of the template
      *          to set for the view class.
-     * @return AppView Returns the object for chaining
+     * @return View Returns the object for chaining
      * @since 1.1-sofia
      */
     protected function template($template) {
@@ -50,7 +51,7 @@ abstract class View extends pView {
      * Set the theme for the view class
      * @param pTheme|string $theme The theme or the name of the theme class to
      *          set to the view class
-     * @return AppView Returns the object for chaining
+     * @return View Returns the object for chaining
      * @since 1.1-sofia
      */
     protected function theme($theme) {

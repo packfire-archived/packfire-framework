@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Application\Cli;
+
 use Response;
 use ServiceBucket;
 use Packfire\Application\ServiceApplication;

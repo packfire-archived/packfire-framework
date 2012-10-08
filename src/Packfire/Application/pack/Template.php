@@ -2,7 +2,7 @@
 namespace Packfire\Appliation\Pack;
 
 /**
- * pAppTemplate class
+ * Template class
  * 
  * Performs template loading for application
  *

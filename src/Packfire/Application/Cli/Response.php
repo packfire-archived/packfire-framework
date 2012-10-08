@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Application\Cli;
+
 use Packfire\Application\IAppResponse;
 
 /**

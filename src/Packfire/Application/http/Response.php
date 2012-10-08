@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Application\Http;
+
 use Packfire\Application\IAppResponse;
 pload('packfire.net.http.pHttpResponse');
 

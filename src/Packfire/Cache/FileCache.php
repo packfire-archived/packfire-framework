@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Cache;
+
 use ICache;
 pload('packfire.io.file.pFile');
 pload('packfire.io.file.pPath');

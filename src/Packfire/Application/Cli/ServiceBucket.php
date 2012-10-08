@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Application\Cli;
+
 pload('packfire.ioc.pBucketLoader');
 pload('packfire.routing.cli.pCliRouter');
 pload('packfire.config.framework.pCliRouterConfig');

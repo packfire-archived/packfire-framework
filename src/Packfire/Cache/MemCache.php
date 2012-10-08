@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Cache;
+
 use ICache;
 pload('packfire.exception.pMissingDependencyException');
 

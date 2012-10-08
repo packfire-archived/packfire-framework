@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Appliation\Pack;
+
 pload('packfire.controller.pController');
 pload('packfire.exception.pMissingDependencyException');
 pload('packfire.text.pInflector');
