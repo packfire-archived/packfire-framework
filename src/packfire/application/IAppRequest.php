@@ -23,7 +23,7 @@ interface IAppRequest {
     
     /**
      * Get the parameters of the request
-     * @return pList|array Returns the parameters
+     * @return ArrayList|array Returns the parameters
      * @since 1.0-sofia 
      */
     public function params();

@@ -51,14 +51,14 @@ class pMessenger extends pBucketUser {
     /**
      * Send a message to the recepient(s)
      * @param string $name Name of the message
-     * @param pList|array|string $recepient (optional) The recepient(s) to send to.
+     * @param ArrayList|array|string $recepient (optional) The recepient(s) to send to.
      *          If not set, message will be sent to the global scope.
      * @param mixed $message (optional) The message content. If not set, a
      *          message flag is set instead.
      * @since 1.0-sofia
      */
     public function send($name, $recepient = null, $message = true){
-        if(is_array($recepient) || $recepient instanceof pList){
+        if(is_array($recepient) || $recepient instanceof ArrayList){
             foreach($recepient as $to){
                 $this->send($name, $to, $message);
             }

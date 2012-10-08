@@ -93,9 +93,9 @@ class pHttpResponse {
                             $key = trim(substr($line, 0, $separator));
                             $value = trim(substr($line, $separator + 1));
                             if($this->headers()->keyExists($key)){
-                                $this->headers()->get($key)->add(new pList(array($value)));
+                                $this->headers()->get($key)->add(new ArrayList(array($value)));
                             }else{
-                                $this->headers()->add($key, new pList(array($value)));
+                                $this->headers()->add($key, new ArrayList(array($value)));
                             }
                         }
                     }else{

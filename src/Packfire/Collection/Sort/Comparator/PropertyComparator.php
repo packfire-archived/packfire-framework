@@ -38,7 +38,7 @@ abstract class PropertyComparator implements IComparator {
      * Compare between two objects based on their components
      * @param object $o1 The first object to compare
      * @param object $o2 The second object to compare
-     * @param array|pList $components The components to compare
+     * @param array|ArrayList $components The components to compare
      * @return integer Returns 0 if they are the same, -1 if $o1 < $o2 and 1 if
      *                 $o1 > $o2.
      * @since 1.0-sofia

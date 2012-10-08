@@ -74,12 +74,12 @@ class pString implements Countable {
     /**
      * Split the string into several strings
      * @param pString|string $c The delimiter to split the string
-     * @return pList Returns the list of split strings 
+     * @return ArrayList Returns the list of split strings 
      * @since 1.0-sofia
      */
     public function split($c) {
         $strs = explode($c, $this->value());
-        $r = new pList();
+        $r = new ArrayList();
         foreach($strs as $s){
             $r->add(new pString($s));
         }
@@ -88,18 +88,18 @@ class pString implements Countable {
 
     /**
      * Replaces occurances of $a with $b in the string
-     * @param pString|array|pList $search A string, or a collection of string,
+     * @param pString|array|ArrayList $search A string, or a collection of string,
      *               to be searched and replace in
-     * @param pString|array|pList $replacement A string, or a collection of 
+     * @param pString|array|ArrayList $replacement A string, or a collection of 
      *              string, to be the replacement
      * @return pString Returns the resulting string
      * @since 1.0-sofia
      */
     public function replace($search, $replacement) {
-        if($search instanceof pList){
+        if($search instanceof ArrayList){
             $search = $search->toArray();
         }
-        if($replacement instanceof pList){
+        if($replacement instanceof ArrayList){
             $replacement = $replacement->toArray();
         }
         return new pString(str_replace($search, $replacement, $this->value()));
@@ -146,14 +146,14 @@ class pString implements Countable {
      * Find all unique occurances of a substring in the string
      * @param pString|string $s The substring to find occurances
      * @param integer $offset (optional) The position to start searching for
-     * @return pList Returns the list of index where the substring occurred.
+     * @return ArrayList Returns the list of index where the substring occurred.
      * @since 1.0-sofia
      */
     public function occurances($s, $offset = 0) {
         if (!($s instanceof pString)) {
             $s = new pString($s);
         }
-        $occurances = new pList();
+        $occurances = new ArrayList();
         while (($idx = $this->indexOf($s, $offset)) >= 0) {
             $occurances->add($idx);
             $offset = $idx + $s->length();

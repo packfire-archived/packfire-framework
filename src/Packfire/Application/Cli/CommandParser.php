@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Application\Cli;
 
-pload('packfire.collection.pList');
-pload('packfire.collection.pMap');
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\Map;
 
 /**
  * CommandParser class
@@ -19,7 +19,7 @@ class CommandParser {
     
     /**
      * The result of the parsing
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $result;
@@ -39,7 +39,7 @@ class CommandParser {
      * @since 1.0-sofia
      */
     private function parse($arguments){
-        $this->result = new pMap();
+        $this->result = new Map();
         $lastKey = null;
         foreach($arguments as $idx => $arg){
             $equalsPos = strpos($arg, '=');
@@ -128,10 +128,10 @@ class CommandParser {
      */
     private function set($key, $value){
         if($this->result->keyExists($key) 
-                && ($this->result[$key] instanceof pList)){
+                && ($this->result[$key] instanceof ArrayList)){
             $this->result[$key]->add($value);
         }else if($this->result->keyExists($key)){
-            $tmp = new pList();
+            $tmp = new ArrayList();
             $tmp->add($this->result->get($key));
             $tmp->add($value);
             $this->result->add($key, $tmp);
@@ -166,12 +166,12 @@ class CommandParser {
             if($result == null){
                 $result = $altResult;
             }else{
-                if($result instanceof pList && $altResult instanceof pList){
+                if($result instanceof ArrayList && $altResult instanceof ArrayList){
                     $result->append($altResult);
-                }else if($result instanceof pList){
+                }else if($result instanceof ArrayList){
                     $result->add($altResult);
                 }else if($altResult != null){
-                    $result = new pList(array($result, $altResult));
+                    $result = new ArrayList(array($result, $altResult));
                 }
             }
         }

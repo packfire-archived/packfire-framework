@@ -26,8 +26,8 @@ class ArrayList implements IList {
     protected $array = array();
     
     /**
-     * Create a new pList object
-     * @param pList|array $initialize (optional) If an initializing array or
+     * Create a new ArrayList object
+     * @param ArrayList|array $initialize (optional) If an initializing array or
      *                                list is set, the list will be populated
      *                                with the items.
      * @since 1.0-sofia
@@ -127,7 +127,7 @@ class ArrayList implements IList {
     /**
      * Get a list of the indexes of an item in the list.
      * @param mixed $item The item to look for.
-     * @return pList Returns the list of indexes. 
+     * @return ArrayList Returns the list of indexes. 
      * @since 1.0-sofia
      */
     public function indexesOf($item){
@@ -232,7 +232,7 @@ class ArrayList implements IList {
     /**
      * Get the complement of this list and another ($set).
      * @param IList|array $set The list to complement
-     * @return pList Returns a list that is the result of the set complement operation.
+     * @return ArrayList Returns a list that is the result of the set complement operation.
      * @since 1.0-sofia
      */
     public function complement($set) {
@@ -245,7 +245,7 @@ class ArrayList implements IList {
     /**
      * Get the intersection of this list and another ($set).
      * @param IList|array $set The list to intersect
-     * @return pList Returns a list that is the result of the set intersect operation.
+     * @return ArrayList Returns a list that is the result of the set intersect operation.
      * @since 1.0-sofia
      */
     public function intersect($set) {
@@ -262,7 +262,7 @@ class ArrayList implements IList {
     /**
      * Get the union of this list and another ($set).
      * @param IList|array $set The list to union with.
-     * @return pList Returns a list that is the result of the set union operation.
+     * @return ArrayList Returns a list that is the result of the set union operation.
      * @since 1.0-sofia
      */
     public function union($set) {
@@ -274,7 +274,7 @@ class ArrayList implements IList {
 
     /**
      * Append to the list with items from another list.
-     * @param pList|array $list The list to append
+     * @param ArrayList|array $list The list to append
      * @since 1.0-sofia
      */
     public function append($list) {
@@ -287,7 +287,7 @@ class ArrayList implements IList {
 
     /**
      * Prepend to the list with items from another list.
-     * @param pList|array $list The list to prepend
+     * @param ArrayList|array $list The list to prepend
      * @since 1.0-sofia
      */
     public function prepend($list) {

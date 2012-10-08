@@ -54,7 +54,7 @@ class Map extends ArrayList implements IMap {
 
     /**
      * Get the list of keys in the map
-     * @return pList Returns a pList of keys.
+     * @return ArrayList Returns a list of keys.
      * @since 1.0-sofia
      */
     public function keys() {
@@ -65,11 +65,11 @@ class Map extends ArrayList implements IMap {
 
     /**
      * Get the list of values from the map
-     * @return pList Returns a pList of values.
+     * @return ArrayList Returns a list of values.
      * @since 1.0-sofia
      */
     public function values() {
-        $list = new pList();
+        $list = new ArrayList();
         $list->array = array_values($this->array);
         return $list;
     }
@@ -152,8 +152,8 @@ class Map extends ArrayList implements IMap {
     
     /**
      * Get the difference between this collection and another
-     * @param pList|array $set The collection to compare against
-     * @return pMap Returns the difference
+     * @param ArrayList|array $set The collection to compare against
+     * @return Map Returns the difference
      * @since 1.0-sofia
      */
     public function difference($set){

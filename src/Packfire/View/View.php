@@ -33,7 +33,7 @@ abstract class pView extends pBucketUser implements IView {
     
     /**
      * The filters for the output fields
-     * @var pList
+     * @var ArrayList
      * @since 1.0-sofia
      */
     private $filters;
@@ -59,7 +59,7 @@ abstract class pView extends pBucketUser implements IView {
     public function __construct(){
         $this->state = new pMap();
         $this->fields = new pMap();
-        $this->filters = new pList();
+        $this->filters = new ArrayList();
     }
     
     /**

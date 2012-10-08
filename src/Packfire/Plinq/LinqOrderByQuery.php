@@ -1,6 +1,5 @@
 <?php
 pload('pLinqWorkerQuery');
-pload('packfire.collection.pList');
 pload('packfire.collection.sort.IComparator');
 
 /**

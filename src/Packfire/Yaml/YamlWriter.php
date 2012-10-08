@@ -32,7 +32,7 @@ class pYamlWriter {
     
     /**
      * Write a YAML data document to the stream
-     * @param array|pList $data The YAML data document to write
+     * @param array|ArrayList $data The YAML data document to write
      * @since 1.0-sofia
      */
     public function write($data){
@@ -53,14 +53,14 @@ class pYamlWriter {
     
     /**
      * Write data to the stream
-     * @param pList|array $data The data to be written to the stream
+     * @param ArrayList|array $data The data to be written to the stream
      * @param integer $indentation (optional) The indentation of the data block
      * @param boolean $firstIndent (optional) Set whether the first item is
      *              indented or not.
      * @since 1.0-sofia
      */
     private function writeData($data, $indentation = 0, $firstIndent = true){
-        if($data instanceof pList){
+        if($data instanceof ArrayList){
             $data = $data->toArray();
         }
         $spaceIndent = str_repeat(' ', $indentation * 2);
@@ -71,7 +71,7 @@ class pYamlWriter {
                 }else{
                     $firstIndent =  true;
                 }
-                if(is_array($value) || $value instanceof pList){
+                if(is_array($value) || $value instanceof ArrayList){
                     $this->stream->write('- ');
                     $this->writeData($value, $indentation + 1, false);
                 }else{
@@ -85,7 +85,7 @@ class pYamlWriter {
                 }else{
                     $firstIndent =  true;
                 }
-                if(is_array($value) || $value instanceof pList){
+                if(is_array($value) || $value instanceof ArrayList){
                     $this->stream->write($key .  ":\n");
                     $this->writeData($value, $indentation + 1);
                 }else{

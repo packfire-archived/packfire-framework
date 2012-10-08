@@ -124,7 +124,7 @@ class pHttpRequest {
                             $value = trim(substr($line, $separator + 1));
                             if($this->headers()->keyExists($key)){
                                 $firstValue = $this->headers->get($key);
-                                $this->headers->add($key, new pList());
+                                $this->headers->add($key, new ArrayList());
                                 $this->headers->get($key)->add($firstValue);
                                 $this->headers->get($key)->add($value);
                             }else{

@@ -82,7 +82,7 @@ abstract class Schema {
     
     /**
      * Get a list of tables in the schema
-     * @return pList Returns a list of table names
+     * @return ArrayList Returns a list of table names
      * @since 1.0-sofia 
      */
     public abstract function tables();

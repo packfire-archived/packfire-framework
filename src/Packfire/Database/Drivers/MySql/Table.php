@@ -179,7 +179,7 @@ class Table extends DbTable {
     
     /**
      * Get the columns of the table
-     * @return pList Returns a list of pDbColumn objects
+     * @return ArrayList Returns a list of pDbColumn objects
      * @since 1.0-sofia
      */
     public function columns(){
@@ -187,7 +187,7 @@ class Table extends DbTable {
             $statement = $this->driver->query(sprintf('SHOW COLUMNS FROM `%s`', $this->name));
             if($statement){
                 $cols = $statement->fetchAll();
-                $columns = new pList();
+                $columns = new ArrayList();
                 foreach($cols as $col){
                     $type = array();
                     if($col[3] == 'PRI'){
@@ -215,7 +215,7 @@ class Table extends DbTable {
     
     /**
      * Get the list of primary keys of the table
-     * @return pList Returns a list of pDbColumn objects of the primary keys
+     * @return ArrayList Returns a list of pDbColumn objects of the primary keys
      * @since 1.0-sofia
      */
     public function pk(){

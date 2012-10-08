@@ -25,7 +25,7 @@ class pServiceLoader implements ILoadable {
     
     /**
      * The parameters 
-     * @var array|pList
+     * @var array|ArrayList
      * @since 1.0-sofia
      */
     private $params;
@@ -33,7 +33,7 @@ class pServiceLoader implements ILoadable {
     /**
      * Create a new pServiceLoader object
      * @param string $package The full package quantifier
-     * @param array|pList $params Parameters to the constructor
+     * @param array|ArrayList $params Parameters to the constructor
      * @since 1.0-sofia
      */
     public function __construct($package, $params = null){

@@ -16,18 +16,18 @@ class pMatchValidator implements IValidator {
     
     /**
      * The matches to validate against
-     * @var array|pList|mixed
+     * @var array|ArrayList|mixed
      * @since 1.0-sofia
      */
     private $matches;
     
     /**
      * Create a new pMatchValidator
-     * @param array|pList|mixed $matches An array of values or the value to match against
+     * @param array|ArrayList|mixed $matches An array of values or the value to match against
      * @since 1.0-sofia
      */
     public function __construct($matches){
-        if($matches instanceof pList){
+        if($matches instanceof ArrayList){
             $matches = $matches->toArray();
         }
         $this->matches = $matches;

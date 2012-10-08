@@ -1,5 +1,5 @@
 <?php
-pload('packfire.collection.pList');
+pload('packfire.collection.ArrayList');
 
 /**
  * pMoustache class
@@ -100,7 +100,7 @@ class pMoustache {
      * @since 1.0-sofia
      */
     private function parse($scope, $start, $end){
-        if($scope instanceof pList){
+        if($scope instanceof ArrayList){
             $scope = $scope->toArray();
         }
         if($this->isArrayOfObjects($scope)){
@@ -355,7 +355,7 @@ class pMoustache {
         if(get_class($this) != __CLASS__){
             $this->parameters = $this;
         }
-        if($this->parameters instanceof pList){
+        if($this->parameters instanceof ArrayList){
             $this->parameters = $this->parameters->toArray();
         }
     }

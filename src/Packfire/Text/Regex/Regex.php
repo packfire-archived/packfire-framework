@@ -48,7 +48,7 @@ class pRegex {
      * Perform a perl-compatible regular expression (PCRE) match to match 
      * within the subject
      * @param string $subject The input string
-     * @return pList A list that contains all the pRegexMatch found 
+     * @return ArrayList A list that contains all the pRegexMatch found 
      *          in the subject
      * @link http://php.net/manual/en/function.preg-match.php
      * @since 1.0-sofia
@@ -56,7 +56,7 @@ class pRegex {
     public function match($subject){
         $match = array();
         preg_match($this->regex(), $subject, $match);
-        $result = new pList();
+        $result = new ArrayList();
         foreach($match as $a){
             $result->add(new pRegexMatch($this, $a));
         }
@@ -80,16 +80,16 @@ class pRegex {
      * Perform a perl-compatible regular expression (PCRE) match to match all 
      * matches within the subject
      * @param string $subject The input string
-     * @return pList Returns the set of match collections
+     * @return ArrayList Returns the set of match collections
      * @link http://www.php.net/manual/en/function.preg-match-all.php
      * @since 1.0-sofia
      */
     public function matchAll($subject){
         $matches = array();
         preg_match_all($this->regex(), $subject, $matches, PREG_SET_ORDER);
-        $finalResult = new pList();
+        $finalResult = new ArrayList();
         foreach($matches as $match){
-            $result = new pList();
+            $result = new ArrayList();
             foreach($match as $c){
                 $result->add(new pRegexMatch($this, $c));
             }
@@ -101,18 +101,18 @@ class pRegex {
     /**
      * Perform a perl-compatible regular expression search and replace
      * @param string $subject The input string
-     * @param string|array|pList $replacement The string or collection
+     * @param string|array|ArrayList $replacement The string or collection
      *                  of replacements
      * @param integer $limit (Optional) If set, the number of search and replace
      *                  operations will be limited by this limit.
-     * @return string|pList
+     * @return string|ArrayList
      * @link http://www.php.net/manual/en/function.preg-replace.php
      * @since 1.0-sofia
      */
     public function replace($subject, $replacement, $limit = -1){
         $result = preg_replace($this->regex, $replacement, $subject, $limit);
         if(is_array($result)){
-            $result = new pList($result);
+            $result = new ArrayList($result);
         }
         return $result;
     }
@@ -120,13 +120,13 @@ class pRegex {
     /**
      * Perform a perl-compatible regular expression search and replace using a
      *  callback
-     * @param string|pList|array $subject The input string
+     * @param string|ArrayList|array $subject The input string
      * @param callback $callback A callback that will be called and passed an
      *                  array of matched elements in the subject string. The 
      *                  callback should return the replacement string.
      * @param integer $limit (Optional) If set, the number of search and replace
      *                  operations will be limited by this limit.
-     * @return string|pList Returns the parsed result
+     * @return string|ArrayList Returns the parsed result
      * @link http://www.php.net/manual/en/function.preg-replace-callback.php
      * @since 1.0-sofia
      */
@@ -134,7 +134,7 @@ class pRegex {
         $result = preg_replace_callback($this->regex, $callback,
                 $subject, $limit);
         if(is_array($result)){
-            $result = new pList($result);
+            $result = new ArrayList($result);
         }
         return $result;
     }

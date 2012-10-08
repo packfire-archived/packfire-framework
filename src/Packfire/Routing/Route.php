@@ -59,8 +59,8 @@ abstract class pRoute implements IRoute {
     
     /**
      * Validate an array of data
-     * @param pList|array $rules The list of rules defined
-     * @param pList|array $data The data to be validated
+     * @param ArrayList|array $rules The list of rules defined
+     * @param ArrayList|array $data The data to be validated
      * @param pMap|array $params (reference) The output parameters
      * @param boolean $validation (reference, optional) The validation boolean
      * @return boolean Returns true if validation is successful, false otherwise.
@@ -89,17 +89,17 @@ abstract class pRoute implements IRoute {
     
     /**
      * Validate a value based on the given rule
-     * @param string|pList|array $rule The name of the validation rule(s)
+     * @param string|ArrayList|array $rule The name of the validation rule(s)
      * @param mixed &$value The value to be validated
      * @return boolean Returns true if the validation succeeded, false otherwise.
      * @since 1.1-sofia
      */
     protected function validateParam($rules, &$value, &$data){
         if(is_array($rules)){
-            $rules = new pList($rules);
+            $rules = new ArrayList($rules);
         }
         if(is_string($rules)){
-            $rules = new pList(array($rules));
+            $rules = new ArrayList(array($rules));
         }
         
         // optional parameter and nothing supplied

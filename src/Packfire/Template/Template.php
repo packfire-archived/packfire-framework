@@ -80,11 +80,11 @@ class pTemplate implements ITemplate {
 
     /**
      * Get the list of tokens found in the template
-     * @return pList Returns the list of tokens
+     * @return ArrayList Returns the list of tokens
      * @since 1.0-sofia
      */
     public function tokens(){
-        $tokens = new pList();
+        $tokens = new ArrayList();
         $matches = array();
         $i = preg_match_all('`' . pRegex::escape(self::KEY_OPEN) .
                 '([a-zA-Z0-9\.]+)' . pRegex::escape(self::KEY_CLOSE) .
@@ -103,10 +103,10 @@ class pTemplate implements ITemplate {
      * @since 1.0-sofia
      */
     public function set($set){
-        if(is_object($set) && !($set instanceof pList)){
+        if(is_object($set) && !($set instanceof ArrayList)){
             $set = get_object_vars($set);
         }
-        if(is_array($set) || $set instanceof pList){
+        if(is_array($set) || $set instanceof ArrayList){
             foreach($set as $key => $value){
                 $this->fields->add($key, $value);
             }

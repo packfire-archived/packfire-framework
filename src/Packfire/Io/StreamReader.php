@@ -51,7 +51,7 @@ class pStreamReader {
     /**
      * Read until a certain text is found. If the text is not found, data from 
      * the starting position until the end of the file will be returned.
-     * @param string|array|pList $search The text to read until. 
+     * @param string|array|ArrayList $search The text to read until. 
      * @return string Returns the data read from the stream.
      * @since 1.0-sofia
      */

@@ -29,7 +29,7 @@ class pLinqGroupByQuery extends pLinqWorkerQuery {
         foreach($collection as $element){
             $key = $worker($element);
             if(!$matrix->keyExists($key)){
-                $matrix->add($key, new pList());
+                $matrix->add($key, new ArrayList());
             }
             $matrix->get($key)->add($element);
         }

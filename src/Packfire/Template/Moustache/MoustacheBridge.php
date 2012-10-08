@@ -30,7 +30,7 @@ class pMoustacheBridge extends pMoustache {
     }
     
     protected function loadParameters(){
-        if($this->parameters instanceof pList){
+        if($this->parameters instanceof ArrayList){
             $this->parameters = $this->parameters->toArray();
         }
     }

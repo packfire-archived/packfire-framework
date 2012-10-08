@@ -25,40 +25,40 @@ class pLinq implements ILinq, IteratorAggregate {
     
     /**
      * The queue of query processes
-     * @var pList
+     * @var ArrayList
      * @since 1.0-sofia
      */
     private $queue;
     
     /**
      * The collection to work on
-     * @var pList
+     * @var ArrayList
      * @since 1.0-sofia
      */
     private $collection;
     
     /**
      * Create a new pLinq object
-     * @param pList|array $collection The collection to query
-     * @param pList $queries (optional) The list of queries. Internally used. 
+     * @param ArrayList|array $collection The collection to query
+     * @param ArrayList $queries (optional) The list of queries. Internally used. 
      * @since 1.0-sofia
      */
     public function __construct($collection, $queries = null){
         if($queries){
-            $this->queue = new pList($queries);
+            $this->queue = new ArrayList($queries);
         }else{
-            $this->queue = new pList();
+            $this->queue = new ArrayList();
         }
-        if(is_array($collection) || $collection instanceof pList){
-            $collection = new pList($collection);
+        if(is_array($collection) || $collection instanceof ArrayList){
+            $collection = new ArrayList($collection);
         }
         $this->collection = $collection;
     }
     
     /**
      * Start the LINQ query from a source
-     * @param pList|array $source The collection to query and ork on
-     * @param pList $queries (optional) The list of queries. Internally used.
+     * @param ArrayList|array $source The collection to query and ork on
+     * @param ArrayList $queries (optional) The list of queries. Internally used.
      * @return pLinq Returns the pLinq object for chaining.
      * @since 1.0-sofia
      */
@@ -198,7 +198,7 @@ class pLinq implements ILinq, IteratorAggregate {
 
     /**
      * Correlates the elements of two collections based on matching keys. 
-     * @param pList $collection The other collection to join
+     * @param ArrayList $collection The other collection to join
      * @param Closure|callback $innerKey The inner key selector
      * @param Closure|callback $outerKey The outer key selector
      * @param Closure|callback $selector The result selector
@@ -414,11 +414,11 @@ class pLinq implements ILinq, IteratorAggregate {
     
     /**
      * Get the list of the elements
-     * @return pList Returns the resulting collection
+     * @return ArrayList Returns the resulting collection
      * @since 1.0-sofia
      */
     public function toList(){
-        return new pList($this->finalize());
+        return new ArrayList($this->finalize());
     }
 
     /**

@@ -70,10 +70,10 @@ class pPhpTemplateFile implements ITemplateFile {
      * @since 1.1-sofia
      */
     public function set($set) {
-        if(is_object($set) && !($set instanceof pList)){
+        if(is_object($set) && !($set instanceof ArrayList)){
             $set = get_object_vars($set);
         }
-        if(is_array($set) || $set instanceof pList){
+        if(is_array($set) || $set instanceof ArrayList){
             foreach($set as $key => $value){
                 $this->fields->add($key, $value);
             }
