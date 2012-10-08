@@ -11,7 +11,7 @@ use IHandler;
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.exception.handler
+ * @package Packfire\Exception\Handler
  * @since 1.0-elenor
  */
 class CliHandler implements IHandler {
