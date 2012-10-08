@@ -1,12 +1,15 @@
 <?php
+namespace Packfire\IoC;
 
 /**
+ * IBucketUser interface
+ * 
  * A user of the pServiceBucket
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.ioc
+ * @package Packfire\IoC
  * @since 1.0-sofia
  */
 interface IBucketUser {

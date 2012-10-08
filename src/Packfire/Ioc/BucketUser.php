@@ -1,27 +1,31 @@
 <?php
-pload('IBucketUser');
+namespace Packfire\IoC;
+
+use IBucketUser;
 
 /**
+ * BucketUser class
+ * 
  * A more concrete implementation of a bucket user
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.ioc
+ * @package Packfire\IoC
  * @since 1.0-sofia
  */
-abstract class pBucketUser implements IBucketUser {
+abstract class BucketUser implements IBucketUser {
     
     /**
      * The bucket of services
-     * @var pServiceBucket
+     * @var ServiceBucket
      * @since 1.0-sofia
      */
     protected $services;
     
     /**
      * Set the service bucket to this user
-     * @param pServiceBucket $bucket The bucket to let this user use.
+     * @param ServiceBucket $bucket The bucket to let this user use.
      * @since 1.0-sofia 
      */
     public function setBucket($bucket){

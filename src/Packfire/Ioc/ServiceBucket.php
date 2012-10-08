@@ -1,18 +1,22 @@
 <?php
-pload('packfire.collection.pMap');
-pload('IBucketUser');
-pload('IServiceBucket');
+namespace Packfire\IoC;
+
+use Packfire\Collection\Map;
+use IBucketUser;
+use IServiceBucket;
 
 /**
+ * ServiceBucket class
+ * 
  * A bucket containing all the services
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.ioc
+ * @package Packfire\IoC
  * @since 1.0-sofia
  */
-class pServiceBucket implements IServiceBucket {
+class ServiceBucket implements IServiceBucket {
     
     /**
      * The hash map of services stored in the bucket.

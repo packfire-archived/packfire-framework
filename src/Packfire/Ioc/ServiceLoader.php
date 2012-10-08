@@ -1,20 +1,23 @@
 <?php
-pload('ILoadable');
-pload('packfire.exception.pServiceException');
-pload('packfire.config.framework.pIoCConfig');
+namespace Packfire\IoC;
+
+use ILoadable;
+use Packfire\Exception\ServiceException;
+use Packfire\Config\Framework\IoCConfig;
+use Packfire\ClassLoader;
 
 /**
- * pServiceLoader class
+ * ServiceLoader class
  * 
  * The service loader for ioc.yml file
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.ioc
+ * @package Packfire\IoC
  * @since 1.0-sofia
  */
-class pServiceLoader implements ILoadable {
+class ServiceLoader implements ILoadable {
     
     /**
      * The full package
@@ -31,7 +34,7 @@ class pServiceLoader implements ILoadable {
     private $params;
     
     /**
-     * Create a new pServiceLoader object
+     * Create a new ServiceLoader object
      * @param string $package The full package quantifier
      * @param array|ArrayList $params Parameters to the constructor
      * @since 1.0-sofia
@@ -53,7 +56,7 @@ class pServiceLoader implements ILoadable {
             $params = array();
         }
         
-        list($package, $class) = pClassLoader::resolvePackageClass($this->package);
+        list($package, $class) = ClassLoader::resolvePackageClass($this->package);
         
         if(!class_exists($class)){
             pload($package);
@@ -76,7 +79,7 @@ class pServiceLoader implements ILoadable {
      * @since 1.0-sofia
      */
     public static function loadConfig($bucket){
-        $iocConfig = new pIoCConfig();
+        $iocConfig = new IoCConfig();
         $servicesConfig = $iocConfig->load();
         if($servicesConfig){
             $services = $servicesConfig->get();
@@ -87,7 +90,7 @@ class pServiceLoader implements ILoadable {
                             $service->get('parameters'));
                     $bucket->put($key, array($loader, 'load'));
                 }else{
-                    throw new pServiceException('Service "' . $key
+                    throw new ServiceException('Service "' . $key
                             . '" defined in the service configuration'
                             . ' file "ioc.yml" contains not conain a'
                             . ' class definition.');

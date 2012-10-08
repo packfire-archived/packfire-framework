@@ -1,17 +1,21 @@
 <?php
-pload('IServiceBucket');
-pload('ILoadable');
+namespace Packfire\IoC;
+
+use IServiceBucket;
+use ILoadable;
 
 /**
- * pBucketLoader abstract class
+ * BucketLoader class
+ * 
+ * Provides interfacing for service loading
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.ioc
+ * @package Packfire\IoC
  * @since 1.0-elenor
  */
-abstract class pBucketLoader implements IServiceBucket, ILoadable {
+abstract class BucketLoader implements IServiceBucket, ILoadable {
     
     /**
      * The service bucket to be decorated
@@ -21,7 +25,7 @@ abstract class pBucketLoader implements IServiceBucket, ILoadable {
     protected $bucket;
     
     /**
-     * Create a new pBucketDecorator object
+     * Create a new BucketLoader object
      * @param IServiceBucket $bucket The bucket to be decorated
      * @since 1.0-elenor
      */

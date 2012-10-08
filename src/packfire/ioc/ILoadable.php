@@ -1,4 +1,5 @@
 <?php
+namespace Packfire\IoC;
 
 /**
  * ILoadable interface
