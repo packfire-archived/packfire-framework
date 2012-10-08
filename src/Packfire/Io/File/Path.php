@@ -1,17 +1,21 @@
 <?php
-pload('pPathPart');
-pload('pFileSystem');
+namespace Packfire\IO\File;
+
+use PathPart;
+use FileSystem;
 
 /**
+ * Path class
+ * 
  * Functionalities working with file system paths
  * 
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.io.file
+ * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class pPath {
+class Path {
     
     /**
      * The working path
@@ -133,7 +137,7 @@ class pPath {
      * @since 1.0-elenor
      */
     public function exists(){
-        return pFileSystem::pathExists($this->path);
+        return FileSystem::pathExists($this->path);
     }
     
     /**
@@ -220,7 +224,7 @@ class pPath {
      * @since 1.0-sofia
      */
     public static function fileName($path){
-        return self::pathInfo($path, pPathPart::FILENAME);
+        return self::pathInfo($path, PathPart::FILENAME);
     }
     
     /**
@@ -241,7 +245,7 @@ class pPath {
      * @since 1.0-sofia
      */
     public static function baseName($p){
-        return self::pathInfo($p, pPathPart::BASENAME);
+        return self::pathInfo($p, PathPart::BASENAME);
     }
 
     /**
@@ -252,7 +256,7 @@ class pPath {
      * @since 1.0-sofia
      */
     public static function extension($p){
-        return self::pathInfo($p, pPathPart::EXTENSION);
+        return self::pathInfo($p, PathPart::EXTENSION);
     }
 
     /**
@@ -263,7 +267,7 @@ class pPath {
      * @since 1.0-sofia
      */
     public static function path($p){
-        return self::pathInfo($p, pPathPart::DIRECTORY);
+        return self::pathInfo($p, PathPart::DIRECTORY);
     }
 
     /**

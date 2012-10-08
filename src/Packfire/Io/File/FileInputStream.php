@@ -1,17 +1,21 @@
 <?php
-pload('IFile');
-pload('packfire.io.IInputStream');
+namespace Packfire\IO\File;
+
+use IFile;
+use Packfire\IO\IInputStream;
 
 /**
+ * FileInputStream class
+ * 
  * An file input stream
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.io.file
+ * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class pFileInputStream implements IInputStream, IFile {
+class FileInputStream implements IInputStream, IFile {
     
     /**
      * The file resource

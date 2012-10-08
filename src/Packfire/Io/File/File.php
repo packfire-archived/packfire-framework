@@ -1,22 +1,24 @@
 <?php
-pload('IFile');
-pload('pFileSystem');
-pload('pFileStream');
-pload('packfire.datetime.pDateTime');
-pload('packfire.exception.pIOException');
+namespace Packfire\IO\File;
+
+use IFile;
+use FileSystem;
+use FileStream;
+use Packfire\DateTime\DateTime;
+use Packfire\Exception\IOException;
 
 /**
- * pFile class
+ * File class
  * 
  * File operations provider
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.io.file
+ * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class pFile implements IFile {
+class File implements IFile {
 
     /**
      * Actual resolved pathname of the file
@@ -69,12 +71,12 @@ class pFile implements IFile {
     
     /**
      * Delete the file
-     * @throws pIOException 
+     * @throws IOException 
      * @since 1.0-sofia
      */
     public function delete(){
         if(!@unlink($this->pathname)){
-            throw new pIOException(
+            throw new IOException(
                     sprintf('An error occurred deleting file \'%s\'.',
                             $this->pathname)
                 );
@@ -84,12 +86,12 @@ class pFile implements IFile {
     /**
      * Set the file content
      * @param string $content The content of the file
-     * @throws pIOException
+     * @throws IOException
      * @since 1.0-sofia
      */
     public function write($content){
         if(!@file_put_contents($this->pathname, $content)){
-            throw new pIOException(
+            throw new IOException(
                     sprintf('Failed to write content file \'%s\'.', $this->pathname)
                 );
         }
@@ -99,21 +101,21 @@ class pFile implements IFile {
      * Append the file content
      * @param string $content The additional file content to append
      * @return bool Returns true if successful, false otherwise.
-     * @throws pIOException
+     * @throws IOException
      * @since 1.0-sofia
      */
     public function append($content){
         $link = @fopen($this->pathname, 'a');
         if($link){
             if(!@fwrite($link, $content)){
-            throw new pIOException(
+            throw new IOException(
                     sprintf('An error occurred while appending '.
                             'content to file \'%s\'.', $this->pathname)
                 );
             }
             @fclose($link);
         }else{
-            throw new pIOException(
+            throw new IOException(
                     sprintf('Failed opening file \'%s\'.', $this->pathname)
                 );
         }
@@ -128,7 +130,7 @@ class pFile implements IFile {
     public function read(){
         $content = @file_get_contents($this->pathname);
         if($content === false){
-            throw new pIOException(
+            throw new IOException(
                     sprintf('An error occurred reading file \'%s\'.',
                             $this->pathname)
                 );
@@ -141,18 +143,18 @@ class pFile implements IFile {
      * @param string $destination The destination path to copy to
      * @return pFile Returns the file object that maps to the new copy at the
      *               destination path.
-     * @throws pIOException 
+     * @throws IOException 
      * @since 1.0-sofia
      */
     public function copy($destination){
-        if(pFileSystem::pathExists($destination)){
-            $destination = pPath::combine($destination,
-                    pPath::baseName($this->pathname));
+        if(FileSystem::pathExists($destination)){
+            $destination = Path::combine($destination,
+                    Path::baseName($this->pathname));
         }
         if(@copy($this->pathname, $destination)){
             return new self($destination);
         }else{
-            throw new pIOException(
+            throw new IOException(
                     sprintf('Failed to copy file \'%s\' to destination \'%s\'.',
                             $this->pathname, $destination)
                 );
@@ -175,12 +177,12 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function rename($newname){
-        $newname = pPath::path($this->pathname) . DIRECTORY_SEPARATOR
-                . pPath::baseName($newname);
+        $newname = Path::path($this->pathname) . DIRECTORY_SEPARATOR
+                . Path::baseName($newname);
         if(@rename($this->pathname, $newname)){    
             $this->pathname = $newname;
         }else{
-            throw new pIOException(
+            throw new IOException(
                     sprintf('An error occurred renaming file \'%s\' to \'%s\'.',
                             $this->pathname, $newname)
                 );
@@ -195,11 +197,11 @@ class pFile implements IFile {
      */
     public function move($newdir){
         $newdir = $newdir . DIRECTORY_SEPARATOR
-                . pPath::baseName($this->pathname);
+                . Path::baseName($this->pathname);
         if(@rename($this->pathname, $newdir)){    
             $this->pathname = $newdir;
         }else{
-            throw new pIOException(
+            throw new IOException(
                     sprintf('An error occurred moving file \'%s\' to \'%s\'.',
                             $this->pathname, $newdir)
                 );
@@ -215,15 +217,15 @@ class pFile implements IFile {
     public function lastModified($datetime = null){
         if(func_num_args() == 1){
             if(!@touch($this->pathname, $datetime->toTimestamp())){
-                throw new pIOException('Failed to set last modified time for'
+                throw new IOException('Failed to set last modified time for'
                         . ' file "'. $this->pathname . '".');
             }
             return $datetime;
         }else{
             if($time = @filemtime($this->pathname)){
-                return pDateTime::fromTimestamp($time);
+                return DateTime::fromTimestamp($time);
             }else{
-                throw new pIOException('Failed to retrieve last modified time'
+                throw new IOException('Failed to retrieve last modified time'
                         . ' for file "'. $this->pathname . '".');
             }
         }
@@ -239,7 +241,7 @@ class pFile implements IFile {
     public function permission($permission = null){
         if(func_num_args() == 1){
             if(!@chmod($this->pathname, $permission)){
-                throw new pIOException('Failed to perform file permission'
+                throw new IOException('Failed to perform file permission'
                         . ' change for file "' . $this->pathname . '".');
             }
             return $permission;
@@ -247,7 +249,7 @@ class pFile implements IFile {
             if($perm = @fileperms($this->pathname)){
                 return substr(decoct($perm), 2);
             }else{
-                throw new pIOException('Failed to retrieve file permission'
+                throw new IOException('Failed to retrieve file permission'
                         . ' for file "' . $this->pathname . '".');
             }
         }
@@ -259,7 +261,7 @@ class pFile implements IFile {
      * @since 1.0-sofia
      */
     public function stream(){
-        return new pFileStream($this->pathname);
+        return new FileStream($this->pathname);
     }
     
 }

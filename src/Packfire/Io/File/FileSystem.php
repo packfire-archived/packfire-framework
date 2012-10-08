@@ -1,5 +1,5 @@
 <?php
-pload('packfire.collection.pList');
+namespace Packfire\IO\File;
 
 /**
  * Provides funtionalities to work with the file system
@@ -7,10 +7,10 @@ pload('packfire.collection.pList');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.io.file
+ * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class pFileSystem {
+class FileSystem {
 
     /**
      * Check whether a file exists in the file system
@@ -58,13 +58,13 @@ class pFileSystem {
      * Search for files given a particular pattern
      * @param string $pattern Pattern to use for search. See link for more info.
      * @param integer $flags (optional) Flags to use for the pattern search.
-     * @return pList Returns the collection of files matching the pattern.
+     * @return ArrayList Returns the collection of files matching the pattern.
      * @link http://php.net/glob
      * @since 1.0-sofia
      */
     public static function pathSearch($pattern, $flags = 0){
         $result = glob($pattern, $flags);
-        return new pList($result);
+        return new ArrayList($result);
     }
     
 }

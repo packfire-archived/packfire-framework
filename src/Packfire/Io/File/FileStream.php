@@ -1,8 +1,12 @@
 <?php
-pload('pFileInputStream');
-pload('packfire.io.IIOStream');
+namespace Packfire\IO\File;
+
+use FileInputStream;
+use Packfire\IO\IIOStream;
 
 /**
+ * FileStream class
+ * 
  * A stream that reads and write to a file
  *
  * If the specified file does not exist, the class will not create the file
@@ -11,13 +15,13 @@ pload('packfire.io.IIOStream');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.io.file
+ * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class pFileStream extends pFileInputStream implements IIOStream {
+class FileStream extends FileInputStream implements IIOStream {
     
     /**
-     * Create a new pFileStream object
+     * Create a new FileStream object
      * @param string $file The pathname to the file to stream
      * @since 1.0-sofia
      */
