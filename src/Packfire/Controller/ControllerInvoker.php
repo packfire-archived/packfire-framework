@@ -1,20 +1,24 @@
 <?php
-pload('packfire.ioc.pBucketUser');
-pload('packfire.application.IAppResponse');
-pload('packfire.pClassLoader');
+namespace Packfire\Controller;
+
+use Packfire\IoC\BucketUser;
+use Packfire\Application\IAppResponse;
+use Packfire\ClassLoader;
+use Packfire\Core\ActionInvoker;
+use Packfire\Exception\MissingDependencyException;
 
 /**
- * pControllerInvoker class
+ * ControllerInvoker class
  * 
  * Controller Access Invoker
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.controller
+ * @package Packfire\Controller
  * @since 1.0-sofia
  */
-class pControllerInvoker extends pBucketUser {
+class ControllerInvoker extends BucketUser {
     
     /**
      * The package name
@@ -80,7 +84,7 @@ class pControllerInvoker extends pBucketUser {
             $isView = substr($class, -4) == 'View';
 
             list($package, $class) =
-                    pClassLoader::resolvePackageClass($this->package);
+                    ClassLoader::resolvePackageClass($this->package);
 
             if($package == $class && !class_exists($class)){
                 // only class name is provided, so we use
@@ -89,12 +93,12 @@ class pControllerInvoker extends pBucketUser {
                 if($isView){
                     try{
                         pload('app.AppView');
-                    }catch(pMissingDependencyException $ex){
+                    }catch(MissingDependencyException $ex){
 
                     }
                     try{
                         pload('view.' . $package);
-                    }catch(pMissingDependencyException $ex){
+                    }catch(MissingDependencyException $ex){
                         // it is an attempt to load, so no need the exception
                     }
                 }else{
@@ -104,12 +108,12 @@ class pControllerInvoker extends pBucketUser {
                     }
                     try{
                         pload('app.AppController');
-                    }catch(pMissingDependencyException $ex){
+                    }catch(MissingDependencyException $ex){
 
                     }
                     try{
                         pload('controller.' . $package);
-                    }catch(pMissingDependencyException $ex){
+                    }catch(MissingDependencyException $ex){
                         // it is an attempt to load, so no need the exception
                     }
                 }
@@ -128,7 +132,7 @@ class pControllerInvoker extends pBucketUser {
                     $output = $view->render();
                     $this->response()->body($output);
                 }else{
-                    if(self::classInstanceOf($class, 'pController')){
+                    if(self::classInstanceOf($class, 'Packfire\Controller\Controller')){
                         /* @var $controller pController */
                         $controller = new $class($this->request, $this->response);
                         $controller->copyBucket($this);
@@ -139,7 +143,7 @@ class pControllerInvoker extends pBucketUser {
                         if($controller instanceof IBucketUser){
                             $controller->copyBucket($this);
                         }
-                        $actionInvoker = new pActionInvoker(array($controller, $this->action));
+                        $actionInvoker = new ActionInvoker(array($controller, $this->action));
                         $this->response = $actionInvoker->invoke($this->route->params());
                     }
                 }

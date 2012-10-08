@@ -1,14 +1,16 @@
 <?php
-pload('packfire.application.IAppResponse');
-pload('packfire.collection.IList');
-pload('packfire.collection.pMap');
-pload('packfire.response.pRedirectResponse');
-pload('packfire.ioc.pBucketUser');
-pload('packfire.exception.pHttpException');
-pload('packfire.exception.pAuthenticationException');
-pload('packfire.exception.pAuthorizationException');
-pload('packfire.net.http.pHttpRequest');
-pload('packfire.core.pActionInvoker');
+namespace Packfire\Controller;
+
+use Packfire\Application\IAppResponse;
+use Packfire\Collection\Map;
+use Packfire\Response\RedirectResponse;
+use Packfire\IoC\BucketUser;
+use Packfire\Exception\HttpException;
+use Packfire\Exception\AuthenticationException;
+use Packfire\Exception\AuthorizationException;
+use Packfire\Net\Http\HttpRequest;
+use Packfire\Net\Http\HttpResponse;
+use Packfire\Core\ActionInvoker;
 
 /**
  * The generic controller class
@@ -16,10 +18,10 @@ pload('packfire.core.pActionInvoker');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.controller
+ * @package Packfire\Controller
  * @since 1.0-sofia
  */
-abstract class pController extends pBucketUser {
+abstract class Controller extends BucketUser {
     
     /**
      * The request to this controller
@@ -44,28 +46,28 @@ abstract class pController extends pBucketUser {
     
     /**
      * The controller state
-     * @var pMap|mixed
+     * @var Map|mixed
      * @since 1.0-sofia
      */
     protected $state;
     
     /**
      * Parameter filters
-     * @var pMap 
+     * @var Map 
      * @since 1.0-sofia
      */
     private $filters;
     
     /**
      * A collection of loaded models
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $models;
     
     /**
      * A collection of all the errors from the filtering 
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia 
      */
     private $errors;
@@ -80,15 +82,15 @@ abstract class pController extends pBucketUser {
         $this->request = $request;
         $this->response = $response;
         
-        $this->filters = new pMap();
-        $this->state = new pMap();
-        $this->errors = new pMap();
-        $this->models = new pMap();
+        $this->filters = new Map();
+        $this->state = new Map();
+        $this->errors = new Map();
+        $this->models = new Map();
     }
     
     /**
      * Get the state of the controller
-     * @return pMap|mixed Returns the state of the controller
+     * @return Map|mixed Returns the state of the controller
      * @since 1.0-sofia
      */
     public function state(){
@@ -126,9 +128,9 @@ abstract class pController extends pBucketUser {
             $url = $this->service('config.app')->get('app', 'rootUrl') . $url;
         }
         if(func_num_args() == 2){
-            $this->response = new pRedirectResponse($url, $code);
+            $this->response = new RedirectResponse($url, $code);
         }else{
-            $this->response = new pRedirectResponse($url);
+            $this->response = new RedirectResponse($url);
         }
     }
     
@@ -170,7 +172,7 @@ abstract class pController extends pBucketUser {
     
     /**
      * Get all the errors set to the controller
-     * @return pMap Returns the list of errors
+     * @return Map Returns the list of errors
      * @since 1.0-sofia
      */
     public function errors(){
@@ -186,7 +188,7 @@ abstract class pController extends pBucketUser {
      */
     protected function error($target, $exception, $message = null){
         if(!$this->errors->keyExists($target)){
-            $this->errors[$target] = new pList();
+            $this->errors[$target] = new ArrayList();
         }
         if(!$message){
             $message = $exception->getMessage();
@@ -273,12 +275,12 @@ abstract class pController extends pBucketUser {
             
             if(($this->service('security') && !$this->service('security')->authenticate()) 
                     || !$this->handleAuthentication()){
-                throw new pAuthenticationException('User is not authenticated.');
+                throw new AuthenticationException('User is not authenticated.');
             }
         
             if(($this->service('security') && !$this->service('security')->authorize($route))
                     || !$this->handleAuthorization()){
-                throw new pAuthorizationException('Access not authorized.');
+                throw new AuthorizationException('Access not authorized.');
             }
         }
         
@@ -299,7 +301,7 @@ abstract class pController extends pBucketUser {
         
         if(is_callable(array($this, $call))){
             // call the controller action
-            $actionInvoker = new pActionInvoker(array($this, $call));
+            $actionInvoker = new ActionInvoker(array($this, $call));
             $result = $actionInvoker->invoke($route->params());
             if($result){
                 $this->response = $result;
@@ -309,10 +311,10 @@ abstract class pController extends pBucketUser {
             $errorMsg = sprintf('The requested action "%s" is not found' 
                                 . ' in the controller "%s".',
                                 $call, get_class($this));
-            if($this->request instanceof pHttpRequest){
-                throw new pHttpException(404, $errorMsg);
+            if($this->request instanceof HttpRequest){
+                throw new HttpException(404, $errorMsg);
             }else{
-                throw new pInvalidRequestException($errorMsg);
+                throw new InvalidRequestException($errorMsg);
             }
         }
         return $this->response;
@@ -325,7 +327,7 @@ abstract class pController extends pBucketUser {
     private function postProcess(){
         // disable debugger if non-HTML output
         $type = null;
-        if($this->response instanceof pHttpResponse){
+        if($this->response instanceof HttpResponse){
             $type = $this->response->headers()->get('Content-Type');
         }
         if($this->service('debugger') 

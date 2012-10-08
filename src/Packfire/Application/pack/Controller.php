@@ -1,10 +1,11 @@
 <?php
 namespace Packfire\Appliation\Pack;
 
-pload('packfire.controller.pController');
-pload('packfire.exception.pMissingDependencyException');
-pload('packfire.text.pInflector');
-pload('packfire.text.pText');
+use Packfire\Controller\Controller as CoreController;
+use Packfire\Exception\MissingDependencyException;
+use Packfire\Text\Inflector;
+use Packfire\Text\Text;
+use Packfire\View\IView;
 
 /**
  * Controller class
@@ -17,7 +18,7 @@ pload('packfire.text.pText');
  * @package Packfire\Appliation\Pack
  * @since 1.1-sofia
  */
-abstract class Controller extends pController {
+abstract class Controller extends CoreController {
     
     /**
      * Load and render the view for this controller
@@ -32,7 +33,7 @@ abstract class Controller extends pController {
             $dbt = debug_backtrace();
             $func = ucfirst($dbt[1]['function']);
             $func2 = null;
-            if(($firstUpper = pInflector::firstUpperCase($dbt[1]['function'])) !== false){
+            if(($firstUpper = Inflector::firstUpperCase($dbt[1]['function'])) !== false){
                 $func2 = substr($dbt[1]['function'], $firstUpper);
             }
             
@@ -43,7 +44,7 @@ abstract class Controller extends pController {
             
             try{
                 pload('app.AppView');
-            }catch(pMissingDependencyException $ex){
+            }catch(MissingDependencyException $ex){
                 
             }
             $class = $name . $func . 'View';
@@ -61,7 +62,7 @@ abstract class Controller extends pController {
                 try{
                     pload($try);
                     break;
-                }catch(pMissingDependencyException $ex){
+                }catch(MissingDependencyException $ex){
 
                 }
             }
@@ -74,10 +75,10 @@ abstract class Controller extends pController {
         if($view instanceof IView){
             parent::render($view);
         }else{
-            throw new pMissingDependencyException(sprintf(
+            throw new MissingDependencyException(sprintf(
                 'View not rendered because not found.'
                     . ' Looked for packages %s.',
-                pText::listing($tries)
+                Text::listing($tries)
             ));
         }
     }
