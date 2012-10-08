@@ -81,14 +81,6 @@ abstract class Schema {
     public abstract function table($table);
     
     /**
-     * Start the LINQ expression from a table
-     * @param string $table The table to work with
-     * @return Packfire\Database\ILinq Returns the LINQ object to start chaining
-     * @since 1.0-sofia
-     */
-    public abstract function from($table);
-    
-    /**
      * Get a list of tables in the schema
      * @return pList Returns a list of table names
      * @since 1.0-sofia 
