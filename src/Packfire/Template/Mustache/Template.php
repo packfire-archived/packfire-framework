@@ -28,8 +28,8 @@ class Template implements ITemplate {
     private $fields;
     
     /**
-     * The moustache parser
-     * @var pMoustache
+     * The mustache parser
+     * @var Mustache
      * @since 1.0-sofia
      */
     private $parser;

@@ -8,7 +8,7 @@ use Packfire\IO\File\File as RealFile;
 /**
  * TemplateFile class
  * 
- * A moustache template file
+ * A mustache template file
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -19,7 +19,7 @@ use Packfire\IO\File\File as RealFile;
 class TemplateFile extends Template implements ITemplateFile {
     
     /**
-     * Create a new pMoustacheFile object
+     * Create a new TemplateFile object
      * @param pFile|string $file The file or pathname to the file
      * @since 1.1-sofia
      */

@@ -1,8 +1,9 @@
 <?php
-pload('packfire.application.pack.pAppView');
-pload('packfire.template.moustache.pMoustacheTemplate');
-pload('LightTheme');
-pload('DarkTheme');
+
+use Packfire\Application\Pack\View;
+use Packfire\Template\Mustache\TemplateFile;
+use Packfire\Welcome\LightTheme;
+use Packfire\Welcome\DarkTheme;
 
 /**
  * HomeIndexView class
@@ -14,14 +15,14 @@ pload('DarkTheme');
  * @package packfire.welcome
  * @since 1.0-sofia
  */
-class HomeIndexView extends pView {
+class HomeIndexView extends View {
     
     protected function create() {
         $theme = $this->service('session')->get('theme', 'dark');
         if(!in_array($theme, array('dark', 'light'))){
             $theme = 'light';
         }
-        $template = new pMoustacheTemplate(file_get_contents(dirname(__FILE__) . '/HomeIndex.html'));
+        $template = new TemplateFile(dirname(__FILE__) . '/HomeIndexView.html');
         $this->theme($theme == 'dark' ? new DarkTheme() : new LightTheme())
             ->template($template);
         

@@ -8,7 +8,7 @@ use Packfire\Collection\ArrayList;
 /**
  * Bridge class
  * 
- * Moustache bridge that allows loading of partials from Application Templates
+ * Mustache bridge that allows loading of partials from Application Templates
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

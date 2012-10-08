@@ -15,7 +15,7 @@ namespace Packfire\Appliation\Pack;
 abstract class Theme {
     
     /**
-     * Load a theme class from the template folder
+     * Load a theme class from the theme folder
      * @param string $theme The name of the theme class
      * @return pTheme Returns the loaded theme class
      * @since 1.1-sofia

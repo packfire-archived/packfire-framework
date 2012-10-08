@@ -237,7 +237,7 @@ class Mustache {
     /**
      * Set the partials to be included into the template
      * @param mixed $parameters The partials
-     * @return pMoustache Returns self for chaining
+     * @return Mustache Returns self for chaining
      * @since 1.1-sofia
      */
     public function partials($partials){
@@ -254,7 +254,7 @@ class Mustache {
         if($this->partials){
             $template = $this->partials[$name];
             if($template){
-                $partial = new pMoustache($template);
+                $partial = new Mustache($template);
                 $partial->parameters($this->parameters)
                         ->partials($this->partials)
                         ->escaper($this->escaper);
@@ -327,9 +327,9 @@ class Mustache {
     }
     
     /**
-     * Set the template to be rendered by Moustache
+     * Set the template to be rendered by Mustache
      * @param string $template The template to render
-     * @return pMoustache Returns self for chaining
+     * @return Mustache Returns self for chaining
      * @since 1.0-sofia
      */
     public function template($template){
@@ -340,7 +340,7 @@ class Mustache {
     /**
      * Set the parameters to be rendered into the template
      * @param mixed $parameters The parameters
-     * @return pMoustache Returns self for chaining
+     * @return Mustache Returns self for chaining
      * @since 1.0-sofia
      */
     public function parameters($parameters){
@@ -362,7 +362,7 @@ class Mustache {
     }
     
     /**
-     * Render the Moustache template
+     * Render the Mustache template
      * @return string Returns the parsed template
      * @since 1.0-sofia 
      */

@@ -2,7 +2,6 @@
 pload('IView');
 pload('packfire.collection.pList');
 pload('packfire.collection.pMap');
-pload('packfire.template.pTemplate');
 pload('packfire.model.pObjectObserver');
 pload('packfire.ioc.pBucketUser');
 
@@ -143,7 +142,7 @@ abstract class pView extends pBucketUser implements IView {
     
     /**
      * Set the template used by the view
-     * @param ITemplate $template (optional) The template to use
+     * @param ITemplate $template The template to use
      * @return pView Returns an instance of self for chaining.
      * @since 1.0-sofia
      */

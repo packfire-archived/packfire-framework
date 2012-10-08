@@ -4,7 +4,7 @@ namespace Packfire\Debugger\Output;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 use Packfire\Debugger\IOutput;
-use Packfire\Template\Moustache\Template;
+use Packfire\Template\Mustache\TemplateFile;
 
 /**
  * Console class
@@ -68,8 +68,7 @@ class Console implements IOutput {
      * @since 1.0-sofia 
      */
     public function output(){
-        $template = new Template(
-                file_get_contents(__DIR__ . '/ConsoleTemplate.html'));
+        $template = new TemplateFile(__DIR__ . '/ConsoleTemplate.html');
         
         $template->fields()->add('lines', $this->lines);
         

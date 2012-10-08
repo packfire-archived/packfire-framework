@@ -2,7 +2,7 @@
 namespace Packfire\Exception\Handler;
 
 use Packfire\View\View;
-use Packfire\Template\Moustache\Template;
+use Packfire\Template\Mustache\TemplateFile;
 
 /**
  * ExceptionView class
@@ -39,8 +39,9 @@ class ExceptionView extends View {
      * @since 1.0-sofia 
      */
     protected function create() {
-        $this->template(new Template(file_get_contents(__DIR__ 
-                . DIRECTORY_SEPARATOR . basename(__CLASS__) . '.html')));
+        $this->template(new TemplateFile(__DIR__ 
+                . DIRECTORY_SEPARATOR
+                . basename(__CLASS__) . '.html'));
         $this->define('title', 'Error ' . $this->exception->getCode());
         $this->define('file',  $this->exception->getFile());
         $this->define('line',  $this->exception->getLine());
