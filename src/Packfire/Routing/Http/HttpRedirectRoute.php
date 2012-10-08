@@ -48,25 +48,34 @@ class pRedirectRoute implements IRoute {
         $this->code = (int)$data->get('code', 302);
     }
 
-    public function match($method, $url) {
-        $template = new pTemplate($this->rewrite);
-        $tokens = $template->tokens();
-        foreach ($tokens as $token) {
-            $value = $this->params->get($token);
-            if (!$value) {
-                $value = '(*)';
-            }
-            $template->fields()->add($token,
-                    '(?P<' . $token . '>' . $value . ')');
-        }
-        $matches = array();
-
-        // perform the URL matching
-        $matchResult = preg_match('`^' . $template->parse() .
-                '([/]{0,1})$`is', $url, $matches);
+    public function match($request) {
+        $url = $request->pathInfo();
+        $method = strtolower($request->method());
+        if(!$this->httpMethod() || 
+                (is_string($this->httpMethod)
+                && $this->httpMethod == strtolower($method))
+                || (is_array($this->httpMethod)
+                && in_array(strtolower($method), $this->httpMethod))){
         
-        if ($matchResult) {
-            return true;
+            $template = new pTemplate($this->rewrite);
+            $tokens = $template->tokens();
+            foreach ($tokens as $token) {
+                $value = $this->params->get($token);
+                if (!$value) {
+                    $value = '(*)';
+                }
+                $template->fields()->add($token,
+                        '(?P<' . $token . '>' . $value . ')');
+            }
+            $matches = array();
+
+            // perform the URL matching
+            $matchResult = preg_match('`^' . $template->parse() .
+                    '([/]{0,1})$`is', $url, $matches);
+
+            if ($matchResult) {
+                return true;
+            }
         }
         return false;
     }

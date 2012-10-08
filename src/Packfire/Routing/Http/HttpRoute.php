@@ -101,14 +101,7 @@ class pHttpRoute extends pRoute {
      */
     public function match($request){
         $url = $request->pathInfo();
-        $oriMethod = $request->method();
-        if($request->headers()->keyExists('X-HTTP-Method')){
-            $oriMethod = $request->headers()->get('X-HTTP-Method');
-        }
-        if($request->headers()->keyExists('X-HTTP-Method-Override')){
-            $oriMethod = $request->headers()->get('X-HTTP-Method-Override');
-        }
-        $method = strtolower($oriMethod);
+        $method = strtolower($request->method());
         
         $validation = false;
         // check whether HTTP method matches for RESTful routing
