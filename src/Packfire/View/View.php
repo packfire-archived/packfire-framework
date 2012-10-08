@@ -1,20 +1,25 @@
 <?php
-pload('IView');
-pload('packfire.collection.pList');
-pload('packfire.collection.pMap');
-pload('packfire.model.pObjectObserver');
-pload('packfire.ioc.pBucketUser');
+namespace Packfire\View;
+
+use IView;
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\Map;
+use Packfire\Model\ObjectObserver;
+use Packfire\IoC\BucketUser;
+use Packfire\Exception\InvalidArgumentException;
 
 /**
+ * View class
+ * 
  * The generic view class.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.view
+ * @package Packfire\View
  * @since 1.0-sofia
  */
-abstract class pView extends pBucketUser implements IView {
+abstract class View extends BucketUser implements IView {
     
     /**
      * The state that is passed from the controller
@@ -92,7 +97,7 @@ abstract class pView extends pBucketUser implements IView {
      * @since 1.1-sofia
      */
     public function bind($key, $object, $property){
-        if($object instanceof pObjectObserver){
+        if($object instanceof ObjectObserver){
             $view = $this;
             $object->on('change', function($src, $eventArgs) use ($view, $key, $property) {
                 if($eventArgs[0] == $property){
@@ -100,8 +105,8 @@ abstract class pView extends pBucketUser implements IView {
                 }
             });
         }else{
-            throw new pInvalidArgumentException('pView::bind', 'object',
-                    'an instance of pObjectObserver', dtype($object));
+            throw new InvalidArgumentException('View::bind', 'object',
+                    'an instance of ObjectObserver', dtype($object));
         }
     }
     

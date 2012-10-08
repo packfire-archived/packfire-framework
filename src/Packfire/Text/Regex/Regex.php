@@ -35,7 +35,7 @@ class Regex {
     }
 
     /**
-     * Get or set the regular expression that is used in this pRegex
+     * Get or set the regular expression that is used in this Regex
      * @param string $regex (optional) If present, the old value will be overriden by this value.
      * @return string Returns the regular expression.
      * @since 1.0-sofia

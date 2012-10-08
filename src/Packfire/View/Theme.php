@@ -1,13 +1,17 @@
 <?php
-pload('packfire.collection.pMap');
+namespace Packfire\View;
+
+use Packfire\Collection\Map;
 
 /**
+ * Theme class
+ * 
  * A theme abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.view
+ * @package Packfire\View
  * @since 1.0-sofia
  */
 abstract class pTheme {
