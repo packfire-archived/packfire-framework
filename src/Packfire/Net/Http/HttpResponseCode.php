@@ -1,15 +1,18 @@
 <?php
+namespace Packfire\Net\Http;
 
 /**
+ * HttpResponseCode class
+ * 
  * HTTP Response Code constants
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.net.http
+ * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class pHttpResponseCode {
+class HttpResponseCode {
 
     const HTTP_100 = '100 Continue';
     const HTTP_101 = '101 Switching Protocols';

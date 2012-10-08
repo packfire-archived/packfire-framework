@@ -1,17 +1,21 @@
 <?php
-pload('packfire.io.file.pPath');
-pload('packfire.collection.pMap');
+namespace Packfire\Net\Http;
+
+use Packfire\IO\File\Path;
+use Packfire\Collection\Map;
 
 /**
+ * Url class
+ * 
  * A URL representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.net.http
+ * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class pUrl {
+class Url {
 
     /**
      * Scheme / Protocol of the URL e.g. http, https, ftp
@@ -57,7 +61,7 @@ class pUrl {
 
     /**
      * GET parameters
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $params = array();
@@ -221,7 +225,8 @@ class pUrl {
             $url .= '@';
         }
         $url .= $this->host();
-        if($this->port() != null && !in_array($this->scheme, array('https', 'http'))){
+        if($this->port() != null 
+                && !in_array($this->scheme, array('https', 'http'))){
             $url .= ':'.$this->port();
         }
         $url .= $this->path();
@@ -269,7 +274,7 @@ class pUrl {
             if(!($baseUrl instanceof self)){
                 $baseUrl = new self($baseUrl);
             }
-            $path = pPath::combine($baseUrl->path(), $relativeUrl);
+            $path = Path::combine($baseUrl->path(), $relativeUrl);
         }
         $path = str_replace(array('\\','\\\\','//'), '/', $path);
         if($baseUrl instanceof self && $baseUrl->scheme()){

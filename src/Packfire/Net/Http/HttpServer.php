@@ -1,6 +1,10 @@
 <?php
-pload('packfire.exception.pMissingDependencyException');
-pload('pHttpResponse');
+namespace Packfire\Net\Http;
+
+use Packfire\Exception\MissingDependencyException;
+use HttpResponse;
+use Packfire\Exception\IOException;
+use HttpMethod;
 
 /**
  * pHttpServer class
@@ -10,7 +14,7 @@ pload('pHttpResponse');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.net.http
+ * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
 class pHttpServer {
@@ -71,7 +75,7 @@ class pHttpServer {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
             // if it is post
-            if($request->method() == pHttpMethod::POST){
+            if($request->method() == HttpMethod::POST){
                 curl_setopt($ch, CURLOPT_POST, $request->post()->count());
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($request->post()->toArray()));
             }
@@ -81,19 +85,19 @@ class pHttpServer {
 
             // check if it was timed out
             if(curl_errno($ch) == 28){
-                throw new pIOException('HTTP request timeout.');
+                throw new IOException('HTTP request timeout.');
             }
             
             //close connection
             curl_close($ch);
             
             if(!$response){
-                $response = new pHttpResponse();
+                $response = new HttpResponse();
             }
             $response->parse($result);
             return $response;
         }else{
-            throw new pMissingDependencyException('CURL extension is required by pHttpServer but is not enabled.');
+            throw new MissingDependencyException('CURL extension is required by pHttpServer but is not enabled.');
         }
     }
     

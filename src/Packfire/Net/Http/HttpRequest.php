@@ -1,20 +1,23 @@
 <?php
-pload('packfire.text.pNewline');
-pload('packfire.text.pTextStream');
-pload('pUrl');
-pload('packfire.collection.pMap');
-pload('pHttpMethod');
+namespace Packfire\Net\Http;
+
+use Packfire\Collection\Map;
+use Url;
+use Packfire\Text\TextStream;
+use Packfire\Text\NewLine;
 
 /**
+ * HttpRequest class
+ * 
  * A HTTP Request
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.net.http
+ * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class pHttpRequest {
+class HttpRequest {
     
     /**
      * The method of request, e.g. GET, POST, HEAD
@@ -46,7 +49,7 @@ class pHttpRequest {
 
     /**
      * DateTime the request was made
-     * @var pDateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -86,7 +89,8 @@ class pHttpRequest {
     protected $get;
     
     /**
-     * Create the pHttpRequest object
+     * Create the HttpRequest object
+     * @since 1.0-sofia
      */
     public function __construct(){
         $this->cookies = new Map();
@@ -101,8 +105,8 @@ class pHttpRequest {
      * @since 1.0-sofia
      */
     public function parse($strRequest){
-        $strRequest = pNewline::neutralize($strRequest);
-        $lines = explode(pNewline::UNIX, $strRequest);
+        $strRequest = NewLine::neutralize($strRequest);
+        $lines = explode(NewLine::UNIX, $strRequest);
         if(count($lines) > 0){
             $requestLine = $lines[0];
             list($method, $uri, $version) = explode(' ', $requestLine);
@@ -132,7 +136,7 @@ class pHttpRequest {
                             }
                         }
                     }else{
-                        $body .= $line . pNewline::UNIX;
+                        $body .= $line . NewLine::UNIX;
                     }
                 }else{
                     $body = '';
@@ -149,7 +153,7 @@ class pHttpRequest {
                         $this->post->append($data);
                     }
                 }else{
-                    $this->body(new pTextStream($body));
+                    $this->body(new TextStream($body));
                 }
             }
         }
@@ -289,11 +293,11 @@ class pHttpRequest {
 
     /**
      * Returns the full URL of this request
-     * @return pUrl Returns the URL
+     * @return Url Returns the URL
      * @since 1.0-sofia
      */
     public function url(){
-        $u = new pUrl();
+        $u = new Url();
         $u->host($this->headers->get('Host'));
         $u->scheme('http' . ($this->https() ? 's' : ''));
         $markpos = strpos($this->uri(), '?');
@@ -308,18 +312,18 @@ class pHttpRequest {
     
     public function __toString(){
         $buffer = '';
-        $buffer .= $this->requestLine() . pNewLine::UNIX;
+        $buffer .= $this->requestLine() . NewLine::UNIX;
         foreach ($this->headers() as $k => $h) {
             if (is_array($h)) {
                 foreach ($h as $d) {
-                    $buffer .= $k . ': ' . $d . pNewLine::UNIX;
+                    $buffer .= $k . ': ' . $d . NewLine::UNIX;
                 }
             } else {
-                    $buffer .= $k . ': ' . $h . pNewLine::UNIX;
+                    $buffer .= $k . ': ' . $h . NewLine::UNIX;
             }
         }
         if($this->body()){
-            $buffer .= pNewLine::UNIX;
+            $buffer .= NewLine::UNIX;
             while($this->body()->tell() < $this->body()->length()){
                 $read = $this->body()->read(1024);
                 $buffer .= $read;

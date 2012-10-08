@@ -1,17 +1,21 @@
 <?php
-pload('packfire.datetime.pDateTime');
-pload('packfire.exception.pInvalidArgumentException');
+namespace Packfire\Net\Http;
+
+use Packfire\DateTime\DateTime;
+use Packfire\Exception\InvalidArgumentException;
 
 /**
+ * HttpCookie class
+ * 
  * A HTTP Cookie
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.net.http
+ * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class pHttpCookie {
+class HttpCookie {
     
     /**
      * Name of the cookie
@@ -64,7 +68,7 @@ class pHttpCookie {
     private $httpOnly = false;
 
     /**
-     * Creates a new Cookie object
+     * Creates a new HttpCookie object
      * @param string $n Name of the Cookie
      * @param mixed $k (optional) Value of the Cookie variable
      * @since 1.0-sofia
@@ -74,7 +78,7 @@ class pHttpCookie {
         if ($k !== null) {
             $this->value($k);
         }
-        $this->expire(pDateTime::fromTimestamp(time() + 36000));
+        $this->expire(DateTime::fromTimestamp(time() + 36000));
     }
 
     /**
@@ -127,15 +131,15 @@ class pHttpCookie {
 
     /**
      * Get or set the expiry date / time of the cookie
-     * @param pDateTime $d (optional) Set the value of expiry date/time.
-     * @return pDateTime Returns the expiry date time of the cookie
-     * @throws pInvalidArgumentException Thrown when $expire is not of type pDateTime
+     * @param DateTime $d (optional) Set the value of expiry date/time.
+     * @return DateTime Returns the expiry date time of the cookie
+     * @throws InvalidArgumentException Thrown when $expire is not of type pDateTime
      * @since 1.0-sofia
      */
     public function expire($expire = false){
         if(func_num_args() == 1){
-            if(!($expire instanceof pDateTime)){
-                throw new pInvalidArgumentException('pHttpCookie::expire', 'datetime', 'of type pDateTime', $expire);
+            if(!($expire instanceof DateTime)){
+                throw new InvalidArgumentException('HttpCookie::expire', 'datetime', 'of type DateTime', $expire);
             }
             $this->expire = $expire;
         }

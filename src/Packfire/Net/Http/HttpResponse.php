@@ -1,18 +1,21 @@
 <?php
-pload('packfire.application.IAppResponse');
-pload('pHttpVersion');
-pload('pHttpResponseCode');
-pload('packfire.text.pNewline');
-pload('packfire.collection.pMap');
-pload('packfire.exception.pParseException');
+namespace Packfire\Net\Http;
+
+use HttpVersion;
+use HttpResponseCode;
+use Packfire\Text\NewLine;
+use Packfire\Collection\Map;
+use Packfire\Exception\ParseException;
 
 /**
+ * HttpResponse class
+ * 
  * A HTTP Response
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.net.http
+ * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
 class pHttpResponse {
@@ -22,14 +25,14 @@ class pHttpResponse {
      * @var string
      * @since 1.0-sofia
      */
-    protected $version = pHttpVersion::HTTP_1_1;
+    protected $version = HttpVersion::HTTP_1_1;
 
     /**
      * The HTTP Status-Code of the Status-Line in the HTTP response
      * @var string
      * @since 1.0-sofia
      */
-    protected $code = pHttpResponseCode::HTTP_200;
+    protected $code = HttpResponseCode::HTTP_200;
 
     /**
      * Body of the HTTP Response
@@ -68,13 +71,13 @@ class pHttpResponse {
      * @since 1.0-sofia
      */
     public function parse($strResponse){
-        $strResponse = pNewline::neutralize($strResponse);
-        $lines = explode(pNewline::UNIX, $strResponse);
+        $strResponse = NewLine::neutralize($strResponse);
+        $lines = explode(NewLine::UNIX, $strResponse);
         if(count($lines) > 0){
             $statusLine = $lines[0];
             $sp = strpos($statusLine, ' ');
             if($sp === false){
-                throw new pParseException(
+                throw new ParseException(
                         'Failed to parse HTTP version and code in response'
                     );
             }else{
@@ -99,7 +102,7 @@ class pHttpResponse {
                             }
                         }
                     }else{
-                        $body .= $line . pNewline::UNIX;
+                        $body .= $line . NewLine::UNIX;
                     }
                 }else{
                     $body = '';
@@ -171,17 +174,17 @@ class pHttpResponse {
 
     public function __toString(){
         $buffer = '';
-        $buffer = $this->version() . ' ' . $this->code() . pNewline::UNIX;
+        $buffer = $this->version() . ' ' . $this->code() . NewLine::UNIX;
         foreach ($this->headers() as $k => $h) {
             if (is_array($h)) {
                 foreach ($h as $d) {
-                    $buffer .= $k . ': ' . $d .  pNewline::UNIX;
+                    $buffer .= $k . ': ' . $d .  NewLine::UNIX;
                 }
             } else {
-                    $buffer .= $k . ': ' . $h .  pNewline::UNIX;
+                    $buffer .= $k . ': ' . $h .  NewLine::UNIX;
             }
         }
-        $buffer .=  pNewline::UNIX . $this->body();
+        $buffer .=  NewLine::UNIX . $this->body();
         return $buffer;
     }
     

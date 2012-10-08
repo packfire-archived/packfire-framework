@@ -1,15 +1,18 @@
 <?php
+namespace Packfire\Net\Http;
 
 /**
+ * HttpClientOS
+ * 
  * Constants for Client Operating Systems
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.net.http
+ * @package Packfire\Net\Http
  * @since 1.0-sifa
  */
-class pHttpClientOS {
+class HttpClientOS {
 
     /**
      * Operating System: Microsoft Windows
