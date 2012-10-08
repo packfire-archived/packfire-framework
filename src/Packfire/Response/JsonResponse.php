@@ -1,4 +1,5 @@
 <?php
+namespace Packfire\Response;
 
 use Packfire\Application\Http\Response as HttpResponse;
 use Packfire\Data\Serialization\JsonSerializer;
@@ -12,7 +13,7 @@ use IResponseFormat;
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.response
+ * @package Packfire\Response
  * @since 1.0-sofia
  */
 class JsonResponse extends HttpResponse implements IResponseFormat {

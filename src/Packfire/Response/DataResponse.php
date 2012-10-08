@@ -1,17 +1,23 @@
 <?php
+namespace Packfire\Response;
+
+use JsonResponse;
+use PhpSerializeResponse;
+use XmlResponse;
+use YamlResponse;
 
 /**
- * pResponse class
+ * DataResponse class
  * 
  * A sugar candy for response creation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.response
+ * @package Packfire\Response
  * @since 1.1-sofia
  */
-class pResponse {
+class DataResponse {
     
     /**
      * The format type of the response
@@ -21,7 +27,7 @@ class pResponse {
     private $type;
     
     /**
-     * Create a new pResponse object
+     * Create a new DataResponse object
      * @param string $type The format type
      * @since 1.1-sofia
      */
@@ -40,24 +46,19 @@ class pResponse {
         $response = null;
         switch($this->type){
             case 'json':
-                pload('pJsonResponse');
-                $response = new pJsonResponse($object);
+                $response = new JsonResponse($object);
                 break;
             case 'jsonp':
-                pload('pJsonResponse');
-                $response = new pJsonResponse($object, $options);
+                $response = new JsonResponse($object, $options);
                 break;
             case 'xml':
-                pload('pXmlResponse');
-                $response = new pXmlResponse($object);
+                $response = new XmlResponse($object);
                 break;
             case 'yaml':
-                pload('pYamlResponse');
-                $response = new pYamlResponse($object);
+                $response = new YamlResponse($object);
                 break;
             default:
-                pload('pPhpSerializeResponse');
-                $response = new pPhpSerializeResponse($object);
+                $response = new PhpSerializeResponse($object);
                 break;
         }
         return $response;
