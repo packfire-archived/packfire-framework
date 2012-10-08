@@ -1,10 +1,12 @@
 <?php
-pload('IEventHandler');
-pload('pObservableEvent');
-pload('pEventObserver');
+namespace Packfire\Event;
+
+use IEventHandler;
+use ObservableEvent;
+use EventObserver;
 
 /**
- * pEventHandler class
+ * EventHandler class
  * 
  * Implementation of the event handler
  *
@@ -14,7 +16,7 @@ pload('pEventObserver');
  * @package packfire.event
  * @since 1.0-elenor
  */
-class pEventHandler implements IEventHandler {
+class EventHandler implements IEventHandler {
     
     /**
      * The events to the event listener
@@ -31,7 +33,7 @@ class pEventHandler implements IEventHandler {
     private $listener;
     
     /**
-     * Create a new pEventHandler object
+     * Create a new EventHandler object
      * @param object $listener The event listener holding this handler
      * @since 1.0-elenor
      */
@@ -48,10 +50,10 @@ class pEventHandler implements IEventHandler {
      */
     public function on($event, $listener){
         if(!array_key_exists($event, $this->events)){
-            $this->events[$event] = new pObservableEvent($this->listener);
+            $this->events[$event] = new ObservableEvent($this->listener);
         }
         if(is_callable($listener)){
-            $listener = new pEventObserver($listener);
+            $listener = new EventObserver($listener);
         }
         $this->events[$event]->attach($listener);
     }

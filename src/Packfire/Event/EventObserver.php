@@ -1,8 +1,10 @@
 <?php
-pload('packfire.core.IObserver');
+namespace Packfire\Event;
+
+use Packfire\Core\IObserver;
 
 /**
- * pEventObserver class
+ * EventObserver class
  * 
  * Implementation for a handler that will run closure or callback observers
  *
@@ -12,7 +14,7 @@ pload('packfire.core.IObserver');
  * @package packfire.event
  * @since 1.0-elenor
  */
-class pEventObserver implements IObserver {
+class EventObserver implements IObserver {
     
     /**
      * The event handler that will receive the notification

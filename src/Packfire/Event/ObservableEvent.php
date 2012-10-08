@@ -1,5 +1,7 @@
 <?php
-pload('packfire.core.pObservable');
+namespace Packfire\Event;
+
+use Packfire\Core\Observable;
 
 /**
  * pObservableEvent class
@@ -12,7 +14,7 @@ pload('packfire.core.pObservable');
  * @package packfire.event
  * @since 1.0-elenor
  */
-class pObservableEvent extends pObservable {
+class ObservableEvent extends Observable {
     
     /**
      * The event listener holding this event handler

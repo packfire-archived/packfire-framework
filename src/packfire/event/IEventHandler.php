@@ -1,5 +1,7 @@
 <?php
-pload('IEventWatchable');
+namespace Packfire\Event;
+
+use IEventWatchable;
 
 /**
  * IEventHandler interface
@@ -9,7 +11,7 @@ pload('IEventWatchable');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.event
+ * @package Packfire\Event
  * @since 1.0-elenor
  */
 interface IEventHandler extends IEventWatchable {
