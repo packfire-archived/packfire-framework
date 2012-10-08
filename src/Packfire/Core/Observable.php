@@ -1,18 +1,20 @@
 <?php
-pload('IObservable');
+namespace Packfire\Core;
+
+use IObservable;
 
 /**
- * pObservable class
+ * Observable class
  * 
  * Concrete Observable implementation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.core
+ * @package Packfire\Core
  * @since 1.0-elenor
  */
-class pObservable implements IObservable {
+class Observable implements IObservable {
     
     /**
      * The observers observing this pObservable

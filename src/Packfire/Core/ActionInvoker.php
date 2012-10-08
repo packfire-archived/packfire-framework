@@ -1,23 +1,25 @@
 <?php
-pload('packfire.collection.pMap');
-pload('packfire.exception.pMissingDependencyException');
+namespace Packfire\Core;
+
+use Packfire\Collection\Map;
+use Packfire\Exception\MissingDependencyException;
 
 if(!class_exists('ReflectionMethod')){
-    throw new pMissingDependencyException('pActionInvoker requires Reflection to be enabled in order to work');
+    throw new MissingDependencyException('pActionInvoker requires Reflection to be enabled in order to work');
 }
 
 /**
- * pActionInvoker class
+ * ActionInvoker class
  * 
  * Invokes a callback with an associative argument array
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.controller
+ * @package Packfire\Core
  * @since 1.1-sofia
  */
-class pActionInvoker {
+class ActionInvoker {
     
     /**
      * The callback to be invoked
@@ -52,7 +54,7 @@ class pActionInvoker {
      * @since 1.1-sofia
      */
     public function invoke($params){
-        if($params instanceof pMap){
+        if($params instanceof Map){
             $params = $params->toArray();
         }
         $invokeParams = array();
