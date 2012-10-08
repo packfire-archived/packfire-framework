@@ -1,17 +1,20 @@
 <?php
+namespace Packfire\Database;
+
+use Packfire\Database\Drivers\MySQL\Connector as MySqlConnector;
 
 /**
- * pDbConnectorFactory
+ * ConnectorFactory class
  * 
  * Creates database connector
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database
+ * @package Packfire\Database
  * @since 1.0-sofia
  */
-class pDbConnectorFactory {
+class ConnectorFactory {
     
     /**
      * Create the database connector based on the configuration provided.
@@ -22,8 +25,7 @@ class pDbConnectorFactory {
     public static function create($config){
         switch($config['driver']){
             case 'mysql':
-                pload('packfire.database.drivers.mysql.pMySqlConnector');
-                return new pMySqlConnector($config);
+                return new MySqlConnector($config);
                 break;
         }
     }

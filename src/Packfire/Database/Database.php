@@ -1,28 +1,29 @@
 <?php
+namespace Packfire\Database;
 
 /**
- * pDatabase abstract class
+ * Database class
  * 
  * Abstraction of a database representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database
+ * @package Packfire\Database
  * @since 1.0-sofia
  */
-abstract class pDatabase {
+abstract class Database {
     
     /**
      * The database connector
-     * @var pDbConnector
+     * @var IConnector
      * @since 1.0-sofia
      */
     protected $driver;
     
     /**
-     * Create a new pDatabase object
-     * @param pDbConnector $driver The connector to access database
+     * Create a new Database object
+     * @param IConnector $driver The connector to access database
      * @since 1.0-sofia
      */
     public function __construct($driver){
@@ -32,7 +33,7 @@ abstract class pDatabase {
     /**
      * Select a schema
      * @param string $schema The schema to work with
-     * @return pDbSchema Returns the selected schema
+     * @return Schema Returns the selected schema
      * @since 1.0-sofia
      */
     public abstract function select($schema);

@@ -1,21 +1,22 @@
 <?php
+namespace Packfire\Database;
 
 /**
- * pDbSchema abstract class
+ * Schema class
  * 
  * Abstraction of a database schema
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database
+ * @package Packfire\Database
  * @since 1.0-sofia
  */
-abstract class pDbSchema {
+abstract class Schema {
     
     /**
      * The database driver
-     * @var pDbConnector
+     * @var IConnector
      * @snce 1.0-sofia
      */
     protected $driver;
@@ -28,8 +29,8 @@ abstract class pDbSchema {
     protected $name;
     
     /**
-     * Create a new pDbSchema
-     * @param pDbConnector $driver The database driver
+     * Create a new Schema object
+     * @param IConnector $driver The database driver
      * @param string $name Name of the schema
      * @since 1.0-sofia
      */
@@ -51,7 +52,7 @@ abstract class pDbSchema {
      * Create a new table in the schema
      * @param string $name The name of the table
      * @param array|IList $columns The list of columns belonging to the table
-     * @return pDbTable Returns the table representation of the newly
+     * @return Table Returns the table representation of the newly
      *                  created table.
      * @since 1.0-sofia
      */
@@ -59,22 +60,22 @@ abstract class pDbSchema {
     
     /**
      * Delete a table from the schema
-     * @param string|pDbTable $table The table to delete
+     * @param string|Table $table The table to delete
      * @since 1.0-sofia
      */
     public abstract function delete($table);
     
     /**
      * Truncate / empty a table
-     * @param string|pDbTable $table The table to empty
+     * @param string|Table $table The table to empty
      * @since 1.0-sofia
      */
     public abstract function truncate($table);
     
     /**
-     * Get a table
+     * Fetch a table representation
      * @param string $table Name of the table to fetch
-     * @return pDbTable Returns the table representation
+     * @return Table Returns the table representation
      * @since 1.0-sofia
      */
     public abstract function table($table);
@@ -82,7 +83,7 @@ abstract class pDbSchema {
     /**
      * Start the LINQ expression from a table
      * @param string $table The table to work with
-     * @return ILinq|IDbLinq Returns the LINQ object to start chaining
+     * @return Packfire\Database\ILinq Returns the LINQ object to start chaining
      * @since 1.0-sofia
      */
     public abstract function from($table);

@@ -1,17 +1,18 @@
 <?php
+namespace Packfire\Database;
 
 /**
- * pDbExpression class
+ * Expression class
  * 
  * A database expression to be inserted directly during binding
  * 
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database
+ * @package Packfire\Database
  * @since 1.0-sofia
  */
-class pDbExpression {
+class Expression {
     
     /**
      * The expression
@@ -21,7 +22,7 @@ class pDbExpression {
     private $expression;
     
     /**
-     * Create a new pDbExpression object
+     * Create a new Expression object
      * @param mixed $expression The expression
      * @since 1.0-sofia
      */

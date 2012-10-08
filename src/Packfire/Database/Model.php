@@ -1,20 +1,22 @@
 <?php
-pload('IDbModel');
-pload('packfire.model.pModel');
-pload('packfire.collection.pMap');
+namespace Packfire\Database;
+
+use IModel;
+use Packfire\Model\Model as CoreModel;
+use Packfire\Collection\Map;
 
 /**
- * pDbModel abstract class
+ * Model class
  * 
  * A generic abstract implementation for database models
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database
+ * @package Packfire\Database
  * @since 1.0-sofia
  */
-abstract class pDbModel extends pModel implements IDbModel {
+abstract class Model extends CoreModel implements IModel {
     
     /**
      * Get name of the model in the database 
@@ -31,7 +33,7 @@ abstract class pDbModel extends pModel implements IDbModel {
      * @since 1.0-sofia
      */
     public function map(){
-        $map = new pMap();
+        $map = new Map();
         $properties = array_keys(get_object_vars($this));
         foreach($properties as $key){
             $map->add($key, $key);

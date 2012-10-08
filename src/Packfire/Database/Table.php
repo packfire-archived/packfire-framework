@@ -1,22 +1,22 @@
 <?php
-pload('packfire.collection.pMap');
+namespace Packfire\Database;
 
 /**
- * pDbTable abstract class
+ * Table class
  * 
  * Abstraction of a database table
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database
+ * @package Packfire\Database
  * @since 1.0-sofia
  */
-abstract class pDbTable {
+abstract class Table {
     
     /**
      * The database connector
-     * @var pDbConnector
+     * @var IConnector
      * @since 1.0-sofia
      */
     protected $driver;
@@ -30,7 +30,7 @@ abstract class pDbTable {
     
     /**
      * Create a new pDbTable object
-     * @param pDbConnector $driver The connector
+     * @param IConnector $driver The connector
      * @param string $name The name of the table 
      * @since 1.0-sofia
      */
@@ -49,28 +49,28 @@ abstract class pDbTable {
 
     /**
      * Add a column to the table
-     * @param pDbColumn $column The new column to add to the table
+     * @param Column $column The new column to add to the table
      * @since 1.0-sofia
      */    
     public abstract function add($column);
     
     /**
      * Remove a column from the table
-     * @param string|pDbColumn $column The column to remove
+     * @param string|Column $column The column to remove
      * @since 1.0-sofia
      */
     public abstract function remove($column);
     
     /**
      * Insert a row into the table
-     * @param array|pMap $row The row to insert into the table
+     * @param array|Map $row The row to insert into the table
      * @since 1.0-sofia
      */
     public abstract function insert($row);
     
     /**
      * Get a row from the table by its primary keys
-     * @param array|pMap $row The row's primary keys
+     * @param array|Map $row The row's primary keys
      * @return array
      * @since 1.0-sofia
      */
@@ -78,7 +78,7 @@ abstract class pDbTable {
     
     /**
      * Delete rows from the table
-     * @param array|pMap $row (optional) The conditions to delete the rows. If
+     * @param array|Map $row (optional) The conditions to delete the rows. If
      *          this is not specified, all rows from the table will be deleted.
      * @since 1.0-sofia
      */
@@ -86,23 +86,23 @@ abstract class pDbTable {
     
     /**
      * Update a row in the table
-     * @param array|pMap $row The updated information. Primary key should be
+     * @param array|Map $row The updated information. Primary key should be
      *           included here if $where is not set.
-     * @param array|pMap $where (optional) The conditions to update the rows
+     * @param array|Map $where (optional) The conditions to update the rows
      * @since 1.0-sofia
      */
     public abstract function update($row, $where = null);
         
     /**
      * Get the columns of the table
-     * @return pList Returns a list of pDbColumn objects
+     * @return ArrayList Returns a list of Column objects
      * @since 1.0-sofia
      */
     public abstract function columns();
         
     /**
      * Get the list of primary keys of the table
-     * @return pList Returns a list of pDbColumn objects
+     * @return ArrayList Returns a list of Column objects
      * @since 1.0-sofia
      */
     public abstract function pk();

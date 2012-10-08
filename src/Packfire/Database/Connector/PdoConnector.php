@@ -1,24 +1,27 @@
 <?php
-pload('packfire.database.IDbConnector');
-pload('packfire.ioc.pBucketUser');
-pload('packfire.exception.pMissingDependencyException');
+namespace Packfire\Database\Connector;
+
+use Packfire\Database\IConnector;
+use Packfire\IoC\BucketUser;
+use Packfire\Exception\MissingDependencyException;
+use Packfire\Database\Expression;
 
 if(!class_exists('PDO')){
-    throw new pMissingDependencyException('pPdoConnector requires the PDO extension in order to run properly.');
+    throw new MissingDependencyException('pPdoConnector requires the PDO extension in order to run properly.');
 }
 
 /**
- * pPdoConnector class
+ * PdoConnector class
  * 
  * A connector that helps to connect to the database
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database
+ * @package Packfire\Database\Connector
  * @since 1.0-sofia
  */
-abstract class pPdoConnector extends pBucketUser implements IDbConnector {
+abstract class PdoConnector extends BucketUser implements IConnector {
     
     /**
      * The PDO object
@@ -64,7 +67,7 @@ abstract class pPdoConnector extends pBucketUser implements IDbConnector {
     public function binder($query, $params = array()){
         $values = array();
         foreach($params as $name => $value){
-            if($value instanceof pDbExpression){
+            if($value instanceof Expression){
                 if(substr($name, 0, 1) != ':'){
                     $name = ':' . $name;
                 }
