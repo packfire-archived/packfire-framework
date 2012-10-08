@@ -1,7 +1,8 @@
 <?php
-pload('packfire.application.http.pHttpAppResponse');
-pload('packfire.data.serialization.pJsonSerializer');
-pload('IResponseFormat');
+
+use Packfire\Application\Http\Response as HttpResponse;
+use Packfire\Data\Serialization\JsonSerializer;
+use IResponseFormat;
 
 /**
  * pJsonResponse class
@@ -14,10 +15,10 @@ pload('IResponseFormat');
  * @package packfire.response
  * @since 1.0-sofia
  */
-class pJsonResponse extends pHttpAppResponse implements IResponseFormat {
+class JsonResponse extends HttpResponse implements IResponseFormat {
     
     /**
-     * Create a new pJsonResponse object
+     * Create a new JsonResponse object
      * @param mixed $object The JSON object that will be responded to the
      *                      client with
      * @param string $callback (optional) The callback for JSONP calls
@@ -25,7 +26,7 @@ class pJsonResponse extends pHttpAppResponse implements IResponseFormat {
      */
     public function __construct($object, $callback = null){
         parent::__construct();
-        $serializer = new pJsonSerializer();
+        $serializer = new JsonSerializer();
         if($callback){
             $this->headers()->add('Content-Type', 'text/javascript');
             $this->body($callback . '(' . $serializer->serialize($object) . ')');

@@ -1,10 +1,11 @@
 <?php
-pload('packfire.application.http.pHttpAppResponse');
-pload('packfire.data.serialization.pXmlSerializer');
-pload('IResponseFormat');
+
+use Packfire\Application\Http\Response as HttpResponse;
+use Packfire\Data\Serialization\XmlSerializer;
+use IResponseFormat;
 
 /**
- * pXmlResponse class
+ * XmlResponse class
  * 
  * Provides an XML response to the client
  *
@@ -14,7 +15,7 @@ pload('IResponseFormat');
  * @package packfire.response
  * @since 1.0-sofia
  */
-class pXmlResponse extends pHttpAppResponse implements IResponseFormat {
+class XmlResponse extends HttpResponse implements IResponseFormat {
     
     /**
      * Create a new pXmlResponse object
@@ -28,7 +29,7 @@ class pXmlResponse extends pHttpAppResponse implements IResponseFormat {
         if(is_string($object)){ // probably already encoded
             $this->body($object); 
         }else{
-            $serializer = new pXmlSerializer();
+            $serializer = new XmlSerializer();
             $this->body('<?xml version="1.0" encoding="UTF-8" ?>'
                     . "\n" . $serializer->serialize($object));
         }

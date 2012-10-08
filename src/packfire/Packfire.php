@@ -36,14 +36,16 @@ define('__PACKFIRE_VERSION__', '1.1-sofia');
 // load the helper file
 require(__PACKFIRE_ROOT__ . 'helper.php');
 
-pload('packfire.net.http.pHttpClient');
-pload('packfire.application.cli.pCliAppRequest');
-pload('packfire.application.http.pHttpAppRequest');
-pload('packfire.io.file.pFileStream');
-pload('packfire.datetime.pDateTime');
-pload('packfire.exception.pErrorException');
+use Packfire\Net\Http\Client as HttpClient;
+use Packfire\Application\Cli\Request as CliRequest;
+use Packfire\Application\Cli\Response as CliResponse;
+use Packfire\Application\Http\Request as HttpRequest;
+use Packfire\Application\Http\Response as HttpResponse;
+use Packfire\IO\File\FileStream;
+use Packfire\DateTime\DateTime;
+use Packfire\Exception\ErrorException;
 
-define('__PACKFIRE_START__', pDateTime::microtime());
+define('__PACKFIRE_START__', DateTime::microtime());
 
 /**
  * Provides functionality to boot the application
@@ -59,7 +61,7 @@ class Packfire {
      */
     public function fire($app){
         set_error_handler(function($errno, $errstr, $errfile, $errline){
-            $e = new pErrorException($errstr);
+            $e = new ErrorException($errstr);
             $e->setCode($errno);
             $e->setLine($errline);
             $e->setFile($errfile);
@@ -67,36 +69,32 @@ class Packfire {
         });
         set_exception_handler(array($app, 'handleException'));
         $request = $this->loadRequest();
-        try{
-            $response = $app->receive($request);
-            $this->processResponse($response);
-        }catch(Exception $exception){
-            throw $exception;
-        }
+        $response = $app->receive($request);
+        $this->processResponse($response);
     }
     
     /**
      * Prepare and load the client request
-     * @return pHttpClientRequest The client's request
+     * @return IAppRequest The client's request
      * @since 1.0-sofia
      */
     private function loadRequest(){
         if(php_sapi_name() == "cli") {
-            $request = new pCliAppRequest();
+            $request = new CliRequest();
         }else{
             $agent = null;
             if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){
                 $agent = $_SERVER['HTTP_USER_AGENT'];
             }
-            $client = new pHttpClient($_SERVER['REMOTE_ADDR'], $agent);
-            $request = new pHttpAppRequest($client, $_SERVER);
+            $client = new HttpClient($_SERVER['REMOTE_ADDR'], $agent);
+            $request = new HttpRequest($client, $_SERVER);
 
             $request->method($_SERVER['REQUEST_METHOD']);
             $request->uri($_SERVER['REQUEST_URI']);
             $request->version($_SERVER['SERVER_PROTOCOL']);
             // changed to stream to prevent Denial Of Service
-            $request->body(new pFileStream('php://input'));
-            $request->time(pDateTime::fromTimestamp($_SERVER['REQUEST_TIME']));
+            $request->body(new FileStream('php://input'));
+            $request->time(DateTime::fromTimestamp($_SERVER['REQUEST_TIME']));
             if(array_key_exists('HTTP_HOST', $_SERVER)){
                 $request->headers()->add('Host', $_SERVER['HTTP_HOST'], true);
             }
@@ -148,7 +146,7 @@ class Packfire {
      * @since 1.0-sofia
      */
     public function processResponse($response){
-        if($response instanceof pHttpResponse){
+        if($response instanceof HttpResponse){
             header($response->version() . ' ' . $response->code());
             foreach($response->headers() as $key => $value){
                 header($key . ': ' . $value);
@@ -157,7 +155,7 @@ class Packfire {
                 $cookie->set();
             }
             echo $response->output();
-        }elseif($response instanceof pCliAppResponse){
+        }elseif($response instanceof CliResponse){
             exit($response->output());
         }
     }

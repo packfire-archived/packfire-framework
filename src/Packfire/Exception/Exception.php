@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Exception;
 
-use Packfire\Net\Http\HttpResponseCode;
+use Packfire\Net\Http\ResponseCode;
 
 /**
  * A generic exception
@@ -14,7 +14,7 @@ use Packfire\Net\Http\HttpResponseCode;
  */
 class pException extends Exception {
     
-    protected $responseCode = HttpResponseCode::HTTP_503;
+    protected $responseCode = ResponseCode::HTTP_503;
     
     public function __construct($message, $code = null) {
         if (!headers_sent()) { // takes care HTTP or not

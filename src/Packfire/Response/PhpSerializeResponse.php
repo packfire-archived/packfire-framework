@@ -1,9 +1,10 @@
 <?php
-pload('IResponseFormat');
-pload('packfire.application.http.pHttpAppResponse');
+
+use Packfire\Application\Http\Response as HttpResponse;
+use IResponseFormat;
 
 /**
- * pPhpSerializeResponse class
+ * PhpSerializeResponse class
  * 
  * A response that serializes the object
  *
@@ -13,10 +14,10 @@ pload('packfire.application.http.pHttpAppResponse');
  * @package packfire.response
  * @since 1.1-sofia
  */
-class pPhpSerializeResponse extends pHttpAppResponse implements IResponseFormat {
+class PhpSerializeResponse extends HttpResponse implements IResponseFormat {
     
     /**
-     * Create a new pPhpSerializeResponse object
+     * Create a new PhpSerializeResponse object
      * @param mixed $object The object that will be encoded and sent to the
      *                      client
      * @since 1.1-sofia

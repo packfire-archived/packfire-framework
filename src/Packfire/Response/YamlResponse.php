@@ -1,11 +1,12 @@
 <?php
-pload('packfire.application.http.pHttpAppResponse');
-pload('packfire.yaml.pYamlWriter');
-pload('packfire.text.pTextStream');
-pload('IResponseFormat');
+
+use Packfire\Application\Http\Response as HttpResponse;
+use Packfire\Yaml\YamlWriter;
+use Packfire\Text\TextStream;
+use IResponseFormat;
 
 /**
- * pYamlResponse class
+ * YamlResponse class
  * 
  * A response class that returns YAML format
  *
@@ -15,10 +16,10 @@ pload('IResponseFormat');
  * @package packfire.response
  * @since 1.1-sofia
  */
-class pYamlResponse extends pHttpAppResponse implements IResponseFormat {
+class YamlResponse extends HttpResponse implements IResponseFormat {
     
     /**
-     * Create a new pJsonResponse object
+     * Create a new YamlResponse object
      * @param mixed $object The array or object that will be responded to the
      *                      client with
      * @since 1.1-sofia
@@ -29,8 +30,8 @@ class pYamlResponse extends pHttpAppResponse implements IResponseFormat {
         if(is_string($object)){ // probably already encoded
             $this->body($object); 
         }else{
-            $textStream = new pTextStream();
-            $writer = new pYamlWriter($textStream);
+            $textStream = new TextStream();
+            $writer = new YamlWriter($textStream);
             if(is_object($object)){
                 $object = (array)$object;
             }

@@ -1,9 +1,10 @@
 <?php
-pload('packfire.application.http.pHttpAppResponse');
-pload('packfire.net.http.pHttpResponseCode');
+
+use Packfire\Application\Http\Response as HttpResponse;
+use Packfire\Net\Http\ResponseCode;
 
 /**
- * pRedirectResponse class
+ * RedirectResponse class
  * 
  * A response that indicates that the browser should redirect to another URL.
  *
@@ -13,7 +14,7 @@ pload('packfire.net.http.pHttpResponseCode');
  * @package packfire.response
  * @since 1.0-sofia
  */
-class pRedirectResponse extends pHttpAppResponse {
+class RedirectResponse extends HttpResponse {
     
     /**
      * Create a new pRedirectResponse object
@@ -22,7 +23,7 @@ class pRedirectResponse extends pHttpAppResponse {
      *                      Defaults to pHttpResponseCode::HTTP_302.
      * @since 1.0-sofia
      */
-    public function __construct($url, $code = pHttpResponseCode::HTTP_302){
+    public function __construct($url, $code = ResponseCode::HTTP_302){
         parent::__construct();
         $this->code($code);
         $this->headers()->add('Location', (string)$url);

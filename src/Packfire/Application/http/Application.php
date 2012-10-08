@@ -4,13 +4,15 @@ namespace Packfire\Application\Http;
 use Packfire\Application\ServiceApplication;
 use Response;
 use ServiceBucket;
-pload('packfire.exception.pHttpException');
-pload('packfire.exception.pMissingDependencyException');
-pload('packfire.controller.pControllerInvoker');
-pload('packfire.response.pRedirectResponse');
+use Packfire\Exception\HttpException;
+use Packfire\Exception\MissingDependencyException;
+use Packfire\Controller\ControllerInvoker;
+use Packfire\Response\RedirectResponse;
+use Packfire\Route\Http\RedirectRoute;
+use Packfire\Net\Http\Method;
 
 /**
- * pApplication class
+ * Application class
  * 
  * The default web serving application class
  *
@@ -61,13 +63,13 @@ class Application extends ServiceApplication {
         $router = $this->service('router');
         /* @var $router pRouter */
         if(!$router){
-            throw new pMissingDependencyException('Router service missing.');
+            throw new MissingDependencyException('Router service missing.');
         }
         $router->load();
         
         /* @var $route pRoute */
         $route = null;
-        if($request->method() == pHttpMethod::GET 
+        if($request->method() == HttpMethod::GET 
                 && $this->service('config.app')
                 && $this->service('config.app')->get('routing', 'caching')){
             $cache = $this->service('cache');
@@ -88,8 +90,8 @@ class Application extends ServiceApplication {
             $route = $router->route($request);
         }
         
-        if($route instanceof pRedirectRoute){
-            $response = new pRedirectResponse($route->redirect(), $route->code());
+        if($route instanceof RedirectRoute){
+            $response = new RedirectResponse($route->redirect(), $route->code());
         }elseif($route){
             if(is_string($route->actual()) && strpos($route->actual(), ':')){
                 list($class, $action) = explode(':', $route->actual());
@@ -101,16 +103,16 @@ class Application extends ServiceApplication {
             if($route->name() == 'packfire.directControllerAccess'){
                 $caLoader = $this->directAccessProcessor($request, $route, $response);
             }else{
-                $caLoader = new pControllerInvoker($class, $action, $request, $route, $response);
+                $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
             }
             $caLoader->copyBucket($this);
             if($caLoader->load()){
                 $response = $caLoader->response();
             }else{
-                throw new pHttpException(404);
+                throw new HttpException(404);
             }
         }else{
-            throw new pHttpException(404);
+            throw new HttpException(404);
         }
 
         return $response;
@@ -149,7 +151,7 @@ class Application extends ServiceApplication {
         $action = $route->params()->get('action');
         $route->params()->removeAt('class');
         $route->params()->removeAt('action');
-        $caLoader = new pControllerInvoker(ucfirst($class), $action, $request, $route, $response);
+        $caLoader = new ControllerInvoker(ucfirst($class), $action, $request, $route, $response);
         return $caLoader;
     }
     

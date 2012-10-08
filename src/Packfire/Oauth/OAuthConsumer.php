@@ -1,4 +1,7 @@
 <?php
+
+use Packfire\Net\Http\Server as HttpServer;
+use Packfire\Net\Http\Url;
 pload('packfire.net.http.pHttpServer');
 pload('pOAuth');
 pload('pOAuthRequest');
@@ -114,16 +117,16 @@ class pOAuthConsumer {
     
     /**
      * Request the service provider for a request token
-     * @param pUrl|string $url The URL of the end point to request the
+     * @param Url|string $url The URL of the end point to request the
      *                  request token from.
      * @return pOAuthToken Returns the token provided by the service provider
      * @since 1.1-sofia
      */
     public function requestTokenRequest($url){
-        if(!($url instanceof pUrl)){
-            $url = new pUrl($url);
+        if(!($url instanceof Url)){
+            $url = new Url($url);
         }
-        $server = new pHttpServer($url->host(), $url->port());
+        $server = new HttpServer($url->host(), $url->port());
         $request = $this->createRequest();
         $request->get()->append($url->params());
         $request->headers()->add('Host',
@@ -139,16 +142,16 @@ class pOAuthConsumer {
     
     /**
      * Request the service provider for an access token
-     * @param pUrl|string $url The URL of the end point to request the
+     * @param Url|string $url The URL of the end point to request the
      *                  access token from.
      * @return pOAuthToken Returns the token provided by the service provider
      * @since 1.1-sofia
      */
     public function accessTokenRequest($url, $requestToken, $verifier = null){
-        if(!($url instanceof pUrl)){
-            $url = new pUrl($url);
+        if(!($url instanceof Url)){
+            $url = new Url($url);
         }
-        $server = new pHttpServer($url->host(), $url->port());
+        $server = new HttpServer($url->host(), $url->port());
         $request = $this->createRequest();
         $request->get()->append($url->params());
         $request->headers()->add('Host',
@@ -169,16 +172,16 @@ class pOAuthConsumer {
     /**
      * Access the resources securely with an access token granted by the 
      *      service provider.
-     * @param pUrl|string $url The URL to access the server resources
+     * @param Url|string $url The URL to access the server resources
      * @param pOAuthToken|string $accessToken The access token
      * @return pOAuthResponse The response from the server
      * @since 1.1-sofia
      */
     public function accessResource($url, $accessToken){
-        if(!($url instanceof pUrl)){
-            $url = new pUrl($url);
+        if(!($url instanceof Url)){
+            $url = new Url($url);
         }
-        $server = new pHttpServer($url->host(), $url->port());
+        $server = new HttpServer($url->host(), $url->port());
         $request = $this->createRequest();
         $request->get()->append($url->params());
         $request->headers()->add('Host',

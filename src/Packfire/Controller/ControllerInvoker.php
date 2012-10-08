@@ -36,7 +36,7 @@ class ControllerInvoker extends BucketUser {
     
     /**
      * The request from the client
-     * @var pHttpClientRequest
+     * @var ClientRequest
      * @since 1.0-sofia
      */
     private $request;
@@ -60,7 +60,7 @@ class ControllerInvoker extends BucketUser {
      * @param string $package The package to load the class
      * @param string $action The action to be loaded
      * @param IAppRequest $request The application request to load with
-     * @param pRoute $route The route that was called
+     * @param Route $route The route that was called
      * @param IAppResponse $response The response object
      * @since 1.0-sofia
      */

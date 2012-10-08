@@ -2,7 +2,7 @@
 namespace Packfire\Application\Http;
 
 use Packfire\Application\IAppResponse;
-pload('packfire.net.http.pHttpResponse');
+use Packfire\Net\Http\Response as HttpResponse;
 
 /**
  * Response class
@@ -15,7 +15,7 @@ pload('packfire.net.http.pHttpResponse');
  * @package Packfire\Application\Http
  * @since 1.0-sofia
  */
-class Response extends pHttpResponse implements IAppResponse {
+class Response extends HttpResponse implements IAppResponse {
     
     public function output(){
         return $this->body();

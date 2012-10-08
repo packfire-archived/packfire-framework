@@ -8,8 +8,8 @@ use Packfire\IoC\BucketUser;
 use Packfire\Exception\HttpException;
 use Packfire\Exception\AuthenticationException;
 use Packfire\Exception\AuthorizationException;
-use Packfire\Net\Http\HttpRequest;
-use Packfire\Net\Http\HttpResponse;
+use Packfire\Net\Http\Request as HttpRequest;
+use Packfire\Net\Http\Response as HttpResponse;
 use Packfire\Core\ActionInvoker;
 
 /**
@@ -120,7 +120,7 @@ abstract class Controller extends BucketUser {
      * Create and prepare a redirect to another URL
      * @param string $url The URL to route to
      * @param string $code (optional) The HTTP code. Defaults to "302 Found". 
-     *                     Use constants from pHttpResponseCode
+     *                     Use constants from Packfire\Net\Http\ResponseCode
      * @since 1.0-sofia
      */
     protected function redirect($url, $code = null){

@@ -2,7 +2,8 @@
 namespace Packfire\Application\Http;
 
 use Packfire\Application\IAppRequest;
-pload('packfire.net.http.pHttpClientRequest');
+use Packfire\Net\Http\ClientRequest;
+use Packfire\Net\Http\Method as HttpMethod;
 
 /**
  * Request class
@@ -15,7 +16,7 @@ pload('packfire.net.http.pHttpClientRequest');
  * @package Packfire\Application\Http
  * @since 1.0-elenor
  */
-class Request extends pHttpClientRequest implements IAppRequest {
+class Request extends ClientRequest implements IAppRequest {
     
     /**
      * The script name called
@@ -39,8 +40,8 @@ class Request extends pHttpClientRequest implements IAppRequest {
     private $pathInfo;
     
     /**
-     * Create a new pPhpHttpRequest
-     * @param pHttpClient $client The client making the request
+     * Create a new Request object
+     * @param Client $client The client making the request
      * @param array $server The $_SERVER variables to pass in
      * @since 1.0-elenor
      */
@@ -71,7 +72,7 @@ class Request extends pHttpClientRequest implements IAppRequest {
     public function params(){
         $result = new Map();
         $result->append($this->get());
-        if($this->method() == pHttpMethod::POST){
+        if($this->method() == HttpMethod::POST){
             $result->append($this->post());
         }
         return $result;

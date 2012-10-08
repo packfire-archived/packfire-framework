@@ -1,11 +1,12 @@
 <?php
 namespace Packfire\Application\Http;
 
-pload('packfire.ioc.pBucketLoader');
-pload('packfire.session.pSessionLoader');
-pload('packfire.config.framework.pHttpRouterConfig');
-pload('packfire.routing.http.pHttpRouter');
-pload('packfire.exception.handler.pHttpExceptionHandler');
+use Packfire\Ioc\BucketLoader;
+use Packfire\Session\Loader as SessionLoader;
+use Packfire\Config\Framework\HttpRouterConfig;
+use Packfire\Exception\Handler\HttpHandler as HttpExceptionHandler;
+use Packfire\Debugger\Debugger;
+use Packfire\Route\Http\Router as HttpRouter;
 
 /**
  * ServiceBucket class
@@ -18,7 +19,7 @@ pload('packfire.exception.handler.pHttpExceptionHandler');
  * @package Packfire\Application\Http
  * @since 1.0-sofia
  */
-class ServiceBucket extends pBucketLoader {
+class ServiceBucket extends BucketLoader {
     
     /**
      * Perform loading
@@ -26,17 +27,17 @@ class ServiceBucket extends pBucketLoader {
      */
     public function load(){
         if(!$this->contains('exception.handler')){
-            $this->put('exception.handler', new pHttpExceptionHandler());
+            $this->put('exception.handler', new HttpExceptionHandler());
         }
-        $this->put('config.routing', array(new pHttpRouterConfig(), 'load'));
-        $this->put('router', new pHttpRouter());
+        $this->put('config.routing', array(new HttpRouterConfig(), 'load'));
+        $this->put('router', new HttpRouter());
         if($this->pick('config.app')){
             // load the debugger
-            $this->put('debugger', new pDebugger());
+            $this->put('debugger', new Debugger());
             $this->pick('debugger')->enabled($this->pick('config.app')->get('app', 'debug'));
             if($this->pick('config.app')->get('session', 'enabled')){
                 // load the session
-                $sessionLoader = new pSessionLoader($this);
+                $sessionLoader = new SessionLoader($this);
                 $sessionLoader->load();
             }
         }

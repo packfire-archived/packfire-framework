@@ -3,7 +3,7 @@ pload('pOAuthSignature');
 pload('pOAuthResponse');
 pload('pOAuth');
 pload('pOAuthException');
-pload('packfire.net.http.pHttpRequest');
+use Packfire\Net\Http\Request as HttpRequest;
 pload('pOAuthRequest');
 
 /**
@@ -120,13 +120,13 @@ class pOAuthProvider extends pBucketUser {
     
     /**
      * Grant the client a request token based on the request made by the client.
-     * @param pHttpRequest $request The request made by the client
+     * @param HttpRequest $request The request made by the client
      * @return pOAuthResponse Returns the OAuth HTTP response if request token is granted.
      * @throws pOAuthException Thrown when the request fails any of the OAuth standard verification.
      * @since 1.1-sofia
      */
     public function grantRequestToken($request){
-        if($request instanceof pHttpRequest && !($request instanceof pOAuthRequest)){
+        if($request instanceof HttpRequest && !($request instanceof pOAuthRequest)){
             $reloaded = new pOAuthRequest();
             $reloaded->preload($request);
             $request = $reloaded;
@@ -148,14 +148,14 @@ class pOAuthProvider extends pBucketUser {
     
     /**
      * Grant the client an access token based on the request made by the client.
-     * @param pHttpRequest $request The request made by the client
+     * @param HttpRequest $request The request made by the client
      * @param string $verifier (optional) Set a verifier to the access token for checking later.
      * @return pOAuthResponse Returns the OAuth HTTP response if access token is granted.
      * @throws pOAuthException Thrown when the request fails any of the OAuth standard verification.
      * @since 1.1-sofia
      */
     public function grantAccessToken($request, $verifier = null){
-        if($request instanceof pHttpRequest && !($request instanceof pOAuthRequest)){
+        if($request instanceof HttpRequest && !($request instanceof pOAuthRequest)){
             $reloaded = new pOAuthRequest();
             $reloaded->preload($request);
             $request = $reloaded;
@@ -185,13 +185,13 @@ class pOAuthProvider extends pBucketUser {
     
     /**
      * Verify if a request made to a protected resource is valid.
-     * @param pHttpRequest $request The request made by the client
+     * @param HttpRequest $request The request made by the client
      * @return pOAuthRequest Returns the OAuth request processed and verified.
      * @throws pOAuthException Thrown when the request fails any of the OAuth standard verification.
      * @since 1.1-sofia
      */
     public function verify($request){
-        if($request instanceof pHttpRequest && !($request instanceof pOAuthRequest)){
+        if($request instanceof HttpRequest && !($request instanceof pOAuthRequest)){
             $reloaded = new pOAuthRequest();
             $reloaded->preload($request);
             $request = $reloaded;

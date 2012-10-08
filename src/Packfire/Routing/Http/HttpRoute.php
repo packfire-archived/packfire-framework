@@ -1,8 +1,9 @@
 <?php
-pload('packfire.routing.pRoute');
-pload('packfire.net.http.pHttpMethod');
-pload('packfire.template.pTemplate');
-pload('packfire.collection.pMap');
+
+use Packfire\Route\Route;
+use Packfire\Net\Http\Method as HttpMethod;
+use Packfire\Collection\Map;
+use Packfire\Template\Template;
 
 /**
  * pHttpRoute class
@@ -15,14 +16,14 @@ pload('packfire.collection.pMap');
  * @package packfire.routing.http
  * @since 1.0-elenor
  */
-class pHttpRoute extends pRoute {
+class HttpRoute extends Route {
     
     /**
      * The HTTP method that this URL route will cater for. Defaults to GET.
      * @var string|pList|array
      * @since 1.0-elenor
      */
-    protected $httpMethod = pHttpMethod::GET;
+    protected $httpMethod = HttpMethod::GET;
 
     /**
      * The rewritten relative-to-host URL
@@ -32,7 +33,7 @@ class pHttpRoute extends pRoute {
     protected $rewrite;
 
     /**
-     * Create a new pHttpRoute object
+     * Create a new HttpRoute object
      * @param string $name The name of the route
      * @param array|Map $data The configuration data entry
      * @since 1.0-elenor
@@ -95,7 +96,7 @@ class pHttpRoute extends pRoute {
     
     /**
      * Check whether the route matches the request
-     * @param pHttpAppRequest $request The locator requested by the client
+     * @param \Packfire\Net\Http\Request $request The locator requested by the client
      * @return boolean Returns true if the route matches, false otherwise
      * @since 1.0-elenor 
      */
@@ -111,7 +112,7 @@ class pHttpRoute extends pRoute {
                 || (is_array($this->httpMethod)
                 && in_array(strtolower($method), $this->httpMethod))){
             if($this->params){
-                $template = new pTemplate($this->rewrite);
+                $template = new Template($this->rewrite);
                 $tokens = $template->tokens();
                 foreach ($tokens as $token) {
                     $template->fields()->add($token,

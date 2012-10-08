@@ -1,11 +1,14 @@
 <?php
-pload('packfire.net.http.pHttpRequest');
-pload('packfire.net.http.pHttpMethod');
+use Packfire\Net\Http\Request as HttpRequest;
+use Packfire\Net\Http\Method as HttpMethod;
+use Packfire\DateTime\DateTime;
+use Packfire\Collection\Map;
+use Packfire\Exception\MissingDependencyException;
+use Packfire\Exception\InvalidArgumentException;
 pload('pOAuth');
 pload('pOAuthHelper');
 pload('pOAuthSignature');
 pload('IOAuthHttpEntity');
-pload('packfire.collection.pMap');
 
 /**
  * pOAuthRequest class
@@ -18,7 +21,7 @@ pload('packfire.collection.pMap');
  * @package packfire.oauth.request
  * @since 1.1-sofia
  */
-class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
+class pOAuthRequest extends HttpRequest implements IOAuthHttpEntity {
     
     /**
      * The OAuth parameters
@@ -39,7 +42,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
     
     /**
      * Preload the OAuth request from another HTTP request
-     * @param pHttpRequest $request The request to load data from
+     * @param HttpRequest $request The request to load data from
      * @since 1.1-sofia
      */
     public function preload($request){
@@ -49,8 +52,8 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
         $this->cookies = new Map($request->cookies);
         $this->https = $request->https;
         $this->version = $request->version;
-        if($request->time instanceof pDateTime){
-            $this->time = pDateTime::fromTimestamp($request->time->toTimestamp());
+        if($request->time instanceof DateTime){
+            $this->time = DateTime::fromTimestamp($request->time->toTimestamp());
         }
         $this->uri = $request->uri;
         $this->method = $request->method;
@@ -90,7 +93,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
                 $this->oauthParams->add($key, $value);
             }
         }
-        if($this->method == pHttpMethod::POST){
+        if($this->method == HttpMethod::POST){
             foreach($this->post as $key => $value){
                 if(substr($key, 0, 5) == 'oauth'){
                     $this->oauthParams->add($key, $value);
@@ -128,7 +131,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
         // Grab all parameters
         $params = new Map($this->get);
         
-        if(!$this->method() == pHttpMethod::POST){
+        if(!$this->method() == HttpMethod::POST){
             $params->append($this->post);
         }
         
@@ -199,11 +202,11 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
     public function sign($method, $consumer, $tokenSecret = null){
         try{
             $sigMethod = pOAuthSignature::load($method);
-        }catch(pMissingDependencyException $ex){
+        }catch(MissingDependencyException $ex){
         
         }
         if(!$sigMethod){
-            throw new pInvalidArgumentException(
+            throw new InvalidArgumentException(
                     'pOAuthRequest::sign',
                     'method',
                     'the name of a valid OAuth signature method',

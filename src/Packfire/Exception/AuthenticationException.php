@@ -2,7 +2,7 @@
 namespace Packfire\Exception;
 
 use Exception;
-use Packfire\Net\Http\HttpResponseCode;
+use Packfire\Net\Http\ResponseCode;
 
 /**
  * AuthenticationException class
@@ -18,7 +18,7 @@ use Packfire\Net\Http\HttpResponseCode;
 class AuthenticationException extends Exception {
     
     public function __construct($message, $code = null) {
-        $this->responseCode = HttpResponseCode::HTTP_403;
+        $this->responseCode = ResponseCode::HTTP_403;
         parent::__construct($message, $code);
     }
     

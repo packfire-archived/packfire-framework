@@ -16,7 +16,7 @@ interface IApplication {
     
     /**
      * Receive a request, process, and respond.
-     * @param pHttpClientRequest $request The request made
+     * @param ClientRequest $request The request made
      * @return IAppResponse Returns the response
      * @since 1.0-sofia
      */
