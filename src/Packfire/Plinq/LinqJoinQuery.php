@@ -41,7 +41,7 @@ class pLinqJoinQuery implements ILinqQuery {
     public function run($collection) {
         $result = array();
         
-        $outerKeyCache = new pMap();
+        $outerKeyCache = new Map();
         foreach($this->joinCollection as $k => $joinElement){
             $outerKey = call_user_func($this->outerKeySelector, $joinElement);
             $outerKeyCache->add($k, $outerKey);

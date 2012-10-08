@@ -21,8 +21,8 @@ pload('packfire.exception.pInvalidRequestException');
 class Map extends ArrayList implements IMap {
     
     /**
-     * Create a new pMap object
-     * @param pMap|array $initialize (optional) If an initializing array or
+     * Create a new Map object
+     * @param Map|array $initialize (optional) If an initializing array or
      *                                list is set, the list will be populated
      *                                with the items.
      * @since 1.0-sofia
@@ -169,7 +169,7 @@ class Map extends ArrayList implements IMap {
     /**
      * Get the intersection of this list and another ($set).
      * @param IList|array $set The list to intersect
-     * @return pMap Returns a list that is the result of the set intersect operation.
+     * @return Map Returns a list that is the result of the set intersect operation.
      * @since 1.0-sofia
      */
     public function intersect($set) {

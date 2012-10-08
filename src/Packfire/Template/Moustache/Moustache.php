@@ -54,7 +54,7 @@ class pMoustache {
     
     /**
      * The partials to be included
-     * @var array|pMap
+     * @var array|Map
      * @since 1.0-sofia
      */
     protected $partials;

@@ -19,7 +19,7 @@ class pOAuthResponse extends pHttpResponse implements IOAuthHttpEntity, IAppResp
 
     /**
      * The OAuth parameters
-     * @var pMap
+     * @var Map
      * @since 1.1-sofia
      */
     private $oauthParams;
@@ -30,7 +30,7 @@ class pOAuthResponse extends pHttpResponse implements IOAuthHttpEntity, IAppResp
      */
     public function __construct() {
         parent::__construct();
-        $this->oauthParams = new pMap();
+        $this->oauthParams = new Map();
         $this->headers->add('Content-Type', 'text/plain');
     }
     

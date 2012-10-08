@@ -51,7 +51,7 @@ class pOAuthHelper {
     
     /**
      * Builds a query string based on RFC3986 
-     * @param array|pMap $data The data to feed the query string
+     * @param array|Map $data The data to feed the query string
      * @return string Returns the final query string
      * @since 1.1-sofia
      */

@@ -19,7 +19,7 @@ class Request implements IAppRequest {
     
     /**
      * The parameters of the command request
-     * @var pMap
+     * @var Map
      * @since 1.0-elenor
      */
     protected $params;
@@ -40,7 +40,7 @@ class Request implements IAppRequest {
     
     /**
      * Get the CLI arguments from the command parser
-     * @return pMap Returns the parameters 
+     * @return Map Returns the parameters 
      * @since 1.0-sofia
      */
     public function params() {

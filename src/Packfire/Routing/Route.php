@@ -18,7 +18,7 @@ abstract class pRoute implements IRoute {
     
     /**
      * The route parameters to check
-     * @var pMap
+     * @var Map
      * @since 1.1-sofia
      */
     protected $params;
@@ -32,7 +32,7 @@ abstract class pRoute implements IRoute {
     
     /**
      * Get the parameters in this routing
-     * @return pMap Returns the parameters
+     * @return Map Returns the parameters
      * @since 1.1-sofia
      */
     public function params(){
@@ -61,7 +61,7 @@ abstract class pRoute implements IRoute {
      * Validate an array of data
      * @param ArrayList|array $rules The list of rules defined
      * @param ArrayList|array $data The data to be validated
-     * @param pMap|array $params (reference) The output parameters
+     * @param Map|array $params (reference) The output parameters
      * @param boolean $validation (reference, optional) The validation boolean
      * @return boolean Returns true if validation is successful, false otherwise.
      * @since 1.1-sofia

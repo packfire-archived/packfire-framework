@@ -264,7 +264,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
      * @since 1.0-sofia
      */
     public function params($params = null){
-        $this->params = new pMap($params);
+        $this->params = new Map($params);
         return $this;
     }
     

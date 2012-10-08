@@ -52,7 +52,7 @@ class pHttpRequest {
 
     /**
      * An array of the HTTP headers in the HTTP Response
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     protected $headers;
@@ -66,21 +66,21 @@ class pHttpRequest {
 
     /**
      * Cookies pertaining to this request
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     protected $cookies;
 
     /**
      * An array of POST data related to this request
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     protected $post;
 
     /**
      * An array of GET data related to this request
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     protected $get;
@@ -89,10 +89,10 @@ class pHttpRequest {
      * Create the pHttpRequest object
      */
     public function __construct(){
-        $this->cookies = new pMap();
-        $this->post = new pMap();
-        $this->get = new pMap();
-        $this->headers = new pMap();
+        $this->cookies = new Map();
+        $this->post = new Map();
+        $this->get = new Map();
+        $this->headers = new Map();
     }
     
     /**
@@ -107,7 +107,7 @@ class pHttpRequest {
             $requestLine = $lines[0];
             list($method, $uri, $version) = explode(' ', $requestLine);
             $this->method(trim($method));
-            $parsedUri = new pMap(parse_url($uri));
+            $parsedUri = new Map(parse_url($uri));
             $this->uri($parsedUri->get('path', '/'));
             $getData = array();
             parse_str($parsedUri->get('query', ''), $getData);
@@ -244,7 +244,7 @@ class pHttpRequest {
     
     /**
      * Get the hash map of GET parameters
-     * @return pMap Returns the hash map
+     * @return Map Returns the hash map
      * @since 1.0-sofia
      */
     public function get(){
@@ -253,7 +253,7 @@ class pHttpRequest {
     
     /**
      * Get the hash map of POST parameters
-     * @return pMap Returns the hash map
+     * @return Map Returns the hash map
      * @since 1.0-sofia
      */
     public function post(){
@@ -262,7 +262,7 @@ class pHttpRequest {
     
     /**
      * Get the hash map of cookies
-     * @return pMap Returns the hash map of pHttpCookie
+     * @return Map Returns the hash map of pHttpCookie
      * @since 1.0-sofia
      */
     public function cookies(){
@@ -271,7 +271,7 @@ class pHttpRequest {
     
     /**
      * Get the hash map of headers
-     * @return pMap Returns the hash map
+     * @return Map Returns the hash map
      * @since 1.0-sofia
      */
     public function headers(){

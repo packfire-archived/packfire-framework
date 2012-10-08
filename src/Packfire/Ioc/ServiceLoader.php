@@ -81,7 +81,7 @@ class pServiceLoader implements ILoadable {
         if($servicesConfig){
             $services = $servicesConfig->get();
             foreach($services as $key => $service){
-                $service = new pMap($service);
+                $service = new Map($service);
                 if($service->keyExists('class')){
                     $loader = new self($service->get('class'),
                             $service->get('parameters'));

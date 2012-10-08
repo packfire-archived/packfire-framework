@@ -32,11 +32,11 @@ class pHttpRouter extends pRouter {
         if($this->service('config.app')){
             $this->enabled = $this->service('config.app')->get('routing', 'enabled');
         }
-        $config = new pMap(array(
+        $config = new Map(array(
             'rewrite' => '/{class}/{action}',
             'actual' => 'directControllerAccessRoute',
             'method' => null,
-            'params' => new pMap(array(
+            'params' => new Map(array(
                 'class' => 'regex/`^([a-zA-Z0-9\_]+)$`',
                 'action' => 'regex/`^([a-zA-Z0-9\_]+)$`'
             ))
@@ -50,7 +50,7 @@ class pHttpRouter extends pRouter {
     /**
      * Factory manufature the route based on the configuration
      * @param string $key Name of the route
-     * @param pMap $data The configuration of the route
+     * @param Map $data The configuration of the route
      * @return IRoute Returns the route manufactured
      * @since 1.0-elenor
      */
@@ -66,7 +66,7 @@ class pHttpRouter extends pRouter {
     /**
      * Prepare a route with the parameters
      * @param pHttpRoute $route The route to be prepared
-     * @param array|pMap $params The parameters to prepare
+     * @param array|Map $params The parameters to prepare
      * @return string The final route URL
      * @since 1.0-elenor
      */

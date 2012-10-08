@@ -19,7 +19,7 @@ class pMockCache implements ICache {
     
     /**
      * The cache storage
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $store;

@@ -16,7 +16,7 @@ interface IRoute {
     /**
      * Create a new IRoute object
      * @param string $name The name of the route
-     * @param array|pMap $data The configuration data entry
+     * @param array|Map $data The configuration data entry
      * @since 1.0-elenor
      */
     public function __construct($name, $data);

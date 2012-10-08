@@ -19,14 +19,14 @@ abstract class pView extends pBucketUser implements IView {
     
     /**
      * The state that is passed from the controller
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     protected $state;
     
     /**
      * The fields in the view defined
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $fields;
@@ -57,14 +57,14 @@ abstract class pView extends pBucketUser implements IView {
      * @since 1.0-sofia
      */
     public function __construct(){
-        $this->state = new pMap();
-        $this->fields = new pMap();
+        $this->state = new Map();
+        $this->fields = new Map();
         $this->filters = new ArrayList();
     }
     
     /**
      * Define a template field to populate.
-     * @param string|array|pMap $key Name of the field
+     * @param string|array|Map $key Name of the field
      * @param mixed $value (optional) Set the template field value
      * @return mixed Returns the current value set at $key if $value is not set.
      * @since 1.0-sofia
@@ -134,7 +134,7 @@ abstract class pView extends pBucketUser implements IView {
     
     /**
      * Set the state from the controller to the view
-     * @param pMap $state The state of the controller passed to the view.
+     * @param Map $state The state of the controller passed to the view.
      * @since 1.0-sofia
      */
     public function state($state){

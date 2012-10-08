@@ -23,7 +23,7 @@ class pPhpTemplateFile implements ITemplateFile {
     
     /**
      * The template fields
-     * @var pMap
+     * @var Map
      * @since 1.1-sofia
      */
     private $fields;
@@ -38,12 +38,12 @@ class pPhpTemplateFile implements ITemplateFile {
             $file = $file->pathname();
         }
         $this->file = $file;
-        $this->fields = new pMap();
+        $this->fields = new Map();
     }
 
     /**
      * Get the template fields
-     * @return pMap Returns the template fields hash map
+     * @return Map Returns the template fields hash map
      * @since 1.1-sofia
      */
     public function fields() {

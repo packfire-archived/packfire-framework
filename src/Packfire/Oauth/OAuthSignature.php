@@ -46,7 +46,7 @@ abstract class pOAuthSignature {
     }
     
     public static function load($name){
-        $registry = new pMap();
+        $registry = new Map();
         $registry->add('HMAC-SHA1', 'pOAuthHmacSha1Signature');
         $registry->add('PLAINTEXT', 'pOAuthPlainTextSignature');
         if(substr($name, 0, 6) != 'pOAuth'){

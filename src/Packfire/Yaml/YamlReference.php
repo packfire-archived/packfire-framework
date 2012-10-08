@@ -54,12 +54,12 @@ class pYamlReference implements ArrayAccess {
     }
     
     /**
-     * Get a pMap of the data
-     * @return pMap Returns a pMap of the data
+     * Get a Map of the data
+     * @return Map Returns a Map of the data
      * @since 1.0-sofia
      */
     public function map(){
-        return new pMap($this->data);
+        return new Map($this->data);
     }
     
     /**

@@ -29,7 +29,7 @@ abstract class Model extends CoreModel implements IModel {
     
     /**
      * Get the mapping for the model
-     * @return pMap Returns the mapping for the database modelling
+     * @return Map Returns the mapping for the database modelling
      * @since 1.0-sofia
      */
     public function map(){

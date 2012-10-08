@@ -114,7 +114,7 @@ class XmlSerializer implements ISerializer {
      * @param IOutputStream $stream The stream to write the XML to
      * @param mixed $data The data to write
      * @param string $block The node name of the block
-     * @param pMap|array $attributes (optional) The tag attributes of the node
+     * @param Map|array $attributes (optional) The tag attributes of the node
      * @since 1.0-sofia
      * @static
      */

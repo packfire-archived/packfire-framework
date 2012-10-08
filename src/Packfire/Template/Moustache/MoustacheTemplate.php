@@ -1,7 +1,7 @@
 <?php
 pload('packfire.template.ITemplate');
 pload('pMoustacheBridge');
-pload('packfire.collection.pMap');
+pload('packfire.collection.Map');
 
 /**
  * pMoustacheTemplate class
@@ -38,7 +38,7 @@ class pMoustacheTemplate implements ITemplate {
      */
     public function __construct($template) {
         $this->parser = new pMoustacheBridge($template);
-        $this->fields = new pMap();
+        $this->fields = new Map();
     }
 
     /**

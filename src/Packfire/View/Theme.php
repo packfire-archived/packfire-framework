@@ -14,7 +14,7 @@ abstract class pTheme {
    
     /**
      * The fields in the theme settings defined
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $fields;
@@ -24,12 +24,12 @@ abstract class pTheme {
      * @since 1.0-sofia
      */
     public function __construct(){
-        $this->fields = new pMap();
+        $this->fields = new Map();
     }
     
     /**
      * Get the theme settings defined
-     * @return pMap Returns a map of theme settings
+     * @return Map Returns a map of theme settings
      * @since 1.0-sofia
      */
     public function fields(){
@@ -38,7 +38,7 @@ abstract class pTheme {
     
     /**
      * Define a theme setting
-     * @param string|array|pMap $key The name of the theme setting.
+     * @param string|array|Map $key The name of the theme setting.
      * @param mixed $value (optional) The value of the theme setting.
      * @since 1.0-sofia 
      */

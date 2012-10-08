@@ -40,14 +40,14 @@ class pHttpResponse {
 
     /**
      * An array of the HTTP headers in the HTTP Response
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     protected $headers;
 
     /**
      * Cookies to be sent to the client
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     protected $cookies;
@@ -57,8 +57,8 @@ class pHttpResponse {
      * @since 1.0-sofia
      */
     public function __construct(){
-        $this->headers = new pMap();
-        $this->cookies = new pMap();
+        $this->headers = new Map();
+        $this->cookies = new Map();
     }
     
     /**
@@ -153,7 +153,7 @@ class pHttpResponse {
 
     /**
      * Get the collection that contains all the headers of the HTTP response
-     * @return pMap Returns the HTTP headers' hash map
+     * @return Map Returns the HTTP headers' hash map
      * @since 1.0-sofia
      */
     public function headers(){
@@ -162,7 +162,7 @@ class pHttpResponse {
 
     /**
      * Get the collection that contains all the cookies of the HTTP response
-     * @return pMap Returns the HTTP cookies hash
+     * @return Map Returns the HTTP cookies hash
      * @since 1.0-sofia
      */
     public function cookies(){

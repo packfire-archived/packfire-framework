@@ -87,7 +87,7 @@ class Vertex implements IVertex {
     
     /**
      * Get the connections from this vertex and their associated costs.
-     * @return pMap Returns a pMap containing the containing vertex ID
+     * @return Map Returns an array containing the containing vertex ID
      *               and their associated costs.
      * @since 1.0-sofia
      */

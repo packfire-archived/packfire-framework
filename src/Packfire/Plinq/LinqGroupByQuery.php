@@ -1,6 +1,6 @@
 <?php
 pload('packfire.collection.pList');
-pload('packfire.collection.pMap');
+pload('packfire.collection.Map');
 pload('packfire.collection.pKeyValuePair');
 pload('pLinqWorkerQuery');
 
@@ -24,7 +24,7 @@ class pLinqGroupByQuery extends pLinqWorkerQuery {
     public function run($collection) {
         $grouping = array();
         $worker = $this->worker();
-        $matrix = new pMap();
+        $matrix = new Map();
         
         foreach($collection as $element){
             $key = $worker($element);

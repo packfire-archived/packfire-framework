@@ -23,7 +23,7 @@ interface IModel {
     
     /**
      * Get the mapping for the model
-     * @return pMap|array Returns the mapping for the database modelling
+     * @return Map|array Returns the mapping for the database modelling
      * @since 1.0-sofia
      */
     public function map();

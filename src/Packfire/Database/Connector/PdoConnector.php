@@ -32,14 +32,14 @@ abstract class PdoConnector extends BucketUser implements IConnector {
     
     /**
      * The array of configuration
-     * @var array|pMap
+     * @var array|Map
      * @since 1.0-sofia
      */
     protected $config;
     
     /**
      * Create a new pDbConnector object
-     * @param array|pMap $config An array of configuration
+     * @param array|Map $config An array of configuration
      * @since 1.0-sofia
      */
     public function __construct($config){
@@ -60,7 +60,7 @@ abstract class PdoConnector extends BucketUser implements IConnector {
     /**
      * Prepare and bind a statement for execution
      * @param string $query The query to be prepared
-     * @param array|pMap $params (optional) The parameters of the query
+     * @param array|Map $params (optional) The parameters of the query
      * @returns PDOStatement Returns the PDOStatement ready to be executed.
      * @since 1.0-sofia
      */

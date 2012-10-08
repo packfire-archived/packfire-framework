@@ -17,7 +17,7 @@ class pSessionStorage implements ISessionStorage {
     
     /**
      * The container of buckets
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $buckets;
@@ -34,7 +34,7 @@ class pSessionStorage implements ISessionStorage {
      * @since 1.0-sofia 
      */
     public function __construct(){
-        $this->buckets = new pMap();
+        $this->buckets = new Map();
         $this->overallBucket = new pSessionBucket($this->id());
         $this->registerHandler();
         $this->registerShutdown();

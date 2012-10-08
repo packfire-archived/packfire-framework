@@ -42,7 +42,7 @@ class pLog implements ILog, IFile {
     
     /**
      * Write a log entry to the log file
-     * @param array|pMap $data The data of the log entry
+     * @param array|Map $data The data of the log entry
      * @since 1.0-sofia
      */
     public function write($data) {

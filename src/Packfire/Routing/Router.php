@@ -17,7 +17,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
     
     /**
      * The collection of routing entries
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $routes;
@@ -27,7 +27,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
      * @since 1.0-sofia 
      */
     public function __construct(){
-        $this->routes = new pMap();
+        $this->routes = new Map();
     }
     
     /**
@@ -39,7 +39,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
         if($settings){
             $routes = $settings->get();
             foreach($routes as $key => $data){
-                $data = new pMap($data);
+                $data = new Map($data);
                 $route = $this->routeFactory($key, $data);
                 $this->add($key, $route);
             }
@@ -49,7 +49,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
     /**
      * Factory manufature the route based on the configuration
      * @param string $key Name of the route
-     * @param pMap $data The configuration of the route
+     * @param Map $data The configuration of the route
      * @return IRoute Returns the route manufactured
      * @since 1.0-elenor
      */
@@ -72,7 +72,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
     
     /**
      * Get the map of entries.
-     * @return pMap Returns a pMap of routing entries.
+     * @return Map Returns a Map of routing entries.
      * @since 1.0-sofia
      */
     public function entries(){
@@ -102,7 +102,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
      * Get the URL for a particular routing key
      * @param string $key The routing key that uniquely identify the routing
      *                    entry to fetch.
-     * @param array|pMap $params (optional) The parameters to insert into
+     * @param array|Map $params (optional) The parameters to insert into
      *                   the URL.
      * @return string Returns the URL
      * @since 1.0-sofia
@@ -125,7 +125,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
     /**
      * Prepare a route with the parameters
      * @param pHttpRoute $route The route to be prepared
-     * @param array|pMap $params The parameters to prepare
+     * @param array|Map $params The parameters to prepare
      * @return string The final route URL
      * @since 1.0-elenor
      */

@@ -26,7 +26,7 @@ class pCliRouter extends pRouter {
     /**
      * Prepare a route with the parameters
      * @param pCliRoute $route The route to be prepared
-     * @param array|pMap $params The parameters to prepare
+     * @param array|Map $params The parameters to prepare
      * @return string The final route URL
      * @since 1.0-elenor
      */
@@ -53,7 +53,7 @@ class pCliRouter extends pRouter {
     /**
      * Factory manufature the route based on the configuration
      * @param string $key Name of the route
-     * @param pMap $data The configuration of the route
+     * @param Map $data The configuration of the route
      * @return IRoute Returns the route manufactured
      * @since 1.0-elenor
      */

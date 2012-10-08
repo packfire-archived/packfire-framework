@@ -29,7 +29,7 @@ interface ITemplate {
     
     /**
      * Get the template fields
-     * @return pMap Returns the template fields hash map
+     * @return Map Returns the template fields hash map
      * @since 1.0-sofia
      */
     public function fields();

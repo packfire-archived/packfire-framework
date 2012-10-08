@@ -26,7 +26,7 @@ class CommandParser {
     
     /**
      * Create a new CommandParser object
-     * @param array|pMap $arguments The argument to be parsed.
+     * @param array|Map $arguments The argument to be parsed.
      * @since 1.0-sofia
      */
     public function __construct($arguments){
@@ -35,7 +35,7 @@ class CommandParser {
     
     /**
      * Parses the command line into keys and result
-     * @param array|pMap $arguments The arguments to be parsed
+     * @param array|Map $arguments The arguments to be parsed
      * @since 1.0-sofia
      */
     private function parse($arguments){
@@ -142,7 +142,7 @@ class CommandParser {
     
     /**
      * Get the full result of the parser
-     * @return pMap Returns the array containing the result
+     * @return Map Returns the array containing the result
      * @since 1.0-sofia
      */
     public function result(){

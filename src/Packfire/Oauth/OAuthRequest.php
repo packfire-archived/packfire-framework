@@ -22,7 +22,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
     
     /**
      * The OAuth parameters
-     * @var pMap
+     * @var Map
      * @since 1.1-sofia
      */
     private $oauthParams;
@@ -33,7 +33,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
      */
     public function __construct() {
         parent::__construct();
-        $this->oauthParams = new pMap();
+        $this->oauthParams = new Map();
         $this->oauthParams->add(pOAuth::VERSION, '1.0');
     }
     
@@ -43,10 +43,10 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
      * @since 1.1-sofia
      */
     public function preload($request){
-        $this->get = new pMap($request->get);
-        $this->post = new pMap($request->post);
-        $this->headers = new pMap($request->headers);
-        $this->cookies = new pMap($request->cookies);
+        $this->get = new Map($request->get);
+        $this->post = new Map($request->post);
+        $this->headers = new Map($request->headers);
+        $this->cookies = new Map($request->cookies);
         $this->https = $request->https;
         $this->version = $request->version;
         if($request->time instanceof pDateTime){
@@ -126,7 +126,7 @@ class pOAuthRequest extends pHttpRequest implements IOAuthHttpEntity {
      */
     public function signatureBase(){
         // Grab all parameters
-        $params = new pMap($this->get);
+        $params = new Map($this->get);
         
         if(!$this->method() == pHttpMethod::POST){
             $params->append($this->post);

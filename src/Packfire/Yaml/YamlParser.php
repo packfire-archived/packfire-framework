@@ -46,7 +46,7 @@ class pYamlParser {
     
     /**
      * A hash map containing the references defined in the YAML document
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $reference;
@@ -64,7 +64,7 @@ class pYamlParser {
     /**
      * Get the references for the document
      * 
-     * @return pMap Returns a pMap containing the $referenceName => $reference
+     * @return Map Returns a Map containing the $referenceName => $reference
      *              combination. If parsing of a document has yet started, the
      *              method returns null instead. $reference is an instance of
      *              pYamlReference.
@@ -84,7 +84,7 @@ class pYamlParser {
      * @since 1.0-sofia
      */
     public function parse(){
-        $this->reference = new pMap(); // reset the reference
+        $this->reference = new Map(); // reset the reference
                                        //does not support cross document
         $result = $this->parseBlock();
         return $result;

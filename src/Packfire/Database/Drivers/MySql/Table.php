@@ -94,7 +94,7 @@ class Table extends DbTable {
     
     /**
      * Delete rows from the table
-     * @param array|pMap $row (optional) The conditions to delete the rows. If
+     * @param array|Map $row (optional) The conditions to delete the rows. If
      *          this is not specified, all rows from the table will be deleted.
      * @since 1.0-sofia
      */
@@ -120,7 +120,7 @@ class Table extends DbTable {
 
     /**
      * Insert a row into the table
-     * @param array|pMap $row The row to insert into the table
+     * @param array|Map $row The row to insert into the table
      * @since 1.0-sofia
      */
     public function insert($row) {
@@ -143,9 +143,9 @@ class Table extends DbTable {
 
     /**
      * Update a row in the table
-     * @param array|pMap $row The updated information. Primary key should be
+     * @param array|Map $row The updated information. Primary key should be
      *           included here if $where is not set.
-     * @param array|pMap $where (optional) The conditions to update the rows
+     * @param array|Map $where (optional) The conditions to update the rows
      * @since 1.0-sofia
      */
     public function update($row, $where = null) {

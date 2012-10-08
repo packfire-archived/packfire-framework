@@ -16,7 +16,7 @@ class pServiceBucket implements IServiceBucket {
     
     /**
      * The hash map of services stored in the bucket.
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $services;
@@ -26,7 +26,7 @@ class pServiceBucket implements IServiceBucket {
      * @since 1.0-sofia 
      */
     public function __construct() {
-        $this->services = new pMap();
+        $this->services = new Map();
     }
     
     /**

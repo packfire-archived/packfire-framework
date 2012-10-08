@@ -49,7 +49,7 @@ class ActionInvoker {
     
     /**
      * Invoke the action with associative array of arguments
-     * @param pMap|array $args The arguments to be passed in.
+     * @param Map|array $args The arguments to be passed in.
      * @return mixed Returns whatever the callback returns
      * @since 1.1-sofia
      */

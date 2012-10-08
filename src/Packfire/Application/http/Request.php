@@ -65,11 +65,11 @@ class Request extends pHttpClientRequest implements IAppRequest {
     
     /**
      * Get the parameters of the request based on the HTTP method
-     * @return pMap Returns the parameters 
+     * @return Map Returns the parameters 
      * @since 1.0-sofia
      */
     public function params(){
-        $result = new pMap();
+        $result = new Map();
         $result->append($this->get());
         if($this->method() == pHttpMethod::POST){
             $result->append($this->post());

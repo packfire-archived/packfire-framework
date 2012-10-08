@@ -17,7 +17,7 @@ class pCliRoute extends pRoute {
     
     /**
      * The parameters remapping
-     * @var pMap
+     * @var Map
      * @since 1.0-elenor
      */
     private $remap;
@@ -25,7 +25,7 @@ class pCliRoute extends pRoute {
     /**
      * Create a new pCliRoute object
      * @param string $name The name of the route
-     * @param array|pMap $data The data retrieved from the settings
+     * @param array|Map $data The data retrieved from the settings
      * @since 1.0-elenor
      */
     public function __construct($name, $data) {
@@ -44,21 +44,21 @@ class pCliRoute extends pRoute {
      */
     public function match($request) {
         $validation = true;
-        $requestParams = new pMap($request->params());
+        $requestParams = new Map($request->params());
         $params = array();
         $this->remap($requestParams);
         if($this->params){
             $validation = $this->validateArray($this->params, $requestParams->toArray(), $params);
         }
         if($validation){
-            $this->params = new pMap($params);
+            $this->params = new Map($params);
         }
         return $validation;
     }
     
     /**
      * Perform remapping of arguments
-     * @param pMap $params The parameters to be remapped
+     * @param Map $params The parameters to be remapped
      * @since 1.0-elenor
      */
     private function remap($params){

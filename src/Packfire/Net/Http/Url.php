@@ -95,7 +95,7 @@ class pUrl {
                 }
             }
         }
-        $this->params = new pMap($this->params);
+        $this->params = new Map($this->params);
     }
 
     /**
@@ -191,8 +191,8 @@ class pUrl {
 
     /**
      * Get or set the GET parameters of the URL
-     * @param pMap $p (optional) If specified, the function will set the new value.
-     * @return pMap Returns the GET parameters in the URL
+     * @param Map $p (optional) If specified, the function will set the new value.
+     * @return Map Returns the GET parameters in the URL
      * @since 1.0-sofia
      */
     public function params($p = null){
@@ -200,7 +200,7 @@ class pUrl {
             $this->params = $p;
         }
         if(is_array($this->params)){
-            $this->params = new pMap($this->params);
+            $this->params = new Map($this->params);
         }
         return $this->params;
     }

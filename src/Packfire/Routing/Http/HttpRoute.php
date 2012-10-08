@@ -34,18 +34,18 @@ class pHttpRoute extends pRoute {
     /**
      * Create a new pHttpRoute object
      * @param string $name The name of the route
-     * @param array|pMap $data The configuration data entry
+     * @param array|Map $data The configuration data entry
      * @since 1.0-elenor
      */
     function __construct($name, $data){
-        if(!($data instanceof pMap)){
-            $data = new pMap($data);
+        if(!($data instanceof Map)){
+            $data = new Map($data);
         }
         $this->name = $name;
         $this->rewrite = $data->get('rewrite');
         $this->actual = $data->get('actual');
         $this->httpMethod = $data->get('method');
-        $this->params = new pMap($data->get('params'));
+        $this->params = new Map($data->get('params'));
     }
 
     /**
@@ -86,7 +86,7 @@ class pHttpRoute extends pRoute {
 
     /**
      * Get the hash map of parameters for the route
-     * @return pMap Returns a hash map
+     * @return Map Returns a hash map
      * @since 1.0-sofia
      */
     public function params(){
@@ -144,7 +144,7 @@ class pHttpRoute extends pRoute {
                     $params = array();
                     $validation = $this->validateArray($this->params, $data, $params);
                     if($validation){
-                        $this->params = new pMap($params);
+                        $this->params = new Map($params);
                     }
 
                 }else{

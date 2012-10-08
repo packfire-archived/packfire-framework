@@ -20,7 +20,7 @@ interface IView {
     
     /**
      * Set the state from the controller to the view
-     * @param pMap $state The state of the controller passed to the view.
+     * @param Map $state The state of the controller passed to the view.
      * @since 1.0-sofia
      */
     public function state($state);
