@@ -1,7 +1,11 @@
 <?php
-pload('pException');
+namespace Packfire\Exception;
+
+use Exception;
 
 /**
+ * MissingDependencyException class
+ * 
  * Dependency missing exception
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -10,7 +14,7 @@ pload('pException');
  * @package packfire.exception
  * @since 1.0-sofia
  */
-class pMissingDependencyException extends pException {
+class MissingDependencyException extends Exception {
     
     
     

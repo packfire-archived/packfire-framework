@@ -1,9 +1,11 @@
 <?php
-pload('pException');
-pload('packfire.net.http.pHttpResponseCode');
+namespace Packfire\Exception;
+
+use Exception;
+use Packfire\Net\Http\HttpResponseCode;
 
 /**
- * pAuthorizationException class
+ * AuthorizationException class
  * 
  * Authorization exception message
  *
@@ -13,10 +15,10 @@ pload('packfire.net.http.pHttpResponseCode');
  * @package packfire.exception
  * @since 1.0-sofia
  */
-class pAuthorizationException extends pException {
+class AuthorizationException extends Exception {
     
     public function __construct($message, $code = null) {
-        $this->responseCode = pHttpResponseCode::HTTP_403;
+        $this->responseCode = HttpResponseCode::HTTP_403;
         parent::__construct($message, $code);
     }
     

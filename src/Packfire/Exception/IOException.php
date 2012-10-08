@@ -1,6 +1,11 @@
 <?php
+namespace Packfire\Exception;
+
+use Exception;
 
 /**
+ * IOException
+ * 
  * A generic IO exception
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -9,7 +14,7 @@
  * @package packfire.exception
  * @since 1.0-sofia
  */
-class pIOException extends pException {
+class IOException extends Exception {
     
     
     

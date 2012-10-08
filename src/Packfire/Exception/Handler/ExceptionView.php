@@ -1,8 +1,12 @@
 <?php
-pload('packfire.view.pView');
-pload('packfire.template.moustache.pMoustacheTemplate');
+namespace Packfire\Exception\Handler;
+
+use Packfire\View\View;
+use Packfire\Template\Moustache\Template;
 
 /**
+ * ExceptionView class
+ * 
  * Exception display view
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -11,17 +15,17 @@ pload('packfire.template.moustache.pMoustacheTemplate');
  * @package packfire.exception.handler
  * @since 1.0-sofia
  */
-class pExceptionPageView extends pView {
+class ExceptionView extends View {
     
     /**
      * The exception
-     * @var pException
+     * @var Exception
      * @since 1.0-sofia
      */
     private $exception;
     
     /**
-     * Create a new Exception Page view
+     * Create a new ExceptionView object
      * @param Exception $exception The exception
      * @since 1.0-sofia
      */
@@ -35,8 +39,8 @@ class pExceptionPageView extends pView {
      * @since 1.0-sofia 
      */
     protected function create() {
-        $this->template(new pMoustacheTemplate(file_get_contents(dirname(__FILE__) 
-                . DIRECTORY_SEPARATOR . 'error.html')));
+        $this->template(new Template(file_get_contents(__DIR__ 
+                . DIRECTORY_SEPARATOR . basename(__CLASS__) . '.html')));
         $this->define('title', 'Error ' . $this->exception->getCode());
         $this->define('file',  $this->exception->getFile());
         $this->define('line',  $this->exception->getLine());

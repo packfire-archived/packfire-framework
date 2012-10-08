@@ -1,7 +1,11 @@
 <?php
-pload('pException');
+namespace Packfire\Exception;
+
+use Exception;
 
 /**
+ * ErrorException class
+ * 
  * An exception encapsulating a native PHP error
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -10,7 +14,7 @@ pload('pException');
  * @package packfire.exception
  * @since 1.0-sofia
  */
-class pErrorException extends pException {
+class ErrorException extends Exception {
     
     public function setCode($code){
         $this->code = $code;

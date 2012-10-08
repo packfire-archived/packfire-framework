@@ -1,7 +1,11 @@
 <?php
-pload('pException');
+namespace Packfire\Exception;
+
+use Exception;
 
 /**
+ * InvalidRequestException class
+ * 
  * An exception thrown when an invalid request is made.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -10,7 +14,7 @@ pload('pException');
  * @package packfire.exception
  * @since 1.0-sofia
  */
-class pInvalidRequestException extends pException {
+class InvalidRequestException extends Exception {
     
     
 }

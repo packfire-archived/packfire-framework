@@ -1,10 +1,15 @@
 <?php
-pload('IExceptionHandler');
-pload('pExceptionPageView');
-pload('packfire.ioc.pBucketUser');
+namespace Packfire\Exception\Handler;
+
+use IHandler;
+use ExceptionView;
+use Packfire\IoC\BucketUser;
+use Packfire\ClassLoader;
 
 /**
- * An exception handler
+ * HttpHandler class
+ * 
+ * An exception handler for HTTP
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -12,7 +17,7 @@ pload('packfire.ioc.pBucketUser');
  * @package packfire.exception.handler
  * @since 1.0-sofia
  */
-class pHttpExceptionHandler extends pBucketUser implements IExceptionHandler {
+class HttpHandler extends BucketUser implements IHandler {
     
     /**
      * The view package name to load
@@ -41,9 +46,9 @@ class pHttpExceptionHandler extends pBucketUser implements IExceptionHandler {
         $class = $this->view;
         if($class){
             pload($class);
-            list(, $class) = pClassLoader::resolvePackageClass($class);
+            list(, $class) = ClassLoader::resolvePackageClass($class);
         }else{
-            $class = 'pExceptionPageView';
+            $class = 'ExceptionView';
         }
         $view = new $class($exception);
         $view->copyBucket($this);

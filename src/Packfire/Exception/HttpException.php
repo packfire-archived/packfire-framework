@@ -1,9 +1,11 @@
 <?php
-pload('pException');
-pload('packfire.net.http.pHttpResponseCode');
+namespace Packfire\Exception;
+
+use Exception;
+use Packfire\Net\Http\HttpResponseCode;
 
 /**
- * pHttpException class
+ * HttpException class
  * 
  * A HTTP Exception
  *
@@ -13,16 +15,16 @@ pload('packfire.net.http.pHttpResponseCode');
  * @package packfire.exception
  * @since 1.0-sofia
  */
-class pHttpException extends pException{
+class HttpException extends pException{
     
     /**
-     * Create a new pHttpException object
-     * @param type $httpCode
-     * @param type $message (optional)
+     * Create a new HttpException object
+     * @param integer $httpCode The HTTP code
+     * @param string $message (optional) Additional exception message
      * @since 1.0-sofia
      */
     public function __construct($httpCode, $message = null){
-        $http = constant('pHttpResponseCode::HTTP_' . $httpCode);
+        $http = constant('HttpResponseCode::HTTP_' . $httpCode);
         $this->responseCode = $httpCode;
         parent::__construct($http . ($message ? ' ' . $message : ''),
                 $httpCode);

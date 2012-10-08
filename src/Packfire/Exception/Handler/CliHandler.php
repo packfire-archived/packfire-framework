@@ -1,7 +1,11 @@
 <?php
-pload('IExceptionHandler');
+namespace Packfire\Exception\Handler;
+
+use IHandler;
 
 /**
+ * CliHandler
+ * 
  * An exception handler
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -10,7 +14,7 @@ pload('IExceptionHandler');
  * @package packfire.exception.handler
  * @since 1.0-elenor
  */
-class pCliExceptionHandler implements IExceptionHandler {
+class CliHandler implements IHandler {
 
     /**
      * Handle the exception

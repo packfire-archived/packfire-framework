@@ -1,6 +1,11 @@
 <?php
+namespace Packfire\Exception;
+
+use Exception;
 
 /**
+ * NullException class
+ * 
  * A NULL Exception
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -9,7 +14,7 @@
  * @package packfire.exception
  * @since 1.0-sofia
  */
-class pNullException extends pException {
+class NullException extends Exception {
     
     
     

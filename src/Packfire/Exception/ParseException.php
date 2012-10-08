@@ -1,7 +1,11 @@
 <?php
-pload('pException');
+namespace Packfire\Exception;
+
+use Exception;
 
 /**
+ * ParseException class
+ * 
  * Parse operation exception
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -10,7 +14,7 @@ pload('pException');
  * @package packfire.exception
  * @since 1.0-sofia
  */
-class pParseException extends pException {
+class ParseException extends Exception {
     
     
     

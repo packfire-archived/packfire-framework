@@ -1,8 +1,10 @@
 <?php
-pload('pException');
+namespace Packfire\Exception;
+
+use Exception;
 
 /**
- * pInvalidArgumentException class
+ * InvalidArgumentException class
  * 
  * Invalid argument exception
  *
@@ -12,7 +14,7 @@ pload('pException');
  * @package packfire.exception
  * @since 1.0-sofia
  */
-class pInvalidArgumentException extends pException {
+class InvalidArgumentException extends Exception {
     
     /**
      * Create a new pInvalidArgumentException object
