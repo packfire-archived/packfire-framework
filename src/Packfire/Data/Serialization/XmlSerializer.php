@@ -1,21 +1,24 @@
 <?php
-pload('ISerializer');
-pload('ISerializable');
-pload('packfire.io.IInputStream');
-pload('packfire.text.pTextStream');
+namespace Packfire\Data\Serialization;
+
+use ISerializer;
+use ISerializable;
+use Packfire\IO\IInputStream;
+use Packfire\Text\TextStream;
+use Packfire\Exception\MissingDependencyException;
 
 /**
- * pXmlSerializer class
+ * XmlSerializer class
  * 
  * Provide XML serialization and deserialization services
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.data.serialization
+ * @package Packfire\Data\Serialization
  * @since 1.0-sofia
  */
-class pXmlSerializer implements ISerializer {
+class XmlSerializer implements ISerializer {
     
     /**
      * Serialize data into XML string and write to output stream
@@ -26,7 +29,7 @@ class pXmlSerializer implements ISerializer {
     public function serialize($stream, $data = null) {
         if(func_num_args() == 1){
             $data = $stream;
-            $stream = new pTextStream();
+            $stream = new TextStream();
             if($data instanceof ISerializable){
                 $data = $data->serialize();
             }
@@ -55,7 +58,7 @@ class pXmlSerializer implements ISerializer {
             $xml = $stream;
         }
         if(!class_exists('DOMDocument')){
-            throw new pMissingDependencyException('DOM is required by pXmlSerializer but extension not enabled.');
+            throw new MissingDependencyException('DOM is required by pXmlSerializer but extension not enabled.');
         }
         $doc = new DOMDocument();
         $doc->loadXML($xml);

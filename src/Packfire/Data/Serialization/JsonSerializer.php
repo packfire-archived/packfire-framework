@@ -1,6 +1,9 @@
 <?php
-pload('ISerializer');
-pload('ISerializable');
+namespace Packfire\Data\Serialization;
+
+use ISerializer;
+use ISerializable;
+use Packfire\IO\IInputStream;
 
 /**
  * pJsonSerializer class
@@ -10,10 +13,10 @@ pload('ISerializable');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.data.serialization
+ * @package Packfire\Data\Serialization
  * @since 1.0-sofia
  */
-class pJsonSerializer implements ISerializer {
+class JsonSerializer implements ISerializer {
     
     /**
      * Serialize the data into JSON

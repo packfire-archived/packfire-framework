@@ -1,20 +1,22 @@
 <?php
-pload('ISerializer');
-pload('ISerializable');
-pload('packfire.io.IInputStream');
+namespace Packfire\Data\Serialization;
+
+use ISerializer;
+use ISerializable;
+use Packfire\IO\IInputStream;
 
 /**
- * pPhpSerializer class
+ * PhpSerializer class
  * 
  * Perform serialization through PHP's default serialize() and unserialize()
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.data.serialization
+ * @package Packfire\Data\Serialization
  * @since 1.0-sofia
  */
-class pPhpSerializer implements ISerializer {
+class PhpSerializer implements ISerializer {
     
     /**
      * Serialize the data using PHP's default serialize() method.

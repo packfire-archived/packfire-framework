@@ -1,6 +1,8 @@
 <?php
-pload('ISerializable');
-pload('JsonSerializable');
+namespace Packfire\Data\Serialization;
+
+use ISerializable;
+use \JsonSerializable as IJsonSerializable;
 
 /**
  * pJsonSerializable abstract class
@@ -13,7 +15,7 @@ pload('JsonSerializable');
  * @package packfire.data.serialization
  * @since 1.0-sofia
  */
-abstract class pJsonSerializable implements ISerializable, JsonSerializable {
+abstract class JsonSerializable implements ISerializable, IJsonSerializable {
     
     public function serialize() {
         return $this->jsonSerialize();
