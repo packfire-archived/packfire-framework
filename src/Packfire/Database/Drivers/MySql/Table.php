@@ -1,45 +1,48 @@
 <?php
-pload('packfire.database.pDbTable');
-pload('packfire.database.pDbColumn');
-pload('packfire.database.drivers.mysql.linq.pMySqlLinq');
+namespace Packfire\Database\Drivers\MySql;
+
+use Packfire\Database\Table as DbTable;
+use Packfire\Database\Column;
+use Linq\Linq;
+use Packfire\Collection\ArrayList;
 
 /**
- * pMySqlTable class
+ * Table class
  * 
  * Provides functionalities to and operations of a MySQL table
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database.drivers.mysql
+ * @package Packfire\Database\Drivers\MySql
  * @since 1.0-sofia
  */
-class pMySqlTable extends pDbTable {
+class Table extends DbTable {
     
     /**
      * The connection driver
-     * @var pMySqlConnector
+     * @var Connector
      * @since 1.0-sofia
      */
     protected $driver;
     
     /**
      * The list of columns in the table
-     * @var pList
+     * @var ArrayList
      * @since 1.0-sofia
      */
     protected $columns;
     
     /**
      * The list of primary keys in the table
-     * @var pList
+     * @var ArrayList
      * @since 1.0-sofia
      */
     protected $primaryKeys;
     
     /**
      * Add a column to the table
-     * @param pDbColumn $column The new column to add to the table
+     * @param Column $column The new column to add to the table
      * @since 1.0-sofia
      */
     public function add($column) {
@@ -51,12 +54,12 @@ class pMySqlTable extends pDbTable {
 
     /**
      * Remove a column from the table
-     * @param string|pDbColumn $column The column or the name of the column to
+     * @param string|Column $column The column or the name of the column to
      *              remove from the table.
      * @since 1.0-sofia
      */
     public function remove($column) {
-        if($column instanceof pDbColumn){
+        if($column instanceof Column){
             $column = $column->name();
         }
         $this->driver->query(sprintf('ALTER TABLE `%s` DROP `%s`', $this->name, $column));
@@ -71,12 +74,12 @@ class pMySqlTable extends pDbTable {
     
     /**
      * Get a row from the table by its primary keys
-     * @param array|pMap $row The row's primary keys
+     * @param array|Map $row The row's primary keys
      * @return array Returns the row data
      * @since 1.0-sofia
      */
     public function get($row){
-        $linq = new pMySqlLinq($this->driver, $this->name);
+        $linq = new Linq($this->driver, $this->name);
         $pks = array();
         $params = array();
         foreach($this->pk() as $column){
@@ -200,8 +203,8 @@ class pMySqlTable extends pDbTable {
                             $type[] = $col[4];
                         }
                     }
-                    $type = implode(' ', $type);
-                    $column = new pDbColumn($col[0], $type);
+                    $types = implode(' ', $type);
+                    $column = new pDbColumn($col[0], $types);
                     $columns->add($column);
                 }
                 $this->columns = $columns;
@@ -219,9 +222,9 @@ class pMySqlTable extends pDbTable {
         if(!$this->primaryKeys){
             $statement = $this->driver->query(sprintf('SHOW COLUMNS FROM `%s` WHERE `Key` =  \'PRI\'', $this->name));
             $cols = $statement->fetchAll();
-            $columns = new pList();
+            $columns = new ArrayList();
             foreach($cols as $col){
-                $columns[] = new pDbColumn($col[0], 'pk');
+                $columns[] = new Column($col[0], 'pk');
             }
             $this->primaryKeys = $columns;
         }

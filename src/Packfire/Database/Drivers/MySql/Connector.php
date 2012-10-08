@@ -1,19 +1,21 @@
 <?php
-pload('packfire.database.connectors.pPdoConnector');
-pload('pMySqlDatabase');
+namespace Packfire\Database\Drivers\MySql;
+
+use Packfire\Database\Connector\PdoConnector;
+use Database;
 
 /**
- * pMySqlConnector class
+ * Connector class
  * 
  * Provides functionalities to and operations of a MySQL table
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database.drivers.mysql
+ * @package Packfire\Database\Drivers\MySql
  * @since 1.0-sofia
  */
-class pMySqlConnector extends pPdoConnector {
+class Connector extends PdoConnector {
     
     /**
      * Translates data type
@@ -39,13 +41,13 @@ class pMySqlConnector extends pPdoConnector {
     /**
      * Get the database representation
      * If there is no dbname defined in the config, the method returns a
-     * pMySqlDatabase object. If a dbname is defined, the method will select
-     * the schema and return a pMySqlSchema object.
-     * @return pDatabase|pDbSchema Returns the database representation object
+     * Database object. If a dbname is defined, the method will select
+     * the schema and return a Schema object.
+     * @return Database|Schema Returns the database representation object
      * @since 1.0-sofia 
      */
     public function database(){
-        $database = new pMySqlDatabase($this);
+        $database = new Database($this);
         if(array_key_exists('dbname', $this->config) && $this->config['dbname']){
             $database = $database->select($this->config['dbname']);
         }

@@ -1,6 +1,8 @@
 <?php
-pload('packfire.database.pDatabase');
-pload('pMySqlSchema');
+namespace Packfire\Database\Drivers\MySql;
+
+use Packfire\Database\Database as CoreDatabase;
+use Schema;
 
 /**
  * pMySqlDatabase class
@@ -10,20 +12,20 @@ pload('pMySqlSchema');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database.drivers.mysql
+ * @package Packfire\Database\Drivers\MySql
  * @since 1.0-sofia
  */
-class pMySqlDatabase extends pDatabase {
+class Database extends CoreDatabase {
     
     /**
      * Select a database schema for use
      * @param string $schema Name of the schema
-     * @return pMySqlSchema Returns the schema representation
+     * @return Schema Returns the schema representation
      * @since 1.0-sofia
      */
     public function select($schema) {
         $this->driver->query('USE `' . $schema . '`');
-        return new pMySqlSchema($this->driver, $schema);
+        return new Schema($this->driver, $schema);
     }
 
     /**

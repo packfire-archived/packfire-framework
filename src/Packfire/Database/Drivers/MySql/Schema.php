@@ -1,27 +1,29 @@
 <?php
-pload('packfire.database.pDbSchema');
-pload('packfire.database.pDbTable');
-pload('pMySqlTable');
-pload('packfire.database.drivers.mysql.linq.pMySqlLinq');
+namespace Packfire\Database\Drivers\MySql;
+
+use Packfire\Database\SchemaLinq as DbSchema;
+use Packfire\Database\Table as DbTable;
+use Table;
+use Linq\Linq;
 
 /**
- * pMySqlSchema class
+ * Schema class
  * 
  * Provides functionalities to and operations of a MySQL Schema
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database.drivers.mysql
+ * @package Packfire\Database\Drivers\MySql
  * @since 1.0-sofia
  */
-class pMySqlSchema extends pDbSchema {
+class Schema extends DbSchema {
     
     /**
      * Add a new table to the schema
      * @param string $name The name of the table
      * @param array|IList $columns The list of columns belonging to the table
-     * @return pMySqlTable Returns the table representation of the newly
+     * @return Table Returns the table representation of the newly
      *                     created table.
      * @since 1.0-sofia
      */
@@ -46,11 +48,11 @@ class pMySqlSchema extends pDbSchema {
 
     /**
      * Delete a table from the schema
-     * @param string|pDbTable $table The table to delete
+     * @param string|Table $table The table to delete
      * @since 1.0-sofia
      */
     public function delete($table) {
-        if($table instanceof pDbTable){
+        if($table instanceof DbTable){
             $table = $table->name();
         }
         $this->driver->query('DROP `' . $this->name . '`.`' . $table . '`');
@@ -58,11 +60,11 @@ class pMySqlSchema extends pDbSchema {
     
     /**
      * Truncate / empty a table
-     * @param string|pDbTable $table The table to empty
+     * @param string|Table $table The table to empty
      * @since 1.0-sofia
      */
     public function truncate($table){
-        if($table instanceof pDbTable){
+        if($table instanceof DbTable){
             $table = $table->name();
         }
         $this->driver->query(sprintf('TRUNCATE TABLE `%s`.`%s`', $this->name, $table));
@@ -71,11 +73,11 @@ class pMySqlSchema extends pDbSchema {
     /**
      * Get a table
      * @param string $table Name of the table to fetch
-     * @return pMySqlTable Returns the table representation
+     * @return Table Returns the table representation
      * @since 1.0-sofia
      */
     public function table($table) {
-        $table = new pMySqlTable($this->driver, $table);
+        $table = new Table($this->driver, $table);
         $table->columns();
         return $table;
     }
@@ -87,19 +89,19 @@ class pMySqlSchema extends pDbSchema {
      * @since 1.0-sofia
      */
     public function from($table){
-        return new pMySqlLinq($this->driver, $table);
+        return new Linq($this->driver, $table);
     }
     
     
     /**
      * Get a list of tables in the schema
-     * @return pList Returns a list of table names
+     * @return ArrayList Returns a list of table names
      * @since 1.0-sofia 
      */
     public function tables(){
         $statement = $this->driver->query('SHOW TABLES IN `' . $this->name . '`');
         $data = $statement->fetchAll();
-        $tables = new pList();
+        $tables = new ArrayList();
         foreach($data as $row){
             $tables[] = $row[0];
         }

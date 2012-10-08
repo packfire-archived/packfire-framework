@@ -1,14 +1,18 @@
 <?php
-pload('packfire.database.IDbLinq');
-pload('packfire.plinq.IOrderedLinq');
-pload('packfire.database.drivers.mysql.pMySqlTable');
-pload('packfire.collection.pList');
-pload('packfire.collection.pMap');
-pload('pMySqlLinqJoin');
-pload('pMySqlLinqOrder');
+namespace Packfire\Database\Drivers\MySql\Linq;
+
+use Packfire\Database\ILinq;
+use Packfire\Linq\IOrderedLinq;
+use Packfire\Database\IModel;
+use Packfire\Database\Drivers\MySql\Table;
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\Map;
+use LinqJoin;
+use LinqOrder;
+use Packfire\Exception\NullException;
 
 /**
- * pMySqlLinq class
+ * Linq class
  * 
  * Provides LINQ functionality to a MySQL table on top of the existing MySQL
  * table functionalities.
@@ -16,14 +20,14 @@ pload('pMySqlLinqOrder');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.database.drivers.mysql.linq
+ * @package Packfire\Database\Drivers\MySql\Linq
  * @since 1.0-sofia
  */
-class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
+class Linq extends Table implements ILinq, IOrderedLinq {
 
     /**
      * The list of selects
-     * @var pList
+     * @var ArrayList
      * @since 1.0-sofia
      */
     private $selects;
@@ -36,7 +40,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
 
     /**
      * The list of joins
-     * @var pList
+     * @var ArrayList
      * @since 1.0-sofia
      */
     private $joins;
@@ -50,14 +54,14 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
 
     /**
      * The list of groupings
-     * @var pList
+     * @var ArrayList
      * @since 1.0-sofia
      */
     private $groupings;
 
     /**
      * The list of orderings
-     * @var pList
+     * @var ArrayList
      * @since 1.0-sofia
      */
     private $orderings;
@@ -92,14 +96,14 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     
     /**
      * The parameters set to the query
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $params;
     
     /**
-     * Create a new pMySqlLinq
-     * @param pDbConnector $driver The connector to connect
+     * Create a new Linq object
+     * @param IConnector $driver The connector to connect
      * @param string $source The name of the table
      * @since 1.0-sofia
      */
@@ -157,22 +161,22 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
      */
     protected function reset(){
         $this->distinct = false;
-        $this->groupings = new pList();
-        $this->joins = new pList();
+        $this->groupings = new ArrayList();
+        $this->joins = new ArrayList();
         $this->limit = null;
         $this->offset = 0;
-        $this->orderings = new pList();
+        $this->orderings = new ArrayList();
         $this->reverse = false;
-        $this->selects = new pList();
+        $this->selects = new ArrayList();
         $this->where = null;
         $this->mapping = null;
-        $this->params = new pMap();
+        $this->params = new Map();
     }
     
     /**
      * Fetch the result 
-     * @param array|pMap $params (optional) The parameter values to be set
-     * @return pList Returns the list of result fetched.
+     * @param array|Map $params (optional) The parameter values to be set
+     * @return ArrayList Returns the list of result fetched.
      * @since 1.0-sofia
      */
     public function fetch($params = array()){
@@ -195,7 +199,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
             $list = $result;
         }
         $this->reset();
-        return new pList($list);
+        return new ArrayList($list);
     }
     
     /**
@@ -215,7 +219,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     /**
      * Set the method to walk through the rows to map the columns to properties
      * @param Closure|callback $selector Set the selector to perform mapping
-     * @returns pMySqlLinq Returns the LINQ object for chaining
+     * @returns Linq Returns the LINQ object for chaining
      * @since 1.0-sofia
      */
     public function map($selector){
@@ -230,7 +234,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
      * by the constructor arguments.
      * 
      * @param string|object $object The class name or object instance to map to
-     * @returns pMySqlLinq Returns the LINQ object for chaining
+     * @returns Linq Returns the LINQ object for chaining
      * @since 1.1-sofia
      */
     public function listOf($object){
@@ -245,7 +249,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
      * Set a parameter to be binded to the query
      * @param string $key The name of the parameter
      * @param mixed $value The value of the parameter 
-     * @returns pMySqlLinq Returns the LINQ object for chaining
+     * @returns Linq Returns the LINQ object for chaining
      * @since 1.0-sofia
      */
     public function param($key, $value){
@@ -255,8 +259,8 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     
     /**
      * Add an array of parameters to the query
-     * @param pMap|array $params The parameters to be binded
-     * @returns pMySqlLinq Returns the LINQ object for chaining
+     * @param Map|array $params The parameters to be binded
+     * @returns Linq Returns the LINQ object for chaining
      * @since 1.0-sofia
      */
     public function params($params = null){
@@ -267,8 +271,8 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     /**
      * Start the LINQ statement
      * @param string $source The name of the table to fetch from
-     * @param pDbConnector $driver The connector to connect
-     * @return pMySqlLinq Returns the new LINQ object
+     * @param IConnector $driver The connector to connect
+     * @return Linq Returns the new LINQ object
      * @since 1.0-sofia
      */
     public static function from($source, $driver = null){
@@ -316,7 +320,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
         if(!$field){
             $field = '*';
         }
-        $this->selects = new pList(array(
+        $this->selects = new ArrayList(array(
             'AVERAGE(' . $field . ')'
         ));
         $statement = $this->prepare();
@@ -346,7 +350,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     /**
      * Set the result to be distinct
      * @param boolean $distinct (optional) Set whether to be distinct or not
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia 
      */
     public function distinct($distinct = true) {
@@ -356,7 +360,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
 
     /**
      * Get the first record
-     * If no record exists, a pNullException will be thrown
+     * If no record exists, a NullException will be thrown
      * @param string $predicate The condition to get the last row
      * @return mixed Returns the record
      * @since 1.0-sofia
@@ -364,7 +368,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     public function first($predicate = null) {
         $result = $this->firstOrDefault($predicate);
         if($result === null){
-            throw new pNullException('pMySqlLinq::first() - Could not find first element as collection is empty.');
+            throw new NullException('Linq::first() - Could not find first element as collection is empty.');
         }
         return $result;
     }
@@ -392,7 +396,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     /**
      * Group the results by a field
      * @param string $field The field to group by
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function groupBy($field) {
@@ -406,11 +410,11 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
      * @param string $innerKey The key that matches the outer key
      * @param string $outerKey The outer key
      * @param string $selector The type of join (LEFT, RIGHT, OUTER, INNER)
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function join($source, $innerKey, $outerKey, $selector = '') {
-        $this->joins->add(new pMySqlLinqJoin($this->name, $source, $innerKey, $outerKey, $selector));
+        $this->joins->add(new LinqJoin($this->name, $source, $innerKey, $outerKey, $selector));
         return $this;
     }
 
@@ -424,7 +428,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     public function last($predicate = null) {
         $result = $this->lastOrDefault($predicate);
         if($result === null){
-            throw new pNullException('pMySqlLinq::last() - Could not find last element as collection is empty.');
+            throw new NullException('Linq::last() - Could not find last element as collection is empty.');
         }
         return $result;
     }
@@ -451,7 +455,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
      * Set the offset and limit to the query
      * @param integer $offset The offset to start from
      * @param integer $length The number of rows to fetch
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function limit($offset, $length = null) {
@@ -465,60 +469,60 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     /**
      * Get the maximum value for a column
      * @param string $field The column to calculate the maximum value
-     * @return pList Returns a list of minimum values
+     * @return ArrayList Returns a list of minimum values
      * @since 1.0-sofia
      */
     public function max($field = null) {
-        $this->selects = new pList(array(
+        $this->selects = new ArrayList(array(
             'MAX(' . $field . ')'
         ));
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
+        return new ArrayList($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
     /**
      * Get the minimum value of a column
      * @param string $field (optional) The column to fetch
-     * @return pList Returns a list of minimum values
+     * @return ArrayList Returns a list of minimum values
      * @since 1.0-sofia
      */
     public function min($field = null) {
-        $this->selects = new pList(array(
+        $this->selects = new ArrayList(array(
             'MIN(' . $field . ')'
         ));
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
+        return new ArrayList($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
     /**
      * Set the order of fetching the result in an ascending order
      * @param string $field The field to sort
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function orderBy($field) {
-        $this->orderings->add(new pMySqlLinqOrder($field));
+        $this->orderings->add(new LinqOrder($field));
         return $this;
     }
 
     /**
      * Set the order of fetching the result in a descending order
      * @param string $field The field to sort
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function orderByDesc($field) {
-        $this->orderings->add(new pMySqlLinqOrder($field, true));
+        $this->orderings->add(new LinqOrder($field, true));
         return $this;
     }
 
     /**
      * Reverse the resultset
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function reverse() {
@@ -531,17 +535,17 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
      * If more than one parameter is entered, the arguments will become the
      * fields to fetch.
      * @param IList|array|mixed $mapper The field(s) to fetch
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function select($mapper) {
         if(func_num_args() > 1){
-            $this->selects = new pList(func_get_args());
+            $this->selects = new ArrayList(func_get_args());
         }else{
             if(is_array($mapper) || $mapper instanceof IList){
                 $this->selects = $mapper;
             }else{
-                $this->selects = new pList(array($mapper));
+                $this->selects = new ArrayList(array($mapper));
             }
         }
         return $this;
@@ -550,7 +554,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     /**
      * Set the offset 
      * @param string $count The amount of rows to skip
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function skip($count) {
@@ -561,23 +565,23 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     /**
      * Get the sum of a column
      * @param string $field (optional) The field to calculate the sum
-     * @return pList Returns a list of sum values
+     * @return ArrayList Returns a list of sum values
      * @since 1.0-sofia
      */
     public function sum($field = null) {
-        $this->selects = new pList(array(
+        $this->selects = new ArrayList(array(
             'SUM(' . $field . ')'
         ));
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return new pList($statement->fetchAll(PDO::FETCH_COLUMN));
+        return new ArrayList($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
     /**
      * Set the amount of rows to fetch
      * @param integer $count The number of rows to fetch
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function take($count) {
@@ -588,7 +592,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     /**
      * Set the conditions
      * @param string $condition The conditions
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function where($condition) {
@@ -599,34 +603,34 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
     /**
      * Set the order of fetching the result in an ascending order
      * @param string $field The field to sort
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function thenBy($field) {
-        $this->orderings->add(new pMySqlLinqOrder($field));
+        $this->orderings->add(new LinqOrder($field));
         return $this;
     }
 
     /**
      * Set the order of fetching the result in a descending order
      * @param string $field The field to sort
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the pMySqlLinq object for chaining
      * @since 1.0-sofia
      */
     public function thenByDesc($field) {
-        $this->orderings->add(new pMySqlLinqOrder($field, true));
+        $this->orderings->add(new LinqOrder($field, true));
         return $this;
     }
 
     /**
      * Set the model for the LINQ query
-     * @param pDbModel|array|pList $model The model or collection of models to fetch
-     * @return pMySqlLinq Returns the pMySqlLinq object for chaining
+     * @param Model|array|ArrayList $model The model or collection of models to fetch
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function model($model) {
         if(func_num_args() == 1){
-            if(is_array($model) || $model instanceof pList){
+            if(is_array($model) || $model instanceof ArrayList){
                 $args = $model;
             }else{
                 $args = array($model);
@@ -636,14 +640,14 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
         }
         $mapping = array();
         foreach($args as $name => $arg){
-            /* @var $arg pDbModel */
-            $columns = new pList();
-            $properties = new pList();
+            /* @var $arg Model */
+            $columns = new ArrayList();
+            $properties = new ArrayList();
             $class = get_class($arg);
             
             $map = array();
             $table = '';
-            if($arg instanceof pDbModel){
+            if($arg instanceof IModel){
                 $map = $arg->map();
                 if($arg->dbName()){
                     $table = $arg->dbName() . '.';
@@ -673,7 +677,7 @@ class pMySqlLinq extends pMySqlTable implements IDbLinq, IOrderedLinq {
                 'properties' => $properties
             );
         }
-        $columns = new pList();
+        $columns = new ArrayList();
         foreach($mapping as $instance){
             $columns->append($instance['columns']);
         }
