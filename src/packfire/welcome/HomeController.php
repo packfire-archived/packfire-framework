@@ -1,6 +1,8 @@
 <?php
-pload('packfire.controller.pController');
-pload('HomeIndexView');
+namespace Packfire\Welcome;
+
+use Packfire\Application\Pack\Controller;
+use HomeIndexView;
 
 /**
  * HomeController class
@@ -10,10 +12,10 @@ pload('HomeIndexView');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.welcome
+ * @package Packfire\Welcome
  * @since 1.0-sofia
  */
-class HomeController extends pController {
+class HomeController extends Controller {
     
     function message(){
         $this->state = array(

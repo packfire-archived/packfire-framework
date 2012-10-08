@@ -1,5 +1,7 @@
 <?php
-pload('packfire.view.pTheme');
+namespace Packfire\Welcome;
+
+use Packfire\View\Theme;
 
 /**
  * DarkTheme class
@@ -12,7 +14,7 @@ pload('packfire.view.pTheme');
  * @package packfire.welcome
  * @since 1.0-sofia
  */
-class DarkTheme extends pTheme {
+class DarkTheme extends Theme {
     
     public function render() {
         $this->define('style', 'dark');

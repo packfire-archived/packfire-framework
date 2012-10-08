@@ -1,9 +1,10 @@
 <?php
+namespace Packfire\Welcome;
 
 use Packfire\Application\Pack\View;
 use Packfire\Template\Mustache\TemplateFile;
-use Packfire\Welcome\LightTheme;
-use Packfire\Welcome\DarkTheme;
+use LightTheme;
+use DarkTheme;
 
 /**
  * HomeIndexView class
@@ -22,7 +23,7 @@ class HomeIndexView extends View {
         if(!in_array($theme, array('dark', 'light'))){
             $theme = 'light';
         }
-        $template = new TemplateFile(dirname(__FILE__) . '/HomeIndexView.html');
+        $template = new TemplateFile(__DIR__ . '/HomeIndexView.html');
         $this->theme($theme == 'dark' ? new DarkTheme() : new LightTheme())
             ->template($template);
         

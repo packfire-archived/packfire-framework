@@ -1,16 +1,20 @@
 <?php
-pload('packfire.application.pack.pAppView');
+namespace Packfire\Welcome;
+
+use Packfire\Application\Pack\View;
 
 /**
- * pHelloWorldView View
+ * HelloWorldView View
+ * 
+ * A simple hello-world
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.welcome
+ * @package Packfire\Welcome
  * @since 1.0-elenor
  */
-class pHelloWorldView extends pAppView {
+class HelloWorldView extends View {
     
     protected function create(){
         echo 'Hello World';

@@ -1,5 +1,7 @@
 <?php
-pload('packfire.application.pack.pAppController');
+namespace Packfire\Welcome;
+
+use Packfire\Application\Pack\Controller;
 
 /**
  * ThemeSwitchController class
@@ -12,7 +14,7 @@ pload('packfire.application.pack.pAppController');
  * @package packfire.welcome
  * @since 1.0-sofia
  */
-class ThemeSwitchController extends pAppController {
+class ThemeSwitchController extends Controller {
     
     public function index($theme){
         $this->service('session')->set('theme', $theme);
