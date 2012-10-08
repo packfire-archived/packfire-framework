@@ -1,20 +1,23 @@
 <?php
-pload('ITemplate');
-pload('packfire.collection.pMap');
-pload('packfire.text.regex.pRegex');
+namespace Packfire\Template;
+
+use ITemplate;
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\Map;
+use Packfire\Text\Regex\Regex;
 
 /**
- * pTemplate class
+ * Template class
  * 
  * Provides operations on template parsing.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.template
+ * @package Packfire\Template
  * @since 1.0-sofia
  */
-class pTemplate implements ITemplate {
+class Template implements ITemplate {
 
     /**
      * The template tag opening key 
@@ -86,8 +89,8 @@ class pTemplate implements ITemplate {
     public function tokens(){
         $tokens = new ArrayList();
         $matches = array();
-        $i = preg_match_all('`' . pRegex::escape(self::KEY_OPEN) .
-                '([a-zA-Z0-9\.]+)' . pRegex::escape(self::KEY_CLOSE) .
+        $i = preg_match_all('`' . Regex::escape(self::KEY_OPEN) .
+                '([a-zA-Z0-9\.]+)' . Regex::escape(self::KEY_CLOSE) .
                 '`is', $this->template, $matches, PREG_SET_ORDER);
         if($i > 0){
             foreach($matches as $m){

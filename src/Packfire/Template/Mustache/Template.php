@@ -1,21 +1,24 @@
 <?php
-pload('packfire.template.ITemplate');
-pload('pMoustacheBridge');
-pload('packfire.collection.Map');
+namespace Packfire\Template\Mustache;
+
+use Packfire\Template\ITemplate;
+use Bridge;
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\Map;
 
 /**
- * pMoustacheTemplate class
+ * Template class
  * 
- * A Packfire template that uses the Moustache
+ * A Packfire template that uses the Mustache
  * logic-less template rendering engine
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.template.moustache
+ * @package Packfire\Template\Mustache
  * @since 1.0-sofia
  */
-class pMoustacheTemplate implements ITemplate {
+class Template implements ITemplate {
     
     /**
      * The fields to parse
@@ -32,12 +35,12 @@ class pMoustacheTemplate implements ITemplate {
     private $parser;
     
     /**
-     * Create a new pMoustacheTemplate object
+     * Create a new Template object
      * @param string $template The template to be parsed
      * @since 1.0-sofia
      */
     public function __construct($template) {
-        $this->parser = new pMoustacheBridge($template);
+        $this->parser = new Bridge($template);
         $this->fields = new Map();
     }
 

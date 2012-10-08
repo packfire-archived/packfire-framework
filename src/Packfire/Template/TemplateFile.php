@@ -1,23 +1,30 @@
 <?php
+namespace Packfire\Template;
+
+use ITemplateFile;
+use Packfire\IO\File\File;
+use Template;
 
 /**
- * pTemplateFile Description
+ * TemplateFile class
+ * 
+ * A simple template file
  *
- * @author Sam Yong
- * @copyright Copyright (c) 2012, Sam Yong
- * @license Expression license is undefined on line 8, column 15 in Templates/Scripting/Packfire Framework/PackfireClass.php.
- * @package package
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package Packfire\Template
  * @since version-created
  */
-class pTemplateFile extends pTemplate implements ITemplateFile {
+class TemplateFile extends Template implements ITemplateFile {
     
     /**
-     * Create a new pTemplateFile object
-     * @param pFile|string $file The file or pathname to the file
+     * Create a new TemplateFile object
+     * @param File|string $file The file or pathname to the file
      * @since 1.1-sofia
      */
     public function __construct($file){
-        if($file instanceof pFile){
+        if($file instanceof File){
             $file = $file->pathname();
         }
         parent::__construct(file_get_contents($file));

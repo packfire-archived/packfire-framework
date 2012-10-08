@@ -1,18 +1,21 @@
 <?php
-pload('packfire.io.file.pFile');
+namespace Packfire\Template\Mustache;
+
+use Packfire\IO\File\File as RealFile;
+use Packfire\Template\Mustache\Template;
 
 /**
- * pMoustacheFile class
+ * File class
  * 
  * A moustache template file
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.template.moustache
+ * @package Packfire\Template\Mustache
  * @since 1.1-sofia
  */
-class pMoustacheFile extends pMoustacheTemplate {
+class File extends Template {
     
     /**
      * Create a new pMoustacheFile object
@@ -20,7 +23,7 @@ class pMoustacheFile extends pMoustacheTemplate {
      * @since 1.1-sofia
      */
     public function __construct($file) {
-        if($file instanceof pFile){
+        if($file instanceof RealFile){
             $file = $file->pathname();
         }
         parent::__construct(file_get_contents($file));

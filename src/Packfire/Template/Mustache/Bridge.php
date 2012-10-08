@@ -1,19 +1,22 @@
 <?php
-pload('pMoustache');
-pload('packfire.application.pack.pAppTemplate');
+namespace Packfire\Template\Mustache;
+
+use Mustache;
+use Packfire\Application\Pack\Template;
+use Packfire\Collection\ArrayList;
 
 /**
- * pMoustacheBridge class
+ * Bridge class
  * 
  * Moustache bridge that allows loading of partials from Application Templates
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.template.moustache
+ * @package Packfire\Template\Mustache
  * @since 1.1-sofia
  */
-class pMoustacheBridge extends pMoustache {
+class Bridge extends Mustache {
     
     /**
      * Get the partial by name and add to the buffer
@@ -22,7 +25,7 @@ class pMoustacheBridge extends pMoustache {
      */
     protected function partial($name){
         /* @var $template ITemplate */
-        $template = pAppTemplate::load($name);
+        $template = Template::load($name);
         if($template){
             $template->set($this->parameters);
             $this->buffer .= $template->parse();

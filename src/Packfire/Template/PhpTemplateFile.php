@@ -1,18 +1,23 @@
 <?php
-pload('ITemplateFile');
+namespace Packfire\Template;
+
+use ITemplateFile;
+use Packfire\IO\File\File;
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\Map;
 
 /**
- * pPhpTemplateFile class
+ * PhpTemplateFile class
  * 
  * Render PHP files directly
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.template
+ * @package Packfire\Template
  * @since 1.1-sofia
  */
-class pPhpTemplateFile implements ITemplateFile {
+class PhpTemplateFile implements ITemplateFile {
     
     /**
      * Pathname to the PHP file
@@ -34,7 +39,7 @@ class pPhpTemplateFile implements ITemplateFile {
      * @since 1.1-sofia
      */
     public function __construct($file) {
-        if($file instanceof pFile){
+        if($file instanceof File){
             $file = $file->pathname();
         }
         $this->file = $file;

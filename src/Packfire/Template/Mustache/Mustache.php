@@ -1,19 +1,20 @@
 <?php
-pload('packfire.collection.ArrayList');
+namespace Packfire\Template\Mustache;
+
+use Packfire\Collection\ArrayList;
 
 /**
- * pMoustache class
+ * Mustache class
  * 
- * A PHP implementation of Mustache,
- * a simple logic-less templating system
+ * A PHP implementation of Mustache, a simple logic-less templating system
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.template.moustache
+ * @package Packfire\Template\Mustache
  * @since 1.0-sofia
  */
-class pMoustache {
+class Mustache {
     
     /**
      * The tag regular expression 
@@ -67,7 +68,7 @@ class pMoustache {
     protected $escaper;
     
     /**
-     * Create a new pMoustache object
+     * Create a new Mustache object
      * @param string $template (optional) Set the template to render
      * @since 1.0-sofia
      */
