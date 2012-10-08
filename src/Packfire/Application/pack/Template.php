@@ -25,16 +25,15 @@ class Template {
         
         // parsers
         $extensions = array(
-            'html' => 'packfire.template.moustache.pMoustacheFile',
-            'htm' => 'packfire.template.moustache.pMoustacheFile',
-            'php' => 'packfire.template.pPhpTemplateFile'
+            'html' => 'Packfire\Template\Mustache\TemplateFile',
+            'htm' => 'Packfire\Template\Mustache\TemplateFile',
+            'mustache' => 'Packfire\Template\Mustache\TemplateFile',
+            'php' => 'Packfire\Template\Php\TemplateFile'
         );
         
         $template = null;
-        foreach($extensions as $type => $package){
+        foreach($extensions as $type => $class){
             if(is_file($path . '.' .  $type)){
-                pload($package);
-                list(, $class) = pClassLoader::resolvePackageClass($package);
                 $template = new $class($path . '.' .  $type);
             }
         }

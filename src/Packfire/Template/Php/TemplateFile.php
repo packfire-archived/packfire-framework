@@ -1,5 +1,5 @@
 <?php
-namespace Packfire\Template;
+namespace Packfire\Template\Php;
 
 use ITemplateFile;
 use Packfire\IO\File\File;
@@ -7,7 +7,7 @@ use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 
 /**
- * PhpTemplateFile class
+ * TemplateFile class
  * 
  * Render PHP files directly
  *
@@ -17,7 +17,7 @@ use Packfire\Collection\Map;
  * @package Packfire\Template
  * @since 1.1-sofia
  */
-class PhpTemplateFile implements ITemplateFile {
+class TemplateFile implements ITemplateFile {
     
     /**
      * Pathname to the PHP file

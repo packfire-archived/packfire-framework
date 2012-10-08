@@ -1,11 +1,12 @@
 <?php
 namespace Packfire\Template\Mustache;
 
+use Packfire\Template\ITemplateFile;
+use Template;
 use Packfire\IO\File\File as RealFile;
-use Packfire\Template\Mustache\Template;
 
 /**
- * File class
+ * TemplateFile class
  * 
  * A moustache template file
  *
@@ -15,7 +16,7 @@ use Packfire\Template\Mustache\Template;
  * @package Packfire\Template\Mustache
  * @since 1.1-sofia
  */
-class File extends Template {
+class TemplateFile extends Template implements ITemplateFile {
     
     /**
      * Create a new pMoustacheFile object
