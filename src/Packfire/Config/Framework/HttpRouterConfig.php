@@ -1,18 +1,20 @@
 <?php
-pload('pFrameworkConfig');
+namespace Packfire\Config\Framework;
+
+use FrameworkConfig;
 
 /**
- * pHttpRouterConfig class
+ * HttpRouterConfig class
  * 
  * Router configuration parser for HTTP routes
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.config.framework
+ * @package Packfire\Config\Framework
  * @since 1.0-sofia
  */
-class pHttpRouterConfig extends pFrameworkConfig {
+class HttpRouterConfig extends FrameworkConfig {
     
     /**
      * Load the routing configuration file located the the config folder.

@@ -1,8 +1,10 @@
 <?php
-pload('packfire.config.pConfigType');
-pload('packfire.config.pConfigFactory');
-pload('IFrameworkConfig');
-pload('packfire.ioc.pServiceBucket');
+namespace Packfire\Config\Framework;
+
+use Packfire\Config\ConfigType;
+use Packfire\Config\ConfigFactory;
+use IFrameworkConfig;
+use Packfire\Ioc\ServiceBucket;
 
 /**
  * pFrameworkConfig class
@@ -15,7 +17,7 @@ pload('packfire.ioc.pServiceBucket');
  * @package packfire.config.framework
  * @since 1.0-sofia
  */
-abstract class pFrameworkConfig extends pServiceBucket implements IFrameworkConfig{
+abstract class FrameworkConfig extends ServiceBucket implements IFrameworkConfig {
     
     /**
      * Load an application configuration file located the the config folder.
@@ -31,9 +33,9 @@ abstract class pFrameworkConfig extends pServiceBucket implements IFrameworkConf
     protected function loadConfig($name, $context){
         $path = __APP_ROOT__ . 'pack/config/' . $name;
         
-        $map = array_keys(pConfigType::typeMap());
+        $map = array_keys(ConfigType::typeMap());
         
-        $factory = new pConfigFactory();
+        $factory = new ConfigFactory();
         $default = null;
         foreach($map as $type){
             if(is_file($path . '.' . $type)){

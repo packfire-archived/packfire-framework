@@ -1,9 +1,13 @@
 <?php
-pload('IConfig');
-pload('packfire.collection.pArrayHelper');
+namespace Packfire\Config;
+
+use IConfig;
+use Packfire\Collection\ArrayHelper;
 
 /**
- * A generic configuration storage
+ * Config class
+ * 
+ * A generic configuration file
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -11,7 +15,7 @@ pload('packfire.collection.pArrayHelper');
  * @package packfire.config
  * @since 1.0-sofia
  */
-abstract class pConfig implements IConfig {
+abstract class Config implements IConfig {
     
     /**
      * The pathname to the configuration file
@@ -30,14 +34,14 @@ abstract class pConfig implements IConfig {
     /**
      * Create a new configuration file
      * @param string $file Name of the configuration file to load
-     * @param pConfig $default (optional) The default configuration data to load with.
+     * @param Config $default (optional) The default configuration data to load with.
      * @since 1.0-sofia
      */
     public function __construct($file, $default = null){
         $this->file = $file;
         $this->read();
         if($default){
-            $this->data = pArrayHelper::mergeRecursiveDistinct(
+            $this->data = ArrayHelper::mergeRecursiveDistinct(
                     $default->data, $this->data);
         }
     }
