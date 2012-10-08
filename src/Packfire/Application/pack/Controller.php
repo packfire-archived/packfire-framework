@@ -42,11 +42,7 @@ abstract class Controller extends CoreController {
                 $name = substr($name, 0, strlen($name) - 10);
             }
             
-            try{
-                pload('app.AppView');
-            }catch(MissingDependencyException $ex){
-                
-            }
+            // todo autoloading
             $class = $name . $func . 'View';
             $tries = array(
                 'view.' . strtolower($name) . '.' . $class,

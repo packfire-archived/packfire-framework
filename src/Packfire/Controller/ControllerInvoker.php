@@ -90,6 +90,7 @@ class ControllerInvoker extends BucketUser {
                 // only class name is provided, so we use
                 // the controllers in the controller folder
                 
+                // todo remove ploads
                 if($isView){
                     try{
                         pload('app.AppView');

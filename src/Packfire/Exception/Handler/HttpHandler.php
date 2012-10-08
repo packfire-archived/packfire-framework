@@ -44,10 +44,7 @@ class HttpHandler extends BucketUser implements IHandler {
         $this->service('debugger')->exception($exception);
         
         $class = $this->view;
-        if($class){
-            pload($class);
-            list(, $class) = ClassLoader::resolvePackageClass($class);
-        }else{
+        if(!$class){
             $class = 'ExceptionView';
         }
         $view = new $class($exception);

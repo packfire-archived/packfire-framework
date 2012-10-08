@@ -3,12 +3,12 @@ namespace Packfire\Application;
 
 use IApplication;
 use ServiceAppLoader;
-pload('packfire.ioc.pBucketUser');
-pload('packfire.ioc.pServiceBucket');
-pload('packfire.event.pEventHandler');
+use Packfire\IoC\BucketUser;
+use Packfire\IoC\ServiceBucket;
+use Packfire\Event\EventHandler;
 
 /**
- * pServiceApplication abstract class
+ * ServiceApplication class
  * 
  * A generic application that uses 
  *
@@ -18,18 +18,18 @@ pload('packfire.event.pEventHandler');
  * @package Packfire\Application
  * @since 1.0-elenor
  */
-abstract class ServiceApplication extends pBucketUser implements IApplication {
+abstract class ServiceApplication extends BucketUser implements IApplication {
     
     /**
      * Create a new ServiceApplication object
      * @since 1.0-elenor
      */
     public function __construct(){
-        $this->services = new pServiceBucket();
+        $this->services = new ServiceBucket();
         
         $coreLoader = new ServiceAppLoader($this->services);
         $coreLoader->load();
-        $this->services->put('events', new pEventHandler($this));
+        $this->services->put('events', new EventHandler($this));
     }
     
 }

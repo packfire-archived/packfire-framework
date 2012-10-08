@@ -55,15 +55,9 @@ class ServiceLoader implements ILoadable {
         if(!$params){
             $params = array();
         }
-        
-        list($package, $class) = ClassLoader::resolvePackageClass($this->package);
-        
-        if(!class_exists($class)){
-            pload($package);
-        }
-        
-        if(class_exists($class)){
-            $reflect  = new ReflectionClass($class);
+                
+        if(class_exists($this->package)){
+            $reflect  = new ReflectionClass($this->package);
             if($params){
                 $instance = $reflect->newInstanceArgs($params);
             }else{

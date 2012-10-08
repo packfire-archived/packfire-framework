@@ -1,10 +1,11 @@
 <?php
 namespace Packfire\Application\Cli;
 
-pload('packfire.ioc.pBucketLoader');
-pload('packfire.routing.cli.pCliRouter');
-pload('packfire.config.framework.pCliRouterConfig');
-pload('packfire.exception.handler.pCliExceptionHandler');
+use Packfire\IoC\BucketLoader;
+use Packfire\Route\Cli\Router as CliRouter;
+use Packfire\Config\Framework\CliRouterConfig;
+use Packfire\Exception\Handler\CliHandler;
+use Packfire\Debugger\Debugger;
 
 /**
  * ServiceBucket class
@@ -17,7 +18,7 @@ pload('packfire.exception.handler.pCliExceptionHandler');
  * @package Packfire\Application\Cli
  * @since 1.0-elenor
  */
-class ServiceBucket extends pBucketLoader {
+class ServiceBucket extends BucketLoader {
     
     /**
      * Perform loading of services for CLI
@@ -25,13 +26,13 @@ class ServiceBucket extends pBucketLoader {
      */
     public function load(){
         if(!$this->contains('exception.handler')){
-            $this->put('exception.handler', new pCliExceptionHandler());
+            $this->put('exception.handler', new CliHandler());
         }
-        $this->put('config.routing', array(new pCliRouterConfig(), 'load'));
-        $this->put('router', new pCliRouter());
+        $this->put('config.routing', array(new CliRouterConfig(), 'load'));
+        $this->put('router', new CliRouter());
         if($this->pick('config.app')){
             // load the debugger
-            $this->put('debugger', new pDebugger());
+            $this->put('debugger', new Debugger());
             $this->pick('debugger')->enabled(false);
         }
     }

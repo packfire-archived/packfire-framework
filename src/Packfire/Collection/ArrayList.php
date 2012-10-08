@@ -3,7 +3,7 @@ namespace Packfire\Collection;
 
 use IList;
 use Iterator;
-pload('packfire.exception.pOutOfRangeException');
+use Packfire\Exception\OutOfRangeException;
 
 /**
  * ArrayList class
@@ -188,7 +188,7 @@ class ArrayList implements IList {
      * Remove an item by its index.
      * @param integer $index Index of the item to remove.
      * @returns mixed Returns the item removed from the list
-     * @throws pOutOfRangeException
+     * @throws OutOfRangeException
      * @since 1.0-sofia
      */
     public function removeAt($index) {
@@ -198,7 +198,7 @@ class ArrayList implements IList {
             $this->array = array_values($this->array);
             return $item;
         }else{
-            throw new pOutOfRangeException(
+            throw new OutOfRangeException(
                     sprintf('Unable to remove value at index %d from list.', $index)
                 );
         }
@@ -354,7 +354,7 @@ class ArrayList implements IList {
 
     /**
      * For normal array operations
-     * @throws pOutOfRangeException
+     * @throws OutOfRangeException
      * @internal
      * @ignore
      * @since 1.0-sofia
@@ -366,7 +366,7 @@ class ArrayList implements IList {
             }
             $this->array[$offset] = $value;
         }else{
-            throw new pOutOfRangeException(
+            throw new OutOfRangeException(
                     sprintf('Unable to set value at index %d into list.', $offset)
                 );
         }

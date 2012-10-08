@@ -7,12 +7,6 @@ use TimeSpan;
 use DateTimeFormat;
 use Packfire\Exception\InvalidArgumentException;
 use DateTimeComparator;
-pload('pTime');
-pload('pDate');
-pload('pTimeSpan');
-pload('pDateTimeFormat');
-pload('packfire.exception.pInvalidArgumentException');
-pload('pDateTimeComparator');
 
 /**
  * DateTime class
@@ -29,7 +23,7 @@ class DateTime extends Date {
     
     /**
      * The time component
-     * @var pTime
+     * @var Time
      * @since 1.0-sofia
      */
     private $time;
@@ -42,7 +36,7 @@ class DateTime extends Date {
     private $timezone = 0;
     
     /**
-     * Create a new pDateTime
+     * Create a new DateTime object
      * @param integer $year The year component
      * @param integer $month The month component
      * @param integer $day The day component
@@ -54,12 +48,12 @@ class DateTime extends Date {
      * @since 1.0-sofia
      */
     public function __construct($year, $month, $day, $hour = 0, $minute = 0, $second = 0, $millisecond = 0){
-        $this->time = new pTime($hour, $minute, $second, $millisecond);
+        $this->time = new Time($hour, $minute, $second, $millisecond);
         parent::__construct($year, $month, $day);
     }
 
     /**
-     * Get or set the timezone component of the pDateTime
+     * Get or set the timezone component of the DateTime
      * @param double $timezone (optional) An integer that represents number of hours in
      *                         terms of time zone offset (1.5 for 1 hour 30 minutes)
      * @return double Returns the DateTime's timezone component
@@ -80,14 +74,14 @@ class DateTime extends Date {
     /**
      * Get the time of the day.
      * 
-     * Note: This method returns a copy of the time. Changes made to the pTime object
-     * returned by this method will not be reflected in the pDateTime object.
+     * Note: This method returns a copy of the time. Changes made to the Time object
+     * returned by this method will not be reflected in the DateTime object.
      * 
-     * @return pTime Returns the time component
+     * @return Time Returns the time component
      * @since 1.0-sofia
      */
     public function time(){
-        $time = new pTime($this->time->hour(), $this->time->minute(),
+        $time = new Time($this->time->hour(), $this->time->minute(),
                 $this->time->second(), $this->time->millisecond());
         return $time;
     }
@@ -118,12 +112,12 @@ class DateTime extends Date {
 
     /**
      * Check if a year is leap year
-     * @param integer|pDate $year The year or pDate to check
+     * @param integer|Date $year The year or Date to check
      * @return boolean Returns true if the year is a leap year, false otherwise.
      * @since 1.0-sofia
      */
     public static function isLeapYear($year){
-        if($year instanceof pDate){
+        if($year instanceof Date){
             $year = $year->year();
         }
         return (($year % 400 == 0) || (($year % 4 == 0) && ($year % 100 != 0)));
@@ -131,22 +125,22 @@ class DateTime extends Date {
 
     /**
      * Get the number of days in a month, considering whether the year is a leap year or not
-     * @param integer|pDate $month The month of the year (1-12) or the pDate to check
-     * @param integer $year (optional) The year. Ignored when first parameter is pDate
+     * @param integer|Date $month The month of the year (1-12) or the Date to check
+     * @param integer $year (optional) The year. Ignored when first parameter is Date
      * @return integer The number of days in that month of that year
-     * @throws pInvalidArgumentException
+     * @throws InvalidArgumentException
      * @since 1.0-sofia
      */
     public static function daysInMonth($month, $year = null){
-        if($month instanceof pDate){
+        if($month instanceof Date){
             $year = $month->year();
             $month = $month->month();
         }elseif(func_num_args() == 1){
             $year = self::now()->year();
         }
         if($month < 1 || $month > 12){
-            throw new pInvalidArgumentException(
-                    'pDateTime::daysInMonth', '$month', 'from 1 to 12.', $month
+            throw new InvalidArgumentException(
+                    'DateTime::daysInMonth', '$month', 'from 1 to 12.', $month
                 );
         }
         $mapping = array(
@@ -158,8 +152,8 @@ class DateTime extends Date {
     }
 
     /**
-     * Get the pDateTime of this exact instant
-     * @return pDateTime Returns the date time
+     * Get the DateTime of this exact instant
+     * @return DateTime Returns the date time
      * @since 1.0-sofia
      */
     public static function now() {
@@ -168,13 +162,13 @@ class DateTime extends Date {
     }
 
     /**
-     * Convert a UNIX Epoch Timestamp to pDateTime
+     * Convert a UNIX Epoch Timestamp to DateTime
      * 
-     * Note: that when converting from a seconds-based timestamp to pDateTime,
+     * Note: that when converting from a seconds-based timestamp to DateTime,
      * timezone and millisecond information cannot be captured and will be both set to 0.
      * 
      * @param integer $ts The UNIX Epoch Timestamp to convert. 
-     * @return pDateTime Returns the date time representation of the converted
+     * @return DateTime Returns the date time representation of the converted
      *                   time span.
      * @since 1.0-sofia
      */
@@ -182,7 +176,7 @@ class DateTime extends Date {
         if (!$ts) {
             $ts = time();
         }
-        $dt = new pDateTime(
+        $dt = new DateTime(
                 gmdate('o', $ts) + 0,
                 gmdate('n', $ts) + 0,
                 gmdate('j', $ts) + 0,
@@ -196,7 +190,7 @@ class DateTime extends Date {
 
     /**
      * Convert to UNIX Epoch Timestamp at GMT
-     * @param boolean $convert (optional) Set whether the pDateTime is converted
+     * @param boolean $convert (optional) Set whether the DateTime is converted
      *                         to GMT before returning the number of seconds
      *                         from the UNIX Epoch. Defaults to true.
      * @return integer Returns the UNIX epoch timestamp.
@@ -214,22 +208,22 @@ class DateTime extends Date {
     }
 
     /**
-     * Change the timezone of a pDateTime
-     * @param pDateTime $dateTime The date time object
+     * Change the timezone of a DateTime
+     * @param DateTime $dateTime The date time object
      * @param double $target The destination timezone to set the date time to.
      *                       In the form of hours from -12 to 12
-     * @return pDateTime Returns the date time in the converted time zone
-     * @throws pInvalidArgumentException
+     * @return DateTime Returns the date time in the converted time zone
+     * @throws InvalidArgumentException
      * @since 1.0-sofia
      */
     public static function convertTimezone($dateTime, $target){
         if($target < -12 || $target > 12){
-            throw new pInvalidArgumentException(
-                    'pDateTime::convertTimezone', '$target', 'from -12 to 12.', $target
+            throw new InvalidArgumentException(
+                    'DateTime::convertTimezone', '$target', 'from -12 to 12.', $target
                 );
         }else{
             $diff = $dateTime->timezone - $target;
-            $ts = new pTimeSpan(abs($diff) * 3600);
+            $ts = new TimeSpan(abs($diff) * 3600);
             if($diff > 0){
                 $dt = $dateTime->subtract($ts);
             }else{
@@ -241,9 +235,9 @@ class DateTime extends Date {
     }
 
     /**
-     * Convert a string representation into pDateTime
+     * Convert a string representation into DateTime
      * @param string $s The string to convert
-     * @return pDateTime Returns the date time converted from string
+     * @return DateTime Returns the date time converted from string
      * @since 1.0-sofia
      */
     public static function fromString($s) {
@@ -255,23 +249,23 @@ class DateTime extends Date {
     }
 
     /**
-     * Create an ISO8601 pDateTime string
+     * Create an ISO8601 DateTime string
      * @return string Returns the ISO8601 representation
      * @link http://www.iso.org/iso/date_and_time_format
      * @since 1.0-sofia
      */
     public function toISO8601() {
-        return gmdate(pDateTimeFormat::ISO8601, $this->toTimestamp());
+        return gmdate(DateTimeFormat::ISO8601, $this->toTimestamp());
     }
 
     /**
-     * Create an RFC822 (updated by RFC 1123) pDateTime formatted string
+     * Create an RFC822 (updated by RFC 1123) DateTime formatted string
      * @link http://www.freesoft.org/CIE/RFC/1945/14.htm
      * @return string Returns the RFC822 string representation
      * @since 1.0-sofia
      */
     public function toRFC822(){
-       return gmdate(pDateTimeFormat::RFC822, $this->toTimestamp());
+       return gmdate(DateTimeFormat::RFC822, $this->toTimestamp());
     }
     
     /**
@@ -286,9 +280,9 @@ class DateTime extends Date {
     }
 
     /**
-     * Add a period of time pTimeSpan to the current date time
-     * @param pTimeSpan $timespan The amount of time to add.
-     * @return pDateTime The resulting pDateTime that resulted from the add operation.
+     * Add a period of time TimeSpan to the current date time
+     * @param TimeSpan $timespan The amount of time to add.
+     * @return DateTime The resulting DateTime that resulted from the add operation.
      * @since 1.0-sofia
      */
     public function add($timespan){
@@ -308,26 +302,26 @@ class DateTime extends Date {
     }
 
     /**
-     * Subtract another pDate or pTimeSpan from the current one
-     * @param pDate|pTimeSpan $period The amount of time to subtract
-     * @return pTimeSpan|pDate The result of the subtract operation. If $period
-     *                         is a pDate, pTimeSpan will be returned. If $period
-     *                         is a pTimeSpan, pDateTime will be returned instead.
+     * Subtract another Date or TimeSpan from the current one
+     * @param Date|TimeSpan $period The amount of time to subtract
+     * @return TimeSpan|Date The result of the subtract operation. If $period
+     *                         is a Date, TimeSpan will be returned. If $period
+     *                         is a TimeSpan, DateTime will be returned instead.
      * @since 1.0-sofia
      */
     public function subtract($period){
         $tspan = $period;
-        if($period instanceof pDate){
-            $tspan = new pTimeSpan();
+        if($period instanceof Date){
+            $tspan = new TimeSpan();
             $tspan->day($period->totalDays());
         }
         $date = parent::subtract($tspan);
         $datetime = new self($date->year(), $date->month(), $date->day());
-        $datetime->time = $this->time->subtract(new pTime());
+        $datetime->time = $this->time->subtract(new Time());
         $timeWork = null;
-        if($period instanceof pDateTime){
+        if($period instanceof DateTime){
             $timeWork = $period->time;
-        }elseif($period instanceof pTimeSpan){
+        }elseif($period instanceof TimeSpan){
             $timeWork = $period;
         }
         if($timeWork){
@@ -344,8 +338,8 @@ class DateTime extends Date {
         }
         $result = $datetime;
         
-        if($period instanceof pDate){
-            $result = new pTimeSpan();
+        if($period instanceof Date){
+            $result = new TimeSpan();
             $result->day($datetime->totalDays());
             $result->hour($datetime->time()->hour());
             $result->minute($datetime->time()->minute());
@@ -357,12 +351,12 @@ class DateTime extends Date {
     
     /**
      * Calculate the age based on birthday and current date
-     * @param pDate $birthday The person's birthdate
+     * @param Date $birthday The person's birthdate
      * return integer Returns the calculated age
      * @since 1.0-sofia
      */
     public static function calculateAge($birthday){
-        $now = pDateTime::now();
+        $now = DateTime::now();
         $years = $now->year() - $birthday->year();
         
         if($now->month() < $birthday->month() ||
@@ -387,14 +381,14 @@ class DateTime extends Date {
     }
     
     /**
-     * Compare this pDateTime object with another pDateTime object
-     * @param pDateTime $another The other pDateTime object to compare with
+     * Compare this DateTime object with another DateTime object
+     * @param DateTime $another The other DateTime object to compare with
      * @return integer Returns 0 if they are the same, -1 if $this < $another
      *                 and 1 if $this > $another.
      * @since 1.0-sofia
      */
     public function compareTo($another) {
-        $comparator = new pDateTimeComparator();
+        $comparator = new DateTimeComparator();
         return $comparator->compare($this, $another);
     }
     

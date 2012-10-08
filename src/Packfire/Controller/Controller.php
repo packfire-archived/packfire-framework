@@ -160,9 +160,8 @@ abstract class Controller extends BucketUser {
      */
     public function model($model, $forceReload = false){
         if($forceReload || !$this->models->keyExists($model)){
-            pload('model.' . $model);
             $obj = new $model();
-            if($obj instanceof pBucketUser){
+            if($obj instanceof BucketUser){
                 $obj->copyBucket($this);
             }
             $this->models[$model] = $obj;

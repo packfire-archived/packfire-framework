@@ -1,5 +1,7 @@
 <?php
-pload('packfire.collection.pList');
+namespace Packfire\Text;
+
+use Packfire\Collection\ArrayList;
 
 /**
  * String class

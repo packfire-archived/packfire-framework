@@ -2,8 +2,8 @@
 namespace Packfire\Config;
 
 use Packfire\Config\Config;
-pload('packfire.yaml.pYaml');
-pload('packfire.io.file.pFileInputStream');
+use Packfire\Yaml\Yaml;
+use Packfire\IO\File\FileInputStream;
 
 /**
  * YamlConfig class
@@ -23,8 +23,8 @@ class YamlConfig extends Config {
      * @since 1.0-sofia
      */
     protected function read() {
-        $stream = new pFileInputStream($this->file);
-        $yaml = new pYaml($stream);
+        $stream = new FileInputStream($this->file);
+        $yaml = new Yaml($stream);
         $this->data = $yaml->read(); 
     }
     

@@ -1,9 +1,10 @@
 <?php
-pload('packfire.ioc.pBucketUser');
-pload('packfire.session.bucket.pSessionBucket');
+namespace Packfire\Session;
+
+use Packfire\IoC\BucketUser;
 
 /**
- * pMessenger class
+ * Messenger class
  * 
  * Cross-class and controller session messenger. You can utilize this service
  * to provide messenging between classes and controllers.
@@ -14,10 +15,10 @@ pload('packfire.session.bucket.pSessionBucket');
  * @package packfire.session
  * @since 1.0-sofia
  */
-class pMessenger extends pBucketUser {
+class Messenger extends BucketUser {
     
     /**
-     * Create a new pMessenger instance
+     * Create a new Messenger object
      * @since 1.0-sofia 
      */
     public function __construct(){
@@ -26,11 +27,11 @@ class pMessenger extends pBucketUser {
     
     /**
      * Get the session bucket instance
-     * @return pSessionBucket Returns the session bucket instance
+     * @return SessionBucket Returns the session bucket instance
      * @since 1.0-sofia
      */
     private function session(){
-        $bucket = $this->service('session')->bucket(__CLASS__);
+        $bucket = $this->service('session')->bucket('PackfireMessenger');
         return $bucket;
     }
     

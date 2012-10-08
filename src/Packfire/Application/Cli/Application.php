@@ -4,9 +4,9 @@ namespace Packfire\Application\Cli;
 use Response;
 use ServiceBucket;
 use Packfire\Application\ServiceApplication;
-pload('packfire.exception.handler.pCliExceptionHandler');
-pload('packfire.controller.pControllerInvoker');
-pload('packfire.exception.pMissingDependencyException');
+use Packfire\Controller\ControllerInvoker;
+use Packfire\Exception\MissingDependencyException;
+use Packfire\Exception\InvalidRequestException;
 
 /**
  * Application class
@@ -51,7 +51,7 @@ class Application extends ServiceApplication {
         $router = $this->service('router');
         /* @var $router pRouter */
         if(!$router){
-            throw new pMissingDependencyException('Router service missing.');
+            throw new MissingDependencyException('Router service missing.');
         }
         $router->load();
         /* @var $route pRoute */
@@ -65,15 +65,15 @@ class Application extends ServiceApplication {
                 $action = '';
             }
             
-            $caLoader = new pControllerInvoker($class, $action, $request, $route, $response);
+            $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
             $caLoader->copyBucket($this);
             if($caLoader->load()){
                 $response = $caLoader->response();
             }else{
-                throw new pInvalidRequestException('No route found.');
+                throw new InvalidRequestException('No route found.');
             }
         }else{
-            throw new pInvalidRequestException('No default route specified.');
+            throw new InvalidRequestException('No default route specified.');
         }
         
         return $response;

@@ -1,15 +1,13 @@
 <?php
 namespace Packfire\Application;
 
-pload('packfire.ioc.pBucketLoader');
-pload('packfire.debugger.pDebugger');
-pload('packfire.database.pDbConnectorFactory');
-pload('packfire.session.pSessionLoader');
-pload('packfire.config.framework.pAppConfig');
-pload('packfire.ioc.pServiceLoader');
+use Packfire\IoC\BucketLoader;
+use Packfire\Database\ConnectorFactory;
+use Packfire\Config\Framework\AppConfig;
+use Packfire\IoC\ServiceLoader;
 
 /**
- * pServiceAppLoader class
+ * ServiceAppLoader class
  * 
  * Application service bucket that loads the application's core services
  *
@@ -19,15 +17,15 @@ pload('packfire.ioc.pServiceLoader');
  * @package Packfire\Application
  * @since 1.0-sofia
  */
-class ServiceAppLoader extends pBucketLoader {
+class ServiceAppLoader extends BucketLoader {
     
     /**
      * Perform loading
      * @since 1.0-sofia 
      */
     public function load(){
-        $this->put('config.app', array(new pAppConfig(), 'load'));
-        pServiceLoader::loadConfig($this);
+        $this->put('config.app', array(new AppConfig(), 'load'));
+        ServiceLoader::loadConfig($this);
         if($this->pick('config.app')){
             // load database drivers and configurations
             $databaseConfigs = $this->pick('config.app')->get('database');
@@ -35,7 +33,7 @@ class ServiceAppLoader extends pBucketLoader {
                 foreach($databaseConfigs as $key => $databaseConfig){
                     $dbPackage = ($key == 'default' ? '' : '.' . $key);
                     $this->put('database' . $dbPackage 
-                            . '.driver', pDbConnectorFactory::create($databaseConfig));
+                            . '.driver', ConnectorFactory::create($databaseConfig));
                     $this->put('database' . $dbPackage,
                             array($this->pick('database' . $dbPackage . '.driver'), 'database'));
                 }

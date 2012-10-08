@@ -2,10 +2,12 @@
 namespace Packfire\Cache;
 
 use ICache;
-pload('packfire.io.file.pFile');
-pload('packfire.io.file.pPath');
-pload('packfire.io.file.pFileSystem');
-pload('packfire.data.serialization.pPhpSerializer');
+use Packfire\IO\File\File;
+use Packfire\IO\File\Path;
+use Packfire\IO\File\FileSystem;
+use Packfire\Data\Serialization\PhpSerializer;
+use Packfire\DateTime\DateTime;
+use Packfire\DateTime\TimeSpan;
 
 /**
  * FileCache class
@@ -34,7 +36,7 @@ class FileCache implements ICache {
      */
     public function __construct(){
         if(!self::$storePath){
-            self::$storePath = pPath::combine(__APP_ROOT__,
+            self::$storePath = Path::combine(__APP_ROOT__,
                     '/pack/storage/cache');
         }
     }
@@ -46,8 +48,8 @@ class FileCache implements ICache {
      * @since 1.0-sofia
      */
     private static function filePath($cacheId){
-        return pPath::combine(self::$storePath,
-                __CLASS__ . '-' . self::idCleaner($cacheId) . '.cache');
+        return Path::combine(self::$storePath,
+                'FileCache-' . self::idCleaner($cacheId) . '.cache');
     }
     
     /**
@@ -67,7 +69,7 @@ class FileCache implements ICache {
      * @since 1.0-sofia
      */
     private static function isCacheFresh($file){
-        return (pFileSystem::fileExists($file) && filemtime($file) >= time());
+        return (FileSystem::fileExists($file) && filemtime($file) >= time());
     }
     
     /**
@@ -98,7 +100,7 @@ class FileCache implements ICache {
      * @since 1.0-sofia 
      */
     public function flush() {
-        $path = new pPath(self::$storePath);
+        $path = new Path(self::$storePath);
         $path->clear();
     }
 
@@ -107,7 +109,7 @@ class FileCache implements ICache {
      * @since 1.0-sofia
      */
     public function garbageCollect() {
-        $files = glob(self::$storePath . __CLASS__ . '-*.cache', GLOB_NOSORT);
+        $files = glob(self::$storePath .'FileCache-*.cache', GLOB_NOSORT);
         $cFiles = array_combine($files, array_map('filemtime', $files));
         asort($cFiles);
         $time = $time();
@@ -133,9 +135,9 @@ class FileCache implements ICache {
         $file = self::filePath($cacheId);
         $value = $default;
         if(self::isCacheFresh($file)){
-            $stream = new pFileStream($file);
+            $stream = new FileStream($file);
             $stream->open();
-            $serializer = new pPhpSerializer();
+            $serializer = new PhpSerializer();
             $value = $serializer->deserialize($stream);
             $stream->close();
         }
@@ -151,19 +153,19 @@ class FileCache implements ICache {
      * @since 1.0-sofia
      */
     public function set($cacheId, $value, $expiry) {
-        if($expiry instanceof pDateTime){
+        if($expiry instanceof DateTime){
             $expiry = $expiry->toTimestamp();
-        }else if($expiry instanceof pTimeSpan){
+        }else if($expiry instanceof TimeSpan){
             $expiry = time() + $expiry->totalSeconds();
         }else{
             $expiry = time() + 3600; // default to 1 hour cache?
         }
         $file = self::filePath($cacheId);
-        $fileTouch = new pFile($file);
+        $fileTouch = new File($file);
         $fileTouch->create();
-        $stream = new pFileStream($file);
+        $stream = new FileStream($file);
         $stream->open();
-        $serializer = new pPhpSerializer();
+        $serializer = new PhpSerializer();
         $value = $serializer->serialize($stream, $value);
         $stream->close();
         @chmod($file, 0755);

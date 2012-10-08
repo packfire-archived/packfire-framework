@@ -2,10 +2,10 @@
 namespace Packfire\Cache;
 
 use ICache;
-pload('packfire.exception.pMissingDependencyException');
+use Packfire\Exception\MissingDependencyException;
 
 if(!function_exists('apc_fetch')){
-    throw new pMissingDependencyException('pApcCache requires the APC PECL extension in order to run properly.');
+    throw new MissingDependencyException('pApcCache requires the APC PECL extension in order to run properly.');
 }
 
 /**

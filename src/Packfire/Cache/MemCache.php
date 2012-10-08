@@ -2,10 +2,10 @@
 namespace Packfire\Cache;
 
 use ICache;
-pload('packfire.exception.pMissingDependencyException');
+use Packfire\Exception\MissingDependencyException;
 
 if(!class_exists('Memcache')){
-    throw new pMissingDependencyException('pMemCache requires the Memcache extension in order to run properly.');
+    throw new MissingDependencyException('pMemCache requires the Memcache extension in order to run properly.');
 }
 
 /**
