@@ -1,14 +1,15 @@
 <?php
+namespace Packfire\IO;
 
 /**
- * pStreamReader class
+ * StreamReader class
  * 
  * Provides extended reading operations to an IInputStream
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.io
+ * @package Packfire\IO
  * @since 1.0-sofia
  */
 class pStreamReader {

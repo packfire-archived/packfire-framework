@@ -1,13 +1,17 @@
 <?php
-pload('IStream');
+namespace Packfire\IO;
+
+use IStream;
 
 /**
+ * IOutputStream interface
+ * 
  * Output Stream for writing operations to a stream
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.io
+ * @package Packfire\IO
  * @since 1.0-sofia
  */
 interface IOutputStream extends IStream {
