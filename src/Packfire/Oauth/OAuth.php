@@ -6,10 +6,10 @@ namespace Packfire\OAuth;
  * 
  * Provides constants to the OAuth parameters
  *
- * @author Sam Yong
- * @copyright Copyright (c) 2012, Sam Yong
- * @license Expression license is undefined on line 8, column 15 in Templates/Scripting/Packfire Framework/PackfireClass.php.
- * @package packfire.oauth
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package Packfire\OAuth
  * @since 1.1-sofia
  */
 class OAuth {

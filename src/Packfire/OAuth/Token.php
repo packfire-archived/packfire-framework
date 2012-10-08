@@ -4,17 +4,17 @@ namespace Packfire\OAuth;
 use OAuth;
 
 /**
- * pOAuthToken class
+ * Token class
  * 
  * A token representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.oauth.token
+ * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class pOAuthToken {
+class Token {
     
     /**
      * The token identifier

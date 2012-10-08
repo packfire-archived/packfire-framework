@@ -12,10 +12,10 @@ use IHttpEntity;
  * 
  * OAuth Response for any token requests
  *
- * @package packfire.oaut
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD Licenseh.response
+ * @package Packfire\OAuth
  * @since 1.1-sofia
  */
 class Response extends HttpResponse implements IHttpEntity, IAppResponse {

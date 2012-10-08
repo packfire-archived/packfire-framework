@@ -20,7 +20,7 @@ use IHttpEntity;
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.oauth.request
+ * @package Packfire\OAuth
  * @since 1.1-sofia
  */
 class Request extends HttpRequest implements IHttpEntity {
@@ -209,7 +209,7 @@ class Request extends HttpRequest implements IHttpEntity {
         }
         if(!$sigMethod){
             throw new InvalidArgumentException(
-                    'pOAuthRequest::sign',
+                    'Request::sign',
                     'method',
                     'the name of a valid OAuth signature method',
                     $method
