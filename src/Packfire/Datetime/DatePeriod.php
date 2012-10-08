@@ -1,7 +1,11 @@
 <?php
-pload('pDateTime');
+namespace Packfire\DateTime;
+
+use DateTime;
 
 /**
+ * DatePeriod class
+ * 
  * A date period representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -10,18 +14,18 @@ pload('pDateTime');
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pDatePeriod implements Iterator {
+class DatePeriod implements Iterator {
     
     /**
      * The interval
-     * @var pTimeSpan
+     * @var TimeSpan
      * @since 1.0-sofia
      */
     private $interval;
     
     /**
      * The start date
-     * @var pDateTime 
+     * @var DateTime 
      * @since 1.0-sofia
      */
     private $startDate;
@@ -35,7 +39,7 @@ class pDatePeriod implements Iterator {
     
     /**
      * The end date
-     * @var pDateTime
+     * @var DateTime
      * @since 1.0-sofia
      */
     private $endDate;
@@ -49,23 +53,23 @@ class pDatePeriod implements Iterator {
     
     /**
      * The working date
-     * @var pDateTime
+     * @var DateTime
      * @since 1.0-sofia
      */
     private $workingDate;
     
     /**
      * Create a new pDatePeriod object
-     * @param pDateTime $startDate The start date
-     * @param pTimeSpan $interval The interval between dates
-     * @param integer|pDateTime $endDateOrOccurances The number of occurance 
+     * @param DateTime $startDate The start date
+     * @param TimeSpan $interval The interval between dates
+     * @param integer|DateTime $endDateOrOccurances The number of occurance 
      *          or end date
      * @since 1.0-sofia
      */
     public function __construct($startDate, $interval, $endDateOrOccurances){
         $this->startDate = $startDate;
         $this->interval = $interval;
-        if($endDateOrOccurances instanceof pDateTime){
+        if($endDateOrOccurances instanceof DateTime){
             $this->endDate = $endDateOrOccurances;
         }else{
             $this->occurances = $endDateOrOccurances;
@@ -74,7 +78,7 @@ class pDatePeriod implements Iterator {
     
     /**
      * Get the start date
-     * @return pDateTime Returns the start date
+     * @return DateTime Returns the start date
      * @since 1.0-sofia
      */
     public function startDate(){
@@ -83,7 +87,7 @@ class pDatePeriod implements Iterator {
     
     /**
      * Get the interval between dates
-     * @return pTimeSpan Returns the interval
+     * @return TimeSpan Returns the interval
      * @since 1.0-sofia 
      */
     public function interval(){
@@ -92,7 +96,7 @@ class pDatePeriod implements Iterator {
     
     /**
      * Get the end date
-     * @return pDateTime Returns the end date if set, NULL otherwise.
+     * @return DateTime Returns the end date if set, NULL otherwise.
      * @since 1.0-sofia
      */
     public function endDate(){
@@ -128,7 +132,7 @@ class pDatePeriod implements Iterator {
 
     public function valid() {
         return ($this->occurances !== null && $this->count < $this->occurances) ||
-            ($this->endDate instanceof pDateTime &&
+            ($this->endDate instanceof DateTime &&
                 $this->endDate->compareTo($this->workingDate) === 1);
     }
     

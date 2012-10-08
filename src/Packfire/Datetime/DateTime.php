@@ -1,4 +1,12 @@
 <?php
+namespace Packfire\DateTime;
+
+use Time;
+use Date;
+use TimeSpan;
+use DateTimeFormat;
+use Packfire\Exception\InvalidArgumentException;
+use DateTimeComparator;
 pload('pTime');
 pload('pDate');
 pload('pTimeSpan');
@@ -7,6 +15,8 @@ pload('packfire.exception.pInvalidArgumentException');
 pload('pDateTimeComparator');
 
 /**
+ * DateTime class
+ * 
  * A date and time representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -15,7 +25,7 @@ pload('pDateTimeComparator');
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pDateTime extends pDate {
+class DateTime extends Date {
     
     /**
      * The time component

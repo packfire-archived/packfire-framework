@@ -1,6 +1,9 @@
 <?php
+namespace Packfire\DateTime;
 
 /**
+ * DateTimeComponent class
+ * 
  * Date/Time Component abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -9,7 +12,7 @@
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-abstract class pDateTimeComponent {
+abstract class DateTimeComponent {
     
     /**
      * Process the next component

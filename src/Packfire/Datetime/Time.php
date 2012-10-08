@@ -1,9 +1,13 @@
 <?php
-pload('pDateTimeComponent');
-pload('packfire.collection.sort.IComparable');
-pload('pTimeComparator');
+namespace Packfire\DateTime;
+
+use DateTimeComponent;
+use TimeComparator;
+use Packfire\Collection\Sort\IComparable;
 
 /**
+ * Time class
+ * 
  * Time of the day
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -12,7 +16,7 @@ pload('pTimeComparator');
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pTime extends pDateTimeComponent implements IComparable {
+class Time extends DateTimeComponent implements IComparable {
     
     /**
      * Hour of the day (0 to 23), 24-hour format
@@ -43,7 +47,7 @@ class pTime extends pDateTimeComponent implements IComparable {
     protected $millisecond = 0;
     
     /**
-     * Create a new pTime
+     * Create a new Time object
      * @param integer $hour (optional) The hour component. Defaults to 0.
      * @param integer $minute (optional) The minute component. Defaults to 0.
      * @param integer $second (optional) The second component. Defaults to 0.
@@ -192,7 +196,7 @@ class pTime extends pDateTimeComponent implements IComparable {
      * @since 1.0-sofia
      */
     public function compareTo($another) {
-        $comparator = new pTimeComparator();
+        $comparator = new TimeComparator();
         return $comparator->compare($this, $another);
     }
 

@@ -1,7 +1,11 @@
 <?php
-pload('packfire.collection.sort.pPropertyComparator');
+namespace Packfire\DateTime;
+
+use Packfire\Collection\Sort\Comparator\PropertyComparator;
 
 /**
+ * DateComparator class
+ * 
  * A comparator that compares between two pDate objects
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -10,12 +14,12 @@ pload('packfire.collection.sort.pPropertyComparator');
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pDateComparator extends pPropertyComparator {
+class DateComparator extends PropertyComparator {
     
     /**
      * Compare between two pDate objects
-     * @param pDate $date1
-     * @param pDate $date2
+     * @param Date $date1
+     * @param Date $date2
      * @return integer Returns 0 if they are the same, -1 if $date1 < $date2
      *                 and 1 if $date1 > $date2.
      * @since 1.0-sofia

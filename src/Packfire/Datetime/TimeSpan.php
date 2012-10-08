@@ -1,8 +1,12 @@
 <?php
-pload('pTime');
-pload('packfire.exception.pInvalidArgumentException');
+namespace Packfire\DateTime;
+
+use Time;
+use Packfire\Exception\InvalidArgumentException;
 
 /**
+ * TimeSpan class
+ * 
  * A period of time.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -11,7 +15,7 @@ pload('packfire.exception.pInvalidArgumentException');
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pTimeSpan extends pTime {
+class TimeSpan extends Time {
 
     /**
      * Number of days
@@ -21,7 +25,7 @@ class pTimeSpan extends pTime {
     protected $day = 0;
     
     /**
-     * Create a new pTimeSpan object
+     * Create a new TimeSpan object
      * @param integer $seconds (optional) The number of seconds to initialize
      *                         the time span with.
      * @since 1.0-sofia
@@ -68,7 +72,7 @@ class pTimeSpan extends pTime {
         if(func_num_args() == 1){
             if($day != $this->day){
                 if($day < 0){
-                    throw new pInvalidArgumentException('pTimeSpan::day', 'day', 'non-negative', $day);
+                    throw new InvalidArgumentException('pTimeSpan::day', 'day', 'non-negative', $day);
                 }
                 $this->day = $day + 0;
             }
@@ -130,8 +134,8 @@ class pTimeSpan extends pTime {
     
     /**
      * Add another time span to this time span.
-     * @param pTimeSpan $time The amount of time to add.
-     * @return pTimeSpan Returns the resulting pTimeSpan from the addition operation.
+     * @param TimeSpan $time The amount of time to add.
+     * @return TimeSpan Returns the resulting pTimeSpan from the addition operation.
      * @since 1.0-sofia
      */
     public function add($time){
@@ -148,8 +152,8 @@ class pTimeSpan extends pTime {
 
     /**
      * Subtract some time span from this time span.
-     * @param pTimeSpan $time The amount of time to deduct
-     * @return pTimeSpan Returns the resulting pTimeSpan from the subtract operation
+     * @param TimeSpan $time The amount of time to deduct
+     * @return TimeSpan Returns the resulting pTimeSpan from the subtract operation
      * @since 1.0-sofia
      */
     public function subtract($time){

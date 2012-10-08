@@ -1,19 +1,23 @@
 <?php
-pload('pDateTimeComponent');
-pload('pDateTime');
-pload('pDateComparator');
-pload('packfire.collection.sort.IComparable');
+namespace Packfire\DateTime;
+
+use DateTimeComponent;
+use Packfire\Collection\Sort\IComparable;
+use DateTime;
+use DateComparator;
 
 /**
+ * Date class
+ * 
  * Grerogian Calendar Date
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.datetime
+ * @package Packfire\DateTime
  * @since 1.0-sofia
  */
-class pDate extends pDateTimeComponent implements IComparable {
+class Date extends DateTimeComponent implements IComparable {
 
     /**
      * Day of the month (1 to 31)
@@ -37,7 +41,7 @@ class pDate extends pDateTimeComponent implements IComparable {
     protected $year = 0;
     
     /**
-     * Create a new Grerogian calendar date with Year, Month, Day
+     * Create a new Date object
      * @param integer $year Set the year component
      * @param integer $month Set the month component
      * @param integer $day Set the day component
@@ -60,7 +64,7 @@ class pDate extends pDateTimeComponent implements IComparable {
             if($day != $this->day){
                 $day--;
                 $day = $this->processNextComponent($day, 'month',
-                        pDateTime::daysInMonth($this->month, $this->year)) + 1;
+                        DateTime::daysInMonth($this->month, $this->year)) + 1;
                 $this->day = $day + 0;
             }
         }
@@ -135,7 +139,7 @@ class pDate extends pDateTimeComponent implements IComparable {
                 + ($deltaYear / 400));
         $monthDays = 0;
         for($month = 1; $month <= $this->month; ++$month){
-            $monthDays += pDateTime::daysInMonth($month, $this->year);
+            $monthDays += DateTime::daysInMonth($month, $this->year);
         }
         return $this->day 
                 + $monthDays
@@ -145,8 +149,8 @@ class pDate extends pDateTimeComponent implements IComparable {
     
     /**
      * Add another date to this date.
-     * @param pTimeSpan $timeSpan The amount of time to add
-     * @return pDate The resulting date from the addition operation
+     * @param TimeSpan $timeSpan The amount of time to add
+     * @return Date The resulting date from the addition operation
      * @since 1.0-sofia
      */
     public function add($timeSpan){
@@ -159,8 +163,8 @@ class pDate extends pDateTimeComponent implements IComparable {
     
     /**
      * Subtract some date from this date. 
-     * @param pTimeSpan $timeSpan The amount of time to deduct
-     * @return pDate The resulting date from the subtract operation
+     * @param TimeSpan $timeSpan The amount of time to deduct
+     * @return Date The resulting date from the subtract operation
      * @since 1.0-sofia
      */
     public function subtract($timeSpan){
@@ -173,13 +177,13 @@ class pDate extends pDateTimeComponent implements IComparable {
     
     /**
      * Compare this pDate object with another pDate object
-     * @param pDate $another The other pDate object to compare with
+     * @param Date $another The other pDate object to compare with
      * @return integer Returns 0 if they are the same, -1 if $this < $another
      *                 and 1 if $this > $another.
      * @since 1.0-sofia
      */
     public function compareTo($another) {
-        $comparator = new pDateComparator();
+        $comparator = new DateComparator();
         return $comparator->compare($this, $another);
     }
     

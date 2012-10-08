@@ -1,6 +1,9 @@
 <?php
+namespace Packfire\DateTime;
 
 /**
+ * DateTimeFormat class
+ * 
  * Date Time standard formats
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -9,7 +12,7 @@
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pDateTimeFormat {
+class DateTimeFormat {
     
     const ATOM = 'Y-m-d\TH:i:sP';
     const COOKIE = 'l, d-M-y H:i:s T' ;

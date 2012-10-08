@@ -1,8 +1,12 @@
 <?php
-pload('pDateTime');
-pload('packfire.exception.pInvalidRequestException');
+namespace Packfire\DateTime;
+
+use DateTime;
+use Packfire\Exception\InvalidRequestException;
 
 /**
+ * Timer class
+ * 
  * A timer in microseconds
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -11,7 +15,7 @@ pload('packfire.exception.pInvalidRequestException');
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pTimer {
+class Timer {
 
     /**
      * The start time of the timer
@@ -28,7 +32,7 @@ class pTimer {
     private $endTime = null;
 
     /**
-     * Creates a new pTimer
+     * Creates a new Timer object
      * @param boolean $start Set whether to start or don't start the timer upon
      *                       creation (optional, default FALSE).
      * @since 1.0-sofia
@@ -41,28 +45,28 @@ class pTimer {
 
     /**
      * Start the timer
-     * @throws pInvalidRequestException
+     * @throws InvalidRequestException
      * @since 1.0-sofia
      */
     public function start(){
         if($this->running()){
-            throw new pInvalidRequestException(
+            throw new InvalidRequestException(
                     'pTimer::start() cannot be called when the timer is already running.'
                 );
             return;
         }
-        $this->startTime = pDateTime::microtime();
+        $this->startTime = DateTime::microtime();
     }
 
     /**
      * Stop the timer and return the result
      * @return double|integer Returns the result of the timing
-     * @throws pInvalidRequestException
+     * @throws InvalidRequestException
      * @since 1.0-sofia
      */
     public function stop(){
         if(!$this->running()){
-            throw new pInvalidRequestException(
+            throw new InvalidRequestException(
                     'pTimer::stop() cannot be called when the timer is already stopped.'
                 );
             return;
@@ -80,13 +84,13 @@ class pTimer {
      */
     public function result(){
         if(!$this->running() && !$this->endTime){
-            throw new pInvalidRequestException(
+            throw new InvalidRequestException(
                     'pTimer::result() cannot be called when the timer has not started yet.'
                 );
         }
         $endTime = $this->endTime;
         if(!$endTime){
-            $endTime = pDateTime::microtime();
+            $endTime = DateTime::microtime();
         }
         return $endTime - $this->startTime;
     }

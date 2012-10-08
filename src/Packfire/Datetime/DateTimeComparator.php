@@ -1,7 +1,13 @@
 <?php
-pload('packfire.collection.sort.IComparator');
+namespace Packfire\DateTime;
+
+use Packfire\Collection\Sort\IComparator;
+use DateComparator;
+use TimeComparator;
 
 /**
+ * DateTimeComparator class
+ * 
  * A date time comparator
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -10,21 +16,21 @@ pload('packfire.collection.sort.IComparator');
  * @package packfire.datetime
  * @since 1.0-sofia
  */
-class pDateTimeComparator implements IComparator {
+class DateTimeComparator implements IComparator {
     
     /**
-     * Compares between two pDateTime object
-     * @param pDateTime $datetime1 The first pDateTime object to compare
-     * @param pDateTime $datetime2 The second pDateTime object to compare
+     * Compares between two DateTime object
+     * @param DateTime $datetime1 The first pDateTime object to compare
+     * @param DateTime $datetime2 The second pDateTime object to compare
      * @return integer Returns 0 if they are the same, -1 if $datetime1 < $datetime2
      *                 and 1 if $datetime1 > $datetime2.
      * @since 1.0-sofia
      */
     public function compare($datetime1, $datetime2) {
-        $dateComp = new pDateComparator();
+        $dateComp = new DateComparator();
         $result = $dateComp->compare($datetime1, $datetime2);
         if($result === 0){
-            $timeComp = new pTimeComparator();
+            $timeComp = new TimeComparator();
             $result = $timeComp->compare($datetime1->time(), $datetime2->time());
         }
         return $result;
