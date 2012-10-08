@@ -1,23 +1,25 @@
 <?php
-pload('packfire.event.IEventWatchable');
-pload('packfire.event.pEventHandler');
+namespace Packfire\Model;
+
+use Packfire\Event\IEventWatchable;
+use Packfire\Event\EventHandler;
 
 /**
- * pModelWatcher class
+ * ObjectObserver class
  * 
  * Watches a model's properties and methods for updates and changes
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.model
+ * @package Packfire\Model
  * @since 1.1-sofia
  */
-class pObjectObserver implements IEventWatchable {
+class ObjectObserver implements IEventWatchable {
     
     /**
      * The event handler
-     * @var pEventHandler
+     * @var EventHandler
      * @since 1.1-sofia
      */
     private $handler;
@@ -30,12 +32,12 @@ class pObjectObserver implements IEventWatchable {
     private $model;
     
     /**
-     * Create a new pModelWatcher object
+     * Create a new ObjectObserver object
      * @param object $model The object to be watched
      * @since 1.1-sofia
      */
     public function __construct($model){
-        $this->handler = new pEventHandler($this);
+        $this->handler = new EventHandler($this);
         $this->model = $model;
     }
     
