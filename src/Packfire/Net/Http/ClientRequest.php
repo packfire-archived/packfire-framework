@@ -1,10 +1,10 @@
 <?php
 namespace Packfire\Net\Http;
 
-use HttpRequest;
+use Request;
 
 /**
- * HttpClientRequest class
+ * ClientRequest class
  * 
  * A client's HTTP request
  *
@@ -14,18 +14,18 @@ use HttpRequest;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class HttpClientRequest extends HttpRequest {
+class ClientRequest extends Request {
     
     /**
      * The client that made this request
-     * @var HttpClient
+     * @var Client
      * @since 1.0-sofia
      */
     private $client;
     
     /**
-     * Create a new HttpClientRequest object
-     * @param HttpClient $client The client that requested this HTTP Request
+     * Create a new ClientRequest object
+     * @param Client $client The client that requested this HTTP Request
      * @since 1.0-sofia
      */
     function __construct($client) {
@@ -34,8 +34,8 @@ class HttpClientRequest extends HttpRequest {
     }
     
     /**
-     * Get the HttpClient that requested this request
-     * @return HttpClient Returns the client
+     * Get the client that requested this request
+     * @return Client Returns the client
      * @since 1.0-sofia
      */
     public function client(){

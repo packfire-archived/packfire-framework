@@ -2,7 +2,7 @@
 namespace Packfire\Net\Http;
 
 /**
- * HttpClientOS
+ * ClientOS class
  * 
  * Constants for Client Operating Systems
  *
@@ -12,7 +12,7 @@ namespace Packfire\Net\Http;
  * @package Packfire\Net\Http
  * @since 1.0-sifa
  */
-class HttpClientOS {
+class ClientOS {
 
     /**
      * Operating System: Microsoft Windows

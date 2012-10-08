@@ -2,7 +2,7 @@
 namespace Packfire\Net\Http;
 
 /**
- * HttpMethod class
+ * Method class
  * 
  * HTTP Method constants
  *
@@ -12,7 +12,7 @@ namespace Packfire\Net\Http;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class HttpMethod {
+class Method {
     
     /**
      * HTTP HEAD Method

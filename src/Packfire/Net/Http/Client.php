@@ -1,11 +1,11 @@
 <?php
 namespace Packfire\Net\Http;
 
-use HttpClientOS;
-use HttpClientBrowser;
+use ClientOS;
+use ClientBrowser;
 
 /**
- * HttpClient class
+ * Client class
  * 
  * A HTTP client representation
  *
@@ -15,7 +15,7 @@ use HttpClientBrowser;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class HttpClient {
+class Client {
     
     /**
      * The IP Address of the client
@@ -60,7 +60,7 @@ class HttpClient {
     private $bot = false;
     
     /**
-     * Create a new pHttpClient object
+     * Create a new Client object
      * @param string $ip The IP Address of the client
      * @param string $userAgent The user agent of the client
      * @since 1.0-sofia
@@ -77,51 +77,51 @@ class HttpClient {
      */
     protected function detect(){
         if (strpos($this->userAgent, 'Windows')) {
-            $this->operatingSystem = HttpClientOS::WINDOWS;
+            $this->operatingSystem = ClientOS::WINDOWS;
         } else if (strpos($this->userAgent, 'iPhone')) {
-            $this->operatingSystem = HttpClientOS::IOS;
+            $this->operatingSystem = ClientOS::IOS;
         } else if (strpos($this->userAgent,'BlackBerry')) {
-            $this->operatingSystem = HttpClientOS::BLACKBERRY;
+            $this->operatingSystem = ClientOS::BLACKBERRY;
         } else if (strpos($this->userAgent,'Macintosh')) {
-            $this->operatingSystem = HttpClientOS::MACINTOSH;
+            $this->operatingSystem = ClientOS::MACINTOSH;
         } else if (strpos($this->userAgent,'Android')) {
-            $this->operatingSystem = HttpClientOS::ANDROID;
+            $this->operatingSystem = ClientOS::ANDROID;
         } else if (strpos($this->userAgent, 'Linux')) {
-            $this->operatingSystem = HttpClientOS::LINUX;
+            $this->operatingSystem = ClientOS::LINUX;
         } else if (strpos($this->userAgent, 'Unix')) {
-            $this->operatingSystem = HttpClientOS::UNIX;
+            $this->operatingSystem = ClientOS::UNIX;
         } else if (strpos($this->userAgent, 'Googlebot')) {
-            $this->operatingSystem = HttpClientOS::GOOGLEBOT;
+            $this->operatingSystem = ClientOS::GOOGLEBOT;
         } else if (strpos($this->userAgent, 'Yahoo!')) {
-            $this->operatingSystem = HttpClientOS::YAHOOBOT;
+            $this->operatingSystem = ClientOS::YAHOOBOT;
         } else if (strpos($this->userAgent, 'bingbot')) {
-            $this->operatingSystem = HttpClientOS::BINGBOT;
+            $this->operatingSystem = ClientOS::BINGBOT;
         } else if (strpos($this->userAgent, 'msnbot')) {
-            $this->operatingSystem = HttpClientOS::MSNBOT;
+            $this->operatingSystem = ClientOS::MSNBOT;
         } else {
-            $this->operatingSystem = HttpClientOS::UNKNOWN;;
+            $this->operatingSystem = ClientOS::UNKNOWN;;
         }
         
         $matched = array();
         if(preg_match( '`Opera/([0-9].[0-9]{1,2})`', $this->userAgent, $matched)){
             $browser_version = $matched[1];
-            $browser = HttpClientBrowser::OPERA;
+            $browser = ClientBrowser::OPERA;
         }elseif(preg_match('`MSIE ([0-9].[0-9]{1,2})`', $this->userAgent, $matched)){
             $browser_version = $matched[1];
-            $browser = HttpClientBrowser::IE;
+            $browser = ClientBrowser::IE;
         }elseif(preg_match('`Firefox/([0-9\.]+)`', $this->userAgent, $matched)){
                 $browser_version = $matched[1];
-                $browser = HttpClientBrowser::FIREFOX;
+                $browser = ClientBrowser::FIREFOX;
         }elseif(preg_match('`Chrome/([0-9\.]+)`', $this->userAgent, $matched)){
                 $browser_version = $matched[1];
-                $browser = HttpClientBrowser::CHROME;
+                $browser = ClientBrowser::CHROME;
         }elseif(preg_match('`Safari/([0-9\.]+)`', $this->userAgent, $matched)){
                 $browser_version = $matched[1];
-                $browser = HttpClientBrowser::SAFARI;
+                $browser = ClientBrowser::SAFARI;
         }else{
             // browser not recognized!
             $browser_version = '';
-            $browser = HttpClientBrowser::UNKNOWN;
+            $browser = ClientBrowser::UNKNOWN;
         }
         $this->browserName = $browser;
         $this->browserVersion = $browser_version;

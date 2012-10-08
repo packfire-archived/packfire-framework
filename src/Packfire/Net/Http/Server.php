@@ -2,12 +2,12 @@
 namespace Packfire\Net\Http;
 
 use Packfire\Exception\MissingDependencyException;
-use HttpResponse;
+use Response;
 use Packfire\Exception\IOException;
-use HttpMethod;
+use Method;
 
 /**
- * pHttpServer class
+ * Server class
  * 
  * Provides a HTTP server instance functionality
  *
@@ -17,7 +17,7 @@ use HttpMethod;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class pHttpServer {
+class Server {
     
     /**
      * The hostname or IP address of the server
@@ -34,7 +34,7 @@ class pHttpServer {
     private $port;
     
     /**
-     * Create a new pHttpServer instance
+     * Create a new Server object
      * @param string $host The hostname or IP address of the server
      * @param integer $port (optional) The port number to connect to,
      *                  defaults to HTTP port 80.
@@ -47,9 +47,10 @@ class pHttpServer {
     
     /**
      * Perform a HTTP request to the server
-     * @param pHttpRequest $request The request to send to the server
-     * @param pHttpResponse $response The response object to receive the response
-     * @return pHttpResponse Returns the response object
+     * @param Request $request The request to send to the server
+     * @param Response $response (optional) The response object to receive
+     *                  the response. Defaults to Response.
+     * @return Response Returns the response object
      * @since 1.0-sofia
      */
     public function request($request, $response = null){
@@ -75,7 +76,7 @@ class pHttpServer {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
             // if it is post
-            if($request->method() == HttpMethod::POST){
+            if($request->method() == Method::POST){
                 curl_setopt($ch, CURLOPT_POST, $request->post()->count());
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($request->post()->toArray()));
             }
@@ -92,12 +93,12 @@ class pHttpServer {
             curl_close($ch);
             
             if(!$response){
-                $response = new HttpResponse();
+                $response = new Response();
             }
             $response->parse($result);
             return $response;
         }else{
-            throw new MissingDependencyException('CURL extension is required by pHttpServer but is not enabled.');
+            throw new MissingDependencyException('CURL extension is required by Server but is not enabled.');
         }
     }
     

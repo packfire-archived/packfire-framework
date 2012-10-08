@@ -2,7 +2,7 @@
 namespace Packfire\Net\Http;
 
 /**
- * HttpClientBrowser class
+ * ClientBrowser class
  * 
  * Constants for HTTP client browser
  *
@@ -12,7 +12,7 @@ namespace Packfire\Net\Http;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class HttpClientBrowser {
+class ClientBrowser {
 
     /**
      * Browser: Mozilla Firefox

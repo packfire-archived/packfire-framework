@@ -1,14 +1,14 @@
 <?php
 namespace Packfire\Net\Http;
 
-use HttpVersion;
-use HttpResponseCode;
+use Version;
+use ResponseCode;
 use Packfire\Text\NewLine;
 use Packfire\Collection\Map;
 use Packfire\Exception\ParseException;
 
 /**
- * HttpResponse class
+ * Response class
  * 
  * A HTTP Response
  *
@@ -18,21 +18,21 @@ use Packfire\Exception\ParseException;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class pHttpResponse {
+class Response {
 
     /**
      * The HTTP Version of the Status-Line in the HTTP response
      * @var string
      * @since 1.0-sofia
      */
-    protected $version = HttpVersion::HTTP_1_1;
+    protected $version = Version::HTTP_1_1;
 
     /**
      * The HTTP Status-Code of the Status-Line in the HTTP response
      * @var string
      * @since 1.0-sofia
      */
-    protected $code = HttpResponseCode::HTTP_200;
+    protected $code = ResponseCode::HTTP_200;
 
     /**
      * Body of the HTTP Response
@@ -56,7 +56,7 @@ class pHttpResponse {
     protected $cookies;
     
     /**
-     * Create a new pHttpResponse object 
+     * Create a new Response object 
      * @since 1.0-sofia
      */
     public function __construct(){
@@ -67,7 +67,7 @@ class pHttpResponse {
     /**
      * Parse a HTTP response string into this object
      * @param string $strResponse The response to parse
-     * @throws pParseException
+     * @throws ParseException
      * @since 1.0-sofia
      */
     public function parse($strResponse){

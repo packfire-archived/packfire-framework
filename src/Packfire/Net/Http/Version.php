@@ -2,7 +2,7 @@
 namespace Packfire\Net\Http;
 
 /**
- * HttpVersion class
+ * Version class
  * 
  * HTTP Version constants
  *
@@ -12,7 +12,7 @@ namespace Packfire\Net\Http;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class HttpVersion {
+class Version {
 
     const HTTP_1_1 = 'HTTP/1.1';
     const HTTP_1_0 = 'HTTP/1.0';

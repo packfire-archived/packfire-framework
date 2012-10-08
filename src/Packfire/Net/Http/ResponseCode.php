@@ -2,7 +2,7 @@
 namespace Packfire\Net\Http;
 
 /**
- * HttpResponseCode class
+ * ResponseCode class
  * 
  * HTTP Response Code constants
  *
@@ -12,7 +12,7 @@ namespace Packfire\Net\Http;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class HttpResponseCode {
+class ResponseCode {
 
     const HTTP_100 = '100 Continue';
     const HTTP_101 = '101 Switching Protocols';

@@ -7,7 +7,7 @@ use Packfire\Text\TextStream;
 use Packfire\Text\NewLine;
 
 /**
- * HttpRequest class
+ * Request class
  * 
  * A HTTP Request
  *
@@ -17,7 +17,7 @@ use Packfire\Text\NewLine;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class HttpRequest {
+class Request {
     
     /**
      * The method of request, e.g. GET, POST, HEAD
@@ -89,7 +89,7 @@ class HttpRequest {
     protected $get;
     
     /**
-     * Create the HttpRequest object
+     * Create the Request object
      * @since 1.0-sofia
      */
     public function __construct(){
@@ -266,7 +266,7 @@ class HttpRequest {
     
     /**
      * Get the hash map of cookies
-     * @return Map Returns the hash map of pHttpCookie
+     * @return Map Returns the hash map of Cookie
      * @since 1.0-sofia
      */
     public function cookies(){

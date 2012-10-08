@@ -5,7 +5,7 @@ use Packfire\DateTime\DateTime;
 use Packfire\Exception\InvalidArgumentException;
 
 /**
- * HttpCookie class
+ * Cookie class
  * 
  * A HTTP Cookie
  *
@@ -15,7 +15,7 @@ use Packfire\Exception\InvalidArgumentException;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class HttpCookie {
+class Cookie {
     
     /**
      * Name of the cookie
@@ -68,7 +68,7 @@ class HttpCookie {
     private $httpOnly = false;
 
     /**
-     * Creates a new HttpCookie object
+     * Creates a new Cookie object
      * @param string $n Name of the Cookie
      * @param mixed $k (optional) Value of the Cookie variable
      * @since 1.0-sofia
@@ -139,7 +139,7 @@ class HttpCookie {
     public function expire($expire = false){
         if(func_num_args() == 1){
             if(!($expire instanceof DateTime)){
-                throw new InvalidArgumentException('HttpCookie::expire', 'datetime', 'of type DateTime', $expire);
+                throw new InvalidArgumentException('Cookie::expire', 'datetime', 'of type DateTime', $expire);
             }
             $this->expire = $expire;
         }
