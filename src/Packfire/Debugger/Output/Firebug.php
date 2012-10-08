@@ -1,20 +1,20 @@
 <?php
-namespace Packfire\Debugger\Firebug;
+namespace Packfire\Debugger\Output;
 
 use Packfire\Debugger\IOutput;
 
 /**
- * Output class
+ * Firebug class
  * 
  * Firebug output for Debugger
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Debugger\Firebug
+ * @package Packfire\Debugger\Output
  * @since 1.1-sofia
  */
-class Output implements IOutput {
+class Firebug implements IOutput {
     
     /**
      * The buffer of messages

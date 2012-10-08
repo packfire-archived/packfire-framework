@@ -1,24 +1,23 @@
 <?php
-namespace Packfire\Debugger\Console;
+namespace Packfire\Debugger\Output;
 
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
-use Packfire\IO\File\Path;
 use Packfire\Debugger\IOutput;
 use Packfire\Template\Moustache\Template;
 
 /**
- * Output class
+ * Console class
  * 
  * Provides Client-side GUI debugging console output
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Debugger\Console
+ * @package Packfire\Debugger\Output
  * @since 1.0-sofia
  */
-class Output implements IOutput {
+class Console implements IOutput {
     
     /**
      * The lines to output
@@ -70,7 +69,7 @@ class Output implements IOutput {
      */
     public function output(){
         $template = new Template(
-                file_get_contents(Path::path(__FILE__) . '/template.html'));
+                file_get_contents(__DIR__ . '/ConsoleTemplate.html'));
         
         $template->fields()->add('lines', $this->lines);
         
