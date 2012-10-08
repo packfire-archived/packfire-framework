@@ -1,15 +1,20 @@
 <?php
+namespace Packfire\Yaml;
+
+use YamlPart;
 
 /**
+ * YamlValue class
+ * 
  * Provides API for working on YAML values.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.yaml
+ * @package Packfire\Yaml
  * @since 1.0-sofia
  */
-class pYamlValue {
+class YamlValue {
     
     /**
      * Strip comments off the text
@@ -80,7 +85,7 @@ class pYamlValue {
     public static function isQuoted($text){
         $text = trim($text);
         $len = strlen($text);
-        return $len > 1 && in_array($text[0], pYamlPart::quotationMarkers()) && $text[0] == $text[$len - 1];
+        return $len > 1 && in_array($text[0], YamlPart::quotationMarkers()) && $text[0] == $text[$len - 1];
     }
     
     /**

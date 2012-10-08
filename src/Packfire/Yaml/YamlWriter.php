@@ -1,5 +1,7 @@
 <?php
-pload('packfire.collection.pList');
+namespace Packfire\Yaml;
+
+use Packfire\Collection\ArrayList;
 
 /**
  * pYamlWriter class
@@ -9,10 +11,10 @@ pload('packfire.collection.pList');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.yaml
+ * @package Packfire\Yaml
  * @since 1.0-sofia
  */
-class pYamlWriter {
+class YamlWriter {
     
     /**
      * The stream to write data to

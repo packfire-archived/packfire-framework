@@ -1,17 +1,21 @@
 <?php
-pload('pYamlPart');
-pload('pYamlValue');
+namespace Packfire\Yaml;
+
+use YamlPart;
+use YamlValue;
 
 /**
+ * YamlInline class
+ * 
  * An YAML line processor
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.yaml
+ * @package Packfire\Yaml
  * @since 1.0-sofia
  */
-class pYamlInline {
+class YamlInline {
     
     /**
      * The string to work with
@@ -28,7 +32,7 @@ class pYamlInline {
     private $length;
     
     /**
-     * Create a new pYamlInline object
+     * Create a new YamlInline object
      * @param string $line The line to work with
      * @since 1.0-sofia
      */
@@ -96,7 +100,7 @@ class pYamlInline {
      * @since 1.0-sofia
      */
     public function parseKeyValue(&$position = 0,
-            $breakers = array('{', pYamlPart::KEY_VALUE_SEPARATOR, "\n")){
+            $breakers = array('{', YamlPart::KEY_VALUE_SEPARATOR, "\n")){
         $result = array();
         $key = $this->parseScalar($position, $breakers, false);
         $value = $this->parseValue($position, $breakers);
@@ -124,7 +128,7 @@ class pYamlInline {
         $line = $this->line;
         $length = $this->length;
         if($length > 1 && in_array($line[$position],
-                pYamlPart::quotationMarkers())){
+                YamlPart::quotationMarkers())){
             $result = $this->parseQuotedString($position);
             // skip additional data till the breaker
             $this->parseNormalScalar($position, $breakers);
@@ -133,7 +137,7 @@ class pYamlInline {
         }
         $result = trim($result);
         if($translate){
-            $result = pYamlValue::translateScalar($result);
+            $result = YamlValue::translateScalar($result);
         }
         return $result;
     }

@@ -1,17 +1,21 @@
 <?php
-pload('packfire.collection.pMap');
+namespace Packfire\Yaml;
+
+use Packfire\Collection\Map;
 
 /**
+ * YamlReference class
+ * 
  * Contains data of a reference map
  * You can access the data directly by $reference[$key] array access.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.yaml
+ * @package Packfire\Yaml
  * @since 1.0-sofia
  */
-class pYamlReference implements ArrayAccess {
+class YamlReference implements ArrayAccess {
     
     /**
      * The data of the reference
@@ -21,7 +25,7 @@ class pYamlReference implements ArrayAccess {
     private $data;
     
     /**
-     * Create a new reference
+     * Create a new YamlReference object
      * @param array $data The data
      * @since 1.0-sofia
      */

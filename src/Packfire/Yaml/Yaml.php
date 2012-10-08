@@ -1,36 +1,40 @@
 <?php
-pload('packfire.io.pStreamReader');
-pload('pYamlParser');
+namespace Packfire\Yaml;
+
+use Packfire\IO\StreamReader;
+use YamlParser;
 
 /**
+ * Yaml class
+ * 
  * Provides functionalities to start working on a YAML stream
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.yaml
+ * @package Packfire\Yaml
  * @since 1.0-sofia
  */
-class pYaml {
+class Yaml {
     
     /**
      * The parser
-     * @var pYamlParser
+     * @var YamlParser
      * @since 1.0-sofia
      */
     private $parser;
     
     /**
-     * Create a YAML working pYaml class
+     * Create a new Yaml object
      * @param IInputStream $stream The input stream to read the document from
      * @since 1.0-sofia
      */
     public function __construct($stream){
-        $reader = new pStreamReader($stream);
+        $reader = new StreamReader($stream);
         if($stream->seekable()){
             $stream->seek(0);
         }
-        $this->parser = new pYamlParser($reader);
+        $this->parser = new YamlParser($reader);
     }
     
     /**
@@ -51,7 +55,7 @@ class pYaml {
     
     /**
      * Get the parser working on the YAML document
-     * @return pYamlParser Returns the parser
+     * @return YamlParser Returns the parser
      * @since 1.0-sofia
      */
     public function parser(){

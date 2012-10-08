@@ -1,20 +1,24 @@
 <?php
-pload('pYamlInline');
-pload('packfire.collection.pMap');
-pload('pYamlReference');
-pload('pYamlPart');
-pload('packfire.text.pNewline');
+namespace Packfire\Yaml;
+
+use YamlInline;
+use Packfire\Collection\Map;
+use YamlReference;
+use YamlPart;
+use Packfire\Text\NewLine;
 
 /**
+ * YamlParser class
+ * 
  * Contains constants that identify parts of the document
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.yaml
+ * @package Packfire\Yaml
  * @since 1.0-sofia
  */
-class pYamlParser {
+class YamlParser {
     
     /**
      * The reader to read in data from the input stream
@@ -67,7 +71,7 @@ class pYamlParser {
      * @return Map Returns a Map containing the $referenceName => $reference
      *              combination. If parsing of a document has yet started, the
      *              method returns null instead. $reference is an instance of
-     *              pYamlReference.
+     *              YamlReference.
      * @since 1.0-sofia
      */
     public function reference(){
@@ -96,7 +100,7 @@ class pYamlParser {
      * @since 1.0-sofia
      */
     public function findDocumentStart(){
-        $this->read->until(pYamlPart::DOC_START);
+        $this->read->until(YamlPart::DOC_START);
     }
     
     /**
@@ -108,7 +112,7 @@ class pYamlParser {
         $this->trimmedLine = '';
         $this->indentation = 0;
         if($this->read->hasMore()){
-            $this->line = pYamlValue::stripComment($this->read->line());
+            $this->line = YamlValue::stripComment($this->read->line());
             if($this->line){
                 $this->trimmedLine = trim($this->line);
                 if($this->trimmedLine){
@@ -129,8 +133,8 @@ class pYamlParser {
      */
     private function parseKeyValue($line){
         $position = 0;
-        $key = pYamlInline::load($line)->parseScalar($position,
-                        array(pYamlPart::KEY_VALUE_SEPARATOR), false);
+        $key = YamlInline::load($line)->parseScalar($position,
+                        array(YamlPart::KEY_VALUE_SEPARATOR), false);
         $after = $position;
         if($after >= strlen($line)){
             $value = null;
@@ -153,7 +157,7 @@ class pYamlParser {
         $result = array();
         $next = true;
         while(!$this->trimmedLine){
-            if(pYamlPart::DOC_END == $this->trimmedLine){
+            if(YamlPart::DOC_END == $this->trimmedLine){
                 $next = false;
                 break;
             }
@@ -165,11 +169,11 @@ class pYamlParser {
         }
         if($next && $this->trimmedLine){
             if($this->trimmedLine[0] == '{'){
-                $result = pYamlInline::load(trim($this->fetchBlock()))->parseMap();
+                $result = YamlInline::load(trim($this->fetchBlock()))->parseMap();
             }elseif($this->trimmedLine[0] == '['){
-                $result = pYamlInline::load(trim($this->fetchBlock()))->parseSequence();
-            }elseif(substr($this->trimmedLine, 0, 2) == pYamlPart::SEQUENCE_ITEM_BULLET
-                    || $this->trimmedLine == pYamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE){
+                $result = YamlInline::load(trim($this->fetchBlock()))->parseSequence();
+            }elseif(substr($this->trimmedLine, 0, 2) == YamlPart::SEQUENCE_ITEM_BULLET
+                    || $this->trimmedLine == YamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE){
                 $result = $this->parseSequenceItems();
             }else{
                 if($this->hasKeyValueLine($this->trimmedLine)){
@@ -206,23 +210,23 @@ class pYamlParser {
                     if($lastchar != '}'){
                         $result = trim($this->fetchBlock());
                     }
-                    $result = pYamlInline::load($result)->parseMap();
+                    $result = YamlInline::load($result)->parseMap();
                     $this->nextLine();
                     break;
                 case '[':
                     if($lastchar != ']'){
                         $result = trim($this->fetchBlock());
                     }
-                    $result = pYamlInline::load($result)->parseSequence();
+                    $result = YamlInline::load($result)->parseSequence();
                     $this->nextLine();
                     break;
                 case '|': // newlines preserved literal blocks
                     $this->nextLine();
-                    $result = pNewLine::neutralize(trim($this->fetchBlock()));
+                    $result = NewLine::neutralize(trim($this->fetchBlock()));
                     break;
                 case '>': // folded literal block
                     $this->nextLine();
-                    $result = pNewLine::neutralize(trim($this->fetchBlock()));
+                    $result = NewLine::neutralize(trim($this->fetchBlock()));
                     $result = preg_replace(array('`\n\s+([^\s]+)`', '`([^\n]+)\n([^\n]+)`'),
                             array("\n".'$1', '$1 $2'), $result);
                     $result = str_replace("\n\n", "\n", $result);
@@ -237,11 +241,11 @@ class pYamlParser {
                 case '&': // reference creation
                     $referenceName = substr($this->trimmedLine, 1);
                     $this->nextLine();
-                    $result= new pYamlReference($this->parseBlock());
+                    $result= new YamlReference($this->parseBlock());
                     $this->reference[$referenceName] = $result;
                     break;
                 default: // normal scalar value
-                    $result = pYamlInline::load($this->trimmedLine)->parseScalar();
+                    $result = YamlInline::load($this->trimmedLine)->parseScalar();
                     $this->nextLine();
                     break;
             }
@@ -260,18 +264,18 @@ class pYamlParser {
         
         $minLevel = $this->indentation;
         while(!$this->trimmedLine || $minLevel == $this->indentation){
-            if(pYamlPart::DOC_END == $this->trimmedLine){
+            if(YamlPart::DOC_END == $this->trimmedLine){
                 break;
             }
             
             $next = true;
             if($this->trimmedLine){
                 $bulletCheck = substr($this->trimmedLine, 0, 2);
-                if(($bulletCheck == pYamlPart::SEQUENCE_ITEM_BULLET
-                        || ltrim($this->line) == pYamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE)){
+                if(($bulletCheck == YamlPart::SEQUENCE_ITEM_BULLET
+                        || ltrim($this->line) == YamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE)){
 
                     $lineValue = substr($this->trimmedLine, 2);
-                    $cleanLineValue = pYamlValue::stripQuote($lineValue);
+                    $cleanLineValue = YamlValue::stripQuote($lineValue);
                     list($key, $value) = $this->parseKeyValue($cleanLineValue);
 
                     if($key == $cleanLineValue && '' !== $key && null === $value){
@@ -318,7 +322,7 @@ class pYamlParser {
         $result = array();
         $minLevel = $this->indentation;
         while(!$this->trimmedLine || $minLevel == $this->indentation){
-            if(pYamlPart::DOC_END == $this->trimmedLine){
+            if(YamlPart::DOC_END == $this->trimmedLine){
                 break;
             }
             if($this->trimmedLine){
