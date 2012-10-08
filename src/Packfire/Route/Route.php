@@ -1,13 +1,27 @@
 <?php
-pload('IRoute');
-pload('packfire.validator.pSerialValidator');
-pload('packfire.validator.pNumericValidator');
-pload('packfire.validator.pMatchValidator');
-pload('packfire.validator.pRegexValidator');
-pload('packfire.validator.pCallbackValidator');
-pload('packfire.validator.pEmailValidator');
+namespace Packfire\Route;
 
-abstract class pRoute implements IRoute {
+use IRoute;
+use Packfire\Collection\ArrayList;
+use Packfire\Validator\Serial as SerialValidator;
+use Packfire\Validator\Numeric as NumericValidator;
+use Packfire\Validator\Match as MatchValidator;
+use Packfire\Validator\Regex as RegexValidator;
+use Packfire\Validator\Callback as CallbackValidator;
+use Packfire\Validator\Email as EmailValidator;
+
+/**
+ * Route class
+ * 
+ * A generic validatory route
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package Packfire\Route
+ * @since 1.1-sofia
+ */
+abstract class Route implements IRoute {
     
     /**
      * The name of the route
@@ -111,7 +125,7 @@ abstract class pRoute implements IRoute {
             }
         }
         
-        $validator = new pSerialValidator();
+        $validator = new SerialValidator();
         $original = $value;
         foreach($rules as $rule){
             $slashPos = strpos($rule, '/');
@@ -126,14 +140,14 @@ abstract class pRoute implements IRoute {
                 case 'numeric':
                 case 'number':
                 case 'num':
-                    $validator->add(new pNumericValidator());
+                    $validator->add(new NumericValidator());
                     $value += 0;
                     break;
                 case 'float':
                 case 'real':
                 case 'double':
-                    $validator->add(new pNumericValidator());
-                    $validator->add(new pCallbackValidator(function($value){
+                    $validator->add(new NumericValidator());
+                    $validator->add(new CallbackValidator(function($value){
                         return is_float($value + 0);
                     }));
                     $value += 0;
@@ -141,61 +155,61 @@ abstract class pRoute implements IRoute {
                 case 'integer':
                 case 'int':
                 case 'long':
-                    $validator->add(new pNumericValidator());
-                    $validator->add(new pCallbackValidator(function($value){
+                    $validator->add(new NumericValidator());
+                    $validator->add(new CallbackValidator(function($value){
                         return is_int($value + 0);
                     }));
                     $value += 0;
                     break;
                 case 'min':
                     $min = $options + 0;
-                    $validator->add(new pCallbackValidator(function($x) use ($min){
+                    $validator->add(new CallbackValidator(function($x) use ($min){
                         return $x >= $min;
                     }));
                     break;
                 case 'max':
                     $max = $options + 0;
-                    $validator->add(new pCallbackValidator(function($x) use ($max){
+                    $validator->add(new CallbackValidator(function($x) use ($max){
                         return $x <= $max;
                     }));
                     break;
                 case 'bool':
                 case 'boolean':
                     $validator->add(
-                        new pMatchValidator(array('true', 'false', '0', '1', 'on', 'off', 'y', 'n'))
+                        new MatchValidator(array('true', 'false', '0', '1', 'on', 'off', 'y', 'n'))
                     );
                     $value = in_array($value, array('true', '1', 'on', 'y'), true);
                     break;
                 case 'alnum':
                     $options = '/^[a-zA-Z0-9]+$/';
-                    $validator->add(new pRegexValidator($options));
+                    $validator->add(new RegexValidator($options));
                     break;
                 case 'strmin':
                     $min = $options + 0;
-                    $validator->add(new pCallbackValidator(function($x) use ($min){
+                    $validator->add(new CallbackValidator(function($x) use ($min){
                         return strlen($x) >= $min;
                     }));
                     break;
                 case 'strmax':
                     $max = $options + 0;
-                    $validator->add(new pCallbackValidator(function($x) use ($max){
+                    $validator->add(new CallbackValidator(function($x) use ($max){
                         return strlen($x) <= $max;
                     }));
                     break;
                 case 'email':
-                    $validator->add(new pEmailValidator());
+                    $validator->add(new EmailValidator());
                     break;
                 case 'alpha':
                     $options = '/^[a-zA-Z]+$/';
-                    $validator->add(new pRegexValidator($options));
+                    $validator->add(new RegexValidator($options));
                     break;
                 case 'regex':
-                    $validator->add(new pRegexValidator($options));
+                    $validator->add(new RegexValidator($options));
                     break;
                 case 'param':
                     $match = array_key_exists($options, $data)
                                     ? $data[$options] : null;
-                    $validator->add(new pMatchValidator($match));
+                    $validator->add(new MatchValidator($match));
                     break;
                 case 'equal':
                 case 'equals':
@@ -205,7 +219,7 @@ abstract class pRoute implements IRoute {
                 case 'optional':
                     break;
                 default:
-                    $validator->add(new pMatchValidator($rule));
+                    $validator->add(new MatchValidator($rule));
                     break;
             }
         }

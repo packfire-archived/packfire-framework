@@ -1,9 +1,11 @@
 <?php
-pload('packfire.routing.pRouter');
-pload('pHttpRoute');
-pload('pHttpRouter');
-pload('packfire.net.http.pUrl');
-pload('packfire.template.pTemplate');
+namespace Packfire\Route\Http;
+
+use Packfire\Route\Router as CoreRouter;
+use Route;
+use RedirectRoute;
+use Packfire\Net\Http\Url;
+use Packfire\Template\Template;
 
 /**
  * pHttpRouter class
@@ -11,10 +13,10 @@ pload('packfire.template.pTemplate');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.routing.http
+ * @package Packfire\Route\Http
  * @since 1.0-elenor
  */
-class pHttpRouter extends pRouter {
+class Router extends CoreRouter {
     
     /**
      * Whether HTTP routing is enabled or not
@@ -41,7 +43,7 @@ class pHttpRouter extends pRouter {
                 'action' => 'regex/`^([a-zA-Z0-9\_]+)$`'
             ))
         ));
-        $directControllerAccessRoute = new pHttpRoute(
+        $directControllerAccessRoute = new Route(
                 'packfire.directControllerAccess',
                 $config);
         $this->add('packfire.directControllerAccess', $directControllerAccessRoute);
@@ -56,9 +58,9 @@ class pHttpRouter extends pRouter {
      */
     protected function routeFactory($key, $data){
         if($data->get('redirect')){
-            $route = new pHttpRedirectRoute($key, $data);
+            $route = new RedirectRoute($key, $data);
         }else{
-            $route = new pHttpRoute($key, $data);
+            $route = new Route($key, $data);
         }
         return $route;
     }
@@ -71,9 +73,9 @@ class pHttpRouter extends pRouter {
      * @since 1.0-elenor
      */
     protected function prepareRoute($route, $params){
-        $template = new pTemplate($route->rewrite());
+        $template = new Template($route->rewrite());
         foreach($params as $name => $value){
-            $template->fields()->add($name, pUrl::encode($value));
+            $template->fields()->add($name, Url::encode($value));
         }
 
         return $template->parse();

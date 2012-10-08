@@ -1,19 +1,21 @@
 <?php
-pload('packfire.routing.pRouter');
-pload('pCliRoute');
+namespace Packfire\Route\Cli;
+
+use Packfire\Route\Router as CoreRouter;
+use Route;
 
 /**
- * pCliRouter class
+ * Router class
  * 
  * A router for command line requests
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packafire.routing.cli
+ * @package Packfire\Route\Cli
  * @since 1.0-elenor
  */
-class pCliRouter extends pRouter {
+class Router extends CoreRouter {
     
     /**
      * Perform loading of routes from the routing configuration file
@@ -58,7 +60,7 @@ class pCliRouter extends pRouter {
      * @since 1.0-elenor
      */
     protected function routeFactory($key, $data) {
-        return new pCliRoute($key, $data);
+        return new Route($key, $data);
     }
     
 }

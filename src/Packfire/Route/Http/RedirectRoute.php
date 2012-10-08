@@ -1,16 +1,21 @@
 <?php
-pload('IRoute');
+namespace Packfire\Route\Http;
+
+use Packfire\Route\IRoute;
+use Packfire\Template\Template;
 
 /**
- * pRedirectRoute Description
+ * RedirectRoute class
+ * 
+ * A route indicating an immediate redirect
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.routing
+ * @package Packfire\Route\Http
  * @since 1.0-elenor
  */
-class pRedirectRoute implements IRoute {
+class RedirectRoute implements IRoute {
     
     private $name;
     
@@ -23,7 +28,7 @@ class pRedirectRoute implements IRoute {
     
     /**
      * The redirect URL
-     * @var string|pUrl
+     * @var string|Url
      * @since 1.0-elenor
      */
     private $redirect;
@@ -36,7 +41,7 @@ class pRedirectRoute implements IRoute {
     private $code;
     
     /**
-     * Create a new pRedirectRoute object
+     * Create a new RedirectRoute object
      * @param string $name The name of the route
      * @param array|Map $data The configuration data entry
      * @since 1.0-elenor
@@ -57,7 +62,7 @@ class pRedirectRoute implements IRoute {
                 || (is_array($this->httpMethod)
                 && in_array(strtolower($method), $this->httpMethod))){
         
-            $template = new pTemplate($this->rewrite);
+            $template = new Template($this->rewrite);
             $tokens = $template->tokens();
             foreach ($tokens as $token) {
                 $value = $this->params->get($token);

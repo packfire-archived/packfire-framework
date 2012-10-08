@@ -1,19 +1,21 @@
 <?php
-pload('packfire.routing.pRoute');
-pload('packfire.collection.pMap');
+namespace Packfire\Route\Cli;
+
+use Packfire\Route\Route as CoreRoute;
+use Packfire\Collection\Map;
 
 /**
- * pCliRoute class
+ * Route class
  * 
  * A command-line interface route entry
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.routing.cli
+ * @package Packfire\Route\Cli
  * @since 1.0-elenor
  */
-class pCliRoute extends pRoute {
+class Route extends CoreRoute {
     
     /**
      * The parameters remapping

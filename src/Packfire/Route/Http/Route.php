@@ -1,6 +1,7 @@
 <?php
+namespace Packfire\Route\Http;
 
-use Packfire\Route\Route;
+use Packfire\Route\Route as CoreRoute;
 use Packfire\Net\Http\Method as HttpMethod;
 use Packfire\Collection\Map;
 use Packfire\Template\Template;
@@ -13,10 +14,10 @@ use Packfire\Template\Template;
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.routing.http
+ * @package Packfire\Route\Http
  * @since 1.0-elenor
  */
-class HttpRoute extends Route {
+class Route extends CoreRoute {
     
     /**
      * The HTTP method that this URL route will cater for. Defaults to GET.
@@ -33,7 +34,7 @@ class HttpRoute extends Route {
     protected $rewrite;
 
     /**
-     * Create a new HttpRoute object
+     * Create a new Route object
      * @param string $name The name of the route
      * @param array|Map $data The configuration data entry
      * @since 1.0-elenor

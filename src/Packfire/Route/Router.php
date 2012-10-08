@@ -1,19 +1,24 @@
 <?php
-pload('packfire.ioc.ILoadable');
-pload('packfire.collection.pMap');
-pload('packfire.exception.pNullException');
-pload('packfire.ioc.pBucketUser');
+namespace Packfire\Route;
+
+use Packfire\IoC\ILoadable;
+use Packfire\Collection\Map;
+use Packfire\Exception\NullException;
+use Packfire\Exception\InvalidRequestException;
+use Packfire\IoC\BucketUser;
 
 /**
+ * Router class
+ * 
  * Handles URL rewritting and controller routing
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.routing
+ * @package Packfire\Route
  * @since 1.0-sofia
  */
-abstract class pRouter extends pBucketUser implements ILoadable {
+abstract class Router extends BucketUser implements ILoadable {
     
     /**
      * The collection of routing entries
@@ -23,7 +28,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
     private $routes;
     
     /**
-     * Create a new pRouter object
+     * Create a new Router object
      * @since 1.0-sofia 
      */
     public function __construct(){
@@ -66,7 +71,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
         if($this->routes){
             $this->routes[$key] = $route;
         }else{
-            throw new pInvalidRequestException('Router has not been loaded before the add request was called.');
+            throw new InvalidRequestException('Router has not been loaded before the add request was called.');
         }
     }
     
@@ -111,7 +116,7 @@ abstract class pRouter extends pBucketUser implements ILoadable {
         if($this->routes){
             $route = $this->routes->get($key);
             if($route === null){
-                throw new pNullException(
+                throw new NullException(
                         sprintf('Routing route "%s" was not found in the'
                                 . ' router\'s entries.', $key));
             }
