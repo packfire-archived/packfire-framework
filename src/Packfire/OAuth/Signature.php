@@ -1,7 +1,10 @@
 <?php
+namespace Packfire\OAuth;
 
 /**
- * pOAuthSignature class
+ * Signature class
+ * 
+ * OAuth Signature Method abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -9,18 +12,18 @@
  * @package packfire.oauth
  * @since 1.1-sofia
  */
-abstract class pOAuthSignature {
+abstract class Signature {
     
     /**
      * The request parameters that was used
-     * @var pOAuthRequest
+     * @var Request
      * @since 1.1-sofia
      */
     protected $request;
     
     /**
      * The OAuth consumer
-     * @var pOAuthConsumer
+     * @var Consumer
      * @since 1.1-sofia
      */
     protected $consumer;
@@ -33,9 +36,9 @@ abstract class pOAuthSignature {
     protected $tokenSecret;
     
     /**
-     * Create a new pOAuthSignature object
-     * @param pOAuthRequest $request The request that uses this signature generation
-     * @param pOAuthConsumer $consumer The consumer
+     * Create a new Signature object
+     * @param Request $request The request that uses this signature generation
+     * @param Consumer $consumer The consumer
      * @param string $tokenSecret The token secret provided by the OAuth provider
      * @since 1.1-sofia
      */
@@ -47,13 +50,10 @@ abstract class pOAuthSignature {
     
     public static function load($name){
         $registry = new Map();
-        $registry->add('HMAC-SHA1', 'pOAuthHmacSha1Signature');
-        $registry->add('PLAINTEXT', 'pOAuthPlainTextSignature');
-        if(substr($name, 0, 6) != 'pOAuth'){
+        $registry->add('HMAC-SHA1', 'Signature\HmacSha1');
+        $registry->add('PLAINTEXT', 'Signature\PlainText');
+        if($registry->keyExists($name)){
             $name = $registry->get($name);
-        }
-        if($name){
-            pload('packfire.oauth.signature.' . $name);
         }
         return $name;
     }

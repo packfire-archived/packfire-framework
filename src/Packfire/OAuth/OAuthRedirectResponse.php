@@ -1,8 +1,11 @@
 <?php
-pload('packfire.response.pRedirectResponse');
+namespace Packfire\OAuth;
+
+use Packfire\Response\RedirectResponse;
+use Packfire\Net\Http\Url;
 
 /**
- * pOAuthProviderRedirectResponse class
+ * OAuthRedirectResponse class
  * 
  * This response is meant to be sent to the consumer's browser to redirect
  * the user to the service provider.
@@ -10,20 +13,20 @@ pload('packfire.response.pRedirectResponse');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.oauth.response
+ * @package packfire.oauth
  * @since 1.1-sofia
  */
-class pOAuthProviderRedirectResponse extends pRedirectResponse {
+class OAuthRedirectResponse extends RedirectResponse {
     
     /**
-     * Create a new pOAuthProviderRedirectResponse
-     * @param string|pUrl $url The service provider authentication URL to redirect to
+     * Create a new OAuthRedirectResponse
+     * @param string|Url $url The service provider authentication URL to redirect to
      * @param string $token The access token that was granted by the service provider
      * @since 1.1-sofia
      */
     function __construct($url, $token) {
-        if(!($url instanceof pUrl)){
-            $url = new pUrl($url);
+        if(!($url instanceof Url)){
+            $url = new Url($url);
         }
         $url->params()->add('oauth_token', $token);
         parent::__construct($url);

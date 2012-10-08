@@ -1,35 +1,35 @@
 <?php
-pload('packfire.oauth.pOAuthSignature');
-pload('packfire.oauth.pOAuthHelper');
+namespace Packfire\OAuth\Signature;
+
+use Packfire\OAuth\Helper;
+use Packfire\OAuth\Signature;
 
 /**
- * pOAuthHmacSha1Signature class
+ * PlainText class
  * 
- * HMAC-SHA1 OAuth Signature Method
+ * Plain text OAuth signature signing
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.oauth.signature
+ * @package Packfire\OAuth\Signature
  * @since 1.1-sofia
  */
-class pOAuthHmacSha1Signature extends pOAuthSignature {
+class pOAuthPlainTextSignature  extends pOAuthSignature {
     
     public function build() {
-        $baseString = $this->request->signatureBase();
-
         $keyParts = pOAuthHelper::urlencode(array(
             $this->consumer->secret(),
             $this->tokenSecret ? $this->tokenSecret : ''
         ));
-
+        
         $key = implode('&', $keyParts);
+        return $key;
 
-        return base64_encode(hash_hmac('sha1', $baseString, $key, true));
     }
 
     public function name() {
-        return 'HMAC-SHA1';
+        return 'PLAINTEXT';
     }
     
 }

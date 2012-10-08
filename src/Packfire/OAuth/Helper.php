@@ -1,7 +1,10 @@
 <?php
+namespace Packfire\OAuth;
 
 /**
- * pOAuthHelper class
+ * Helper class
+ * 
+ * Provides helper methods for OAuth
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

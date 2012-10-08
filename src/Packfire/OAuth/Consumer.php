@@ -1,16 +1,18 @@
 <?php
+namespace Packfire\OAuth;
 
 use Packfire\Net\Http\Server as HttpServer;
 use Packfire\Net\Http\Url;
-pload('packfire.net.http.pHttpServer');
-pload('pOAuth');
-pload('pOAuthRequest');
-pload('pOAuthHelper');
-pload('pOAuthResponse');
-pload('pOAuthToken');
+use OAuth;
+use Request;
+use Helper;
+use Response;
+use Token;
 
 /**
- * pOAuthConsumer class
+ * Consumer class
+ * 
+ * A consumer representation of the OAuth procedure
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -18,7 +20,7 @@ pload('pOAuthToken');
  * @package packfire.oauth
  * @since 1.1-sofia
  */
-class pOAuthConsumer {
+class Consumer {
     
     /**
      * The consumer key
@@ -55,7 +57,7 @@ class pOAuthConsumer {
     private $signatureMethod;
     
     /**
-     * Create a new pOAuthConsumer object
+     * Create a new Consumer object
      * @param string $key The consumer key
      * @param string $secret The secret key
      * @param string|pUrl $callback (optional) The callback URL
@@ -70,7 +72,7 @@ class pOAuthConsumer {
         $this->secret = $secret;
         $this->callback = $callback;
         if(!$signatureMethod){
-            $signatureMethod = 'pOAuthHmacSha1Signature';
+            $signatureMethod = 'HmacSha1';
         }
         $this->signatureMethod = $signatureMethod;
     }
@@ -104,14 +106,14 @@ class pOAuthConsumer {
     
     /**
      * Create and prepare a request for the consumer
-     * @return pOAuthRequest Returns the prepared request object
+     * @return Request Returns the prepared request object
      * @since 1.1-sofia
      */
     private function createRequest(){
-        $request = new pOAuthRequest();
+        $request = new Request();
         $request->method('GET');
-        $request->oauth(pOAuth::CONSUMER_KEY, $this->key);
-        $request->oauth(pOAuth::VERSION, '1.0');
+        $request->oauth(OAuth::CONSUMER_KEY, $this->key);
+        $request->oauth(OAuth::VERSION, '1.0');
         return $request;
     }
     
@@ -119,7 +121,7 @@ class pOAuthConsumer {
      * Request the service provider for a request token
      * @param Url|string $url The URL of the end point to request the
      *                  request token from.
-     * @return pOAuthToken Returns the token provided by the service provider
+     * @return Token Returns the token provided by the service provider
      * @since 1.1-sofia
      */
     public function requestTokenRequest($url){
@@ -132,19 +134,19 @@ class pOAuthConsumer {
         $request->headers()->add('Host',
                 $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
         $request->uri($url->path());
-        $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
+        $request->oauth(OAuth::NONCE, Helper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
-        $response = $server->request($request, new pOAuthResponse());
+        $response = $server->request($request, new Response());
         /* @var $response pOAuthResponse */
-        $this->tokenSecret = $response->oauth(pOAuth::TOKEN_SECRET);
-        return pOAuthToken::load($response);
+        $this->tokenSecret = $response->oauth(OAuth::TOKEN_SECRET);
+        return Token::load($response);
     }
     
     /**
      * Request the service provider for an access token
      * @param Url|string $url The URL of the end point to request the
      *                  access token from.
-     * @return pOAuthToken Returns the token provided by the service provider
+     * @return Token Returns the token provided by the service provider
      * @since 1.1-sofia
      */
     public function accessTokenRequest($url, $requestToken, $verifier = null){
@@ -157,24 +159,24 @@ class pOAuthConsumer {
         $request->headers()->add('Host',
                 $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
         $request->uri($url->path());
-        $request->oauth(pOAuth::TOKEN, (string)$requestToken);
-        $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
+        $request->oauth(OAuth::TOKEN, (string)$requestToken);
+        $request->oauth(OAuth::NONCE, Helper::generateNonce(__METHOD__));
         if($verifier){
-            $request->oauth(pOAuth::VERIFIER, $verifier);
+            $request->oauth(OAuth::VERIFIER, $verifier);
         }
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
         $response = $server->request($request, new pOAuthResponse());
-        /* @var $response pOAuthResponse */
-        $this->tokenSecret = $response->oauth(pOAuth::TOKEN_SECRET);
-        return pOAuthToken::load($response);
+        /* @var $response Response */
+        $this->tokenSecret = $response->oauth(OAuth::TOKEN_SECRET);
+        return Token::load($response);
     }
     
     /**
      * Access the resources securely with an access token granted by the 
      *      service provider.
      * @param Url|string $url The URL to access the server resources
-     * @param pOAuthToken|string $accessToken The access token
-     * @return pOAuthResponse The response from the server
+     * @param Token|string $accessToken The access token
+     * @return Response The response from the server
      * @since 1.1-sofia
      */
     public function accessResource($url, $accessToken){
@@ -187,11 +189,11 @@ class pOAuthConsumer {
         $request->headers()->add('Host',
                 $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
         $request->uri($url->path());
-        $request->oauth(pOAuth::TOKEN, (string)$accessToken);
-        $request->oauth(pOAuth::NONCE, pOAuthHelper::generateNonce(__METHOD__));
+        $request->oauth(OAuth::TOKEN, (string)$accessToken);
+        $request->oauth(OAuth::NONCE, Helper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
         $response = $server->request($request);
-        /* @var $response pOAuthResponse */
+        /* @var $response Response */
         return $response;
     }
     

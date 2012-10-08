@@ -2,7 +2,9 @@
 pload('packfire.exception.pException');
 
 /**
- * pOAuthException exception class
+ * OAuthException class
+ * 
+ * An OAuth exception representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -10,7 +12,7 @@ pload('packfire.exception.pException');
  * @package packfire.oauth
  * @since 1.1-sofia
  */
-class pOAuthException extends pException {
+class OAuthException extends pException {
     
     
     

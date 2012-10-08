@@ -1,13 +1,14 @@
 <?php
+namespace Packfire\OAuth;
+
 use Packfire\Net\Http\Response as HttpResponse;
 use Packfire\Collection\Map;
 use Packfire\Application\IAppResponse;
-
-pload('IOAuthHttpEntity');
-pload('pOAuthHelper');
+use Helper;
+use IHttpEntity;
 
 /**
- * pOAuthTokenResponse class
+ * Response class
  * 
  * OAuth Response for any token requests
  *
@@ -17,7 +18,7 @@ pload('pOAuthHelper');
  * @license http://www.opensource.org/licenses/bsd-license New BSD Licenseh.response
  * @since 1.1-sofia
  */
-class pOAuthResponse extends HttpResponse implements IOAuthHttpEntity, IAppResponse {
+class Response extends HttpResponse implements IHttpEntity, IAppResponse {
 
     /**
      * The OAuth parameters
@@ -74,7 +75,7 @@ class pOAuthResponse extends HttpResponse implements IOAuthHttpEntity, IAppRespo
             parse_str(trim($body), $output);
             $this->oauthParams->append($output);
         }
-        return pOAuthHelper::buildQuery($this->oauthParams);
+        return Helper::buildQuery($this->oauthParams);
     }
     
     public function output(){

@@ -1,10 +1,12 @@
 <?php
-pload('pOAuth');
+namespace Packfire\OAuth;
+
+use OAuth;
 
 /**
  * pOAuthToken class
  * 
- * A token
+ * A token representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
@@ -29,7 +31,7 @@ class pOAuthToken {
     private $secret;
     
     /**
-     * Create a new pOAuthToken object
+     * Create a new Token object
      * @param string $key The token identifier
      * @param string $secret The token secret
      * @since 1.1-sofia
@@ -59,23 +61,23 @@ class pOAuthToken {
     
     /**
      * Get the token information from the Service provider OAuth HTTP entity
-     * @param IOAuthHttpEntity $entity The entity to load from
-     * @return pOAuthToken Returns the token information
+     * @param IHttpEntity $entity The entity to load from
+     * @return Token Returns the token information
      * @since 1.1-sofia
      */
     public static function load($entity){
-        return new self($entity->oauth(pOAuth::TOKEN),
-                $entity->oauth(pOAuth::TOKEN_SECRET));
+        return new self($entity->oauth(OAuth::TOKEN),
+                $entity->oauth(OAuth::TOKEN_SECRET));
     }
     
     /**
      * Assign the token to a OAuth HTTP entity
-     * @param IOAuthHttpEntity $entity The response to be assigned
+     * @param IHttpEntity $entity The response to be assigned
      * @since 1.1-sofia
      */
     public function assign($entity){
-        $entity->oauth(pOAuth::TOKEN, $this->key);
-        $entity->oauth(pOAuth::TOKEN_SECRET, $this->secret);
+        $entity->oauth(OAuth::TOKEN, $this->key);
+        $entity->oauth(OAuth::TOKEN_SECRET, $this->secret);
     }
     
     /**

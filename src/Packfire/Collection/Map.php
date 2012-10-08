@@ -4,8 +4,8 @@ namespace Packfire\Collection;
 use IMap;
 use ArrayList;
 use KeyValuePair;
-pload('packfire.exception.pOutOfRangeException');
-pload('packfire.exception.pInvalidRequestException');
+use Packfire\Exception\InvalidRequestException;
+use Packfire\Exception\OutOfRangeException;
 
 /**
  * Map class
@@ -144,7 +144,7 @@ class Map extends ArrayList implements IMap {
             unset($this->array[$index]);
             return $item;
         }else{
-            throw new pOutOfRangeException(
+            throw new OutOfRangeException(
                     sprintf('Unable to remove value at key %s from map.', $index)
                 );
         }
@@ -195,14 +195,14 @@ class Map extends ArrayList implements IMap {
 
     /**
      * For normal array operations
-     * @throws pInvalidRequestException
+     * @throws InvalidRequestException
      * @internal
      * @ignore
      * @since 1.0-sofia
      */
     public function offsetSet($offset, $value) {
         if($offset === null){
-            throw new pInvalidRequestException(
+            throw new InvalidRequestException(
                     'Unable to set value without key into a map.'
                 );
         }else{

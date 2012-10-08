@@ -1,7 +1,10 @@
 <?php
+namespace Packfire\OAuth;
 
 /**
- * pOAuth Description
+ * OAuth class
+ * 
+ * Provides constants to the OAuth parameters
  *
  * @author Sam Yong
  * @copyright Copyright (c) 2012, Sam Yong
@@ -9,7 +12,7 @@
  * @package packfire.oauth
  * @since 1.1-sofia
  */
-class pOAuth {
+class OAuth {
     
     const CALLBACK = 'oauth_callback';
     

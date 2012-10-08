@@ -1,14 +1,16 @@
 <?php
+namespace Packfire\OAuth;
+
 use Packfire\Net\Http\Request as HttpRequest;
 use Packfire\Net\Http\Method as HttpMethod;
 use Packfire\DateTime\DateTime;
 use Packfire\Collection\Map;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Exception\InvalidArgumentException;
-pload('pOAuth');
-pload('pOAuthHelper');
-pload('pOAuthSignature');
-pload('IOAuthHttpEntity');
+use OAuth;
+use Helper;
+use Signature;
+use IHttpEntity;
 
 /**
  * pOAuthRequest class
@@ -21,7 +23,7 @@ pload('IOAuthHttpEntity');
  * @package packfire.oauth.request
  * @since 1.1-sofia
  */
-class pOAuthRequest extends HttpRequest implements IOAuthHttpEntity {
+class Request extends HttpRequest implements IHttpEntity {
     
     /**
      * The OAuth parameters
@@ -37,7 +39,7 @@ class pOAuthRequest extends HttpRequest implements IOAuthHttpEntity {
     public function __construct() {
         parent::__construct();
         $this->oauthParams = new Map();
-        $this->oauthParams->add(pOAuth::VERSION, '1.0');
+        $this->oauthParams->add(OAuth::VERSION, '1.0');
     }
     
     /**
@@ -107,14 +109,14 @@ class pOAuthRequest extends HttpRequest implements IOAuthHttpEntity {
             if (preg_match_all('/(oauth[a-z_-]*)=(:?"([^"]*)"|([^,]*))/',
                     $authHeader, $matches)) {
                 foreach ($matches[1] as $i => $key) {
-                    $params[$key] = pOAuthHelper::urldecode(
+                    $params[$key] = Helper::urldecode(
                         empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]
                     );
                 }
             }
             $this->oauthParams->append($params);
         }elseif($authHeader){
-            throw new pOAuthException(
+            throw new OAuthException(
                 sprintf('Request parsed is not a valid OAuth as Authorization'
                         . ' header is not set as "OAuth", "%s" was given'
                         . ' instead.', $authHeader)
@@ -157,7 +159,7 @@ class pOAuthRequest extends HttpRequest implements IOAuthHttpEntity {
         }
         $headerData[] = implode('&', $pData);
         
-        return implode('&', pOAuthHelper::urlencode($headerData)) ;
+        return implode('&', Helper::urlencode($headerData)) ;
     }
     
     /**
@@ -182,9 +184,9 @@ class pOAuthRequest extends HttpRequest implements IOAuthHttpEntity {
         $params = array();
         foreach ($this->oauthParams as $key => $value) {
           if (substr($key, 0, 5) == 'oauth') {
-            $params[] = pOAuthHelper::urlencode($key) .
+            $params[] = Helper::urlencode($key) .
                     '="' .
-                    pOAuthHelper::urlencode($value) .
+                    Helper::urlencode($value) .
                     '"';
           }
         }
@@ -201,7 +203,7 @@ class pOAuthRequest extends HttpRequest implements IOAuthHttpEntity {
      */
     public function sign($method, $consumer, $tokenSecret = null){
         try{
-            $sigMethod = pOAuthSignature::load($method);
+            $sigMethod = Signature::load($method);
         }catch(MissingDependencyException $ex){
         
         }
@@ -213,11 +215,11 @@ class pOAuthRequest extends HttpRequest implements IOAuthHttpEntity {
                     $method
                 );
         }
-        /* @var $signer pOAuthSignature */
+        /* @var $signer Signature */
         $signer = new $sigMethod($this, $consumer, $tokenSecret);
-        $this->oauth(pOAuth::SIGNATURE_METHOD, $signer->name());
-        $this->oauth(pOAuth::TIMESTAMP, time());
-        $this->oauth(pOAuth::SIGNATURE, $signer->build());
+        $this->oauth(OAuth::SIGNATURE_METHOD, $signer->name());
+        $this->oauth(OAuth::TIMESTAMP, time());
+        $this->oauth(OAuth::SIGNATURE, $signer->build());
     }
     
 }
