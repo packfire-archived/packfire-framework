@@ -1,18 +1,22 @@
 <?php
-pload('ILog');
-pload('packfire.io.file.IFile');
-pload('packfire.template.pTemplate');
+namespace Packfire\Log;
+
+use ILog;
+use Packfire\IO\File\IFile;
+use Packfire\Template\Template;
 
 /**
+ * Log class
+ * 
  * A log file
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.log
+ * @package Packfire\Log
  * @since 1.0-sofia
  */
-class pLog implements ILog, IFile {
+class Log implements ILog, IFile {
     
     /**
      * The file to write to
@@ -29,13 +33,13 @@ class pLog implements ILog, IFile {
     private $format = '{datetime}: [{context}] {message}';
     
     /**
-     * Create a new pLog object
-     * @param pFile|string $file The log file to write to
+     * Create a new Log object
+     * @param File|string $file The log file to write to
      * @since 1.0-sofia
      */
     public function __construct($file){
         if(is_string($file)){
-            $file = new pFile($file);
+            $file = new File($file);
         }
         $this->file = $file;
     }
@@ -46,7 +50,7 @@ class pLog implements ILog, IFile {
      * @since 1.0-sofia
      */
     public function write($data) {
-        $template = new pTemplate($this->format);
+        $template = new Template($this->format);
         $template->fields()->append($data);
         $this->file->append($template->parse() . "\n");
     }
