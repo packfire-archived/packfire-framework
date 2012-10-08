@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Collection;
+
 use IMap;
 use ArrayList;
 use KeyValuePair;

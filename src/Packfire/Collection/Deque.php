@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Collection;
+
 use IDeque;
 use Queue;
 

@@ -1,5 +1,6 @@
 <?php
 namespace Packfire\Collection\Sort\Comparator;
+
 use Packfire\Collection\Sort\IComparator;
 
 /**

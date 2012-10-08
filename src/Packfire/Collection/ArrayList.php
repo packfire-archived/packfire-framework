@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Collection;
+
 use IList;
 use Iterator;
-pload('IList');
 pload('packfire.exception.pOutOfRangeException');
 
 /**

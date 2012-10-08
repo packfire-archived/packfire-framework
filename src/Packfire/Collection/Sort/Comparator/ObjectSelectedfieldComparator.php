@@ -1,9 +1,10 @@
 <?php
 namespace Packfire\Collection\Sort\Comparator;
+
 use ObjectFieldComparator;
 
 /**
- * ObjectSelectedField class
+ * ObjectSelectedFieldComparator class
  * 
  * A comparator that compares between two objects based on their fields in common
  * defined by a field selector.
