@@ -1,9 +1,11 @@
 <?php
-pload('packfire.ioc.pBucketUser');
-pload('ISecurityModule');
+namespace Packfire\Security;
+
+use Packfire\IoC\BucketUser;
+use ISecurityModule;
 
 /**
- * pSecurityModule class
+ * SecurityModule class
  * 
  * The default security module implementation
  *
@@ -13,7 +15,7 @@ pload('ISecurityModule');
  * @package packfire.security
  * @since 1.0-sofia
  */
-class pSecurityModule extends pBucketUser implements ISecurityModule {
+class SecurityModule extends BucketUser implements ISecurityModule {
     
     /**
      * The request made to the application for security checking

@@ -1,8 +1,12 @@
 <?php
-pload('ISession');
-pload('packfire.session.bucket.pSessionBucket');
+namespace Packfire\Session;
+
+use ISession;
+use Bucket\SessionBucket;
 
 /**
+ * Session class
+ * 
  * Session service
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -11,7 +15,7 @@ pload('packfire.session.bucket.pSessionBucket');
  * @package packfire.session
  * @since 1.0-sofia
  */
-class pSession implements ISession {
+class Session implements ISession {
     
     /**
      * Session Storage
@@ -21,7 +25,7 @@ class pSession implements ISession {
     private $storage;
     
     /**
-     * Create a new pSession object
+     * Create a new Session object
      * @param ISessionStorage $storage The session storage object
      * @since 1.0-sofia
      */
@@ -84,7 +88,7 @@ class pSession implements ISession {
     public function bucket($bucket){
         $result = $this->storage->bucket($bucket);
         if(!$result){
-            $result = new pSessionBucket($bucket);
+            $result = new SessionBucket($bucket);
             $this->register($result);
         }
         return $result;

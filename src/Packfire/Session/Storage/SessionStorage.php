@@ -1,9 +1,12 @@
 <?php
-pload('ISessionStorage');
-pload('packfire.session.bucket.pSessionBucket');
+namespace Packfire\Session\Storage;
+
+use ISessionStorage;
+use Packfire\Session\Bucket\SessionBucket;
+
 
 /**
- * pSessionStorage class
+ * SessionStorage class
  * 
  * Provides session storage access
  *
@@ -13,7 +16,7 @@ pload('packfire.session.bucket.pSessionBucket');
  * @package packfire.session.storage
  * @since 1.0-sofia
  */
-class pSessionStorage implements ISessionStorage {
+class SessionStorage implements ISessionStorage {
     
     /**
      * The container of buckets
@@ -24,18 +27,18 @@ class pSessionStorage implements ISessionStorage {
     
     /**
      * The overall storage
-     * @var pSessionBucket
+     * @var SessionBucket
      * @since 1.0-sofia
      */
     private $overallBucket;
     
     /**
-     * Create a new pSessionStorage object
+     * Create a new SessionStorage object
      * @since 1.0-sofia 
      */
     public function __construct(){
         $this->buckets = new Map();
-        $this->overallBucket = new pSessionBucket($this->id());
+        $this->overallBucket = new SessionBucket($this->id());
         $this->registerHandler();
         $this->registerShutdown();
     }
@@ -46,7 +49,7 @@ class pSessionStorage implements ISessionStorage {
      * @since 1.0-sofia
      */
     public function id() {
-        return 'packfireDefault';
+        return 'default';
     }
 
     /**

@@ -1,10 +1,12 @@
 <?php
-pload('packfire.ioc.pBucketLoader');
-pload('packfire.session.storage.pSessionStorage');
-pload('packfire.session.pSession');
+namespace Packfire\Session;
+
+use Packfire\IoC\BucketLoader;
+use Storage\SessionStorage;
+use Session;
 
 /**
- * pSessionLoader class
+ * SessionLoader class
  * 
  * Performs loading for the session and its storage method
  *
@@ -14,13 +16,13 @@ pload('packfire.session.pSession');
  * @package packfire.session
  * @since 1.0-sofia
  */
-class pSessionLoader extends pBucketLoader {
+class SessionLoader extends BucketLoader {
     
     public function load(){
         $storageId = 'session.storage';
         $storage = $this->pick($storageId);
         if(!$storage){
-            $storage = new pSessionStorage();
+            $storage = new SessionStorage();
             $this->put($storageId, $storage);
         }
         /* @var $config pConfig */
@@ -36,7 +38,7 @@ class pSessionLoader extends pBucketLoader {
                 );
             session_start();
         }
-        $this->put('session', new pSession($storage));
+        $this->put('session', new Session($storage));
     }
     
 }

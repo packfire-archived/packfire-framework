@@ -1,5 +1,7 @@
 <?php
-pload('packfire.session.bucket.ISessionBucket');
+namespace Packfire\Session\Storage;
+
+use Packfire\Session\Bucket\ISessionBucket;
 
 /**
  * ISessionStorage interface

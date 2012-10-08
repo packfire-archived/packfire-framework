@@ -1,6 +1,9 @@
 <?php
+namespace Packfire\Session;
 
 /**
+ * ISession interface
+ * 
  * Session abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

@@ -1,7 +1,11 @@
 <?php
-pload('pSessionStorage');
+namespace Packfire\Session\Storage;
+
+use SessionStorage;
 
 /**
+ * FileSessionStorage class
+ * 
  * File storage for session
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -10,7 +14,7 @@ pload('pSessionStorage');
  * @package packfire.session.storage
  * @since 1.0-sofia
  */
-class pFileSessionStorage extends pSessionStorage {
+class FileSessionStorage extends SessionStorage {
     
     /**
      * Path to the session storage location on the file system

@@ -1,16 +1,20 @@
 <?php
-pload('ISessionBucket');
+namespace Packfire\Session\Bucket;
+
+use ISessionBucket;
 
 /**
+ * SessionBucket class
+ * 
  * Session Bucket default implementation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.session.bucket
+ * @package Packfire\Session\Bucket
  * @since 1.0-sofia
  */
-class pSessionBucket implements ISessionBucket {
+class SessionBucket implements ISessionBucket {
     
     /**
      * The identifier of the bucket
@@ -27,7 +31,7 @@ class pSessionBucket implements ISessionBucket {
     private $data;
     
     /**
-     * Create a new pSessionBucket object
+     * Create a new SessionBucket object
      * @param string $id The ID of the session bucket
      * @since 1.0-sofia
      */
