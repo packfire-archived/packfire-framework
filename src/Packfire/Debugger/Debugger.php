@@ -1,17 +1,22 @@
 <?php
-pload('packfire.datetime.pDateTime');
-pload('packfire.ioc.pBucketUser');
+namespace Packfire\Debugger;
+
+use Packfire\DateTime\DateTime;
+use Packfire\IoC\BucketUser;
+use Packfire\IO\File\Path;
 
 /**
+ * Debugger class
+ * 
  * The debugger to help you debug in your application
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.debugger
+ * @package Packfire\Debugger
  * @since 1.0-sofia
  */
-class pDebugger extends pBucketUser {
+class Debugger extends BucketUser {
     
     /**
      * State whether the debugger is enabled or not.
@@ -22,7 +27,7 @@ class pDebugger extends pBucketUser {
     protected $enabled = true;
     
     /**
-     * Create a new pDebugger object
+     * Create a new Debugger object
      * @since 1.0-sofia
      */
     public function __construct(){
@@ -59,7 +64,7 @@ class pDebugger extends pBucketUser {
                 $output = var_export($value, true);
                 $dbts = debug_backtrace();
                 $dbt = reset($dbts);
-                $where = sprintf('%s:%d', pPath::baseName($dbt['file']),
+                $where = sprintf('%s:%d', Path::baseName($dbt['file']),
                         $dbt['line']);
                 $this->output()->write($output, $where, __FUNCTION__);
             }
@@ -85,7 +90,7 @@ class pDebugger extends pBucketUser {
     public function exception($exception){
         if($this->enabled){
             $where = sprintf('%s:%d',
-                    pPath::baseName($exception->getFile()),
+                    Path::baseName($exception->getFile()),
                     $exception->getLine());
             $message = sprintf('Error %s: %s', $exception->getCode(),
                     $exception->getMessage());
@@ -107,7 +112,7 @@ class pDebugger extends pBucketUser {
                     'Time taken from application loaded to reach %s line %s',
                     $dbt['file'], $dbt['line']);
             $this->output()->write($message,
-                    (pDateTime::microtime() - __PACKFIRE_START__) . 's',
+                    (DateTime::microtime() - __PACKFIRE_START__) . 's',
                     __FUNCTION__);
         }
     }
@@ -129,7 +134,7 @@ class pDebugger extends pBucketUser {
             if(!array_key_exists('line', $dbt)){
                 $dbt['line'] = '{0}';
             }
-            $where = sprintf('%s:%d', pPath::baseName($dbt['file']),
+            $where = sprintf('%s:%d', Path::baseName($dbt['file']),
                     $dbt['line']);
             $this->output()->write($sql, $where, $type);
         }

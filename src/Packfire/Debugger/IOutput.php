@@ -1,15 +1,18 @@
 <?php
+namespace Packfire\Debugger;
 
 /**
+ * IOutput interface
+ * 
  * Debugger's output abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.debugger
+ * @package Packfire\Debugger
  * @since 1.0-sofia
  */
-interface IDebugOutput {
+interface IOutput {
     
     /**
      * Write the log message to the debugging output channel

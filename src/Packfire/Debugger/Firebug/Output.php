@@ -1,8 +1,10 @@
 <?php
-pload('packfire.debugger.IDebugOutput');
+namespace Packfire\Debugger\Firebug;
+
+use Packfire\Debugger\IOutput;
 
 /**
- * pFirebugDebugOutput class
+ * Output class
  * 
  * Firebug output for Debugger
  *
@@ -12,7 +14,7 @@ pload('packfire.debugger.IDebugOutput');
  * @package packfire.debugger.firebug
  * @since 1.1-sofia
  */
-class pFirebugDebugOutput implements IDebugOutput {
+class Output implements IOutput {
     
     /**
      * The buffer of messages
@@ -22,7 +24,7 @@ class pFirebugDebugOutput implements IDebugOutput {
     private $buffer;
     
     /**
-     * Create a new pFirebugDebugOutput object
+     * Create a new Output object
      * @since 1.1-sofia
      */
     public function __construct(){

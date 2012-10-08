@@ -1,12 +1,14 @@
 <?php
-pload('packfire.collection.pList');
-pload('packfire.collection.pMap');
-pload('packfire.io.file.pPath');
-pload('packfire.debugger.IDebugOutput');
-pload('packfire.template.moustache.pMoustacheTemplate');
+namespace Packfire\Debugger\Console;
+
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\Map;
+use Packfire\IO\File\Path;
+use Packfire\Debugger\IOutput;
+use Packfire\Template\Moustache\Template;
 
 /**
- * pConsoleDebugOutput class
+ * Output class
  * 
  * Provides Client-side GUI debugging console output
  *
@@ -16,29 +18,29 @@ pload('packfire.template.moustache.pMoustacheTemplate');
  * @package packfire.debugger.console
  * @since 1.0-sofia
  */
-class pConsoleDebugOutput implements IDebugOutput {
+class Output implements IOutput {
     
     /**
-     * 
-     * @var pList
+     * The lines to output
+     * @var ArrayList
      * @since 1.0-sofia
      */
     private $lines;
     
     /**
      * The types of log that has been entered
-     * @var pMap
+     * @var Map
      * @since 1.0-sofia
      */
     private $types;
     
     /**
-     * Create a new pConsoleDebugOutput
+     * Create a new Output object
      * @since 1.0-sofia 
      */
     public function __construct(){
-        $this->lines = new pList();
-        $this->types = new pMap();
+        $this->lines = new ArrayList();
+        $this->types = new Map();
     }
 
     /**
@@ -67,8 +69,8 @@ class pConsoleDebugOutput implements IDebugOutput {
      * @since 1.0-sofia 
      */
     public function output(){
-        $template = new pMoustacheTemplate(
-                file_get_contents(pPath::path(__FILE__) . '/template.html'));
+        $template = new Template(
+                file_get_contents(Path::path(__FILE__) . '/template.html'));
         
         $template->fields()->add('lines', $this->lines);
         
