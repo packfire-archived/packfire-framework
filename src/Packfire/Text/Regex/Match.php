@@ -1,19 +1,22 @@
 <?php
+namespace Packfire\Text\Regex;
 
 /**
- * Represents a regular expression match created from pRegex
+ * Match class
+ * 
+ * Represents a regular expression match created from Regex
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.text.regex
+ * @package Packfire\Text\Regex
  * @since 1.0-sofia
  */
-class pRegexMatch {
+class Match {
 
     /**
-     * The regular expression pRegex object that this match originated from
-     * @var pRegex
+     * The regular expression Regex object that this match originated from
+     * @var Regex
      * @since 1.0-sofia
      */
     private $regex;
@@ -26,8 +29,8 @@ class pRegexMatch {
     private $match;
 
     /**
-     * Create a new pRegexMatch
-     * @param pRegex $regex The pRegex object that created this match
+     * Create a new Match
+     * @param Regex $regex The Regex object that created this match
      * @param string $match The matching string
      * @since 1.0-sofia
      */
@@ -37,8 +40,8 @@ class pRegexMatch {
     }
 
     /**
-     * Get the regular expression pRegex object that this match originated from
-     * @return pRegex Returns the regular expression object
+     * Get the regular expression Regex object that this match originated from
+     * @return Regex Returns the regular expression object
      * @since 1.0-sofia
      */
     public function regex(){

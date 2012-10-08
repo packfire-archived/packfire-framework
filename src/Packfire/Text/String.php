@@ -2,15 +2,17 @@
 pload('packfire.collection.pList');
 
 /**
- * A String object
+ * String class
+ * 
+ * A String representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.text
+ * @package Packfire\Text
  * @since 1.0-sofia
  */
-class pString implements Countable {
+class String implements Countable {
 
     /**
      * The internal value of this string
@@ -20,13 +22,13 @@ class pString implements Countable {
     private $value = '';
 
     /**
-     * Create a new pString object
-     * @param string|pString $value The string value to initialize with
+     * Create a new String object
+     * @param string|String $value The string value to initialize with
      * @since 1.0-sofia
      */
     function __construct($value = '') {
-        if($value instanceof pString){
-            $value = $value->value();
+        if($value instanceof String){
+            $value = $value->value;
         }
         $this->value = $value;
     }
@@ -46,34 +48,34 @@ class pString implements Countable {
 
     /**
      * Strip whitespace from the beginning and end of a string
-     * @return pString Returns the string trimmed.
+     * @return String Returns the string trimmed.
      * @since 1.0-sofia
      */
     public function trim() {
-        return new pString(trim($this->value()));
+        return new self(trim($this->value));
     }
 
     /**
      * Strip whitespace from the beginning of a string
-     * @return pString Returns the string trimmed.
+     * @return String Returns the string trimmed.
      * @since 1.0-sofia
      */
     public function trimLeft() {
-        return new pString(ltrim($this->value()));
+        return new self(ltrim($this->value));
     }
 
     /**
      * Strip whitespace from the end of a string
-     * @return pString Returns the string trimmed.
+     * @return String Returns the string trimmed.
      * @since 1.0-sofia
      */
     public function trimRight() {
-        return new pString(rtrim($this->value()));
+        return new self(rtrim($this->value));
     }
 
     /**
      * Split the string into several strings
-     * @param pString|string $c The delimiter to split the string
+     * @param String|string $c The delimiter to split the string
      * @return ArrayList Returns the list of split strings 
      * @since 1.0-sofia
      */
@@ -81,18 +83,18 @@ class pString implements Countable {
         $strs = explode($c, $this->value());
         $r = new ArrayList();
         foreach($strs as $s){
-            $r->add(new pString($s));
+            $r->add(new self($s));
         }
         return $r;
     }
 
     /**
      * Replaces occurances of $a with $b in the string
-     * @param pString|array|ArrayList $search A string, or a collection of string,
+     * @param String|array|ArrayList $search A string, or a collection of string,
      *               to be searched and replace in
-     * @param pString|array|ArrayList $replacement A string, or a collection of 
+     * @param String|array|ArrayList $replacement A string, or a collection of 
      *              string, to be the replacement
-     * @return pString Returns the resulting string
+     * @return String Returns the resulting string
      * @since 1.0-sofia
      */
     public function replace($search, $replacement) {
@@ -102,19 +104,19 @@ class pString implements Countable {
         if($replacement instanceof ArrayList){
             $replacement = $replacement->toArray();
         }
-        return new pString(str_replace($search, $replacement, $this->value()));
+        return new String(str_replace($search, $replacement, $this->value()));
     }
 
     /**
      * Find the position of the first occurance of the string $s in the string
-     * @param pString|string $string The string to search for
+     * @param String|string $string The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer A non-negative number indicating the position of $s in
      *                 the string, or -1 if not found. 
      */
     public function indexOf($string, $offset = 0) {
-        if (!($string instanceof pString)) {
-            $string = new pString($string);
+        if (!($string instanceof self)) {
+            $string = new self($string);
         }
         $result = strpos($this->value(), $string->value(), $offset);
         if ($result === false) {
@@ -125,17 +127,17 @@ class pString implements Countable {
 
     /**
      * Find the position of the last occurance of the string $s in the string
-     * @param pString|string $s The string to search for
+     * @param String|string $s The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer Returns a non-negative number indicating the position of
      *                 s in the string, or -1 if not found. 
      * @since 1.0-sofia
      */
     public function lastIndexOf($s, $offset = 0) {
-        if (!($s instanceof pString)) {
-            $s = new pString($s);
+        if (!($s instanceof self)) {
+            $s = new self($s);
         }
-        $result = strrpos($this->value(), $s->value(), $offset);
+        $result = strrpos($this->value, $s->value, $offset);
         if ($result === false) {
             return -1;
         }
@@ -144,14 +146,14 @@ class pString implements Countable {
 
     /**
      * Find all unique occurances of a substring in the string
-     * @param pString|string $s The substring to find occurances
+     * @param String|string $s The substring to find occurances
      * @param integer $offset (optional) The position to start searching for
      * @return ArrayList Returns the list of index where the substring occurred.
      * @since 1.0-sofia
      */
     public function occurances($s, $offset = 0) {
-        if (!($s instanceof pString)) {
-            $s = new pString($s);
+        if (!($s instanceof self)) {
+            $s = new self($s);
         }
         $occurances = new ArrayList();
         while (($idx = $this->indexOf($s, $offset)) >= 0) {
@@ -167,66 +169,66 @@ class pString implements Countable {
      * @param integer $length (optional) The number of characters to fetch. If
      *                        this is not specified, the method will fetch from 
      *                        start to the end of the string
-     * @return pString Returns the part of the string fetched.
+     * @return String Returns the part of the string fetched.
      * @since 1.0-sofia
      */
     public function substring($start, $length = null) {
         if (func_num_args() == 2) {
-            return new pString(substr($this->value(), $start, $length));
+            return new self(substr($this->value(), $start, $length));
         } else {
-            return new pString(substr($this->value(), $start));
+            return new self(substr($this->value(), $start));
         }
     }
 
     /**
      * Set all alphabets in the string to upper case
-     * @return pString Returns the resulting string.
+     * @return String Returns the resulting string.
      * @since 1.0-sofia
      */
     public function toUpper() {
-        return new pString(strtoupper($this->value()));
+        return new self(strtoupper($this->value));
     }
 
     /**
      * Set all alphabets in the string to lower case
-     * @return pString Returns the resulting string.
+     * @return String Returns the resulting string.
      * @since 1.0-sofia
      */
     public function toLower() {
-        return new pString(strtolower($this->value()));
+        return new self(strtolower($this->value));
     }
 
     /**
      * Pad the left side of the string to the desired length
      * @param string $char The string used for padding
      * @param integer $length The maximum amount of characters for the string
-     * @return pString Returns the resulting string
+     * @return String Returns the resulting string
      * @since 1.0-sofia
      */
     public function padLeft($char, $length) {
-        return new pString(str_pad($this->value(), $length, $char, STR_PAD_LEFT));
+        return new self(str_pad($this->value, $length, $char, STR_PAD_LEFT));
     }
 
     /**
      * Pad the right side of the string to the desired length
      * @param string $char The string used for padding
      * @param integer $length The maximum amount of characters for the string
-     * @return pString Returns the resulting string 
+     * @return String Returns the resulting string 
      * @since 1.0-sofia
      */
     public function padRight($char, $length) {
-        return new pString(str_pad($this->value(), $length, $char, STR_PAD_RIGHT));
+        return new self(str_pad($this->value, $length, $char, STR_PAD_RIGHT));
     }
 
     /**
      * Pad both sides of the string to the desired length equally
      * @param string $char The string used for padding
      * @param integer $length The maximum amount of characters for the string
-     * @return pString Returns the resulting string 
+     * @return String Returns the resulting string 
      * @since 1.0-sofias
      */
     public function padBoth($char, $length) {
-        return new pString(str_pad($this->value(), $length, $char, STR_PAD_BOTH));
+        return new self(str_pad($this->value, $length, $char, STR_PAD_BOTH));
     }
 
     /**
@@ -235,7 +237,7 @@ class pString implements Countable {
      * @since 1.0-sofias
      */
     public function length() {
-        return strlen($this->value());
+        return strlen($this->value);
     }
     
     /**
@@ -257,7 +259,7 @@ class pString implements Countable {
      * @since 1.0-sofia
      */
     public function __toString() {
-        return $this->value();
+        return $this->value;
     }
     
 }

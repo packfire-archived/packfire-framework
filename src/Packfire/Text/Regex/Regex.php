@@ -1,19 +1,22 @@
 <?php
-pload('pRegexMatch');
-pload('packfire.text.pString');
-pload('packfire.collection.pList');
-pload('packfire.collection.pMap');
+namespace Packfire\Text\Regex;
+
+use Match;
+use Packfire\Text\String;
+use Packfire\Collection\ArrayList;
 
 /**
+ * Regex class
+ * 
  * Provides functionality for regular expression matching and replacement
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.text.regex
+ * @package Packfire\Text\Regex
  * @since 1.0-sofia
  */
-class pRegex {
+class Regex {
 
     /**
      * The regular expression
@@ -23,7 +26,7 @@ class pRegex {
     private $regex;
 
     /**
-     * Create a new pRegex object
+     * Create a new Regex object
      * @param string $regex The regular expression pattern to use
      * @since 1.0-sofia
      */
@@ -48,7 +51,7 @@ class pRegex {
      * Perform a perl-compatible regular expression (PCRE) match to match 
      * within the subject
      * @param string $subject The input string
-     * @return ArrayList A list that contains all the pRegexMatch found 
+     * @return ArrayList A list that contains all the Match found 
      *          in the subject
      * @link http://php.net/manual/en/function.preg-match.php
      * @since 1.0-sofia
@@ -58,7 +61,7 @@ class pRegex {
         preg_match($this->regex(), $subject, $match);
         $result = new ArrayList();
         foreach($match as $a){
-            $result->add(new pRegexMatch($this, $a));
+            $result->add(new Match($this, $a));
         }
         return $result;
     }
@@ -91,7 +94,7 @@ class pRegex {
         foreach($matches as $match){
             $result = new ArrayList();
             foreach($match as $c){
-                $result->add(new pRegexMatch($this, $c));
+                $result->add(new Match($this, $c));
             }
             $finalResult[] = $result;
         }
@@ -149,8 +152,8 @@ class pRegex {
      * @since 1.0-sofia
      */
     public function indexOf($subject, $offset = 0){
-        if(!($subject instanceof pString)){
-            $subject = new pString($subject);
+        if(!($subject instanceof String)){
+            $subject = new String($subject);
         }
         $match = array(array(''));
         $i = preg_match($this->regex(), $subject, $match,
@@ -165,15 +168,15 @@ class pRegex {
     /**
      * Find the position of the last occurrance of perl compatible regular
      *           expression match in the string
-     * @param pString|string $subject The string to search for
+     * @param String|string $subject The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer A non-negative number indicating the position of $s in
      *                       the string, or -1 if not found. 
      * @since 1.0-sofia
      */
     public function lastIndexOf($subject, $offset = 0){
-        if(!($subject instanceof pString)){
-            $subject = new pString($subject);
+        if(!($subject instanceof String)){
+            $subject = new String($subject);
         }
         $match = array(array(''));
         $i = preg_match_all($this->regex(), $subject, $match,

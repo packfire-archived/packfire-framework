@@ -14,7 +14,7 @@ use Template;
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Template
- * @since version-created
+ * @since 1.1-sofia
  */
 class TemplateFile extends Template implements ITemplateFile {
     

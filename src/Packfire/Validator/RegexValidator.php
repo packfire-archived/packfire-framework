@@ -38,7 +38,7 @@ class pRegexValidator implements IValidator {
      * @since 1.0-sofia
      */
     public function validate($value) {
-        $regex = new pRegex($this->match);
+        $regex = new Regex($this->match);
         return $regex->matches($value);
     }
     

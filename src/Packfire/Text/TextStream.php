@@ -1,17 +1,21 @@
 <?php
-pload('packfire.io.IIOStream');
-pload('packfire.exception.pOutOfRangeException');
+namespace Packfire\Text;
+
+use Packfire\IO\IIOStream;
+use Packfire\Exception\OutOfRangeException;
 
 /**
+ * TextStream class
+ * 
  * Provides stream operations to a string buffer
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.text
+ * @package Packfire\Text
  * @since 1.0-sofia
  */
-class pTextStream implements IIOStream {
+class TextStream implements IIOStream {
     
     /**
      * The data stream
@@ -93,7 +97,7 @@ class pTextStream implements IIOStream {
         if($position >= 0 && $position <= $this->length()){
             $this->pointer = $position;
         }else{
-            throw new pOutOfRangeException(
+            throw new OutOfRangeException(
                     sprintf('Failed to seek out of range in text stream position %d.',
                             $position)
                 );

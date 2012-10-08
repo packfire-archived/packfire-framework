@@ -1,6 +1,9 @@
 <?php
+namespace Packfire\Text;
 
 /**
+ * Inflector class
+ * 
  * Provides functionality in changing forms of words
  * inflect (verb) - Change the form of (a word) to express a particular 
  * grammatical function or attribute, typically tense, mood, person, number
@@ -9,10 +12,10 @@
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.text
+ * @package Packfire\Text
  * @since 1.0-sofia
  */
-class pInflector {
+class Inflector {
 
     /**
      * Contains an array of irregular plural words
