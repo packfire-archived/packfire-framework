@@ -1,16 +1,20 @@
 <?php
-pload('IValidator');
+namespace Packfire\Validator;
+
+use IValidator;
 
 /**
+ * StringMaxLengthValidator class
+ * 
  * String maximum length validator
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.validator
+ * @package Packfire\Validator
  * @since 1.0-sofia
  */
-class pStringMaxLengthValidator implements IValidator {
+class StringMaxLengthValidator implements IValidator {
     
     /**
      * The maximum length of the string 
@@ -20,7 +24,7 @@ class pStringMaxLengthValidator implements IValidator {
     private $length;
     
     /**
-     * Create a pStringMaxLengthValidator
+     * Create a StringMaxLengthValidator object
      * @param string $length The minimum length of the string
      * @since 1.0-sofia
      */

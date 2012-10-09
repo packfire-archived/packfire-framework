@@ -1,18 +1,21 @@
 <?php
-pload('IValidator');
-pload('packfire.collection.pList');
+namespace Packfire\Validator;
+
+use IValidator;
+use Packfire\Collection\ArrayList;
 
 /**
- * Match Validator
+ * MatchValidator class
+ * 
  * checks if value matches values provided
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.validator
+ * @package Packfire\Validator
  * @since 1.0-sofia
  */
-class pMatchValidator implements IValidator {
+class MatchValidator implements IValidator {
     
     /**
      * The matches to validate against
@@ -22,7 +25,7 @@ class pMatchValidator implements IValidator {
     private $matches;
     
     /**
-     * Create a new pMatchValidator
+     * Create a new MatchValidator object
      * @param array|ArrayList|mixed $matches An array of values or the value to match against
      * @since 1.0-sofia
      */

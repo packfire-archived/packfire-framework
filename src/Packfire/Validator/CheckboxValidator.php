@@ -1,16 +1,20 @@
 <?php
-pload('IValidator');
+namespace Packfire\Validator;
+
+use IValidator;
 
 /**
- * Numerical range validator
+ * CheckboxValidator class
+ * 
+ * Form Checkbox validation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.validator
+ * @package Packfire\Validator
  * @since 1.0-sofia
  */
-class pCheckboxValidator implements IValidator {
+class CheckboxValidator implements IValidator {
     
     /**
      * State of the check box

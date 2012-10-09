@@ -1,16 +1,20 @@
 <?php
-pload('IValidator');
+namespace Packfire\Validator;
+
+use IValidator;
 
 /**
- * Data type validator
+ * DataTypeValidator class
+ * 
+ * Validation for data type
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.validator
+ * @package Packfire\Validator
  * @since 1.0-sofia
  */
-class pDataTypeValidator implements IValidator {
+class DataTypeValidator implements IValidator {
     
     /**
      * The data type to validate against
@@ -20,7 +24,7 @@ class pDataTypeValidator implements IValidator {
     private $type;
     
     /**
-     * Create a new data type validator pDataTypeValidator
+     * Create a new DataTypeValidator class
      * @param string $type The type of the variable to check against
      * @since 1.0-sofia
      */

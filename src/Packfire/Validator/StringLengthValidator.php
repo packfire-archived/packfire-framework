@@ -1,16 +1,20 @@
 <?php
-pload('IValidator');
+namespace Packfire\Validator;
+
+use IValidator;
 
 /**
- * String length validator
+ * StringLengthValidator class
+ * 
+ * validates a string based on it's length
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.validator
+ * @package Packfire\Validator
  * @since 1.0-sofia
  */
-class pStringLengthValidator implements IValidator {
+class StringLengthValidator implements IValidator {
     
     /**
      * The length of the string 
@@ -20,7 +24,7 @@ class pStringLengthValidator implements IValidator {
     private $length;
     
     /**
-     * Create a new data type validator pDataTypeValidator
+     * Create a new StringLengthValidator object
      * @param string $length The type of the variable to check against
      * @since 1.0-sofia
      */

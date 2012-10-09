@@ -1,5 +1,7 @@
 <?php
-pload('pRegexValidator');
+namespace Packfire\Validator;
+
+use RegexValidator;
 
 /**
  * Email address validator
@@ -7,13 +9,13 @@ pload('pRegexValidator');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.validator
+ * @package Packfire\Validator
  * @since 1.0-sofia
  */
-class pEmailValidator extends pRegexValidator {
+class EmailValidator extends RegexValidator {
     
     /**
-     * Create a new pEmailValidator object
+     * Create a new EmailValidator object
      * @since 1.0-sofia
      */
     public function __construct(){

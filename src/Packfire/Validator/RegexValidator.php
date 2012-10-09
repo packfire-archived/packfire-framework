@@ -1,18 +1,21 @@
 <?php
-pload('IValidator');
-pload('packfire.text.regex.pRegex');
+namespace Packfire\Validator;
+
+use IValidator;
+use Packfire\Text\Regex\Regex;
 
 /**
- * Match Validator
- * checks if value matches values provided
+ * RegexValidator class
+ * 
+ * Validation through regular expression match
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.validator
+ * @package Packfire\Validator
  * @since 1.0-sofia
  */
-class pRegexValidator implements IValidator {
+class RegexValidator implements IValidator {
     
     /**
      * The regular expression
@@ -22,7 +25,7 @@ class pRegexValidator implements IValidator {
     private $match;
     
     /**
-     * Create a new regular expression validator pRegexValidator
+     * Create a new RegexValidator object
      * @param string $match The regular expression
      * @since 1.0-sofia
      */

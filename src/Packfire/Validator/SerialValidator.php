@@ -1,19 +1,21 @@
 <?php
-pload('IValidator');
-pload('packfire.exception.pInvalidArgumentException');
+namespace Packfire\Validator;
+
+use IValidator;
+use Packfire\Exception\InvalidArgumentException;
 
 /**
- * pSerialValidator class
+ * SerialValidator class
  * 
  * A validator that uses other validators 
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.validator
+ * @package Packfire\Validator
  * @since 1.1-sofia
  */
-class pSerialValidator implements IValidator {
+class SerialValidator implements IValidator {
     
     /**
      * A collection of validators to run on the value
@@ -23,7 +25,7 @@ class pSerialValidator implements IValidator {
     private $validators = array();
     
     /**
-     * Create a new pSerialValidator object
+     * Create a new SerialValidator object
      * @since 1.1-sofia
      */
     public function __construct() {
@@ -38,7 +40,7 @@ class pSerialValidator implements IValidator {
      */
     public function add($validator){
         if($validator === $this){
-            throw new pInvalidArgumentException('pSerialValidator::add',
+            throw new InvalidArgumentException('pSerialValidator::add',
                     'validator', 'not itself or inception may happen');
         }
         $this->validators[] = $validator;
