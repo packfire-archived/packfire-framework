@@ -19,6 +19,8 @@ class Bootstrap {
      * @since 2.0.0
      */
     public static function initialize(){
+        require __DIR__ . DIRECTORY_SEPARATOR . 'constants.php';
+        
         set_include_path(dirname(__DIR__)
                 . PATH_SEPARATOR . get_include_path());
         spl_autoload_register(function($class) {

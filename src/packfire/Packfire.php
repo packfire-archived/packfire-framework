@@ -4,39 +4,7 @@ namespace Packfire;
 /**
  * The small fire you bring around in your pack to go around setting forests
  * on flames. Spark your web applications with Packfire today!
- *
- * @link http://www.github.com/packfire
- * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
- * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire
- * @since 1.0-sofia
  */
-
-/**
- * The root folder of the framework
- * @since 1.0-sofia
- */
-if(!defined('__PACKFIRE_ROOT__')){
-    define('__PACKFIRE_ROOT__', pathinfo(__FILE__, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
-}
-
-/**
- * The root folder of the application front controller
- * @since 1.0-sofia
- */
-if(!defined('__APP_ROOT__')){
-    define('__APP_ROOT__', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
-}
-
-/**
- * Packfire Framework's current version
- * @since 1.0-sofia 
- */
-define('__PACKFIRE_VERSION__', '2.0.0-dev');
-
-// load the helper file
-require(__PACKFIRE_ROOT__ . 'helper.php');
 
 use Packfire\Net\Http\Client as HttpClient;
 use Packfire\Application\Cli\Request as CliRequest;
@@ -50,8 +18,16 @@ use Packfire\Exception\ErrorException;
 define('__PACKFIRE_START__', DateTime::microtime());
 
 /**
+ * Packfire class
+ * 
  * Provides functionality to boot the application
- * @since 1.0-sofia 
+ *
+ * @link http://www.github.com/packfire
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package Packfire
+ * @since 1.0-sofia
  */
 class Packfire {
     
