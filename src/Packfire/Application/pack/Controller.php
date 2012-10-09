@@ -4,7 +4,6 @@ namespace Packfire\Appliation\Pack;
 use Packfire\Controller\Controller as CoreController;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Text\Inflector;
-use Packfire\Text\Text;
 use Packfire\View\IView;
 
 /**

@@ -3,12 +3,10 @@ namespace Packfire\Controller;
 
 use Packfire\IoC\BucketUser;
 use Packfire\Application\IAppResponse;
-use Packfire\ClassLoader;
 use Packfire\Core\ActionInvoker;
-use Packfire\Exception\MissingDependencyException;
 
 /**
- * ControllerInvoker class
+ * Invoker class
  * 
  * Controller Access Invoker
  *
@@ -18,7 +16,7 @@ use Packfire\Exception\MissingDependencyException;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-class ControllerInvoker extends BucketUser {
+class Invoker extends BucketUser {
     
     /**
      * The package name
@@ -56,7 +54,7 @@ class ControllerInvoker extends BucketUser {
     private $response;
     
     /**
-     * Create a new pControllerInvoker object
+     * Create a new Invoker object
      * @param string $package The package to load the class
      * @param string $action The action to be loaded
      * @param IAppRequest $request The application request to load with

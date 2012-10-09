@@ -4,7 +4,7 @@ namespace Packfire\Application\Cli;
 use Response;
 use ServiceBucket;
 use Packfire\Application\ServiceApplication;
-use Packfire\Controller\ControllerInvoker;
+use Packfire\Controller\Invoker as ControllerInvoker;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Exception\InvalidRequestException;
 

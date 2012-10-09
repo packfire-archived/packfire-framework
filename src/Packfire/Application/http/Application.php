@@ -6,10 +6,10 @@ use Response;
 use ServiceBucket;
 use Packfire\Exception\HttpException;
 use Packfire\Exception\MissingDependencyException;
-use Packfire\Controller\ControllerInvoker;
+use Packfire\Controller\Invoker as ControllerInvoker;
 use Packfire\Response\RedirectResponse;
 use Packfire\Route\Http\RedirectRoute;
-use Packfire\Net\Http\Method;
+use Packfire\Net\Http\Method as HttpMethod;
 
 /**
  * Application class
