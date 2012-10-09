@@ -1,6 +1,9 @@
 <?php
+namespace Packfire\Linq;
 
 /**
+ * ILinq interface
+ * 
  * Interface for LINQ operations
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

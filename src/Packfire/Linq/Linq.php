@@ -1,27 +1,32 @@
 <?php
-pload('ILinq');
-pload('packfire.collection.pList');
-pload('pLinqWhereQuery');
-pload('pLinqTakeQuery');
-pload('pLinqSkipQuery');
-pload('pLinqSelectQuery');
-pload('pLinqDistinctQuery');
-pload('pLinqReverseQuery');
-pload('pLinqOrderByQuery');
-pload('pLinqJoinQuery');
-pload('pLinqGroupByQuery');
-pload('packfire.exception.pNullException');
+namespace Packfire\Linq;
+
+use ILinq;
+use Packfire\Collection\ArrayList;
+use LinqWhereQuery;
+use LinqTakeQuery;
+use LinqSkipQuery;
+use LinqSelectQuery;
+use LinqDistinctQuery;
+use LinqReverseQuery;
+use LinqOrderByQuery;
+use LinqJoinQuery;
+use LinqGroupByQuery;
+use Packfire\Exception\NullException;
+use OrderedLinq;
 
 /**
+ * Linq class
+ * 
  * Provides functionality to perform LINQ queries on a collection.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.plinq
+ * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class pLinq implements ILinq, IteratorAggregate {
+class Linq implements ILinq, IteratorAggregate {
     
     /**
      * The queue of query processes
@@ -38,7 +43,7 @@ class pLinq implements ILinq, IteratorAggregate {
     private $collection;
     
     /**
-     * Create a new pLinq object
+     * Create a new Linq object
      * @param ArrayList|array $collection The collection to query
      * @param ArrayList $queries (optional) The list of queries. Internally used. 
      * @since 1.0-sofia
@@ -59,7 +64,7 @@ class pLinq implements ILinq, IteratorAggregate {
      * Start the LINQ query from a source
      * @param ArrayList|array $source The collection to query and ork on
      * @param ArrayList $queries (optional) The list of queries. Internally used.
-     * @return pLinq Returns the pLinq object for chaining.
+     * @return Linq Returns the Linq object for chaining.
      * @since 1.0-sofia
      */
     public static function from($source, $queries = null){
@@ -68,7 +73,7 @@ class pLinq implements ILinq, IteratorAggregate {
     
     /**
      * Do a downcast if required.
-     * @return pLinq Returns the downcast if required.
+     * @return Linq Returns the downcast if required.
      * @since 1.0-sofia
      */
     protected function orDowncast(){
@@ -141,11 +146,11 @@ class pLinq implements ILinq, IteratorAggregate {
 
     /**
      * Remove duplicate elements from the collection
-     * @return pLinq Returns the pLinq object for chaining.
+     * @return Linq Returns the Linq object for chaining.
      * @since 1.0-sofia
      */
     public function distinct() {
-        $this->queueAdd(new pLinqDistinctQuery());
+        $this->queueAdd(new LinqDistinctQuery());
         return $this->orDowncast();
     }
 
@@ -159,7 +164,7 @@ class pLinq implements ILinq, IteratorAggregate {
     public function first($predicate = null) {
         $result = $this->firstOrDefault($predicate);
         if($result === null){
-            throw new pNullException('pLinq::first() - Could not find first element as collection is empty.');
+            throw new NullException('Linq::first() - Could not find first element as collection is empty.');
         }
         return $result;
     }
@@ -188,11 +193,11 @@ class pLinq implements ILinq, IteratorAggregate {
     /**
      * Group the collection by a field
      * @param Closure|callback $field The field selector to group by
-     * @return pLinq Returns the pLinq object for chaining purposes.
+     * @return Linq Returns the Linq object for chaining purposes.
      * @since 1.0-sofia
      */
     public function groupBy($field) {
-        $this->queueAdd(new pLinqGroupByQuery($field));
+        $this->queueAdd(new LinqGroupByQuery($field));
         return $this->orDowncast();
     }
 
@@ -202,11 +207,11 @@ class pLinq implements ILinq, IteratorAggregate {
      * @param Closure|callback $innerKey The inner key selector
      * @param Closure|callback $outerKey The outer key selector
      * @param Closure|callback $selector The result selector
-     * @return pLinq Returns the pLinq object for chaining purposes.
+     * @return Linq Returns the Linq object for chaining purposes.
      * @since 1.0-sofia
      */
     public function join($collection, $innerKey, $outerKey, $selector) {
-        $this->queueAdd(new pLinqJoinQuery($collection, $innerKey, $outerKey, $selector));
+        $this->queueAdd(new LinqJoinQuery($collection, $innerKey, $outerKey, $selector));
         return $this->orDowncast();
     }
 
@@ -220,7 +225,7 @@ class pLinq implements ILinq, IteratorAggregate {
     public function last($predicate = null) {
         $result = $this->lastOrDefault($predicate);
         if($result === null){
-            throw new pNullException('pLinq::last() - Could not find last element as collection is empty.');
+            throw new NullException('Linq::last() - Could not find last element as collection is empty.');
         }
         return $result;
     }
@@ -250,7 +255,7 @@ class pLinq implements ILinq, IteratorAggregate {
      * Filter the collection by offset and length
      * @param integer $offset The offset to start from
      * @param integer $length The amount to retrieve
-     * @return pLinq Returns the pLinq object for chaining purposes.
+     * @return Linq Returns the Linq object for chaining purposes.
      * @since 1.0-sofia
      */
     public function limit($offset, $length = null) {
@@ -327,9 +332,8 @@ class pLinq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function orderBy($field) {
-        $this->queueAdd(new pLinqOrderByQuery($field));
-        pload('pOrderedLinq');
-        return new pOrderedLinq($this->collection, $this->queue);
+        $this->queueAdd(new LinqOrderByQuery($field));
+        return new OrderedLinq($this->collection, $this->queue);
     }
 
     /**
@@ -339,19 +343,18 @@ class pLinq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function orderByDesc($field) {
-        $this->queueAdd(new pLinqOrderByQuery($field, true));
-        pload('pOrderedLinq');
-        return new pOrderedLinq($this->collection, $this->queue);
+        $this->queueAdd(new LinqOrderByQuery($field, true));
+        return new OrderedLinq($this->collection, $this->queue);
     }
 
     /**
      * Select the collection for remapping
      * @param Closure|callback $mapper The remapping function
-     * @return pLinq Returns the pLinq object for chaining purposes
+     * @return Linq Returns the Linq object for chaining purposes
      * @since 1.0-sofia
      */
     public function select($mapper) {
-        $this->queueAdd(new pLinqSelectQuery($mapper));
+        $this->queueAdd(new LinqSelectQuery($mapper));
         return $this->orDowncast();
     }
 
@@ -372,33 +375,33 @@ class pLinq implements ILinq, IteratorAggregate {
     /**
      * Skip a certain amount of elements
      * @param integer $count The amount of elements to skip
-     * @return pLinq Returns the pLinq object for chaining purposes
+     * @return Linq Returns the Linq object for chaining purposes
      * @since 1.0-sofia
      */
     public function skip($count){
-        $this->queueAdd(new pLinqSkipQuery($count));
+        $this->queueAdd(new LinqSkipQuery($count));
         return $this->orDowncast();
     }
     
     /**
      * Take a certain amount of elements
      * @param integer $count The amount of elements to take
-     * @return pLinq Returns the pLinq object for chaining purposes
+     * @return Linq Returns the Linq object for chaining purposes
      * @since 1.0-sofia
      */
     public function take($count){
-        $this->queueAdd(new pLinqTakeQuery($count));
+        $this->queueAdd(new LinqTakeQuery($count));
         return $this->orDowncast();
     }
     
     /**
      * Set the condition to filter the elements
      * @param Closure|callback $condition The filtering condition
-     * @return pLinq Returns the pLinq object for chaining purposes
+     * @return Linq Returns the Linq object for chaining purposes
      * @since 1.0-sofia
      */
     public function where($condition) {
-        $this->queueAdd(new pLinqWhereQuery($condition));
+        $this->queueAdd(new LinqWhereQuery($condition));
         return $this->orDowncast();
     }
     
@@ -423,11 +426,11 @@ class pLinq implements ILinq, IteratorAggregate {
 
     /**
      * Reverse the collection
-     * @return pLinq Returns the pLinq object for chaining purposes
+     * @return Linq Returns the Linq object for chaining purposes
      * @since 1.0-sofia
      */
     public function reverse() {
-        $this->queueAdd(new pLinqReverseQuery());
+        $this->queueAdd(new LinqReverseQuery());
         return $this->orDowncast();
     }
     

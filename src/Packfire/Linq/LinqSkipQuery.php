@@ -1,16 +1,20 @@
 <?php
-pload('ILinqQuery');
+namespace Packfire\Linq;
+
+use ILinqQuery;
 
 /**
+ * LinqSkipQuery class
+ * 
  * A LINQ Skip query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.plinq
+ * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class pLinqSkipQuery implements ILinqQuery {
+class LinqSkipQuery implements ILinqQuery {
     
     /**
      * The amount of elements to skip
@@ -20,7 +24,7 @@ class pLinqSkipQuery implements ILinqQuery {
     private $count;
     
     /**
-     * Create a new pLinqSkipQuery object
+     * Create a new LinqSkipQuery object
      * @param integer $count The amount of elements to skip
      * @since 1.0-sofia
      */

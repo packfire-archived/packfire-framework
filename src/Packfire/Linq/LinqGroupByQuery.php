@@ -1,19 +1,23 @@
 <?php
-pload('packfire.collection.pList');
-pload('packfire.collection.Map');
-pload('packfire.collection.pKeyValuePair');
-pload('pLinqWorkerQuery');
+namespace Packfire\Linq;
+
+use LinqWorkerQuery;
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\Map;
+use Packfire\Collection\KeyValuePair;
 
 /**
- * pLinqGroupByQuery Description
+ * LinqGroupByQuery class
+ * 
+ * A Group By LINQ query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.plinq
+ * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class pLinqGroupByQuery extends pLinqWorkerQuery {
+class LinqGroupByQuery extends LinqWorkerQuery {
     
     /**
      * Execute the query
@@ -35,7 +39,7 @@ class pLinqGroupByQuery extends pLinqWorkerQuery {
         }
         
         foreach($matrix as $key => $value){
-            $grouping[] = new pKeyValuePair($key, $value);
+            $grouping[] = new KeyValuePair($key, $value);
         }
         return $grouping;
     }

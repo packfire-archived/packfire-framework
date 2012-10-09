@@ -1,16 +1,20 @@
 <?php
-pload('pLinqWorkerQuery');
+namespace Packfire\Linq;
+
+use LinqWorkerQuery;
 
 /**
+ * LinqWhereQuery
+ * 
  * A LINQ Where Query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.plinq
+ * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class pLinqWhereQuery extends pLinqWorkerQuery {
+class LinqWhereQuery extends LinqWorkerQuery {
     
     /**
      * Execute the query

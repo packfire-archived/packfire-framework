@@ -1,17 +1,21 @@
 <?php
+namespace Packfire\Linq;
+
+use ILinqWorkerQuery;
 pload('ILinqWorkerQuery');
 
-
 /**
+ * LinqWorkerQuery class
+ * 
  * A LINQ Worker Query Abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.plinq
+ * @package Packfire\Linq
  * @since 1.0-sofia
  */
-abstract class pLinqWorkerQuery implements ILinqWorkerQuery {
+abstract class LinqWorkerQuery implements ILinqWorkerQuery {
     
     /**
      * The worker
@@ -21,7 +25,7 @@ abstract class pLinqWorkerQuery implements ILinqWorkerQuery {
     private $worker;
     
     /**
-     * Create a new Worker Query pLinqWorkerQuery object
+     * Create a new LinqWorkerQuery object
      * @param Closure|callback $worker The worker callback or closure for this query.
      * @since 1.0-sofia 
      */

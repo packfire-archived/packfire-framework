@@ -1,16 +1,21 @@
 <?php
-pload('ILinqQuery');
+namespace Packfire\Linq;
+
+use ILinqQuery;
+use Packfire\Collection\Map;
 
 /**
+ * LinqJoinQuery class
+ * 
  * A LINQ Join query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.plinq
+ * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class pLinqJoinQuery implements ILinqQuery {
+class LinqJoinQuery implements ILinqQuery {
     
     private $joinCollection;
     private $innerKeySelector;
@@ -18,7 +23,7 @@ class pLinqJoinQuery implements ILinqQuery {
     private $resultSelector;
     
     /**
-     * Create a new pLinqJoinQuery object
+     * Create a new LinqJoinQuery object
      * @param mixed $joinCollection
      * @param mixed $innerKey
      * @param mixed $outerKey

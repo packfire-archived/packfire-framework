@@ -1,6 +1,9 @@
 <?php
+namespace Packfire\Linq;
 
 /**
+ * ILinqQuery interface
+ * 
  * A LINQ query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg

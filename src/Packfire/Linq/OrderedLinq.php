@@ -1,18 +1,22 @@
 <?php
-pload('pLinq');
-pload('IOrderedLinq');
-pload('pLinqThenByQuery');
+namespace Packfire\Linq;
+
+use Linq;
+use IOrderedLinq;
+use LinqThenByQuery;
 
 /**
+ * OrderedLinq class
+ * 
  * An ordered LINQ that implements the thenBy() and thenByDesc() methods.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.plinq
+ * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class pOrderedLinq extends pLinq implements IOrderedLinq {
+class OrderedLinq extends Linq implements IOrderedLinq {
     
     /**
      * Perform a thenBy sort after the previous sort command
@@ -22,7 +26,7 @@ class pOrderedLinq extends pLinq implements IOrderedLinq {
      */
     public function thenBy($field) {
        $lastQuery = $this->lastQuery();
-       $this->queueAdd(new pLinqThenByQuery($field, array($lastQuery, 'compare')));
+       $this->queueAdd(new LinqThenByQuery($field, array($lastQuery, 'compare')));
        return $this;
     }
 
@@ -35,7 +39,7 @@ class pOrderedLinq extends pLinq implements IOrderedLinq {
      */
     public function thenByDesc($field) {
        $lastQuery = $this->lastQuery();
-       $this->queueAdd(new pLinqThenByQuery($field, array($lastQuery, 'compare'), true));
+       $this->queueAdd(new LinqThenByQuery($field, array($lastQuery, 'compare'), true));
        return $this;
     }
     

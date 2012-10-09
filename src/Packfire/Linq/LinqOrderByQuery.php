@@ -1,17 +1,21 @@
 <?php
-pload('pLinqWorkerQuery');
-pload('packfire.collection.sort.IComparator');
+namespace Packfire\Linq;
+
+use LinqWorkerQuery;
+use Packfire\Collection\Sort\IComparator;
 
 /**
+ * LinqOrderByQuery class
+ * 
  * A LINQ Order By Query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.plinq
+ * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class pLinqOrderByQuery extends pLinqWorkerQuery implements IComparator {
+class LinqOrderByQuery extends LinqWorkerQuery implements IComparator {
     
     /**
      * Flag whether the order is descending or not
@@ -21,7 +25,7 @@ class pLinqOrderByQuery extends pLinqWorkerQuery implements IComparator {
     protected $descending;
     
     /**
-     * Create a new pLinqOrderByQuery object
+     * Create a new LinqOrderByQuery object
      * @param Closure|callback $worker The callback that will work on this query
      * @param boolean $descending Set if the order is in descending or not.
      *                  True if the order is descending, false otherwise.

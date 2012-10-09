@@ -1,5 +1,7 @@
 <?php
-pload('pLinqOrderByQuery');
+namespace Packfire\Linq;
+
+use LinqOrderByQuery;
 
 /**
  * LINQ Order Then By Query
@@ -7,10 +9,10 @@ pload('pLinqOrderByQuery');
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.plinq
+ * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class pLinqThenByQuery extends pLinqOrderByQuery {
+class LinqThenByQuery extends LinqOrderByQuery {
     
     /**
      * The previous query's callback
@@ -20,7 +22,7 @@ class pLinqThenByQuery extends pLinqOrderByQuery {
     private $previousCallback;
     
     /**
-     * Create a new pLinqThenByQuery object
+     * Create a new LinqThenByQuery object
      * @param Closure|callback $worker The callback that will work on this query
      * @param Closure|callback $previousCallback The callback that is working for
      *              the previous query
