@@ -2,8 +2,11 @@
 namespace Packfire\Exception;
 
 use Packfire\Net\Http\ResponseCode;
+use \Exception as PhpException;
 
 /**
+ * Exception class
+ * 
  * A generic exception
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -12,7 +15,7 @@ use Packfire\Net\Http\ResponseCode;
  * @package Packfire\Exception
  * @since 1.0-sofia
  */
-class pException extends Exception {
+class Exception extends PhpException {
     
     protected $responseCode = ResponseCode::HTTP_503;
     

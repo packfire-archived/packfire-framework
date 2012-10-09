@@ -1,5 +1,7 @@
 <?php
-pload('packfire.exception.pException');
+namespace Packfire\OAuth;
+
+use Packfire\Exception\Exception;
 
 /**
  * OAuthException class
@@ -12,7 +14,7 @@ pload('packfire.exception.pException');
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class OAuthException extends pException {
+class OAuthException extends Exception {
     
     
     

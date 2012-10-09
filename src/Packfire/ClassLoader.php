@@ -1,16 +1,20 @@
 <?php
-pload('packfire.exception.pMissingDependencyException');
+namespace Packfire;
+
+use Packfire\Exception\MissingDependencyException;
 
 /**
+ * ClassLoader class
+ * 
  * Loads and prepares other classes for use.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire
+ * @package Packfire
  * @since 1.0-sofia
  */
-class pClassLoader {
+class ClassLoader {
     
     /**
      * PHP file extension 
@@ -69,7 +73,7 @@ class pClassLoader {
         try{
             include_once($search);
         }catch(Exception $ex){
-            throw new pMissingDependencyException('Dependency required but not found: "' . $package . '"');
+            throw new MissingDependencyException('Dependency required but not found: "' . $package . '"');
         }
     } 
     
@@ -113,7 +117,7 @@ class pClassLoader {
      * Resolve a package-class string into package and class
      * 
      * Example:
-     * <code>    pClassLoader::resolvePackageClass('packfire.ioc.pServiceBucket');</code>
+     * <code>    ClassLoader::resolvePackageClass('packfire.ioc.pServiceBucket');</code>
      * will return:
      * <code>    array('packfire.ioc.pServiceBucket', 'pServiceBucket')</code>
      * 

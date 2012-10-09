@@ -12,15 +12,6 @@ require(__PACKFIRE_ROOT__ . 'pClassLoader.php');
  */
 
 /**
- * The shortened alias of the class loader. 
- * @param string $package The package to load.
- * @since 1.0-sofia 
- */
-function pload($package){
-    pClassLoader::load($package);
-}
-
-/**
  * A self-executing function with scoping and context.
  * This function emulates the using keyword found in C#.
  * 

@@ -2,7 +2,7 @@
 namespace Packfire\Exception;
 
 use Exception;
-use Packfire\Net\Http\ResponseCode;
+use Packfire\Net\Http\ResponseCode as ResponseCode;
 
 /**
  * HttpException class

@@ -81,49 +81,7 @@ class ControllerInvoker extends BucketUser {
         $class = $this->package;
         if(is_string($this->package)){
             // call controller
-            $isView = substr($class, -4) == 'View';
-
-            list($package, $class) =
-                    ClassLoader::resolvePackageClass($this->package);
-
-            if($package == $class && !class_exists($class)){
-                // only class name is provided, so we use
-                // the controllers in the controller folder
-                
-                // todo remove ploads
-                if($isView){
-                    try{
-                        pload('app.AppView');
-                    }catch(MissingDependencyException $ex){
-
-                    }
-                    try{
-                        pload('view.' . $package);
-                    }catch(MissingDependencyException $ex){
-                        // it is an attempt to load, so no need the exception
-                    }
-                }else{
-                    if(substr($class, -11) != 'Controller'){
-                        $package .= 'Controller';
-                        $class .= 'Controller';
-                    }
-                    try{
-                        pload('app.AppController');
-                    }catch(MissingDependencyException $ex){
-
-                    }
-                    try{
-                        pload('controller.' . $package);
-                    }catch(MissingDependencyException $ex){
-                        // it is an attempt to load, so no need the exception
-                    }
-                }
-                
-            }elseif(!class_exists($class)){
-                // woah we've got a badass here
-                // this is to load a custom class
-                pload($package);
-            }
+            $isView = self::classInstanceOf($class, 'Packfire\View\IView');
             
             if(class_exists($class)){
                 if($isView){
@@ -134,7 +92,7 @@ class ControllerInvoker extends BucketUser {
                     $this->response()->body($output);
                 }else{
                     if(self::classInstanceOf($class, 'Packfire\Controller\Controller')){
-                        /* @var $controller pController */
+                        /* @var $controller Packfire\Controller\Controller */
                         $controller = new $class($this->request, $this->response);
                         $controller->copyBucket($this);
                         $controller->run($this->route, $this->action);
