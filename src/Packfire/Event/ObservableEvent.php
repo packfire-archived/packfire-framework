@@ -4,7 +4,7 @@ namespace Packfire\Event;
 use Packfire\Core\Observable;
 
 /**
- * pObservableEvent class
+ * ObservableEvent class
  * 
  * An event's observable handler implementation
  *
@@ -24,7 +24,7 @@ class ObservableEvent extends Observable {
     private $listener;
     
     /**
-     * Create a new pObservableEvent object
+     * Create a new ObservableEvent object
      * @param object $listener The event listener holding this handler
      * @since 1.0-elenor
      */

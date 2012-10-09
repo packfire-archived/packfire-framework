@@ -59,7 +59,7 @@ class Logger implements ILogger {
     
     /**
      * Create ILog based on file
-     * @param string|pFile $file The file to create the object
+     * @param string|File $file The file to create the object
      * @return ILog
      * @since 1.0-sofia
      */

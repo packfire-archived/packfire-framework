@@ -8,7 +8,7 @@ use Packfire\Net\Http\Url;
 use Packfire\Template\Template;
 
 /**
- * pHttpRouter class
+ * Router class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
@@ -67,7 +67,7 @@ class Router extends CoreRouter {
     
     /**
      * Prepare a route with the parameters
-     * @param pHttpRoute $route The route to be prepared
+     * @param Route $route The route to be prepared
      * @param array|Map $params The parameters to prepare
      * @return string The final route URL
      * @since 1.0-elenor

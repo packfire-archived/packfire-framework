@@ -25,7 +25,7 @@ class Path {
     private $path;
     
     /**
-     * Create a new pPath object
+     * Create a new Path object
      * @param string $path The path to work with
      * @since 1.0-sofia
      */
@@ -166,7 +166,7 @@ class Path {
     /**
      * Combine two paths into an elaborated path
      * @param string $path If left empty, the path will be worked from thE
-     *                     current working path. See pPath::currentWorkingPath()
+     *                     current working path. See Path::currentWorkingPath()
      * @param string $relative,... The relative path that will navigate from
      *                             $path. e.g. '../../test/example/run.html'
      *                             More relative paths can be appended.
@@ -220,7 +220,7 @@ class Path {
      * Get only the file name from a path name
      * @param string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the file name e.g. 'test'
-     * @see pPath::pathInfo()
+     * @see Path::pathInfo()
      * @since 1.0-sofia
      */
     public static function fileName($path){
@@ -241,7 +241,7 @@ class Path {
      * Get the file name together with the file extension from a path name
      * @param string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the file name e.g. 'test.html'
-     * @see pPath::pathInfo()
+     * @see Path::pathInfo()
      * @since 1.0-sofia
      */
     public static function baseName($p){
@@ -252,7 +252,7 @@ class Path {
      * Get file extension from a path name
      * @param string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the file extension e.g. 'html'
-     * @see pPath::pathInfo()
+     * @see Path::pathInfo()
      * @since 1.0-sofia
      */
     public static function extension($p){
@@ -263,7 +263,7 @@ class Path {
      * Get only the directory path from a path name
      * @param string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the directory path e.g. 'home/user/public'
-     * @see pPath::pathInfo()
+     * @see Path::pathInfo()
      * @since 1.0-sofia
      */
     public static function path($p){

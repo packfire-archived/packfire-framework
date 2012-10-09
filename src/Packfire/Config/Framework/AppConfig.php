@@ -22,7 +22,7 @@ class AppConfig extends FrameworkConfig {
      *                        the configuration file. $context can be any string
      *                        value such as 'local', 'test' or 'live' to determine
      *                        what values are loaded.
-     * @return Config Returns a pConfig that has read and parsed the configuration file,
+     * @return Config Returns a Config that has read and parsed the configuration file,
      *                 or NULL if the file is not recognized or not found.
      * @since 1.0-sofia
      */

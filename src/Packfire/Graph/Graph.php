@@ -64,7 +64,7 @@ class Graph {
      * Find the shortest path between two vertices in the graph
      * @param string|integer $start The identifier of the start vertex
      * @param string|integer $end The identifier of the end vertex
-     * @return pGraphPath Returns the path if found or null if no path is found.
+     * @return Path Returns the path if found or null if no path is found.
      * @since 1.0-sofia
      */
     public function find($start, $end){

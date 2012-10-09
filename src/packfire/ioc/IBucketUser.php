@@ -4,7 +4,7 @@ namespace Packfire\IoC;
 /**
  * IBucketUser interface
  * 
- * A user of the pServiceBucket
+ * A user of the ServiceBucket
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -16,7 +16,7 @@ interface IBucketUser {
     
     /**
      * Set the bucket to use for this bucket user
-     * @param pServiceBucket $bucket The service bucket to use
+     * @param ServiceBucket $bucket The service bucket to use
      * @since 1.0-sofia 
      */
     public function setBucket($bucket);

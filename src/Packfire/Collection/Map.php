@@ -39,9 +39,9 @@ class Map extends ArrayList implements IMap {
     
     /**
      * Add a new item to the map
-     * @param string|pKeyValuePair $keyOrKVP The key name
+     * @param string|KeyValuePair $keyOrKVP The key name
      * @param mixed $value (optional) The item to enter. Ignored if a
-     *                     pKeyValuePair is entered in the first argument.
+     *                     KeyValuePair is entered in the first argument.
      * @since 1.0-sofia
      */
     public function add($keyOrKVP, $value = null) {
@@ -135,7 +135,7 @@ class Map extends ArrayList implements IMap {
      * Remove an item by its key.
      * @param integer|string $index Index of the item to remove.
      * @returns mixed Returns the item removed from the list
-     * @throws pOutOfRangeException
+     * @throws OutOfRangeException
      * @since 1.0-sofia
      */
     public function removeAt($index) {

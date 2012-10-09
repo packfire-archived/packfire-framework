@@ -145,7 +145,7 @@ class Regex {
     /**
      * Find the position of the first occurrance of regular expression match 
      * in the string
-     * @param pString|string $subject The string to search for
+     * @param String|string $subject The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer A non-negative number indicating the position of $s in
      *               the string, or -1 if not found. 

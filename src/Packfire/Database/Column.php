@@ -29,7 +29,7 @@ class Column {
     private $type;
     
     /**
-     * Create a new pDbColumn object
+     * Create a new Column object
      * @param string $name Name of the column
      * @param string $type Data type of the column
      * @since 1.0-sofia

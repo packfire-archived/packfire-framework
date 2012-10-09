@@ -2,6 +2,7 @@
 namespace Packfire\DateTime;
 
 use DateTime;
+use TimeSpan;
 
 /**
  * DatePeriod class
@@ -59,7 +60,7 @@ class DatePeriod implements Iterator {
     private $workingDate;
     
     /**
-     * Create a new pDatePeriod object
+     * Create a new DatePeriod object
      * @param DateTime $startDate The start date
      * @param TimeSpan $interval The interval between dates
      * @param integer|DateTime $endDateOrOccurances The number of occurance 
@@ -126,7 +127,7 @@ class DatePeriod implements Iterator {
     }
 
     public function rewind() {
-        $this->workingDate = $this->startDate->add(new pTimeSpan());
+        $this->workingDate = $this->startDate->add(new TimeSpan());
         $this->count = 0;
     }
 

@@ -44,7 +44,7 @@ class YamlInline {
     /**
      * Load a line and work on it.
      * @param string $line The line to work on
-     * @return pYamlInline Returns the object that will work on the string
+     * @return YamlInline Returns the object that will work on the string
      * @since 1.0-sofia
      */
     public static function load($line){

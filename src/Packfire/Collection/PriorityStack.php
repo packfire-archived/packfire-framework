@@ -24,7 +24,7 @@ class PriorityStack extends Stack {
     private $comparator;
     
     /**
-     * Create a new pPriorityStack object
+     * Create a new PriorityStack object
      * @param Closure|callback $comparator The comparator to perform the sort
      * @since 1.0-sofia
      */

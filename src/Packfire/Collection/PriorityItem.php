@@ -27,7 +27,7 @@ class PriorityItem {
     private $item;
     
     /**
-     * Create a new pPriorityItem object
+     * Create a new PriorityItem object
      * @param integer|double $key The key of the item
      * @param mixed $item The item
      * @since 1.0-sofia

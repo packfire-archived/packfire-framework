@@ -53,7 +53,7 @@ class ArrayList implements IList {
 
     /**
      * Get the iterator for this list.
-     * @return Iterator Returns a pIterator.
+     * @return Iterator Returns a Iterator.
      * @since 1.0-sofia
      */
     public function iterator() {

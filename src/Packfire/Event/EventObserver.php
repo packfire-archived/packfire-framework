@@ -24,7 +24,7 @@ class EventObserver implements IObserver {
     private $handler;
     
     /**
-     * Create a new pEventObserver class
+     * Create a new EventObserver object
      * @param Closure|callback $handler The event handler that will receive the
      *              notification on the update.
      * @since 1.0-elenor

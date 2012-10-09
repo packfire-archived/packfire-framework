@@ -23,7 +23,7 @@ use Packfire\DateTime\TimeSpan;
 class FileCache implements ICache {
     
     /**
-     * The path to the storage location for pFileCache
+     * The path to the storage location
      * @var string
      * @static
      * @since 1.0-sofia
@@ -31,7 +31,7 @@ class FileCache implements ICache {
     private static $storePath;
     
     /**
-     * Create a new pFileCache object
+     * Create a new FileCache object
      * @since 1.0-sofia 
      */
     public function __construct(){
@@ -148,7 +148,7 @@ class FileCache implements ICache {
      * Store the cache value uniquely identified by the identifier with expiry
      * @param string $cacheId The identifier of the cache value
      * @param mixed $value The cache value to store
-     * @param pDateTime|pTimeSpan $expiry The date time or period of time to 
+     * @param DateTime|TimeSpan $expiry The date time or period of time to 
      *              expire the cache value.
      * @since 1.0-sofia
      */

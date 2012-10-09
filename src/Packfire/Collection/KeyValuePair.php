@@ -29,7 +29,7 @@ class KeyValuePair {
     private $value;
 
     /**
-     * Create a new pKeyValuePair with key and value
+     * Create a new KeyValuePair object
      * @param string $key The key name
      * @param mixed $value The value
      * @since 1.0-sofia
@@ -53,7 +53,7 @@ class KeyValuePair {
     }
 
     /**
-     * Get or set the value of the pKeyValuePair
+     * Get or set the value of the KeyValuePair
      * @param mixed $value (optional) Set the value
      * @return mixed Returns the value
      * @since 1.0-sofia

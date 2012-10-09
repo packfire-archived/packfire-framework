@@ -19,7 +19,7 @@ class ConnectorFactory {
     /**
      * Create the database connector based on the configuration provided.
      * @param array|Map $config The database configuration
-     * @return pDbConnector Returns the database connector
+     * @return Connector Returns the database connector
      * @since 1.0-sofia
      */
     public static function create($config){

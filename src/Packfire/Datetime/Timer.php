@@ -51,7 +51,7 @@ class Timer {
     public function start(){
         if($this->running()){
             throw new InvalidRequestException(
-                    'pTimer::start() cannot be called when the timer is already running.'
+                    'Timer::start() cannot be called when the timer is already running.'
                 );
             return;
         }
@@ -67,11 +67,11 @@ class Timer {
     public function stop(){
         if(!$this->running()){
             throw new InvalidRequestException(
-                    'pTimer::stop() cannot be called when the timer is already stopped.'
+                    'Timer::stop() cannot be called when the timer is already stopped.'
                 );
             return;
         }
-        $this->endTime = pDateTime::microtime();
+        $this->endTime = DateTime::microtime();
         return $this->result();
     }
 
@@ -79,13 +79,13 @@ class Timer {
      * Get the timing result from the start till stop. If the timer is still
      * running, the result from the start till the result call will be returned.
      * @return double|integer Returns the timing result in terms of seconds.
-     * @throws pInvalidRequestException Throws when the timer has not started before yet
+     * @throws InvalidRequestException Throws when the timer has not started before yet
      * @since 1.0-sofia
      */
     public function result(){
         if(!$this->running() && !$this->endTime){
             throw new InvalidRequestException(
-                    'pTimer::result() cannot be called when the timer has not started yet.'
+                    'Timer::result() cannot be called when the timer has not started yet.'
                 );
         }
         $endTime = $this->endTime;

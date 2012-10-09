@@ -95,9 +95,9 @@ class Provider extends BucketUser {
     
     /**
      * Check nonce for replay attacks
-     * @param pOAuthRequest $request The request made by the client
-     * @param pOAuthToken $token (optional) The token if provided
-     * @throws pOAuthException Thrown when a duplicated entry is found in the store.
+     * @param Request $request The request made by the client
+     * @param Token $token (optional) The token if provided
+     * @throws OAuthException Thrown when a duplicated entry is found in the store.
      * @since 1.1-sofia
      */
     protected function checkNonce($request, $token = null){
@@ -112,7 +112,7 @@ class Provider extends BucketUser {
     /**
      * Check if a timestamp provided by the client is valid
      * @param integer $time The unix epoch timestamp provided by the client
-     * @throws pOAuthException Thrown when the timestamp has expired or far in the future.
+     * @throws OAuthException Thrown when the timestamp has expired or far in the future.
      * @since 1.1-sofia
      */
     protected function checkTimestamp($time){

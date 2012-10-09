@@ -5,7 +5,7 @@ use Packfire\Database\Database as CoreDatabase;
 use Schema;
 
 /**
- * pMySqlDatabase class
+ * Database class
  * 
  * A MySQL Database representation
  *

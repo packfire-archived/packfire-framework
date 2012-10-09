@@ -20,7 +20,7 @@ class Log implements ILog, IFile {
     
     /**
      * The file to write to
-     * @var pFile
+     * @var File
      * @since 1.0-sofia
      */
     private $file;

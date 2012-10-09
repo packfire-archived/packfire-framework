@@ -12,7 +12,7 @@ namespace Packfire\OAuth;
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class pOAuthHelper {
+class Helper {
     
     public static function urlencode($input){
         if(func_num_args() > 1){

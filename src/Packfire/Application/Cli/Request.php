@@ -25,7 +25,7 @@ class Request implements IAppRequest {
     protected $params;
     
     /**
-     * Create a new pCliAppRequest object
+     * Create a new Request object
      * @param array $arguments (optional) The array of arguments for the request.
      *           If not set, the arguments will be loaded from $_SERVER['argv'].
      * @since 1.0-elenor

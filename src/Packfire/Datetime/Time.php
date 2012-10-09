@@ -153,8 +153,8 @@ class Time extends DateTimeComponent implements IComparable {
     /**
      * Add another time to this time. If the sum of the two time object passes
      * 24 hours (i.e. a day), the result will be the time next day.
-     * @param pTime $time The amount of time to add.
-     * @return pTime Returns the resulting pTime from the addition operation.
+     * @param Time $time The amount of time to add.
+     * @return Time Returns the resulting Time from the addition operation.
      * @since 1.0-sofia
      */
     public function add($time){
@@ -172,8 +172,8 @@ class Time extends DateTimeComponent implements IComparable {
     /**
      * Subtract some time from this time. If the result is negative, it will
      * return the time of the previous day.
-     * @param pTime $time The amount of time to deduct
-     * @return pTime Returns the resulting pTime from the subtract operation
+     * @param Time $time The amount of time to deduct
+     * @return Time Returns the resulting Time from the subtract operation
      * @since 1.0-sofia
      */
     public function subtract($time){
@@ -189,8 +189,8 @@ class Time extends DateTimeComponent implements IComparable {
     }
     
     /**
-     * Compare this pTime object with another pTime object
-     * @param pTime $another The other pTime object to compare with
+     * Compare this Time object with another Time object
+     * @param Time $another The other Time object to compare with
      * @return integer Returns 0 if they are the same, -1 if $this < $another
      *                 and 1 if $this > $another.
      * @since 1.0-sofia

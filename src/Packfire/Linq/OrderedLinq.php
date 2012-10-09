@@ -21,7 +21,7 @@ class OrderedLinq extends Linq implements IOrderedLinq {
     /**
      * Perform a thenBy sort after the previous sort command
      * @param Closure|callback $field The field selector
-     * @return pOrderedLinq Returns itself for chaining.
+     * @return OrderedLinq Returns itself for chaining.
      * @since 1.0-sofia
      */
     public function thenBy($field) {
@@ -34,7 +34,7 @@ class OrderedLinq extends Linq implements IOrderedLinq {
      * Perform a thenBy sort after the previous sort command
      *           in an descending order
      * @param Closure|callback $field The field selector
-     * @return pOrderedLinq Returns itself for chaining.
+     * @return OrderedLinq Returns itself for chaining.
      * @since 1.0-sofia
      */
     public function thenByDesc($field) {

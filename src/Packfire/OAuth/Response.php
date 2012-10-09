@@ -28,7 +28,7 @@ class Response extends HttpResponse implements IHttpEntity, IAppResponse {
     private $oauthParams;
     
     /**
-     * Create a new pOAuthResponse object
+     * Create a new Response object
      * @since 1.1-sofia
      */
     public function __construct() {
@@ -55,7 +55,7 @@ class Response extends HttpResponse implements IHttpEntity, IAppResponse {
     /**
      * Convert the plain text OAuth response to a different response format
      * @param string $response The name of the IResponseFormat class to convert
-     *          the OAuth response to, i.e. pJsonResponse, pXmlResponse
+     *          the OAuth response to, i.e. JsonResponse, XmlResponse
      * @returns IResponseFormat Returns the response created
      * @since 1.1-sofia
      */

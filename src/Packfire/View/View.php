@@ -51,13 +51,13 @@ abstract class View extends BucketUser implements IView {
     
     /**
      * The template for the view to render
-     * @var pTheme 
+     * @var Theme 
      * @since 1.0-sofia
      */
     private $theme;
     
     /**
-     * Create a new pView object 
+     * Create a new View object 
      * @since 1.0-sofia
      */
     public function __construct(){
@@ -90,10 +90,10 @@ abstract class View extends BucketUser implements IView {
      * As the object property gets updated, the template field gets updated too.
      * 
      * @param string $key The template field to bind to
-     * @param pObjectObserver $object The object to be binded
+     * @param ObjectObserver $object The object to be binded
      * @param string $property The property of the object to bind to the
      *                  template field.
-     * @throws pInvalidArgumentException Thrown when $object is not an instance of pObjectObserver
+     * @throws InvalidArgumentException Thrown when $object is not an instance of ObjectObserver
      * @since 1.1-sofia
      */
     public function bind($key, $object, $property){
@@ -148,7 +148,7 @@ abstract class View extends BucketUser implements IView {
     /**
      * Set the template used by the view
      * @param ITemplate $template The template to use
-     * @return pView Returns an instance of self for chaining.
+     * @return View Returns an instance of self for chaining.
      * @since 1.0-sofia
      */
     protected function template($template){
@@ -158,8 +158,8 @@ abstract class View extends BucketUser implements IView {
     
     /**
      * Set the theme used by the view
-     * @param pTheme $theme The theme to use
-     * @return pView Returns an instance of self for chaining.
+     * @param Theme $theme The theme to use
+     * @return View Returns an instance of self for chaining.
      * @since 1.0-sofia
      */
     protected function theme($theme){

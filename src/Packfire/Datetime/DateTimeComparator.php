@@ -20,8 +20,8 @@ class DateTimeComparator implements IComparator {
     
     /**
      * Compares between two DateTime object
-     * @param DateTime $datetime1 The first pDateTime object to compare
-     * @param DateTime $datetime2 The second pDateTime object to compare
+     * @param DateTime $datetime1 The first DateTime object to compare
+     * @param DateTime $datetime2 The second DateTime object to compare
      * @return integer Returns 0 if they are the same, -1 if $datetime1 < $datetime2
      *                 and 1 if $datetime1 > $datetime2.
      * @since 1.0-sofia

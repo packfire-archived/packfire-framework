@@ -29,7 +29,7 @@ abstract class Table {
     protected $name;
     
     /**
-     * Create a new pDbTable object
+     * Create a new Table object
      * @param IConnector $driver The connector
      * @param string $name The name of the table 
      * @since 1.0-sofia

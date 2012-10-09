@@ -15,10 +15,10 @@ use Packfire\OAuth\Signature;
  * @package Packfire\OAuth\Signature
  * @since 1.1-sofia
  */
-class pOAuthPlainTextSignature  extends pOAuthSignature {
+class PlainText extends Signature {
     
     public function build() {
-        $keyParts = pOAuthHelper::urlencode(array(
+        $keyParts = Helper::urlencode(array(
             $this->consumer->secret(),
             $this->tokenSecret ? $this->tokenSecret : ''
         ));

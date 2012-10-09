@@ -48,8 +48,8 @@ class NewLine {
      * Neutralize all newline character format in a string
      * @param string $string The string to be neutralized
      * @param string $target (optional) The target newline to use. 
-     *              Defaults to pNewline::UNIX.
-     *              You can use constants from pNewline or any text to
+     *              Defaults to NewLine::UNIX.
+     *              You can use constants from NewLine or any text to
      *              replace the newline.
      * @return string Returns the neutralized string
      * @since 1.0-sofia

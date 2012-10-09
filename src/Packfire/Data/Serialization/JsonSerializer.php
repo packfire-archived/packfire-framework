@@ -6,7 +6,7 @@ use ISerializable;
 use Packfire\IO\IInputStream;
 
 /**
- * pJsonSerializer class
+ * JsonSerializer class
  * 
  * Provide JSON serialization and deserialization services
  *

@@ -35,12 +35,12 @@ class SerialValidator implements IValidator {
     /**
      * Add a new validator to the validation series
      * @param IValidator $validator The validator to be added
-     * @throws pInvalidArgumentException Thrown when $validator is an instance of itself.
+     * @throws InvalidArgumentException Thrown when $validator is an instance of itself.
      * @since 1.1-sofia
      */
     public function add($validator){
         if($validator === $this){
-            throw new InvalidArgumentException('pSerialValidator::add',
+            throw new InvalidArgumentException('SerialValidator::add',
                     'validator', 'not itself or inception may happen');
         }
         $this->validators[] = $validator;

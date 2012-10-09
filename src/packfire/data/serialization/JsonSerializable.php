@@ -5,7 +5,7 @@ use ISerializable;
 use \JsonSerializable as IJsonSerializable;
 
 /**
- * pJsonSerializable abstract class
+ * JsonSerializable class
  * 
  * Makes JsonSerializable compatible with older PHP versions
  *

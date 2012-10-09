@@ -17,7 +17,7 @@ abstract class Theme {
     /**
      * Load a theme class from the theme folder
      * @param string $theme The name of the theme class
-     * @return pTheme Returns the loaded theme class
+     * @return Theme Returns the loaded theme class
      * @since 1.1-sofia
      */
     public static function load($theme){

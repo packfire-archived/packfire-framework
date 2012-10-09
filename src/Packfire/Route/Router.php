@@ -64,7 +64,7 @@ abstract class Router extends BucketUser implements ILoadable {
      * Add a new routing entry to the router
      * @param string $key The routing key that uniquely identify this
      *               routing entry.
-     * @param pRoute $route  The route entry
+     * @param Route $route  The route entry
      * @since 1.0-sofia
      */
     public function add($key, $route){
@@ -129,7 +129,7 @@ abstract class Router extends BucketUser implements ILoadable {
     
     /**
      * Prepare a route with the parameters
-     * @param pHttpRoute $route The route to be prepared
+     * @param Route $route The route to be prepared
      * @param array|Map $params The parameters to prepare
      * @return string The final route URL
      * @since 1.0-elenor

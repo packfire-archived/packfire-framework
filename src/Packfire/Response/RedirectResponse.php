@@ -19,9 +19,9 @@ class RedirectResponse extends HttpResponse {
     
     /**
      * Create a new RedirectResponse object
-     * @param string|pUrl $url The URL to redirect to
+     * @param string|Url $url The URL to redirect to
      * @param string $code (optional) The HTTP code to use for the redirect.
-     *                      Defaults to pHttpResponseCode::HTTP_302.
+     *                      Defaults to ResponseCode::HTTP_302.
      * @since 1.0-sofia
      */
     public function __construct($url, $code = ResponseCode::HTTP_302){

@@ -44,7 +44,7 @@ class ClassLoader {
      * If your file is located in the framework folder:
      * <code>    packfire/yaml/pYaml.php</code>
      * The package name will then be:
-     * <code>    packfire.yaml.pYaml</code>
+     * <code>    packfire.yaml.Yaml</code>
      * 
      * If your file is located in the application folder:
      * <code>    public/packfire/app/AppView.php</code>

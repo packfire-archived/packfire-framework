@@ -56,7 +56,7 @@ class Text {
 
     /**
      * Highlight specific phrase in a string case-insensitively
-     * @param pString|string $string The original string to search in
+     * @param String|string $string The original string to search in
      * @param string|IList|array $phrase The phrase to highlight
      * @param string $format (optional) The format of the highlight. Note that
      *                       $1 refers to the original text to be highlighted.
@@ -77,7 +77,7 @@ class Text {
 
     /**
      * Strip off all HTML tags in a string.
-     * @param pString|string $str The string to strip HTML tags
+     * @param String|string $str The string to strip HTML tags
      * @param string $allowed (optional) The tags to be allowed
      * @return string Returns the resulting string.
      * @link http://php.net/strip-tags
@@ -109,8 +109,8 @@ class Text {
 
     /**
      * Rotate the string through 13 characters
-     * @param pString|string $str The string to be rotated
-     * @return pString|string Returns the resulting string.
+     * @param String|string $str The string to be rotated
+     * @return string Returns the resulting string.
      * @since 1.0-sofia
      */
     public static function rotate13($str) {
@@ -119,8 +119,8 @@ class Text {
 
     /**
      * Rotate the string through 47 characters
-     * @param pString|string $str The string to be rotated
-     * @return pString|string Returns the resulting string.
+     * @param String|string $str The string to be rotated
+     * @return string Returns the resulting string.
      * @since 1.0-sofia
      */
     public static function rotate47($str) {

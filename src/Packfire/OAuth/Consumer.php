@@ -45,14 +45,14 @@ class Consumer {
     
     /**
      * The callback URL for the consumer
-     * @var string|pUrl
+     * @var string|Url
      * @since 1.1-sofia
      */
     private $callback;
     
     /**
      * The signature that the consumer will use to sign the requests
-     * @var pOAuthSignature
+     * @var Signature
      */
     private $signatureMethod;
     
@@ -60,8 +60,8 @@ class Consumer {
      * Create a new Consumer object
      * @param string $key The consumer key
      * @param string $secret The secret key
-     * @param string|pUrl $callback (optional) The callback URL
-     * @param string|pOAuthSignature (optional) The signature or the name of 
+     * @param string|Url $callback (optional) The callback URL
+     * @param string|Signature (optional) The signature or the name of 
      *      the signature to sign requests. If not set, HMAC-SHA1 will be 
      *      used instead.
      * @since 1.1-sofia
@@ -97,7 +97,7 @@ class Consumer {
     
     /**
      * Get the callback URL of the consumer
-     * @return string|pUrl Returns the callback URL
+     * @return string|Url Returns the callback URL
      * @since 1.1-sofia
      */
     public function callback(){
@@ -137,7 +137,7 @@ class Consumer {
         $request->oauth(OAuth::NONCE, Helper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
         $response = $server->request($request, new Response());
-        /* @var $response pOAuthResponse */
+        /* @var $response Response */
         $this->tokenSecret = $response->oauth(OAuth::TOKEN_SECRET);
         return Token::load($response);
     }
@@ -165,7 +165,7 @@ class Consumer {
             $request->oauth(OAuth::VERIFIER, $verifier);
         }
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
-        $response = $server->request($request, new pOAuthResponse());
+        $response = $server->request($request, new Response());
         /* @var $response Response */
         $this->tokenSecret = $response->oauth(OAuth::TOKEN_SECRET);
         return Token::load($response);

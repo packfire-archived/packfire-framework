@@ -24,7 +24,7 @@ class PriorityQueue extends Queue {
     private $comparator;
     
     /**
-     * Create a new pPriorityQueue object
+     * Create a new PriorityQueue object
      * @param Closure|callback $comparator The comparator to perform the sort
      * @since 1.0-sofia
      */

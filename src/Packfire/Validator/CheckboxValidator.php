@@ -25,7 +25,7 @@ class CheckboxValidator implements IValidator {
     private $state;
     
     /**
-     * Create a new pCheckboxValidator
+     * Create a new CheckboxValidator object
      * @param boolean $state State of the checkbox
      * @since 1.0-sofia
      */

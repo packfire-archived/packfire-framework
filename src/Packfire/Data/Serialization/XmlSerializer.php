@@ -58,7 +58,7 @@ class XmlSerializer implements ISerializer {
             $xml = $stream;
         }
         if(!class_exists('DOMDocument')){
-            throw new MissingDependencyException('DOM is required by pXmlSerializer but extension not enabled.');
+            throw new MissingDependencyException('DOM is required by XmlSerializer but extension not enabled.');
         }
         $doc = new DOMDocument();
         $doc->loadXML($xml);

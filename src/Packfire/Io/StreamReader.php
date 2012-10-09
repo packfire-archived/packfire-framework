@@ -12,7 +12,7 @@ namespace Packfire\IO;
  * @package Packfire\IO
  * @since 1.0-sofia
  */
-class pStreamReader {
+class StreamReader {
     
     /**
      * The stream to read
@@ -22,7 +22,7 @@ class pStreamReader {
     private $stream;
     
     /**
-     * Create a new pStreamReader object
+     * Create a new StreamReader object
      * @param IInputStream $stream The input stream to read.
      * @since 1.0-sofia
      */

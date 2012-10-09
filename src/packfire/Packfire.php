@@ -1,4 +1,6 @@
 <?php
+namespace Packfire;
+
 /**
  * The small fire you bring around in your pack to go around setting forests
  * on flames. Spark your web applications with Packfire today!

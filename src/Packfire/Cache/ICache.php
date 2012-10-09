@@ -18,7 +18,7 @@ interface ICache {
      * Store the cache value uniquely identified by the identifier with expiry
      * @param string $cacheId The identifier of the cache value
      * @param mixed $value The cache value to store
-     * @param pDateTime|pTimeSpan $expiry The date time or period of time to 
+     * @param DateTime|TimeSpan $expiry The date time or period of time to 
      *              expire the cache value.
      * @since 1.0-sofia
      */

@@ -179,7 +179,7 @@ class Table extends DbTable {
     
     /**
      * Get the columns of the table
-     * @return ArrayList Returns a list of pDbColumn objects
+     * @return ArrayList Returns a list of Column objects
      * @since 1.0-sofia
      */
     public function columns(){
@@ -204,7 +204,7 @@ class Table extends DbTable {
                         }
                     }
                     $types = implode(' ', $type);
-                    $column = new pDbColumn($col[0], $types);
+                    $column = new Column($col[0], $types);
                     $columns->add($column);
                 }
                 $this->columns = $columns;
@@ -215,7 +215,7 @@ class Table extends DbTable {
     
     /**
      * Get the list of primary keys of the table
-     * @return ArrayList Returns a list of pDbColumn objects of the primary keys
+     * @return ArrayList Returns a list of Column objects of the primary keys
      * @since 1.0-sofia
      */
     public function pk(){

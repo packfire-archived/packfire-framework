@@ -24,7 +24,7 @@ class FileSessionStorage extends SessionStorage {
     private $path;
     
     /**
-     * Create a new pFileSessionStorage object
+     * Create a new FileSessionStorage object
      * @param string $path Path to the storage location
      * @since 1.0-sofia
      */

@@ -49,7 +49,7 @@ abstract class View extends CoreView {
 
     /**
      * Set the theme for the view class
-     * @param pTheme|string $theme The theme or the name of the theme class to
+     * @param Theme|string $theme The theme or the name of the theme class to
      *          set to the view class
      * @return View Returns the object for chaining
      * @since 1.1-sofia

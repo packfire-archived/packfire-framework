@@ -85,7 +85,7 @@ class Schema extends DbSchema {
     /**
      * Start the LINQ expression from a table
      * @param string $table The table to work with
-     * @return pMySqlLinq Returns the LINQ object to start chaining
+     * @return Linq Returns the LINQ object to start chaining
      * @since 1.0-sofia
      */
     public function from($table){

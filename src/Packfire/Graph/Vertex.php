@@ -67,10 +67,10 @@ class Vertex implements IVertex {
     public function connect($vertex, $cost){
         if($this == $vertex || $this->id() == $vertex->id()){
             throw new InvalidArgumentException(
-                    'pVertex::connect',
+                    'Vertex::connect',
                     'vertex',
                     'not an instance of itself',
-                    'pVertex#' . $vertex->id()
+                    'Vertex#' . $vertex->id()
                 );
         }
         $this->connections[$vertex->id()] = $cost;

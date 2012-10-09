@@ -5,11 +5,11 @@ use ICache;
 use Packfire\Exception\MissingDependencyException;
 
 if(!class_exists('Memcache')){
-    throw new MissingDependencyException('pMemCache requires the Memcache extension in order to run properly.');
+    throw new MissingDependencyException('MemCache requires the Memcache extension in order to run properly.');
 }
 
 /**
- * pMemCache class
+ * MemCache class
  * 
  * Memcached caching functionality
  *
@@ -19,7 +19,7 @@ if(!class_exists('Memcache')){
  * @package Packfire\Cache
  * @since 1.0-sofia
  */
-class pMemCache implements ICache {
+class MemCache implements ICache {
     
     /**
      * The Memcache instance
@@ -29,14 +29,14 @@ class pMemCache implements ICache {
     private $memcache;
     
     /**
-     * Create a new pMemCache object
+     * Create a new MemCache object
      * @param string $host The host that is hosting the memcache server
      * @param integer $port (optional) The port to connect to
      * @param integer $timeout (optional) Connection time out
      * @since 1.0-sofia
      */
     public function __construct($host, $port = null, $timeout = null) {
-        $this->memcache = new Memcache();
+        $this->memcache = new \Memcache();
         $this->memcache->connect($host, $port, $timeout);
     }
     
@@ -98,14 +98,14 @@ class pMemCache implements ICache {
      * Store the cache value uniquely identified by the identifier with expiry
      * @param string $cacheId The identifier of the cache value
      * @param mixed $value The cache value to store
-     * @param pDateTime|pTimeSpan $expiry The date time or period of time to 
+     * @param DateTime|TimeSpan $expiry The date time or period of time to 
      *              expire the cache value.
      * @since 1.0-sofia
      */
     public function set($cacheId, $value, $expiry) {
-        if($expiry instanceof pDateTime){
+        if($expiry instanceof DateTime){
             $expiry = $expiry->toTimestamp();
-        }else if($expiry instanceof pTimeSpan){
+        }else if($expiry instanceof TimeSpan){
             $expiry = time() + $expiry->totalSeconds();
         }else{
             $expiry = time() + 3600; // default to 1 hour cache?

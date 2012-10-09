@@ -22,7 +22,7 @@ class YamlParser {
     
     /**
      * The reader to read in data from the input stream
-     * @var pStreamReader
+     * @var StreamReader
      * @since 1.0-sofia
      */
     private $read;
@@ -56,8 +56,8 @@ class YamlParser {
     private $reference;
     
     /**
-     * Create the parser based on the pInputStreamReader
-     * @param pStreamReader $reader The reader that helps to read the data
+     * Create a new YamlParser object
+     * @param StreamReader $reader The reader that helps to read the data
      *                                   from the YAML stream.
      * @since 1.0-sofia
      */

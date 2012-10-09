@@ -4,7 +4,7 @@ namespace Packfire\Yaml;
 use Packfire\Collection\ArrayList;
 
 /**
- * pYamlWriter class
+ * YamlWriter class
  * 
  * A YAML writer class
  *
@@ -24,7 +24,7 @@ class YamlWriter {
     private $stream;
     
     /**
-     * Create a new pYamlWriter object
+     * Create a new YamlWriter object
      * @param IOutputStream $stream The stream to write data to
      * @since 1.0-sofia
      */

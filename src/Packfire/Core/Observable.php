@@ -17,7 +17,7 @@ use IObservable;
 class Observable implements IObservable {
     
     /**
-     * The observers observing this pObservable
+     * The observers observing this Observable
      * @var array
      * @since 1.0-sofia
      */

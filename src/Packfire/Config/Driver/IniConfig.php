@@ -14,7 +14,7 @@ use Packfire\Config\Config;
  * @package Packfire\Config\Driver
  * @since 1.0-sofia
  */
-class pIniConfig extends Config {
+class IniConfig extends Config {
     
     /**
      * Read the configuration file 

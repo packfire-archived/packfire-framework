@@ -6,7 +6,7 @@ use Packfire\Collection\Sort\Comparator\PropertyComparator;
 /**
  * DateComparator class
  * 
- * A comparator that compares between two pDate objects
+ * A comparator that compares between two Date objects
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -17,7 +17,7 @@ use Packfire\Collection\Sort\Comparator\PropertyComparator;
 class DateComparator extends PropertyComparator {
     
     /**
-     * Compare between two pDate objects
+     * Compare between two Date objects
      * @param Date $date1
      * @param Date $date2
      * @return integer Returns 0 if they are the same, -1 if $date1 < $date2

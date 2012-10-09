@@ -65,14 +65,14 @@ class TimeSpan extends Time {
      * @param integer $day (optional) Set the day value with an integer. Must
      *                     be an non-negative number.
      * @return integer Returns the day component of the time
-     * @throws pInvalidArgumentException Thrown when a negative $day is provided.
+     * @throws InvalidArgumentException Thrown when a negative $day is provided.
      * @since 1.0-sofia
      */
     public function day($day = null){
         if(func_num_args() == 1){
             if($day != $this->day){
                 if($day < 0){
-                    throw new InvalidArgumentException('pTimeSpan::day', 'day', 'non-negative', $day);
+                    throw new InvalidArgumentException('TimeSpan::day', 'day', 'non-negative', $day);
                 }
                 $this->day = $day + 0;
             }
@@ -135,7 +135,7 @@ class TimeSpan extends Time {
     /**
      * Add another time span to this time span.
      * @param TimeSpan $time The amount of time to add.
-     * @return TimeSpan Returns the resulting pTimeSpan from the addition operation.
+     * @return TimeSpan Returns the resulting TimeSpan from the addition operation.
      * @since 1.0-sofia
      */
     public function add($time){
@@ -153,7 +153,7 @@ class TimeSpan extends Time {
     /**
      * Subtract some time span from this time span.
      * @param TimeSpan $time The amount of time to deduct
-     * @return TimeSpan Returns the resulting pTimeSpan from the subtract operation
+     * @return TimeSpan Returns the resulting TimeSpan from the subtract operation
      * @since 1.0-sofia
      */
     public function subtract($time){

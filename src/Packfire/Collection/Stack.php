@@ -15,7 +15,7 @@ use IStack;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pStack extends ArrayList implements IStack {
+class Stack extends ArrayList implements IStack {
     
     /**
      * Push an item into the top of the stack.

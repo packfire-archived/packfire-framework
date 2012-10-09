@@ -46,7 +46,7 @@ class Template implements ITemplate {
     private $fields;
     
     /**
-     * Create a new pTemplate object
+     * Create a new Template object
      * @param string $template The template to use
      * @since 1.0-sofia
      */

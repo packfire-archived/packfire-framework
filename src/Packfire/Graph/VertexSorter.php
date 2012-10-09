@@ -4,7 +4,7 @@ namespace Packfire\Graph;
 use Packfire\Collection\Sort\ISorter;
 
 /**
- * pVertexSorter class
+ * VertexSorter class
  * 
  * Provides a comparator that helps to sort an array of vertices
  *
@@ -14,7 +14,7 @@ use Packfire\Collection\Sort\ISorter;
  * @package Packfire\Graph
  * @since 1.0-sofia
  */
-class pVertexSorter implements ISorter {
+class VertexSorter implements ISorter {
     
     /**
      * Perform the sorting operation

@@ -27,7 +27,7 @@ class Router extends CoreRouter {
     
     /**
      * Prepare a route with the parameters
-     * @param pCliRoute $route The route to be prepared
+     * @param Route $route The route to be prepared
      * @param array|Map $params The parameters to prepare
      * @return string The final route URL
      * @since 1.0-elenor

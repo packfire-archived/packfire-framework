@@ -96,7 +96,7 @@ class RedirectRoute implements IRoute {
     
     /**
      * Get the redirection URL of the route
-     * @return string|pUrl Returns the redirection URL
+     * @return string|Url Returns the redirection URL
      * @since 1.0-elenor
      */
     public function redirect(){

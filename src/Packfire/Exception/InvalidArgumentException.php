@@ -17,7 +17,7 @@ use Exception;
 class InvalidArgumentException extends Exception {
     
     /**
-     * Create a new pInvalidArgumentException object
+     * Create a new InvalidArgumentException object
      * @param string $method The class method that is raising this exception
      * @param string $argument The argument that has an invalid value
      * @param string $expectation The expecting value

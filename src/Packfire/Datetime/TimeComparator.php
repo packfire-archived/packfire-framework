@@ -6,7 +6,7 @@ use Packfire\Collection\Sort\Comparator\PropertyComparator;
 /**
  * TimeComparator class
  * 
- * A comparator that compares between two pTime objects
+ * A comparator that compares between two Time objects
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong

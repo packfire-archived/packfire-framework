@@ -222,13 +222,13 @@ class Request {
 
     /**
      * Get or set the date/time of the HTTP request
-     * @param pDateTime $t (optional) If set, the new value will be set.
-     * @return pDateTime Returns the date time of the request
+     * @param DateTime $t (optional) If set, the new value will be set.
+     * @return DateTime Returns the date time of the request
      * @since 1.0-sofia
      */
-    public function time($t = null){
+    public function time($time = null){
         if(func_num_args() == 1){
-            $this->time = $t;
+            $this->time = $time;
         }
         return $this->time;
     }

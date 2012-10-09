@@ -275,9 +275,9 @@ class Inflector {
      * @param string $singular The singular form of the word
      * @param string $plural (optional) The plural form of the word. If not
      *          supplied, the plural form will be determined
-     *          from pInflector::plural()
+     *          from Inflector::plural()
      * @return string
-     * @see pInflector::plural()
+     * @see Inflector::plural()
      * @since 1.0-sofia
      */
     public static function quantify($num, $singular, $plural = null){

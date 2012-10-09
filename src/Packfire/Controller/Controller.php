@@ -32,7 +32,7 @@ abstract class Controller extends BucketUser {
     
     /**
      * The route that called for this controller
-     * @var pRoute
+     * @var Route
      * @since 1.0-sofia
      */
     protected $route;
@@ -73,7 +73,7 @@ abstract class Controller extends BucketUser {
     private $errors;
     
     /**
-     * Create a new pController object
+     * Create a new Controller object
      * @param IAppRequest $request (optional) The client's request
      * @param IAppResponse $response (optional) The response object
      * @since 1.0-sofia
@@ -252,7 +252,7 @@ abstract class Controller extends BucketUser {
     
     /**
      * Run the controller action with the route
-     * @param pRoute $route The route that called for this controller
+     * @param Route $route The route that called for this controller
      * @param string $action The action to perform
      * @return mixed Returns the result of the action
      * @since 1.0-sofia

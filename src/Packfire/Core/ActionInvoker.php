@@ -5,7 +5,7 @@ use Packfire\Collection\Map;
 use Packfire\Exception\MissingDependencyException;
 
 if(!class_exists('ReflectionMethod')){
-    throw new MissingDependencyException('pActionInvoker requires Reflection to be enabled in order to work');
+    throw new MissingDependencyException('ActionInvoker requires Reflection to be enabled in order to work');
 }
 
 /**
@@ -29,7 +29,7 @@ class ActionInvoker {
     protected $callback;
     
     /**
-     * Create a new pActionInvoker object
+     * Create a new ActionInvoker object
      * @param Closure|callback $callback The callback to be invoked
      * @since 1.1-sofia
      */

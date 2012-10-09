@@ -13,7 +13,7 @@ use Signature;
 use IHttpEntity;
 
 /**
- * pOAuthRequest class
+ * Request class
  * 
  * OAuth Request
  *
@@ -33,7 +33,7 @@ class Request extends HttpRequest implements IHttpEntity {
     private $oauthParams;
     
     /**
-     * Create a new pOAuthRequest object
+     * Create a new Request object
      * @since 1.1-sofia
      */
     public function __construct() {
@@ -196,9 +196,9 @@ class Request extends HttpRequest implements IHttpEntity {
     /**
      * Sign this request for OAuth interaction
      * @param string $method The name of the method to use to sign this request
-     * @param pOAuthConsumer $consumer The consumer making the request
+     * @param Consumer $consumer The consumer making the request
      * @param string $tokenSecret (optional) The token secret provided by the OAuth provider
-     * @throws pInvalidArgumentException Thrown when $method signature method is invalid
+     * @throws InvalidArgumentException Thrown when $method signature method is invalid
      * @since 1.1-sofia
      */
     public function sign($method, $consumer, $tokenSecret = null){

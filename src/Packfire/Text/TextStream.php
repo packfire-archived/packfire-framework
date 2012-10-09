@@ -32,7 +32,7 @@ class TextStream implements IIOStream {
     private $pointer;
     
     /**
-     * Create a new pTextStream
+     * Create a new TextStream object
      * @param string $data (optional) Intialize the stream with some data.
      * @since 1.0-sofia
      */
@@ -87,7 +87,7 @@ class TextStream implements IIOStream {
     /**
      * Move the pointer to a specific position.
      * @param integer $position The position to move to.
-     * @throws pOutOfRangeException
+     * @throws OutOfRangeException
      * @since 1.0-sofia
      */
     public function seek($position) {

@@ -20,7 +20,7 @@ class TemplateFile extends Template implements ITemplateFile {
     
     /**
      * Create a new TemplateFile object
-     * @param pFile|string $file The file or pathname to the file
+     * @param File|string $file The file or pathname to the file
      * @since 1.1-sofia
      */
     public function __construct($file) {

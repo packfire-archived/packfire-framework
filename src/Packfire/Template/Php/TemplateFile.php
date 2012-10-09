@@ -34,8 +34,8 @@ class TemplateFile implements ITemplateFile {
     private $fields;
     
     /**
-     * Create a new pPhpTemplateFile object
-     * @param pFile|string $file The file or pathname to the file
+     * Create a new PhpTemplateFile object
+     * @param File|string $file The file or pathname to the file
      * @since 1.1-sofia
      */
     public function __construct($file) {

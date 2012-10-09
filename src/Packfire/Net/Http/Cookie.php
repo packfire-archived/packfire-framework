@@ -33,7 +33,7 @@ class Cookie {
 
     /**
      * The expiry date / time of the cookie in DateTime or UNIX Epoch
-     * @var pDateTime
+     * @var DateTime
      * @since 1.0-sofia
      */
     private $expire;
@@ -133,7 +133,7 @@ class Cookie {
      * Get or set the expiry date / time of the cookie
      * @param DateTime $d (optional) Set the value of expiry date/time.
      * @return DateTime Returns the expiry date time of the cookie
-     * @throws InvalidArgumentException Thrown when $expire is not of type pDateTime
+     * @throws InvalidArgumentException Thrown when $expire is not of type DateTime
      * @since 1.0-sofia
      */
     public function expire($expire = false){

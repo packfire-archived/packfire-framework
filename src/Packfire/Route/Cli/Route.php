@@ -25,7 +25,7 @@ class Route extends CoreRoute {
     private $remap;
     
     /**
-     * Create a new pCliRoute object
+     * Create a new Route object
      * @param string $name The name of the route
      * @param array|Map $data The data retrieved from the settings
      * @since 1.0-elenor
@@ -39,7 +39,7 @@ class Route extends CoreRoute {
 
     /**
      * Check whether the route matches the request
-     * @param pCliAppRequest $request The request to check
+     * @param Packfire\Application\Cli\Request $request The request to check
      * @return boolean Returns true if the route matches the request, false
      *                      otherwise.
      * @since 1.0-elenor

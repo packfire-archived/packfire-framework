@@ -176,8 +176,8 @@ class Date extends DateTimeComponent implements IComparable {
     }
     
     /**
-     * Compare this pDate object with another pDate object
-     * @param Date $another The other pDate object to compare with
+     * Compare this Date object with another Date object
+     * @param Date $another The other Date object to compare with
      * @return integer Returns 0 if they are the same, -1 if $this < $another
      *                 and 1 if $this > $another.
      * @since 1.0-sofia

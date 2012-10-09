@@ -14,7 +14,7 @@ use Packfire\Collection\Map;
  * @package Packfire\View
  * @since 1.0-sofia
  */
-abstract class pTheme {
+abstract class Theme {
    
     /**
      * The fields in the theme settings defined
@@ -24,7 +24,7 @@ abstract class pTheme {
     private $fields;
     
     /**
-     * Create a new pTheme object
+     * Create a new Theme object
      * @since 1.0-sofia
      */
     public function __construct(){

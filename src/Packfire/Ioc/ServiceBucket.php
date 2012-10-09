@@ -26,7 +26,7 @@ class ServiceBucket implements IServiceBucket {
     private $services;
     
     /**
-     * Create a new pServiceBucket object
+     * Create a new ServiceBucket object
      * @since 1.0-sofia 
      */
     public function __construct() {
@@ -54,7 +54,7 @@ class ServiceBucket implements IServiceBucket {
      * @param callback|Closure|object $resolver Either the object instance or
      *        the resolver function / method that will creates and return the
      *        object. The callback can accept the first parameter as the
-     *        pServiceBucket that requested for the execution.
+     *        ServiceBucket that requested for the execution.
      * @since 1.0-sofia
      */
     public function put($name, $resolver){

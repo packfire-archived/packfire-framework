@@ -420,7 +420,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
 
     /**
      * Get the last record
-     * If no record exists, a pNullException will be thrown
+     * If no record exists, a NullException will be thrown
      * @param string $predicate The condition to get the last row
      * @return mixed Returns the record
      * @since 1.0-sofia
@@ -614,7 +614,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
     /**
      * Set the order of fetching the result in a descending order
      * @param string $field The field to sort
-     * @return Linq Returns the pMySqlLinq object for chaining
+     * @return Linq Returns the Linq object for chaining
      * @since 1.0-sofia
      */
     public function thenByDesc($field) {

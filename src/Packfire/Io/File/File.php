@@ -28,7 +28,7 @@ class File implements IFile {
     private $pathname;
     
     /**
-     * Create a new pFile object
+     * Create a new File object
      * @param string $file Pathname of the file
      * @since 1.0-sofia
      */
@@ -124,7 +124,7 @@ class File implements IFile {
     /**
      * Get the entire file content
      * @return string The entire file content is returned if successful.
-     * @throws pIOException
+     * @throws IOException
      * @since 1.0-sofia
      */
     public function read(){
@@ -141,7 +141,7 @@ class File implements IFile {
     /**
      * Copy the file to another destination
      * @param string $destination The destination path to copy to
-     * @return pFile Returns the file object that maps to the new copy at the
+     * @return File Returns the file object that maps to the new copy at the
      *               destination path.
      * @throws IOException 
      * @since 1.0-sofia
@@ -173,7 +173,7 @@ class File implements IFile {
     /**
      * Rename the file
      * @param string $newname The new name to give to the file
-     * @throws pIOException
+     * @throws IOException
      * @since 1.0-sofia
      */
     public function rename($newname){
@@ -192,7 +192,7 @@ class File implements IFile {
     /**
      * Move the file to another directory path
      * @param string $newdir The new directory path to move the file to
-     * @throws pIOException
+     * @throws IOException
      * @since 1.0-sofia
      */
     public function move($newdir){
@@ -210,8 +210,8 @@ class File implements IFile {
 
     /**
      * Get or set the Last Modified attribute of the file
-     * @param pDateTime $datetime (optional) The datetime to set to
-     * @return pDateTime The last modified timestamp of the file.
+     * @param DateTime $datetime (optional) The datetime to set to
+     * @return DateTime The last modified timestamp of the file.
      * @since 1.0-sofia
      */
     public function lastModified($datetime = null){
@@ -257,7 +257,7 @@ class File implements IFile {
     
     /**
      * Get the stream for this file
-     * @return pFileStream Returns the stream to access this file
+     * @return FileStream Returns the stream to access this file
      * @since 1.0-sofia
      */
     public function stream(){

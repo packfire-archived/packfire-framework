@@ -32,7 +32,7 @@ class FileInputStream implements IInputStream, IFile {
     protected $file;
     
     /**
-     * Create a new pFileInputStream object
+     * Create a new FileInputStream object
      * @param string $file The pathname to the file to stream
      * @since 1.0-sofia
      */

@@ -17,11 +17,11 @@ use VertexSorter;
  * @package Packfire\Graph
  * @since 1.0-sofia
  */
-class pDijkstra {
+class Dijkstra {
     
     /**
      * The graph to work and solve on
-     * @var pGraph
+     * @var Graph
      * @since 1.0-sofia
      */
     private $graph;
@@ -41,8 +41,8 @@ class pDijkstra {
     private $endVertex;
     
     /**
-     * Create a new pDijkstra object
-     * @param pGraph $graph The graph to work and solve
+     * Create a new Dijkstra object
+     * @param Graph $graph The graph to work and solve
      * @since 1.0-sofia
      */
     public function __construct($graph){

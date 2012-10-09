@@ -88,7 +88,7 @@ class DateTime extends Date {
     
     /**
      * Get the day of the week based on Zeller's Congruence
-     * @return integer Returns one of the pDaysOfWeek constants
+     * @return integer Returns one of the DaysOfWeek constants
      * @since 1.0-sofia
      */
     public function dayOfWeek(){

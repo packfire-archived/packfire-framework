@@ -41,7 +41,7 @@ class Invoker extends BucketUser {
     
     /**
      * The Route that the application came through
-     * @var pRoute
+     * @var Route
      * @since 1.0-sofia
      */
     private $route;
@@ -83,7 +83,7 @@ class Invoker extends BucketUser {
             
             if(class_exists($class)){
                 if($isView){
-                    /* @var $view pView */
+                    /* @var $view View */
                     $view = new $class();
                     $view->copyBucket($this);
                     $output = $view->render();

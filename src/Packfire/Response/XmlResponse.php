@@ -19,7 +19,7 @@ use IResponseFormat;
 class XmlResponse extends HttpResponse implements IResponseFormat {
     
     /**
-     * Create a new pXmlResponse object
+     * Create a new XmlResponse object
      * @param mixed $object The object that will be encoded and sent to the
      *                      client
      * @since 1.0-sofia

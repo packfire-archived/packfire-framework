@@ -15,7 +15,7 @@ use Packfire\Collection\Sort\IComparator;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class pSortedList extends ArrayList {
+class SortedList extends ArrayList {
     
     /**
      * The comparator function to perform the sorting
@@ -25,7 +25,7 @@ class pSortedList extends ArrayList {
     private $comparator;
     
     /**
-     * Create a new pSortedList object
+     * Create a new SortedList object
      * @param Closure|callback|IComparator $comparator The comparator to perform the sort
      * @since 1.0-sofia
      */

@@ -82,7 +82,7 @@ class Session implements ISession {
     /**
      * Fetch a session bucket 
      * @param string $bucket Name of the bucket to fetch
-     * @return pSessionBucket Returns the bucket
+     * @return SessionBucket Returns the bucket
      * @since 1.0-sofia
      */
     public function bucket($bucket){
@@ -96,7 +96,7 @@ class Session implements ISession {
     
     /**
      * Register a session bucket 
-     * @param pSessionBucket $bucket The session bucket to register
+     * @param SessionBucket $bucket The session bucket to register
      * @since 1.0-sofia
      */
     public function register($bucket){

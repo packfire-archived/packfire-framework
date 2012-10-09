@@ -158,7 +158,7 @@ class Linq implements ILinq, IteratorAggregate {
      * Get the first element from the collection
      * @param Closure|callback $predicate (optional) The condition to filter the elements
      * @return mixed Returns the first element from the collection
-     * @throws pNullException Thrown when there is no element in the collection.
+     * @throws NullException Thrown when there is no element in the collection.
      * @since 1.0-sofia
      */
     public function first($predicate = null) {
@@ -219,7 +219,7 @@ class Linq implements ILinq, IteratorAggregate {
      * Get the last element from the collection
      * @param Closure|callback $predicate (optional) The condition to filter the elements
      * @return mixed Returns the last element from the collection
-     * @throws pNullException Thrown when there is no element in the collection.
+     * @throws NullException Thrown when there is no element in the collection.
      * @since 1.0-sofia
      */
     public function last($predicate = null) {
@@ -328,7 +328,7 @@ class Linq implements ILinq, IteratorAggregate {
     /**
      * Sort the collection by a field in an ascending order.
      * @param Closure|callback $field The field selector to sort by
-     * @return pOrderedLinq Returns the pOrderedLinq object for further ordering or chaining.
+     * @return OrderedLinq Returns the OrderedLinq object for further ordering or chaining.
      * @since 1.0-sofia
      */
     public function orderBy($field) {
@@ -339,7 +339,7 @@ class Linq implements ILinq, IteratorAggregate {
     /**
      * Sort the collection by a field in a descending order.
      * @param Closure|callback $field The field selector to sort by
-     * @return pOrderedLinq Returns the pOrderedLinq object for further ordering or chaining.
+     * @return OrderedLinq Returns the OrderedLinq object for further ordering or chaining.
      * @since 1.0-sofia
      */
     public function orderByDesc($field) {

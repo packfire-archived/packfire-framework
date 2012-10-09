@@ -7,7 +7,7 @@ use Packfire\Collection\Map;
 use Packfire\Template\Template;
 
 /**
- * pHttpRoute class
+ * Route class
  * 
  * A HTTP route entry
  *
@@ -21,7 +21,7 @@ class Route extends CoreRoute {
     
     /**
      * The HTTP method that this URL route will cater for. Defaults to GET.
-     * @var string|pList|array
+     * @var string|pist|array
      * @since 1.0-elenor
      */
     protected $httpMethod = HttpMethod::GET;
@@ -97,7 +97,7 @@ class Route extends CoreRoute {
     
     /**
      * Check whether the route matches the request
-     * @param \Packfire\Net\Http\Request $request The locator requested by the client
+     * @param Packfire\Application\Http\Request $request The locator requested by the client
      * @return boolean Returns true if the route matches, false otherwise
      * @since 1.0-elenor 
      */

@@ -10,6 +10,7 @@ use Packfire\Controller\Invoker as ControllerInvoker;
 use Packfire\Response\RedirectResponse;
 use Packfire\Route\Http\RedirectRoute;
 use Packfire\Net\Http\Method as HttpMethod;
+use Packfire\DateTime\TimeSpan;
 
 /**
  * Application class
@@ -61,13 +62,13 @@ class Application extends ServiceApplication {
         
         $response = $this->prepareResponse($request);
         $router = $this->service('router');
-        /* @var $router pRouter */
+        /* @var $router Router */
         if(!$router){
             throw new MissingDependencyException('Router service missing.');
         }
         $router->load();
         
-        /* @var $route pRoute */
+        /* @var $route Route */
         $route = null;
         if($request->method() == HttpMethod::GET 
                 && $this->service('config.app')
@@ -80,7 +81,7 @@ class Application extends ServiceApplication {
                 }else{
                     $route = $router->route($request);
                     if($route){
-                        $cache->set($cacheId, $route, new pTimeSpan(7200));
+                        $cache->set($cacheId, $route, new TimeSpan(7200));
                     }
                 }
             }
@@ -141,9 +142,9 @@ class Application extends ServiceApplication {
     /**
      * Callback for Direct Controller Access Routing
      * @param IAppRequest $request The request
-     * @param pRoute $route The route called
+     * @param Route $route The route called
      * @param IAppResponse $response The response
-     * @return pControllerInvoker Returns the loader
+     * @return ControllerInvoker Returns the loader
      * @since 1.0-sofia
      */
     public function directAccessProcessor($request, $route, $response){

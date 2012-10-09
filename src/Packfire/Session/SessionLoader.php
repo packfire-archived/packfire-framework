@@ -25,7 +25,7 @@ class SessionLoader extends BucketLoader {
             $storage = new SessionStorage();
             $this->put($storageId, $storage);
         }
-        /* @var $config pConfig */
+        /* @var $config Config */
         $config = $this->pick('config.app');
         if($config){
             session_name($config->get('session', 'name'));

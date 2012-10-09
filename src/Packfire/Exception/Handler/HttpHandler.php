@@ -4,7 +4,6 @@ namespace Packfire\Exception\Handler;
 use IHandler;
 use ExceptionView;
 use Packfire\IoC\BucketUser;
-use Packfire\ClassLoader;
 
 /**
  * HttpHandler class
@@ -27,7 +26,7 @@ class HttpHandler extends BucketUser implements IHandler {
     private $view;
     
     /**
-     * Create a new pHttpExceptionHandler object
+     * Create a new HttpHandler object
      * @param string $view The package class name of the view to load
      * @since 1.1-sofia
      */

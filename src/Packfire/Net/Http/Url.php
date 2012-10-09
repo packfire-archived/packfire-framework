@@ -262,9 +262,9 @@ class Url {
 
     /**
      * Combine a base URL with a relative URL
-     * @param string|pUrl $baseUrl The base URL
+     * @param string|Url $baseUrl The base URL
      * @param string $relativeUrl The relative URL to navigate based on the Base URL
-     * @return pUrl Returns the combined URL
+     * @return Url Returns the combined URL
      * @since 1.0-sofia
      */
     public static function combine($baseUrl, $relativeUrl){

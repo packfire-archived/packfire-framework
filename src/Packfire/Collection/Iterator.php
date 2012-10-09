@@ -24,7 +24,7 @@ class Iterator implements Countable {
     private $array;
 
     /**
-     * Create a pIterator
+     * Create a new Iterator object
      * @param IList|array $collection The collection
      * @since 1.0-sofia
      */
@@ -34,7 +34,7 @@ class Iterator implements Countable {
 
     /**
      * Iterate through the list and return the next key/value pair
-     * @return pKeyValuePair
+     * @return KeyValuePair Returns the next key value pair
      * @since 1.0-sofia
      */
     public function iterate(){
@@ -81,7 +81,7 @@ class Iterator implements Countable {
      *                 returned from this function. Use more() to check this.
      * @return mixed
      * @since 1.0-sofia
-     * @see pIterator::more()
+     * @see Iterator::more()
      */
     public function current(){
         return current($this->array);

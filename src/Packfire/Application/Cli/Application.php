@@ -49,12 +49,12 @@ class Application extends ServiceApplication {
     public function receive($request) {
         $response = $this->prepareResponse($request);
         $router = $this->service('router');
-        /* @var $router pRouter */
+        /* @var $router Router */
         if(!$router){
             throw new MissingDependencyException('Router service missing.');
         }
         $router->load();
-        /* @var $route pRoute */
+        /* @var $route Route */
         $route = $router->route($request);
 
         if($route){

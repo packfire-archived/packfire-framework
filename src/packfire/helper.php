@@ -1,5 +1,4 @@
 <?php
-require(__PACKFIRE_ROOT__ . 'pClassLoader.php');
 
 /**
  * The helper file where alias and functions are declared

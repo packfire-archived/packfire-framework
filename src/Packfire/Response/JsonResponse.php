@@ -6,7 +6,7 @@ use Packfire\Data\Serialization\JsonSerializer;
 use IResponseFormat;
 
 /**
- * pJsonResponse class
+ * JsonResponse class
  * 
  * A Response that indicates that the response is JSON
  *

@@ -5,7 +5,7 @@ use ICache;
 use Packfire\Exception\MissingDependencyException;
 
 if(!function_exists('apc_fetch')){
-    throw new MissingDependencyException('pApcCache requires the APC PECL extension in order to run properly.');
+    throw new MissingDependencyException('ApcCache requires the APC PECL extension in order to run properly.');
 }
 
 /**
@@ -86,14 +86,14 @@ class ApcCache implements ICache {
      * Store the cache value uniquely identified by the identifier with expiry
      * @param string $cacheId The identifier of the cache value
      * @param mixed $value The cache value to store
-     * @param pDateTime|pTimeSpan $expiry The date time or period of time to 
+     * @param DateTime|TimeSpan $expiry The date time or period of time to 
      *              expire the cache value.
      * @since 1.0-sofia
      */
     public function set($cacheId, $value, $expiry) {
-        if($expiry instanceof pDateTime){
+        if($expiry instanceof DateTime){
             $expiry = $expiry->toTimestamp() - time();
-        }else if($expiry instanceof pTimeSpan){
+        }else if($expiry instanceof TimeSpan){
             $expiry = $expiry->totalSeconds();
         }else{
             $expiry = 3600; // default to 1 hour cache?

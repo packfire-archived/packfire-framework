@@ -7,7 +7,7 @@ use Packfire\Exception\MissingDependencyException;
 use Packfire\Database\Expression;
 
 if(!class_exists('PDO')){
-    throw new MissingDependencyException('pPdoConnector requires the PDO extension in order to run properly.');
+    throw new MissingDependencyException('PdoConnector requires the PDO extension in order to run properly.');
 }
 
 /**
@@ -38,7 +38,7 @@ abstract class PdoConnector extends BucketUser implements IConnector {
     protected $config;
     
     /**
-     * Create a new pDbConnector object
+     * Create a new PdoConnector object
      * @param array|Map $config An array of configuration
      * @since 1.0-sofia
      */

@@ -31,7 +31,7 @@ class NumericRangeValidator implements IValidator {
     private $max;
     
     /**
-     * Create a new numerical range validator pNumericRangeValidator
+     * Create a new NumericRangeValidator object
      * @param integer|double $min The minimum value
      * @param integer|double $max The maximum value
      * @since 1.0-sofia
