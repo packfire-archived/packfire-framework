@@ -1,12 +1,10 @@
 <?php
 namespace Packfire\Linq;
 
-use ILinqQuery;
-
 /**
- * LinqDistinctQuery class
+ * IQuery interface
  * 
- * A LINQ Distinct query
+ * A LINQ query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -14,17 +12,14 @@ use ILinqQuery;
  * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class LinqDistinctQuery implements ILinqQuery {
+interface IQuery {
     
     /**
      * Execute the query
      * @param array $collection The collection to execute upon
-     * @return array Returns the resulting array after the query execution
+     * @return mixed Returns the result after the query execution
      * @since 1.0-sofia
      */
-    public function run($collection) {
-        $result = array_unique($collection);
-        return $result;
-    }
+    public function run($collection);
     
 }

@@ -1,20 +1,20 @@
 <?php
-namespace Packfire\Linq;
+namespace Packfire\Linq\Query;
 
-use LinqWorkerQuery;
+use Worker;
 
 /**
- * LinqWhereQuery
+ * Where class
  * 
  * A LINQ Where Query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Linq
+ * @package Packfire\Linq\Query
  * @since 1.0-sofia
  */
-class LinqWhereQuery extends LinqWorkerQuery {
+class Where extends Worker {
     
     /**
      * Execute the query

@@ -1,18 +1,20 @@
 <?php
-namespace Packfire\Linq;
+namespace Packfire\Linq\Query;
 
-use LinqOrderByQuery;
+use OrderBy;
 
 /**
+ * ThenBy class
+ * 
  * LINQ Order Then By Query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Linq
+ * @package Packfire\Linq\Query
  * @since 1.0-sofia
  */
-class LinqThenByQuery extends LinqOrderByQuery {
+class ThenBy extends OrderBy {
     
     /**
      * The previous query's callback
@@ -22,7 +24,7 @@ class LinqThenByQuery extends LinqOrderByQuery {
     private $previousCallback;
     
     /**
-     * Create a new LinqThenByQuery object
+     * Create a new ThenBy object
      * @param Closure|callback $worker The callback that will work on this query
      * @param Closure|callback $previousCallback The callback that is working for
      *              the previous query

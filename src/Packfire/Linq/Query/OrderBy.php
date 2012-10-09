@@ -1,21 +1,21 @@
 <?php
-namespace Packfire\Linq;
+namespace Packfire\Linq\Query;
 
-use LinqWorkerQuery;
+use Worker;
 use Packfire\Collection\Sort\IComparator;
 
 /**
- * LinqOrderByQuery class
+ * OrderBy class
  * 
  * A LINQ Order By Query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Linq
+ * @package Packfire\Linq\Query
  * @since 1.0-sofia
  */
-class LinqOrderByQuery extends LinqWorkerQuery implements IComparator {
+class OrderBy extends Worker implements IComparator {
     
     /**
      * Flag whether the order is descending or not

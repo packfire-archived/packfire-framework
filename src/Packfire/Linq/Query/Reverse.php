@@ -1,20 +1,20 @@
 <?php
-namespace Packfire\Linq;
+namespace Packfire\Linq\Query;
 
-use ILinqQuery;
+use Packfire\Linq\IQuery;
 
 /**
- * LinqReverseQuery class
+ * Reverse class
  * 
  * A LINQ reverse query that reverses the collection
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Linq
+ * @package Packfire\Linq\Query
  * @since 1.0-sofia
  */
-class LinqReverseQuery implements ILinqQuery {
+class Reverse implements IQuery {
     
     /**
      * Execute the query

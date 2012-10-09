@@ -1,31 +1,31 @@
 <?php
-namespace Packfire\Linq;
+namespace Packfire\Linq\Query;
 
-use ILinqQuery;
+use Packfire\Linq\IQuery;
 
 /**
- * LinqSkipQuery class
+ * Take class
  * 
- * A LINQ Skip query
+ * A LINQ Take query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Linq
+ * @package Packfire\Linq\Query
  * @since 1.0-sofia
  */
-class LinqSkipQuery implements ILinqQuery {
+class Take implements IQuery {
     
     /**
-     * The amount of elements to skip
-     * @var integer
+     * The amount of elements to take
+     * @var integer 
      * @since 1.0-sofia
      */
     private $count;
     
     /**
-     * Create a new LinqSkipQuery object
-     * @param integer $count The amount of elements to skip
+     * Create a new Take object
+     * @param integer $count The amount of elements to take
      * @since 1.0-sofia
      */
     public function __construct($count){
@@ -34,12 +34,12 @@ class LinqSkipQuery implements ILinqQuery {
     
     /**
      * Execute the query
-     * @param array $collection The collection to execute upon
-     * @return array Returns the resulting array after the query execution
+     * @param array $collection The collection to execute the query upon
+     * @return array Returns the resulting array after the execution 
      * @since 1.0-sofia
      */
     public function run($collection) {
-        return array_slice($collection, $this->count);
+        return array_slice($collection, 0, $this->count);
     }
     
 }

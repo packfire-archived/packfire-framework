@@ -3,15 +3,15 @@ namespace Packfire\Linq;
 
 use ILinq;
 use Packfire\Collection\ArrayList;
-use LinqWhereQuery;
-use LinqTakeQuery;
-use LinqSkipQuery;
-use LinqSelectQuery;
-use LinqDistinctQuery;
-use LinqReverseQuery;
-use LinqOrderByQuery;
-use LinqJoinQuery;
-use LinqGroupByQuery;
+use Query\Where;
+use Query\Take;
+use Query\Skip;
+use Query\Select;
+use Query\Distinct;
+use Query\Reverse;
+use Query\OrderBy;
+use Query\Join;
+use Query\GroupBy;
 use Packfire\Exception\NullException;
 use OrderedLinq;
 
@@ -150,7 +150,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function distinct() {
-        $this->queueAdd(new LinqDistinctQuery());
+        $this->queueAdd(new Distinct());
         return $this->orDowncast();
     }
 
@@ -197,7 +197,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function groupBy($field) {
-        $this->queueAdd(new LinqGroupByQuery($field));
+        $this->queueAdd(new GroupBy($field));
         return $this->orDowncast();
     }
 
@@ -211,7 +211,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function join($collection, $innerKey, $outerKey, $selector) {
-        $this->queueAdd(new LinqJoinQuery($collection, $innerKey, $outerKey, $selector));
+        $this->queueAdd(new Join($collection, $innerKey, $outerKey, $selector));
         return $this->orDowncast();
     }
 
@@ -332,7 +332,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function orderBy($field) {
-        $this->queueAdd(new LinqOrderByQuery($field));
+        $this->queueAdd(new OrderBy($field));
         return new OrderedLinq($this->collection, $this->queue);
     }
 
@@ -343,7 +343,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function orderByDesc($field) {
-        $this->queueAdd(new LinqOrderByQuery($field, true));
+        $this->queueAdd(new OrderBy($field, true));
         return new OrderedLinq($this->collection, $this->queue);
     }
 
@@ -354,7 +354,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function select($mapper) {
-        $this->queueAdd(new LinqSelectQuery($mapper));
+        $this->queueAdd(new Select($mapper));
         return $this->orDowncast();
     }
 
@@ -379,7 +379,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function skip($count){
-        $this->queueAdd(new LinqSkipQuery($count));
+        $this->queueAdd(new Skip($count));
         return $this->orDowncast();
     }
     
@@ -390,7 +390,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function take($count){
-        $this->queueAdd(new LinqTakeQuery($count));
+        $this->queueAdd(new Take($count));
         return $this->orDowncast();
     }
     
@@ -401,7 +401,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function where($condition) {
-        $this->queueAdd(new LinqWhereQuery($condition));
+        $this->queueAdd(new Where($condition));
         return $this->orDowncast();
     }
     
@@ -430,7 +430,7 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function reverse() {
-        $this->queueAdd(new LinqReverseQuery());
+        $this->queueAdd(new Reverse());
         return $this->orDowncast();
     }
     

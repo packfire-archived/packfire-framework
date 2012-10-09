@@ -1,10 +1,10 @@
 <?php
 namespace Packfire\Linq;
 
-use ILinqQuery;
+use IQuery;
 
 /**
- * ILinqWorkerQuery interface
+ * IWorkerQuery interface
  * 
  * A worker query that allows the specification of a worker closure or callback.
  *
@@ -14,7 +14,7 @@ use ILinqQuery;
  * @package Packfire\Linq
  * @since 1.0-sofia
  */
-interface ILinqWorkerQuery extends ILinqQuery {
+interface IWorkerQuery extends IQuery {
     
     /**
      * Get the worker for the query
