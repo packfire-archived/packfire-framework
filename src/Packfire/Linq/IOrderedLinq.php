@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Linq;
 
-use ILinq;
+use Packfire\Linq\ILinq;
 
 /**
  * IOrderedLinq interface

@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Database;
 
-use IModel;
+use Packfire\Database\IModel;
 use Packfire\Model\Model as CoreModel;
 use Packfire\Collection\Map;
 

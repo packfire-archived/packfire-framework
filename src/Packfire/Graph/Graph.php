@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Graph;
 
-use Dijkstra;
+use Packfire\Graph\Dijkstra;
 use Packfire\Collection\Map;
 
 /**

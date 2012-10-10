@@ -1,7 +1,9 @@
 <?php
 namespace Packfire\Cache;
 
-use ICache;
+use Packfire\Cache\ICache;
+use Packfire\DateTime\DateTime;
+use Packfire\DateTime\TimeSpan;
 use Packfire\Exception\MissingDependencyException;
 
 if(!function_exists('apc_fetch')){
@@ -32,9 +34,9 @@ class ApcCache implements ICache {
     public function check($cacheId) {
         $result = false;
         if(function_exists('apc_exists')){
-            $result = apc_exists($cacheId);
+            $result = \apc_exists($cacheId);
         }else{
-            apc_fetch($cacheId, $result);
+            \apc_fetch($cacheId, $result);
         }
         return $result;
     }
@@ -45,7 +47,7 @@ class ApcCache implements ICache {
      * @since 1.0-sofia
      */
     public function clear($cacheId) {
-        apc_delete($cacheId);
+        \apc_delete($cacheId);
     }
 
     /**
@@ -53,7 +55,7 @@ class ApcCache implements ICache {
      * @since 1.0-sofia 
      */
     public function flush() {
-        apc_clear_cache();
+        \apc_clear_cache();
     }
 
     /**
@@ -75,7 +77,7 @@ class ApcCache implements ICache {
      */
     public function get($cacheId, $default = null) {
         $result = false;
-        $value = apc_fetch($cacheId, $result);
+        $value = \apc_fetch($cacheId, $result);
         if(!$result){
             $value = $default;
         }
@@ -98,7 +100,7 @@ class ApcCache implements ICache {
         }else{
             $expiry = 3600; // default to 1 hour cache?
         }
-        apc_store($cacheId, $value, $expiry);
+        \apc_store($cacheId, $value, $expiry);
     }
     
 }

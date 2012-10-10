@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Yaml;
 
-use YamlPart;
-use YamlValue;
+use Packfire\Yaml\YamlPart;
+use Packfire\Yaml\YamlValue;
 
 /**
  * YamlInline class

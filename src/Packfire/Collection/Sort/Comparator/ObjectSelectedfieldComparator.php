@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Collection\Sort\Comparator;
 
-use ObjectFieldComparator;
+use Packfire\Collection\Sort\Comparator\ObjectFieldComparator;
 
 /**
  * ObjectSelectedFieldComparator class

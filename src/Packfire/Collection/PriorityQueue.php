@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Collection;
 
-use Queue;
+use Packfire\Collection\Queue;
 
 /**
  * PriorityQueue class

@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Session\Storage;
 
-use SessionStorage;
+use Packfire\Session\Storage\SessionStorage;
 
 /**
  * FileSessionStorage class

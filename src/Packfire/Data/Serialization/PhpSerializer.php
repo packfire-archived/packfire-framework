@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Data\Serialization;
 
-use ISerializer;
-use ISerializable;
+use Packfire\Data\Serialization\ISerializer;
+use Packfire\Data\Serialization\ISerializable;
 use Packfire\IO\IInputStream;
 
 /**

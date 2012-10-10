@@ -2,7 +2,7 @@
 namespace Packfire\Response;
 
 use Packfire\Application\Http\Response as HttpResponse;
-use IResponseFormat;
+use Packfire\Response\IResponseFormat;
 
 /**
  * PhpSerializeResponse class

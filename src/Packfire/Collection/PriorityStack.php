@@ -1,10 +1,10 @@
 <?php
 namespace Packfire\Collection;
 
-use Stack;
+use Packfire\Collection\Stack;
 
 /**
- * PriorityStack
+ * PriorityStack class
  * 
  * A stack with priority
  *

@@ -7,8 +7,8 @@ use Packfire\Database\IModel;
 use Packfire\Database\Drivers\MySql\Table;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
-use LinqJoin;
-use LinqOrder;
+use Packfire\Database\Drivers\MySql\Linq\LinqJoin;
+use Packfire\Database\Drivers\MySql\Linq\LinqOrder;
 use Packfire\Exception\NullException;
 
 /**

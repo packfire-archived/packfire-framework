@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Collection;
 
-use IDeque;
-use Queue;
+use Packfire\Collection\IDeque;
+use Packfire\Collection\Queue;
 
 /**
  * Deque class

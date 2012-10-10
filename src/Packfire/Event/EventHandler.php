@@ -1,9 +1,9 @@
 <?php
 namespace Packfire\Event;
 
-use IEventHandler;
-use ObservableEvent;
-use EventObserver;
+use Packfire\Event\IEventHandler;
+use Packfire\Event\ObservableEvent;
+use Packfire\Event\EventObserver;
 
 /**
  * EventHandler class

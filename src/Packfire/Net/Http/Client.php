@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Net\Http;
 
-use ClientOS;
-use ClientBrowser;
+use Packfire\Net\Http\ClientOS;
+use Packfire\Net\Http\ClientBrowser;
 
 /**
  * Client class

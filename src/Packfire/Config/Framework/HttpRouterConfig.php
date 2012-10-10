@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Config\Framework;
 
-use FrameworkConfig;
+use Packfire\Config\Framework\FrameworkConfig;
 
 /**
  * HttpRouterConfig class

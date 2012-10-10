@@ -7,10 +7,10 @@ use Packfire\DateTime\DateTime;
 use Packfire\Collection\Map;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Exception\InvalidArgumentException;
-use OAuth;
-use Helper;
-use Signature;
-use IHttpEntity;
+use Packfire\OAuth\OAuth;
+use Packfire\OAuth\Helper;
+use Packfire\OAuth\Signature;
+use Packfire\OAuth\IHttpEntity;
 
 /**
  * Request class

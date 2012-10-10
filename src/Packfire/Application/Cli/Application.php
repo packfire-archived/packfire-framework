@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Application\Cli;
 
-use Response;
-use ServiceBucket;
+use Packfire\Application\Cli\Response;
+use Packfire\Application\Cli\ServiceBucket;
 use Packfire\Application\ServiceApplication;
 use Packfire\Controller\Invoker as ControllerInvoker;
 use Packfire\Exception\MissingDependencyException;

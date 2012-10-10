@@ -4,7 +4,7 @@ namespace Packfire\Response;
 use Packfire\Application\Http\Response as HttpResponse;
 use Packfire\Yaml\YamlWriter;
 use Packfire\Text\TextStream;
-use IResponseFormat;
+use Packfire\Response\IResponseFormat;
 
 /**
  * YamlResponse class

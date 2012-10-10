@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\DateTime;
 
-use Time;
+use Packfire\DateTime\Time;
 use Packfire\Exception\InvalidArgumentException;
 
 /**

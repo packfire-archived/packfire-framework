@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Database;
 
-use Schema;
+use Packfire\Database\Schema;
 
 /**
  * SchemaLinq class

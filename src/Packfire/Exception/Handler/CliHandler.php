@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Exception\Handler;
 
-use IHandler;
+use Packfire\Exception\Handler\IHandler;
 
 /**
  * CliHandler

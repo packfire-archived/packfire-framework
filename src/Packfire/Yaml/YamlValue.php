@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Yaml;
 
-use YamlPart;
+use Packfire\Yaml\YamlPart;
 
 /**
  * YamlValue class

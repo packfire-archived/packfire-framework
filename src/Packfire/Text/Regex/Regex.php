@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Text\Regex;
 
-use Match;
+use Packfire\Text\Regex\Match;
 use Packfire\Text\String;
 use Packfire\Collection\ArrayList;
 

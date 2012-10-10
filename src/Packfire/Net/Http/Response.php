@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Net\Http;
 
-use Version;
-use ResponseCode;
+use Packfire\Net\Http\Version;
+use Packfire\Net\Http\ResponseCode;
 use Packfire\Text\NewLine;
 use Packfire\Collection\Map;
 use Packfire\Exception\ParseException;

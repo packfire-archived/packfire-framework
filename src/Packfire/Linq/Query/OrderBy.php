@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Linq\Query;
 
-use Worker;
+use Packfire\Linq\Query\Worker;
 use Packfire\Collection\Sort\IComparator;
 
 /**

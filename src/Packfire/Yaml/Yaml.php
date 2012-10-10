@@ -2,7 +2,7 @@
 namespace Packfire\Yaml;
 
 use Packfire\IO\StreamReader;
-use YamlParser;
+use Packfire\Yaml\YamlParser;
 
 /**
  * Yaml class

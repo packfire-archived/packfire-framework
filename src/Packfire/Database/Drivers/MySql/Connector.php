@@ -2,7 +2,7 @@
 namespace Packfire\Database\Drivers\MySql;
 
 use Packfire\Database\Connector\PdoConnector;
-use Database;
+use Packfire\Database\Drivers\MySql\Database;
 
 /**
  * Connector class

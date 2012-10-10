@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Exception;
 
-use Exception;
+use Packfire\Exception\Exception;
 use Packfire\Net\Http\ResponseCode as ResponseCode;
 
 /**

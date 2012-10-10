@@ -1,9 +1,9 @@
 <?php
 namespace Packfire\Template;
 
-use ITemplateFile;
+use Packfire\Template\ITemplateFile;
 use Packfire\IO\File\File;
-use Template;
+use Packfire\Template\Template;
 
 /**
  * TemplateFile class

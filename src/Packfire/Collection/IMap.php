@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Collection;
 
-use IList;
+use Packfire\Collection\IList;
 
 /**
  * IMap interface

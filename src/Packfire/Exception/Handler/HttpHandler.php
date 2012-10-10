@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Exception\Handler;
 
-use IHandler;
-use ExceptionView;
+use Packfire\Exception\Handler\IHandler;
+use Packfire\Exception\Handler\ExceptionView;
 use Packfire\IoC\BucketUser;
 
 /**

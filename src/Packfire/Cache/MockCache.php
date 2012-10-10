@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Cache;
 
-use ICache;
+use Packfire\Cache\ICache;
 use Packfire\Collection\Map;
 
 /**

@@ -1,10 +1,9 @@
 <?php
 namespace Packfire\IoC;
 
-use ILoadable;
+use Packfire\IoC\ILoadable;
 use Packfire\Exception\ServiceException;
 use Packfire\Config\Framework\IoCConfig;
-use Packfire\ClassLoader;
 
 /**
  * ServiceLoader class

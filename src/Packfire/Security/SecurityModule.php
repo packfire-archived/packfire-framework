@@ -2,7 +2,7 @@
 namespace Packfire\Security;
 
 use Packfire\IoC\BucketUser;
-use ISecurityModule;
+use Packfire\Security\ISecurityModule;
 
 /**
  * SecurityModule class

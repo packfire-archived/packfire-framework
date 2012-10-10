@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Net\Http;
 
-use Request;
+use Packfire\Net\Http\Request;
 
 /**
  * ClientRequest class

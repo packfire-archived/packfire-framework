@@ -3,8 +3,8 @@ namespace Packfire\Welcome;
 
 use Packfire\Application\Pack\View;
 use Packfire\Template\Mustache\TemplateFile;
-use LightTheme;
-use DarkTheme;
+use Packfire\View\LightTheme;
+use Packfire\View\DarkTheme;
 
 /**
  * HomeIndexView class

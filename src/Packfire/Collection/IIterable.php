@@ -10,7 +10,7 @@ namespace Packfire\Collection;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-interface IIterable extends Countable, IteratorAggregate {
+interface IIterable extends \Countable, \IteratorAggregate {
     
     public function iterator();
     

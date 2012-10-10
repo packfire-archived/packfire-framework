@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Route;
 
-use IRoute;
+use Packfire\Route\IRoute;
 use Packfire\Collection\ArrayList;
 use Packfire\Validator\Serial as SerialValidator;
 use Packfire\Validator\Numeric as NumericValidator;

@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Session\Bucket;
 
-use ISessionBucket;
+use Packfire\Session\Bucket\ISessionBucket;
 
 /**
  * SessionBucket class

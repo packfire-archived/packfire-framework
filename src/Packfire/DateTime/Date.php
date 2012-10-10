@@ -1,10 +1,10 @@
 <?php
 namespace Packfire\DateTime;
 
-use DateTimeComponent;
+use Packfire\DateTime\DateTimeComponent;
 use Packfire\Collection\Sort\IComparable;
-use DateTime;
-use DateComparator;
+use Packfire\DateTime\DateTime;
+use Packfire\DateTime\DateComparator;
 
 /**
  * Date class

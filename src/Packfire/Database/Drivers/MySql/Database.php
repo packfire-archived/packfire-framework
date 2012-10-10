@@ -2,7 +2,7 @@
 namespace Packfire\Database\Drivers\MySql;
 
 use Packfire\Database\Database as CoreDatabase;
-use Schema;
+use Packfire\Database\Drivers\MySql\Schema;
 
 /**
  * Database class

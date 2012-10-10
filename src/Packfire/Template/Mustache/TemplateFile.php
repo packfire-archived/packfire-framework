@@ -2,7 +2,7 @@
 namespace Packfire\Template\Mustache;
 
 use Packfire\Template\ITemplateFile;
-use Template;
+use Packfire\Template\Mustache\Template;
 use Packfire\IO\File\File as RealFile;
 
 /**

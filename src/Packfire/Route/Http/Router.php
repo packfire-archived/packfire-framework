@@ -2,8 +2,8 @@
 namespace Packfire\Route\Http;
 
 use Packfire\Route\Router as CoreRouter;
-use Route;
-use RedirectRoute;
+use Packfire\Route\Http\Route;
+use Packfire\Route\Http\RedirectRoute;
 use Packfire\Net\Http\Url;
 use Packfire\Template\Template;
 

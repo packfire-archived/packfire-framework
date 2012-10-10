@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Application;
 
-use IApplication;
-use ServiceAppLoader;
+use Packfire\Application\IApplication;
+use Packfire\Application\ServiceAppLoader;
 use Packfire\IoC\BucketUser;
 use Packfire\IoC\ServiceBucket;
 use Packfire\Event\EventHandler;

@@ -2,7 +2,7 @@
 namespace Packfire\Template\Mustache;
 
 use Packfire\Template\ITemplate;
-use Bridge;
+use Packfire\Template\Mustache\Bridge;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 

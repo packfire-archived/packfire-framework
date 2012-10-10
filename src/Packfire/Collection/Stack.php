@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Collection;
 
-use ArrayList;
-use IStack;
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\IStack;
 
 /**
  * Stack class

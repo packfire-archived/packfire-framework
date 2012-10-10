@@ -1,9 +1,9 @@
 <?php
 namespace Packfire\Linq;
 
-use Linq;
-use IOrderedLinq;
-use LinqThenByQuery;
+use Packfire\Linq\Linq;
+use Packfire\Linq\IOrderedLinq;
+use Packfire\Linq\LinqThenByQuery;
 
 /**
  * OrderedLinq class

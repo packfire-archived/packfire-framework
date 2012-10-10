@@ -3,11 +3,11 @@ namespace Packfire\OAuth;
 
 use Packfire\IoC\BucketUser;
 use Packfire\Net\Http\Request as HttpRequest;
-use Request;
-use OAuth;
-use Response;
-use Signature;
-use OAuthException;
+use Packfire\OAuth\Request;
+use Packfire\OAuth\OAuth;
+use Packfire\OAuth\Response;
+use Packfire\OAuth\Signature;
+use Packfire\OAuth\OAuthException;
 
 /**
  * Provider class

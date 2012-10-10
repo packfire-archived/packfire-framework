@@ -1,6 +1,7 @@
 <?php
 namespace Packfire\Collection;
-use IQueue;
+
+use Packfire\Collection\IQueue;
 
 /**
  * IDeque interface

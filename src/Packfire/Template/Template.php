@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Template;
 
-use ITemplate;
+use Packfire\Template\ITemplate;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 use Packfire\Text\Regex\Regex;

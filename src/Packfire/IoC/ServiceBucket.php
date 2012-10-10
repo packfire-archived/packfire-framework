@@ -2,8 +2,8 @@
 namespace Packfire\IoC;
 
 use Packfire\Collection\Map;
-use IBucketUser;
-use IServiceBucket;
+use Packfire\IoC\IBucketUser;
+use Packfire\IoC\IServiceBucket;
 
 /**
  * ServiceBucket class

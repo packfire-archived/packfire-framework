@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Collection;
 
-use ArrayList;
+use Packfire\Collection\ArrayList;
 use Packfire\Collection\Sort\IComparator;
 
 /**

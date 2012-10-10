@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\View;
 
-use IView;
+use Packfire\View\IView;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 use Packfire\Model\ObjectObserver;

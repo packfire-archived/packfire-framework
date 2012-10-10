@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\IoC;
 
-use BucketUser;
-use ServiceBucket;
+use Packfire\IoC\BucketUser;
+use Packfire\IoC\ServiceBucket;
 
 /**
  * ServiceInjector class

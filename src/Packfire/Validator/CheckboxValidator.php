@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Validator;
 
-use IValidator;
+use Packfire\Validator\IValidator;
 
 /**
  * CheckboxValidator class

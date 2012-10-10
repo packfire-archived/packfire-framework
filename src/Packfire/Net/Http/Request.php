@@ -2,7 +2,7 @@
 namespace Packfire\Net\Http;
 
 use Packfire\Collection\Map;
-use Url;
+use Packfire\Net\Http\Url;
 use Packfire\Text\TextStream;
 use Packfire\Text\NewLine;
 

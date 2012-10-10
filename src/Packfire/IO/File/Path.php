@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\IO\File;
 
-use PathPart;
-use FileSystem;
+use Packfire\IO\File\PathPart;
+use Packfire\IO\File\FileSystem;
 
 /**
  * Path class

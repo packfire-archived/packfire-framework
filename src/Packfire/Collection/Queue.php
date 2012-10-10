@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Collection;
 
-use ArrayList;
-use IQueue;
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\IQueue;
 
 /**
  * Queue class

@@ -2,7 +2,7 @@
 namespace Packfire\Route\Cli;
 
 use Packfire\Route\Router as CoreRouter;
-use Route;
+use Packfire\Route\Cli\Route;
 
 /**
  * Router class

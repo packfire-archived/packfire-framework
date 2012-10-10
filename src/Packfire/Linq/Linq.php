@@ -1,19 +1,19 @@
 <?php
 namespace Packfire\Linq;
 
-use ILinq;
+use Packfire\Linq\ILinq;
 use Packfire\Collection\ArrayList;
-use Query\Where;
-use Query\Take;
-use Query\Skip;
-use Query\Select;
-use Query\Distinct;
-use Query\Reverse;
-use Query\OrderBy;
-use Query\Join;
-use Query\GroupBy;
+use Packfire\Linq\Query\Where;
+use Packfire\Linq\Query\Take;
+use Packfire\Linq\Query\Skip;
+use Packfire\Linq\Query\Select;
+use Packfire\Linq\Query\Distinct;
+use Packfire\Linq\Query\Reverse;
+use Packfire\Linq\Query\OrderBy;
+use Packfire\Linq\Query\Join;
+use Packfire\Linq\Query\GroupBy;
 use Packfire\Exception\NullException;
-use OrderedLinq;
+use Packfire\Linq\OrderedLinq;
 
 /**
  * Linq class

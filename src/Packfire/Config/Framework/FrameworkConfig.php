@@ -3,7 +3,7 @@ namespace Packfire\Config\Framework;
 
 use Packfire\Config\ConfigType;
 use Packfire\Config\ConfigFactory;
-use IFrameworkConfig;
+use Packfire\Config\Framework\IFrameworkConfig;
 use Packfire\Ioc\ServiceBucket;
 
 /**

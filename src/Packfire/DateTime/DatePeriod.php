@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\DateTime;
 
-use DateTime;
-use TimeSpan;
+use Packfire\DateTime\DateTime;
+use Packfire\DateTime\TimeSpan;
 
 /**
  * DatePeriod class

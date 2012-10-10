@@ -3,7 +3,7 @@ namespace Packfire\Response;
 
 use Packfire\Application\Http\Response as HttpResponse;
 use Packfire\Data\Serialization\XmlSerializer;
-use IResponseFormat;
+use Packfire\Response\IResponseFormat;
 
 /**
  * XmlResponse class

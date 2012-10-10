@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Cache;
 
-use ICache;
+use Packfire\Cache\ICache;
 use Packfire\IO\File\File;
 use Packfire\IO\File\Path;
 use Packfire\IO\File\FileSystem;

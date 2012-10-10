@@ -1,12 +1,12 @@
 <?php
 namespace Packfire\DateTime;
 
-use Time;
-use Date;
-use TimeSpan;
-use DateTimeFormat;
+use Packfire\DateTime\Time;
+use Packfire\DateTime\Date;
+use Packfire\DateTime\TimeSpan;
+use Packfire\DateTime\DateTimeFormat;
 use Packfire\Exception\InvalidArgumentException;
-use DateTimeComparator;
+use Packfire\DateTime\DateTimeComparator;
 
 /**
  * DateTime class

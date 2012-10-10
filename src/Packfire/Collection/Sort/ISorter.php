@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Collection\Sort;
 
-use IComparator;
+use Packfire\Collection\Sort\IComparator;
 
 /**
  * ISorter interface

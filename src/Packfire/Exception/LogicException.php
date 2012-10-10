@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Exception;
 
-use Exception;
+use Packfire\Exception\Exception;
 
 /**
  * LogicException class

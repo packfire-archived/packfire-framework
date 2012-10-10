@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Database\Drivers\MySql\Linq;
 
-use ILinqQuery;
+use Packfire\Database\Drivers\MySql\Linq\ILinqQuery;
 
 /**
  * LinqOrder class 

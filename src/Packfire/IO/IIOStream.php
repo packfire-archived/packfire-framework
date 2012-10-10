@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\IO;
 
-use IInputStream;
-use IOutputStream;
+use Packfire\IO\IInputStream;
+use Packfire\IO\IOutputStream;
 
 /**
  * IIOStream interface

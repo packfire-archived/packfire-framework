@@ -1,10 +1,10 @@
 <?php
 namespace Packfire\Yaml;
 
-use YamlInline;
+use Packfire\Yaml\YamlInline;
 use Packfire\Collection\Map;
-use YamlReference;
-use YamlPart;
+use Packfire\Yaml\YamlReference;
+use Packfire\Yaml\YamlPart;
 use Packfire\Text\NewLine;
 
 /**

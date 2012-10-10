@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\IoC;
 
-use IServiceBucket;
-use ILoadable;
+use Packfire\IoC\IServiceBucket;
+use Packfire\IoC\ILoadable;
 
 /**
  * BucketLoader class

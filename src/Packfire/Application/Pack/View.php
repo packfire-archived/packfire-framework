@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Appliation\Pack;
 
-use Theme;
-use Template;
+use Packfire\Appliation\Pack\Theme;
+use Packfire\Appliation\Pack\Template;
 use Packfire\View\View as CoreView;
 
 /**

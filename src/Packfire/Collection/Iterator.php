@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Collection;
 
-use KeyValuePair;
+use Packfire\Collection\KeyValuePair;
 
 /**
  * Iterator class

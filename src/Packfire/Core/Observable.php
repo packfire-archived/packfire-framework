@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Core;
 
-use IObservable;
+use Packfire\Core\IObservable;
 
 /**
  * Observable class

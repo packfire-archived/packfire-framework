@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Template\Mustache;
 
-use Mustache;
+use Packfire\Template\Mustache\Mustache;
 use Packfire\Application\Pack\Template;
 use Packfire\Collection\ArrayList;
 

@@ -1,9 +1,9 @@
 <?php
 namespace Packfire\IO\File;
 
-use IFile;
-use FileSystem;
-use FileStream;
+use Packfire\IO\File\IFile;
+use Packfire\IO\File\FileSystem;
+use Packfire\IO\File\FileStream;
 use Packfire\DateTime\DateTime;
 use Packfire\Exception\IOException;
 

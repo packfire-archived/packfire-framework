@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\IO\File;
 
-use IFile;
+use Packfire\IO\File\IFile;
 use Packfire\IO\IInputStream;
 
 /**

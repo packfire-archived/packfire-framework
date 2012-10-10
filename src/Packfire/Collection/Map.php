@@ -1,9 +1,9 @@
 <?php
 namespace Packfire\Collection;
 
-use IMap;
-use ArrayList;
-use KeyValuePair;
+use Packfire\Collection\IMap;
+use Packfire\Collection\ArrayList;
+use Packfire\Collection\KeyValuePair;
 use Packfire\Exception\InvalidRequestException;
 use Packfire\Exception\OutOfRangeException;
 

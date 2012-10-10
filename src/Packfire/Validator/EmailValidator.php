@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Validator;
 
-use RegexValidator;
+use Packfire\Validator\RegexValidator;
 
 /**
  * Email address validator

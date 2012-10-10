@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Config;
 
-use IConfig;
+use Packfire\Config\IConfig;
 use Packfire\Collection\ArrayHelper;
 
 /**

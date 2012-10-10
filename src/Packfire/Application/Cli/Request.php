@@ -2,7 +2,7 @@
 namespace Packfire\Application\Cli;
 
 use Packfire\Application\IAppRequest;
-use CommandParser;
+use Packfire\Application\Cli\CommandParser;
 
 /**
  * Request class

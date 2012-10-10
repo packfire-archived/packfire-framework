@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\DateTime;
 
-use DateTime;
+use Packfire\DateTime\DateTime;
 use Packfire\Exception\InvalidRequestException;
 
 /**

@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Linq;
 
-use IQuery;
+use Packfire\Linq\IQuery;
 
 /**
  * IWorkerQuery interface

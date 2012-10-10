@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Log;
 
-use ILog;
+use Packfire\Linq\Query\ILog;
 use Packfire\IO\File\IFile;
 use Packfire\Template\Template;
 

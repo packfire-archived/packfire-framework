@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Linq\Query;
 
-use OrderBy;
+use Packfire\Linq\Query\OrderBy;
 
 /**
  * ThenBy class

@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Collection;
 
-use Deque;
+use Packfire\Collection\Deque;
 
 /**
  * PriorityDeque class

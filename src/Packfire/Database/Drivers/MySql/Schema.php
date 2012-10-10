@@ -3,8 +3,8 @@ namespace Packfire\Database\Drivers\MySql;
 
 use Packfire\Database\SchemaLinq as DbSchema;
 use Packfire\Database\Table as DbTable;
-use Table;
-use Linq\Linq;
+use Packfire\Database\Drivers\MySql\Table;
+use Packfire\Database\Drivers\MySql\Linq\Linq;
 
 /**
  * Schema class

@@ -1,10 +1,10 @@
 <?php
 namespace Packfire\Cache;
 
-use ICache;
+use Packfire\Cache\ICache;
 use Packfire\Exception\MissingDependencyException;
 
-if(!class_exists('Memcache')){
+if(!class_exists('\Memcache')){
     throw new MissingDependencyException('MemCache requires the Memcache extension in order to run properly.');
 }
 

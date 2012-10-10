@@ -2,10 +2,10 @@
 namespace Packfire\Collection\Sort\Comparator;
 
 use Packfire\Collection\Sort\IComparator;
-use ObjectSelectedFieldComparator;
+use Packfire\Collection\Sort\Comparator\ObjectSelectedFieldComparator;
 
 /**
- * PropertyComparator abstract class
+ * PropertyComparator class
  * 
  * Compares two objects based on their properties
  *

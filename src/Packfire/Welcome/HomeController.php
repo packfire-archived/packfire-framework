@@ -2,7 +2,7 @@
 namespace Packfire\Welcome;
 
 use Packfire\Application\Pack\Controller;
-use HomeIndexView;
+use Packfire\Welcome\HomeIndexView;
 
 /**
  * HomeController class

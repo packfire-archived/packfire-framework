@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\IO;
 
-use IStream;
+use Packfire\IO\IStream;
 
 /**
  * IInputStream interface

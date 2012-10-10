@@ -3,11 +3,11 @@ namespace Packfire\OAuth;
 
 use Packfire\Net\Http\Server as HttpServer;
 use Packfire\Net\Http\Url;
-use OAuth;
-use Request;
-use Helper;
-use Response;
-use Token;
+use Packfire\OAuth\OAuth;
+use Packfire\OAuth\Request;
+use Packfire\OAuth\Helper;
+use Packfire\OAuth\Response;
+use Packfire\OAuth\Token;
 
 /**
  * Consumer class

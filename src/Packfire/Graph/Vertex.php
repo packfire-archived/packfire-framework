@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Graph;
 
-use IVertex;
+use Packfire\Graph\IVertex;
 use Packfire\Collection\Map;
 use Packfire\Exception\InvalidArgumentException;
 

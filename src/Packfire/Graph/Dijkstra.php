@@ -2,8 +2,8 @@
 namespace Packfire\Graph;
 
 use Packfire\Collection\ArrayList;
-use Path;
-use VertexSorter;
+use Packfire\Graph\Path;
+use Packfire\Graph\VertexSorter;
 
 /**
  * Dijkstra class

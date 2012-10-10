@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\DateTime;
 
-use DateTimeComponent;
-use TimeComparator;
+use Packfire\DateTime\DateTimeComponent;
+use Packfire\DateTime\TimeComparator;
 use Packfire\Collection\Sort\IComparable;
 
 /**

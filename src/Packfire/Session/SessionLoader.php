@@ -2,8 +2,8 @@
 namespace Packfire\Session;
 
 use Packfire\IoC\BucketLoader;
-use Storage\SessionStorage;
-use Session;
+use Packfire\Session\Storage\SessionStorage;
+use Packfire\Session\Session;
 
 /**
  * SessionLoader class

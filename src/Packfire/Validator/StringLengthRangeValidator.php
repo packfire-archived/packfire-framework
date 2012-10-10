@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Validator;
 
-use NumericRangeValidator;
+use Packfire\Validator\NumericRangeValidator;
 
 /**
  * StringLengthRangeValidator class

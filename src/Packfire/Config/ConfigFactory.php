@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Config;
 
-use ConfigType;
+use Packfire\Config\ConfigType;
 use Packfire\IO\File\Path;
 
 /**

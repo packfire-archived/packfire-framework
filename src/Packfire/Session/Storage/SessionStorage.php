@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Session\Storage;
 
-use ISessionStorage;
+use Packfire\Session\Storage\ISessionStorage;
 use Packfire\Session\Bucket\SessionBucket;
 
 

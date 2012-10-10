@@ -4,8 +4,8 @@ namespace Packfire\OAuth;
 use Packfire\Net\Http\Response as HttpResponse;
 use Packfire\Collection\Map;
 use Packfire\Application\IAppResponse;
-use Helper;
-use IHttpEntity;
+use Packfire\OAuth\Helper;
+use Packfire\OAuth\IHttpEntity;
 
 /**
  * Response class

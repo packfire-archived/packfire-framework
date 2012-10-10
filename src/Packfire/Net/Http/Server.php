@@ -2,9 +2,9 @@
 namespace Packfire\Net\Http;
 
 use Packfire\Exception\MissingDependencyException;
-use Response;
+use Packfire\Net\Http\Response;
 use Packfire\Exception\IOException;
-use Method;
+use Packfire\Net\Http\Method;
 
 /**
  * Server class

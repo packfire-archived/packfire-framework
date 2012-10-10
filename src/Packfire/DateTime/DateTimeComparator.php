@@ -2,8 +2,8 @@
 namespace Packfire\DateTime;
 
 use Packfire\Collection\Sort\IComparator;
-use DateComparator;
-use TimeComparator;
+use Packfire\DateTime\DateComparator;
+use Packfire\DateTime\TimeComparator;
 
 /**
  * DateTimeComparator class

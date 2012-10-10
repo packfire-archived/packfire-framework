@@ -1,8 +1,8 @@
 <?php
 namespace Packfire\Collection;
 
-use IIterable;
-use ISet;
+use Packfire\Collection\IIterable;
+use Packfire\Collection\ISet;
 
 /**
  * IList interface
@@ -15,7 +15,7 @@ use ISet;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-interface IList extends ArrayAccess, IIterable, ISet {
+interface IList extends \ArrayAccess, IIterable, ISet {
     
     public function add($item);
     

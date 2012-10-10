@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Event;
 
-use IEventWatchable;
+use Packfire\Event\IEventWatchable;
 
 /**
  * IEventHandler interface
