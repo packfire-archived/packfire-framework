@@ -1,7 +1,7 @@
 <?php
-namespace Packfire\Test\Application\Cli;
+namespace Packfire\Application\Cli;
 
-use Packfire\Application\Cli\Response;
+use Response;
 
 /**
  * Test class for Response.

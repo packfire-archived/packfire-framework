@@ -1,6 +1,5 @@
 <?php
-
-pload('packfire.helper');
+include('Packfire/helper.php');
 
 /**
  * Test class for helper class.
