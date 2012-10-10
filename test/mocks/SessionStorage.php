@@ -1,19 +1,20 @@
 <?php
+namespace Packfire\Test\Mocks;
 
-pload('packfire.session.storage.pSessionStorage');
+use Packfire\Session\Storage\SessionStorage as Storage;
 
 /**
- * tMockSessionStorage class
+ * SessionStorage class
  * 
  * Mock session storage location
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.test
+ * @package Packfire\Test\Mocks
  * @since 1.0
  */
-class tMockSessionStorage extends pSessionStorage {
+class SessionStorage extends Storage {
     
     private $data;
     

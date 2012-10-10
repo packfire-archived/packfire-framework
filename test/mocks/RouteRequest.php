@@ -1,24 +1,27 @@
 <?php
-pload('packfire.collection.pMap');
-pload('packfire.application.http.pHttpAppRequest');
-pload('packfire.net.http.pHttpMethod');
+namespace Packfire\Test\Mocks;
+
+use Packfire\Collection\Map;
+use Packfire\Application\Http\Request;
+use Packfire\Net\Http\Method as HttpMethod;
+use Packfire\DateTime\DateTime;
 
 /**
- * tMockRouteRequest Mock Class
+ * RouteRequest Mock Class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.test
+ * @package Packfire\Test\Mocks
  * @since 1.0-sofia
  */
-class tMockRouteRequest extends pHttpAppRequest {
+class RouteRequest extends Request {
     
     private $route = '';
     
     public function __construct($uri, $server){
         parent::__construct(null, $server);
-        parent::method(pHttpMethod::GET);
+        parent::method(HttpMethod::GET);
         $this->route = $uri;
     }
     
@@ -27,11 +30,11 @@ class tMockRouteRequest extends pHttpAppRequest {
     }
 
     public function cookies() {
-        return new pMap();;
+        return new Map();;
     }
 
     public function get() {
-        return new pMap(array());
+        return new Map(array());
     }
 
     public function https($h = null) {
@@ -39,7 +42,7 @@ class tMockRouteRequest extends pHttpAppRequest {
     }
 
     public function post() {
-        return new pMap();
+        return new Map();
     }
 
     public function queryString() {
@@ -47,7 +50,7 @@ class tMockRouteRequest extends pHttpAppRequest {
     }
 
     public function time($t = null) {
-        return pDateTime::now();
+        return DateTime::now();
     }
     
     public function uri($uri = null) {

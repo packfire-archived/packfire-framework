@@ -1,16 +1,18 @@
 <?php
-pload('packfire.config.IConfig');
+namespace Packfire\Test\Mocks;
+
+use Packfire\Config\IConfig;
 
 /**
- * tMockConfig class
+ * Config class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.test
+ * @package Packfire\Test\Mocks
  * @since 1.0-sofia
  */
-class tMockConfig implements IConfig {
+class Config implements IConfig {
     
     private $data;
     
