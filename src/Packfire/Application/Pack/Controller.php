@@ -1,5 +1,5 @@
 <?php
-namespace Packfire\Appliation\Pack;
+namespace Packfire\Application\Pack;
 
 use Packfire\Controller\Controller as CoreController;
 use Packfire\Exception\MissingDependencyException;
@@ -14,7 +14,7 @@ use Packfire\View\IView;
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Appliation\Pack
+ * @package Packfire\Application\Pack
  * @since 1.1-sofia
  */
 abstract class Controller extends CoreController {

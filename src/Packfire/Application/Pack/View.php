@@ -1,5 +1,5 @@
 <?php
-namespace Packfire\Appliation\Pack;
+namespace Packfire\Application\Pack;
 
 use Packfire\Appliation\Pack\Theme;
 use Packfire\Appliation\Pack\Template;
@@ -13,7 +13,7 @@ use Packfire\View\View as CoreView;
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Appliation\Pack
+ * @package Packfire\Application\Pack
  * @since 1.1-sofia
  */
 abstract class View extends CoreView {
