@@ -6,7 +6,7 @@ use Packfire\IO\File\Path;
 
 /**
  * ConfigFactory class
- * 
+ *
  * Factory class to create the appropriate Config class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -16,7 +16,7 @@ use Packfire\IO\File\Path;
  * @since 1.0-sofia
  */
 class ConfigFactory {
-    
+
     /**
      * Load a configuration file
      * @param string $file Path to the configuration file
@@ -28,11 +28,11 @@ class ConfigFactory {
         $map = ConfigType::typeMap();
         $ext = Path::extension($file);
         if(array_key_exists($ext, $map)){
-            $class = 'Driver\\' . $map[$ext];
+            $class = 'Packfire\\Config\\Driver\\' . $map[$ext];
             return new $class($file, $default);
         }else{
             return null;
         }
     }
-    
+
 }
