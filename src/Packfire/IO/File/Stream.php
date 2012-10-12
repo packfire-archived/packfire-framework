@@ -1,27 +1,27 @@
 <?php
 namespace Packfire\IO\File;
 
-use Packfire\IO\File\FileInputStream;
+use Packfire\IO\File\InputStream as FileInputStream;
 use Packfire\IO\IIOStream;
 
 /**
- * FileStream class
- * 
+ * Stream class
+ *
  * A stream that reads and write to a file
  *
  * If the specified file does not exist, the class will not create the file
  * when opened. Instead the file will be created on the first write operation.
- * 
+ *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class FileStream extends FileInputStream implements IIOStream {
-    
+class Stream extends FileInputStream implements IIOStream {
+
     /**
-     * Create a new FileStream object
+     * Create a new Stream object
      * @param string $file The pathname to the file to stream
      * @since 1.0-sofia
      */
@@ -31,7 +31,7 @@ class FileStream extends FileInputStream implements IIOStream {
 
     /**
      * Does nothing, really.
-     * @ignore 
+     * @ignore
      * @since 1.0-sofia
      */
     public function flush() {
@@ -62,11 +62,11 @@ class FileStream extends FileInputStream implements IIOStream {
     }
 
     /**
-     * Open the stream 
+     * Open the stream
      * @since 1.0-sofia
      */
     public function open() {
         $this->handle = fopen($this->file, 'r+');
     }
-    
+
 }

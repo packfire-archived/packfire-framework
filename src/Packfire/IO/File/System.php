@@ -2,15 +2,17 @@
 namespace Packfire\IO\File;
 
 /**
+ * System class
+ *
  * Provides funtionalities to work with the file system
- * 
+ *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class FileSystem {
+class System {
 
     /**
      * Check whether a file exists in the file system
@@ -66,5 +68,5 @@ class FileSystem {
         $result = glob($pattern, $flags);
         return new ArrayList($result);
     }
-    
+
 }

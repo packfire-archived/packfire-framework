@@ -5,8 +5,8 @@ use Packfire\IO\File\IFile;
 use Packfire\IO\IInputStream;
 
 /**
- * FileInputStream class
- * 
+ * InputStream class
+ *
  * An file input stream
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -15,31 +15,31 @@ use Packfire\IO\IInputStream;
  * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class FileInputStream implements IInputStream, IFile {
-    
+class InputStream implements IInputStream, IFile {
+
     /**
      * The file resource
      * @var resource
      * @since 1.0-sofia
      */
     protected $handle;
-    
+
     /**
      * The path name to the file
-     * @var string 
+     * @var string
      * @since 1.0-sofia
      */
     protected $file;
-    
+
     /**
-     * Create a new FileInputStream object
+     * Create a new InputStream object
      * @param string $file The pathname to the file to stream
      * @since 1.0-sofia
      */
     public function __construct($file){
         $this->file = $file;
     }
-    
+
     /**
      * Get the pathname to the file this stream is tunneling for.
      * @return string Returns the file pathname.
@@ -48,7 +48,7 @@ class FileInputStream implements IInputStream, IFile {
     public function pathname(){
         return $this->file;
     }
-    
+
     /**
      * Get the file size of the file.
      * @return integer Returns the file size.
@@ -102,7 +102,7 @@ class FileInputStream implements IInputStream, IFile {
     }
 
     /**
-     * Close the stream 
+     * Close the stream
      * @since 1.0-sofia
      */
     public function close() {
@@ -110,11 +110,11 @@ class FileInputStream implements IInputStream, IFile {
     }
 
     /**
-     * Open the stream 
+     * Open the stream
      * @since 1.0-sofia
      */
     public function open() {
         $this->handle = fopen($this->file, 'r');
     }
-    
+
 }
