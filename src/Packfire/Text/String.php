@@ -5,7 +5,7 @@ use Packfire\Collection\ArrayList;
 
 /**
  * String class
- * 
+ *
  * A String representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -14,7 +14,7 @@ use Packfire\Collection\ArrayList;
  * @package Packfire\Text
  * @since 1.0-sofia
  */
-class String implements Countable {
+class String implements \Countable {
 
     /**
      * The internal value of this string
@@ -78,7 +78,7 @@ class String implements Countable {
     /**
      * Split the string into several strings
      * @param String|string $c The delimiter to split the string
-     * @return ArrayList Returns the list of split strings 
+     * @return ArrayList Returns the list of split strings
      * @since 1.0-sofia
      */
     public function split($c) {
@@ -94,7 +94,7 @@ class String implements Countable {
      * Replaces occurances of $a with $b in the string
      * @param String|array|ArrayList $search A string, or a collection of string,
      *               to be searched and replace in
-     * @param String|array|ArrayList $replacement A string, or a collection of 
+     * @param String|array|ArrayList $replacement A string, or a collection of
      *              string, to be the replacement
      * @return String Returns the resulting string
      * @since 1.0-sofia
@@ -114,7 +114,7 @@ class String implements Countable {
      * @param String|string $string The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer A non-negative number indicating the position of $s in
-     *                 the string, or -1 if not found. 
+     *                 the string, or -1 if not found.
      */
     public function indexOf($string, $offset = 0) {
         if (!($string instanceof self)) {
@@ -132,7 +132,7 @@ class String implements Countable {
      * @param String|string $s The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer Returns a non-negative number indicating the position of
-     *                 s in the string, or -1 if not found. 
+     *                 s in the string, or -1 if not found.
      * @since 1.0-sofia
      */
     public function lastIndexOf($s, $offset = 0) {
@@ -169,7 +169,7 @@ class String implements Countable {
      * Fetch a part of the string.
      * @param integer $start The starting position of the string to fetch from
      * @param integer $length (optional) The number of characters to fetch. If
-     *                        this is not specified, the method will fetch from 
+     *                        this is not specified, the method will fetch from
      *                        start to the end of the string
      * @return String Returns the part of the string fetched.
      * @since 1.0-sofia
@@ -215,7 +215,7 @@ class String implements Countable {
      * Pad the right side of the string to the desired length
      * @param string $char The string used for padding
      * @param integer $length The maximum amount of characters for the string
-     * @return String Returns the resulting string 
+     * @return String Returns the resulting string
      * @since 1.0-sofia
      */
     public function padRight($char, $length) {
@@ -226,7 +226,7 @@ class String implements Countable {
      * Pad both sides of the string to the desired length equally
      * @param string $char The string used for padding
      * @param integer $length The maximum amount of characters for the string
-     * @return String Returns the resulting string 
+     * @return String Returns the resulting string
      * @since 1.0-sofias
      */
     public function padBoth($char, $length) {
@@ -241,7 +241,7 @@ class String implements Countable {
     public function length() {
         return strlen($this->value);
     }
-    
+
     /**
      * Used by Countable for count() functions
      * @return integer
@@ -252,10 +252,10 @@ class String implements Countable {
     public function count() {
         return $this->length();
     }
-    
+
     /**
      * For typecasting to string
-     * @return string 
+     * @return string
      * @ignore
      * @internal
      * @since 1.0-sofia
@@ -263,5 +263,5 @@ class String implements Countable {
     public function __toString() {
         return $this->value;
     }
-    
+
 }
