@@ -1,8 +1,9 @@
 <?php
+namespace Packfire\Graph;
 
 /**
  * IVertex interface
- * 
+ *
  * Vertex abstraction
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -12,28 +13,28 @@
  * @since 1.0-sofia
  */
 interface IVertex {
-    
+
     /**
      * Get the vertex that best came here so far
      * @return IVertex Returns the vertex that best came here
      * @since 1.0-sofia
      */
     public function from();
-    
+
     /**
      * Get the identifier of this vertex
      * @return string|integer Returns the identifier of this vertex
      * @since 1.0-sofia
      */
     public function id();
-    
+
     /**
      * Get the potential so far
      * @return integer|double Returns the potential so far
      * @since 1.0-sofia
      */
     public function potential();
-    
+
     /**
      * Set the potential for this vertex
      * @param integer|double $potential The potential in total
@@ -42,7 +43,7 @@ interface IVertex {
      * @since 1.0-sofia
      */
     public function setPotential($potential, $from);
-    
+
     /**
      * Define that this vertex can connect to another vertex
      * @param IVertex $vertex The vertex to connect to
@@ -51,7 +52,7 @@ interface IVertex {
      * @since 1.0-sofia
      */
     public function connect($vertex, $cost);
-    
+
     /**
      * Get the connections from this vertex and their associated costs.
      * @return Map Returns an array containing the containing vertex ID
@@ -59,11 +60,11 @@ interface IVertex {
      * @since 1.0-sofia
      */
     public function connections();
-    
+
     /**
-     * Reset the vertex for another run. 
+     * Reset the vertex for another run.
      * @since 1.0-sofia
      */
     public function reset();
-    
+
 }
