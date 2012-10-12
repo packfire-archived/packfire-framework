@@ -1,5 +1,5 @@
 <?php
-namespace Packfire\Config;
+namespace Packfire\Config\Driver;
 
 use Packfire\Config\Config;
 use Packfire\Yaml\Yaml;
@@ -7,7 +7,7 @@ use Packfire\IO\File\FileInputStream;
 
 /**
  * YamlConfig class
- * 
+ *
  * A YAML Configuration File
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -17,15 +17,15 @@ use Packfire\IO\File\FileInputStream;
  * @since 1.0-sofia
  */
 class YamlConfig extends Config {
-    
+
     /**
-     * Read the configuration file 
+     * Read the configuration file
      * @since 1.0-sofia
      */
     protected function read() {
         $stream = new FileInputStream($this->file);
         $yaml = new Yaml($stream);
-        $this->data = $yaml->read(); 
+        $this->data = $yaml->read();
     }
-    
+
 }

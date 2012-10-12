@@ -1,11 +1,11 @@
 <?php
-namespace Packfire\Config;
+namespace Packfire\Config\Driver;
 
 use Packfire\Config\Config;
 
 /**
  * PhpConfig class
- * 
+ *
  * A PHP configuration file that returns an array of configuration information.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -14,14 +14,14 @@ use Packfire\Config\Config;
  * @package Packfire\Config\Driver
  * @since 1.0-sofia
  */
-class PhpConfig extends Config {    
-    
+class PhpConfig extends Config {
+
     /**
-     * Read the configuration file 
+     * Read the configuration file
      * @since 1.0-sofia
      */
     protected function read() {
         $this->data = include($this->file);
     }
-    
+
 }
