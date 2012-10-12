@@ -6,7 +6,7 @@ use Packfire\Net\Http\Url;
 
 /**
  * OAuthRedirectResponse class
- * 
+ *
  * This response is meant to be sent to the consumer's browser to redirect
  * the user to the service provider.
  *
@@ -17,7 +17,7 @@ use Packfire\Net\Http\Url;
  * @since 1.1-sofia
  */
 class OAuthRedirectResponse extends RedirectResponse {
-    
+
     /**
      * Create a new OAuthRedirectResponse
      * @param string|Url $url The service provider authentication URL to redirect to
@@ -28,7 +28,7 @@ class OAuthRedirectResponse extends RedirectResponse {
         if(!($url instanceof Url)){
             $url = new Url($url);
         }
-        $url->params()->add('oauth_token', $token);
+        $url->params()->add(OAuth::TOKEN, $token);
         parent::__construct($url);
     }
 
