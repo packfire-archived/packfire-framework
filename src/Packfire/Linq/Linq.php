@@ -17,7 +17,7 @@ use Packfire\Linq\OrderedLinq;
 
 /**
  * Linq class
- * 
+ *
  * Provides functionality to perform LINQ queries on a collection.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -26,26 +26,26 @@ use Packfire\Linq\OrderedLinq;
  * @package Packfire\Linq
  * @since 1.0-sofia
  */
-class Linq implements ILinq, IteratorAggregate {
-    
+class Linq implements ILinq, \IteratorAggregate {
+
     /**
      * The queue of query processes
      * @var ArrayList
      * @since 1.0-sofia
      */
     private $queue;
-    
+
     /**
      * The collection to work on
      * @var ArrayList
      * @since 1.0-sofia
      */
     private $collection;
-    
+
     /**
      * Create a new Linq object
      * @param ArrayList|array $collection The collection to query
-     * @param ArrayList $queries (optional) The list of queries. Internally used. 
+     * @param ArrayList $queries (optional) The list of queries. Internally used.
      * @since 1.0-sofia
      */
     public function __construct($collection, $queries = null){
@@ -59,7 +59,7 @@ class Linq implements ILinq, IteratorAggregate {
         }
         $this->collection = $collection;
     }
-    
+
     /**
      * Start the LINQ query from a source
      * @param ArrayList|array $source The collection to query and ork on
@@ -70,7 +70,7 @@ class Linq implements ILinq, IteratorAggregate {
     public static function from($source, $queries = null){
         return new self($source, $queries);
     }
-    
+
     /**
      * Do a downcast if required.
      * @return Linq Returns the downcast if required.
@@ -82,16 +82,16 @@ class Linq implements ILinq, IteratorAggregate {
         }
         return $this;
     }
-    
+
     /**
-     * Get the last query entered into the queue. 
+     * Get the last query entered into the queue.
      * @return ILinqQuery Returns the last query
      * @since 1.0-sofia
      */
     protected function lastQuery(){
         return empty($this->queue) ? null : end($this->queue);
     }
-    
+
     /**
      * Execute the queries and get the finalized collection
      * @return array Returns the finalized collection
@@ -104,16 +104,16 @@ class Linq implements ILinq, IteratorAggregate {
         }
         return $collection;
     }
-    
+
     /**
      * Add a query to the queue
      * @param ILinqQuery $query The query to be added to the queue
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     protected function queueAdd($query){
         $this->queue->add($query);
     }
-    
+
     /**
      * Calculate the average based on a field
      * @param Closure|callback $field The field selector
@@ -168,7 +168,7 @@ class Linq implements ILinq, IteratorAggregate {
         }
         return $result;
     }
-    
+
     /**
      * Get the first element from the collection
      * @param Closure|callback $predicate (optional) The condition to filter the elements
@@ -202,7 +202,7 @@ class Linq implements ILinq, IteratorAggregate {
     }
 
     /**
-     * Correlates the elements of two collections based on matching keys. 
+     * Correlates the elements of two collections based on matching keys.
      * @param ArrayList $collection The other collection to join
      * @param Closure|callback $innerKey The inner key selector
      * @param Closure|callback $outerKey The outer key selector
@@ -229,7 +229,7 @@ class Linq implements ILinq, IteratorAggregate {
         }
         return $result;
     }
-    
+
     /**
      * Get the last element from the collection
      * @param Closure|callback $predicate (optional) The condition to filter the elements
@@ -270,7 +270,7 @@ class Linq implements ILinq, IteratorAggregate {
      * Retrieve the maximum value from a field
      * @param Closure|callback $field (optional) The field selector
      * @return mixed Returns the maximum value
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function max($field = null) {
         return self::from($this->finalize())->orderBy($field)->lastOrDefault();
@@ -280,12 +280,12 @@ class Linq implements ILinq, IteratorAggregate {
      * Retrieve the minimum value from a field
      * @param Closure|callback $field (optional) The field selector
      * @return mixed Returns the minimum value
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function min($field = null) {
         return self::from($this->finalize())->orderBy($field)->firstOrDefault();
     }
-    
+
     /**
      * Check if all the elements in the collection matches the predicate
      * @param Closure|callback $predicate The condition to check all the elements
@@ -304,7 +304,7 @@ class Linq implements ILinq, IteratorAggregate {
 
         return $result;
     }
-    
+
     /**
      * Check if any of the elements in the collection matches the predicate
      * @param Closure|callback $predicate The condition to check all the elements
@@ -371,7 +371,7 @@ class Linq implements ILinq, IteratorAggregate {
         $result = $worker->finalize();
         return array_sum($result);
     }
-    
+
     /**
      * Skip a certain amount of elements
      * @param integer $count The amount of elements to skip
@@ -382,7 +382,7 @@ class Linq implements ILinq, IteratorAggregate {
         $this->queueAdd(new Skip($count));
         return $this->orDowncast();
     }
-    
+
     /**
      * Take a certain amount of elements
      * @param integer $count The amount of elements to take
@@ -393,7 +393,7 @@ class Linq implements ILinq, IteratorAggregate {
         $this->queueAdd(new Take($count));
         return $this->orDowncast();
     }
-    
+
     /**
      * Set the condition to filter the elements
      * @param Closure|callback $condition The filtering condition
@@ -404,7 +404,7 @@ class Linq implements ILinq, IteratorAggregate {
         $this->queueAdd(new Where($condition));
         return $this->orDowncast();
     }
-    
+
     /**
      * Get the iterator for foreach access.
      * @return ArrayIterator Returns the ArrayIterator for access
@@ -412,9 +412,9 @@ class Linq implements ILinq, IteratorAggregate {
      * @since 1.0-sofia
      */
     public function getIterator() {
-        return new ArrayIterator($this->collection);
+        return new \ArrayIterator($this->collection);
     }
-    
+
     /**
      * Get the list of the elements
      * @return ArrayList Returns the resulting collection
@@ -433,5 +433,5 @@ class Linq implements ILinq, IteratorAggregate {
         $this->queueAdd(new Reverse());
         return $this->orDowncast();
     }
-    
+
 }
