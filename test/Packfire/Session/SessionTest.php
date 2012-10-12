@@ -13,7 +13,7 @@ class pSessionTest extends \PHPUnit_Framework_TestCase {
     protected $stub;
 
     /**
-     * @var pSession
+     * @var Session
      */
     protected $object;
 
