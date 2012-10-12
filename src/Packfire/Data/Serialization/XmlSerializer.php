@@ -9,7 +9,7 @@ use Packfire\Exception\MissingDependencyException;
 
 /**
  * XmlSerializer class
- * 
+ *
  * Provide XML serialization and deserialization services
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -19,11 +19,11 @@ use Packfire\Exception\MissingDependencyException;
  * @since 1.0-sofia
  */
 class XmlSerializer implements ISerializer {
-    
+
     /**
      * Serialize data into XML string and write to output stream
      * @param IOutputStream $stream The stream to write the output data to
-     * @param mixed $data The data to write 
+     * @param mixed $data The data to write
      * @since 1.0-sofia
      */
     public function serialize($stream, $data = null) {
@@ -43,10 +43,10 @@ class XmlSerializer implements ISerializer {
             self::writeXml($stream, $data, 'root');
         }
     }
-    
+
     /**
      * Deserialize a XML input stream into data
-     * @param IInputStream $stream The stream to read the data from 
+     * @param IInputStream $stream The stream to read the data from
      * @return mixed Returns the original data
      * @since 1.0-sofia
      */
@@ -57,10 +57,10 @@ class XmlSerializer implements ISerializer {
         }else{
             $xml = $stream;
         }
-        if(!class_exists('DOMDocument')){
+        if(!class_exists('\DOMDocument')){
             throw new MissingDependencyException('DOM is required by XmlSerializer but extension not enabled.');
         }
-        $doc = new DOMDocument();
+        $doc = new \DOMDocument();
         $doc->loadXML($xml);
         if($doc->childNodes->length > 0){
             $data = self::processNode($doc->childNodes->item(0));
@@ -68,7 +68,7 @@ class XmlSerializer implements ISerializer {
         }
         return null;
     }
-    
+
     /**
      * Process a DOM node
      * @param DOMNode $node The node to process
@@ -79,7 +79,7 @@ class XmlSerializer implements ISerializer {
         $object = array();
         $name = $node->nodeName;
         if($node->childNodes->length == 1
-                && $node->childNodes->item(0) instanceof DOMText){
+                && $node->childNodes->item(0) instanceof \DOMText){
             $key = $node->attributes->getNamedItem('key');
             $type = $node->attributes->getNamedItem('type');
             $value = $node->childNodes->item(0)->wholeText;
@@ -88,7 +88,7 @@ class XmlSerializer implements ISerializer {
             }
             $key = $key ? (string)$key->value : $name;
             $object[$key] = $value;
-        }elseif($node instanceof DOMNode){
+        }elseif($node instanceof \DOMNode){
             foreach($node->childNodes as $child){
                 $object += self::processNode($child);
             }
@@ -108,7 +108,7 @@ class XmlSerializer implements ISerializer {
         }
         return $object;
     }
-    
+
     /**
      * Serialize the data and write the XML output into the stream
      * @param IOutputStream $stream The stream to write the XML to
@@ -164,5 +164,5 @@ class XmlSerializer implements ISerializer {
     }
 
 
-    
+
 }
