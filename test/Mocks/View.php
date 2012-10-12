@@ -15,19 +15,21 @@ use Packfire\Model\ObjectObserver;
  * @since 1.0-sofia
  */
 class View extends CoreView {
-    
+
+    public $title;
+
     public function using($template){
         $this->template($template);
     }
-    
+
     protected function create() {
         foreach($this->state as $key => $value){
             $this->define($key, $value);
             $this->filter($key, 'trim');
         }
-        $object = new ObjectObserver(new SampleModel());
+        $object = new ObjectObserver($this);
         $this->bind('binder', $object, 'title');
-        $object->title = 'test2';
+        $this->title = 'test2';
         $this->define('route', $this->route('home'));
     }
 
