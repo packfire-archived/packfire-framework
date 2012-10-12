@@ -5,12 +5,12 @@
 >
     <filter>
         <whitelist>
-            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
     <testsuites>
         <testsuite name="Packfire">
-            <directory suffix="Test.php">test/packfire</directory>
+            <directory suffix="Test.php">test</directory>
         </testsuite>
     </testsuites>
     <php>
