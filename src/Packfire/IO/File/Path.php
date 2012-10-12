@@ -327,7 +327,7 @@ class Path {
      * @since 1.0-sofia
      */
     public static function classPathName($class){
-        $r = new ReflectionClass($class);
+        $r = new \ReflectionClass($class);
         $c = $r->getFileName();
         if($c){
             return $c;

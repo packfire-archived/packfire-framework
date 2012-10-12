@@ -1,6 +1,8 @@
 <?php
 namespace Packfire\IO\File;
 
+use Packfire\Collection\ArrayList;
+
 /**
  * System class
  *

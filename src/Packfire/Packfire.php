@@ -15,8 +15,6 @@ use Packfire\IO\File\Stream as FileStream;
 use Packfire\DateTime\DateTime;
 use Packfire\Exception\ErrorException;
 
-define('__PACKFIRE_START__', DateTime::microtime());
-
 /**
  * Packfire class
  *
@@ -38,6 +36,9 @@ class Packfire {
      * @since 1.0-sofia
      */
     public function fire($app){
+        if(!defined('__PACKFIRE_START__')){
+            define('__PACKFIRE_START__', DateTime::microtime());
+        }
         set_error_handler(function($errno, $errstr, $errfile, $errline){
             $e = new ErrorException($errstr);
             $e->setCode($errno);
