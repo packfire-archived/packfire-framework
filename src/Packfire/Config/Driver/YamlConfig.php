@@ -3,7 +3,7 @@ namespace Packfire\Config\Driver;
 
 use Packfire\Config\Config;
 use Packfire\Yaml\Yaml;
-use Packfire\IO\File\FileInputStream;
+use Packfire\IO\File\InputStream as FileInputStream;
 
 /**
  * YamlConfig class

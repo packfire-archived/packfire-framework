@@ -11,7 +11,7 @@ use Packfire\Application\Cli\Request as CliRequest;
 use Packfire\Application\Cli\Response as CliResponse;
 use Packfire\Application\Http\Request as HttpRequest;
 use Packfire\Application\Http\Response as HttpResponse;
-use Packfire\IO\File\FileStream;
+use Packfire\IO\File\Stream as FileStream;
 use Packfire\DateTime\DateTime;
 use Packfire\Exception\ErrorException;
 
@@ -19,7 +19,7 @@ define('__PACKFIRE_START__', DateTime::microtime());
 
 /**
  * Packfire class
- * 
+ *
  * Provides functionality to boot the application
  *
  * @link http://www.github.com/packfire
@@ -30,7 +30,7 @@ define('__PACKFIRE_START__', DateTime::microtime());
  * @since 1.0-sofia
  */
 class Packfire {
-    
+
     /**
      * Start the framework execution
      * This is the entry point: this is it.
@@ -50,7 +50,7 @@ class Packfire {
         $response = $app->receive($request);
         $this->processResponse($response);
     }
-    
+
     /**
      * Prepare and load the client request
      * @return IAppRequest The client's request
@@ -117,7 +117,7 @@ class Packfire {
         }
         return $request;
     }
-    
+
     /**
      * Process the response and reply to the client
      * @param IAppResponse $response The response to reply
@@ -137,5 +137,5 @@ class Packfire {
             exit($response->output());
         }
     }
-    
+
 }

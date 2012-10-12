@@ -2,13 +2,13 @@
 namespace Packfire\IO\File;
 
 use Packfire\IO\File\PathPart;
-use Packfire\IO\File\FileSystem;
+use Packfire\IO\File\System as FileSystem;
 
 /**
  * Path class
- * 
+ *
  * Functionalities working with file system paths
- * 
+ *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
@@ -16,14 +16,14 @@ use Packfire\IO\File\FileSystem;
  * @since 1.0-sofia
  */
 class Path {
-    
+
     /**
      * The working path
      * @var string
      * @since 1.0-sofia
      */
     private $path;
-    
+
     /**
      * Create a new Path object
      * @param string $path The path to work with
@@ -32,7 +32,7 @@ class Path {
     public function __construct($path){
         $this->path = $path;
     }
-    
+
     /**
      * Create the directory path recursively.
      * @param integer $perm (optional) Permissions of the directory path.
@@ -45,7 +45,7 @@ class Path {
     public function create($perm = 0777){
         return (bool)mkdir($this->path, $perm, true);
     }
-    
+
     /**
      * Get the permission of the directory
      * @param integer $permission (optional) The permission to set the directory and its contents to
@@ -61,7 +61,7 @@ class Path {
             return substr(decoct(fileperms($this->path)), 2);
         }
     }
-    
+
     /**
      * Set permission for a path recursively
      * @param string $path The path to set permission
@@ -77,7 +77,7 @@ class Path {
                 chmod($file, $permission);
                 if (is_dir($file)) {
                     self::setPermission($file, $permission);
-                } 
+                }
             }
         }
         closedir($dir);
@@ -92,7 +92,7 @@ class Path {
     public function delete(){
         return (bool)rmdir($this->path);
     }
-    
+
     /**
      * Copy a path and its contents to another
      * @param string $source The source path to copy from
@@ -103,34 +103,34 @@ class Path {
         if($source == $destination){
             return;
         }
-        $dir = opendir($source); 
-        mkdir($destination, 0777, true); 
-        while(false !== ( $file = readdir($dir))) { 
-            if(($file != '.') && ($file != '..')){ 
-                if(is_dir($source . DIRECTORY_SEPARATOR . $file)){ 
+        $dir = opendir($source);
+        mkdir($destination, 0777, true);
+        while(false !== ( $file = readdir($dir))) {
+            if(($file != '.') && ($file != '..')){
+                if(is_dir($source . DIRECTORY_SEPARATOR . $file)){
                     self::copy($source . DIRECTORY_SEPARATOR . $file,
-                            $destination . DIRECTORY_SEPARATOR . $file); 
+                            $destination . DIRECTORY_SEPARATOR . $file);
                 }else{
                     copy($source . DIRECTORY_SEPARATOR . $file,
-                            $destination . DIRECTORY_SEPARATOR . $file); 
-                } 
-            } 
-        } 
-        closedir($dir); 
+                            $destination . DIRECTORY_SEPARATOR . $file);
+                }
+            }
+        }
+        closedir($dir);
     }
 
     /**
      * Empty the entire folder
-     * 
+     *
      * Note that this method does not remove the folder itself, but clears its
      * own content.
-     * 
+     *
      * @since 1.0-sofia
      */
     public function clear(){
         self::emptyDir($this->path);
     }
-    
+
     /**
      * Check if the path exists or not.
      * @return boolean Returns true if the path exists, false otherwise.
@@ -139,7 +139,7 @@ class Path {
     public function exists(){
         return FileSystem::pathExists($this->path);
     }
-    
+
     /**
      * Recursively empties directories
      * @param string $path The directory to empty
@@ -226,7 +226,7 @@ class Path {
     public static function fileName($path){
         return self::pathInfo($path, PathPart::FILENAME);
     }
-    
+
     /**
      * Normalize the directory slashes to the operating system's native slash
      * @param string $path The path to normalize
@@ -273,7 +273,7 @@ class Path {
     /**
      * Get information about a directory path
      * @param string $path The path name to get information about
-     * @param string $info (optional) Particular information to retrieve. 
+     * @param string $info (optional) Particular information to retrieve.
      *          False to return all the information in an array.
      * @return string|array Returns the path information
      * @link http://php.net/pathinfo
@@ -322,7 +322,7 @@ class Path {
      * If the class is defined in the PHP core or PHP extension, null
      * will be returned instead.
      * @param string $class Name of the class
-     * @return string Returns the path to the file of a class or null 
+     * @return string Returns the path to the file of a class or null
      *          if not found.
      * @since 1.0-sofia
      */

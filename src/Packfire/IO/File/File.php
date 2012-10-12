@@ -2,14 +2,14 @@
 namespace Packfire\IO\File;
 
 use Packfire\IO\File\IFile;
-use Packfire\IO\File\FileSystem;
-use Packfire\IO\File\FileStream;
+use Packfire\IO\File\System as FileSystem;
+use Packfire\IO\File\Stream as FileStream;
 use Packfire\DateTime\DateTime;
 use Packfire\Exception\IOException;
 
 /**
  * File class
- * 
+ *
  * File operations provider
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -26,7 +26,7 @@ class File implements IFile {
      * @since 1.0-sofia
      */
     private $pathname;
-    
+
     /**
      * Create a new File object
      * @param string $file Pathname of the file
@@ -35,7 +35,7 @@ class File implements IFile {
     public function __construct($file){
         $this->pathname = $file;
     }
-    
+
     /**
      * Get the file size
      * @return integer Returns the file size or NULL if the file is not found.
@@ -59,7 +59,7 @@ class File implements IFile {
             @fclose($handle);
         }
     }
-    
+
     /**
      * Tell if the file exists or not
      * @return boolean Returns true if the file exists, false otherwise.
@@ -68,10 +68,10 @@ class File implements IFile {
     public function exists(){
         return is_file($this->pathname);
     }
-    
+
     /**
      * Delete the file
-     * @throws IOException 
+     * @throws IOException
      * @since 1.0-sofia
      */
     public function delete(){
@@ -82,7 +82,7 @@ class File implements IFile {
                 );
         }
     }
-    
+
     /**
      * Set the file content
      * @param string $content The content of the file
@@ -137,13 +137,13 @@ class File implements IFile {
         }
         return $content;
     }
-    
+
     /**
      * Copy the file to another destination
      * @param string $destination The destination path to copy to
      * @return File Returns the file object that maps to the new copy at the
      *               destination path.
-     * @throws IOException 
+     * @throws IOException
      * @since 1.0-sofia
      */
     public function copy($destination){
@@ -179,7 +179,7 @@ class File implements IFile {
     public function rename($newname){
         $newname = Path::path($this->pathname) . DIRECTORY_SEPARATOR
                 . Path::baseName($newname);
-        if(@rename($this->pathname, $newname)){    
+        if(@rename($this->pathname, $newname)){
             $this->pathname = $newname;
         }else{
             throw new IOException(
@@ -198,7 +198,7 @@ class File implements IFile {
     public function move($newdir){
         $newdir = $newdir . DIRECTORY_SEPARATOR
                 . Path::baseName($this->pathname);
-        if(@rename($this->pathname, $newdir)){    
+        if(@rename($this->pathname, $newdir)){
             $this->pathname = $newdir;
         }else{
             throw new IOException(
@@ -254,7 +254,7 @@ class File implements IFile {
             }
         }
     }
-    
+
     /**
      * Get the stream for this file
      * @return FileStream Returns the stream to access this file
@@ -263,5 +263,5 @@ class File implements IFile {
     public function stream(){
         return new FileStream($this->pathname);
     }
-    
+
 }

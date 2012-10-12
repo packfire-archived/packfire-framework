@@ -3,15 +3,16 @@ namespace Packfire\Cache;
 
 use Packfire\Cache\ICache;
 use Packfire\IO\File\File;
+use Packfire\IO\File\Stream as FileStream;
 use Packfire\IO\File\Path;
-use Packfire\IO\File\FileSystem;
+use Packfire\IO\File\System as FileSystem;
 use Packfire\Data\Serialization\PhpSerializer;
 use Packfire\DateTime\DateTime;
 use Packfire\DateTime\TimeSpan;
 
 /**
  * FileCache class
- * 
+ *
  * Provides caching functionality to the file system
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -21,7 +22,7 @@ use Packfire\DateTime\TimeSpan;
  * @since 1.0-sofia
  */
 class FileCache implements ICache {
-    
+
     /**
      * The path to the storage location
      * @var string
@@ -29,10 +30,10 @@ class FileCache implements ICache {
      * @since 1.0-sofia
      */
     private static $storePath;
-    
+
     /**
      * Create a new FileCache object
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function __construct(){
         if(!self::$storePath){
@@ -40,7 +41,7 @@ class FileCache implements ICache {
                     '/pack/storage/cache');
         }
     }
-    
+
     /**
      * Create the path to the cache file identified by the identifier
      * @param string $id The identifier of the cache file
@@ -51,7 +52,7 @@ class FileCache implements ICache {
         return Path::combine(self::$storePath,
                 'FileCache-' . self::idCleaner($cacheId) . '.cache');
     }
-    
+
     /**
      * Cleans the ID into friendly for the file systems.
      * @param string $id The ID to be cleaned
@@ -61,7 +62,7 @@ class FileCache implements ICache {
     private static function idCleaner($cacheId){
         return strtolower(trim(preg_replace(array('`[^a-z0-9\-]+`', '`[\-]{1,}`'), '-', $cacheId), '-'));
     }
-    
+
     /**
      * Checks if a cache file is still fresh
      * @param string $file Path to the file to check
@@ -71,10 +72,10 @@ class FileCache implements ICache {
     private static function isCacheFresh($file){
         return (FileSystem::fileExists($file) && filemtime($file) >= time());
     }
-    
+
     /**
      * Check if a cache value identified by the identifier is still fresh,
-     *      available and has yet to expire. 
+     *      available and has yet to expire.
      * @param string $cacheId The identifier of the cache value
      * @return boolean Returns true if the cache value is fresh, available and
      *          has yet to expire. Returns false otherwise.
@@ -97,7 +98,7 @@ class FileCache implements ICache {
 
     /**
      * Remove all cache values regardless of their state.
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function flush() {
         $path = new Path(self::$storePath);
@@ -105,7 +106,7 @@ class FileCache implements ICache {
     }
 
     /**
-     * Perform garbage collection to remove all expired and stale cache values 
+     * Perform garbage collection to remove all expired and stale cache values
      * @since 1.0-sofia
      */
     public function garbageCollect() {
@@ -148,7 +149,7 @@ class FileCache implements ICache {
      * Store the cache value uniquely identified by the identifier with expiry
      * @param string $cacheId The identifier of the cache value
      * @param mixed $value The cache value to store
-     * @param DateTime|TimeSpan $expiry The date time or period of time to 
+     * @param DateTime|TimeSpan $expiry The date time or period of time to
      *              expire the cache value.
      * @since 1.0-sofia
      */
@@ -172,5 +173,5 @@ class FileCache implements ICache {
         touch($file, $expiry);
     }
 
-    
+
 }
