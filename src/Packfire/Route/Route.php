@@ -3,16 +3,16 @@ namespace Packfire\Route;
 
 use Packfire\Route\IRoute;
 use Packfire\Collection\ArrayList;
-use Packfire\Validator\Serial as SerialValidator;
-use Packfire\Validator\Numeric as NumericValidator;
-use Packfire\Validator\Match as MatchValidator;
-use Packfire\Validator\Regex as RegexValidator;
-use Packfire\Validator\Callback as CallbackValidator;
-use Packfire\Validator\Email as EmailValidator;
+use Packfire\Validator\SerialValidator;
+use Packfire\Validator\NumericValidator;
+use Packfire\Validator\MatchValidator;
+use Packfire\Validator\RegexValidator;
+use Packfire\Validator\CallbackValidator;
+use Packfire\Validator\EmailValidator;
 
 /**
  * Route class
- * 
+ *
  * A generic validatory route
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -22,28 +22,28 @@ use Packfire\Validator\Email as EmailValidator;
  * @since 1.1-sofia
  */
 abstract class Route implements IRoute {
-    
+
     /**
      * The name of the route
      * @var string
      * @since 1.1-sofia
      */
     protected $name;
-    
+
     /**
      * The route parameters to check
      * @var Map
      * @since 1.1-sofia
      */
     protected $params;
-    
+
     /**
      * The name of the controller class to route to
      * @var string
      * @since 1.1-sofia
      */
     protected $actual;
-    
+
     /**
      * Get the parameters in this routing
      * @return Map Returns the parameters
@@ -52,7 +52,7 @@ abstract class Route implements IRoute {
     public function params(){
         return $this->params;
     }
-    
+
     /**
      * Get the name of the controller class to route to
      * @return string Returns the controller class name
@@ -70,7 +70,7 @@ abstract class Route implements IRoute {
     public function name() {
         return $this->name;
     }
-    
+
     /**
      * Validate an array of data
      * @param ArrayList|array $rules The list of rules defined
@@ -100,7 +100,7 @@ abstract class Route implements IRoute {
         }
         return $validation;
     }
-    
+
     /**
      * Validate a value based on the given rule
      * @param string|ArrayList|array $rule The name of the validation rule(s)
@@ -115,7 +115,7 @@ abstract class Route implements IRoute {
         if(is_string($rules)){
             $rules = new ArrayList(array($rules));
         }
-        
+
         // optional parameter and nothing supplied
         if($value === null){
             if($rules->contains('optional')){
@@ -124,7 +124,7 @@ abstract class Route implements IRoute {
                 return false;
             }
         }
-        
+
         $validator = new SerialValidator();
         $original = $value;
         foreach($rules as $rule){
@@ -225,6 +225,6 @@ abstract class Route implements IRoute {
         }
         return $validator->validate($original);
     }
-    
-    
+
+
 }
