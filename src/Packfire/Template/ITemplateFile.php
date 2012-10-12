@@ -1,8 +1,6 @@
 <?php
 namespace Packfire\Template;
 
-use Packfire\Template\ITemplate;
-
 /**
  * ITemplateFile interface
  * 
