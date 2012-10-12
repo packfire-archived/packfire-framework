@@ -7,7 +7,7 @@ use Packfire\Core\ActionInvoker;
 
 /**
  * Invoker class
- * 
+ *
  * Controller Access Invoker
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -17,42 +17,42 @@ use Packfire\Core\ActionInvoker;
  * @since 1.0-sofia
  */
 class Invoker extends BucketUser {
-    
+
     /**
      * The package name
      * @var string
      * @since 1.0-sofia
      */
     private $package;
-    
+
     /**
      * The action to load
      * @var string
      * @since 1.0-sofia
      */
     private $action;
-    
+
     /**
      * The request from the client
      * @var ClientRequest
      * @since 1.0-sofia
      */
     private $request;
-    
+
     /**
      * The Route that the application came through
      * @var Route
      * @since 1.0-sofia
      */
     private $route;
-    
+
     /**
      * The response to the client
      * @var IAppResponse
      * @since 1.0-sofia
      */
     private $response;
-    
+
     /**
      * Create a new Invoker object
      * @param string $package The package to load the class
@@ -80,7 +80,7 @@ class Invoker extends BucketUser {
         if(is_string($this->package)){
             // call controller
             $isView = self::classInstanceOf($class, 'Packfire\View\IView');
-            
+
             if(class_exists($class)){
                 if($isView){
                     /* @var $view View */
@@ -114,10 +114,10 @@ class Invoker extends BucketUser {
         }
         return true;
     }
-    
+
     protected static function classInstanceOf($className, $search){
         $classOnly = !interface_exists($search);
-        $class = new ReflectionClass($className);
+        $class = new \ReflectionClass($className);
         if(!$class) {
             return false;
         }
@@ -134,9 +134,9 @@ class Invoker extends BucketUser {
             }
             $class = $class->getParentClass();
         } while($class);
-        return false; 
+        return false;
     }
-    
+
     /**
      * Get the controller response
      * @return IAppResponse Returns the controller response
@@ -145,5 +145,5 @@ class Invoker extends BucketUser {
     public function response(){
         return $this->response;
     }
-    
+
 }

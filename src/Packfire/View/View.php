@@ -10,7 +10,7 @@ use Packfire\Exception\InvalidArgumentException;
 
 /**
  * View class
- * 
+ *
  * The generic view class.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -20,44 +20,44 @@ use Packfire\Exception\InvalidArgumentException;
  * @since 1.0-sofia
  */
 abstract class View extends BucketUser implements IView {
-    
+
     /**
      * The state that is passed from the controller
      * @var Map
      * @since 1.0-sofia
      */
     protected $state;
-    
+
     /**
      * The fields in the view defined
      * @var Map
      * @since 1.0-sofia
      */
     private $fields;
-    
+
     /**
      * The filters for the output fields
      * @var ArrayList
      * @since 1.0-sofia
      */
     private $filters;
-    
+
     /**
      * The template for the view to render
-     * @var ITemplate 
+     * @var ITemplate
      * @since 1.0-sofia
      */
     private $template;
-    
+
     /**
      * The template for the view to render
-     * @var Theme 
+     * @var Theme
      * @since 1.0-sofia
      */
     private $theme;
-    
+
     /**
-     * Create a new View object 
+     * Create a new View object
      * @since 1.0-sofia
      */
     public function __construct(){
@@ -65,7 +65,7 @@ abstract class View extends BucketUser implements IView {
         $this->fields = new Map();
         $this->filters = new ArrayList();
     }
-    
+
     /**
      * Define a template field to populate.
      * @param string|array|Map $key Name of the field
@@ -84,11 +84,11 @@ abstract class View extends BucketUser implements IView {
             $this->fields[$key] = $value;
         }
     }
-    
+
     /**
      * Bind a object property to a template field.
      * As the object property gets updated, the template field gets updated too.
-     * 
+     *
      * @param string $key The template field to bind to
      * @param ObjectObserver $object The object to be binded
      * @param string $property The property of the object to bind to the
@@ -109,10 +109,10 @@ abstract class View extends BucketUser implements IView {
                     'an instance of ObjectObserver', dtype($object));
         }
     }
-    
+
     /**
      * Set filters to a parameter.
-     * 
+     *
      * @param string $name Name of the parameter to add filters to
      * @param Closure|callback|array|IList $filter The controller filter,
      *              closure or callback that will process the parameter.
@@ -135,7 +135,7 @@ abstract class View extends BucketUser implements IView {
             $this->filters[] = array($name, $filter);
         }
     }
-    
+
     /**
      * Set the state from the controller to the view
      * @param Map $state The state of the controller passed to the view.
@@ -144,7 +144,7 @@ abstract class View extends BucketUser implements IView {
     public function state($state){
         $this->state = $state;
     }
-    
+
     /**
      * Set the template used by the view
      * @param ITemplate $template The template to use
@@ -155,7 +155,7 @@ abstract class View extends BucketUser implements IView {
         $this->template = $template;
         return $this;
     }
-    
+
     /**
      * Set the theme used by the view
      * @param Theme $theme The theme to use
@@ -166,11 +166,11 @@ abstract class View extends BucketUser implements IView {
         $this->theme = $theme;
         return $this;
     }
-    
+
     /**
      * Get a specific routing URL from the router service
      * @param string $key The routing key
-     * @param array $params (optionl) URL Parameters 
+     * @param array $params (optionl) URL Parameters
      * @return string Returns the URL
      * @since 1.0-sofia
      */
@@ -182,13 +182,13 @@ abstract class View extends BucketUser implements IView {
         }
         return $url;
     }
-    
+
     /**
      * Prepare and create the view fields
      * @since 1.0-sofia
      */
     protected abstract function create();
-    
+
     /**
      * Get the output of the view.
      * @return string Returns the output of this view.
@@ -208,21 +208,20 @@ abstract class View extends BucketUser implements IView {
                 $this->define('theme.' . $key, $value);
             }
         }
-        
+
         if($this->template){
             foreach($this->filters as $filter){
                 $name = $filter[0];
                 $filter = $filter[1];
                 $value = $this->fields[$name];
-                if(class_exists($filter)){
-                    $filter = new $filter();
-                }
                 if($filter instanceof Closure || is_callable($filter)){
                     $value = $filter($value);
+                }elseif(class_exists($filter)){
+                    $filter = new $filter();
                 }
                 $this->fields[$name] = $value;
             }
-            
+
             // allow you to use another view in a view.
             foreach($this->fields as $key => $field){
                 if($field instanceof IView){
@@ -237,5 +236,5 @@ abstract class View extends BucketUser implements IView {
         }
         return $output;
     }
-    
+
 }

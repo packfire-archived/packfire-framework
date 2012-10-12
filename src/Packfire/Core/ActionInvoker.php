@@ -10,7 +10,7 @@ if(!class_exists('ReflectionMethod')){
 
 /**
  * ActionInvoker class
- * 
+ *
  * Invokes a callback with an associative argument array
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -20,14 +20,14 @@ if(!class_exists('ReflectionMethod')){
  * @since 1.1-sofia
  */
 class ActionInvoker {
-    
+
     /**
      * The callback to be invoked
      * @var Closure|callback
      * @since 1.1-sofia
      */
     protected $callback;
-    
+
     /**
      * Create a new ActionInvoker object
      * @param Closure|callback $callback The callback to be invoked
@@ -35,7 +35,7 @@ class ActionInvoker {
      */
     public function __construct($callback){
         if(is_string($callback)){
-            // detect if callback is 
+            // detect if callback is
             $pos = strpos($callback, '::');
             if($pos !== false){
                 $callback = array(
@@ -46,7 +46,7 @@ class ActionInvoker {
         }
         $this->callback = $callback;
     }
-    
+
     /**
      * Invoke the action with associative array of arguments
      * @param Map|array $args The arguments to be passed in.
@@ -59,14 +59,14 @@ class ActionInvoker {
         }
         $invokeParams = array();
         if(is_array($this->callback)){
-            $reflection = new ReflectionMethod($this->callback[0], $this->callback[1]);
+            $reflection = new \ReflectionMethod($this->callback[0], $this->callback[1]);
             if($reflection->isStatic()){
                 $invokeParams[] = null;
             }else{
                 $invokeParams[] = $this->callback[0];
             }
         }else{
-            $reflection = new ReflectionFunction($this->callback);
+            $reflection = new \ReflectionFunction($this->callback);
         }
 
         $pass = array();
@@ -77,8 +77,8 @@ class ActionInvoker {
             }elseif($param->isOptional()){
                 try{
                     $pass[] = $param->getDefaultValue();
-                }catch(ReflectionException $ex){
-                    
+                }catch(\ReflectionException $ex){
+
                 }
             }
         }
@@ -86,5 +86,5 @@ class ActionInvoker {
 
         return call_user_func_array(array($reflection, 'invokeArgs'), $invokeParams);
     }
-    
+
 }

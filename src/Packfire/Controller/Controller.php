@@ -4,6 +4,7 @@ namespace Packfire\Controller;
 use Packfire\Application\IAppResponse;
 use Packfire\Collection\Map;
 use Packfire\Response\RedirectResponse;
+use Packfire\IoC\IBucketUser;
 use Packfire\IoC\BucketUser;
 use Packfire\Exception\HttpException;
 use Packfire\Exception\AuthenticationException;
@@ -22,56 +23,56 @@ use Packfire\Core\ActionInvoker;
  * @since 1.0-sofia
  */
 abstract class Controller extends BucketUser {
-    
+
     /**
      * The request to this controller
      * @var IAppRequest
      * @since 1.0-sofia
      */
     protected $request;
-    
+
     /**
      * The route that called for this controller
      * @var Route
      * @since 1.0-sofia
      */
     protected $route;
-    
+
     /**
      * The response this controller handles
      * @var IAppResponse
      * @since 1.0-sofia
      */
     protected $response;
-    
+
     /**
      * The controller state
      * @var Map|mixed
      * @since 1.0-sofia
      */
     protected $state;
-    
+
     /**
      * Parameter filters
-     * @var Map 
+     * @var Map
      * @since 1.0-sofia
      */
     private $filters;
-    
+
     /**
      * A collection of loaded models
      * @var Map
      * @since 1.0-sofia
      */
     private $models;
-    
+
     /**
-     * A collection of all the errors from the filtering 
+     * A collection of all the errors from the filtering
      * @var Map
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     private $errors;
-    
+
     /**
      * Create a new Controller object
      * @param IAppRequest $request (optional) The client's request
@@ -81,13 +82,13 @@ abstract class Controller extends BucketUser {
     public function __construct($request = null, $response = null){
         $this->request = $request;
         $this->response = $response;
-        
+
         $this->filters = new Map();
         $this->state = new Map();
         $this->errors = new Map();
         $this->models = new Map();
     }
-    
+
     /**
      * Get the state of the controller
      * @return Map|mixed Returns the state of the controller
@@ -96,7 +97,7 @@ abstract class Controller extends BucketUser {
     public function state(){
         return $this->state;
     }
-    
+
     /**
      * Render the view for this controller
      * @param IView $view (optional) The view object to be rendered
@@ -115,11 +116,11 @@ abstract class Controller extends BucketUser {
             }
         }
     }
-    
+
     /**
      * Create and prepare a redirect to another URL
      * @param string $url The URL to route to
-     * @param string $code (optional) The HTTP code. Defaults to "302 Found". 
+     * @param string $code (optional) The HTTP code. Defaults to "302 Found".
      *                     Use constants from Packfire\Net\Http\ResponseCode
      * @since 1.0-sofia
      */
@@ -133,11 +134,11 @@ abstract class Controller extends BucketUser {
             $this->response = new RedirectResponse($url);
         }
     }
-    
+
     /**
      * Get a specific routing URL from the router service
      * @param string $key The routing key
-     * @param array $params (optionl) URL Parameters 
+     * @param array $params (optionl) URL Parameters
      * @return string Returns the URL
      * @since 1.0-sofia
      */
@@ -149,14 +150,14 @@ abstract class Controller extends BucketUser {
         }
         return $url;
     }
-    
+
     /**
      * Load and create a model from the application folder
      * @param string $model Name of the model to load
-     * @param boolean $forceReload (optional) If set to true, the method will 
+     * @param boolean $forceReload (optional) If set to true, the method will
      *                  create a new model instance. Defaults to false.
      * @return object Returns the model object
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function model($model, $forceReload = false){
         if($forceReload || !$this->models->keyExists($model)){
@@ -168,7 +169,7 @@ abstract class Controller extends BucketUser {
         }
         return $this->models[$model];
     }
-    
+
     /**
      * Get all the errors set to the controller
      * @return Map Returns the list of errors
@@ -177,7 +178,7 @@ abstract class Controller extends BucketUser {
     public function errors(){
         return $this->errors;
     }
-    
+
     /**
      * Set an error to the controller
      * @param string $target The name of the field that the error is targeted to
@@ -198,13 +199,13 @@ abstract class Controller extends BucketUser {
 
     /**
      * Check if any error has been set to the controller
-     * @return boolean Returns true if an error has been set, false otherwise.  
+     * @return boolean Returns true if an error has been set, false otherwise.
      * @since 1.0-sofia
      */
     public function hasError(){
         return $this->errors->count() > 0;
     }
-    
+
     /**
      * Check if the controller is error free or not
      * @return boolean Returns true if there is no error set, false otherwise.
@@ -213,27 +214,27 @@ abstract class Controller extends BucketUser {
     public function isErrorFree(){
         return $this->errors->count() == 0;
     }
-    
+
     /**
      * Handler for authorization of this controller
      * @return boolean Returns true if the authorization succeeded,
      *               false otherwise.
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     protected function handleAuthorization(){
         return true;
     }
-    
+
     /**
      * Handler for authentication error
      * @return boolean Returns true if the authorization succeeded,
      *               false otherwise.
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     protected function handleAuthentication(){
         return true;
     }
-    
+
     /**
      * Check for action method
      * @param string $method The method of the request in lower case
@@ -249,7 +250,7 @@ abstract class Controller extends BucketUser {
         }
         return $call;
     }
-    
+
     /**
      * Run the controller action with the route
      * @param Route $route The route that called for this controller
@@ -259,7 +260,7 @@ abstract class Controller extends BucketUser {
      */
     public function run($route, $action){
         $this->route = $route;
-        $securityEnabled = $this->service('security') 
+        $securityEnabled = $this->service('security')
                 && !$this->service('config.app')->get('security', 'disabled');
         if($securityEnabled){
             if($this->service('security')){
@@ -271,18 +272,18 @@ abstract class Controller extends BucketUser {
                 }
                 $this->service('security')->request($this->request);
             }
-            
-            if(($this->service('security') && !$this->service('security')->authenticate()) 
+
+            if(($this->service('security') && !$this->service('security')->authenticate())
                     || !$this->handleAuthentication()){
                 throw new AuthenticationException('User is not authenticated.');
             }
-        
+
             if(($this->service('security') && !$this->service('security')->authorize($route))
                     || !$this->handleAuthorization()){
                 throw new AuthorizationException('Access not authorized.');
             }
         }
-        
+
         $method = strtolower($this->request->method());
         $call = $this->checkMethod($method, '');
         if(!$call){
@@ -297,7 +298,7 @@ abstract class Controller extends BucketUser {
                 $call = $method;
             }
         }
-        
+
         if(is_callable(array($this, $call))){
             // call the controller action
             $actionInvoker = new ActionInvoker(array($this, $call));
@@ -307,7 +308,7 @@ abstract class Controller extends BucketUser {
             }
             $this->postProcess();
         }else{
-            $errorMsg = sprintf('The requested action "%s" is not found' 
+            $errorMsg = sprintf('The requested action "%s" is not found'
                                 . ' in the controller "%s".',
                                 $call, get_class($this));
             if($this->request instanceof HttpRequest){
@@ -318,10 +319,10 @@ abstract class Controller extends BucketUser {
         }
         return $this->response;
     }
-    
+
     /**
      * Perform post-processing after the action is executed
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     private function postProcess(){
         // disable debugger if non-HTML output
@@ -329,13 +330,13 @@ abstract class Controller extends BucketUser {
         if($this->response instanceof HttpResponse){
             $type = $this->response->headers()->get('Content-Type');
         }
-        if($this->service('debugger') 
-                && $type 
+        if($this->service('debugger')
+                && $type
                 && strpos(strtolower($type), 'html') === false){
             $this->service('debugger')->enabled(false);
         }
     }
-    
+
     /**
      * Get the response of this controller
      * @return IAppResponse
@@ -344,5 +345,5 @@ abstract class Controller extends BucketUser {
     public function response() {
         return $this->response;
     }
-    
+
 }

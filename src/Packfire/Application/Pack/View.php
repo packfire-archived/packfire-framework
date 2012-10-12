@@ -1,13 +1,13 @@
 <?php
 namespace Packfire\Application\Pack;
 
-use Packfire\Appliation\Pack\Theme;
-use Packfire\Appliation\Pack\Template;
+use Packfire\Application\Pack\Theme;
+use Packfire\Application\Pack\Template;
 use Packfire\View\View as CoreView;
 
 /**
  * View class
- * 
+ *
  * The generic application view class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -17,14 +17,14 @@ use Packfire\View\View as CoreView;
  * @since 1.1-sofia
  */
 abstract class View extends CoreView {
-    
+
     /**
      * Create a new View object
-     * @since 1.1-sofia 
+     * @since 1.1-sofia
      */
     public function __construct(){
         parent::__construct();
-        
+
         // set the default template as the name of the view class
         $template = get_class($this);
         if(strtolower(substr($template, -4)) === 'view'){
@@ -32,7 +32,7 @@ abstract class View extends CoreView {
         }
         $this->template($template);
     }
-    
+
     /**
      * Set the template for the view class
      * @param ITemplate|string $template The template or name of the template
@@ -60,5 +60,5 @@ abstract class View extends CoreView {
         }
         return parent::theme($theme);
     }
-    
+
 }

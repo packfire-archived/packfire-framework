@@ -3,11 +3,11 @@ namespace Packfire\Session\Storage;
 
 use Packfire\Session\Storage\ISessionStorage;
 use Packfire\Session\Bucket\SessionBucket;
-
+use Packfire\Collection\Map;
 
 /**
  * SessionStorage class
- * 
+ *
  * Provides session storage access
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -17,24 +17,24 @@ use Packfire\Session\Bucket\SessionBucket;
  * @since 1.0-sofia
  */
 class SessionStorage implements ISessionStorage {
-    
+
     /**
      * The container of buckets
      * @var Map
      * @since 1.0-sofia
      */
     private $buckets;
-    
+
     /**
      * The overall storage
      * @var SessionBucket
      * @since 1.0-sofia
      */
     private $overallBucket;
-    
+
     /**
      * Create a new SessionStorage object
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function __construct(){
         $this->buckets = new Map();
@@ -82,7 +82,7 @@ class SessionStorage implements ISessionStorage {
     public function set($key, $data) {
         $this->overallBucket->set($key, $data);
     }
-    
+
     /**
      * Regenerate a new session ID
      * @param boolean $delete (optional) Set to delete old session or not
@@ -91,10 +91,10 @@ class SessionStorage implements ISessionStorage {
     public function regenerate($delete = false) {
         session_regenerate_id($delete);
     }
-    
+
     /**
      * Register the session handler
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     protected function registerHandler(){
         if($this instanceof ISessionHandler
@@ -109,15 +109,15 @@ class SessionStorage implements ISessionStorage {
             );
         }
     }
-    
+
     /**
      * Register the write close shutdown function
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     protected function registerShutdown(){
         register_shutdown_function('session_write_close');
     }
-    
+
     /**
      * Register a bucket to the storage
      * @param ISessionBucket $bucket The bucket to register
@@ -130,11 +130,11 @@ class SessionStorage implements ISessionStorage {
             $bucket->load($_SESSION[$id]);
         }
     }
-    
+
     public function bucket($id){
         return $this->buckets->get($id);
     }
-    
+
     public function clear() {
         $this->overallBucket->clear();
     }
@@ -143,20 +143,20 @@ class SessionStorage implements ISessionStorage {
         if(func_num_args() == 0){
             $data = &$_SESSION;
         }
-        
+
         $this->overallBucket->load($data);
-        
+
         foreach($this->buckets as $id => $bucket){
             if(!array_key_exists($id, $data)){
                 $data[$id] = array();
             }
             $bucket->load($data[$id]);
         }
-        
+
     }
 
     public function has($key){
         $this->overallBucket->has($key);
     }
-    
+
 }
