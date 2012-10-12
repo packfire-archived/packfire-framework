@@ -89,7 +89,8 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
      * @covers Url::__toString
      */
     public function test__toString() {
-        $this->assertEquals('ftp://user:pwd@git.example.com:2103/path/test.html?query=1#true', $this->object .'');
+        $this->assertEquals('ftp://user:pwd@git.example.com:2103/path/test.html'
+                . '?query=1#true', $this->object .'');
     }
 
     /**
@@ -120,6 +121,12 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
     public function testCombine() {
         $final = Url::combine('http://example.com/test', '../object');
         $this->assertEquals('http://example.com/object', (string)$final);
+    }
+
+    /**
+     * @covers Url::combine
+     */
+    public function testCombine2(){
         $final = Url::combine('/test/data', '../object/true');
         $this->assertEquals('/test/object/true', (string)$final);
     }
