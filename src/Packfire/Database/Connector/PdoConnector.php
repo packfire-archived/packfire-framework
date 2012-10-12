@@ -12,7 +12,7 @@ if(!class_exists('PDO')){
 
 /**
  * PdoConnector class
- * 
+ *
  * A connector that helps to connect to the database
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -22,21 +22,21 @@ if(!class_exists('PDO')){
  * @since 1.0-sofia
  */
 abstract class PdoConnector extends BucketUser implements IConnector {
-    
+
     /**
      * The PDO object
      * @var PDO
      * @since 1.0-sofia
      */
     protected $pdo;
-    
+
     /**
      * The array of configuration
      * @var array|Map
      * @since 1.0-sofia
      */
     protected $config;
-    
+
     /**
      * Create a new PdoConnector object
      * @param array|Map $config An array of configuration
@@ -53,10 +53,10 @@ abstract class PdoConnector extends BucketUser implements IConnector {
             $dsn = sprintf('%s:host=%s', $config['driver'], $config['host']);
         }
         unset($config['host'], $config['driver'], $config['user'], $config['password']);
-        $this->pdo = new PDO($dsn, $username, $password, $config);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->pdo = new \PDO($dsn, $username, $password, $config);
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
-    
+
     /**
      * Prepare and bind a statement for execution
      * @param string $query The query to be prepared
@@ -82,17 +82,17 @@ abstract class PdoConnector extends BucketUser implements IConnector {
         }
         return $statement;
     }
-    
+
     /**
      * Translates data type
      * @param string $type The input data type
      * @return string The translated data type
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public abstract function translateType($type);
-    
+
     /**
-     * Create a PDOStatement and prepare it for execution 
+     * Create a PDOStatement and prepare it for execution
      * @param string $query The statement
      * @return PDOStatement Returns the PDOStatement object
      * @since 1.0-sofia
@@ -101,7 +101,7 @@ abstract class PdoConnector extends BucketUser implements IConnector {
         $this->service('debugger')->query($query, 'prepare');
         return $this->pdo->prepare($query);
     }
-    
+
     /**
      * Create and execute a PDOStatement
      * @param string $query The statement to execute
@@ -112,7 +112,7 @@ abstract class PdoConnector extends BucketUser implements IConnector {
         $this->service('debugger')->query($query);
         return $this->pdo->query($query);
     }
-    
+
     /**
      * Get the last insert ID
      * @return mixed
@@ -121,30 +121,30 @@ abstract class PdoConnector extends BucketUser implements IConnector {
     public function lastInsertId(){
         return $this->pdo->lastInsertId();
     }
-    
+
     /**
      * Begin the transaction
      * @return boolean Returns true if the transaction has been created, false otherwise.
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function begin(){
         return $this->pdo->beginTransaction();
     }
-    
+
     /**
      * End and commit the transaction
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function commit(){
         $this->pdo->commit();
     }
-    
+
     /**
      * End and revert changes made by the transaction
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function rollback(){
         $this->pdo->rollBack();
     }
-    
+
 }

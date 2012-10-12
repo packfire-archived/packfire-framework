@@ -1,11 +1,11 @@
 <?php
 namespace Packfire\Database;
 
-use Packfire\Database\Drivers\MySQL\Connector as MySqlConnector;
+use Packfire\Database\Drivers\MySql\Connector as MySqlConnector;
 
 /**
  * ConnectorFactory class
- * 
+ *
  * Creates database connector
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -15,7 +15,7 @@ use Packfire\Database\Drivers\MySQL\Connector as MySqlConnector;
  * @since 1.0-sofia
  */
 class ConnectorFactory {
-    
+
     /**
      * Create the database connector based on the configuration provided.
      * @param array|Map $config The database configuration
@@ -29,5 +29,5 @@ class ConnectorFactory {
                 break;
         }
     }
-    
+
 }
