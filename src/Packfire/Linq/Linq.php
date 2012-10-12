@@ -33,7 +33,7 @@ class Linq implements ILinq, \IteratorAggregate {
      * @var ArrayList
      * @since 1.0-sofia
      */
-    private $queue;
+    protected $queue;
 
     /**
      * The collection to work on
@@ -49,7 +49,7 @@ class Linq implements ILinq, \IteratorAggregate {
      * @since 1.0-sofia
      */
     public function __construct($collection, $queries = null){
-        if($queries){
+        if(func_num_args() == 2){
             $this->queue = new ArrayList($queries);
         }else{
             $this->queue = new ArrayList();
@@ -89,7 +89,7 @@ class Linq implements ILinq, \IteratorAggregate {
      * @since 1.0-sofia
      */
     protected function lastQuery(){
-        return empty($this->queue) ? null : end($this->queue);
+        return $this->queue->count() > 0 ? $this->queue->last() : null;
     }
 
     /**

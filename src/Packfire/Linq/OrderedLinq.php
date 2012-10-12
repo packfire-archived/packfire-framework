@@ -3,11 +3,11 @@ namespace Packfire\Linq;
 
 use Packfire\Linq\Linq;
 use Packfire\Linq\IOrderedLinq;
-use Packfire\Linq\LinqThenByQuery;
+use Packfire\Linq\Query\ThenBy;
 
 /**
  * OrderedLinq class
- * 
+ *
  * An ordered LINQ that implements the thenBy() and thenByDesc() methods.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -17,7 +17,7 @@ use Packfire\Linq\LinqThenByQuery;
  * @since 1.0-sofia
  */
 class OrderedLinq extends Linq implements IOrderedLinq {
-    
+
     /**
      * Perform a thenBy sort after the previous sort command
      * @param Closure|callback $field The field selector
@@ -26,7 +26,7 @@ class OrderedLinq extends Linq implements IOrderedLinq {
      */
     public function thenBy($field) {
        $lastQuery = $this->lastQuery();
-       $this->queueAdd(new LinqThenByQuery($field, array($lastQuery, 'compare')));
+       $this->queueAdd(new ThenBy($field, array($lastQuery, 'compare')));
        return $this;
     }
 
@@ -39,8 +39,8 @@ class OrderedLinq extends Linq implements IOrderedLinq {
      */
     public function thenByDesc($field) {
        $lastQuery = $this->lastQuery();
-       $this->queueAdd(new LinqThenByQuery($field, array($lastQuery, 'compare'), true));
+       $this->queueAdd(new ThenBy($field, array($lastQuery, 'compare'), true));
        return $this;
     }
-    
+
 }

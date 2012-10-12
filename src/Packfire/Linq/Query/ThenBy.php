@@ -5,7 +5,7 @@ use Packfire\Linq\Query\OrderBy;
 
 /**
  * ThenBy class
- * 
+ *
  * LINQ Order Then By Query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -15,14 +15,14 @@ use Packfire\Linq\Query\OrderBy;
  * @since 1.0-sofia
  */
 class ThenBy extends OrderBy {
-    
+
     /**
      * The previous query's callback
      * @var Closure|callback
      * @since 1.0-sofia
      */
     private $previousCallback;
-    
+
     /**
      * Create a new ThenBy object
      * @param Closure|callback $worker The callback that will work on this query
@@ -35,7 +35,7 @@ class ThenBy extends OrderBy {
         parent::__construct($worker, $descending);
         $this->previousCallback = $previousCallback;
     }
-    
+
     /**
      * The comparison method working with the previous callback
      * @param mixed $a The first item to compare
@@ -45,11 +45,11 @@ class ThenBy extends OrderBy {
      * @since 1.0-sofia
      */
     public function compare($a, $b){
-        $result = $this->previousCallback($a, $b);
+        $result = call_user_func($this->previousCallback, $a, $b);
         if($result != 0){
             return $result;
         }
         return parent::compare($a, $b);
     }
-    
+
 }
