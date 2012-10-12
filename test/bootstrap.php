@@ -6,6 +6,8 @@ define('__APP_ROOT__', '');
 
 set_include_path(realpath(__DIR__ . '/../src')
         . PATH_SEPARATOR . get_include_path());
+
+include('Packfire/constants.php');
 spl_autoload_register(function($class) {
     $class = ltrim($class, '\\');
     $fileName  = '';
