@@ -2,7 +2,6 @@
 namespace Packfire\Test\Mocks;
 
 use Packfire\View\View as CoreView;
-use Packfire\Test\Mocks\SampleModel;
 use Packfire\Model\ObjectObserver;
 
 /**
@@ -16,7 +15,7 @@ use Packfire\Model\ObjectObserver;
  */
 class View extends CoreView {
 
-    public $title;
+    public $name;
 
     public function using($template){
         $this->template($template);
@@ -28,8 +27,8 @@ class View extends CoreView {
             $this->filter($key, 'trim');
         }
         $object = new ObjectObserver($this);
-        $this->bind('binder', $object, 'title');
-        $this->title = 'test2';
+        $this->bind('binder', $object, 'name');
+        $object->name = 'test2';
         $this->define('route', $this->route('home'));
     }
 
