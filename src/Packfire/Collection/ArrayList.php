@@ -7,7 +7,7 @@ use Packfire\Exception\OutOfRangeException;
 
 /**
  * ArrayList class
- * 
+ *
  * A List of Items
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -17,14 +17,14 @@ use Packfire\Exception\OutOfRangeException;
  * @since 1.0-sofia
  */
 class ArrayList implements IList {
-    
+
     /**
      * The internal array that stores the data
      * @var array
      * @since 1.0-sofia
      */
     protected $array = array();
-    
+
     /**
      * Create a new ArrayList object
      * @param ArrayList|array $initialize (optional) If an initializing array or
@@ -76,7 +76,7 @@ class ArrayList implements IList {
 
     /**
      * Clear all the items in the list.
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function clear() {
         $this->array = array();
@@ -123,11 +123,11 @@ class ArrayList implements IList {
         }
         return $index;
     }
-    
+
     /**
      * Get a list of the indexes of an item in the list.
      * @param mixed $item The item to look for.
-     * @return ArrayList Returns the list of indexes. 
+     * @return ArrayList Returns the list of indexes.
      * @since 1.0-sofia
      */
     public function indexesOf($item){
@@ -138,7 +138,7 @@ class ArrayList implements IList {
     }
 
     /**
-     * Get the index of an item from the back of the list. 
+     * Get the index of an item from the back of the list.
      * @param mixed $item The item to look for.
      * @return integer Returns the index of the item from the back if found, or
      *                 NULL if it is not found.
@@ -168,9 +168,9 @@ class ArrayList implements IList {
         $this->array = array_values($this->array);
         return count($keys);
     }
-    
+
     /**
-     * Remove a list of items from the list. If an item occurs multiple counts 
+     * Remove a list of items from the list. If an item occurs multiple counts
      * in the list, all of the instances will be removed as well.
      * @param IList|array|mixed $list,... The list of items to remove.
      * @since 1.0-sofia
@@ -203,7 +203,7 @@ class ArrayList implements IList {
                 );
         }
     }
-    
+
     /**
      * Get an array version of the list
      * @return array Returns the array
@@ -211,7 +211,7 @@ class ArrayList implements IList {
     public function toArray(){
         return $this->array;
     }
-    
+
     /**
      * Get the difference between this collection and another
      * @param IList|array $set The collection to compare against
@@ -228,7 +228,7 @@ class ArrayList implements IList {
         $result->array = array_values($result->array);
         return $result;
     }
-    
+
     /**
      * Get the complement of this list and another ($set).
      * @param IList|array $set The list to complement
@@ -241,7 +241,7 @@ class ArrayList implements IList {
         $list->removeAll($set);
         return $list;
     }
-    
+
     /**
      * Get the intersection of this list and another ($set).
      * @param IList|array $set The list to intersect
@@ -297,7 +297,7 @@ class ArrayList implements IList {
             $this->array = array_merge($list, $this->array);
         }
     }
-    
+
     /**
      * Get the first element on the list
      * @return mixed Returns the first element on the list, or NULL if there is
@@ -307,8 +307,8 @@ class ArrayList implements IList {
     public function first(){
         return $this->count() === 0 ? null : reset($this->array);
     }
-    
-    
+
+
     /**
      * Get the last element on the list
      * @return mixed Returns the last element on the list, or NULL if there is
@@ -318,21 +318,21 @@ class ArrayList implements IList {
     public function last(){
         return $this->count() === 0 ? null : end($this->array);
     }
-    
+
     /**
      * Get the ArrayIterator for PHP foreach access
-     * @return ArrayIterator 
+     * @return ArrayIterator
      * @internal
      * @ignore
      * @since 1.0-sofia
      */
     public function getIterator() {
-        return new ArrayIterator($this->array);
+        return new \ArrayIterator($this->array);
     }
-    
+
     /**
      * For normal array operations
-     * @return boolean 
+     * @return boolean
      * @internal
      * @ignore
      * @since 1.0-sofia
@@ -340,10 +340,10 @@ class ArrayList implements IList {
     public function offsetExists($offset) {
         return $offset >= 0 && $offset < $this->count();
     }
-    
+
     /**
      * For normal array operations
-     * @return mixed 
+     * @return mixed
      * @internal
      * @ignore
      * @since 1.0-sofia
@@ -371,7 +371,7 @@ class ArrayList implements IList {
                 );
         }
     }
-    
+
     /**
      * For normal array operations
      * @internal

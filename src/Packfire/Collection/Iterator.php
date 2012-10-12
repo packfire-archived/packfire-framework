@@ -5,7 +5,7 @@ use Packfire\Collection\KeyValuePair;
 
 /**
  * Iterator class
- * 
+ *
  * Iterator that helps to iterator through a list or array
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -14,8 +14,8 @@ use Packfire\Collection\KeyValuePair;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class Iterator implements Countable {
-    
+class Iterator implements \Countable {
+
     /**
      * The array to iterate through
      * @var IList|array
@@ -105,5 +105,5 @@ class Iterator implements Countable {
     public function count(){
         return count($this->array);
     }
-    
+
 }
