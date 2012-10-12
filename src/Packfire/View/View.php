@@ -195,7 +195,6 @@ abstract class View extends BucketUser implements IView {
      * @since 1.0-sofia
      */
     public function render(){
-        $output = '';
         ob_start();
         $this->create();
         $output = ob_get_contents();
