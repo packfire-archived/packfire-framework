@@ -1,14 +1,9 @@
 <?php
 namespace Packfire\Response;
 
-use JsonResponse;
-use PhpSerializeResponse;
-use XmlResponse;
-use YamlResponse;
-
 /**
  * DataResponse class
- * 
+ *
  * A sugar candy for response creation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -18,14 +13,14 @@ use YamlResponse;
  * @since 1.1-sofia
  */
 class DataResponse {
-    
+
     /**
      * The format type of the response
      * @var string
      * @since 1.1-sofia
      */
     private $type;
-    
+
     /**
      * Create a new DataResponse object
      * @param string $type The format type
@@ -34,7 +29,7 @@ class DataResponse {
     public function __construct($type){
         $this->type = $type;
     }
-    
+
     /**
      * Build the response based on the object and options provided.
      * @param mixed $object The object to be encapsulated
@@ -63,7 +58,7 @@ class DataResponse {
         }
         return $response;
     }
-    
+
     /**
      * Create a response based on the format
      * @param mixed $object The object to be returned to the client
@@ -76,5 +71,5 @@ class DataResponse {
         $response = new self($format);
         return $response->build($object, $options);
     }
-    
+
 }
