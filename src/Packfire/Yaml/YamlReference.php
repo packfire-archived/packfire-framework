@@ -5,7 +5,7 @@ use Packfire\Collection\Map;
 
 /**
  * YamlReference class
- * 
+ *
  * Contains data of a reference map
  * You can access the data directly by $reference[$key] array access.
  *
@@ -15,15 +15,15 @@ use Packfire\Collection\Map;
  * @package Packfire\Yaml
  * @since 1.0-sofia
  */
-class YamlReference implements ArrayAccess {
-    
+class YamlReference implements \ArrayAccess {
+
     /**
      * The data of the reference
      * @var array
      * @since 1.0-sofia
      */
     private $data;
-    
+
     /**
      * Create a new YamlReference object
      * @param array $data The data
@@ -32,7 +32,7 @@ class YamlReference implements ArrayAccess {
     public function __construct($data){
         $this->data = $data;
     }
-    
+
     /**
      * Provide direct attribute get access to the data
      * @param string $name Name of the attribute
@@ -45,7 +45,7 @@ class YamlReference implements ArrayAccess {
             return $this->data[$name];
         }
     }
-    
+
     /**
      * Provide direct attribute set access to the data
      * @param string $name Name of the attribute
@@ -56,7 +56,7 @@ class YamlReference implements ArrayAccess {
     public function __set($name, $value) {
         $this->data[$name] = $value;
     }
-    
+
     /**
      * Get a Map of the data
      * @return Map Returns a Map of the data
@@ -65,22 +65,22 @@ class YamlReference implements ArrayAccess {
     public function map(){
         return new Map($this->data);
     }
-    
+
     /**
      * Array access, internal, implementation of ArrayAccess
      * @param mixed $offset
-     * @return boolean 
+     * @return boolean
      * @internal
      * @since 1.0-sofia
      */
     public function offsetExists($offset) {
         return array_key_exists($offset, $this->data);
     }
-    
+
     /**
      * Array access, internal, implementation of ArrayAccess
      * @param mixed $offset
-     * @return mixed 
+     * @return mixed
      * @internal
      * @since 1.0-sofia
      */
@@ -90,7 +90,7 @@ class YamlReference implements ArrayAccess {
         }
         return null;
     }
-    
+
     /**
      * Array access, internal, implementation of ArrayAccess
      * @param mixed $offset
@@ -105,7 +105,7 @@ class YamlReference implements ArrayAccess {
             $this->data[$offset] = $value;
         }
     }
-    
+
     /**
      * Array access, internal, implementation of ArrayAccess
      * @param mixed $offset
