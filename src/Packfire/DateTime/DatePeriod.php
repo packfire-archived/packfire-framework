@@ -6,7 +6,7 @@ use Packfire\DateTime\TimeSpan;
 
 /**
  * DatePeriod class
- * 
+ *
  * A date period representation
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -15,55 +15,55 @@ use Packfire\DateTime\TimeSpan;
  * @package Packfire\DateTime
  * @since 1.0-sofia
  */
-class DatePeriod implements Iterator {
-    
+class DatePeriod implements \Iterator {
+
     /**
      * The interval
      * @var TimeSpan
      * @since 1.0-sofia
      */
     private $interval;
-    
+
     /**
      * The start date
-     * @var DateTime 
+     * @var DateTime
      * @since 1.0-sofia
      */
     private $startDate;
-    
+
     /**
      * Number of occurances
      * @var integer
      * @since 1.0-sofia
      */
     private $occurances;
-    
+
     /**
      * The end date
      * @var DateTime
      * @since 1.0-sofia
      */
     private $endDate;
-    
+
     /**
      * Counter
      * @var integer
      * @since 1.0-sofia
      */
     private $count;
-    
+
     /**
      * The working date
      * @var DateTime
      * @since 1.0-sofia
      */
     private $workingDate;
-    
+
     /**
      * Create a new DatePeriod object
      * @param DateTime $startDate The start date
      * @param TimeSpan $interval The interval between dates
-     * @param integer|DateTime $endDateOrOccurances The number of occurance 
+     * @param integer|DateTime $endDateOrOccurances The number of occurance
      *          or end date
      * @since 1.0-sofia
      */
@@ -76,7 +76,7 @@ class DatePeriod implements Iterator {
             $this->occurances = $endDateOrOccurances;
         }
     }
-    
+
     /**
      * Get the start date
      * @return DateTime Returns the start date
@@ -85,16 +85,16 @@ class DatePeriod implements Iterator {
     public function startDate(){
         return $this->startDate;
     }
-    
+
     /**
      * Get the interval between dates
      * @return TimeSpan Returns the interval
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function interval(){
         return $this->interval;
     }
-    
+
     /**
      * Get the end date
      * @return DateTime Returns the end date if set, NULL otherwise.
@@ -103,16 +103,16 @@ class DatePeriod implements Iterator {
     public function endDate(){
         return $this->endDate;
     }
-    
+
     /**
      * Get the number of occurrances
      * @return integer Returns the number of occurrances if set, NULL otherwise.
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function occurrances(){
-        
+
     }
-    
+
     public function current() {
         return $this->workingDate;
     }
@@ -136,5 +136,5 @@ class DatePeriod implements Iterator {
             ($this->endDate instanceof DateTime &&
                 $this->endDate->compareTo($this->workingDate) === 1);
     }
-    
+
 }
