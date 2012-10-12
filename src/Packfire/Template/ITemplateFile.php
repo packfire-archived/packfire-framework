@@ -14,7 +14,7 @@ use Packfire\Template\ITemplate;
  * @package Packfire\Template
  * @since 1.1-sofia
  */
-interface ITemplateFile extends ITemplate {
+interface ITemplateFile {
     
     /**
      * Create a new file template object
