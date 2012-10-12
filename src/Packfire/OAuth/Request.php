@@ -14,7 +14,7 @@ use Packfire\OAuth\IHttpEntity;
 
 /**
  * Request class
- * 
+ *
  * OAuth Request
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -24,14 +24,14 @@ use Packfire\OAuth\IHttpEntity;
  * @since 1.1-sofia
  */
 class Request extends HttpRequest implements IHttpEntity {
-    
+
     /**
      * The OAuth parameters
      * @var Map
      * @since 1.1-sofia
      */
     private $oauthParams;
-    
+
     /**
      * Create a new Request object
      * @since 1.1-sofia
@@ -41,7 +41,7 @@ class Request extends HttpRequest implements IHttpEntity {
         $this->oauthParams = new Map();
         $this->oauthParams->add(OAuth::VERSION, '1.0');
     }
-    
+
     /**
      * Preload the OAuth request from another HTTP request
      * @param HttpRequest $request The request to load data from
@@ -62,7 +62,7 @@ class Request extends HttpRequest implements IHttpEntity {
         $this->body = $request->body;
         $this->loadOAuthParameters();
     }
-    
+
     /**
      * Get or set the OAuth parameters
      * @param string $key The OAuth parameter key
@@ -78,7 +78,7 @@ class Request extends HttpRequest implements IHttpEntity {
             return $this->oauthParams->get($key);
         }
     }
-    
+
     /**
      * Parse the string format of the HTTP request into this object
      * @param string $strRequest The string to be parsed
@@ -88,7 +88,7 @@ class Request extends HttpRequest implements IHttpEntity {
         parent::parse($strRequest);
         $this->loadOAuthParameters();
     }
-    
+
     protected function loadOAuthParameters(){
         foreach($this->get as $key => $value){
             if(substr($key, 0, 5) == 'oauth'){
@@ -123,7 +123,7 @@ class Request extends HttpRequest implements IHttpEntity {
             );
         }
     }
-    
+
     /**
      * Get the base signature of the request
      * @return string Returns the generated base signature
@@ -132,11 +132,11 @@ class Request extends HttpRequest implements IHttpEntity {
     public function signatureBase(){
         // Grab all parameters
         $params = new Map($this->get);
-        
+
         if(!$this->method() == HttpMethod::POST){
             $params->append($this->post);
         }
-        
+
         $params->append($this->oauthParams);
 
         // Remove oauth_signature if present
@@ -144,24 +144,24 @@ class Request extends HttpRequest implements IHttpEntity {
         if ($params->keyExists('oauth_signature')) {
             $params->removeAt('oauth_signature');
         }
-        
+
         $kparams = $params->toArray();
         ksort($kparams);
-        
+
         $url = $this->url();
         $url->params(array()); // no GET parameters in URL for base signature
-        
+
         $headerData = array($this->method, (string)$url);
-        
+
         $pData = array();
         foreach($kparams as $key => $value){
             $pData[] = sprintf('%s=%s', $key, $value);
         }
         $headerData[] = implode('&', $pData);
-        
+
         return implode('&', Helper::urlencode($headerData)) ;
     }
-    
+
     /**
      * Get or set the method of the HTTP request
      * @param string $m (optional) Set the method
@@ -174,7 +174,7 @@ class Request extends HttpRequest implements IHttpEntity {
         }
         return $this->method;
     }
-    
+
     /**
      * Build the authorization header
      * @return string Returns the constructed header string value
@@ -192,7 +192,7 @@ class Request extends HttpRequest implements IHttpEntity {
         }
         return 'OAuth ' . implode(', ', $params);
     }
-    
+
     /**
      * Sign this request for OAuth interaction
      * @param string $method The name of the method to use to sign this request
@@ -202,11 +202,7 @@ class Request extends HttpRequest implements IHttpEntity {
      * @since 1.1-sofia
      */
     public function sign($method, $consumer, $tokenSecret = null){
-        try{
-            $sigMethod = Signature::load($method);
-        }catch(MissingDependencyException $ex){
-        
-        }
+        $sigMethod = Signature::load($method);
         if(!$sigMethod){
             throw new InvalidArgumentException(
                     'Request::sign',
@@ -221,5 +217,5 @@ class Request extends HttpRequest implements IHttpEntity {
         $this->oauth(OAuth::TIMESTAMP, time());
         $this->oauth(OAuth::SIGNATURE, $signer->build());
     }
-    
+
 }
