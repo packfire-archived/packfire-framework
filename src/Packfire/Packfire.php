@@ -51,7 +51,7 @@ class Packfire {
         require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassLoader.php');
 
         $finder = new ClassFinder();
-        $finder->addNamespace('Packfire', 'src');
+        $finder->addNamespace('Packfire', dirname(__DIR__));
         $loader = new ClassLoader($finder);
         $loader->register();
     }
