@@ -24,19 +24,18 @@ class ClassFinder {
     /**
      * Assign a directory to load from for a namespace
      * @param string $namespace The namespace to be loaded
-     * @param array|\Packfire\Core\ClassLoader\IList $path The path(s) to look in for the namespace loading
+     * @param array|\Packfire\Collection\ArrayList $path The path(s) to look in for the namespace loading
      * @since 2.0.0
      */
     public function addNamespace($namespace, $path){
-        if(!isset($this->namespaces[$namespace])){
-            $this->namespaces[$namespace] = array();
-        }
-        if(is_array($path) || $path instanceof Packfire\Collection\IList){
-            foreach($path as $sPath){
-                $this->namespaces[$namespace][] = $sPath;
+        if(isset($this->namespaces[$namespace])){
+            if($path instanceof Packfire\Collection\ArrayList){
+                $path = $path->toArray();
             }
+            $this->namespaces[$namespace] = 
+                    array_merge($this->namespaces[$namespace], (array)$path);
         }else{
-            $this->namespaces[$namespace][] = $path;
+            $this->namespaces[$namespace] = (array)$path;
         }
     }
     
