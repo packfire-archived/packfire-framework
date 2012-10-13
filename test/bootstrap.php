@@ -12,8 +12,9 @@ call_user_func(function(){
     
     require('src/Packfire/constants.php');
 
-    require('src/Packfire/Core/ClassLoader/ClassFinder.php');
     require('src/Packfire/Core/ClassLoader/IClassLoader.php');
+    require('src/Packfire/Core/ClassLoader/IClassFinder.php');
+    require('src/Packfire/Core/ClassLoader/ClassFinder.php');
     require('src/Packfire/Core/ClassLoader/ClassLoader.php');
 
     $finder = new ClassFinder();
