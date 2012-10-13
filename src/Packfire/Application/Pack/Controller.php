@@ -43,9 +43,7 @@ abstract class Controller extends CoreController {
             
             // todo autoloading
             $class = $name . $func . 'View';
-            if(class_exists($class)){
-                $view = new $class();
-            }
+            $view = new $class();
         }
         if($view instanceof IView){
             parent::render($view);
