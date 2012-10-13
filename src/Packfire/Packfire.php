@@ -14,6 +14,8 @@ use Packfire\Application\Http\Response as HttpResponse;
 use Packfire\IO\File\Stream as FileStream;
 use Packfire\DateTime\DateTime;
 use Packfire\Exception\ErrorException;
+use Packfire\Core\ClassLoader\ClassLoader;
+use Packfire\Core\ClassLoader\ClassFinder;
 
 /**
  * Packfire class
@@ -28,6 +30,31 @@ use Packfire\Exception\ErrorException;
  * @since 1.0-sofia
  */
 class Packfire {
+    
+    /**
+     * Create a new Packfire object
+     * @since 2.0.0
+     */
+    public function __construct(){
+        $this->classLoader();
+    }
+    
+    /**
+     * Load the framework class loader 
+     * @since 2.0.0
+     */
+    protected function classLoader(){
+        require(__DIR__ . DIRECTORY_SEPARATOR . 'constants.php');
+        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassLoader.php');
+        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassFinder.php');
+        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassFinder.php');
+        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassLoader.php');
+
+        $finder = new ClassFinder();
+        $finder->addNamespace('Packfire', 'src');
+        $loader = new ClassLoader($finder);
+        $loader->register();
+    }
 
     /**
      * Start the framework execution
@@ -36,9 +63,6 @@ class Packfire {
      * @since 1.0-sofia
      */
     public function fire($app){
-        if(!defined('__PACKFIRE_START__')){
-            define('__PACKFIRE_START__', DateTime::microtime());
-        }
         set_error_handler(function($errno, $errstr, $errfile, $errline){
             $e = new ErrorException($errstr);
             $e->setCode($errno);
