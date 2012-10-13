@@ -1,24 +1,23 @@
 <?php
 
-define('__PACKFIRE_START__', microtime(true));
+use Packfire\Core\ClassLoader\ClassLoader;
+use Packfire\Core\ClassLoader\ClassFinder;
 
+define('__PACKFIRE_START__', microtime(true));
 define('__APP_ROOT__', '');
 
-set_include_path(realpath(__DIR__ . '/../src')
-        . PATH_SEPARATOR . get_include_path());
+call_user_func(function(){
+    set_include_path(realpath(__DIR__ . DIRECTORY_SEPARATOR . '..')
+            . PATH_SEPARATOR . get_include_path());
+    
+    require('src/Packfire/constants.php');
 
-include('Packfire/constants.php');
-spl_autoload_register(function($class) {
-    $class = ltrim($class, '\\');
-    $fileName  = '';
-    $namespace = '';
-    $lastNsPos = strrpos($class, '\\');
-    if($lastNsPos){
-        $namespace = substr($class, 0, $lastNsPos);
-        $class = substr($class, $lastNsPos + 1);
-        $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace)
-                . DIRECTORY_SEPARATOR;
-    }
-    $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
-    require_once($fileName);
+    require('src/Packfire/Core/ClassLoader/ClassFinder.php');
+    require('src/Packfire/Core/ClassLoader/IClassLoader.php');
+    require('src/Packfire/Core/ClassLoader/ClassLoader.php');
+
+    $finder = new ClassFinder();
+    $finder->addNamespace('Packfire', 'src');
+    $loader = new ClassLoader($finder);
+    $loader->register();
 });

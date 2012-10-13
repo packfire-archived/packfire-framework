@@ -1,5 +1,5 @@
 <?php
-include('Packfire/helper.php');
+include('src/Packfire/helper.php');
 
 /**
  * Test class for helper class.
