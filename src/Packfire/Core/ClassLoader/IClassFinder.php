@@ -6,7 +6,7 @@ namespace Packfire\Core\ClassLoader;
  * 
  * Provides interface for class finding
  *
- * @author SamMauris Yong / mauris@hotmail.sg
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 20102012, SamMauris Yong
  * @license http://www.opensource.org/licenses/bsdlicense New BSD License
  * @package Packfire\Core\ClassLoader
