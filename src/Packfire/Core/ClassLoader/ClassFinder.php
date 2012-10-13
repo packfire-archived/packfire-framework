@@ -12,7 +12,7 @@ namespace Packfire\Core\ClassLoader;
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0
  */
-class ClassFinder {
+class ClassFinder implements IClassFinder {
     
     /**
      * The collection of namespace directories
