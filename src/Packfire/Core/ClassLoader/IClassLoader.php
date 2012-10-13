@@ -14,10 +14,25 @@ namespace Packfire\Core\ClassLoader;
  */
 interface IClassLoader {
     
+    /**
+     * Register this class loader
+     * @param boolean $prepend (optional) Set whether this autoloader will be
+     *          prepended to the autoloader stack. Defaults to false.
+     * @since 2.0.0
+     */
     public function register($prepend = false);
     
+    /**
+     * Unregister this class loader
+     * @since 2.0.0
+     */
     public function unregister();
     
+    /**
+     * Load a class
+     * @param string $class The full class name to load
+     * @since 2.0.0
+     */
     public function load($class);
     
 }
