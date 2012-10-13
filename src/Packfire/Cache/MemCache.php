@@ -3,6 +3,8 @@ namespace Packfire\Cache;
 
 use Packfire\Cache\ICache;
 use Packfire\Exception\MissingDependencyException;
+use Packfire\DateTime\DateTime;
+use Packfire\DateTime\TimeSpan;
 
 if(!class_exists('\Memcache')){
     throw new MissingDependencyException('MemCache requires the Memcache extension in order to run properly.');
@@ -23,7 +25,7 @@ class MemCache implements ICache {
     
     /**
      * The Memcache instance
-     * @var Memcache
+     * @var \Memcache
      * @since 1.0-sofia
      */
     private $memcache;
@@ -98,19 +100,24 @@ class MemCache implements ICache {
      * Store the cache value uniquely identified by the identifier with expiry
      * @param string $cacheId The identifier of the cache value
      * @param mixed $value The cache value to store
-     * @param DateTime|TimeSpan $expiry The date time or period of time to 
-     *              expire the cache value.
+     * @param DateTime|TimeSpan $expiry (optional) The date time or period of 
+     *          time to expire the cache value. If not set, the item will 
+     *          never expire.
      * @since 1.0-sofia
      */
     public function set($cacheId, $value, $expiry) {
-        if($expiry instanceof DateTime){
-            $expiry = $expiry->toTimestamp();
-        }else if($expiry instanceof TimeSpan){
-            $expiry = time() + $expiry->totalSeconds();
+        if(func_num_args() == 3){
+            if($expiry instanceof DateTime){
+                $expiry = $expiry->toTimestamp() - time();
+            }else if($expiry instanceof TimeSpan){
+                $expiry = $expiry->totalSeconds();
+            }else{
+                $expiry = 3600; // default to 1 hour cache?
+            }
+            $this->memcache->set($cacheId, $value, 0, $expiry);
         }else{
-            $expiry = time() + 3600; // default to 1 hour cache?
+            $this->memcache->set($cacheId, $value, 0);
         }
-        $this->memcache->set($cacheId, $value, 0, $expiry);
     }
     
 }

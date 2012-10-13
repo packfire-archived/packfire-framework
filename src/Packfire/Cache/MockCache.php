@@ -86,11 +86,12 @@ class MockCache implements ICache {
      * Store the cache value uniquely identified by the identifier with expiry
      * @param string $cacheId The identifier of the cache value
      * @param mixed $value The cache value to store
-     * @param DateTime|TimeSpan $expiry The date time or period of time to 
-     *              expire the cache value.
+     * @param DateTime|TimeSpan $expiry (optional) The date time or period of 
+     *          time to expire the cache value. If not set, the item will 
+     *          never expire.
      * @since 1.0-sofia
      */
-    public function set($cacheId, $value, $expiry) {
+    public function set($cacheId, $value, $expiry = null) {
         $this->store->add($cacheId, $value);
     }
     
