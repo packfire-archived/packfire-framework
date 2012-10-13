@@ -2,9 +2,9 @@
 namespace Packfire\Core\ClassLoader;
 
 /**
- * IClassLoader interface
+ * IClassFinder interface
  * 
- * Provides interface for class loading
+ * Provides interface for class finding
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
@@ -12,12 +12,8 @@ namespace Packfire\Core\ClassLoader;
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0
  */
-interface IClassLoader {
+interface IClassFinder {
     
-    public function register($prepend = false);
-    
-    public function unregister();
-    
-    public function load($class);
+    public function find($class);
     
 }
