@@ -50,9 +50,9 @@ class Request extends ClientRequest implements IAppRequest {
         if($server){
             $this->scriptName = $server['SCRIPT_NAME'];
             $this->phpSelf = $server['PHP_SELF'];
-            if(array_key_exists('ORIG_PATH_INFO', $server)){
+            if(isset($server['ORIG_PATH_INFO'])){
                 $this->pathInfo = $server['ORIG_PATH_INFO'];
-            }elseif(array_key_exists('PATH_INFO', $server)){
+            }elseif(isset($server['PATH_INFO'])){
                 $this->pathInfo = $server['PATH_INFO'];
             }else{
                 if($this->scriptName == $this->phpSelf){

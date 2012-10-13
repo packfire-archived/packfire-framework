@@ -80,7 +80,7 @@ abstract class Config implements IConfig {
         $data = $this->data;
         foreach($keys as $key){
             if(is_array($data)){
-                if(array_key_exists($key, $data)){
+                if(isset($data[$key])){
                     $data = $data[$key];
                 }else{
                     $data = null;

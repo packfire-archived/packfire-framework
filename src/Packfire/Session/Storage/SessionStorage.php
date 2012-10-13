@@ -147,7 +147,7 @@ class SessionStorage implements ISessionStorage {
         $this->overallBucket->load($data);
 
         foreach($this->buckets as $id => $bucket){
-            if(!array_key_exists($id, $data)){
+            if(!isset($data[$id])){
                 $data[$id] = array();
             }
             $bucket->load($data[$id]);

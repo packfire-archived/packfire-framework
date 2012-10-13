@@ -139,7 +139,7 @@ class Dijkstra {
      * @since 1.0-sofia
      */
     private function reorder(&$map, $vertex){
-        if(array_key_exists($vertex->id(), $map)){
+        if(isset($map[$vertex->id()])){
             unset($map[$vertex->id()]);
             reset($map);
             $point = 0;

@@ -41,7 +41,7 @@ class YamlReference implements \ArrayAccess {
      * @since 1.0-sofia
      */
     public function __get($name){
-        if(array_key_exists($name, $this->data)){
+        if(isset($this->data[$name])){
             return $this->data[$name];
         }
     }
@@ -85,10 +85,7 @@ class YamlReference implements \ArrayAccess {
      * @since 1.0-sofia
      */
     public function offsetGet($offset) {
-        if(array_key_exists($offset, $this->data)){
-            return $this->data[$offset];
-        }
-        return null;
+        return $this->$offset;
     }
 
     /**

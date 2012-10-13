@@ -88,7 +88,7 @@ abstract class Route implements IRoute {
                 $this->validateArray($rule, $data, $param, $validation);
             }else{
                 $param = null;
-                if(array_key_exists($key, $data)){
+                if(isset($data[$key])){
                     $param = $data[$key];
                 }
                 $validation = $this->validateParam($rule, $param, $data);
@@ -207,7 +207,7 @@ abstract class Route implements IRoute {
                     $validator->add(new RegexValidator($options));
                     break;
                 case 'param':
-                    $match = array_key_exists($options, $data)
+                    $match = isset($data[$options])
                                     ? $data[$options] : null;
                     $validator->add(new MatchValidator($match));
                     break;

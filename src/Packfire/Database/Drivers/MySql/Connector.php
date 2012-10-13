@@ -32,7 +32,7 @@ class Connector extends PdoConnector {
             'binary' => 'blob',
             'boolean' => 'tinyint(1)'
         );
-        if(array_key_exists($type, $types)){
+        if(isset($types[$type])){
             return $types[$type];
         }
         return $type;
@@ -48,7 +48,7 @@ class Connector extends PdoConnector {
      */
     public function database(){
         $database = new Database($this);
-        if(array_key_exists('dbname', $this->config) && $this->config['dbname']){
+        if(isset($this->config['dbname']) && $this->config['dbname']){
             $database = $database->select($this->config['dbname']);
         }
         return $database;

@@ -157,7 +157,7 @@ class Inflector {
         $lc = strtolower($word);
         
         // already a singular, return it!
-        if(array_key_exists($lc, self::$irregularPlural)){
+        if(isset(self::$irregularPlural[$lc])){
             return $word;
         }
         
@@ -215,7 +215,7 @@ class Inflector {
         }
         
         // check for special words
-        if(array_key_exists($lc, self::$irregularPlural)){
+        if(isset(self::$irregularPlural[$lc])){
             return self::retainForm($word, self::$irregularPlural[$lc]);
         }
         

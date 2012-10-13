@@ -27,7 +27,7 @@ class ConfigFactory {
     public function load($file, $default = null){
         $map = ConfigType::typeMap();
         $ext = Path::extension($file);
-        if(array_key_exists($ext, $map)){
+        if(isset($map[$ext])){
             $class = 'Packfire\\Config\\Driver\\' . $map[$ext];
             return new $class($file, $default);
         }else{

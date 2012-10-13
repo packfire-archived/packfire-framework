@@ -72,7 +72,7 @@ class ActionInvoker {
         $pass = array();
         foreach($reflection->getParameters() as $param){
             /* @var $param ReflectionParameter */
-            if(array_key_exists($param->getName(), $params)){
+            if(isset($params[$param->getName()])){
                 $pass[] = $params[$param->getName()];
             }elseif($param->isOptional()){
                 try{

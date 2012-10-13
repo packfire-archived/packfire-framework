@@ -46,7 +46,7 @@ abstract class PdoConnector extends BucketUser implements IConnector {
         $this->config = $config;
         $username = $config['user'];
         $password = $config['password'];
-        if(array_key_exists('dbname', $config) && $config['dbname']){
+        if(isset($config['dbname']) && $config['dbname']){
             $dsn = sprintf('%s:host=%s;dbname=%s', $config['driver'], $config['host'], $config['dbname']);
             unset($config['dbname']);
         }else{
