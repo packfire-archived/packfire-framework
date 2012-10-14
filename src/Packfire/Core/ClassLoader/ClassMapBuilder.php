@@ -4,6 +4,17 @@ namespace Packfire\Core\ClassLoader;
 use Packfire\Collection\Iterator;
 use Packfire\IO\File\Path;
 
+/**
+ * ClassMapBuilder class
+ * 
+ * Helps to build an array of classes with namespaces and paths
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package Packfire\Core\ClassLoader
+ * @since 2.0.0
+ */
 class ClassMapBuilder {
     
     /**
