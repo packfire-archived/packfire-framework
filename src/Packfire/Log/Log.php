@@ -1,6 +1,7 @@
 <?php
 namespace Packfire\Log;
 
+use Packfire\IO\File\File;
 use Packfire\IO\File\IFile;
 use Packfire\Template\Template;
 
