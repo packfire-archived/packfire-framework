@@ -25,7 +25,7 @@ class File implements IFile {
      * @var string
      * @since 1.0-sofia
      */
-    private $pathname;
+    protected $pathname;
 
     /**
      * Create a new File object
@@ -264,4 +264,13 @@ class File implements IFile {
         return new FileStream($this->pathname);
     }
 
+    /**
+     * Get the pathname of the file
+     * @return string Returns the pathname to the file
+     * @since 2.0.0
+     */
+    public function __toString(){
+        return $this->pathname;
+    }
+    
 }
