@@ -27,9 +27,18 @@ class ClassMapBuilder {
                     if (!is_string($token)) {
                         list($id, $text) = $token;
                         if ($id == T_NAMESPACE) {
+                            $ns = '';
                             $iterator->next();
-                            list($id, $text) = $iterator->next();
-                            $namespace = $text;
+                            while($iterator->more()){
+                                $token = $iterator->next();
+                                if($token == ';'){
+                                    break;
+                                }elseif(!is_string($token)){
+                                    list($id, $text) = $token;
+                                    $ns .= $text;
+                                }
+                            }
+                            $namespace = $ns;
                         }
                         if ($id == T_CLASS) {
                             $iterator->next();
