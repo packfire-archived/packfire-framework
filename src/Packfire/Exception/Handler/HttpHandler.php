@@ -2,7 +2,6 @@
 namespace Packfire\Exception\Handler;
 
 use Packfire\Exception\Handler\IHandler;
-use Packfire\Exception\Handler\ExceptionView;
 use Packfire\IoC\BucketUser;
 
 /**
@@ -44,7 +43,7 @@ class HttpHandler extends BucketUser implements IHandler {
         
         $class = $this->view;
         if(!$class){
-            $class = 'ExceptionView';
+            $class = 'Packfire\Exception\Handler\ExceptionView';
         }
         $view = new $class($exception);
         $view->copyBucket($this);
