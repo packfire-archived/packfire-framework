@@ -205,5 +205,11 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     public function testClassPathName() {
         $this->assertEquals(__FILE__, Path::classPathName('Packfire\IO\File\PathTest'));
     }
+    
+    public function testRelativePath(){
+        $this->assertEquals('./root/b/b.php', Path::relativePath('/home/a.php', '/home/root/b/b.php'));
+        $this->assertEquals('../../root/b/b.php', Path::relativePath('/home/apache/a/a.php', '/home/root/b/b.php'));
+        $this->assertEquals('../../apache/htdocs/b/en/b.php', Path::relativePath('/home/root/a/a.php', '/home/apache/htdocs/b/en/b.php'));
+    }
 
 }
