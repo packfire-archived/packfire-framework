@@ -10,7 +10,7 @@ use Packfire\Collection\Sort\IComparator;
 class SortedListTest extends \PHPUnit_Framework_TestCase implements IComparator {
 
     /**
-     * @var pSortedList
+     * @var SortedList
      */
     protected $object;
 
