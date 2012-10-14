@@ -40,7 +40,10 @@ class ClassLoader implements IClassLoader {
      * @since 2.0.0
      */
     public function load($class) {
-        require($this->finder->find($class));
+        $file = $this->finder->find($class);
+        if($file){
+            require $file;
+        }
     }
 
     /**
