@@ -1,8 +1,6 @@
 <?php
 namespace Packfire\Core\ClassLoader;
 
-use Packfire\Exception\MissingDependencyException;
-
 /**
  * ClassFinder class
  * 
@@ -62,11 +60,7 @@ class ClassFinder implements IClassFinder {
             }
         }
 
-        $file = stream_resolve_include_path($fileName);
-        if(!$file){
-            throw new MissingDependencyException('File not found for ' . $class);
-        }
-        return $file;
+        return stream_resolve_include_path($fileName);
     }
     
 }
