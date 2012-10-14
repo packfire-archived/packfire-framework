@@ -167,9 +167,9 @@ class PathTest extends \PHPUnit_Framework_TestCase {
      * @covers Path::path
      */
     public function testPath() {
-        $this->assertEquals('C:' . DIRECTORY_SEPARATOR . 'michael' . DIRECTORY_SEPARATOR . 'jackson' . DIRECTORY_SEPARATOR . 'this_is_it',
+        $this->assertEquals(Path::normalize('C:\\michael\\jackson\\this_is_it'),
                 Path::path('C:\\michael\\jackson\\this_is_it\\test.bak'));
-        $this->assertEquals('' . DIRECTORY_SEPARATOR . 'opt' . DIRECTORY_SEPARATOR . 'ion' . DIRECTORY_SEPARATOR . 'is' . DIRECTORY_SEPARATOR . 'not' . DIRECTORY_SEPARATOR . 'yours',
+        $this->assertEquals(Path::normalize('/opt/ion/is/not/yours'),
                 Path::path('/opt/ion/is/not/yours/test.bin'));
         $this->assertEquals('jordan', Path::path('jordan\\test.bak'));
         $this->assertEquals('runner', Path::path('runner/test.bin'));
@@ -206,10 +206,13 @@ class PathTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(__FILE__, Path::classPathName('Packfire\IO\File\PathTest'));
     }
     
+    /**
+     * @covers Path::relativePath
+     */
     public function testRelativePath(){
-        $this->assertEquals('./root/b/b.php', Path::relativePath('/home/a.php', '/home/root/b/b.php'));
-        $this->assertEquals('../../root/b/b.php', Path::relativePath('/home/apache/a/a.php', '/home/root/b/b.php'));
-        $this->assertEquals('../../apache/htdocs/b/en/b.php', Path::relativePath('/home/root/a/a.php', '/home/apache/htdocs/b/en/b.php'));
+        $this->assertEquals(Path::normalize('root/b/b.php'), Path::relativePath('/home/a.php', '/home/root/b/b.php'));
+        $this->assertEquals(Path::normalize('../../root/b/b.php'), Path::relativePath('/home/apache/a/a.php', '/home/root/b/b.php'));
+        $this->assertEquals(Path::normalize('../../apache/htdocs/b/en/b.php'), Path::relativePath('/home/root/a/a.php', '/home/apache/htdocs/b/en/b.php'));
     }
 
 }
