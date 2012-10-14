@@ -15,7 +15,7 @@ use Packfire\IO\File\Stream as FileStream;
 use Packfire\DateTime\DateTime;
 use Packfire\Exception\ErrorException;
 use Packfire\Core\ClassLoader\ClassLoader;
-use Packfire\Core\ClassLoader\ClassFinder;
+use Packfire\Core\ClassLoader\PackfireClassFinder;
 
 /**
  * Packfire class
@@ -47,11 +47,10 @@ class Packfire {
         require(__DIR__ . DIRECTORY_SEPARATOR . 'constants.php');
         require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassLoader.php');
         require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassFinder.php');
-        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassFinder.php');
+        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/PackfireClassFinder.php');
         require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassLoader.php');
 
-        $finder = new ClassFinder();
-        $finder->addNamespace('Packfire', dirname(__DIR__));
+        $finder = new PackfireClassFinder();
         $loader = new ClassLoader($finder);
         $loader->register();
     }
