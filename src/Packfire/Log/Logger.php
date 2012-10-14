@@ -1,8 +1,6 @@
 <?php
 namespace Packfire\Log;
 
-use Packfire\Linq\Query\ILogger;
-use Packfire\Linq\Query\Log;
 use Packfire\IO\File\Path;
 use Packfire\IO\File\File;
 use Packfire\DateTime\DateTime;
