@@ -334,5 +334,43 @@ class Path {
         }
         return null;
     }
+    
+    /**
+     * Get the relative path from one to another.
+     * 
+     * Giving thanks to Gordon on Stack Overflow for his implementation on this:
+     * 
+     *     http://stackoverflow.com/questions/2637945/getting-relative-path-from-absolute-path-in-php
+     * 
+     * @param string $from The path to relate to
+     * @param string $to The path to traverse to
+     * @return string Returns the relative path from $from to $to
+     * @since 2.0.0
+     */
+    public static function relativePath($from, $to){
+        $from = explode(DIRECTORY_SEPARATOR, self::normalize($from));
+        $to = explode(DIRECTORY_SEPARATOR, self::normalize($to));
+        $relPath = $to;
+
+        foreach($from as $depth => $dir) {
+            // find first non-matching dir
+            if($dir == $to[$depth]) {
+                // ignore this directory
+                array_shift($relPath);
+            } else {
+                // get number of remaining dirs to $from
+                $remaining = count($from) - $depth;
+                if($remaining > 1) {
+                    // add traversals up to first matching dir
+                    $padLength = (count($relPath) + $remaining - 1) * -1;
+                    $relPath = array_pad($relPath, $padLength, '..');
+                    break;
+                } else {
+                    $relPath[0] = $relPath[0];
+                }
+            }
+        }
+        return implode(DIRECTORY_SEPARATOR, $relPath);
+    }
 
 }
