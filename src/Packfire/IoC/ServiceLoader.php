@@ -1,6 +1,7 @@
 <?php
 namespace Packfire\IoC;
 
+use Packfire\Collection\Map;
 use Packfire\IoC\ILoadable;
 use Packfire\Exception\ServiceException;
 use Packfire\Config\Framework\IoCConfig;

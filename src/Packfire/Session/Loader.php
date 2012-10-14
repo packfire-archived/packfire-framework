@@ -6,7 +6,7 @@ use Packfire\Session\Storage\SessionStorage;
 use Packfire\Session\Session;
 
 /**
- * SessionLoader class
+ * Loader class
  * 
  * Performs loading for the session and its storage method
  *
@@ -16,7 +16,7 @@ use Packfire\Session\Session;
  * @package packfire.session
  * @since 1.0-sofia
  */
-class SessionLoader extends BucketLoader {
+class Loader extends BucketLoader {
     
     public function load(){
         $storageId = 'session.storage';
