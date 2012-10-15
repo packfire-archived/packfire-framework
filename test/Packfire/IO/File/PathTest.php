@@ -196,7 +196,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
      */
     public function testScriptPath() {
         $this->assertNotEmpty(Path::scriptPath());
-        $this->assertEquals(dirname($_SERVER['SCRIPT_NAME']), Path::scriptPath());
+        $this->assertEquals(Path::normalize(dirname($_SERVER['SCRIPT_NAME'])), Path::scriptPath());
     }
 
     /**
