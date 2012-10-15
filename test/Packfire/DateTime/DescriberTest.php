@@ -26,7 +26,9 @@ class DescriberTest extends \PHPUnit_Framework_TestCase {
     }
     
     public function testListing(){
+        $this->assertTrue($this->object->listing());
         $this->object->listing(false);
+        $this->assertFalse($this->object->listing());
         $dt1 = new DateTime(2012, 10, 11, 11, 30, 00);
         $dt2 = new DateTime(2012, 10, 15, 12, 35, 00);
         $this->assertEquals('4 days 1 hour 5 mins', $this->object->describe($dt1, $dt2));
