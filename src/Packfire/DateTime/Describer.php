@@ -4,17 +4,33 @@ namespace Packfire\DateTime;
 use Packfire\Text\Inflector;
 use Packfire\Text\Text;
 
+/**
+ * Describer class
+ * 
+ * Describes the period of time span between two DateTime objects
+ *
+ * @author Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @license http://www.opensource.org/licenses/bsd-license New BSD License
+ * @package Packfire\DateTime
+ * @since 2.0.0
+ */
 class Describer {
     
     /**
-     * The components of the 
+     * The components of the time span
      * @var array
      * @since 2.0.0
      */
     private $components = array('day', 'hour', 'minute', 'second');
     
+    /**
+     * The verbs to be used 
+     * @var string
+     * @since 2.0.0
+     */
     private $verbs = array('day' => 'day', 'hour' => 'hour',
-        'minute' => 'min', 'second' => 'sec');
+        'minute' => 'min', 'second' => 'sec', 'and' => 'and', 'comma' => ', ');
     
     /**
      * Flag whether textual listing is performed on the output description
@@ -99,7 +115,9 @@ class Describer {
                     }
                 }
             }
-            return $this->listing ? Text::listing($desc) : implode(' ', $desc);
+            return $this->listing
+                    ? Text::listing($desc, $this->verbs['and'], $this->verbs['comma'])
+                    : implode(' ', $desc);
         }
     }
     

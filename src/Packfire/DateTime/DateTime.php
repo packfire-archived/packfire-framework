@@ -99,7 +99,7 @@ class DateTime extends Date {
             $year--;
         }
         $century = (int)($year / 100);
-        $year = $year % 100;
+        $year %= 100;
         $t = $this->day() + (int)(26 * ($month + 1) / 10) 
                 + $year + (int)($year / 4) 
                 + (int)($century / 4) - 2 * $century;
