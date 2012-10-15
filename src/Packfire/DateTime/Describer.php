@@ -16,10 +16,38 @@ class Describer {
     private $verbs = array('day' => 'day', 'hour' => 'hour',
         'minute' => 'min', 'second' => 'sec');
     
+    /**
+     * Flag whether textual listing is performed on the output description
+     * @var boolean
+     * @since 2.0.0
+     */
     private $listing = true;
+    
+    /**
+     * The number of components to describe
+     * @var integer
+     * @since 2.0.0
+     */
+    private $limit;
     
     public function __construct(){
         
+    }
+    
+    /**
+     * Get or set the number of components to describe
+     * @param integer $limit (optional) If set, the number of component to
+     *                  describe will be set to this value. If set to null,
+     *                  all components will be returned.
+     * @return integer Returns the number of components. If there is no limit,
+     *                  null will be returned.
+     * @since 2.0.0
+     */
+    public function limit($limit = null){
+        if(func_num_args()){
+            $this->limit = $limit;
+        }
+        return $this->limit;
     }
     
     /**
@@ -56,6 +84,7 @@ class Describer {
             return 'now';
         }else{
             $desc = array();
+            $count = 0;
             /* @var $timeSpan TimeSpan */
             foreach($this->components as $component){
                 if(isset($this->verbs[$component])){
@@ -63,6 +92,10 @@ class Describer {
                     if($value > 0){
                         $desc[] = $value . ' ' 
                                 . Inflector::quantify($value, $this->verbs[$component]);
+                        ++$count;
+                        if($this->limit && $count >= $this->limit){
+                            break;
+                        }
                     }
                 }
             }
