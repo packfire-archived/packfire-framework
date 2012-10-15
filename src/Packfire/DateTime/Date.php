@@ -128,23 +128,18 @@ class Date extends DateTimeComponent implements IComparable {
     }
     
     /**
-     * Get the total number of days in this date since the 1 AD
+     * Get the total number of days in this date
+     * 
+     * Algorithm from: http://alcor.concordia.ca/~gpkatch/gdate-algorithm.html
+     * 
      * @return integer Returns an integer of the total number of days
      * @since 1.0-sofia
      */
     public function totalDays(){
-        $deltaYear = $this->year - 1;
-        $leapCount = round(($deltaYear / 4) 
-                - ($deltaYear / 100) 
-                + ($deltaYear / 400));
-        $monthDays = 0;
-        for($month = 1; $month <= $this->month; ++$month){
-            $monthDays += DateTime::daysInMonth($month, $this->year);
-        }
-        return $this->day 
-                + $monthDays
-                + $leapCount * 366 
-                + ($this->year - $leapCount) * 365;
+        $month = ($this->month + 9) % 12;
+        $year = $this->year - (int)($month / 10);
+        return 365 * $year + (int)($year / 4) - (int)($year / 100) + (int)($year / 400)
+                + (int)(($month * 306 + 5) / 10) + $this->day - 1;
     }
     
     /**
@@ -154,11 +149,7 @@ class Date extends DateTimeComponent implements IComparable {
      * @since 1.0-sofia
      */
     public function add($timeSpan){
-        $temp = new self($this->year, $this->month, $this->day);
-        
-        $temp->day($temp->day + $timeSpan->day());
-        
-        return $temp;
+        return new self($this->year, $this->month, $this->day + $timeSpan->day());
     }
     
     /**
@@ -168,11 +159,7 @@ class Date extends DateTimeComponent implements IComparable {
      * @since 1.0-sofia
      */
     public function subtract($timeSpan){
-        $temp = new self($this->year, $this->month, $this->day);
-        
-        $temp->day($temp->day - $timeSpan->day());
-        
-        return $temp;
+        return new self($this->year, $this->month, $this->day - $timeSpan->day());
     }
     
     /**

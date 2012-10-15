@@ -89,11 +89,13 @@ class DateTest extends \PHPUnit_Framework_TestCase {
      * @covers Date::totalDays
      */
     public function testTotalDays() {
-        $this->assertEquals(730412, $this->object->totalDays());
+        $this->assertEquals(730321, $this->object->totalDays());
         $this->object->day($this->object->day() + 1);
-        $this->assertEquals(730413, $this->object->totalDays());
+        $this->assertEquals(730322, $this->object->totalDays());
         $this->object->month($this->object->month() + 1);
-        $this->assertEquals(730444, $this->object->totalDays());
+        $this->assertEquals(730352, $this->object->totalDays());
+        $this->object->month($this->object->month() + 1);
+        $this->assertEquals(730383, $this->object->totalDays());
     }
 
     /**
