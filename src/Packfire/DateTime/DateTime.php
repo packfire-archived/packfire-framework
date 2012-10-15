@@ -26,14 +26,14 @@ class DateTime extends Date {
      * @var Time
      * @since 1.0-sofia
      */
-    private $time;
+    protected $time;
     
     /**
      * The timezone component of the RaiseDateTime
      * @var double
      * @since 1.0-sofia
      */
-    private $timezone = 0;
+    protected $timezone = 0;
     
     /**
      * Create a new DateTime object
