@@ -51,4 +51,13 @@ class DescriberTest extends \PHPUnit_Framework_TestCase {
         $dt2 = new DateTime(2012, 10, 15, 12, 35, 00);
         $this->assertEquals('4 days 1 hour 5 mins', $this->object->describe($dt1, $dt2));
     }
+    
+    public function testAdjectives(){
+        $this->assertCount(6, $this->object->adjectives());
+        $this->object->quantify(false);
+        $this->object->adjectives(array('day' => 'hari', 'hour' => 'jam', 'minute' => 'minit', 'second' => 'saat', 'and' => 'dan'));
+        $dt1 = new DateTime(2012, 10, 11, 11, 30, 00);
+        $dt2 = new DateTime(2012, 10, 15, 12, 35, 00);
+        $this->assertEquals('4 hari, 1 jam dan 5 minit', $this->object->describe($dt1, $dt2));
+    }
 }
