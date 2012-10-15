@@ -3,6 +3,7 @@ namespace Packfire\DateTime;
 
 use Packfire\Text\Inflector;
 use Packfire\Text\Text;
+use Packfire\Collection\ArrayList;
 
 /**
  * Describer class
@@ -25,12 +26,19 @@ class Describer {
     private $components = array('day', 'hour', 'minute', 'second');
     
     /**
-     * The verbs to be used 
+     * The adjectives to be used 
      * @var string
      * @since 2.0.0
      */
-    private $verbs = array('day' => 'day', 'hour' => 'hour',
+    private $adjectives = array('day' => 'day', 'hour' => 'hour',
         'minute' => 'min', 'second' => 'sec', 'and' => 'and', 'comma' => ', ');
+    
+    /**
+     * Flag whether adjectives should be quantified or not
+     * @var boolean
+     * @since 2.0.0
+     */
+    private $quantify = true;
     
     /**
      * Flag whether textual listing is performed on the output description
@@ -46,6 +54,10 @@ class Describer {
      */
     private $limit;
     
+    /**
+     * Create a new Describer object
+     * @since 2.0.0
+     */
     public function __construct(){
         
     }
@@ -67,6 +79,20 @@ class Describer {
     }
     
     /**
+     * Get or set if the adjectives should be quantified or not
+     * @param boolean $quantify (optional) If set, the value will be set to this.
+     * @return boolean Retusn true if adjectives should be quantified, false
+     *      otherwise.
+     * @since 2.0.0
+     */
+    public function quantify($quantify = null){
+        if(func_num_args()){
+            $this->quantify = $quantify;
+        }
+        return $this->quantify;
+    }
+    
+    /**
      * Get or set if Describer should perform text listing on description
      * @param boolean $listing (optional) If set to true, listing will be done
      *              on the description, false otherwise.
@@ -78,6 +104,22 @@ class Describer {
             $this->listing = $listing;
         }
         return $this->listing;
+    }
+    
+    /**
+     * Get or set the adjectives to describe the components
+     * @param array|ArrayList $adjectives (optional) If set, the adjectives will be set to this values
+     * @return array Returns the array of adjectives used to describe the components
+     * @since 2.0.0
+     */
+    public function adjectives($adjectives = null){
+        if(func_num_args()){
+            if($adjectives instanceof ArrayList){
+                $adjectives = $adjectives->toArray();
+            }
+            $this->adjectives = array_merge($this->adjectives, $adjectives);
+        }
+        return $this->adjectives;
     }
     
     /**
@@ -103,11 +145,12 @@ class Describer {
             $count = 0;
             /* @var $timeSpan TimeSpan */
             foreach($this->components as $component){
-                if(isset($this->verbs[$component])){
+                if(isset($this->adjectives[$component])){
                     $value = $timeSpan->$component();
                     if($value > 0){
-                        $desc[] = $value . ' ' 
-                                . Inflector::quantify($value, $this->verbs[$component]);
+                        $desc[] = $value . ' ' . ($this->quantify
+                                ? (Inflector::quantify($value, $this->adjectives[$component]))
+                                : $this->adjectives[$component]);
                         ++$count;
                         if($this->limit && $count >= $this->limit){
                             break;
@@ -116,7 +159,7 @@ class Describer {
                 }
             }
             return $this->listing
-                    ? Text::listing($desc, $this->verbs['and'], $this->verbs['comma'])
+                    ? Text::listing($desc, $this->adjectives['and'], $this->adjectives['comma'])
                     : implode(' ', $desc);
         }
     }
