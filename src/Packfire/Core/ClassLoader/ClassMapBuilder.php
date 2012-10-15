@@ -28,7 +28,10 @@ class ClassMapBuilder {
         $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path),
                 \RecursiveIteratorIterator::CHILD_FIRST);
         foreach($iterator as $file){
-            if($file->isFile() && $file->getExtension() == 'php'){
+            // for PHP prior to 5.3.6
+            // see http://php.net/manual/en/splfileinfo.getextension.php
+            $extension = pathinfo($file->getFilename(), PATHINFO_EXTENSION);
+            if($file->isFile() && $extension == 'php'){
                 $tokens = token_get_all(file_get_contents((string)$file));
                 $namespace = '';
                 $classes = array();
