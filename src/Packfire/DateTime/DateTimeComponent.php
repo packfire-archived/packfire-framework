@@ -31,7 +31,7 @@ abstract class DateTimeComponent {
         }elseif($value < 0){
             $subNext = (int)floor(abs($value) / $max);
             $this->$next($this->$next() - $subNext - 1);
-            $value = $max + ($value + ($subNext * $max));
+            $value = $max + ($value % $max);
         }
         return $value;
     }
