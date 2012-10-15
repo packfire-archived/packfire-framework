@@ -54,27 +54,6 @@ class Date extends DateTimeComponent implements IComparable {
     }
     
     /**
-     * Create date from number of days
-     * @param integer $days The number of days
-     * @return Date Returns the created Date object
-     * @since 2.0.0
-     */
-    public static function fromDays($days){
-        $year = (int)((10000* $days + 14780) / 3652425);
-        $d3 = $days - (365* $year + (int)($year / 4) - (int)($year / 100) + (int)($year / 400));
-        if($d3 < 0){
-            $year--;
-            $d3 = $days - (365* $year + (int)($year / 4) - (int)($year / 100) + (int)($year / 400));
-        }
-        $tempM = (int)((100 * $d3 + 52) / 3060);
-        $month = ($tempM + 2) % 12 + 1;
-        $year += (int)(($tempM + 2) / 12);
-        $day = $d3 - (int)(($tempM * 306 + 5) / 10) + 1;
-        $date = new self($year, $month, $day);
-        return $date;
-    }
-    
-    /**
      * Get or set the day component of the date
      * @param integer $day (optional) Set the day component with an integer from
      *                     1 to 31 representing the days of a month.
@@ -147,6 +126,26 @@ class Date extends DateTimeComponent implements IComparable {
             ++$cen;
         }
         return $cen;
+    }
+    
+    /**
+     * Create date from number of days
+     * @param integer $days The number of days
+     * @return Date Returns the created Date object
+     * @since 2.0.0
+     */
+    public static function fromDays($days){
+        $year = (int)((10000* $days + 14780) / 3652425);
+        $d3 = $days - (365* $year + (int)($year / 4) - (int)($year / 100) + (int)($year / 400));
+        if($d3 < 0){
+            $year--;
+            $d3 = $days - (365* $year + (int)($year / 4) - (int)($year / 100) + (int)($year / 400));
+        }
+        $tempM = (int)((100 * $d3 + 52) / 3060);
+        $month = ($tempM + 2) % 12 + 1;
+        $year += (int)(($tempM + 2) / 12);
+        $day = $d3 - (int)(($tempM * 306 + 5) / 10) + 1;
+        return new self($year, $month, $day);
     }
     
     /**
