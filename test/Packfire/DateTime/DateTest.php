@@ -139,4 +139,9 @@ class DateTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1, $comp->compareTo($this->object));
     }
 
+    public function testFromDays(){
+        $date = Date::fromDays($this->object->totalDays());
+        $this->assertEquals(0, $this->object->compareTo($date));
+    }
+    
 }
