@@ -32,27 +32,32 @@ use Packfire\Core\ClassLoader\PackfireClassFinder;
 class Packfire {
     
     /**
+     * The framework class loader
+     * @var ClassLoader
+     */
+    private $classLoader;
+    
+    /**
      * Create a new Packfire object
      * @since 2.0.0
      */
     public function __construct(){
-        $this->classLoader();
-    }
-    
-    /**
-     * Load the framework class loader 
-     * @since 2.0.0
-     */
-    protected function classLoader(){
         require(__DIR__ . DIRECTORY_SEPARATOR . 'constants.php');
         require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassLoader.php');
         require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassFinder.php');
         require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/PackfireClassFinder.php');
         require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassLoader.php');
-
         $finder = new PackfireClassFinder();
-        $loader = new ClassLoader($finder);
-        $loader->register();
+        $this->classLoader = new ClassLoader($finder);
+    }
+    
+    /**
+     * Load the framework class loader
+     * @return ClassLoader Returns the class loader that has been loaded.
+     * @since 2.0.0
+     */
+    public function classLoader(){
+        return $this->classLoader;
     }
 
     /**
