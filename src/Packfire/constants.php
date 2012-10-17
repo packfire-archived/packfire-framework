@@ -14,7 +14,7 @@
  * @since 1.0-sofia
  */
 if(!defined('__APP_ROOT__')){
-    define('__APP_ROOT__', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
+    define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . DIRECTORY_SEPARATOR . 'pack' . DIRECTORY_SEPARATOR);
 }
 
 /**

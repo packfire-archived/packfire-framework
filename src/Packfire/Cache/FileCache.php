@@ -37,8 +37,7 @@ class FileCache implements ICache {
      */
     public function __construct(){
         if(!self::$storePath){
-            self::$storePath = Path::combine(__APP_ROOT__,
-                    '/pack/storage/cache');
+            self::$storePath = __APP_ROOT__ . 'storage/cache';
         }
     }
 

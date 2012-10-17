@@ -21,7 +21,7 @@ class Template {
      * @since 1.0-sofia
      */
     public static function load($name){
-        $path = __APP_ROOT__ . 'pack/template/' . $name;
+        $path = __APP_ROOT__ . $name;
         
         // parsers
         $extensions = array(

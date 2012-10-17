@@ -31,7 +31,7 @@ abstract class FrameworkConfig extends ServiceBucket implements IFrameworkConfig
      * @since 1.0-sofia
      */
     protected function loadConfig($name, $context){
-        $path = __APP_ROOT__ . 'pack/config/' . $name;
+        $path = __APP_ROOT__ . 'config/' . $name;
         
         $map = array_keys(ConfigType::typeMap());
         
