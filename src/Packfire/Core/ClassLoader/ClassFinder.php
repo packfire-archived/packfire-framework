@@ -22,6 +22,13 @@ class ClassFinder implements IClassFinder {
     private $namespaces = array();
     
     /**
+     * Additional Directories to search for
+     * @var array
+     * @since 2.0.0
+     */
+    private $searchDirs = array();
+    
+    /**
      * Assign a directory to load from for a namespace
      * @param string $namespace The namespace to be loaded
      * @param array|\Packfire\Collection\ArrayList $path The path(s) to look in for the namespace loading
@@ -37,6 +44,15 @@ class ClassFinder implements IClassFinder {
         }else{
             $this->namespaces[$namespace] = (array)$path;
         }
+    }
+    
+    /**
+     * Add a generic search path
+     * @param string $path The path to the source files
+     * @since 2.0.0
+     */
+    public function addPath($path){
+        $this->searchDirs[] = $path;
     }
     
     /**
@@ -57,6 +73,13 @@ class ClassFinder implements IClassFinder {
                         return $path;
                     }
                 }
+            }
+        }
+        
+        foreach($this->searchDirs as $dir){
+            $path = $dir . DIRECTORY_SEPARATOR . $fileName;
+            if(file_exists($path)){
+                return $path;
             }
         }
 
