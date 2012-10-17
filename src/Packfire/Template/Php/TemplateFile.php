@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Template\Php;
 
-use Packfire\Template\Php\ITemplateFile;
+use Packfire\Template\ITemplateFile;
 use Packfire\IO\File\File;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;

@@ -21,7 +21,7 @@ class Template {
      * @since 1.0-sofia
      */
     public static function load($name){
-        $path = __APP_ROOT__ . $name;
+        $path = __APP_ROOT__ . 'src' . DIRECTORY_SEPARATOR . $name;
         
         // parsers
         $extensions = array(
@@ -35,6 +35,7 @@ class Template {
         foreach($extensions as $type => $class){
             if(is_file($path . '.' .  $type)){
                 $template = new $class($path . '.' .  $type);
+                break;
             }
         }
         

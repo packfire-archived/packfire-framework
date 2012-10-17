@@ -26,10 +26,7 @@ abstract class View extends CoreView {
         parent::__construct();
 
         // set the default template as the name of the view class
-        $template = get_class($this);
-        if(strtolower(substr($template, -4)) === 'view'){
-            $template = substr($template, 0, strlen($template) - 4);
-        }
+        $template = str_replace('\\', DIRECTORY_SEPARATOR, get_class($this));
         $this->template($template);
     }
 
