@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Welcome;
 
-use Packfire\Application\Pack\View;
+use Packfire\View\View;
 
 /**
  * HelloWorldView View
