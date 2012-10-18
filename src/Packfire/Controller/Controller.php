@@ -273,13 +273,11 @@ abstract class Controller extends BucketUser {
                 $this->service('security')->request($this->request);
             }
 
-            if(($this->service('security') && !$this->service('security')->authenticate())
-                    || !$this->handleAuthentication()){
+            if(!$this->handleAuthentication() || ($this->service('security') && !$this->service('security')->authenticate())){
                 throw new AuthenticationException('User is not authenticated.');
             }
 
-            if(($this->service('security') && !$this->service('security')->authorize($route))
-                    || !$this->handleAuthorization()){
+            if(!$this->handleAuthorization() || ($this->service('security') && !$this->service('security')->authorize($route))){
                 throw new AuthorizationException('Access not authorized.');
             }
         }
