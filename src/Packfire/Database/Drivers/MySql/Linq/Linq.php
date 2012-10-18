@@ -542,11 +542,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
         if(func_num_args() > 1){
             $this->selects = new ArrayList(func_get_args());
         }else{
-            if(is_array($mapper) || $mapper instanceof IList){
-                $this->selects = $mapper;
-            }else{
-                $this->selects = new ArrayList(array($mapper));
-            }
+            $this->selects->append($mapper);
         }
         return $this;
     }

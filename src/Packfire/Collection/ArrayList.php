@@ -274,28 +274,30 @@ class ArrayList implements IList {
 
     /**
      * Append to the list with items from another list.
-     * @param ArrayList|array $list The list to append
+     * @param ArrayList|array|mixed $list The list to append
      * @since 1.0-sofia
      */
     public function append($list) {
         if($list instanceof self){
-            $this->array = array_merge($this->array, $list->array);
-        }elseif(is_array($list)){
-            $this->array = array_merge($this->array, $list);
+            $list = $list->array;
+        }else{
+            $list = (array)$list;
         }
+        $this->array = array_merge($this->array, $list);
     }
 
     /**
      * Prepend to the list with items from another list.
-     * @param ArrayList|array $list The list to prepend
+     * @param ArrayList|array|mixed $list The list to prepend
      * @since 1.0-sofia
      */
     public function prepend($list) {
         if($list instanceof self){
-            $this->array = array_merge($list->array, $this->array);
-        }elseif(is_array($list)){
-            $this->array = array_merge($list, $this->array);
+            $list = $list->array;
+        }else{
+            $list = (array)$list;
         }
+        $this->array = array_merge($list, $this->array);
     }
 
     /**
