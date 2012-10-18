@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Database\Drivers\MySql\Linq;
 
-use Packfire\Database\ILinq;
+use Packfire\Linq\ILinq;
 use Packfire\Linq\IOrderedLinq;
 use Packfire\Database\IModel;
 use Packfire\Database\Drivers\MySql\Table;
@@ -185,7 +185,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
         }
         $statement = $this->prepare();
         $statement->execute();
-        $list = $statement->fetchAll(PDO::FETCH_NUM);
+        $list = $statement->fetchAll(\PDO::FETCH_NUM);
         if($this->reverse){
             $list = array_reverse($list);
         }
@@ -204,7 +204,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
     
     /**
      * Prepare the statement and bind parameters
-     * @return PDOStatement Returns the statement prepared.
+     * @return \PDOStatement Returns the statement prepared.
      * @since 1.0-sofia 
      */
     private function prepare(){
@@ -326,7 +326,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return reset($statement->fetchAll(PDO::FETCH_COLUMN));
+        return reset($statement->fetchAll(\PDO::FETCH_COLUMN));
     }
 
     /**
@@ -343,7 +343,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        $data = $statement->fetchAll(PDO::FETCH_COLUMN);
+        $data = $statement->fetchAll(\PDO::FETCH_COLUMN);
         return reset($data);
     }
 
@@ -479,7 +479,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return new ArrayList($statement->fetchAll(PDO::FETCH_COLUMN));
+        return new ArrayList($statement->fetchAll(\PDO::FETCH_COLUMN));
     }
 
     /**
@@ -495,7 +495,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return new ArrayList($statement->fetchAll(PDO::FETCH_COLUMN));
+        return new ArrayList($statement->fetchAll(\PDO::FETCH_COLUMN));
     }
 
     /**
@@ -575,7 +575,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
-        return new ArrayList($statement->fetchAll(PDO::FETCH_COLUMN));
+        return new ArrayList($statement->fetchAll(\PDO::FETCH_COLUMN));
     }
 
     /**

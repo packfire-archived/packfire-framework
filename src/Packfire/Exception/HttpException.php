@@ -2,7 +2,6 @@
 namespace Packfire\Exception;
 
 use Packfire\Exception\Exception;
-use Packfire\Net\Http\ResponseCode as ResponseCode;
 
 /**
  * HttpException class
@@ -24,7 +23,7 @@ class HttpException extends Exception {
      * @since 1.0-sofia
      */
     public function __construct($httpCode, $message = null){
-        $http = constant('ResponseCode::HTTP_' . $httpCode);
+        $http = constant('Packfire\Net\Http\ResponseCode::HTTP_' . $httpCode);
         $this->responseCode = $httpCode;
         parent::__construct($http . ($message ? ' ' . $message : ''),
                 $httpCode);
