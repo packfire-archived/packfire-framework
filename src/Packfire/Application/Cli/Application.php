@@ -46,6 +46,14 @@ class Application extends ServiceApplication {
         $this->service('exception.handler')->handle($exception);
     }
 
+    /**
+     * Receive a request, process, and respond.
+     * @param ClientRequest $request The request made
+     * @return IAppResponse Returns the response
+     * @throws MissingDependencyException
+     * @throws InvalidRequestException
+     * @since 1.0-elenor
+     */
     public function receive($request) {
         $response = $this->prepareResponse($request);
         $router = $this->service('router');
