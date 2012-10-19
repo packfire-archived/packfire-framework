@@ -108,7 +108,7 @@ class File implements IFile {
         $link = @fopen($this->pathname, 'a');
         if($link){
             if(!@fwrite($link, $content)){
-            throw new IOException(
+                throw new IOException(
                     sprintf('An error occurred while appending '.
                             'content to file \'%s\'.', $this->pathname)
                 );
@@ -116,8 +116,8 @@ class File implements IFile {
             @fclose($link);
         }else{
             throw new IOException(
-                    sprintf('Failed opening file \'%s\'.', $this->pathname)
-                );
+                sprintf('Failed opening file \'%s\'.', $this->pathname)
+            );
         }
     }
 

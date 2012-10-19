@@ -137,31 +137,39 @@ class Describer {
         if(!$dateTime2){
             $dateTime2 = DateTime::now();
         }
-        $timeSpan = $dateTime2->subtract($dateTime1);
-        if($timeSpan->totalSeconds() === 0){
-            return 'now';
-        }else{
-            $desc = array();
-            $count = 0;
-            /* @var $timeSpan TimeSpan */
-            foreach($this->components as $component){
-                if(isset($this->adjectives[$component])){
-                    $value = $timeSpan->$component();
-                    if($value > 0){
-                        $desc[] = $value . ' ' . ($this->quantify
-                                ? (Inflector::quantify($value, $this->adjectives[$component]))
-                                : $this->adjectives[$component]);
-                        ++$count;
-                        if($this->limit && $count >= $this->limit){
-                            break;
-                        }
+        $compare = $dateTime1->compareTo($dateTime2);
+        /* @var $timeSpan Packfire\DateTime\TimeSpan */
+        switch($compare){
+            case 0:
+                return 'now';
+                break;
+            case 1:
+                $timeSpan = $dateTime2->subtract($dateTime1);
+                break;
+            case -1:
+                $timeSpan = $dateTime1->subtract($dateTime2);
+                break;
+        }
+        $desc = array();
+        $count = 0;
+        /* @var $timeSpan TimeSpan */
+        foreach($this->components as $component){
+            if(isset($this->adjectives[$component])){
+                $value = $timeSpan->$component();
+                if($value > 0){
+                    $desc[] = $value . ' ' . ($this->quantify
+                            ? (Inflector::quantify($value, $this->adjectives[$component]))
+                            : $this->adjectives[$component]);
+                    ++$count;
+                    if($this->limit && $count >= $this->limit){
+                        break;
                     }
                 }
             }
-            return $this->listing
-                    ? Text::listing($desc, $this->adjectives['and'], $this->adjectives['comma'])
-                    : implode(' ', $desc);
         }
+        return $this->listing
+                ? Text::listing($desc, $this->adjectives['and'], $this->adjectives['comma'])
+                : implode(' ', $desc);
     }
     
 }
