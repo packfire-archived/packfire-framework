@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Command;
 
 /**
@@ -34,19 +35,16 @@ class OptionSetTest extends \PHPUnit_Framework_TestCase {
     public function testParse() {
         $username = null;
         $counter = 0;
-        $this->object->add('name=', 'username',
-                function($value) use(&$username){
-            $username = $value;
-        });
-        $this->object->add('c|counter', 'adds to counter',
-                function()use(&$counter){
-            ++$counter;
-        });
-        $this->object->add('f|file', 'adds to counter',
-                function()use(&$counter){
-            ++$counter;
-        });
-        
+        $this->object->add('name=', function($value) use(&$username) {
+                    $username = $value;
+                });
+        $this->object->add('c|counter', function()use(&$counter) {
+                    ++$counter;
+                });
+        $this->object->add('f|file', function()use(&$counter) {
+                    ++$counter;
+                });
+
         $this->object->parse(array('-c', '--counter', '--name', 'Sam'));
         $this->assertEquals('Sam', $username);
         $this->assertEquals(2, $counter);
@@ -61,27 +59,22 @@ class OptionSetTest extends \PHPUnit_Framework_TestCase {
         $force = false;
         $linker = false;
         $file = '';
-        $this->object->addIndex(0, 'The command of the compiler',
-                function($value) use(&$command){
-            $command = $value;
-        });
-        $this->object->add('q', 'Forces compiler not to output anything',
-                function()use(&$quiet){
-            $quiet = true;
-        });
-        $this->object->add('l', 'Use linker',
-                function()use(&$linker){
-            $linker = true;
-        });
-        $this->object->add('f', 'performs a force on the light saber',
-                function()use(&$force){
-            $force = true;
-        });
-        $this->object->add('file=', 'The last file',
-                function($value)use(&$file){
-            $file = $value;
-        });
-        
+        $this->object->addIndex(0, function($value) use(&$command) {
+                    $command = $value;
+                });
+        $this->object->add('q', function()use(&$quiet) {
+                    $quiet = true;
+                });
+        $this->object->add('l', function()use(&$linker) {
+                    $linker = true;
+                });
+        $this->object->add('f', function()use(&$force) {
+                    $force = true;
+                });
+        $this->object->add('file=', function($value)use(&$file) {
+                    $file = $value;
+                });
+
         $this->object->parse(array('update', '-qf', '/file=test.log'));
         $this->assertEquals('update', $command);
         $this->assertTrue($quiet);
@@ -89,4 +82,5 @@ class OptionSetTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($linker);
         $this->assertEquals('test.log', $file);
     }
+
 }
