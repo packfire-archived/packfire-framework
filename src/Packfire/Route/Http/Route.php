@@ -43,20 +43,9 @@ class Route extends CoreRoute {
         if(!($data instanceof Map)){
             $data = new Map($data);
         }
-        $this->name = $name;
+        parent::__construct($name, $data);
         $this->rewrite = $data->get('rewrite');
-        $this->actual = $data->get('actual');
         $this->httpMethod = $data->get('method');
-        $this->params = new Map($data->get('params'));
-    }
-
-    /**
-     * Get the name of the route
-     * @return string Returns name of the route
-     * @since 1.0-elenor
-     */
-    public function name(){
-        return $this->name;
     }
     
     /**
@@ -75,24 +64,6 @@ class Route extends CoreRoute {
      */
     public function rewrite(){
         return $this->rewrite;
-    }
-
-    /**
-     * Get the name of the controller class to route to
-     * @return string Returns the controller class name
-     * @since 1.0-sofia
-     */
-    public function actual(){
-        return $this->actual;
-    }
-
-    /**
-     * Get the hash map of parameters for the route
-     * @return Map Returns a hash map
-     * @since 1.0-sofia
-     */
-    public function params(){
-        return $this->params;
     }
     
     /**
@@ -113,32 +84,39 @@ class Route extends CoreRoute {
                 || (is_array($this->httpMethod)
                 && in_array(strtolower($method), $this->httpMethod))){
             if($this->params){
-                $template = new Template($this->rewrite);
-                $tokens = $template->tokens();
-                foreach ($tokens as $token) {
-                    $template->fields()->add($token,
-                            '(?P<' . $token . '>(.+))');
+                if($url == $this->rewrite){
+                    $urlMatch = true;
+                    $urlData = array(0 => $url);
+                }else{
+                    $template = new Template($this->rewrite);
+                    $tokens = $template->tokens();
+                    foreach ($tokens as $token) {
+                        $template->fields()->add($token,
+                                '(?P<' . $token . '>(.+))');
+                    }
+                    $urlData = array();
+
+
+                    // perform the URL matching
+                    $urlMatch = preg_match('`^' . $template->parse() .
+                            '[/]{0,1}$`is', $url, $urlData);
                 }
-                $urlData = array();
-
-
-                // perform the URL matching
-                $urlMatch = preg_match('`^' . $template->parse() .
-                        '([/]{0,1})$`is', $url, $urlData);
-
                 if($urlMatch){
+                    unset($urlData[0]);
                     $data = array();
                     foreach($urlData as $key => $value){
                         $data[$key] = $value;
                     }
-                    $data += $request->get()->toArray();
-                    if($method == 'post'){
-                        $data += $request->post()->toArray();
-                    }
-
+                    $validationKeys = $this->rules->select(array_keys($urlData));
+                    
                     $params = array();
-                    $validation = $this->validateArray($this->params, $data, $params);
+                    $validation = $this->validateArray($validationKeys, $data, $params);
                     if($validation){
+                        $params += $request->get()->toArray();
+                        if($method == 'post'){
+                            $params += $request->post()->toArray();
+                        }
+                        $this->remapParam($this->remap, $params);
                         $this->params = new Map($params);
                     }
 

@@ -9,6 +9,7 @@ use Packfire\Validator\MatchValidator;
 use Packfire\Validator\RegexValidator;
 use Packfire\Validator\CallbackValidator;
 use Packfire\Validator\EmailValidator;
+use Packfire\Collection\Map;
 
 /**
  * Route class
@@ -45,6 +46,34 @@ abstract class Route implements IRoute {
     protected $actual;
 
     /**
+     * The parameter remapping data
+     * @var Map
+     * @since 2.0.0
+     */
+    protected $remap;
+    
+    /**
+     * The parameter validation rules
+     * @var Map
+     * @since 2.0.0
+     */
+    protected $rules;
+    
+    /**
+     * Create a new Route object
+     * @param string $name The name of the route
+     * @param array|Map $data The data retrieved from the settings
+     * @since 2.0.0
+     */
+    public function __construct($name, $data){
+        $this->name = $name;
+        $this->params = new Map();
+        $this->actual = $data->get('actual');
+        $this->rules = new Map($data->get('params'));
+        $this->remap = new Map($data->get('remap'));
+    }
+
+    /**
      * Get the parameters in this routing
      * @return Map Returns the parameters
      * @since 1.1-sofia
@@ -72,6 +101,48 @@ abstract class Route implements IRoute {
     }
 
     /**
+     * Get the remapping data
+     * @return Map Returns the remapping data
+     * @since 2.0.0
+     */
+    public function remap() {
+        return $this->remap;
+    }
+
+    /**
+     * Get the validation rules
+     * @return Map Returns the validation rules
+     * @since 2.0.0
+     */
+    public function rules() {
+        return $this->rules;
+    }
+    
+    /**
+     * Perform remapping of the parameters
+     * @param array|IList $rules The remapping rules
+     * @param array|IList $data The data to be remapped
+     * @return array Returns the resulting remapped data
+     * @since 2.0.0
+     */
+    protected function remapParam($rules, &$data){
+        $result = array();
+        foreach($rules as $key => $rule){
+            $param = null;
+            if(is_array($rule)){
+                $param = $data;
+                $this->remapParam($rule, $param);
+                $index = $key;
+            }elseif(isset($data[$rule])){
+                $param = $data[$rule];
+                $index = $rule;
+            }
+            $result[$index] = $param;
+        }
+        $data = $result;
+    }
+
+    /**
      * Validate an array of data
      * @param ArrayList|array $rules The list of rules defined
      * @param ArrayList|array $data The data to be validated
@@ -80,20 +151,13 @@ abstract class Route implements IRoute {
      * @return boolean Returns true if validation is successful, false otherwise.
      * @since 1.1-sofia
      */
-    protected function validateArray($rules, $data, &$params, &$validation = true){
+    protected function validateArray($rules, $data, $params, &$validation = true){
         foreach($rules as $key => $rule){
-            if(is_array($rule) && count($rule) > 0
-                    && reset($rule) && key($rule) !== 0){
-                $param = array();
-                $this->validateArray($rule, $data, $param, $validation);
-            }else{
-                $param = null;
-                if(isset($data[$key])){
-                    $param = $data[$key];
-                }
-                $validation = $this->validateParam($rule, $param, $data);
+            $param = null;
+            if(isset($data[$key])){
+                $param = $data[$key];
             }
-            if(!$validation){
+            if(!$this->validateParam($rule, $param, $data)){
                 break;
             }
             $params[$key] = $param;

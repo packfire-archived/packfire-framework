@@ -18,22 +18,17 @@ use Packfire\Collection\Map;
 class Route extends CoreRoute {
     
     /**
-     * The parameters remapping
-     * @var Map
-     * @since 1.0-elenor
-     */
-    private $remap;
-    
-    /**
      * Create a new Route object
      * @param string $name The name of the route
      * @param array|Map $data The data retrieved from the settings
      * @since 1.0-elenor
      */
     public function __construct($name, $data) {
-        $this->name = $name;
-        $this->actual = $data->get('actual');
-        $this->params = $data->get('params');
+        if(!($data instanceof Map)){
+            $data = new Map($data);
+        }
+        parent::__construct($name, $data);
+        $this->rules = $data->get('params');
         $this->remap = $data->get('remap');
     }
 
@@ -48,31 +43,14 @@ class Route extends CoreRoute {
         $validation = true;
         $requestParams = new Map($request->params());
         $params = array();
-        $this->remap($requestParams);
-        if($this->params){
-            $validation = $this->validateArray($this->params, $requestParams->toArray(), $params);
+        if($this->rules){
+            $validation = $this->validateArray($this->rules, $requestParams->toArray(), $params);
         }
         if($validation){
+            $this->remapParam($this->remap, $params);
             $this->params = new Map($params);
         }
         return $validation;
-    }
-    
-    /**
-     * Perform remapping of arguments
-     * @param Map $params The parameters to be remapped
-     * @since 1.0-elenor
-     */
-    private function remap($params){
-        if($this->remap){
-            foreach($this->remap as $source => $target){
-                if($params->keyExists($source)){
-                    $value = $params->get($source);
-                    $params->removeAt($source);
-                    $params->add($target, $value);
-                }
-            }
-        }
     }
     
 }
