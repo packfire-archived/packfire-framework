@@ -49,9 +49,12 @@ class ServiceBucket extends BucketLoader {
         $classFinder = new ClassFinder();
         $classFinder->addPath('pack/src/');
         $this->put('autoload.finder', $classFinder);
-        $cacheFinder = new CacheClassFinder();
-        $cacheFinder->setBucket($this->bucket);
-        $classLoader = new ClassLoader($cacheFinder);
+        // only load CacheClassFinder if the cache component is available
+        if($this->contains('cache')){
+            $classFinder = new CacheClassFinder();
+            $classFinder->setBucket($this->bucket);
+        }
+        $classLoader = new ClassLoader($classFinder);
         $classLoader->register();
         $this->put('autoload.loader', $classLoader);
     }
