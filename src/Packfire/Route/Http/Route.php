@@ -5,6 +5,7 @@ use Packfire\Route\Route as CoreRoute;
 use Packfire\Net\Http\Method as HttpMethod;
 use Packfire\Collection\Map;
 use Packfire\Template\Template;
+use Packfire\Route\Validator;
 
 /**
  * Route class
@@ -110,7 +111,7 @@ class Route extends CoreRoute {
                     $validationKeys = $this->rules->select(array_keys($urlData));
                     
                     $params = array();
-                    $validation = $this->validateArray($validationKeys, $data, $params);
+                    $validation = Validator::validate($validationKeys, $data, $params);
                     if($validation){
                         $params += $request->get()->toArray();
                         if($method == 'post'){
