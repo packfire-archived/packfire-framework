@@ -111,7 +111,8 @@ class Route extends CoreRoute {
                     $validationKeys = $this->rules->select(array_keys($urlData));
                     
                     $params = array();
-                    $validation = Validator::validate($validationKeys, $data, $params);
+                    $validator = new Validator($validationKeys);
+                    $validation = $validator->validate($data, $params);
                     if($validation){
                         $params += $request->get()->toArray();
                         if($method == 'post'){

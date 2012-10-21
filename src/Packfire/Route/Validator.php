@@ -23,23 +23,56 @@ use Packfire\Validator\EmailValidator;
 class Validator {
     
     /**
-     * Validate an array of data
+     * The list of rules defined
+     * @var array|ArrayList
+     * @since 2.0.0
+     */
+    private $rules;
+    
+    /**
+     * Callback for handling validation results
+     * @var Closure|callback
+     * @since 2.0.0
+     */
+    private $callback;
+    
+    /**
+     * Create a new Validator object
      * @param ArrayList|array $rules The list of rules defined
+     * @param Closure|callback $callback (optional) Callback to receive results 
+     *              of validation for each field.
+     * @since 2.0.0
+     */
+    public function __construct($rules, $callback = null){
+        $this->rules = $rules;
+        $this->callback = $callback;
+    }
+    
+    /**
+     * Validate an array of data
      * @param ArrayList|array $data The data to be validated
      * @param Map|array $params (reference) The output parameters
      * @param boolean $validation (reference, optional) The validation boolean
      * @return boolean Returns true if validation is successful, false otherwise.
      * @since 2.0.0
      */
-    public static function validate($rules, $data, &$params, &$validation = true){
+    public function validate($data, &$params, &$validation = true){
         foreach($data as $key => $value){
             if(is_array($value)){
                 $param = array();
-                self::validate($rules, $value, $param, $validation);
+                $this->validate($value, $param, $validation);
                 $params[$key] = $param;
-            }elseif(isset($rules[$key])){
-                $validation = self::validateParam($rules[$key], $value, $data);
+            }elseif(isset($this->rules[$key])){
+                $validation = $this->validateParam($this->rules[$key], $value, $data);
                 $params[$key] = $value;
+                if($this->callback){
+                    $result = call_user_func($this->callback, $key, $value, $validation);
+                    if(!$result && !$validation){
+                        break;
+                    }
+                }elseif(!$validation){
+                    break;
+                }
             }
         }
         return $validation;
@@ -52,7 +85,7 @@ class Validator {
      * @return boolean Returns true if the validation succeeded, false otherwise.
      * @since 2.0.0
      */
-    protected static function validateParam($rules, &$value, &$data){
+    protected function validateParam($rules, &$value, &$data){
         if(is_array($rules)){
             $rules = new ArrayList($rules);
         }
