@@ -59,7 +59,7 @@ class FileCache implements ICache {
      * @since 1.0-sofia
      */
     private static function idCleaner($cacheId){
-        return strtolower(trim(preg_replace(array('`[^a-z0-9\-]+`', '`[\-]{1,}`'), '-', $cacheId), '-'));
+        return trim(preg_replace(array('`[^a-zA-Z0-9\-]+`', '`[\-]{1,}`'), '-', $cacheId), '-');
     }
 
     /**
