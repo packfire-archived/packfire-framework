@@ -69,7 +69,14 @@ class Validator {
                     $params[$key] = $value;
                     if(!$validation){
                         if($this->callback){
-                            if(false == call_user_func($this->callback, $key, $rule, $entry['message'])){
+                            $package = array(
+                                'field' => $key,
+                                'value' => $value,
+                                'rule' => $rule,
+                                'message' => 
+                                $entry['message']
+                            );
+                            if(false == call_user_func($this->callback, $package)){
                                 break;
                             }
                         }else{
