@@ -129,6 +129,7 @@ abstract class Route implements IRoute {
         $result = array();
         foreach($rules as $key => $rule){
             $param = null;
+            $index = null;
             if(is_array($rule)){
                 $param = $data;
                 $this->remapParam($rule, $param);
@@ -137,7 +138,9 @@ abstract class Route implements IRoute {
                 $param = $data[$rule];
                 $index = $rule;
             }
-            $result[$index] = $param;
+            if($index){
+                $result[$index] = $param;
+            }
         }
         $data = $result;
     }
@@ -151,13 +154,14 @@ abstract class Route implements IRoute {
      * @return boolean Returns true if validation is successful, false otherwise.
      * @since 1.1-sofia
      */
-    protected function validateArray($rules, $data, $params, &$validation = true){
+    protected function validateArray($rules, $data, &$params, &$validation = true){
         foreach($rules as $key => $rule){
             $param = null;
             if(isset($data[$key])){
                 $param = $data[$key];
             }
-            if(!$this->validateParam($rule, $param, $data)){
+            $validation = $this->validateParam($rule, $param, $data);
+            if(!$validation){
                 break;
             }
             $params[$key] = $param;
