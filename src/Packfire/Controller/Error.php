@@ -1,8 +1,6 @@
 <?php
 namespace Packfire\Controller;
 
-use Packfire\Collection\Map;
-
 /**
  * Error class
  * 
@@ -44,11 +42,11 @@ class Error {
     
     /**
      * Get the collection of errors
-     * @return \Packfire\Controller\Map Returns the collection
+     * @return array Returns the collection
      * @since 2.0.0
      */
     public function errors(){
-        return new Map($this->errors);
+        return $this->errors;
     }
     
     /**
