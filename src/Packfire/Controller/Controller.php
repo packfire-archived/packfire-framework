@@ -216,7 +216,7 @@ abstract class Controller extends BucketUser {
     }
 
     /**
-     * Handler for authorization of this controller
+     * Handler for checking authorization of this controller
      * @return boolean Returns true if the authorization succeeded,
      *               false otherwise.
      * @since 1.0-sofia
@@ -226,7 +226,7 @@ abstract class Controller extends BucketUser {
     }
 
     /**
-     * Handler for authentication error
+     * Handler for checking authentication of this controller
      * @return boolean Returns true if the authorization succeeded,
      *               false otherwise.
      * @since 1.0-sofia
