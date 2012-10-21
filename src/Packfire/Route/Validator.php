@@ -63,15 +63,19 @@ class Validator {
                 $this->validate($value, $param, $validation);
                 $params[$key] = $param;
             }elseif(isset($this->rules[$key])){
-                $validation = $this->validateParam($this->rules[$key], $value, $data);
-                $params[$key] = $value;
-                if($this->callback){
-                    $result = call_user_func($this->callback, $key, $value, $validation);
-                    if(!$result && !$validation){
-                        break;
+                foreach($this->rules[$key] as $entry){
+                    $rule = $entry['rule'];
+                    $validation = $this->validateParam($rule, $value, $data);
+                    $params[$key] = $value;
+                    if(!$validation){
+                        if($this->callback){
+                            if(false == call_user_func($this->callback, $key, $rule, $entry['message'])){
+                                break;
+                            }
+                        }else{
+                            break;
+                        }
                     }
-                }elseif(!$validation){
-                    break;
                 }
             }
         }
@@ -105,7 +109,7 @@ class Validator {
         $validator = new SerialValidator();
         $original = $value;
         foreach($rules as $rule){
-            $slashPos = strpos($rule, '/');
+            $slashPos = strpos($rule, ':');
             $options = '';
             if($slashPos !== false){
                 $options = substr($rule, $slashPos + 1);
@@ -193,6 +197,13 @@ class Validator {
                 case 'value':
                     $value = $options;
                     break;
+                case 'nonempty':
+                case 'non-empty':
+                    $validator->add(new CallbackValidator(function($x){
+                        return (bool)$x;
+                    }));
+                    break;
+                case 'empty':
                 case 'optional':
                     break;
                 default:
