@@ -32,9 +32,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
      * @covers Request::params
      */
     public function testParams() {
-        $this->assertTrue($this->object->params()->get('t'));
-        $this->assertEquals(5, $this->object->params()->get('i'));
-        $this->assertEquals('area', $this->object->params()->get('run'));
+        $this->assertEquals('-t', $this->object->params()->get(0));
+        $this->assertEquals('--run', $this->object->params()->get(1));
+        $this->assertEquals('-i=5', $this->object->params()->get(3));
     }
 
     /**

@@ -43,8 +43,8 @@ class ServiceBucketTest extends \PHPUnit_Framework_TestCase {
      */
     public function testLoad() {
         $this->object->load();
-        $this->assertTrue($this->bucket->contains('config.routing'));
-        $this->assertInstanceOf('Packfire\Route\Cli\Router', $this->bucket->pick('router'));
+        $this->assertTrue($this->bucket->contains('exception.handler'));
+        $this->assertInstanceOf('Packfire\Exception\Handler\CliHandler', $this->bucket->pick('exception.handler'));
     }
 
 }

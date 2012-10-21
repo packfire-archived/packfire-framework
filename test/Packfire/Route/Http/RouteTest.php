@@ -72,7 +72,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
      */
     public function testParams() {
         $this->assertEquals(array('data' => 'int', 'object' => array('name' => 'alnum')),
-                $this->object->params()->toArray());
+                $this->object->rules()->toArray());
     }
 
     /**

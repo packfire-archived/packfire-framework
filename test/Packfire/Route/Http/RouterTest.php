@@ -24,7 +24,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
         $this->object = new Router();
         $config = new Map(array('rewrite' => '/home', 'actual' => 'Rest'));
         $this->object->add('route.home', new Route('route.home', $config));
-        $config = new Map(array('rewrite' => '/home/{data}', 'actual' => 'Rest', 'method' => null, 'params' => array('data' => 'int')));
+        $config = new Map(array('rewrite' => '/home/{data}', 'actual' => 'Rest', 'method' => null, 'remap' => array('data'), 'params' => array('data' => 'int')));
         $this->object->add('route.homeData', new Route('route.homeData', $config));
     }
 
