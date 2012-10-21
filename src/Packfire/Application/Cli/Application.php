@@ -17,7 +17,7 @@ use Packfire\Exception\InvalidRequestException;
  * @package Packfire\Application\Cli
  * @since 1.0-elenor
  */
-class Application extends ServiceApplication {
+abstract class Application extends ServiceApplication {
     
     public function __construct(){
         parent::__construct();
@@ -44,47 +44,6 @@ class Application extends ServiceApplication {
      */
     public function handleException($exception) {
         $this->service('exception.handler')->handle($exception);
-    }
-
-    /**
-     * Receive a request, process, and respond.
-     * @param ClientRequest $request The request made
-     * @return IAppResponse Returns the response
-     * @throws MissingDependencyException
-     * @throws InvalidRequestException
-     * @since 1.0-elenor
-     */
-    public function receive($request) {
-        $response = $this->prepareResponse($request);
-        $router = $this->service('router');
-        /* @var $router Router */
-        if(!$router){
-            throw new MissingDependencyException('Router service missing.');
-        }
-        $router->load();
-        /* @var $route Route */
-        $route = $router->route($request);
-
-        if($route){
-            if(is_string($route->actual()) && strpos($route->actual(), ':')){
-                list($class, $action) = explode(':', $route->actual());
-            }else{
-                $class = $route->actual();
-                $action = '';
-            }
-            
-            $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
-            $caLoader->copyBucket($this);
-            if($caLoader->load()){
-                $response = $caLoader->response();
-            }else{
-                throw new InvalidRequestException('No route found.');
-            }
-        }else{
-            throw new InvalidRequestException('No default route specified.');
-        }
-        
-        return $response;
     }
     
 }
