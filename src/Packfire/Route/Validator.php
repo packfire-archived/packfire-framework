@@ -32,16 +32,15 @@ class Validator {
      * @since 2.0.0
      */
     public static function validate($rules, $data, &$params, &$validation = true){
-        foreach($rules as $key => $rule){
-            $param = null;
-            if(isset($data[$key])){
-                $param = $data[$key];
+        foreach($data as $key => $value){
+            if(is_array($value)){
+                $param = array();
+                self::validate($rules, $value, $param, $validation);
+                $params[$key] = $param;
+            }elseif(isset($rules[$key])){
+                $validation = self::validateParam($rules[$key], $value, $data);
+                $params[$key] = $value;
             }
-            $validation = self::validateParam($rule, $param, $data);
-            if(!$validation){
-                break;
-            }
-            $params[$key] = $param;
         }
         return $validation;
     }
