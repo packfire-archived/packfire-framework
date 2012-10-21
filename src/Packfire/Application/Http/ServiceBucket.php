@@ -7,6 +7,9 @@ use Packfire\Config\Framework\HttpRouterConfig;
 use Packfire\Exception\Handler\HttpHandler as HttpExceptionHandler;
 use Packfire\Debugger\Debugger;
 use Packfire\Route\Http\Router as HttpRouter;
+use Packfire\Core\ClassLoader\ClassFinder;
+use Packfire\Core\ClassLoader\CacheClassFinder;
+use Packfire\Core\ClassLoader\ClassLoader;
 
 /**
  * ServiceBucket class
@@ -41,6 +44,16 @@ class ServiceBucket extends BucketLoader {
                 $sessionLoader->load();
             }
         }
+        
+        // class finder and loader
+        $classFinder = new ClassFinder();
+        $classFinder->addPath('pack/src/');
+        $this->put('autoload.finder', $classFinder);
+        $cacheFinder = new CacheClassFinder();
+        $cacheFinder->setBucket($this->bucket);
+        $classLoader = new ClassLoader($cacheFinder);
+        $classLoader->register();
+        $this->put('autoload.loader', $classLoader);
     }
 
 }
