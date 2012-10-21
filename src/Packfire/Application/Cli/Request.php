@@ -2,7 +2,6 @@
 namespace Packfire\Application\Cli;
 
 use Packfire\Application\IAppRequest;
-use Packfire\Application\Cli\CommandParser;
 
 /**
  * Request class
@@ -34,8 +33,7 @@ class Request implements IAppRequest {
         if(!$arguments){
             $arguments = $_SERVER['argv'];
         }
-        $parser = new CommandParser($arguments);
-        $this->params = $parser->result();
+        $this->params = $arguments;
     }
     
     /**
