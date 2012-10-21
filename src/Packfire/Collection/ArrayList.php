@@ -398,7 +398,7 @@ class ArrayList implements IList {
                 $result[$index] = $this->array[$index];
             }
         }
-        return new self($result);
+        return new static($result);
     }
 
 }
