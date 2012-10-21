@@ -81,9 +81,9 @@ class Route extends CoreRoute {
         // check whether HTTP method matches for RESTful routing
         if(!$this->httpMethod() || 
                 (is_string($this->httpMethod)
-                && $this->httpMethod == strtolower($method))
+                && $this->httpMethod == $method)
                 || (is_array($this->httpMethod)
-                && in_array(strtolower($method), $this->httpMethod))){
+                && in_array($method, $this->httpMethod))){
             if($this->params){
                 if($url == $this->rewrite){
                     $urlMatch = true;
@@ -96,7 +96,6 @@ class Route extends CoreRoute {
                                 '(?P<' . $token . '>(.+))');
                     }
                     $urlData = array();
-
 
                     // perform the URL matching
                     $urlMatch = preg_match('`^' . $template->parse() .
@@ -118,8 +117,9 @@ class Route extends CoreRoute {
                         if($method == 'post'){
                             $params += $request->post()->toArray();
                         }
-                        $this->remapParam($this->remap, $params);
                         $this->params = new Map($params);
+                        $this->remapParam($this->remap, $params);
+                        $this->remap = new Map($params);
                     }
 
                 }else{

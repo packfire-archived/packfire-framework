@@ -278,7 +278,7 @@ abstract class Controller extends BucketUser {
             
             // call the controller action
             $actionInvoker = new ActionInvoker(array($this, $call));
-            $result = $actionInvoker->invoke($route->params());
+            $result = $actionInvoker->invoke($route->remap());
             if($result){
                 $this->response = $result;
             }
@@ -306,6 +306,11 @@ abstract class Controller extends BucketUser {
             /* @var $session \Packfire\Session\Session */
             if($session){
                 $session->bucket('errors')->set('errors', $this->errors->errors());
+                $lastForm = $session->bucket('lastForm');
+                /* @var $lastForm \Packfire\Session\Bucket\SessionBucket */
+                foreach($this->route->params() as $key => $value){
+                    $lastForm->set($key, $value);
+                }
             }
         }
         
