@@ -301,24 +301,50 @@ abstract class Controller extends BucketUser {
      * @since 1.0-sofia
      */
     private function processAftermath(){
-        if($this->errors->exists()){
-            $session = $this->service('session');
-            /* @var $session \Packfire\Session\Session */
-            if($session){
-                $session->bucket('errors')->set('errors', $this->errors->errors());
-                $lastForm = $session->bucket('lastForm');
-                /* @var $lastForm \Packfire\Session\Bucket\SessionBucket */
-                foreach($this->route->params() as $key => $value){
-                    $lastForm->set($key, $value);
+        
+        $session = $this->service('session');
+        /* @var $session \Packfire\Session\Session */
+        
+        $type = null;
+        if($this->response instanceof HttpResponse){
+            $type = $this->response->headers()->get('Content-Type');
+            
+            $lastForm = $session->bucket('lastForm');
+            $body = $this->response->body();
+            $matches = array();
+            preg_match_all('`<textarea[^<>]+name=(\'|")([^\"\']+)(\'|")[^<>]*>([^(</textarea>)]*)</textarea>`i', $body, $matches, PREG_SET_ORDER);
+            if($matches){
+                foreach($matches as $match){
+                    $value = $lastForm->get($match[2]);
+                    if($value){
+                        $body = str_replace($match[0], preg_replace('`>([^<]*)<`', '>' . $value . '<', $match[0]), $body);
+                    }
                 }
+            }
+            preg_match_all('`<{1}input[^<>]+name=(\'|")([^\"\']+)(\'|")[^<>]*>`is', $body, $matches, PREG_SET_ORDER);
+            
+            if($matches){
+                foreach($matches as $match){
+                    $value = $lastForm->get($match[2]);
+                    if($value){
+                        $body = str_replace($match[0], substr($match[0], 0, strlen($match[0]) - 1) . ' value="' . $value . '">', $body);
+                    }
+                }
+            }
+            $this->response->body($body);
+            $lastForm->clear();
+        }
+        
+        if($this->errors->exists()){
+            $session->bucket('errors')->set('errors', $this->errors->errors());
+            $lastForm = $session->bucket('lastForm');
+            /* @var $lastForm \Packfire\Session\Bucket\SessionBucket */
+            foreach($this->route->params() as $key => $value){
+                $lastForm->set($key, $value);
             }
         }
         
         // disable debugger if non-HTML output
-        $type = null;
-        if($this->response instanceof HttpResponse){
-            $type = $this->response->headers()->get('Content-Type');
-        }
         if($this->service('debugger')
                 && $type
                 && strpos(strtolower($type), 'html') === false){
