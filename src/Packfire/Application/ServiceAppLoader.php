@@ -5,6 +5,7 @@ use Packfire\IoC\BucketLoader;
 use Packfire\Database\ConnectorFactory;
 use Packfire\Config\Framework\AppConfig;
 use Packfire\IoC\ServiceLoader;
+use Packfire\Event\EventHandler;
 
 /**
  * ServiceAppLoader class
@@ -39,6 +40,7 @@ class ServiceAppLoader extends BucketLoader {
                 }
             }
         }
+        $this->put('events', new EventHandler($this));
     }
 
 }

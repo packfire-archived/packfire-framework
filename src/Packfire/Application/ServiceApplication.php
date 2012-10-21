@@ -5,7 +5,6 @@ use Packfire\Application\IApplication;
 use Packfire\Application\ServiceAppLoader;
 use Packfire\IoC\BucketUser;
 use Packfire\IoC\ServiceBucket;
-use Packfire\Event\EventHandler;
 
 /**
  * ServiceApplication class
@@ -29,7 +28,6 @@ abstract class ServiceApplication extends BucketUser implements IApplication {
         
         $coreLoader = new ServiceAppLoader($this->services);
         $coreLoader->load();
-        $this->services->put('events', new EventHandler($this));
     }
     
 }
