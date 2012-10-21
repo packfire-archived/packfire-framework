@@ -63,8 +63,13 @@ class Validator {
                 $this->validate($value, $param, $validation);
                 $params[$key] = $param;
             }elseif(isset($this->rules[$key])){
-                foreach($this->rules[$key] as $entry){
-                    $rule = $entry['rule'];
+                $rules = (array)$this->rules[$key];
+                foreach($rules as $entry){
+                    if(is_array($entry)){
+                        $rule = $entry['rule'];
+                    }else{
+                        $rule = $entry;
+                    }
                     $validation = $this->validateParam($rule, $value, $data);
                     $params[$key] = $value;
                     if(!$validation){
@@ -74,13 +79,13 @@ class Validator {
                                 'value' => $value,
                                 'rule' => $rule,
                                 'message' => 
-                                $entry['message']
+                                isset($entry['message']) ? $entry['message'] : null
                             );
                             if(false == call_user_func($this->callback, $package)){
-                                break;
+                                return $validation;
                             }
                         }else{
-                            break;
+                            return $validation;
                         }
                     }
                 }
