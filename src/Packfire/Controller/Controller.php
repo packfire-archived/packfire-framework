@@ -12,8 +12,11 @@ use Packfire\Exception\AuthorizationException;
 use Packfire\Net\Http\Request as HttpRequest;
 use Packfire\Net\Http\Response as HttpResponse;
 use Packfire\Core\ActionInvoker;
+use Packfire\Route\Validator;
 
 /**
+ * Controller class
+ * 
  * The generic controller class
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -53,13 +56,6 @@ abstract class Controller extends BucketUser {
     protected $state;
 
     /**
-     * Parameter filters
-     * @var Map
-     * @since 1.0-sofia
-     */
-    private $filters;
-
-    /**
      * A collection of loaded models
      * @var Map
      * @since 1.0-sofia
@@ -67,11 +63,19 @@ abstract class Controller extends BucketUser {
     private $models;
 
     /**
-     * A collection of all the errors from the filtering
-     * @var Map
+     * A collection of all the errors
+     * @var Error
      * @since 1.0-sofia
      */
-    private $errors;
+    protected $errors;
+    
+    /**
+     * A validation callback handler
+     * Gives the fields: $field, $value, $validity
+     * @var Closure|callback
+     * @since 2.0.0
+     */
+    protected $validationHandler;
 
     /**
      * Create a new Controller object
@@ -83,9 +87,8 @@ abstract class Controller extends BucketUser {
         $this->request = $request;
         $this->response = $response;
 
-        $this->filters = new Map();
         $this->state = new Map();
-        $this->errors = new Map();
+        $this->errors = new Error();
         $this->models = new Map();
     }
 
@@ -171,51 +174,6 @@ abstract class Controller extends BucketUser {
     }
 
     /**
-     * Get all the errors set to the controller
-     * @return Map Returns the list of errors
-     * @since 1.0-sofia
-     */
-    public function errors(){
-        return $this->errors;
-    }
-
-    /**
-     * Set an error to the controller
-     * @param string $target The name of the field that the error is targeted to
-     * @param Exception $exception The exception that occurred
-     * @param string $message (optional) The message to go with the error
-     * @since 1.0-sofia
-     */
-    protected function error($target, $exception, $message = null){
-        if(!$this->errors->keyExists($target)){
-            $this->errors[$target] = new ArrayList();
-        }
-        if(!$message){
-            $message = $exception->getMessage();
-        }
-        $this->errors[$target]->add($message);
-    }
-
-
-    /**
-     * Check if any error has been set to the controller
-     * @return boolean Returns true if an error has been set, false otherwise.
-     * @since 1.0-sofia
-     */
-    public function hasError(){
-        return $this->errors->count() > 0;
-    }
-
-    /**
-     * Check if the controller is error free or not
-     * @return boolean Returns true if there is no error set, false otherwise.
-     * @since 1.0-sofia
-     */
-    public function isErrorFree(){
-        return $this->errors->count() == 0;
-    }
-
-    /**
      * Handler for checking authorization of this controller
      * @return boolean Returns true if the authorization succeeded,
      *               false otherwise.
@@ -234,7 +192,7 @@ abstract class Controller extends BucketUser {
     protected function handleAuthentication(){
         return true;
     }
-
+    
     /**
      * Check for action method
      * @param string $method The method of the request in lower case
@@ -260,8 +218,17 @@ abstract class Controller extends BucketUser {
      */
     public function run($route, $action){
         $this->route = $route;
+        
+        if($this->validationHandler){
+            $validator = new Validator($route->rules(),
+                    $this->validationHandler);
+            $params = array();
+            $validator->validate($route->params(), $params);
+        }
+        
         $securityEnabled = $this->service('security')
                 && !$this->service('config.app')->get('security', 'disabled');
+        
         if($securityEnabled){
             if($this->service('security')){
                 // perform overriding of identity
@@ -298,13 +265,24 @@ abstract class Controller extends BucketUser {
         }
 
         if(is_callable(array($this, $call))){
+            
+            $session = $this->service('session');
+            if($session){
+                /* @var $session \Packfire\Session\Session */
+                $errors = $session->bucket('errors')->get('errors');
+                $session->bucket('errors')->clear();
+                if($errors){
+                    $this->errors = new Error($errors);
+                }
+            }
+            
             // call the controller action
             $actionInvoker = new ActionInvoker(array($this, $call));
             $result = $actionInvoker->invoke($route->params());
             if($result){
                 $this->response = $result;
             }
-            $this->postProcess();
+            $this->processAftermath();
         }else{
             $errorMsg = sprintf('The requested action "%s" is not found'
                                 . ' in the controller "%s".',
@@ -322,7 +300,15 @@ abstract class Controller extends BucketUser {
      * Perform post-processing after the action is executed
      * @since 1.0-sofia
      */
-    private function postProcess(){
+    private function processAftermath(){
+        if($this->errors->exists()){
+            $session = $this->service('session');
+            /* @var $session \Packfire\Session\Session */
+            if($session){
+                $session->bucket('errors')->set('errors', $this->errors->errors());
+            }
+        }
+        
         // disable debugger if non-HTML output
         $type = null;
         if($this->response instanceof HttpResponse){
