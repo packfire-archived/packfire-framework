@@ -28,8 +28,6 @@ class ServiceBucket extends BucketLoader {
         if(!$this->contains('exception.handler')){
             $this->put('exception.handler', new CliHandler());
         }
-        $this->put('config.routing', array(new CliRouterConfig(), 'load'));
-        $this->put('router', new CliRouter());
         if($this->pick('config.app')){
             // load the debugger
             $this->put('debugger', new Debugger());
