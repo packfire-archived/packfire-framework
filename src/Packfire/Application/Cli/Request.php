@@ -2,6 +2,7 @@
 namespace Packfire\Application\Cli;
 
 use Packfire\Application\IAppRequest;
+use Packfire\Collection\Map;
 
 /**
  * Request class
@@ -33,7 +34,7 @@ class Request implements IAppRequest {
         if(!$arguments){
             $arguments = $_SERVER['argv'];
         }
-        $this->params = $arguments;
+        $this->params = new Map($arguments);
     }
     
     /**
