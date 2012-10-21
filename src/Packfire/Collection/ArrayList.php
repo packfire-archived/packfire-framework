@@ -384,5 +384,21 @@ class ArrayList implements IList {
         unset($this->array[$offset]);
         $this->array = array_values($this->array);
     }
+    
+    /**
+     * Pick elements from the list based on their indexes
+     * @param array|IList $indexes The list of indexes to pick
+     * @return ArrayList Returns the resulting selected array list
+     * @since 2.0.0
+     */
+    public function select($indexes){
+        $result = array();
+        foreach($indexes as $index){
+            if($this->offsetExists($index)){
+                $result[$index] = $this->array[$index];
+            }
+        }
+        return new self($result);
+    }
 
 }
