@@ -1,9 +1,16 @@
 <?xml version="1.0"?>
-<phpunit bootstrap="test/bootstrap.php"
-    colors="true">
+<phpunit
+    bootstrap="test/bootstrap.php"
+    colors="true"
+>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="Packfire">
-            <directory>test/packfire</directory>
+            <directory suffix="Test.php">test</directory>
         </testsuite>
     </testsuites>
     <php>

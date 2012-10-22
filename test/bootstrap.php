@@ -1,10 +1,9 @@
 <?php
 
-/**
- * @author Sam-Mauris Yong / mauris@hotmail.sg
- */
+define('__PACKFIRE_START__', microtime(true));
+define('__APP_ROOT__', '');
 
-// you must include the main Packfire file
-set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__);
-chdir(__DIR__);
-include(__DIR__ . '/../packfire/Packfire.php');
+require('src/Packfire/Packfire.php');
+
+$packfire = new Packfire\Packfire();
+$packfire->classLoader()->register();

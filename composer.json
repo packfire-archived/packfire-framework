@@ -1,0 +1,31 @@
+{
+    "name": "packfire/packfire",
+    "description": "The rapid-development object-oriented framework for PHP. Be surprised at how fast you can build a web application with a pack of fire.",
+    "version": "2.0.0-dev",
+    "homepage": "http://mauris.sg/packfire/",
+    "type": "library",
+    "keywords": [
+      "framework",
+      "oop"
+    ],
+    "authors":[
+        {
+            "name": "Sam-Mauris Yong",
+            "email": "mauris@hotmail.sg",
+            "homepage": "http://mauris.sg/",
+            "role": "Developer"
+        }
+    ],
+    "license": "BSD-3-Clause",
+    "support":{
+        "issues": "https://github.com/packfire/packfire-framework/issues",
+        "wiki": "https://github.com/packfire/packfire-framework/wiki",
+        "source": "https://github.com/packfire/packfire-framework"
+    },
+    "require":{
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {"Packfire": "src/"}
+    }
+}
