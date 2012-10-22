@@ -6,6 +6,7 @@ use Packfire\Net\Http\ResponseCode;
 use Packfire\Text\NewLine;
 use Packfire\Collection\Map;
 use Packfire\Exception\ParseException;
+use Packfire\Collection\ArrayList;
 
 /**
  * Response class

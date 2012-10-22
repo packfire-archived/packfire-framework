@@ -58,7 +58,7 @@ class Server {
             // according to RFC 2616, the port number is required in the
             // Host header unless it is port 80.
             $request->headers()->add('Host',
-                    $this->host . ($this->port == 80 ? '' : ':' . $this->port));
+                    $this->host . ($this->port == 80 || $this->port == 443 ? '' : ':' . $this->port));
 
             $ch = curl_init();
 
@@ -91,8 +91,8 @@ class Server {
             $result = curl_exec($ch);
 
             // check if it was timed out
-            if(curl_errno($ch) == 28){
-                throw new IOException('HTTP request timeout.');
+            if(0 < ($errorNum = curl_errno($ch))){
+                throw new IOException(curl_error($ch), $errorNum);
             }
             
             //close connection
