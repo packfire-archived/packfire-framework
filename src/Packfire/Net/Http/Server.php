@@ -62,7 +62,7 @@ class Server {
 
             $ch = curl_init();
 
-            curl_setopt($ch,CURLOPT_URL, $request->url());
+            curl_setopt($ch, CURLOPT_URL, $request->url());
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_PORT, $this->port);
             // get the headers back too!
@@ -79,6 +79,12 @@ class Server {
             if($request->method() == Method::POST){
                 curl_setopt($ch, CURLOPT_POST, $request->post()->count());
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($request->post()->toArray()));
+            }
+            
+            // if the request is a https request
+            if($request->https()){
+                // update the cacert.pem file
+                curl_setopt ($ch, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
             }
 
             //execute and fetch result
