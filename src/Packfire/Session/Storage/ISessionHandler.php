@@ -1,4 +1,5 @@
 <?php
+namespace Packfire\Session\Storage;
 
 /**
  * ISessionHandler interface
@@ -8,7 +9,7 @@
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.session.storage
+ * @package Packfire\Session\Storage
  * @since 1.0-sofia
  * @link http://php.net/manual/en/function.session-set-save-handler.php
  */
