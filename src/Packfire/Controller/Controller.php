@@ -9,6 +9,7 @@ use Packfire\IoC\BucketUser;
 use Packfire\Exception\HttpException;
 use Packfire\Exception\AuthenticationException;
 use Packfire\Exception\AuthorizationException;
+use Packfire\Exception\InvalidRequestException;
 use Packfire\Net\Http\Request as HttpRequest;
 use Packfire\Net\Http\Response as HttpResponse;
 use Packfire\Core\ActionInvoker;

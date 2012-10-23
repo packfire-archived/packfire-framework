@@ -97,7 +97,6 @@ class Iterator implements \Countable {
 
     /**
      * Get the number of element in the collection
-     * Note that count is cached in RaiseCollection::$count
      * Clearing cache is done after CUD operations
      * @return integer
      * @since 1.0-sofia

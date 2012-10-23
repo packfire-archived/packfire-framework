@@ -5,6 +5,7 @@ use Packfire\Collection\Map;
 use Packfire\Net\Http\Url;
 use Packfire\Text\TextStream;
 use Packfire\Text\NewLine;
+use Packfire\Collection\ArrayList;
 
 /**
  * Request class

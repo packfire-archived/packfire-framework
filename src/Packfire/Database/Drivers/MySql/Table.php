@@ -3,7 +3,7 @@ namespace Packfire\Database\Drivers\MySql;
 
 use Packfire\Database\Table as DbTable;
 use Packfire\Database\Column;
-use Linq\Linq;
+use Packfire\Database\Drivers\MySql\Linq\Linq;
 use Packfire\Collection\ArrayList;
 
 /**

@@ -239,7 +239,7 @@ class Linq extends Table implements ILinq, IOrderedLinq {
      */
     public function listOf($object){
         $this->map(function($row) use ($object){
-            $reflection = new ReflectionClass($object);
+            $reflection = new \ReflectionClass($object);
             return call_user_func_array(array($reflection, 'newInstance'), $row);
         });
         return $this;

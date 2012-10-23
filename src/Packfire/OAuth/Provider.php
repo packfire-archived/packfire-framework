@@ -149,7 +149,7 @@ class Provider extends BucketUser {
         $this->checkNonce($request);
         
         $token = $this->store()->createRequestToken($this->consumer);
-        $response = new OAuthResponse();
+        $response = new Response();
         $token->assign($response);
         return $response;
     }

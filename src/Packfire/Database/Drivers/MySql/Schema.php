@@ -5,6 +5,7 @@ use Packfire\Database\SchemaLinq as DbSchema;
 use Packfire\Database\Table as DbTable;
 use Packfire\Database\Drivers\MySql\Table;
 use Packfire\Database\Drivers\MySql\Linq\Linq;
+use Packfire\Collection\ArrayList;
 
 /**
  * Schema class
