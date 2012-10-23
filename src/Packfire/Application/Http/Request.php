@@ -4,6 +4,7 @@ namespace Packfire\Application\Http;
 use Packfire\Application\IAppRequest;
 use Packfire\Net\Http\ClientRequest;
 use Packfire\Net\Http\Method as HttpMethod;
+use Packfire\Collection\Map;
 
 /**
  * Request class
