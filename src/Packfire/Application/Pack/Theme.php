@@ -21,7 +21,6 @@ abstract class Theme {
      * @since 1.1-sofia
      */
     public static function load($theme){
-        $theme = ucfirst($theme) . 'Theme';
         return new $theme();
     }
     

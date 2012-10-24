@@ -21,7 +21,7 @@ class Template {
      * @since 1.0-sofia
      */
     public static function load($name){
-        $path = __APP_ROOT__ . 'src' . DIRECTORY_SEPARATOR . $name;
+        $path = __APP_ROOT__ . 'src' . DIRECTORY_SEPARATOR . str_replace(array('_', '\\', '/'), DIRECTORY_SEPARATOR, $name);
         
         // parsers
         $extensions = array(
