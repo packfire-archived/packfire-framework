@@ -49,6 +49,7 @@ class Packfire {
         require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassLoader.php');
         $finder = new PackfireClassFinder();
         $this->classLoader = new ClassLoader($finder);
+        require(__DIR__ . DIRECTORY_SEPARATOR . 'helper.php');
     }
     
     /**
