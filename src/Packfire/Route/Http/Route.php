@@ -118,7 +118,11 @@ class Route extends CoreRoute {
                             $params += $request->post()->toArray();
                         }
                         $this->params = new Map($params);
-                        $this->remapParam($this->remap, $params);
+                        if($this->remap->count() > 0){
+                            $this->remapParam($this->remap, $params);
+                        }else{
+                            $this->remap = new Map($params);
+                        }
                         $this->remap = new Map($params);
                     }
 
