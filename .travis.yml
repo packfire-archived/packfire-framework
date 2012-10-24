@@ -14,5 +14,4 @@ before_script:
 script: phpunit -c phpunit.dist.xml
 after_script:
   - git clone git://gist.github.com/3939260.git pdc
-  - chmod +x pdc/pdc
-  - ./pdc/pdc src
+  - php pdc/pdc src
