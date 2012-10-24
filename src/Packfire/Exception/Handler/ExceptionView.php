@@ -39,9 +39,10 @@ class ExceptionView extends View {
      * @since 1.0-sofia 
      */
     protected function create() {
+        $className = explode('\\', __CLASS__);
         $this->template(new TemplateFile(__DIR__ 
                 . DIRECTORY_SEPARATOR
-                . basename(__CLASS__) . '.html'));
+                . end($className) . '.html'));
         $this->define('title', 'Error ' . $this->exception->getCode());
         $this->define('file',  $this->exception->getFile());
         $this->define('line',  $this->exception->getLine());
