@@ -173,6 +173,8 @@ class FileCache implements ICache {
                 $expiry = time() + 3600; // default to 1 hour cache?
             }
             touch($file, $expiry);
+        }else{
+            touch($file, PHP_INT_MAX);
         }
     }
 
