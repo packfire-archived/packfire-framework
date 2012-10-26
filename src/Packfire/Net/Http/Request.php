@@ -129,7 +129,6 @@ class Request {
         $headerEnd = strpos($strRequest, "\n\n");
         Utility::parseHeaders(substr($strRequest, $firstLinePos + 1, $headerEnd - $firstLinePos - 1),
                 $this->headers);
-        var_dump($this->headers->toArray());
         
         if($this->headers->keyExists('cookie')){
             $cookies = $this->headers->get('cookie');
@@ -144,7 +143,7 @@ class Request {
         }
         
         $body = substr($strRequest, $headerEnd + 2);
-        $contentType = $this->headers->get('Content-Type');
+        $contentType = $this->headers->get('content-type');
         if(strtolower($this->method) == 'post'){
             if(substr($contentType, 0, 19) == 'multipart/form-data'){
                 // todo multipart form data parsing
