@@ -73,47 +73,52 @@ class Response {
      */
     public function parse($strResponse){
         $strResponse = NewLine::neutralize($strResponse);
-        $lines = explode(NewLine::UNIX, $strResponse);
-        if(count($lines) > 0){
-            $statusLine = $lines[0];
-            $sp = strpos($statusLine, ' ');
-            if($sp === false){
-                throw new ParseException(
-                        'Failed to parse HTTP version and code in response'
-                    );
-            }else{
-                $this->version(trim(substr($statusLine, 0, $sp)));
-                $this->code(trim(substr($statusLine, $sp + 1)));
-            }
-            unset($lines[0]);
-            
-            $body = null;
-
-            foreach($lines as $line){
-                if(strlen($line) > 0){
-                    if($body === null){
-                        $separator = strpos($line, ':');
-                        if($separator !== false){
-                            $key = trim(substr($line, 0, $separator));
-                            $value = trim(substr($line, $separator + 1));
-                            if($this->headers()->keyExists($key)){
-                                $this->headers()->get($key)->add(new ArrayList(array($value)));
-                            }else{
-                                $this->headers()->add($key, new ArrayList(array($value)));
-                            }
-                        }
-                    }else{
-                        $body .= $line . NewLine::UNIX;
-                    }
+       
+        $matches = array();
+        $okay = preg_match('`^([^\s]*) (.*)\n`', $strResponse, $matches);
+        if(!$okay){
+            throw new ParseException(
+                    'Failed to parse HTTP version and code in response'
+                );
+        }
+        $this->version = $matches[1];
+        $this->code  = $matches[2];
+        
+        $firstLinePos = strpos($strResponse, "\n");
+        $headerEnd = strpos($strResponse, "\n\n");
+        preg_match_all('`([^:\s]+): (.+(\n\s.+|))`',
+                substr($neutralizedResponse, $firstLinePos + 1, $headerEnd - $firstLinePos - 1), $matches);
+        $result = array_combine($matches[1], $matches[2]);
+        foreach($result as $key => $value){
+            $key = strtolower($key);
+            $value = preg_replace('`\n\s+`', ' ', $value);
+            if($this->headers->keyExists($key)){
+                if($this->headers->get($key) instanceof ArrayList){
+                    $this->headers->get($key)->add($value);
                 }else{
-                    $body = '';
+                    $this->headers->add($key,
+                            new ArrayList(array($this->headers->get($key), $value)));
+                }
+            }else{
+                $this->headers->add($key, $value);
+            }
+        }
+        if($this->headers->keyExists('set-cookie')){
+            $cookies = $this->headers->get('set-cookie');
+            if(!($cookies instanceof ArrayList)){
+                $cookies = (array)$cookies;
+            }
+            foreach($cookies as $cookie){
+                preg_match_all('/([^;=\s]+)\s*={0,1}\s*([^;=\s]*)/', $cookie, $matches); 
+                $result = array_combine($matches[1], $matches[2]);
+                foreach($result as $key => $value){
+                    if(!preg_match('`(path|domain|secure|httponly|version|expires)`i', $key)){
+                        $this->cookies[$key] = $value;
+                    }
                 }
             }
-            if($body === null){
-                $body = '';
-            }
-            $this->body($body);
         }
+        $this->body(substr($strResponse, $headerEnd + 2));
     }
     
     /**
