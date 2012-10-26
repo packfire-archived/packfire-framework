@@ -296,7 +296,7 @@ class Request {
      */
     public function url(){
         $u = new Url();
-        $u->host($this->headers->get('Host'));
+        $u->host($this->headers->get('host'));
         $u->scheme('http' . ($this->https() ? 's' : ''));
         $markpos = strpos($this->uri(), '?');
         if($markpos !== false){
