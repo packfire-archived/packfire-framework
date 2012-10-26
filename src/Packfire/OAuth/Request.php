@@ -5,7 +5,6 @@ use Packfire\Net\Http\Request as HttpRequest;
 use Packfire\Net\Http\Method as HttpMethod;
 use Packfire\DateTime\DateTime;
 use Packfire\Collection\Map;
-use Packfire\Exception\MissingDependencyException;
 use Packfire\Exception\InvalidArgumentException;
 use Packfire\OAuth\OAuth;
 use Packfire\OAuth\Helper;
@@ -102,7 +101,7 @@ class Request extends HttpRequest implements IHttpEntity {
                 }
             }
         }
-        $authHeader = $this->headers->get('Authorization');
+        $authHeader = $this->headers->get('authorization');
         if(is_string($authHeader) && substr($authHeader, 0, 6) == 'OAuth '){
             $params = array();
             $matches = array();
