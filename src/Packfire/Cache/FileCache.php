@@ -6,7 +6,7 @@ use Packfire\IO\File\File;
 use Packfire\IO\File\Stream as FileStream;
 use Packfire\IO\File\Path;
 use Packfire\IO\File\System as FileSystem;
-use Packfire\Data\Serialization\PhpSerializer;
+use Packfire\Data\Serialization\JsonSerializer;
 use Packfire\DateTime\DateTime;
 use Packfire\DateTime\TimeSpan;
 
@@ -134,10 +134,10 @@ class FileCache implements ICache {
     public function get($cacheId, $default = null) {
         $file = self::filePath($cacheId);
         $value = $default;
-        if(self::isCacheFresh($file)){
+        if(FileSystem::fileExists($file)){
             $stream = new FileStream($file);
             $stream->open();
-            $serializer = new PhpSerializer();
+            $serializer = new JsonSerializer();
             $value = $serializer->deserialize($stream);
             $stream->close();
         }
@@ -155,11 +155,13 @@ class FileCache implements ICache {
      */
     public function set($cacheId, $value, $expiry = null) {
         $file = self::filePath($cacheId);
-        $fileTouch = new File($file);
-        $fileTouch->create();
+        if(!FileSystem::fileExists($file)){
+            $fileTouch = new File($file);
+            $fileTouch->create();
+        }
         $stream = new FileStream($file);
         $stream->open();
-        $serializer = new PhpSerializer();
+        $serializer = new JsonSerializer();
         $value = $serializer->serialize($stream, $value);
         $stream->close();
         @chmod($file, 0755);
