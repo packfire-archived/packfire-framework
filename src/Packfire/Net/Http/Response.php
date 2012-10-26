@@ -86,23 +86,8 @@ class Response {
         
         $firstLinePos = strpos($strResponse, "\n");
         $headerEnd = strpos($strResponse, "\n\n");
-        preg_match_all('`([^:\s]+): (.+(\n\s.+|))`',
-                substr($strResponse, $firstLinePos + 1, $headerEnd - $firstLinePos - 1), $matches);
-        $result = array_combine($matches[1], $matches[2]);
-        foreach($result as $key => $value){
-            $key = strtolower($key);
-            $value = preg_replace('`\n\s+`', ' ', $value);
-            if($this->headers->keyExists($key)){
-                if($this->headers->get($key) instanceof ArrayList){
-                    $this->headers->get($key)->add($value);
-                }else{
-                    $this->headers->add($key,
-                            new ArrayList(array($this->headers->get($key), $value)));
-                }
-            }else{
-                $this->headers->add($key, $value);
-            }
-        }
+        Utility::parseHeaders(substr($strResponse, $firstLinePos + 1, $headerEnd - $firstLinePos - 1),
+                $this->headers);
         if($this->headers->keyExists('set-cookie')){
             $cookies = $this->headers->get('set-cookie');
             if(!($cookies instanceof ArrayList)){
