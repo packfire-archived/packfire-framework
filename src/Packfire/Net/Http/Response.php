@@ -87,7 +87,7 @@ class Response {
         $firstLinePos = strpos($strResponse, "\n");
         $headerEnd = strpos($strResponse, "\n\n");
         preg_match_all('`([^:\s]+): (.+(\n\s.+|))`',
-                substr($neutralizedResponse, $firstLinePos + 1, $headerEnd - $firstLinePos - 1), $matches);
+                substr($strResponse, $firstLinePos + 1, $headerEnd - $firstLinePos - 1), $matches);
         $result = array_combine($matches[1], $matches[2]);
         foreach($result as $key => $value){
             $key = strtolower($key);

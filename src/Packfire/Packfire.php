@@ -101,7 +101,7 @@ class Packfire {
             $request->uri($_SERVER['REQUEST_URI']);
             $request->version($_SERVER['SERVER_PROTOCOL']);
             // changed to stream to prevent Denial Of Service
-            $request->body(new FileStream('php://input'));
+            $request->body(file_get_contents('php://input'));
             $request->time(DateTime::fromTimestamp($_SERVER['REQUEST_TIME']));
             if(array_key_exists('HTTP_HOST', $_SERVER)){
                 $request->headers()->add('Host', $_SERVER['HTTP_HOST'], true);

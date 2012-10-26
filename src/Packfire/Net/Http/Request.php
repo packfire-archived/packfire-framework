@@ -3,7 +3,6 @@ namespace Packfire\Net\Http;
 
 use Packfire\Collection\Map;
 use Packfire\Net\Http\Url;
-use Packfire\Text\TextStream;
 use Packfire\Text\NewLine;
 use Packfire\Collection\ArrayList;
 
@@ -43,7 +42,7 @@ class Request {
 
     /**
      * Body of the Request
-     * @var IInputStream
+     * @var string
      * @since 1.0-sofia
      */
     protected $body;
@@ -154,7 +153,7 @@ class Request {
                         $this->post->append($data);
                     }
                 }else{
-                    $this->body(new TextStream($body));
+                    $this->body($body);
                 }
             }
         }
@@ -323,13 +322,7 @@ class Request {
                     $buffer .= $k . ': ' . $h . NewLine::UNIX;
             }
         }
-        if($this->body()){
-            $buffer .= NewLine::UNIX;
-            while($this->body()->tell() < $this->body()->length()){
-                $read = $this->body()->read(1024);
-                $buffer .= $read;
-            }
-        }
+        $buffer .= NewLine::UNIX . $this->body();
         return $buffer;
     }
     
