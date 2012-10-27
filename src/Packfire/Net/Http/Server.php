@@ -57,7 +57,7 @@ class Server {
         if(function_exists('curl_init')){
             // according to RFC 2616, the port number is required in the
             // Host header unless it is port 80.
-            $request->headers()->add('Host',
+            $request->headers()->add('host',
                     $this->host . ($this->port == 80 || $this->port == 443 ? '' : ':' . $this->port));
 
             $ch = curl_init();
