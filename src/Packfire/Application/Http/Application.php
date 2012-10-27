@@ -160,11 +160,11 @@ class Application extends ServiceApplication {
      * @since 1.0-sofia
      */
     public function directAccessProcessor($request, $route, $response){
-        $class = $route->params()->get('class');
-        $action = $route->params()->get('action');
-        $route->params()->removeAt('class');
-        $route->params()->removeAt('action');
-        $caLoader = new ControllerInvoker(ucfirst($class), $action, $request, $route, $response);
+        $path = $route->params()->get('path');
+        $route->params()->removeAt('path');
+        $class = dirname($path);
+        $action = basename($path);
+        $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
         return $caLoader;
     }
     
