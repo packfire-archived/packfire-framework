@@ -5,6 +5,7 @@ use Packfire\Collection\Map;
 use Packfire\Net\Http\Url;
 use Packfire\Text\NewLine;
 use Packfire\Collection\ArrayList;
+use Packfire\Exception\ParseException;
 
 /**
  * Request class

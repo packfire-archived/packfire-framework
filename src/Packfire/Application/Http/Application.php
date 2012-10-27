@@ -11,6 +11,9 @@ use Packfire\Response\RedirectResponse;
 use Packfire\Route\Http\RedirectRoute;
 use Packfire\Net\Http\Method as HttpMethod;
 use Packfire\DateTime\TimeSpan;
+use Packfire\Collection\Map;
+use Packfire\Route\Http\Route;
+
 
 /**
  * Application class
