@@ -68,6 +68,18 @@ class Application extends ServiceApplication {
         }
         $router->load();
         
+        $config = new Map(array(
+            'rewrite' => '/{path}',
+            'actual' => 'directControllerAccessRoute',
+            'method' => null,
+            'params' => new Map(array(
+                'rewrite' => 'any',
+            ))
+        ));
+        $router->add('packfire.directControllerAccess', new Route(
+                'packfire.directControllerAccess',
+                $config));
+        
         /* @var $route Route */
         $route = null;
         if($request->method() == HttpMethod::GET 

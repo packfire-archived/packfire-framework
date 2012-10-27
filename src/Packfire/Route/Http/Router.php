@@ -35,19 +35,6 @@ class Router extends CoreRouter {
         if($this->service('config.app')){
             $this->enabled = $this->service('config.app')->get('routing', 'enabled');
         }
-        $config = new Map(array(
-            'rewrite' => '/{class}/{action}',
-            'actual' => 'directControllerAccessRoute',
-            'method' => null,
-            'params' => new Map(array(
-                'class' => 'regex/`^([a-zA-Z0-9\_]+)$`',
-                'action' => 'regex/`^([a-zA-Z0-9\_]+)$`'
-            ))
-        ));
-        $directControllerAccessRoute = new Route(
-                'packfire.directControllerAccess',
-                $config);
-        $this->add('packfire.directControllerAccess', $directControllerAccessRoute);
     }
     
     /**
