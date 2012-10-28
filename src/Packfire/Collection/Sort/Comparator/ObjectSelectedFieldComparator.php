@@ -34,7 +34,7 @@ class ObjectSelectedfieldComparator extends ObjectFieldComparator {
      */
     protected function access($object){
         $func = $this->field;
-        if($func instanceof Closure){
+        if($func instanceof \Closure){
             return $func($object);
         }else{
             return call_user_func($func, $object);

@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Application\Http;
 
-use Packfire\Ioc\BucketLoader;
+use Packfire\IoC\BucketLoader;
 use Packfire\Session\Loader as SessionLoader;
 use Packfire\Config\Framework\HttpRouterConfig;
 use Packfire\Exception\Handler\HttpHandler as HttpExceptionHandler;
@@ -51,7 +51,7 @@ class ServiceBucket extends BucketLoader {
         $this->put('autoload.finder', $classFinder);
         // only load CacheClassFinder if the cache component is available
         if($this->contains('cache')){
-            $classFinder = new CacheClassFinder();
+            $classFinder = new CacheClassFinder('src.class.');
             $classFinder->setBucket($this->bucket);
         }
         $classLoader = new ClassLoader($classFinder);

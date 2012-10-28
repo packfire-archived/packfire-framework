@@ -3,9 +3,9 @@ namespace Packfire\Net\Http;
 
 use Packfire\Collection\Map;
 use Packfire\Net\Http\Url;
-use Packfire\Text\TextStream;
 use Packfire\Text\NewLine;
 use Packfire\Collection\ArrayList;
+use Packfire\Exception\ParseException;
 
 /**
  * Request class
@@ -43,7 +43,7 @@ class Request {
 
     /**
      * Body of the Request
-     * @var IInputStream
+     * @var string
      * @since 1.0-sofia
      */
     protected $body;
@@ -103,60 +103,58 @@ class Request {
     /**
      * Parse the string format of the HTTP request into this object
      * @param string $strRequest The string to be parsed
+     * @throws ParseException
      * @since 1.0-sofia
      */
     public function parse($strRequest){
         $strRequest = NewLine::neutralize($strRequest);
-        $lines = explode(NewLine::UNIX, $strRequest);
-        if(count($lines) > 0){
-            $requestLine = $lines[0];
-            list($method, $uri, $version) = explode(' ', $requestLine);
-            $this->method(trim($method));
-            $parsedUri = new Map(parse_url($uri));
-            $this->uri($parsedUri->get('path', '/'));
-            $getData = array();
-            parse_str($parsedUri->get('query', ''), $getData);
-            $this->get->append($getData);
-            $this->version = trim($version);
-            unset($lines[0]);
-            $body = null;
-            foreach($lines as $line){
-                if(strlen($line) > 0){
-                    if($body === null){
-                        $separator = strpos($line, ':');
-                        if($separator){
-                            $key = trim(substr($line, 0, $separator));
-                            $value = trim(substr($line, $separator + 1));
-                            if($this->headers()->keyExists($key)){
-                                $firstValue = $this->headers->get($key);
-                                $this->headers->add($key, new ArrayList());
-                                $this->headers->get($key)->add($firstValue);
-                                $this->headers->get($key)->add($value);
-                            }else{
-                                $this->headers->add($key, $value);
-                            }
-                        }
-                    }else{
-                        $body .= $line . NewLine::UNIX;
-                    }
-                }else{
-                    $body = '';
-                }
+        
+        $matches = array();
+        $okay = preg_match('`^([^\s]*) ([^\s]*) ([^\s]*)\n`', $strRequest, $matches);
+        if(!$okay){
+            throw new ParseException(
+                    'Failed to parse HTTP method, URI and version in request'
+                );
+        }
+        
+        // process the status line
+        $this->method = $matches[1];
+        $parsedUri = new Map(parse_url($matches[2]));
+        $this->uri = $parsedUri->get('path', '/');
+        $getData = array();
+        parse_str($parsedUri->get('query', ''), $getData);
+        $this->get->append($getData);
+        $this->version = $matches[3];
+        
+        $firstLinePos = strpos($strRequest, "\n");
+        $headerEnd = strpos($strRequest, "\n\n");
+        Utility::parseHeaders(substr($strRequest, $firstLinePos + 1, $headerEnd - $firstLinePos - 1),
+                $this->headers);
+        
+        if($this->headers->keyExists('cookie')){
+            $cookies = $this->headers->get('cookie');
+            if(!($cookies instanceof ArrayList)){
+                $cookies = (array)$cookies;
             }
-            if($body !== null){
-                $contentType = $this->headers->get('Content-Type');
-                if(strtolower($this->method) == 'post'){
-                    if(substr($contentType, 0, 19) == 'multipart/form-data'){
-                        // todo multipart form data parsing
-                    }else{
-                        $data = array();
-                        parse_str(trim($body), $data);
-                        $this->post->append($data);
-                    }
-                }else{
-                    $this->body(new TextStream($body));
-                }
+            foreach($cookies as $cookie){
+                preg_match_all('/([^;=\s]+)\s*={0,1}\s*([^;=\s]*)/', $cookie, $matches); 
+                $result = array_combine($matches[1], $matches[2]);
+                $this->cookies->append($result);
             }
+        }
+        
+        $body = substr($strRequest, $headerEnd + 2);
+        $contentType = $this->headers->get('content-type');
+        if(strtolower($this->method) == 'post'){
+            if(substr($contentType, 0, 19) == 'multipart/form-data'){
+                // todo multipart form data parsing
+            }else{
+                $data = array();
+                parse_str(trim($body), $data);
+                $this->post->append($data);
+            }
+        }else{
+            $this->body($body);
         }
     }
 
@@ -299,7 +297,7 @@ class Request {
      */
     public function url(){
         $u = new Url();
-        $u->host($this->headers->get('Host'));
+        $u->host($this->headers->get('host'));
         $u->scheme('http' . ($this->https() ? 's' : ''));
         $markpos = strpos($this->uri(), '?');
         if($markpos !== false){
@@ -323,13 +321,7 @@ class Request {
                     $buffer .= $k . ': ' . $h . NewLine::UNIX;
             }
         }
-        if($this->body()){
-            $buffer .= NewLine::UNIX;
-            while($this->body()->tell() < $this->body()->length()){
-                $read = $this->body()->read(1024);
-                $buffer .= $read;
-            }
-        }
+        $buffer .= NewLine::UNIX . $this->body();
         return $buffer;
     }
     

@@ -134,7 +134,7 @@ class FileCache implements ICache {
     public function get($cacheId, $default = null) {
         $file = self::filePath($cacheId);
         $value = $default;
-        if(self::isCacheFresh($file)){
+        if(FileSystem::fileExists($file)){
             $stream = new FileStream($file);
             $stream->open();
             $serializer = new PhpSerializer();
@@ -155,8 +155,10 @@ class FileCache implements ICache {
      */
     public function set($cacheId, $value, $expiry = null) {
         $file = self::filePath($cacheId);
-        $fileTouch = new File($file);
-        $fileTouch->create();
+        if(!FileSystem::fileExists($file)){
+            $fileTouch = new File($file);
+            $fileTouch->create();
+        }
         $stream = new FileStream($file);
         $stream->open();
         $serializer = new PhpSerializer();
@@ -173,6 +175,8 @@ class FileCache implements ICache {
                 $expiry = time() + 3600; // default to 1 hour cache?
             }
             touch($file, $expiry);
+        }else{
+            touch($file, PHP_INT_MAX);
         }
     }
 

@@ -2,6 +2,7 @@
 namespace Packfire\Session;
 
 use Packfire\IoC\BucketUser;
+use Packfire\Collection\ArrayList;
 
 /**
  * Messenger class

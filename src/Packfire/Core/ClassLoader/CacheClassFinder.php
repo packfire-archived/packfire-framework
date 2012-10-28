@@ -61,8 +61,11 @@ class CacheClassFinder extends BucketUser implements IClassFinder {
      */
     public function find($class) {
         $cacheId = $this->prefix . $class;
-        if(null === $file = $this->cache()->get($cacheId)){
-            $this->cache()->set($cacheId, $file = $this->finder()->find($class));
+        if($this->cache()->check($cacheId)){
+            $file = $this->cache()->get($cacheId);
+        }else{
+            $file = $this->finder()->find($class);
+            $this->cache()->set($cacheId, $file);
         }
         return $file;
     }
