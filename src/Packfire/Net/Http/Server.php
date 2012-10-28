@@ -57,7 +57,7 @@ class Server {
         if(function_exists('curl_init')){
             // according to RFC 2616, the port number is required in the
             // Host header unless it is port 80.
-            $request->headers()->add('Host',
+            $request->headers()->add('host',
                     $this->host . ($this->port == 80 || $this->port == 443 ? '' : ':' . $this->port));
 
             $ch = curl_init();
@@ -76,9 +76,13 @@ class Server {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
             // if it is post
-            if($request->method() == Method::POST){
+            if($request->method() == Method::POST && $request->post()->count() > 0){
                 curl_setopt($ch, CURLOPT_POST, $request->post()->count());
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($request->post()->toArray()));
+            }else{
+                if($request->body()){
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $request->body());
+                }
             }
             
             // if the request is a https request

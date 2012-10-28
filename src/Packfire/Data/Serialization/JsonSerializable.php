@@ -1,7 +1,6 @@
 <?php
 namespace Packfire\Data\Serialization;
 
-use ISerializable;
 use \JsonSerializable as IJsonSerializable;
 
 /**

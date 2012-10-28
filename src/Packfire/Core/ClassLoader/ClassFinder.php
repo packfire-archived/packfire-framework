@@ -1,6 +1,8 @@
 <?php
 namespace Packfire\Core\ClassLoader;
 
+use Packfire\Collection\ArrayList;
+
 /**
  * ClassFinder class
  * 
@@ -36,7 +38,7 @@ class ClassFinder implements IClassFinder {
      */
     public function addNamespace($namespace, $path){
         if(isset($this->namespaces[$namespace])){
-            if($path instanceof Packfire\Collection\ArrayList){
+            if($path instanceof ArrayList){
                 $path = $path->toArray();
             }
             $this->namespaces[$namespace] = 

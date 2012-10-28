@@ -2,8 +2,8 @@
 namespace Packfire\Controller;
 
 use Packfire\IoC\BucketUser;
-use Packfire\Application\IAppResponse;
 use Packfire\Core\ActionInvoker;
+use Packfire\IoC\IBucketUser;
 
 /**
  * Invoker class

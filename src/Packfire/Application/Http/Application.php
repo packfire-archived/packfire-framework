@@ -11,6 +11,9 @@ use Packfire\Response\RedirectResponse;
 use Packfire\Route\Http\RedirectRoute;
 use Packfire\Net\Http\Method as HttpMethod;
 use Packfire\DateTime\TimeSpan;
+use Packfire\Collection\Map;
+use Packfire\Route\Http\Route;
+
 
 /**
  * Application class
@@ -68,6 +71,22 @@ class Application extends ServiceApplication {
         }
         $router->load();
         
+        $debugMode = $this->service('config.app')
+                && $this->service('config.app')->get('app', 'debug');
+        if($debugMode){
+            $config = new Map(array(
+                'rewrite' => '/{path}',
+                'actual' => 'directControllerAccessRoute',
+                'method' => null,
+                'params' => new Map(array(
+                    'path' => 'any',
+                ))
+            ));
+            $router->add('packfire.directControllerAccess', new Route(
+                    'packfire.directControllerAccess',
+                    $config));
+        }
+        
         /* @var $route Route */
         $route = null;
         if($request->method() == HttpMethod::GET 
@@ -101,7 +120,7 @@ class Application extends ServiceApplication {
                 $action = '';
             }
 
-            if($route->name() == 'packfire.directControllerAccess'){
+            if($debugMode && $route->name() == 'packfire.directControllerAccess'){
                 $caLoader = $this->directAccessProcessor($request, $route, $response);
             }else{
                 $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
@@ -148,11 +167,11 @@ class Application extends ServiceApplication {
      * @since 1.0-sofia
      */
     public function directAccessProcessor($request, $route, $response){
-        $class = $route->params()->get('class');
-        $action = $route->params()->get('action');
-        $route->params()->removeAt('class');
-        $route->params()->removeAt('action');
-        $caLoader = new ControllerInvoker(ucfirst($class), $action, $request, $route, $response);
+        $path = $route->params()->get('path');
+        $route->params()->removeAt('path');
+        $class = '\\' . str_replace('/', '\\', dirname($path));
+        $action = basename($path);
+        $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
         return $caLoader;
     }
     
