@@ -71,17 +71,21 @@ class Application extends ServiceApplication {
         }
         $router->load();
         
-        $config = new Map(array(
-            'rewrite' => '/{path}',
-            'actual' => 'directControllerAccessRoute',
-            'method' => null,
-            'params' => new Map(array(
-                'rewrite' => 'any',
-            ))
-        ));
-        $router->add('packfire.directControllerAccess', new Route(
-                'packfire.directControllerAccess',
-                $config));
+        $debugMode = $this->service('config.app')
+                && $this->service('config.app')->get('app', 'debug');
+        if($debugMode){
+            $config = new Map(array(
+                'rewrite' => '/{path}',
+                'actual' => 'directControllerAccessRoute',
+                'method' => null,
+                'params' => new Map(array(
+                    'path' => 'any',
+                ))
+            ));
+            $router->add('packfire.directControllerAccess', new Route(
+                    'packfire.directControllerAccess',
+                    $config));
+        }
         
         /* @var $route Route */
         $route = null;
@@ -116,7 +120,7 @@ class Application extends ServiceApplication {
                 $action = '';
             }
 
-            if($route->name() == 'packfire.directControllerAccess'){
+            if($debugMode && $route->name() == 'packfire.directControllerAccess'){
                 $caLoader = $this->directAccessProcessor($request, $route, $response);
             }else{
                 $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
@@ -165,7 +169,7 @@ class Application extends ServiceApplication {
     public function directAccessProcessor($request, $route, $response){
         $path = $route->params()->get('path');
         $route->params()->removeAt('path');
-        $class = dirname($path);
+        $class = '\\' . str_replace('/', '\\', dirname($path));
         $action = basename($path);
         $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
         return $caLoader;
