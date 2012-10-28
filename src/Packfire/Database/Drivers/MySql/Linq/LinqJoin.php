@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Database\Drivers\MySql\Linq;
 
-use Packfire\Database\Drivers\MySql\LinqILinqQuery;
+use Packfire\Database\Drivers\MySql\Linq\ILinqQuery;
 use Packfire\Text\Regex\Regex;
 
 /**

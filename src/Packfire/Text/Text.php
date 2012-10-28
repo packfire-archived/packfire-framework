@@ -1,6 +1,8 @@
 <?php
 namespace Packfire\Text;
 
+use Packfire\Collection\IList;
+
 /**
  * Text class
  * 

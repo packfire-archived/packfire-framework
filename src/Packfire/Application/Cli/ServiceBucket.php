@@ -2,8 +2,6 @@
 namespace Packfire\Application\Cli;
 
 use Packfire\IoC\BucketLoader;
-use Packfire\Route\Cli\Router as CliRouter;
-use Packfire\Config\Framework\CliRouterConfig;
 use Packfire\Exception\Handler\CliHandler;
 use Packfire\Debugger\Debugger;
 

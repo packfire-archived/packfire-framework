@@ -11,7 +11,6 @@ use Packfire\Application\Cli\Request as CliRequest;
 use Packfire\Application\Cli\Response as CliResponse;
 use Packfire\Application\Http\Request as HttpRequest;
 use Packfire\Application\Http\Response as HttpResponse;
-use Packfire\IO\File\Stream as FileStream;
 use Packfire\DateTime\DateTime;
 use Packfire\Exception\ErrorException;
 use Packfire\Core\ClassLoader\ClassLoader;

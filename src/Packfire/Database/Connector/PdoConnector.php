@@ -6,7 +6,7 @@ use Packfire\IoC\BucketUser;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Database\Expression;
 
-if(!class_exists('PDO')){
+if(!class_exists('\PDO')){
     throw new MissingDependencyException('PdoConnector requires the PDO extension in order to run properly.');
 }
 

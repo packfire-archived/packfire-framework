@@ -5,7 +5,6 @@ use Packfire\Route\Router as CoreRouter;
 use Packfire\Route\Http\Route;
 use Packfire\Route\Http\RedirectRoute;
 use Packfire\Net\Http\Url;
-use Packfire\Collection\Map;
 use Packfire\Template\Template;
 
 /**

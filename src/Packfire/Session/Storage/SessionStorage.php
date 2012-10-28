@@ -98,7 +98,7 @@ class SessionStorage implements ISessionStorage {
      */
     protected function registerHandler(){
         if($this instanceof ISessionHandler
-                || $this instanceof SessionHandlerInterface){
+                || $this instanceof \SessionHandlerInterface){
             session_set_save_handler(
                 array($this, 'open'),
                 array($this, 'close'),

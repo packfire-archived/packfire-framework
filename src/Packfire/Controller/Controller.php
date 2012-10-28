@@ -1,7 +1,6 @@
 <?php
 namespace Packfire\Controller;
 
-use Packfire\Application\IAppResponse;
 use Packfire\Collection\Map;
 use Packfire\Response\RedirectResponse;
 use Packfire\IoC\IBucketUser;
