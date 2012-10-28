@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Application\Http;
 
-use Packfire\Ioc\BucketLoader;
+use Packfire\IoC\BucketLoader;
 use Packfire\Session\Loader as SessionLoader;
 use Packfire\Config\Framework\HttpRouterConfig;
 use Packfire\Exception\Handler\HttpHandler as HttpExceptionHandler;
