@@ -10,7 +10,7 @@ php:
   - 5.4
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('password') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - pecl install memcache
+  - echo "no\n" >> pecl install memcache
   - echo "extension=memcache.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"
   - composer install
 script: phpunit -c phpunit.dist.xml
