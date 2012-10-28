@@ -30,7 +30,6 @@ class JsonConfigTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testConfigParse(){
-        var_dump($this->object);
         $this->assertNotNull($this->object->get('first_section'));
         $this->assertNotNull($this->object->get('second_section'));
         $this->assertNotNull($this->object->get('third_section'));
