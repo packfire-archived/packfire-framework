@@ -21,7 +21,6 @@ class JsonConfig extends Config {
      * @since 2.0.2
      */
     protected function read() {
-        var_dump(json_decode(file_get_contents($this->file), true));
         $this->data = json_decode(file_get_contents($this->file), true);
     }
 
