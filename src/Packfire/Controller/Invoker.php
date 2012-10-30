@@ -99,7 +99,7 @@ class Invoker extends BucketUser {
                         /* @var $controller Packfire\Controller\Controller */
                         $controller = new $class($this->request, $this->response);
                         $controller->copyBucket($this);
-                        $controller->run($this->route, $this->action);
+                        $controller->actionRun($this->route, $this->action);
                         $this->response = $controller->response();
                     }else{
                         $controller = new $class();

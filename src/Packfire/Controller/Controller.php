@@ -216,7 +216,7 @@ abstract class Controller extends BucketUser {
      * @return mixed Returns the result of the action
      * @since 1.0-sofia
      */
-    public function run($route, $action){
+    public function actionRun($route, $action){
         $this->route = $route;
         
         if($this->validationHandler){
