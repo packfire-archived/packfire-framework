@@ -77,17 +77,20 @@ class Invoker extends BucketUser {
      */
     public function load(){
         $class = $this->package;
-        if(is_string($this->package)){
+        if(is_string($class)){
             // call controller
-            $isView = self::classInstanceOf($class, 'Packfire\View\IView');
-
-            if(class_exists($class)){
+            if(strtolower(substr($class, -5)) == '.html'){
+                // loads the template if it's a html file
+                $template = new \Packfire\Template\Mustache\TemplateFile('pack/src/' . $class);
+                $this->response->body($template->parse());
+            }elseif(class_exists($class)){
+                $isView = self::classInstanceOf($class, 'Packfire\View\IView');
                 if($isView){
                     /* @var $view View */
                     $view = new $class();
                     $view->copyBucket($this);
                     $output = $view->render();
-                    $this->response()->body($output);
+                    $this->response->body($output);
                 }else{
                     if(self::classInstanceOf($class, 'Packfire\Controller\Controller')){
                         /* @var $controller Packfire\Controller\Controller */
