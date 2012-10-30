@@ -208,6 +208,22 @@ abstract class Controller extends BucketUser {
         }
         return $call;
     }
+    
+    /**
+     * Method is called before controller action runs
+     * @since 2.0.3
+     */
+    protected function beforeRun(){
+        
+    }
+    
+    /**
+     * Method is called after controller action ran
+     * @since 2.0.3
+     */
+    protected function afterRun(){
+        
+    }
 
     /**
      * Run the controller action with the route
@@ -276,6 +292,7 @@ abstract class Controller extends BucketUser {
                 }
             }
             
+            $this->beforeRun();
             // call the controller action
             $actionInvoker = new ActionInvoker(array($this, $call));
             $result = $actionInvoker->invoke($route->remap());
@@ -283,6 +300,7 @@ abstract class Controller extends BucketUser {
                 $this->response = $result;
             }
             $this->processAftermath();
+            $this->afterRun();
         }else{
             $errorMsg = sprintf('The requested action "%s" is not found'
                                 . ' in the controller "%s".',
