@@ -4,6 +4,7 @@ namespace Packfire\Controller;
 use Packfire\IoC\BucketUser;
 use Packfire\Core\ActionInvoker;
 use Packfire\IoC\IBucketUser;
+use Packfire\Application\Pack\Template;
 
 /**
  * Invoker class
@@ -78,11 +79,13 @@ class Invoker extends BucketUser {
     public function load(){
         $class = $this->package;
         if(is_string($class)){
-            // call controller
-            if(strtolower(substr($class, -5)) == '.html'){
-                // loads the template if it's a html file
-                $template = new \Packfire\Template\Mustache\TemplateFile('pack/src/' . $class);
-                $this->response->body($template->parse());
+            if(false !== strpos($class, '.')){ // check if there is an extension
+                $template = Template::load($class);
+                if($template){
+                    $this->response->body($template->parse());
+                }else{
+                    return false;
+                }
             }elseif(class_exists($class)){
                 $isView = self::classInstanceOf($class, 'Packfire\View\IView');
                 if($isView){
