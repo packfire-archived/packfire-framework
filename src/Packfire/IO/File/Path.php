@@ -283,7 +283,11 @@ class Path {
         $path = self::normalize($path);
         $result = pathinfo($path);
         if($info){
-            $result = $result[$info];
+            if(isset($result[$info])){
+                $result = $result[$info];
+            }else{
+                $result = null;
+            }
         }
         return $result;
     }
