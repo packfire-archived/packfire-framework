@@ -161,6 +161,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('bin', Path::extension('/opt/ion/is/not/yours/test.bin'));
         $this->assertEquals('bak', Path::extension('jordan\\test.bak'));
         $this->assertEquals('bin', Path::extension('runner/test.bin'));
+        $this->assertNull(Path::extension('runner/test'));
     }
 
     /**
@@ -181,6 +182,14 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     public function testPathInfo() {
         $this->assertCount(4, Path::pathInfo('/opt/ion/is/not/yours/test.bin'));
         $this->assertEquals('bin', Path::pathInfo('/opt/ion/is/not/yours/test.bin', PathPart::EXTENSION));
+        $this->assertCount(3, Path::pathInfo('/opt/ion/is/not/yours/test'));
+    }
+
+    /**
+     * @covers Path::pathInfo
+     */
+    public function testPathInfoNull() {
+        $this->assertNull(Path::pathInfo('/opt/ion/is/not/yours/test', PathPart::EXTENSION));
     }
 
     /**
