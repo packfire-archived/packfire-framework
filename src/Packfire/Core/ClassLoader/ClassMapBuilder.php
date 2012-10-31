@@ -25,7 +25,8 @@ class ClassMapBuilder {
      */
     public function build($path){
         $map = array();
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path),
+        $iterator = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
                 \RecursiveIteratorIterator::CHILD_FIRST);
         foreach($iterator as $file){
             // for PHP prior to 5.3.6
