@@ -109,15 +109,17 @@ class FileCache implements ICache {
      * @since 1.0-sofia
      */
     public function garbageCollect() {
-        $files = glob(self::$storePath .'FileCache-*.cache', GLOB_NOSORT);
-        $cFiles = array_combine($files, array_map('filemtime', $files));
-        asort($cFiles);
-        $time = $time();
-        foreach($cFiles as $file => $expiry){
-            if($expiry < $time){
-                @unlink($file);
-            }else{
-                break;
+        $files = glob(self::$storePath .'/FileCache-*.cache', GLOB_NOSORT);
+        if($files){
+            $files = array_combine($files, array_map('filemtime', $files));
+            asort($files);
+            $time = time();
+            foreach($files as $file => $expiry){
+                if($expiry < $time){
+                    @unlink($file);
+                }else{
+                    break;
+                }
             }
         }
     }
