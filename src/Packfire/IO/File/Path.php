@@ -132,12 +132,10 @@ class Path {
                 new \RecursiveDirectoryIterator($this->path),
                 \RecursiveIteratorIterator::CHILD_FIRST);
         foreach($iterator as $path){
-            if(!$path->isDot()){
-                if($path->isDir()){
-                    rmdir((string)$path);
-                }else{
-                    unlink((string)$path);
-                }
+            if($path->isDir()){
+                rmdir((string)$path);
+            }else{
+                unlink((string)$path);
             }
         }
     }
