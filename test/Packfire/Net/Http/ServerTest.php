@@ -17,7 +17,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Server('api.github.com', 443);
+        $this->object = new Server('example.com');
     }
 
     /**
@@ -33,17 +33,13 @@ class ServerTest extends \PHPUnit_Framework_TestCase {
      */
     public function testRequest() {
         $request = new Request();
-        $request->https(true);
         $request->method(Method::GET);
-        $request->uri('/orgs/packfire/repos');
-        $request->get()->add('type', 'public');
-        $request->headers()->add('Accept', 'application/json');
+        $request->uri('/');
         
         $response = $this->object->request($request);
-        $content = $response->body();
-        $this->assertNotEmpty($content);
-        $data = json_decode($content);
-        $this->assertInternalType('array', $data);
+        $this->assertInstanceOf('Packfire\Net\Http\Response', $response);
+        $this->assertEquals('http://www.iana.org/domains/example/', $response->headers()->get('location'));
+        $this->assertEquals('302 Found', $response->code());
     }
 
 }
