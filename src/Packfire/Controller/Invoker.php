@@ -4,6 +4,7 @@ namespace Packfire\Controller;
 use Packfire\IoC\BucketUser;
 use Packfire\Core\ActionInvoker;
 use Packfire\IoC\IBucketUser;
+use Packfire\Application\Pack\Template;
 
 /**
  * Invoker class
@@ -77,23 +78,28 @@ class Invoker extends BucketUser {
      */
     public function load(){
         $class = $this->package;
-        if(is_string($this->package)){
-            // call controller
-            $isView = self::classInstanceOf($class, 'Packfire\View\IView');
-
-            if(class_exists($class)){
+        if(is_string($class)){
+            if(false !== strpos($class, '.')){ // check if there is an extension
+                $template = Template::load($class);
+                if($template){
+                    $this->response->body($template->parse());
+                }else{
+                    return false;
+                }
+            }elseif(class_exists($class)){
+                $isView = self::classInstanceOf($class, 'Packfire\View\IView');
                 if($isView){
                     /* @var $view View */
                     $view = new $class();
                     $view->copyBucket($this);
                     $output = $view->render();
-                    $this->response()->body($output);
+                    $this->response->body($output);
                 }else{
                     if(self::classInstanceOf($class, 'Packfire\Controller\Controller')){
                         /* @var $controller Packfire\Controller\Controller */
                         $controller = new $class($this->request, $this->response);
                         $controller->copyBucket($this);
-                        $controller->run($this->route, $this->action);
+                        $controller->actionRun($this->route, $this->action);
                         $this->response = $controller->response();
                     }else{
                         $controller = new $class();

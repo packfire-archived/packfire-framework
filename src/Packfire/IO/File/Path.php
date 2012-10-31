@@ -128,7 +128,16 @@ class Path {
      * @since 1.0-sofia
      */
     public function clear(){
-        self::emptyDir($this->path);
+        $iterator = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($this->path, \RecursiveDirectoryIterator::SKIP_DOTS),
+                \RecursiveIteratorIterator::CHILD_FIRST);
+        foreach($iterator as $path){
+            if($path->isDir()){
+                rmdir((string)$path);
+            }else{
+                unlink((string)$path);
+            }
+        }
     }
 
     /**
@@ -138,29 +147,6 @@ class Path {
      */
     public function exists(){
         return FileSystem::pathExists($this->path);
-    }
-
-    /**
-     * Recursively empties directories
-     * @param string $path The directory to empty
-     * @since 1.0-elenor
-     */
-    private static function emptyDir($path){
-        $dir = dir($path);
-        while (($entry = $dir->read()) !== false) {
-            $tp = self::combine($dir->path, '/' . $entry);
-            $isdir = is_dir($tp);
-            if($entry == '.' || $entry == '..'){
-            }else{
-                if($isdir){
-                    self::emptyDir($tp);
-                    rmdir($tp);
-                }else{
-                    unlink($tp);
-                }
-            }
-        }
-        $dir->close();
     }
 
     /**
@@ -283,7 +269,11 @@ class Path {
         $path = self::normalize($path);
         $result = pathinfo($path);
         if($info){
-            $result = $result[$info];
+            if(isset($result[$info])){
+                $result = $result[$info];
+            }else{
+                $result = null;
+            }
         }
         return $result;
     }
