@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\IO\File;
 
 /**
@@ -14,11 +15,11 @@ class PathTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->dir= Path::fileName(__FILE__) . DIRECTORY_SEPARATOR . 'test';
-        if(is_dir($this->dir)){
+        $this->dir = Path::fileName(__FILE__) . DIRECTORY_SEPARATOR . 'test';
+        if (is_dir($this->dir)) {
             rmdir($this->dir);
         }
-        if(is_dir(dirname($this->dir))){
+        if (is_dir(dirname($this->dir))) {
             rmdir(dirname($this->dir));
         }
     }
@@ -28,10 +29,10 @@ class PathTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-        if(is_dir($this->dir)){
+        if (is_dir($this->dir)) {
             rmdir($this->dir);
         }
-        if(is_dir(dirname($this->dir))){
+        if (is_dir(dirname($this->dir))) {
             rmdir(dirname($this->dir));
         }
     }
@@ -49,7 +50,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     /**
      * @covers Path::exists
      */
-    public function testExists(){
+    public function testExists() {
         $path = new Path($this->dir);
         $this->assertFalse($path->exists());
         $path->create();
@@ -119,7 +120,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     /**
      * @covers Path::combine
      */
-    public function testCombine2(){
+    public function testCombine2() {
         $path = 'C:' . DIRECTORY_SEPARATOR . 'workspace' . DIRECTORY_SEPARATOR . 'projects' . DIRECTORY_SEPARATOR . 'packfire';
         $this->assertEquals($path, Path::combine('C:\\workspace', 'projects\\packfire'));
         $this->assertEquals($path, Path::combine('C:\\workspace\\taco', '../projects/packfire'));
@@ -168,10 +169,8 @@ class PathTest extends \PHPUnit_Framework_TestCase {
      * @covers Path::path
      */
     public function testPath() {
-        $this->assertEquals(Path::normalize('C:\\michael\\jackson\\this_is_it'),
-                Path::path('C:\\michael\\jackson\\this_is_it\\test.bak'));
-        $this->assertEquals(Path::normalize('/opt/ion/is/not/yours'),
-                Path::path('/opt/ion/is/not/yours/test.bin'));
+        $this->assertEquals(Path::normalize('C:\\michael\\jackson\\this_is_it'), Path::path('C:\\michael\\jackson\\this_is_it\\test.bak'));
+        $this->assertEquals(Path::normalize('/opt/ion/is/not/yours'), Path::path('/opt/ion/is/not/yours/test.bin'));
         $this->assertEquals('jordan', Path::path('jordan\\test.bak'));
         $this->assertEquals('runner', Path::path('runner/test.bin'));
     }
@@ -214,11 +213,11 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     public function testClassPathName() {
         $this->assertEquals(__FILE__, Path::classPathName('Packfire\IO\File\PathTest'));
     }
-    
+
     /**
      * @covers Path::relativePath
      */
-    public function testRelativePath(){
+    public function testRelativePath() {
         $this->assertEquals(Path::normalize('root/b/b.php'), Path::relativePath('/home/a.php', '/home/root/b/b.php'));
         $this->assertEquals(Path::normalize('../../root/b/b.php'), Path::relativePath('/home/apache/a/a.php', '/home/root/b/b.php'));
         $this->assertEquals(Path::normalize('../../apache/htdocs/b/en/b.php'), Path::relativePath('/home/root/a/a.php', '/home/apache/htdocs/b/en/b.php'));
