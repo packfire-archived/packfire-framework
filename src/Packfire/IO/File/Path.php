@@ -128,9 +128,10 @@ class Path {
      * @since 1.0-sofia
      */
     public function clear(){
+        $dirIterator = new \RecursiveDirectoryIterator($this->path);
+        $dirIterator->setFlags(RecursiveDirectoryIterator::SKIP_DOTS); 
         $iterator = new \RecursiveIteratorIterator(
-                new \RecursiveDirectoryIterator($this->path),
-                \RecursiveIteratorIterator::CHILD_FIRST);
+                $dirIterator, \RecursiveIteratorIterator::CHILD_FIRST);
         foreach($iterator as $path){
             if($path->isDir()){
                 rmdir((string)$path);
