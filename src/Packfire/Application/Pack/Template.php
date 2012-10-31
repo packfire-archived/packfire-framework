@@ -17,7 +17,7 @@ class Template {
     /**
      * Load a template from the template folder
      * @param string $name Name of the template to load
-     * @return ITemplate Returns the template
+     * @return \Packfire\Template\ITemplate Returns the template
      * @since 1.0-sofia
      */
     public static function load($name){
@@ -32,10 +32,15 @@ class Template {
         );
         
         $template = null;
-        foreach($extensions as $type => $class){
-            if(is_file($path . '.' .  $type)){
-                $template = new $class($path . '.' .  $type);
-                break;
+        if($extension = \Packfire\IO\File\Path::extension($path)){
+            $class = $extensions[$extension];
+            $template = new $class($path);
+        }else{
+            foreach($extensions as $type => $class){
+                if(is_file($path . '.' .  $type)){
+                    $template = new $class($path . '.' .  $type);
+                    break;
+                }
             }
         }
         

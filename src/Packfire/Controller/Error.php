@@ -63,7 +63,7 @@ class Error {
             $this->errors[$target] = array_merge($this->errors[$target],
                     (array)$exception);
         }else{
-            $this->errors[$target][] = (array)$exception;
+            $this->errors[$target] = (array)$exception;
         }
     }
     
