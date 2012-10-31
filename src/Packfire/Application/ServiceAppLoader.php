@@ -41,6 +41,7 @@ class ServiceAppLoader extends BucketLoader {
             }
         }
         $this->put('events', new EventHandler($this));
+        $this->put('shutdown', 'Packfire\Core\ShutdownTaskManager');
     }
 
 }
