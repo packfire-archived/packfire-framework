@@ -62,31 +62,37 @@ class Validator {
                 $param = array();
                 $this->validate($value, $param, $validation);
                 $params[$key] = $param;
-            }elseif(isset($this->rules[$key])){
-                $rules = (array)$this->rules[$key];
-                foreach($rules as $entry){
-                    if(is_array($entry)){
-                        $rule = $entry['rule'];
-                    }else{
-                        $rule = $entry;
-                    }
-                    $validation = $this->validateParam($rule, $value, $data);
-                    $params[$key] = $value;
-                    if(!$validation){
-                        if($this->callback){
-                            $package = array(
-                                'field' => $key,
-                                'value' => $value,
-                                'rule' => $rule,
-                                'message' => 
-                                isset($entry['message']) ? $entry['message'] : null
-                            );
-                            if(false == call_user_func($this->callback, $package)){
-                                return $validation;
-                            }
+            }else{
+                if(isset($this->rules[$key])){
+                    $rules = (array)$this->rules[$key];
+                    foreach($rules as $entry){
+                        if(is_array($entry)){
+                            $rule = $entry['rule'];
                         }else{
+                            $rule = $entry;
+                        }
+                        $validation = $this->validateParam($rule, $value, $data);
+                        $params[$key] = $value;
+                    }
+                }else{
+                    // there is data, but no validation rule
+                    // as to be strict, we fail validation
+                    $validation = false;
+                }
+                if(!$validation){
+                    if($this->callback){
+                        $package = array(
+                            'field' => $key,
+                            'value' => $value,
+                            'rule' => $rule,
+                            'message' => 
+                            isset($entry['message']) ? $entry['message'] : null
+                        );
+                        if(false == call_user_func($this->callback, $package)){
                             return $validation;
                         }
+                    }else{
+                        return $validation;
                     }
                 }
             }
