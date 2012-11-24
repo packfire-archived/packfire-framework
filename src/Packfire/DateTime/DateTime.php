@@ -7,6 +7,7 @@ use Packfire\DateTime\TimeSpan;
 use Packfire\DateTime\DateTimeFormat;
 use Packfire\Exception\InvalidArgumentException;
 use Packfire\DateTime\DateTimeComparator;
+use Packfire\Text\Format\IFormattable;
 
 /**
  * DateTime class
@@ -19,7 +20,7 @@ use Packfire\DateTime\DateTimeComparator;
  * @package Packfire\DateTime
  * @since 1.0-sofia
  */
-class DateTime extends Date {
+class DateTime extends Date implements IFormattable {
     
     /**
      * The time component
