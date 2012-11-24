@@ -34,6 +34,16 @@ class String implements \Countable {
         }
         $this->value = $value;
     }
+    
+    /**
+     * Create a String object from a value
+     * @param string $string The string value
+     * @return String Returns the string object
+     * @since 2.0.4
+     */
+    public static function from($string){
+        return new static($string);
+    }
 
     /**
      * Get or set the internal string value
@@ -83,11 +93,8 @@ class String implements \Countable {
      */
     public function split($c) {
         $strs = explode($c, $this->value());
-        $r = new ArrayList();
-        foreach($strs as $s){
-            $r->add(new self($s));
-        }
-        return $r;
+        $result = new ArrayList($strs);
+        return $result;
     }
 
     /**
