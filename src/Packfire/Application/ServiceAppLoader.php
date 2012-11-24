@@ -26,7 +26,6 @@ class ServiceAppLoader extends BucketLoader {
      */
     public function load(){
         $this->put('config.app', array(new AppConfig(), 'load'));
-        ServiceLoader::loadConfig($this);
         if($this->pick('config.app')){
             // load database drivers and configurations
             $databaseConfigs = $this->pick('config.app')->get('database');
@@ -41,6 +40,13 @@ class ServiceAppLoader extends BucketLoader {
             }
         }
         $this->put('events', new EventHandler($this));
+        $this->put('shutdown', 'Packfire\Core\ShutdownTaskManager');
+        ServiceLoader::loadConfig($this);
+        if($this->contains('cache')){
+            $shutdown = $this->pick('shutdown');
+            /* @var $shutdown \Packfire\Core\ShutdownTaskManager */
+            $shutdown->add('cache.gc', array($this->pick('cache'), 'garbageCollect'));
+        }
     }
 
 }
