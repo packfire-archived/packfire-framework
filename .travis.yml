@@ -11,7 +11,7 @@ php:
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('password') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - composer install
-script: phpunit -c phpunit.dist.xml
+script: phpunit -c phpunit.xml.dist
 after_script:
   - git clone git://gist.github.com/3939260.git pdc
   - php pdc/pdc src vendor/autoload.php
