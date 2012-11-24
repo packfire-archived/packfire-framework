@@ -56,6 +56,7 @@ class String implements \Countable, IFormattable {
      */
     public function format($format){
         $args = func_get_args();
+        array_unshift($args, $this->value);
         return new self(call_user_func_array('sprintf', $args));
     }
 

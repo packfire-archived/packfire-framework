@@ -50,6 +50,16 @@ class StringTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('Packfire\Text\String', $obj);
         $this->assertEquals($this->rawString[0], $obj->value());
     }
+    
+    /**
+     * @covers String::format
+     */
+    public function testFormat(){
+        $object = String::from('test%d');
+        /* @var $object \Packfire\Text\String */
+        $result = $object->format(10);
+        $this->assertEquals('test10', $result->value());
+    }
 
     /**
      * @covers String::value
