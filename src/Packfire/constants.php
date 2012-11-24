@@ -21,4 +21,4 @@ if(!defined('__APP_ROOT__')){
  * Packfire Framework's current version
  * @since 1.0-sofia 
  */
-define('__PACKFIRE_VERSION__', '2.0.2');
+define('__PACKFIRE_VERSION__', '2.0.4');
