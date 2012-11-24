@@ -126,8 +126,6 @@ class Route extends CoreRoute {
                         $this->remap = new Map($params);
                     }
 
-                }else{
-                    $validation = false;
                 }
             }
         }
