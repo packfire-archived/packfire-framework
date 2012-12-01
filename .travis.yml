@@ -1,7 +1,7 @@
-# Packfire Framework
+# Packfire Framework for PHP
 #
 # this file provides configuration for Travis Continuous Integration
-# See Packfire on TravisCI at http://travis-ci.org/packfire/framework
+# See Packfire on TravisCI at http://travis-ci.org/packfire/packfire-framework
 
 language: php
 php:
