@@ -3,6 +3,7 @@ namespace Packfire\Database\Drivers\MySql\Linq;
 
 use Packfire\Linq\ILinq;
 use Packfire\Linq\IOrderedLinq;
+use Packfire\Database\ILinq as IDbLinq;
 use Packfire\Database\IModel;
 use Packfire\Database\Drivers\MySql\Table;
 use Packfire\Collection\ArrayList;
@@ -23,7 +24,7 @@ use Packfire\Exception\NullException;
  * @package Packfire\Database\Drivers\MySql\Linq
  * @since 1.0-sofia
  */
-class Linq extends Table implements ILinq, IOrderedLinq {
+class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq {
 
     /**
      * The list of selects
