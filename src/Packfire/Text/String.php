@@ -2,6 +2,7 @@
 namespace Packfire\Text;
 
 use Packfire\Collection\ArrayList;
+use Packfire\Text\Format\IFormattable;
 
 /**
  * String class
@@ -14,7 +15,7 @@ use Packfire\Collection\ArrayList;
  * @package Packfire\Text
  * @since 1.0-sofia
  */
-class String implements \Countable {
+class String implements \Countable, IFormattable {
 
     /**
      * The internal value of this string
@@ -28,11 +29,35 @@ class String implements \Countable {
      * @param string|String $value The string value to initialize with
      * @since 1.0-sofia
      */
-    function __construct($value = '') {
+    public function __construct($value = '') {
         if($value instanceof String){
             $value = $value->value;
         }
         $this->value = $value;
+    }
+    
+    /**
+     * Create a String object from a value
+     * @param string $string The string value
+     * @return String Returns the string object
+     * @since 2.0.4
+     */
+    public static function from($string){
+        return new self($string);
+    }
+    
+    /**
+     * Format the string
+     * @param string $format The format defined by PHP sprintf() function
+     * @param mixed,... $input (optional) Arguments to format into the string
+     * @return String Returns the resulting String object
+     * @link http://php.net/manual/en/function.sprintf.php
+     * @since 2.0.4
+     */
+    public function format($format){
+        $args = func_get_args();
+        array_unshift($args, $this->value);
+        return new self(call_user_func_array('sprintf', $args));
     }
 
     /**
@@ -83,11 +108,8 @@ class String implements \Countable {
      */
     public function split($c) {
         $strs = explode($c, $this->value());
-        $r = new ArrayList();
-        foreach($strs as $s){
-            $r->add(new self($s));
-        }
-        return $r;
+        $result = new ArrayList($strs);
+        return $result;
     }
 
     /**

@@ -87,22 +87,20 @@ class Route extends CoreRoute {
             if($this->params){
                 if($url == $this->rewrite){
                     $urlMatch = true;
-                    $urlData = array(0 => $url);
+                    $urlData = array();
                 }else{
                     $template = new Template($this->rewrite);
                     $tokens = $template->tokens();
                     foreach ($tokens as $token) {
                         $template->fields()->add($token,
-                                '(?P<' . $token . '>(.+))');
+                                '(?<' . $token . '>.+)');
                     }
-                    $urlData = array();
-
                     // perform the URL matching
                     $urlMatch = preg_match('`^' . $template->parse() .
                             '[/]{0,1}$`is', $url, $urlData);
+                    $urlData = array_intersect_key($urlData, array_flip($tokens->toArray()));
                 }
                 if($urlMatch){
-                    unset($urlData[0]);
                     $data = array();
                     foreach($urlData as $key => $value){
                         $data[$key] = $value;
@@ -126,8 +124,6 @@ class Route extends CoreRoute {
                         $this->remap = new Map($params);
                     }
 
-                }else{
-                    $validation = false;
                 }
             }
         }

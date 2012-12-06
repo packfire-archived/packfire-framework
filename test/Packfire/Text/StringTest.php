@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Text;
 
 /**
@@ -28,7 +29,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->objects = array();
-        foreach($this->rawString as $str){
+        foreach ($this->rawString as $str) {
             $this->objects[] = new String($str);
         }
     }
@@ -38,14 +39,33 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
+    }
+    
+    /**
+     * @covers String::from
+     */
+    public function testFrom(){
+        $obj = String::from($this->rawString[0]);
+        $this->assertInstanceOf('Packfire\Text\String', $obj);
+        $this->assertEquals($this->rawString[0], $obj->value());
+    }
+    
+    /**
+     * @covers String::format
+     */
+    public function testFormat(){
+        $object = String::from('test%d');
+        /* @var $object \Packfire\Text\String */
+        $result = $object->format(10);
+        $this->assertEquals('test10', $result->value());
     }
 
     /**
      * @covers String::value
      */
     public function testValue() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
             $this->assertEquals($this->rawString[$idx], $obj->value());
         }
@@ -55,10 +75,9 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::trim
      */
     public function testTrim() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(trim($this->rawString[$idx]),
-                    $obj->trim()->value());
+            $this->assertEquals(trim($this->rawString[$idx]), $obj->trim()->value());
         }
     }
 
@@ -66,10 +85,9 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::trimLeft
      */
     public function testTrimLeft() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(ltrim($this->rawString[$idx]),
-                    $obj->trimLeft()->value());
+            $this->assertEquals(ltrim($this->rawString[$idx]), $obj->trimLeft()->value());
         }
     }
 
@@ -77,10 +95,9 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::trimRight
      */
     public function testTrimRight() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(rtrim($this->rawString[$idx]),
-                    $obj->trimRight()->value());
+            $this->assertEquals(rtrim($this->rawString[$idx]), $obj->trimRight()->value());
         }
     }
 
@@ -88,7 +105,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::split
      */
     public function testSplit() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
             $a = $obj->split(' ')->toArray();
             $this->assertEquals(explode(' ', $this->rawString[$idx]), $a);
@@ -99,11 +116,10 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::replace
      */
     public function testReplace() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
             $result = $obj->replace('over', 'time');
-            $this->assertEquals(str_replace('over', 'time',
-                    $this->rawString[$idx]), $result);
+            $this->assertEquals(str_replace('over', 'time', $this->rawString[$idx]), $result);
         }
     }
 
@@ -148,10 +164,9 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::toUpper
      */
     public function testToUpper() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(strtoupper($this->rawString[$idx]),
-                    $obj->toUpper()->value());
+            $this->assertEquals(strtoupper($this->rawString[$idx]), $obj->toUpper()->value());
         }
     }
 
@@ -159,10 +174,9 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::toLower
      */
     public function testToLower() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(strtolower($this->rawString[$idx]),
-                    $obj->toLower()->value());
+            $this->assertEquals(strtolower($this->rawString[$idx]), $obj->toLower()->value());
         }
     }
 
@@ -170,12 +184,10 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::padLeft
      */
     public function testPadLeft() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(str_pad($this->rawString[$idx], 5, ' ', STR_PAD_LEFT),
-                    $obj->padLeft(' ', 5)->value());
-            $this->assertEquals(str_pad($this->rawString[$idx], 5, '-', STR_PAD_LEFT),
-                    $obj->padLeft('-', 5)->value());
+            $this->assertEquals(str_pad($this->rawString[$idx], 5, ' ', STR_PAD_LEFT), $obj->padLeft(' ', 5)->value());
+            $this->assertEquals(str_pad($this->rawString[$idx], 5, '-', STR_PAD_LEFT), $obj->padLeft('-', 5)->value());
         }
     }
 
@@ -183,12 +195,10 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::padRight
      */
     public function testPadRight() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(str_pad($this->rawString[$idx], 5, ' ', STR_PAD_RIGHT),
-                    $obj->padRight(' ', 5)->value());
-            $this->assertEquals(str_pad($this->rawString[$idx], 5, '-', STR_PAD_RIGHT),
-                    $obj->padRight('-', 5)->value());
+            $this->assertEquals(str_pad($this->rawString[$idx], 5, ' ', STR_PAD_RIGHT), $obj->padRight(' ', 5)->value());
+            $this->assertEquals(str_pad($this->rawString[$idx], 5, '-', STR_PAD_RIGHT), $obj->padRight('-', 5)->value());
         }
     }
 
@@ -196,12 +206,10 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::padBoth
      */
     public function testPadBoth() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(str_pad($this->rawString[$idx], 5, ' ', STR_PAD_BOTH),
-                    $obj->padBoth(' ', 5)->value());
-            $this->assertEquals(str_pad($this->rawString[$idx], 5, '-', STR_PAD_BOTH),
-                    $obj->padBoth('-', 5)->value());
+            $this->assertEquals(str_pad($this->rawString[$idx], 5, ' ', STR_PAD_BOTH), $obj->padBoth(' ', 5)->value());
+            $this->assertEquals(str_pad($this->rawString[$idx], 5, '-', STR_PAD_BOTH), $obj->padBoth('-', 5)->value());
         }
     }
 
@@ -209,12 +217,10 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::length
      */
     public function testLength() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(strlen($this->rawString[$idx]),
-                    $obj->length());
-            $this->assertEquals(strlen(trim($this->rawString[$idx])),
-                    $obj->trim()->length());
+            $this->assertEquals(strlen($this->rawString[$idx]), $obj->length());
+            $this->assertEquals(strlen(trim($this->rawString[$idx])), $obj->trim()->length());
         }
     }
 
@@ -222,12 +228,10 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::count
      */
     public function testCount() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals(strlen($this->rawString[$idx]),
-                    $obj->count());
-            $this->assertEquals(strlen(trim($this->rawString[$idx])),
-                    $obj->trim()->count());
+            $this->assertEquals(strlen($this->rawString[$idx]), $obj->count());
+            $this->assertEquals(strlen(trim($this->rawString[$idx])), $obj->trim()->count());
         }
     }
 
@@ -235,12 +239,10 @@ class StringTest extends \PHPUnit_Framework_TestCase {
      * @covers String::__toString
      */
     public function test__toString() {
-        foreach($this->objects as $idx => $obj){
+        foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
-            $this->assertEquals($this->rawString[$idx],
-                    $obj->__toString());
-            $this->assertEquals($this->rawString[$idx],
-                    (string)$obj);
+            $this->assertEquals($this->rawString[$idx], $obj->__toString());
+            $this->assertEquals($this->rawString[$idx], (string) $obj);
         }
     }
 

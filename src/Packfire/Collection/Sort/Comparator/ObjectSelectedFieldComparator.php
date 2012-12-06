@@ -15,7 +15,7 @@ use Packfire\Collection\Sort\Comparator\ObjectFieldComparator;
  * @package Packfire\Collection\Sort\Comparator
  * @since 1.0-sofia
  */
-class ObjectSelectedfieldComparator extends ObjectFieldComparator {
+class ObjectSelectedFieldComparator extends ObjectFieldComparator {
     
     /**
      * Create a new ObjectSelectedfieldComparator
