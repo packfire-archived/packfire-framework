@@ -1,8 +1,6 @@
 <?php
 namespace Packfire\Command;
 
-use Packfire\Collection\Iterator;
-
 /**
  * OptionSet class
  *
@@ -54,7 +52,7 @@ class OptionSet implements IOption {
     
     /**
      * Parse the arguments
-     * @param array $args The array of arguments to parse
+     * @param array|\Packfire\Collection\ArrayList $args The array of arguments to parse
      * @since 2.0.0
      */
     public function parse($args){
@@ -65,17 +63,17 @@ class OptionSet implements IOption {
                 $option->parse($value);
             }
         }
-        $iterator = new Iterator($args);
-        while($keyvalue = $iterator->iterate()){
-            /* @var $keyvalue Packfire\Collection\KeyValuePair */
+        $iterator = new \ArrayIterator($args);
+        while($iterator->valid()){
+            $argValue = $iterator->current();
             $key = null;
             $valuelessOption = false;
-            $firstChar = substr($keyvalue->value(), 0, 1);
+            $firstChar = substr($argValue, 0, 1);
             if($firstChar == '/' || $firstChar == '-'){
-                if(substr($keyvalue->value(), 0, 2) == '--'){
-                    $key = substr($keyvalue->value(), 2);
+                if(substr($argValue, 0, 2) == '--'){
+                    $key = substr($argValue, 2);
                 }else{
-                    $key = substr($keyvalue->value(), 1);
+                    $key = substr($argValue, 1);
                     if($firstChar == '-' && strlen($key) > 1){
                         $valuelessOption = true;
                         $key = str_split($key);
@@ -94,8 +92,8 @@ class OptionSet implements IOption {
                         /* @var $option Packfire\Command\Option */
                         if($option->matchName($key)){
                             if(!$valuelessOption && $value === null && $option->hasValue()){
-                                $keyvalue = $iterator->iterate();
-                                $value = $keyvalue->value();
+                                $iterator->next();
+                                $value = $iterator->current();
                             }
                             $option->parse($value);
                             break;
@@ -103,6 +101,7 @@ class OptionSet implements IOption {
                     }
                 }
             }
+            $iterator->next();
         }
     }
     
