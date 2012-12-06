@@ -26,7 +26,8 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
             'rewrite' => '/home/{data}/{name}',
             'actual' => 'Rest',
             'method' => array('delete'),
-            'params' => array('data' => 'int', 'object' => array('name' => 'alnum'))
+            'params' => array('data' => 'int', 'name' => 'alnum'),
+            'remap' => array('data', 'object' => array('name'))
         ));
         $this->object = new Route('test', $config);
     }
@@ -71,7 +72,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
      * @covers Route::params
      */
     public function testParams() {
-        $this->assertEquals(array('data' => 'int', 'object' => array('name' => 'alnum')),
+        $this->assertEquals(array('data' => 'int', 'name' => 'alnum'),
                 $this->object->rules()->toArray());
     }
 
