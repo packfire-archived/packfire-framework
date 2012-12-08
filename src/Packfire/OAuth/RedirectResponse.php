@@ -1,11 +1,11 @@
 <?php
 namespace Packfire\OAuth;
 
-use Packfire\Response\RedirectResponse;
+use Packfire\Response\RedirectResponse as Response;
 use Packfire\Net\Http\Url;
 
 /**
- * OAuthRedirectResponse class
+ * RedirectResponse class
  *
  * This response is meant to be sent to the consumer's browser to redirect
  * the user to the service provider.
@@ -16,10 +16,10 @@ use Packfire\Net\Http\Url;
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class OAuthRedirectResponse extends RedirectResponse {
+class RedirectResponse extends Response {
 
     /**
-     * Create a new OAuthRedirectResponse
+     * Create a new RedirectResponse
      * @param string|Url $url The service provider authentication URL to redirect to
      * @param string $token The access token that was granted by the service provider
      * @since 1.1-sofia
