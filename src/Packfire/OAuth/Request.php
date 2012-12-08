@@ -132,7 +132,7 @@ class Request extends HttpRequest implements IHttpEntity {
         // Grab all parameters
         $params = new Map($this->get);
 
-        if(!$this->method() == HttpMethod::POST){
+        if($this->method == HttpMethod::POST){
             $params->append($this->post);
         }
 
