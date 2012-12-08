@@ -103,31 +103,31 @@ class Packfire {
             $request->body(file_get_contents('php://input'));
             $request->time(DateTime::fromTimestamp($_SERVER['REQUEST_TIME']));
             if(array_key_exists('HTTP_HOST', $_SERVER)){
-                $request->headers()->add('Host', $_SERVER['HTTP_HOST'], true);
+                $request->headers()->add('host', $_SERVER['HTTP_HOST'], true);
             }
             if(array_key_exists('HTTP_REFERER', $_SERVER)){
-                $request->headers()->add('Referer', $_SERVER['HTTP_REFERER'], true);
+                $request->headers()->add('referer', $_SERVER['HTTP_REFERER'], true);
             }
             if(array_key_exists('HTTP_CONNECTION', $_SERVER)){
-                $request->headers()->add('Connection', $_SERVER['HTTP_CONNECTION'], true);
+                $request->headers()->add('connection', $_SERVER['HTTP_CONNECTION'], true);
             }
             if(array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)){
-                $request->headers()->add('Accept-Language', $_SERVER['HTTP_ACCEPT_LANGUAGE'], true);
+                $request->headers()->add('accept-language', $_SERVER['HTTP_ACCEPT_LANGUAGE'], true);
             }
             if(array_key_exists('HTTP_ACCEPT_ENCODING', $_SERVER)){
-                $request->headers()->add('Accept-Encoding', $_SERVER['HTTP_ACCEPT_ENCODING'], true);
+                $request->headers()->add('accept-encoding', $_SERVER['HTTP_ACCEPT_ENCODING'], true);
             }
             if(array_key_exists('HTTP_ACCEPT_CHARSET', $_SERVER)){
-                $request->headers()->add('Accept-Charset', $_SERVER['HTTP_ACCEPT_CHARSET'], true);
+                $request->headers()->add('accept-charset', $_SERVER['HTTP_ACCEPT_CHARSET'], true);
             }
             if(array_key_exists('HTTP_ACCEPT', $_SERVER)){
-                $request->headers()->add('Accept', $_SERVER['HTTP_ACCEPT'], true);
+                $request->headers()->add('accept', $_SERVER['HTTP_ACCEPT'], true);
             }
             if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){
-                $request->headers()->add('User-Agent', $_SERVER['HTTP_USER_AGENT'], true);
+                $request->headers()->add('user-agent', $_SERVER['HTTP_USER_AGENT'], true);
             }
             if(array_key_exists('HTTP_AUTHORIZATION', $_SERVER)){
-                $request->headers()->add('Authorization', $_SERVER['HTTP_AUTHORIZATION'], true);
+                $request->headers()->add('authorization', $_SERVER['HTTP_AUTHORIZATION'], true);
             }
 
             foreach ($_COOKIE as $k => $v) {
