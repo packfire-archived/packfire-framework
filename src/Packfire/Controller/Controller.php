@@ -246,21 +246,19 @@ abstract class Controller extends BucketUser {
                 && !$this->service('config.app')->get('security', 'disabled');
         
         if($securityEnabled){
-            if($this->service('security')){
-                // perform overriding of identity
-                if($this->service('config.app')->get('secuity', 'override')){
-                    $this->service('security')
-                            ->identity($this->service('config.app')
-                                    ->get('secuity', 'identity'));
-                }
-                $this->service('security')->request($this->request);
+            // perform overriding of identity
+            if($this->service('config.app')->get('secuity', 'override')){
+                $this->service('security')
+                        ->identity($this->service('config.app')
+                                ->get('secuity', 'identity'));
             }
+            $this->service('security')->request($this->request);
 
-            if(!$this->handleAuthentication() || ($this->service('security') && !$this->service('security')->authenticate())){
+            if(!$this->handleAuthentication() || !$this->service('security')->authenticate()){
                 throw new AuthenticationException('User is not authenticated.');
             }
 
-            if(!$this->handleAuthorization() || ($this->service('security') && !$this->service('security')->authorize($route))){
+            if(!$this->handleAuthorization() || !$this->service('security')->authorize($route)){
                 throw new AuthorizationException('Access not authorized.');
             }
         }
