@@ -1,9 +1,8 @@
 <?php
 namespace Packfire\OAuth;
 
-use Packfire\Net\Http\Response as HttpResponse;
+use Packfire\Application\Http\Response as HttpResponse;
 use Packfire\Collection\Map;
-use Packfire\Application\IAppResponse;
 use Packfire\OAuth\Helper;
 use Packfire\OAuth\IHttpEntity;
 
@@ -18,7 +17,7 @@ use Packfire\OAuth\IHttpEntity;
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class Response extends HttpResponse implements IHttpEntity, IAppResponse {
+class Response extends HttpResponse implements IHttpEntity {
 
     /**
      * The OAuth parameters
@@ -76,10 +75,6 @@ class Response extends HttpResponse implements IHttpEntity, IAppResponse {
             $this->oauthParams->append($output);
         }
         return Helper::buildQuery($this->oauthParams);
-    }
-    
-    public function output(){
-        return $this->body();
     }
 
 }
