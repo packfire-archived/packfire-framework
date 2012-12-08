@@ -57,7 +57,7 @@ class Request extends HttpRequest implements IHttpEntity {
             $this->time = DateTime::fromTimestamp($request->time->toTimestamp());
         }
         $this->uri = $request->uri;
-        $this->method = $request->method;
+        $this->method = strtoupper($request->method);
         $this->body = $request->body;
         $this->loadOAuthParameters();
     }
