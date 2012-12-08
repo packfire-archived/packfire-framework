@@ -41,14 +41,14 @@ class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(array('task' => array(array($this, 'testAdd'))), $value->toArray());
         $this->object->remove('task');
     }
-    
+
     /**
      * @expectedException Packfire\Exception\InvalidArgumentException
      */
     public function testAddFail() {
         $reflection = new \ReflectionProperty('Packfire\Core\ShutdownTaskManager', 'tasks');
         $reflection->setAccessible(true);
-        
+
         $this->object->add('task', null);
     }
 
@@ -70,9 +70,24 @@ class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase {
      */
     public function testDoShutdown() {
         $data = false;
-        $this->object->add('task', function()use(&$data){$data = true;});
+        $this->object->add('task', function()use(&$data) {
+                    $data = true;
+                });
         $this->object->doShutdown();
         $this->assertTrue($data);
+        $this->object->remove('task');
+    }
+
+    /**
+     * @covers Packfire\Core\ShutdownTaskManager::doShutdown
+     */
+    public function testDoShutdown2() {
+        $data = false;
+        $this->object->add('task', function($value)use(&$data) {
+            $data = $value;
+        }, 5);
+        $this->object->doShutdown();
+        $this->assertEquals(5, $data);
         $this->object->remove('task');
     }
 

@@ -72,7 +72,7 @@ class ShutdownTaskManager {
     public function doShutdown(){
         foreach($this->tasks as $arguments){
             $task = array_shift($arguments);
-            call_user_func($task, $arguments);
+            call_user_func_array($task, $arguments);
         }
     }
     
