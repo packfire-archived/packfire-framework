@@ -57,7 +57,7 @@ class Request extends HttpRequest implements IHttpEntity {
             $this->time = DateTime::fromTimestamp($request->time->toTimestamp());
         }
         $this->uri = $request->uri;
-        $this->method = $request->method;
+        $this->method = strtoupper($request->method);
         $this->body = $request->body;
         $this->loadOAuthParameters();
     }
@@ -132,7 +132,7 @@ class Request extends HttpRequest implements IHttpEntity {
         // Grab all parameters
         $params = new Map($this->get);
 
-        if(!$this->method() == HttpMethod::POST){
+        if($this->method == HttpMethod::POST){
             $params->append($this->post);
         }
 
