@@ -1,7 +1,7 @@
 {
     "name": "packfire/packfire",
     "description": "The rapid-development object-oriented framework for PHP. Be surprised at how fast you can build a web application with a pack of fire.",
-    "version": "2.0.5",
+    "version": "2.0.6",
     "homepage": "http://mauris.sg/packfire/",
     "type": "library",
     "keywords": [
