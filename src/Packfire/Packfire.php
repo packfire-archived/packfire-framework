@@ -41,14 +41,16 @@ class Packfire {
      * @since 2.0.0
      */
     public function __construct(){
-        require(__DIR__ . DIRECTORY_SEPARATOR . 'constants.php');
-        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassLoader.php');
-        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassFinder.php');
-        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/PackfireClassFinder.php');
-        require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassLoader.php');
+        if(!class_exists('Packfire\Core\ClassLoader\PackfireClassFinder')){
+            require(__DIR__ . DIRECTORY_SEPARATOR . 'constants.php');
+            require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassLoader.php');
+            require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassFinder.php');
+            require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/PackfireClassFinder.php');
+            require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassLoader.php');
+            require(__DIR__ . DIRECTORY_SEPARATOR . 'helper.php');
+        }
         $finder = new PackfireClassFinder();
         $this->classLoader = new ClassLoader($finder);
-        require(__DIR__ . DIRECTORY_SEPARATOR . 'helper.php');
     }
     
     /**
@@ -77,7 +79,7 @@ class Packfire {
         set_exception_handler(array($app, 'handleException'));
         $request = $this->loadRequest();
         $response = $app->receive($request);
-        $this->processResponse($response);
+        $this->processResponse($app, $response);
     }
 
     /**
@@ -149,10 +151,11 @@ class Packfire {
 
     /**
      * Process the response and reply to the client
+     * @param IApplication $app The application
      * @param IAppResponse $response The response to reply
      * @since 1.0-sofia
      */
-    public function processResponse($response){
+    public function processResponse($app, $response){
         if($response instanceof HttpResponse){
             header($response->version() . ' ' . $response->code());
             foreach($response->headers() as $key => $value){
@@ -163,7 +166,11 @@ class Packfire {
             }
             echo $response->output();
         }elseif($response instanceof CliResponse){
-            exit($response->output());
+            $exitCode = $response->output();
+            $app->service('shutdown')->add('shutdown.exitCode', function()use($exitCode){
+                exit($exitCode);
+            });
+            
         }
     }
 
