@@ -1,0 +1,105 @@
+{
+    "hash": "73c1e9a8a2c7d367a28c54a7d55270f5",
+    "packages": [
+        {
+            "name": "packfire/options",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/packfire/options",
+                "reference": "1.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/packfire/options/archive/1.1.0.zip",
+                "reference": "1.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-12-17 14:51:55",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Packfire": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sam-Mauris Yong",
+                    "email": "mauris@hotmail.sg",
+                    "homepage": "http://mauris.sg/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Better CLI argument processing in PHP",
+            "homepage": "http://mauris.sg/packfire/",
+            "keywords": [
+                "cli",
+                "closure",
+                "argument",
+                "callback",
+                "processing"
+            ]
+        },
+        {
+            "name": "packfire/php5.3-compat",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/packfire/php5.3-compatibility.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/packfire/php5.3-compatibility/zipball/1.0.0",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-10-27 22:29:18",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sam-Mauris Yong",
+                    "email": "mauris@hotmail.sg",
+                    "homepage": "http://mauris.sg/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides class and interface compatibility between PHP 5.3 and PHP 5.4 through autoloading.",
+            "homepage": "http://mauris.sg/packfire/",
+            "keywords": [
+                "library",
+                "OOP",
+                "compatibility"
+            ]
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": [
+
+    ]
+}
