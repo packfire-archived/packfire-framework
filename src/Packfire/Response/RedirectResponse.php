@@ -15,7 +15,7 @@ use Packfire\Net\Http\ResponseCode;
  * @package Packfire\Response
  * @since 1.0-sofia
  */
-class RedirectResponse extends HttpResponse {
+class RedirectResponse extends HttpResponse implements IResponseFormat {
     
     /**
      * Create a new RedirectResponse object
