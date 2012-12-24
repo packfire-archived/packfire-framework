@@ -39,4 +39,4 @@ If you need more information on the source code, do feel free to take a look at 
 
 Packfire Framework is released open source under the [New BSD License](https://github.com/packfire/framework/blob/master/license/packfire.license.txt).
 
-The Packfire logo and branding, and all works derived and created by the author, Sam-Mauris Yong, are released under the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported](https://github.com/packfire/framework/blob/master/license/packfire-content.license.txt). Sharing is welcome when properly attributed, but commercial use and derivatives are not allowed.
+The Packfire logo and branding, and all works derived and created by the author, Sam-Mauris Yong, are released under the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported](https://github.com/packfire/packfire-framework/blob/master/license/packfire-content.license.txt). Sharing is welcome when properly attributed, but commercial use and derivatives are not allowed.

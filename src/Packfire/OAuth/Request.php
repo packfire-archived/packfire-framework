@@ -154,7 +154,7 @@ class Request extends HttpRequest implements IHttpEntity {
 
         $pData = array();
         foreach($kparams as $key => $value){
-            $pData[] = sprintf('%s=%s', $key, $value);
+            $pData[] = sprintf('%s=%s', $key, Helper::urlencode($value));
         }
         $headerData[] = implode('&', $pData);
 
