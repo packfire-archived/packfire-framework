@@ -23,11 +23,11 @@ class Bridge extends Mustache {
      * @param string $name Name of the partial
      * @since 1.0-sofia
      */
-    protected function partial($name){
+    protected function partial($name, $scope){
         /* @var $template ITemplate */
         $template = AppTemplate::load($name);
         if($template){
-            $template->set($this->parameters);
+            $template->set($scope);
             $this->buffer .= $template->parse();
         }
     }

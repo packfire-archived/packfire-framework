@@ -156,7 +156,7 @@ class Mustache {
                             break;
                         case self::TYPE_PARTIAL1:
                         case self::TYPE_PARTIAL2:
-                            $this->partial($name);
+                            $this->partial($name, $scope);
                             $position = $start + $tagEnd;
                             break;
                         case self::TYPE_UNESCAPETRIPLE:
@@ -250,7 +250,7 @@ class Mustache {
      * @param string $name Name of the partial
      * @since 1.0-sofia
      */
-    protected function partial($name){
+    protected function partial($name, $scope){
         if($this->partials){
             $template = $this->partials[$name];
             if($template){
@@ -258,7 +258,7 @@ class Mustache {
                 $partial->parameters($this->parameters)
                         ->partials($this->partials)
                         ->escaper($this->escaper);
-                $this->buffer .= $partial->render();
+                $this->buffer .= $partial->render($scope);
             }
         }
     }
@@ -366,10 +366,10 @@ class Mustache {
      * @return string Returns the parsed template
      * @since 1.0-sofia 
      */
-    public function render(){
+    public function render($scope = null){
         $this->loadParameters();
         $this->buffer = '';
-        $this->parse($this->parameters, 0, strlen($this->template));
+        $this->parse($scope ? $scope : $this->parameters, 0, strlen($this->template));
         return $this->buffer;
     }
     
