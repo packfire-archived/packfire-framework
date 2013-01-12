@@ -97,7 +97,7 @@ class Route extends CoreRoute {
                     }
                     // perform the URL matching
                     $urlMatch = preg_match('`^' . $template->parse() .
-                            '[/]{0,1}$`is', $url, $urlData);
+                            '[/]{0,1}$`isU', $url, $urlData);
                     $urlData = array_intersect_key($urlData, array_flip($tokens->toArray()));
                 }
                 if($urlMatch){
