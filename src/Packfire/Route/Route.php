@@ -53,6 +53,13 @@ abstract class Route implements IRoute {
     protected $rules;
     
     /**
+     * Response hinting for the controller
+     * @var string
+     * @since 2.0.7
+     */
+    protected $response;
+    
+    /**
      * Create a new Route object
      * @param string $name The name of the route
      * @param array|Map $data The data retrieved from the settings
@@ -64,6 +71,7 @@ abstract class Route implements IRoute {
         $this->actual = $data->get('actual');
         $this->rules = new Map($data->get('params'));
         $this->remap = new Map($data->get('remap'));
+        $this->response = $data->get('response');
     }
 
     /**
@@ -109,6 +117,15 @@ abstract class Route implements IRoute {
      */
     public function rules() {
         return $this->rules;
+    }
+
+    /**
+     * Get the response hint
+     * @return string Returns response hint
+     * @since 2.0.7
+     */
+    public function response() {
+        return $this->response;
     }
     
     /**

@@ -9,6 +9,7 @@ use Packfire\Exception\HttpException;
 use Packfire\Exception\AuthenticationException;
 use Packfire\Exception\AuthorizationException;
 use Packfire\Exception\InvalidRequestException;
+use Packfire\Application\IAppResponse;
 use Packfire\Net\Http\Request as HttpRequest;
 use Packfire\Net\Http\Response as HttpResponse;
 use Packfire\Core\ActionInvoker;
@@ -227,7 +228,7 @@ abstract class Controller extends BucketUser {
 
     /**
      * Run the controller action with the route
-     * @param Route $route The route that called for this controller
+     * @param \Packfire\Route\Route $route The route that called for this controller
      * @param string $action The action to perform
      * @return mixed Returns the result of the action
      * @since 1.0-sofia
@@ -300,6 +301,10 @@ abstract class Controller extends BucketUser {
             $actionInvoker = new ActionInvoker(array($this, $call));
             $result = $actionInvoker->invoke($route->remap());
             if($result){
+                if($route->response() && !($result instanceof IAppResponse)){
+                    $response = $route->response();
+                    $result = new $response($result);
+                }
                 $this->response = $result;
             }
             $this->processAftermath();
@@ -335,8 +340,7 @@ abstract class Controller extends BucketUser {
         if($this->response instanceof HttpResponse){
             $type = $this->response->headers()->get('Content-Type');
         }
-        if($this->service('debugger')
-                && $type
+        if($type && $this->service('debugger')
                 && strpos(strtolower($type), 'html') === false){
             $this->service('debugger')->enabled(false);
         }
