@@ -108,6 +108,32 @@ class Text {
             return array_pop($list);
         }
     }
+    
+    /**
+     * Transform a string into its slug representation
+     * @param string $text The text to be transformed
+     * @return string Returns the slug
+     * @since 2.0.8
+     */
+    public static function slugify($text){
+        if($text){
+            // replace non letter or digits by -
+            $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+
+            // trim
+            $text = trim($text, '-');
+
+            // transliterate
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+            // lowercase
+            $text = strtolower($text);
+
+            // remove unwanted characters
+            $text = preg_replace('~[^-\w]+~', '', $text);
+        }
+        return $text;
+    }
 
     /**
      * Rotate the string through 13 characters
