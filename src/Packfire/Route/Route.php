@@ -1,16 +1,24 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Route;
 
 use Packfire\Route\IRoute;
 use Packfire\Collection\Map;
 
 /**
- * Route class
- *
- * A generic validatory route
+ * A generic route
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Route
  * @since 1.1-sofia
@@ -53,6 +61,13 @@ abstract class Route implements IRoute {
     protected $rules;
     
     /**
+     * Response hinting for the controller
+     * @var string
+     * @since 2.0.7
+     */
+    protected $response;
+    
+    /**
      * Create a new Route object
      * @param string $name The name of the route
      * @param array|Map $data The data retrieved from the settings
@@ -64,6 +79,7 @@ abstract class Route implements IRoute {
         $this->actual = $data->get('actual');
         $this->rules = new Map($data->get('params'));
         $this->remap = new Map($data->get('remap'));
+        $this->response = $data->get('response');
     }
 
     /**
@@ -109,6 +125,15 @@ abstract class Route implements IRoute {
      */
     public function rules() {
         return $this->rules;
+    }
+
+    /**
+     * Get the response hint
+     * @return string Returns response hint
+     * @since 2.0.7
+     */
+    public function response() {
+        return $this->response;
     }
     
     /**

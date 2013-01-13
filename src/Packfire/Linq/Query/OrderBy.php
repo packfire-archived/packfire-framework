@@ -1,16 +1,24 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Linq\Query;
 
 use Packfire\Linq\Query\Worker;
 use Packfire\Collection\Sort\IComparator;
 
 /**
- * OrderBy class
- * 
  * A LINQ Order By Query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Linq\Query
  * @since 1.0-sofia
@@ -25,7 +33,7 @@ class OrderBy extends Worker implements IComparator {
     protected $descending;
     
     /**
-     * Create a new LinqOrderByQuery object
+     * Create a new OrderBy object
      * @param Closure|callback $worker The callback that will work on this query
      * @param boolean $descending Set if the order is in descending or not.
      *                  True if the order is descending, false otherwise.

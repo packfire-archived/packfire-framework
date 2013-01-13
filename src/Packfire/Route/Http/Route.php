@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Route\Http;
 
 use Packfire\Route\Route as CoreRoute;
@@ -8,12 +18,10 @@ use Packfire\Template\Template;
 use Packfire\Route\Validator;
 
 /**
- * Route class
- * 
  * A HTTP route entry
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2012, Sam-Mauris Yong / mauris@hotmail.sg
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Route\Http
  * @since 1.0-elenor
@@ -97,7 +105,7 @@ class Route extends CoreRoute {
                     }
                     // perform the URL matching
                     $urlMatch = preg_match('`^' . $template->parse() .
-                            '[/]{0,1}$`is', $url, $urlData);
+                            '[/]{0,1}$`isU', $url, $urlData);
                     $urlData = array_intersect_key($urlData, array_flip($tokens->toArray()));
                 }
                 if($urlMatch){

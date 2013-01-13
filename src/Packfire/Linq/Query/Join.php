@@ -1,16 +1,24 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Linq\Query;
 
 use Packfire\Linq\IQuery;
 use Packfire\Collection\Map;
 
 /**
- * Join class
- * 
  * A LINQ Join query
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Linq\Query
  * @since 1.0-sofia
@@ -23,7 +31,7 @@ class Join implements IQuery {
     private $resultSelector;
     
     /**
-     * Create a new LinqJoinQuery object
+     * Create a new Join object
      * @param mixed $joinCollection
      * @param mixed $innerKey
      * @param mixed $outerKey
