@@ -1,19 +1,27 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Session;
 
 use Packfire\IoC\BucketUser;
 use Packfire\Collection\ArrayList;
 
 /**
- * Messenger class
- *
  * Cross-class and controller session messenger. You can utilize this service
  * to provide messenging between classes and controllers.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.session
+ * @package Packfire\Session
  * @since 1.0-sofia
  */
 class Messenger extends BucketUser {

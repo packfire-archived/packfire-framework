@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire;
 
 /**
@@ -17,16 +27,14 @@ use Packfire\Core\ClassLoader\ClassLoader;
 use Packfire\Core\ClassLoader\PackfireClassFinder;
 
 /**
- * Packfire class
- *
  * Provides functionality to boot the application
  *
- * @link http://www.github.com/packfire
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire
  * @since 1.0-sofia
+ * @link http://www.github.com/packfire
  */
 class Packfire {
     

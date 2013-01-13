@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Session\Storage;
 
 use Packfire\Session\Storage\ISessionStorage;
@@ -6,14 +16,12 @@ use Packfire\Session\Bucket\SessionBucket;
 use Packfire\Collection\Map;
 
 /**
- * SessionStorage class
- *
- * Provides session storage access
+ * Provides session storage
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.session.storage
+ * @package Packfire\Session\Storage
  * @since 1.0-sofia
  */
 class SessionStorage implements ISessionStorage {

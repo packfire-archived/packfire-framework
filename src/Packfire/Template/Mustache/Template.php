@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Template\Mustache;
 
 use Packfire\Template\ITemplate;
@@ -7,13 +17,11 @@ use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 
 /**
- * Template class
- * 
  * A Packfire template that uses the Mustache
  * logic-less template rendering engine
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Template\Mustache
  * @since 1.0-sofia
