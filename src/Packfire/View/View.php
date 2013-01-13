@@ -15,7 +15,7 @@ use Packfire\Collection\IList;
 use Packfire\View\IView;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
-use Packfire\Model\ObjectObserver;
+use Packfire\Core\ObjectObserver;
 use Packfire\IoC\BucketUser;
 use Packfire\Exception\InvalidArgumentException;
 

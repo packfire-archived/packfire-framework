@@ -1,5 +1,5 @@
 <?php
-namespace Packfire\Model;
+namespace Packfire\Core;
 
 /**
  * Test class for ObjectObserver.

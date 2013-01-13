@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-namespace Packfire\Model;
+namespace Packfire\Core;
 
 use Packfire\Event\IEventWatchable;
 use Packfire\Event\EventHandler;
@@ -20,7 +20,7 @@ use Packfire\Event\EventHandler;
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Model
+ * @package Packfire\Core
  * @since 1.1-sofia
  */
 class ObjectObserver implements IEventWatchable {
