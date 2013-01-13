@@ -2,7 +2,7 @@
 namespace Packfire\Test\Mocks;
 
 use Packfire\View\View as CoreView;
-use Packfire\Model\ObjectObserver;
+use Packfire\Core\ObjectObserver;
 
 /**
  * View class

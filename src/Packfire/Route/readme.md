@@ -1,6 +1,6 @@
 
 #packfire.routing
-Packfire's Routing package provides ease in managing URLs and access to controllers to your web application. All web requests to your application is routed through the `pRouter` class as Packfire uses the Front Controller Pattern. 
+Packfire's Routing package provides ease in managing URLs and access to controllers to your web application. All web requests to your application is routed through the `Router` class as Packfire uses the Front Controller Pattern. 
 
 ##Routing Defintitons
 
@@ -31,20 +31,21 @@ You can easily create URLs in the controller by calling the `route()` method.
 
 ###The YAML configuration
 
-    postPage:
-      rewrite: "/books/page/{postId}"
-      actual: "Page"
-      method: "switch"
+    viewBookPage:
+      rewrite: "/books/{bookId}-{slug}"
+      actual: "BookController:view"
+      method: "get"
       params:
-        theme: "([a-zA-Z0-9]+)"
+        bookId: "int"
+        slug: any
 
 ###Code in Controller and View classes
 
 To create URLs from the routing key, you can call the `route()` method in both `Controller` and `View` classes, like this:
 
-    $postUrl = $this->route('postPage', 
-                   array('pageId' => $pageId)
+    $url = $this->route('viewBookPage', 
+                   array('bookId' => $bookId, 'slug' => Text::slugify($bookName))
                );
-    $this->redirect($postUrl);
+    $this->redirect($url);
 
 Updates to your URLs in the YAML configuration will also update all your URL generation. You do not need to hard code or worry about URL changes. Sweet!

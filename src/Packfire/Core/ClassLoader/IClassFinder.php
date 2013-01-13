@@ -1,13 +1,21 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Core\ClassLoader;
 
 /**
- * IClassFinder interface
- * 
  * Provides interface for class finding
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 20102012, SamMauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsdlicense New BSD License
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0

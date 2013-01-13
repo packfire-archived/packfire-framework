@@ -1,13 +1,23 @@
 <?php
-namespace Packfire\Application\Pack;
 
 /**
- * Template class
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
  * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
+namespace Packfire\Application\Pack;
+
+use Packfire\IO\File\Path;
+
+/**
  * Performs template loading for application
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Application\Pack
  * @since 1.1-sofia
@@ -32,7 +42,7 @@ class Template {
         );
         
         $template = null;
-        if($extension = \Packfire\IO\File\Path::extension($path)){
+        if($extension = Path::extension($path)){
             $class = $extensions[$extension];
             $template = new $class($path);
         }else{

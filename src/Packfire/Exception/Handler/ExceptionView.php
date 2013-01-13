@@ -1,16 +1,24 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Exception\Handler;
 
 use Packfire\View\View;
 use Packfire\Template\Mustache\TemplateFile;
 
 /**
- * ExceptionView class
- * 
  * Exception display view
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Exception\Handler
  * @since 1.0-sofia
@@ -39,10 +47,8 @@ class ExceptionView extends View {
      * @since 1.0-sofia 
      */
     protected function create() {
-        $className = explode('\\', __CLASS__);
         $this->template(new TemplateFile(__DIR__ 
-                . DIRECTORY_SEPARATOR
-                . end($className) . '.html'));
+                . '/' . basename(__CLASS__) . '.html'));
         $this->define('title', 'Error ' . $this->exception->getCode());
         $this->define('file',  $this->exception->getFile());
         $this->define('line',  $this->exception->getLine());

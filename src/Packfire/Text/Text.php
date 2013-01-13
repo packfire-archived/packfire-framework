@@ -1,15 +1,23 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Text;
 
 use Packfire\Collection\IList;
 
 /**
- * Text class
- * 
  * Provides text services and functionality
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Text
  * @since 1.0-sofia
@@ -107,6 +115,32 @@ class Text {
         } else {
             return array_pop($list);
         }
+    }
+    
+    /**
+     * Transform a string into its slug representation
+     * @param string $text The text to be transformed
+     * @return string Returns the slug
+     * @since 2.0.8
+     */
+    public static function slugify($text){
+        if($text){
+            // replace non letter or digits by -
+            $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+
+            // trim
+            $text = trim($text, '-');
+
+            // transliterate
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+            // lowercase
+            $text = strtolower($text);
+
+            // remove unwanted characters
+            $text = preg_replace('~[^-\w]+~', '', $text);
+        }
+        return $text;
     }
 
     /**

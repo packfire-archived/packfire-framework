@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Packfire Framework for PHP
+ * By Sam-Mauris Yong
+ * 
+ * Released open source under New BSD 3-Clause License.
+ * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
+ * All rights reserved.
+ */
+
 namespace Packfire\Route;
 
 use Packfire\Collection\ArrayList;
@@ -10,12 +20,10 @@ use Packfire\Validator\CallbackValidator;
 use Packfire\Validator\EmailValidator;
 
 /**
- * Validator class
- *
  * Routing parameter validator
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
- * @copyright Copyright (c) 2010-2012, Sam-Mauris Yong
+ * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Route
  * @since 2.0.0
