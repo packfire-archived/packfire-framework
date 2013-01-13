@@ -12,7 +12,6 @@
 namespace Packfire\Database;
 
 use Packfire\Database\IModel;
-use Packfire\Model\Model as CoreModel;
 use Packfire\Collection\Map;
 
 /**
@@ -24,7 +23,7 @@ use Packfire\Collection\Map;
  * @package Packfire\Database
  * @since 1.0-sofia
  */
-abstract class Model extends CoreModel implements IModel {
+abstract class Model implements IModel {
     
     /**
      * Get name of the model in the database 
