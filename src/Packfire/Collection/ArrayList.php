@@ -358,7 +358,7 @@ class ArrayList implements IList {
      * @ignore
      * @since 1.0-sofia
      */
-    public function &offsetGet($offset) {
+    public function offsetGet($offset) {
         return $this->array[$offset];
     }
 
