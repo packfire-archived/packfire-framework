@@ -134,7 +134,7 @@ class Mustache {
                     switch($tagType){
                         case self::TYPE_COMMENT:
                             // comment, do nothing
-                            $position = $start + $tagEnd;
+                            $this->findClosingTag($name, $position, $end);
                             break;
                         case self::TYPE_OPEN:
                             $position = $start + $tagEnd;
@@ -147,7 +147,7 @@ class Mustache {
                                 $this->parse($property, $start + $tagEnd,
                                         $position);
                             }
-                            $position = $position + $tagLength;
+                            $position += $tagLength;
                             break;
                         case self::TYPE_INVERT:
                             $position = $start + $tagEnd;
@@ -157,15 +157,15 @@ class Mustache {
                                 if(is_scalar($property)){
                                     $property = $scope;
                                 }
-                                $this->parse($property, $tagEnd,
+                                $this->parse($property, $start + $tagEnd,
                                         $position);
                             }
-                            $position = $position + $tagLength;
+                            $position += $tagLength;
                             break;
                         case self::TYPE_PARTIAL1:
                         case self::TYPE_PARTIAL2:
                             $this->partial($name, $scope);
-                            $position = $start + $tagEnd;
+                            $position += $tagEnd;
                             break;
                         case self::TYPE_UNESCAPETRIPLE:
                         case self::TYPE_UNESCAPE:
@@ -279,10 +279,7 @@ class Mustache {
      * @since 1.0-sofia
      */
     private function isArrayOfObjects($scope){
-        return is_array($scope) && (($this->parameters != $scope && $scope === array())
-                || (array_key_exists(0, $scope)
-                && array_key_exists(count($scope) - 1, $scope)
-                && (is_array($scope[0]) || is_object($scope[0]))));
+        return is_array($scope) && count($scope) > 0 && array_keys($scope) === range(0, count($scope) - 1);
     }
     
     /**
