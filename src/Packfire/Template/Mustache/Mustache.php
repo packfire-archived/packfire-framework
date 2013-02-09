@@ -108,13 +108,15 @@ class Mustache {
      *              to stop working at
      * @since 1.0-sofia
      */
-    private function parse($scope, $start, $end){
+    private function parse($scopePath, $start, $end){
+        $scope = $this->scope($scopePath);
         if($scope instanceof ArrayList){
             $scope = $scope->toArray();
         }
         if($this->isArrayOfObjects($scope)){
-            foreach($scope as $item){
-                $this->parse($item, $start, $end);
+            $keys = array_keys($scope);
+            foreach($keys as $key){
+                $this->parse(array_merge($scopePath, array($key)), $start, $end);
             }
         }else{
             $position = $start;
@@ -142,9 +144,11 @@ class Mustache {
                             $property = $this->property($scope, $name);
                             if($property !== false && $property !== null){
                                 if(is_scalar($property)){
-                                    $property = $scope;
+                                    $path = $scopePath;
+                                }else{
+                                    $path = array_merge($scopePath, array($name));
                                 }
-                                $this->parse($property, $start + $tagEnd,
+                                $this->parse($path, $start + $tagEnd,
                                         $position);
                             }
                             $position += $tagLength;
@@ -154,10 +158,7 @@ class Mustache {
                             $this->findClosingTag($name, $position, $end);
                             $property = $this->property($scope, $name);
                             if($property === false || $property === null){
-                                if(is_scalar($property)){
-                                    $property = $scope;
-                                }
-                                $this->parse($property, $start + $tagEnd,
+                                $this->parse($scopePath, $start + $tagEnd,
                                         $position);
                             }
                             $position += $tagLength;
@@ -187,6 +188,19 @@ class Mustache {
         }
     }
     
+    protected function scope($path){
+        $scope = $this->parameters;
+        foreach($path as $item){
+            if(isset($scope[$item])){
+                $scope = $scope[$item];
+            }else{
+                $scope = null;
+                break;
+            }
+        }
+        return $scope;
+    }
+    
     /**
      * Get the property from the scope.
      * Note that if property is not found in the scope, the
@@ -198,26 +212,16 @@ class Mustache {
      */
     private function property($scope, $name){
         $result = null;
-        $higherPower = false;
         if(is_object($scope)){
             if(property_exists($scope, $name)){
                 $result = $scope->$name;
             }elseif(is_callable($scope, $name)){
                 $result = $scope->$name();
-            }elseif($scope !== $this->parameters){
-                $higherPower = true;
             }
         }elseif(is_array($scope)){
             if(array_key_exists($name, $scope)){
                 $result = $scope[$name];            
-            }elseif($scope !== $this->parameters){
-                $higherPower = true;
             }
-        }elseif($scope !== $this->parameters){
-            $higherPower = true;
-        }
-        if($higherPower){
-            $result = $this->property($this->parameters, $name);
         }
         return $result;
     }
@@ -371,10 +375,10 @@ class Mustache {
      * @return string Returns the parsed template
      * @since 1.0-sofia 
      */
-    public function render($scope = null){
+    public function render(){
         $this->loadParameters();
         $this->buffer = '';
-        $this->parse($scope ? $scope : $this->parameters, 0, strlen($this->template));
+        $this->parse(array(), 0, strlen($this->template));
         return $this->buffer;
     }
     
