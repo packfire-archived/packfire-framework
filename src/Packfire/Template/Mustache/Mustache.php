@@ -166,7 +166,7 @@ class Mustache {
                         case self::TYPE_PARTIAL1:
                         case self::TYPE_PARTIAL2:
                             $this->partial($name, $scope);
-                            $position += $tagEnd;
+                            $position = $start + $tagEnd;
                             break;
                         case self::TYPE_UNESCAPETRIPLE:
                         case self::TYPE_UNESCAPE:
