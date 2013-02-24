@@ -142,7 +142,7 @@ class Mustache {
                             $position = $start + $tagEnd;
                             $this->findClosingTag($name, $position, $end);
                             $property = $this->property($scope, $name);
-                            if($property !== false && $property !== null){
+                            if($property){
                                 if(is_scalar($property)){
                                     $path = $scopePath;
                                 }else{
@@ -157,7 +157,7 @@ class Mustache {
                             $position = $start + $tagEnd;
                             $this->findClosingTag($name, $position, $end);
                             $property = $this->property($scope, $name);
-                            if($property === false || $property === null){
+                            if(!$property){
                                 $this->parse($scopePath, $start + $tagEnd,
                                         $position);
                             }
@@ -283,7 +283,7 @@ class Mustache {
      * @since 1.0-sofia
      */
     private function isArrayOfObjects($scope){
-        return is_array($scope) && count($scope) > 0 && array_keys($scope) === range(0, count($scope) - 1);
+        return is_array($scope) && (count($scope) == 0 || array_keys($scope) === range(0, count($scope) - 1));
     }
     
     /**
