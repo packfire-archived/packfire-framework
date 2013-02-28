@@ -45,6 +45,9 @@ class Bridge extends Mustache {
         if($this->parameters instanceof ArrayList){
             $this->parameters = $this->parameters->toArray();
         }
+        if(count($this->parameters) == 0){
+            $this->parameters = null;
+        }
     }
 
 }
