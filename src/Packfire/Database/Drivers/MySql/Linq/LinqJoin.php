@@ -104,9 +104,9 @@ class LinqJoin implements ILinqQuery {
             $join .= $this->selector .' ';
         }
         $join .= 'JOIN ' . $source . ' ON ';
-        $join .= $targetAlias . '.' . $this->innerKey;
+        $join .= (strpos($this->innerKey, '.') === false ? $targetAlias . '.' : '') . $this->innerKey;
         $join .= ' = ';
-        $join .= $sourceAlias . '.' . $this->outerKey;
+        $join .= (strpos($this->outerKey, '.') === false ? $sourceAlias . '.' : '') . $this->outerKey;
         
         return $join;
     }

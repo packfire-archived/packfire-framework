@@ -113,7 +113,7 @@ class MemCache implements ICache {
      *          never expire.
      * @since 1.0-sofia
      */
-    public function set($cacheId, $value, $expiry) {
+    public function set($cacheId, $value, $expiry = null) {
         if(func_num_args() == 3){
             if($expiry instanceof DateTime){
                 $expiry = $expiry->toTimestamp() - time();

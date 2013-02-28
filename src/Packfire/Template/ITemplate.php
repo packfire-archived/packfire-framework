@@ -50,4 +50,11 @@ interface ITemplate {
      */
     public function set($set);
     
+    /**
+     * Returns the parsed output
+     * @return string Returns the parsed template
+     * @since 2.0.9
+     */
+    public function __toString();
+    
 }

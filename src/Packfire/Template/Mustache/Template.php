@@ -86,4 +86,8 @@ class Template implements ITemplate {
         }
     }
     
+    public function __toString() {
+        return $this->parse();
+    }
+    
 }
