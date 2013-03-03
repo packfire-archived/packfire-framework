@@ -48,7 +48,7 @@ class ExceptionView extends View {
      */
     protected function create() {
         $this->template(new TemplateFile(__DIR__ 
-                . '/' . basename(__CLASS__) . '.html'));
+                . '/ExceptionView.html'));
         $this->define('title', 'Error ' . $this->exception->getCode());
         $this->define('file',  $this->exception->getFile());
         $this->define('line',  $this->exception->getLine());
