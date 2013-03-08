@@ -50,12 +50,14 @@ class Packfire {
      */
     public function __construct(){
         if(!class_exists('Packfire\Core\ClassLoader\PackfireClassFinder')){
-            require(__DIR__ . DIRECTORY_SEPARATOR . 'constants.php');
-            require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassLoader.php');
-            require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/IClassFinder.php');
-            require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/PackfireClassFinder.php');
-            require(__DIR__ . DIRECTORY_SEPARATOR . 'Core/ClassLoader/ClassLoader.php');
-            require(__DIR__ . DIRECTORY_SEPARATOR . 'helper.php');
+            if(!defined('__APP_ROOT__')){
+                define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . DIRECTORY_SEPARATOR . 'pack' . DIRECTORY_SEPARATOR);
+            }
+            require(__DIR__ . '/Core/ClassLoader/IClassLoader.php');
+            require(__DIR__ . '/Core/ClassLoader/IClassFinder.php');
+            require(__DIR__ . '/Core/ClassLoader/PackfireClassFinder.php');
+            require(__DIR__ . '/Core/ClassLoader/ClassLoader.php');
+            require(__DIR__ . '/helper.php');
         }
         $finder = new PackfireClassFinder();
         $this->classLoader = new ClassLoader($finder);
