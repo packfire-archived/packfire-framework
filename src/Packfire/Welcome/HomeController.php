@@ -39,7 +39,7 @@ class HomeController extends Controller {
     
     function cliIndex(){
         $this->message();
-        echo 'Packfire Framework ' . __PACKFIRE_VERSION__ 
+        echo 'Packfire Framework'
                 . "\n" . '-----------------------------' . "\n\n";
         echo $this->state['message'] . "\n";
     }
