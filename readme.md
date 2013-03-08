@@ -10,24 +10,24 @@ Packfire comes under the long and difficult experiences from the development of 
 
 **Code should be easy to write and simple to read, as it is now on Packfire.**
 
-###Status
+###Build Status
 
 Packfire Framework uses [Travis Continuous Integration](http://travis-ci.org/) to build and execute PHPUnit unit testing on each of the `git push` the developers make to the repository with thanks to Github Hooks. The following determines the build status for the latest push and it is definitely okay to be failing. 
 
 [![Build Status](https://secure.travis-ci.org/packfire/packfire-framework.png?branch=master)](http://travis-ci.org/packfire/packfire-framework)
 
-We will only release builds that pass the unit tests.
+We will only release builds that passes the unit tests on Travis CI.
 
 #Get Started
 
-> [Starters' Guide to Packfire Framework for PHP](https://github.com/packfire/books/blob/master/starter-guide.md) is the complete book to help you in getting started with Packfire Framework. 
+Take a look at our [Books repository](https://github.com/packfire/books) for more information on how to get started with Packfire Framework.
 
 #More information
 
 If you need more information on the source code, do feel free to take a look at the `readme.md` usage guide in directories within the framework directory. We are still in the process of development and writing more documentation and tutorial for the framework (pssst… do help us with the documentations too!). 
 
-- [Official Website](http://mauris.sg/packfire)
-- [Starters' Guide to Packfire Framework for PHP](https://github.com/packfire/books/blob/master/starter-guide.md)
+- [Official Website](http://mauris.sg/packfire/)
+- [Books](https://github.com/packfire/books)
 - [Development Blog](http://packfire.tumblr.com/)
 - [@packfire on Twitter](http://twitter.com/packfire)
 - [Facebook page](http://facebook.com/packfire)
