@@ -25,6 +25,10 @@ use Packfire\FuelBlade\Container;
  */
 abstract class ServiceApplication implements IApplication {
     
+    /**
+     * The IoC container
+     * @var \Packfire\FuelBlade\Container
+     */
     protected $ioc;
     
     /**
