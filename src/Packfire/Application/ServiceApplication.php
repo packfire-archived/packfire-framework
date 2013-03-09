@@ -12,6 +12,7 @@
 namespace Packfire\Application;
 
 use Packfire\Application\IApplication;
+use Packfire\FuelBlade\Container;
 
 /**
  * A generic application that uses the service bucket
@@ -24,12 +25,16 @@ use Packfire\Application\IApplication;
  */
 abstract class ServiceApplication implements IApplication {
     
+    protected $ioc;
+    
     /**
      * Create a new ServiceApplication object
      * @since 1.0-elenor
      */
     public function __construct(){
-        
+        $this->ioc = new Container();
+        $loader = new ServiceLoader();
+        $loader($this->ioc);
     }
     
 }

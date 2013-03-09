@@ -33,29 +33,39 @@ class ServiceLoader implements IConsumer {
      * @since 2.1.0
      */
     public function __invoke($c) {
-        $c['config'] = $c->share(function(){
+        $config = $c->share(function(){
             $config = new AppConfig();
             return $config->load();
         });
-        $this->put('config.app', array(new AppConfig(), 'load'));
-        if($this->pick('config.app')){
-            // load database drivers and configurations
-            $databaseConfigs = $this->pick('config.app')->get('database');
-            if($databaseConfigs){
-                foreach($databaseConfigs as $key => $databaseConfig){
-                    $dbPackage = ($key == 'default' ? '' : '.' . $key);
-                    $this->put('database' . $dbPackage 
-                            . '.driver', ConnectorFactory::create($databaseConfig));
-                    $this->put('database' . $dbPackage,
-                            array($this->pick('database' . $dbPackage . '.driver'), 'database'));
+        $c['config'] = $config;
+        
+        if($config){
+            $databaseConf = $config->get('database');
+            if($databaseConf){
+                foreach($databaseConf as $key => $db){
+                    $package = ($key == 'default' ? '' : '.' . $key);
+                    $c['database' . $package . '.driver'] = $c->share(function()use($db){
+                        return ConnectorFactory::create($db);
+                    });
+                    $c['database' . $package] = $c->share(function($c)use($package){
+                        return $c['database' . $package . '.driver']->database();
+                    });
                 }
             }
         }
-        $this->put('events', new EventHandler($this));
-        $this->put('shutdown', 'Packfire\Core\ShutdownTaskManager');
         
-        if($this->contains('cache')){
-            $shutdown = $this->pick('shutdown');
+        $c['events'] = $c->share(function($c){
+            return new EventHandler($c);
+        });
+        
+        $c['shutdown'] = $c->share(function($c){
+            return $c->instance('\\Packfire\\Core\\ShutdownTaskManager');
+        });
+        
+        // load services from ioc.yml
+        
+        if($c['cache']){
+            $shutdown = $c['shutdown'];
             /* @var $shutdown \Packfire\Core\ShutdownTaskManager */
             $shutdown->add('cache.gc', array($this->pick('cache'), 'garbageCollect'));
         }
