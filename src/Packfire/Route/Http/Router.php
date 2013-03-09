@@ -27,25 +27,7 @@ use Packfire\Template\Template;
  * @since 1.0-elenor
  */
 class Router extends CoreRouter {
-    
-    /**
-     * Whether HTTP routing is enabled or not
-     * @var boolean
-     * @since 1.0-elenor
-     */
-    private $enabled = true;
-    
-    /**
-     * Perform loading of routes from the routing configuration file
-     * @since 1.0-elenor
-     */
-    public function load(){
-        parent::load();
-        if($this->service('config.app')){
-            $this->enabled = $this->service('config.app')->get('routing', 'enabled');
-        }
-    }
-    
+        
     /**
      * Factory manufature the route based on the configuration
      * @param string $key Name of the route
