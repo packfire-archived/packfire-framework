@@ -13,6 +13,7 @@ namespace Packfire\Session;
 
 use Packfire\Session\Storage\SessionStorage;
 use Packfire\Session\Session;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Performs loading for the session and its storage method
@@ -23,17 +24,18 @@ use Packfire\Session\Session;
  * @package Packfire\Session
  * @since 1.0-sofia
  */
-class Loader {
+class Loader implements IConsumer {
     
-    public function load(){
+    public function __invoke($c){
         $storageId = 'session.storage';
-        $storage = $this->pick($storageId);
+        $storage = $c[$storageId];
         if(!$storage){
-            $storage = new SessionStorage();
-            $this->put($storageId, $storage);
+            $c[$storageId] = $c->share(function(){
+                return new SessionStorage();
+            });
         }
-        /* @var $config Config */
-        $config = $this->pick('config.app');
+        /* @var $config \Packfire\Config\Config */
+        $config = $c['config'];
         if($config){
             session_name($config->get('session', 'name'));
             session_set_cookie_params(
@@ -43,9 +45,11 @@ class Loader {
                     $config->get('session', 'secure'),
                     $config->get('session', 'http')
                 );
-            session_start();
         }
-        $this->put('session', new Session($storage));
+        $c['session'] = $c->share(function($c){
+            session_start();
+            return new Session($c['session.storage']);
+        });
     }
     
 }
