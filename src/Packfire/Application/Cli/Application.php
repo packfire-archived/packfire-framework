@@ -50,7 +50,7 @@ abstract class Application extends ServiceApplication {
      * @since 1.0-elenor
      */
     public function handleException($exception) {
-        $this->service('exception.handler')->handle($exception);
+        $this->ioc['exception.handler']->handle($exception);
     }
     
 }
