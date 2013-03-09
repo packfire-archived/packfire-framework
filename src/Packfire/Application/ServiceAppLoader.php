@@ -14,7 +14,6 @@ namespace Packfire\Application;
 use Packfire\IoC\BucketLoader;
 use Packfire\Database\ConnectorFactory;
 use Packfire\Config\Framework\AppConfig;
-use Packfire\IoC\ServiceLoader;
 use Packfire\Event\EventHandler;
 
 /**
@@ -49,7 +48,7 @@ class ServiceAppLoader extends BucketLoader {
         }
         $this->put('events', new EventHandler($this));
         $this->put('shutdown', 'Packfire\Core\ShutdownTaskManager');
-        ServiceLoader::loadConfig($this);
+        
         if($this->contains('cache')){
             $shutdown = $this->pick('shutdown');
             /* @var $shutdown \Packfire\Core\ShutdownTaskManager */
