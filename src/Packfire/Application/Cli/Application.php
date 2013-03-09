@@ -12,7 +12,7 @@
 namespace Packfire\Application\Cli;
 
 use Packfire\Application\Cli\Response;
-use Packfire\Application\Cli\ServiceBucket;
+use Packfire\Application\Cli\ServiceLoader;
 use Packfire\Application\ServiceApplication;
 
 /**
@@ -29,8 +29,8 @@ abstract class Application extends ServiceApplication {
     public function __construct(){
         parent::__construct();
         
-        $cliLoader = new ServiceBucket($this->services);
-        $cliLoader->load();
+        $loader = new ServiceLoader();
+        $loader($this->ioc);
     }
     
     /**
