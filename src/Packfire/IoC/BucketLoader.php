@@ -12,7 +12,6 @@
 namespace Packfire\IoC;
 
 use Packfire\IoC\IServiceBucket;
-use Packfire\IoC\ILoadable;
 
 /**
  * Provides interfacing for service loading
@@ -23,7 +22,7 @@ use Packfire\IoC\ILoadable;
  * @package Packfire\IoC
  * @since 1.0-elenor
  */
-abstract class BucketLoader implements IServiceBucket, ILoadable {
+abstract class BucketLoader implements IServiceBucket {
     
     /**
      * The service bucket to be decorated

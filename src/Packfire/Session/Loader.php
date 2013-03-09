@@ -14,7 +14,6 @@ namespace Packfire\Session;
 use Packfire\IoC\BucketLoader;
 use Packfire\Session\Storage\SessionStorage;
 use Packfire\Session\Session;
-use Packfire\IoC\ILoadable;
 
 /**
  * Performs loading for the session and its storage method
@@ -25,7 +24,7 @@ use Packfire\IoC\ILoadable;
  * @package Packfire\Session
  * @since 1.0-sofia
  */
-class Loader extends BucketLoader implements ILoadable {
+class Loader extends BucketLoader {
     
     public function load(){
         $storageId = 'session.storage';

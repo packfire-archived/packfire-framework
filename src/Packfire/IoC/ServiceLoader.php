@@ -12,7 +12,6 @@
 namespace Packfire\IoC;
 
 use Packfire\Collection\Map;
-use Packfire\IoC\ILoadable;
 use Packfire\Exception\ServiceException;
 use Packfire\Config\Framework\IoCConfig;
 
@@ -25,7 +24,7 @@ use Packfire\Config\Framework\IoCConfig;
  * @package Packfire\IoC
  * @since 1.0-sofia
  */
-class ServiceLoader implements ILoadable {
+class ServiceLoader {
     
     /**
      * The full package

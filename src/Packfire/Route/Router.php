@@ -11,7 +11,6 @@
 
 namespace Packfire\Route;
 
-use Packfire\IoC\ILoadable;
 use Packfire\Collection\Map;
 use Packfire\Exception\NullException;
 use Packfire\Exception\InvalidRequestException;
@@ -26,7 +25,7 @@ use Packfire\IoC\BucketUser;
  * @package Packfire\Route
  * @since 1.0-sofia
  */
-abstract class Router extends BucketUser implements ILoadable {
+abstract class Router extends BucketUser {
     
     /**
      * The collection of routing entries
