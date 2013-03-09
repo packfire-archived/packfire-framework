@@ -11,9 +11,7 @@
 
 namespace Packfire\Controller;
 
-use Packfire\IoC\BucketUser;
 use Packfire\Core\ActionInvoker;
-use Packfire\IoC\IBucketUser;
 use Packfire\Application\Pack\Template;
 
 /**
@@ -25,7 +23,7 @@ use Packfire\Application\Pack\Template;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-class Invoker extends BucketUser {
+class Invoker {
 
     /**
      * The package name
@@ -110,9 +108,6 @@ class Invoker extends BucketUser {
                         $this->response = $controller->actionRun($this->route, $this->action);
                     }else{
                         $controller = new $class();
-                        if($controller instanceof IBucketUser){
-                            $controller->copyBucket($this);
-                        }
                         $actionInvoker = new ActionInvoker(array($controller, $this->action));
                         $this->response = $actionInvoker->invoke($this->route->params());
                     }

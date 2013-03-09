@@ -12,9 +12,6 @@
 namespace Packfire\Application;
 
 use Packfire\Application\IApplication;
-use Packfire\Application\ServiceAppLoader;
-use Packfire\IoC\BucketUser;
-use Packfire\IoC\ServiceBucket;
 
 /**
  * A generic application that uses the service bucket
@@ -25,17 +22,14 @@ use Packfire\IoC\ServiceBucket;
  * @package Packfire\Application
  * @since 1.0-elenor
  */
-abstract class ServiceApplication extends BucketUser implements IApplication {
+abstract class ServiceApplication implements IApplication {
     
     /**
      * Create a new ServiceApplication object
      * @since 1.0-elenor
      */
     public function __construct(){
-        $this->services = new ServiceBucket();
         
-        $coreLoader = new ServiceAppLoader($this->services);
-        $coreLoader->load();
     }
     
 }

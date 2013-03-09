@@ -11,7 +11,6 @@
 
 namespace Packfire\Session;
 
-use Packfire\IoC\BucketLoader;
 use Packfire\Session\Storage\SessionStorage;
 use Packfire\Session\Session;
 
@@ -24,7 +23,7 @@ use Packfire\Session\Session;
  * @package Packfire\Session
  * @since 1.0-sofia
  */
-class Loader extends BucketLoader {
+class Loader {
     
     public function load(){
         $storageId = 'session.storage';

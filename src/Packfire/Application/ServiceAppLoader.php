@@ -11,7 +11,6 @@
 
 namespace Packfire\Application;
 
-use Packfire\IoC\BucketLoader;
 use Packfire\Database\ConnectorFactory;
 use Packfire\Config\Framework\AppConfig;
 use Packfire\Event\EventHandler;
@@ -25,7 +24,7 @@ use Packfire\Event\EventHandler;
  * @package Packfire\Application
  * @since 1.0-sofia
  */
-class ServiceAppLoader extends BucketLoader {
+class ServiceAppLoader {
     
     /**
      * Perform loading

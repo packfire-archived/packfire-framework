@@ -16,7 +16,6 @@ use Packfire\View\IView;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 use Packfire\Core\ObjectObserver;
-use Packfire\IoC\BucketUser;
 use Packfire\Exception\InvalidArgumentException;
 
 /**
@@ -28,7 +27,7 @@ use Packfire\Exception\InvalidArgumentException;
  * @package Packfire\View
  * @since 1.0-sofia
  */
-abstract class View extends BucketUser implements IView {
+abstract class View implements IView {
 
     /**
      * The state that is passed from the controller

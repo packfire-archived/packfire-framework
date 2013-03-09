@@ -11,7 +11,6 @@
 
 namespace Packfire\OAuth;
 
-use Packfire\IoC\BucketUser;
 use Packfire\Net\Http\Request as HttpRequest;
 use Packfire\OAuth\Request;
 use Packfire\OAuth\OAuth;
@@ -28,7 +27,7 @@ use Packfire\OAuth\OAuthException;
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class Provider extends BucketUser {
+class Provider {
     
     /**
      * The data storage

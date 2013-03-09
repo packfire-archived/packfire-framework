@@ -13,8 +13,6 @@ namespace Packfire\Controller;
 
 use Packfire\Collection\Map;
 use Packfire\Response\RedirectResponse;
-use Packfire\IoC\IBucketUser;
-use Packfire\IoC\BucketUser;
 use Packfire\Exception\HttpException;
 use Packfire\Exception\AuthenticationException;
 use Packfire\Exception\AuthorizationException;
@@ -34,7 +32,7 @@ use Packfire\Route\Validator;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-abstract class Controller extends BucketUser {
+abstract class Controller {
 
     /**
      * The request to this controller
@@ -117,9 +115,6 @@ abstract class Controller extends BucketUser {
      */
     public function render($view = null){
         if($view){
-            if($view instanceof IBucketUser){
-                $view->copyBucket($this);
-            }
             $view->state($this->state);
             $output = $view->render();
             $response = $this->response();
@@ -174,9 +169,6 @@ abstract class Controller extends BucketUser {
     public function model($model, $forceReload = false){
         if($forceReload || !$this->models->keyExists($model)){
             $obj = new $model();
-            if($obj instanceof BucketUser){
-                $obj->copyBucket($this);
-            }
             $this->models[$model] = $obj;
         }
         return $this->models[$model];

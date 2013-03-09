@@ -12,7 +12,6 @@
 namespace Packfire\Debugger;
 
 use Packfire\DateTime\DateTime;
-use Packfire\IoC\BucketUser;
 use Packfire\IO\File\Path;
 
 /**
@@ -24,7 +23,7 @@ use Packfire\IO\File\Path;
  * @package Packfire\Debugger
  * @since 1.0-sofia
  */
-class Debugger extends BucketUser {
+class Debugger {
     
     /**
      * State whether the debugger is enabled or not.

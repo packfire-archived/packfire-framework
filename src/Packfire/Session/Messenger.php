@@ -11,7 +11,6 @@
 
 namespace Packfire\Session;
 
-use Packfire\IoC\BucketUser;
 use Packfire\Collection\ArrayList;
 
 /**
@@ -24,7 +23,7 @@ use Packfire\Collection\ArrayList;
  * @package Packfire\Session
  * @since 1.0-sofia
  */
-class Messenger extends BucketUser {
+class Messenger {
 
     /**
      * Create a new Messenger object

@@ -12,7 +12,6 @@
 namespace Packfire\Exception\Handler;
 
 use Packfire\Exception\Handler\IHandler;
-use Packfire\IoC\BucketUser;
 
 /**
  * An exception handler for HTTP
@@ -23,7 +22,7 @@ use Packfire\IoC\BucketUser;
  * @package Packfire\Exception\Handler
  * @since 1.0-sofia
  */
-class HttpHandler extends BucketUser implements IHandler {
+class HttpHandler implements IHandler {
     
     /**
      * The view package name to load

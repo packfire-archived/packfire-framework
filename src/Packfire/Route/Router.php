@@ -14,7 +14,6 @@ namespace Packfire\Route;
 use Packfire\Collection\Map;
 use Packfire\Exception\NullException;
 use Packfire\Exception\InvalidRequestException;
-use Packfire\IoC\BucketUser;
 
 /**
  * Handles URL rewritting and controller routing
@@ -25,7 +24,7 @@ use Packfire\IoC\BucketUser;
  * @package Packfire\Route
  * @since 1.0-sofia
  */
-abstract class Router extends BucketUser {
+abstract class Router {
     
     /**
      * The collection of routing entries

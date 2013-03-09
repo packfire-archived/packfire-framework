@@ -11,7 +11,6 @@
 
 namespace Packfire\Security;
 
-use Packfire\IoC\BucketUser;
 use Packfire\Security\ISecurityModule;
 
 /**
@@ -23,7 +22,7 @@ use Packfire\Security\ISecurityModule;
  * @package Packfire\Security
  * @since 1.0-sofia
  */
-class SecurityModule extends BucketUser implements ISecurityModule {
+class SecurityModule implements ISecurityModule {
     
     /**
      * The request made to the application for security checking

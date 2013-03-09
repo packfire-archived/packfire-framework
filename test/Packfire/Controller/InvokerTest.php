@@ -4,7 +4,6 @@ namespace Packfire\Controller;
 use Packfire\Application\Http\Request as HttpRequest;
 use Packfire\Application\Http\Response as HttpResponse;
 use Packfire\Collection\Map;
-use Packfire\IoC\ServiceBucket;
 use Packfire\Session\Session;
 use Packfire\Route\Http\Route;
 use Packfire\Route\Http\Router;
@@ -35,7 +34,6 @@ class InvokerTest extends \PHPUnit_Framework_TestCase {
                         new Route('test', array()),
                         new HttpResponse()
         );
-        $bucket = new ServiceBucket();
         $storage = new \Packfire\Test\Mocks\SessionStorage();
         $bucket->put('session.storage', $storage);
         $bucket->put('session', new Session($storage));

@@ -11,8 +11,6 @@
 
 namespace Packfire\Core\ClassLoader;
 
-use Packfire\IoC\BucketUser;
-
 /**
  * Provides generic functionality for finding classes in files
  * through means of caches
@@ -23,7 +21,7 @@ use Packfire\IoC\BucketUser;
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0
  */
-class CacheClassFinder extends BucketUser implements IClassFinder {
+class CacheClassFinder implements IClassFinder {
     
     /**
      * The prefix to cache keys

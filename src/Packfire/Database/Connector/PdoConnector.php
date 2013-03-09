@@ -12,7 +12,6 @@
 namespace Packfire\Database\Connector;
 
 use Packfire\Database\IConnector;
-use Packfire\IoC\BucketUser;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Database\Expression;
 
@@ -29,7 +28,7 @@ if(!class_exists('\PDO')){
  * @package Packfire\Database\Connector
  * @since 1.0-sofia
  */
-abstract class PdoConnector extends BucketUser implements IConnector {
+abstract class PdoConnector implements IConnector {
 
     /**
      * The PDO object
