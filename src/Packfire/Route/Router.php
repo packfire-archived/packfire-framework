@@ -14,6 +14,7 @@ namespace Packfire\Route;
 use Packfire\Collection\Map;
 use Packfire\Exception\NullException;
 use Packfire\Exception\InvalidRequestException;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Handles URL rewritting and controller routing
@@ -24,7 +25,9 @@ use Packfire\Exception\InvalidRequestException;
  * @package Packfire\Route
  * @since 1.0-sofia
  */
-abstract class Router {
+abstract class Router implements IConsumer {
+    
+    protected $settings;
     
     /**
      * The collection of routing entries
@@ -46,7 +49,7 @@ abstract class Router {
      * @since 1.0-elenor
      */
     public function load(){
-        $settings = $this->service('config.routing');
+        $settings = $this->settings;
         if($settings){
             $routes = $settings->get();
             foreach($routes as $key => $data){
@@ -141,5 +144,9 @@ abstract class Router {
      * @since 1.0-elenor
      */
     protected abstract function prepareRoute($route, $params);
+    
+    public function __invoke($c){
+        $this->settings = $c['config.routing'];
+    }
     
 }
