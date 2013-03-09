@@ -63,15 +63,15 @@ class Application extends ServiceApplication {
         $request->method($oriMethod);
         
         $response = $this->prepareResponse($request);
-        $router = $this->service('router');
+        $router = $this->ioc['router'];
         /* @var $router Router */
         if(!$router){
             throw new MissingDependencyException('Router service missing.');
         }
         $router->load();
         
-        $debugMode = $this->service('config.app')
-                && $this->service('config.app')->get('app', 'debug');
+        $debugMode = $this->ioc['config.app']
+                && $this->ioc['config.app']->get('app', 'debug');
         if($debugMode){
             $config = new Map(array(
                 'rewrite' => '/{path}',
@@ -89,9 +89,9 @@ class Application extends ServiceApplication {
         /* @var $route Route */
         $route = null;
         if($request->method() == HttpMethod::GET 
-                && $this->service('config.app')
-                && $this->service('config.app')->get('routing', 'caching')){
-            $cache = $this->service('cache');
+                && $this->ioc['config.app']
+                && $this->ioc['config.app']->get('routing', 'caching')){
+            $cache = $this->ioc['cache'];
             if($cache){
                 $cacheId = 'route.' . $request->method() . sha1($request->uri() . $request->queryString());
                 if($cache->check($cacheId)){
@@ -154,7 +154,7 @@ class Application extends ServiceApplication {
      * @since 1.0-sofia
      */
     public function handleException($exception){
-        $this->service('exception.handler')->handle($exception);
+        $this->ioc['exception.handler']->handle($exception);
     }
     
     /**
