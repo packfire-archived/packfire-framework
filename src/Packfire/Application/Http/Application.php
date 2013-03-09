@@ -41,17 +41,9 @@ class Application extends ServiceApplication {
      */
     public function __construct(){
         parent::__construct();
-        $this->loadExceptionHandler();
         
         $httpLoader = new ServiceBucket($this->services);
         $httpLoader->load();
-    }
-    
-    /**
-     * Load the exception handler and prepare handlers
-     * @since 1.0-elenor
-     */
-    protected function loadExceptionHandler(){
     }
     
     /**
