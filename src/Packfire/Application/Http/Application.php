@@ -13,7 +13,7 @@ namespace Packfire\Application\Http;
 
 use Packfire\Application\ServiceApplication;
 use Packfire\Application\Http\Response;
-use Packfire\Application\Http\ServiceBucket;
+use Packfire\Application\Http\ServiceLoader;
 use Packfire\Exception\HttpException;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Controller\Invoker as ControllerInvoker;
@@ -42,8 +42,8 @@ class Application extends ServiceApplication {
     public function __construct(){
         parent::__construct();
         
-        $httpLoader = new ServiceBucket($this->services);
-        $httpLoader->load();
+        $loader = new ServiceLoader();
+        $loader($this->ioc);
     }
     
     /**
