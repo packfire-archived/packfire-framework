@@ -14,6 +14,7 @@ namespace Packfire\Application;
 use Packfire\Database\ConnectorFactory;
 use Packfire\Config\Framework\AppConfig;
 use Packfire\Event\EventHandler;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Application service bucket that loads the application's core services
@@ -24,13 +25,18 @@ use Packfire\Event\EventHandler;
  * @package Packfire\Application
  * @since 1.0-sofia
  */
-class ServiceAppLoader {
+class ServiceLoader implements IConsumer {
     
     /**
-     * Perform loading
-     * @since 1.0-sofia 
+     * Invoke the service loader with the IoC container
+     * @param \Packfire\FuelBlade\Container $c The IoC container
+     * @since 2.1.0
      */
-    public function load(){
+    public function __invoke($c) {
+        $c['config'] = $c->share(function(){
+            $config = new AppConfig();
+            return $config->load();
+        });
         $this->put('config.app', array(new AppConfig(), 'load'));
         if($this->pick('config.app')){
             // load database drivers and configurations
