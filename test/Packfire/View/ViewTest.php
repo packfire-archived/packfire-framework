@@ -2,7 +2,6 @@
 namespace Packfire\View;
 
 use Packfire\Collection\Map;
-use Packfire\IoC\ServiceBucket;
 use Packfire\Route\Http\Route;
 use Packfire\Route\Http\Router;
 use Packfire\Template\Template;
@@ -29,8 +28,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->object = new View();
-        $services = new ServiceBucket();
-        $this->object->setBucket($services);
 
         $router = new Router();
         $configData = new Map(array('rewrite' => '/home', 'actual' => 'Rest'));
