@@ -11,6 +11,8 @@
 
 namespace Packfire\Application\Cli;
 
+use Packfire\Exception\Handler\CliHandler;
+use Packfire\Debugger\Debugger;
 use Packfire\FuelBlade\IConsumer;
 
 /**
