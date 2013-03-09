@@ -32,10 +32,6 @@ class ServiceLoader implements IConsumer {
                 return new CliHandler();
             });
         }
-        if(!$c['config']){
-            $c['debugger'] = new Debugger();
-            $c['debugger']->enabled(false);
-        }
     }
     
 }
