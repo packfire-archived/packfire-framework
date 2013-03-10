@@ -25,6 +25,7 @@ use Packfire\DateTime\DateTime;
 use Packfire\Exception\ErrorException;
 use Packfire\Core\ClassLoader\ClassLoader;
 use Packfire\Core\ClassLoader\PackfireClassFinder;
+use Packfire\FuelBlade\Container;
 
 /**
  * Provides functionality to boot the application
@@ -38,11 +39,7 @@ use Packfire\Core\ClassLoader\PackfireClassFinder;
  */
 class Packfire {
     
-    /**
-     * The framework class loader
-     * @var ClassLoader
-     */
-    private $classLoader;
+    private $ioc;
     
     /**
      * Create a new Packfire object
@@ -51,7 +48,11 @@ class Packfire {
     public function __construct(){
         if(!class_exists('Packfire\Core\ClassLoader\PackfireClassFinder')){
             if(!defined('__APP_ROOT__')){
-                define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . DIRECTORY_SEPARATOR . 'pack' . DIRECTORY_SEPARATOR);
+                define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . DIRECTORY_SEPARATOR . 'pack');
+            }
+            
+            if(is_dir(__APP_ROOT__ . '/vendor')){
+                require(__APP_ROOT__ . '/vendor/autoload.php');
             }
             
             if(is_dir(__DIR__ . '/../../vendor')){
@@ -64,17 +65,10 @@ class Packfire {
             require(__DIR__ . '/Core/ClassLoader/ClassLoader.php');
             require(__DIR__ . '/helper.php');
         }
-        $finder = new PackfireClassFinder();
-        $this->classLoader = new ClassLoader($finder);
-    }
-    
-    /**
-     * Load the framework class loader
-     * @return ClassLoader Returns the class loader that has been loaded.
-     * @since 2.0.0
-     */
-    public function classLoader(){
-        return $this->classLoader;
+        $this->ioc = new Container();
+        $this->ioc['autoload.finder'] = new PackfireClassFinder();
+        $this->ioc['autoload.loader'] = new ClassLoader();
+        $this->ioc['autoload.loader']->register();
     }
 
     /**
