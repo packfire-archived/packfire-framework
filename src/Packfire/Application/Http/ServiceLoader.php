@@ -34,23 +34,17 @@ class ServiceLoader implements IConsumer {
     
     public function __invoke($c) {
         if(!isset($c['exception.handler'])){
-            $c['exception.handler'] = $c->share(function(){
-                return new HttpHandler();
-            });
+            $c['exception.handler'] = new HttpHandler();
         }
         
-        $c['config.router'] = $c->share(function(){
+        $c['config.routing'] = $c->share(function(){
             $config = new HttpRouterConfig();
             return $config->load();
         });
-        $c['router'] = $c->share(function(){
-            return new Router();
-        });
+        $c['router'] = new Router();
         
         if(isset($c['config'])){
-            $c['debugger'] = $c->share(function(){
-                return new Debugger();
-            });
+            $c['debugger'] = new Debugger();
             
             if($c['config']->get('session','enabled')){
                 $loader = new SessionLoader();
@@ -68,16 +62,12 @@ class ServiceLoader implements IConsumer {
         if(isset($c['cache'])){
             // only load CacheClassFinder if the cache component is available
             $c['autoload.finder'] = $loadClassFinder;
-            $c['autoload.finder'] = $c->share(function(){
-                return new CacheClassFinder('src.class.');
-            });
+            $c['autoload.finder'] = new CacheClassFinder('src.class.');
         }else{
             $c['autoload.finder'] = $c->share($loadClassFinder);
         }
         
-        $c['autoload.loader'] = $c->share(function(){
-            return new ClassLoader();
-        });
+        $c['autoload.loader'] = new ClassLoader();
         $c['autoload.loader']->register();
         return $this;
     }
