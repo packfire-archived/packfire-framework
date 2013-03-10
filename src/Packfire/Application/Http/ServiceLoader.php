@@ -44,7 +44,9 @@ class ServiceLoader implements IConsumer {
         $c['router'] = new Router();
         
         if(isset($c['config'])){
-            $c['debugger'] = new Debugger();
+            $debugger = new Debugger();
+            $debugger($c);
+            $c['debugger'] = $debugger;
             
             if($c['config']->get('session','enabled')){
                 $loader = new SessionLoader();
