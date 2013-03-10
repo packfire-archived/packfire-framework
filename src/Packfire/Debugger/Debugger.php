@@ -169,8 +169,13 @@ class Debugger implements IConsumer {
     }
     
     public function __invoke($container) {
+        if(!isset($container['debugger.output'])){
+            $container['debugger.output'] = new Output\Blackhole();
+        }
         $this->output = $container['debugger.output'];
-        $this->enabled = $container['config']->get('app', 'debug');
+        if(isset($container['config'])){
+            $this->enabled = $container['config']->get('app', 'debug');
+        }
         return $this;
     }
     
