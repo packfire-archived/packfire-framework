@@ -15,6 +15,8 @@ use Packfire\Database\ConnectorFactory;
 use Packfire\Config\Framework\AppConfig;
 use Packfire\Event\EventHandler;
 use Packfire\FuelBlade\IConsumer;
+use Packfire\Config\Framework\IoCConfig;
+use Packfire\Core\ShutdownTaskManager;
 
 /**
  * Application service bucket that loads the application's core services
