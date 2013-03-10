@@ -231,8 +231,8 @@ abstract class Controller implements IConsumer {
             if(isset($this->ioc['security'])){
                 $security = $this->ioc['security'];
                 // perform overriding of identity
-                if($this->service('config.app')->get('secuity', 'override')){
-                    $security->identity($this->service('config.app')
+                if($this->ioc['config']->get('secuity', 'override')){
+                    $security->identity($this->ioc['config']
                                     ->get('secuity', 'identity'));
                 }
                 $security->request($this->request);
