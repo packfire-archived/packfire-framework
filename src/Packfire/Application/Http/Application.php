@@ -48,12 +48,12 @@ class Application extends ServiceApplication {
     }
     
     /**
-     * Receive a request, process, and respond.
-     * @param Packfire\Application\Http\Request $request The request made
-     * @return Packfire\Application\IAppResponse Returns the http response
-     * @since 1.0-elenor
+     * Process a request and prepare the response
+     * @return \Packfire\Application\IAppResponse Returns the response
+     * @since 2.1.0
      */
-    public function receive($request){
+    public function process(){
+        $request = $this->ioc['request'];
         $oriMethod = $request->method();
         if($request->headers()->keyExists('X-HTTP-Method')){
             $oriMethod = $request->headers()->get('X-HTTP-Method');

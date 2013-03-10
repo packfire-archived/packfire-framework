@@ -74,7 +74,7 @@ class Packfire {
     /**
      * Start the framework execution
      * This is the entry point: this is it.
-     * @param IApplication $app The application to start running
+     * @param \Packfire\Application\IApplication $app The application to start running
      * @since 1.0-sofia
      */
     public function fire($app){
@@ -87,7 +87,11 @@ class Packfire {
         });
         set_exception_handler(array($app, 'handleException'));
         $request = $this->loadRequest();
-        $response = $app->receive($request);
+        $this->ioc['request'] = $this->ioc->share(function() use($request){
+            return $request;
+        });
+        $app($this->ioc);
+        $response = $app->process();
         $this->processResponse($app, $response);
     }
 
