@@ -39,17 +39,6 @@ abstract class Application extends ServiceApplication {
     }
     
     /**
-     * Create and prepare the response
-     * @param IAppRequest $request The request to respond to
-     * @return IAppResponse Returns the response prepared
-     * @since 1.0-sofia
-     */
-    protected function prepareResponse($request){
-        $response = new Response();
-        return $response;
-    }
-    
-    /**
      * Handles unhandled exception in the application execution
      * @param Exception $exception The unhandled exception
      * @since 1.0-elenor
