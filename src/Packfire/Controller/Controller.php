@@ -22,6 +22,7 @@ use Packfire\Net\Http\Request as HttpRequest;
 use Packfire\Net\Http\Response as HttpResponse;
 use Packfire\Core\ActionInvoker;
 use Packfire\Route\Validator;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * The generic controller class
@@ -32,28 +33,14 @@ use Packfire\Route\Validator;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-abstract class Controller {
+abstract class Controller implements IConsumer {
 
     /**
-     * The request to this controller
-     * @var IAppRequest
-     * @since 1.0-sofia
+     * The IoC container
+     * @var \Packfire\FuelBlade\Container
+     * @since 2.1.0
      */
-    protected $request;
-
-    /**
-     * The route that called for this controller
-     * @var Route
-     * @since 1.0-sofia
-     */
-    protected $route;
-
-    /**
-     * The response this controller handles
-     * @var IAppResponse
-     * @since 1.0-sofia
-     */
-    protected $response;
+    protected $ioc;
 
     /**
      * The controller state
@@ -86,14 +73,9 @@ abstract class Controller {
 
     /**
      * Create a new Controller object
-     * @param IAppRequest $request (optional) The client's request
-     * @param IAppResponse $response (optional) The response object
      * @since 1.0-sofia
      */
-    public function __construct($request = null, $response = null){
-        $this->request = $request;
-        $this->response = $response;
-
+    public function __construct(){
         $this->state = new Map();
         $this->errors = new Error();
         $this->models = new Map();
@@ -117,9 +99,8 @@ abstract class Controller {
         if($view){
             $view->state($this->state);
             $output = $view->render();
-            $response = $this->response();
-            if($response){
-                $response->body($output);
+            if(isset($this->ioc['response']) && $this->ioc['response']){
+                $this->ioc['response']->body($output);
             }
         }
     }
@@ -132,8 +113,8 @@ abstract class Controller {
      * @since 1.0-sofia
      */
     protected function redirect($url, $code = null){
-        if(strlen($url) > 0 && $url[0] == '/'){
-            $url = $this->service('config.app')->get('app', 'rootUrl') . $url;
+        if(strlen($url) > 0 && $url[0] == '/' && isset($this->ioc['config'])){
+            $url = $this->ioc['config']->get('app', 'rootUrl') . $url;
         }
         if(func_num_args() == 2){
             $this->response = new RedirectResponse($url, $code);
@@ -152,8 +133,8 @@ abstract class Controller {
     protected function route($key, $params = array()){
         $router = $this->service('router');
         $url = $router->to($key, $params);
-        if(strlen($url) > 0 && $url[0] == '/'){
-            $url = $this->service('config.app')->get('app', 'rootUrl') . $url;
+        if(strlen($url) > 0 && $url[0] == '/' && isset($this->ioc['config'])){
+            $url = $this->ioc['config']->get('app', 'rootUrl') . $url;
         }
         return $url;
     }
@@ -228,13 +209,12 @@ abstract class Controller {
 
     /**
      * Run the controller action with the route
-     * @param \Packfire\Route\Route $route The route that called for this controller
      * @param string $action The action to perform
      * @return mixed Returns the result of the action
      * @since 1.0-sofia
      */
-    public function actionRun($route, $action){
-        $this->route = $route;
+    public function actionRun($action){
+        $route = $this->ioc['route'];
         
         if($this->validationHandler){
             $validator = new Validator($route->rules(),
@@ -243,33 +223,33 @@ abstract class Controller {
             $validator->validate($route->params(), $params);
         }
         
-        $securityEnabled = $this->service('config.app')
-                && !$this->service('config.app')->get('security', 'disabled');
+        $securityEnabled = isset($this->ioc['config'])
+                && !$this->ioc['config']->get('security', 'disabled');
         
         if($securityEnabled){
-            $securityService = $this->service('security');
-            if($securityService){
+            $security = null;
+            if(isset($this->ioc['security'])){
+                $security = $this->ioc['security'];
                 // perform overriding of identity
                 if($this->service('config.app')->get('secuity', 'override')){
-                    $this->service('security')
-                            ->identity($this->service('config.app')
+                    $security->identity($this->service('config.app')
                                     ->get('secuity', 'identity'));
                 }
-                $this->service('security')->request($this->request);
+                $security->request($this->request);
             }
 
             if(!$this->handleAuthentication()
-                || ($securityService && !$securityService->authenticate())){
+                || ($security && !$security->authenticate())){
                 throw new AuthenticationException('User is not authenticated.');
             }
 
             if(!$this->handleAuthorization()
-                || ($securityService && !$securityService->authorize($route))){
+                || ($security && !$security->authorize($route))){
                 throw new AuthorizationException('Access not authorized.');
             }
         }
 
-        $method = strtolower($this->request->method());
+        $method = strtolower($this->ioc['request']->method());
         $call = $this->checkMethod($method, '');
         if(!$call){
             $call = $this->checkMethod($method, $action);
@@ -286,8 +266,8 @@ abstract class Controller {
 
         if(is_callable(array($this, $call))){
             
-            $session = $this->service('session');
-            if($session){
+            if(isset($this->ioc['session'])){
+                $session = $this->ioc['session'];
                 /* @var $session \Packfire\Session\Session */
                 $errors = $session->bucket('errors')->get('errors');
                 $session->bucket('errors')->clear();
@@ -305,7 +285,7 @@ abstract class Controller {
                     $response = $route->response();
                     $result = new $response($result);
                 }
-                $this->response = $result;
+                $this->ioc['response'] = $result;
             }
             $this->processAftermath();
             $this->afterRun();
@@ -328,9 +308,9 @@ abstract class Controller {
      */
     private function processAftermath(){           
         if($this->errors->exists()){
-            $session = $this->service('session');
-            /* @var $session \Packfire\Session\Session */     
-            if($session){
+            if(isset($this->ioc['session'])){
+                $session = $this->ioc['session'];
+                /* @var $session \Packfire\Session\Session */
                 $session->bucket('errors')->set('errors', $this->errors->errors());
             }
         }
@@ -340,9 +320,9 @@ abstract class Controller {
         if($this->response instanceof HttpResponse){
             $type = $this->response->headers()->get('Content-Type');
         }
-        if($type && $this->service('debugger')
+        if($type && isset($this->ioc['debugger'])
                 && strpos(strtolower($type), 'html') === false){
-            $this->service('debugger')->enabled(false);
+            $this->ioc['debugger']->enabled(false);
         }
     }
 
@@ -351,8 +331,9 @@ abstract class Controller {
      * @return IAppResponse
      * @since 1.0-sofia
      */
-    public function response() {
-        return $this->response;
+    public function __invoke($container) {
+        $this->ioc = $container;
+        return $this;
     }
 
 }

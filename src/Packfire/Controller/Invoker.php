@@ -26,6 +26,8 @@ use Packfire\FuelBlade\IConsumer;
  */
 class Invoker implements IConsumer {
 
+    private $ioc;
+    
     /**
      * The package name
      * @var string
@@ -39,27 +41,6 @@ class Invoker implements IConsumer {
      * @since 1.0-sofia
      */
     private $action;
-
-    /**
-     * The request from the client
-     * @var ClientRequest
-     * @since 1.0-sofia
-     */
-    private $request;
-
-    /**
-     * The Route that the application came through
-     * @var Route
-     * @since 1.0-sofia
-     */
-    private $route;
-
-    /**
-     * The response to the client
-     * @var IAppResponse
-     * @since 1.0-sofia
-     */
-    private $response;
 
     /**
      * Create a new Invoker object
@@ -81,33 +62,35 @@ class Invoker implements IConsumer {
      * @since 1.0-sofia
      */
     public function load(){
+        $route = $this->ioc['route'];
+        $response = $this->ioc['response'];
         $class = $this->package;
         if(is_string($class)){
             if(false !== strpos($class, '.')){ // check if there is an extension
                 $template = Template::load($class);
                 if($template){
-                    $this->response->body($template->parse());
+                    $response->body($template->parse());
                 }else{
                     return false;
                 }
             }elseif(class_exists($class)){
                 $isView = self::classInstanceOf($class, 'Packfire\View\IView');
                 if($isView){
-                    /* @var $view View */
+                    /* @var $view \Packfire\View\View */
                     $view = new $class();
-                    $view->copyBucket($this);
+                    //$view->copyBucket($this);
                     $output = $view->render();
-                    $this->response->body($output);
+                    $response->body($output);
                 }else{
-                    if(self::classInstanceOf($class, 'Packfire\Controller\Controller')){
-                        /* @var $controller Packfire\Controller\Controller */
-                        $controller = new $class($this->request, $this->response);
-                        $controller->copyBucket($this);
-                        $this->response = $controller->actionRun($this->route, $this->action);
+                    $controller = new $class();
+                    if($controller instanceof \Packfire\FuelBlade\IConsumer){
+                        $controller($this->ioc);
+                    }
+                    if($controller instanceof \Packfire\Controller\Controller){
+                        $this->ioc['response'] = $controller->actionRun($this->action);
                     }else{
-                        $controller = new $class();
                         $actionInvoker = new ActionInvoker(array($controller, $this->action));
-                        $this->response = $actionInvoker->invoke($this->route->params());
+                        $this->ioc['response'] = $actionInvoker->invoke($route->params());
                     }
                 }
             }else{
@@ -134,7 +117,7 @@ class Invoker implements IConsumer {
             }
             if(!$classOnly){
                 $interfaces = $class->getInterfaceNames();
-                if(is_array( $interfaces) && in_array($search, $interfaces)) {
+                if(is_array($interfaces) && in_array($search, $interfaces)) {
                     return true;
                 }
             }
@@ -153,9 +136,8 @@ class Invoker implements IConsumer {
     }
     
     public function __invoke($container) {
-        $this->route = $container['route'];
-        $this->request = $container['request'];
-        $this->response = $container['response'];
+        $this->ioc = $container;
+        return $this;
     }
 
 }
