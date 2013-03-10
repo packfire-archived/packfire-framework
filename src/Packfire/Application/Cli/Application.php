@@ -26,8 +26,13 @@ use Packfire\Application\ServiceApplication;
  */
 abstract class Application extends ServiceApplication {
     
-    public function __construct(){
-        parent::__construct();
+    /**
+     * Perform service loading processing
+     * @param \Packfire\FuelBlade\Container $container
+     * @since 2.1.0
+     */
+    public function __invoke($container){
+        parent::__invoke($container);
         
         $loader = new ServiceLoader();
         $loader($this->ioc);

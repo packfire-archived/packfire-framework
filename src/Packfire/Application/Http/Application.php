@@ -36,11 +36,12 @@ use Packfire\Route\Http\Route;
 class Application extends ServiceApplication {
     
     /**
-     * Create a new Application object 
-     * @since 1.0-elenor
+     * Perform service loading processing
+     * @param \Packfire\FuelBlade\Container $container
+     * @since 2.1.0
      */
-    public function __construct(){
-        parent::__construct();
+    public function __invoke($container){
+        parent::__invoke($container);
         
         $loader = new ServiceLoader();
         $loader($this->ioc);
