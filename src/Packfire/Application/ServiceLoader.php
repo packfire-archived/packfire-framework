@@ -39,6 +39,41 @@ class ServiceLoader implements IConsumer {
         });
         $config = $c['config'];
         
+        $c['config.ioc'] = $c->share(function(){
+            $config = new IoCConfig();
+            return $config->load();
+        });
+        $iocConfig = $c['config.ioc'];
+        if($iocConfig){
+            $services = $iocConfig->get();
+            foreach($services as $key => $service){
+                if(isset($service['class'])){
+                    $package = $service['class'];
+                    $params = isset($service['parameters']) ? $service['parameters'] : null;
+                    $c[$key] = $c->share(function($c)use($package, $params){
+                        if(class_exists($package)){
+                            $reflect = new \ReflectionClass($package);
+                            if($params){
+                                $instance = $reflect->newInstanceArgs($params);
+                            }else{
+                                $instance = $reflect->newInstance();
+                            }
+                            if($instance instanceof IConsumer){
+                                return $instance($c);
+                            }else{
+                                return $instance;
+                            }
+                        }
+                    });
+                }else{
+                    throw new ServiceException('Service "' . $key
+                            . '" defined in the service configuration'
+                            . ' file "ioc.yml" contains not conain a'
+                            . ' class definition.');
+                }
+            }
+        }
+        
         if($config){
             $databaseConf = $config->get('database');
             if($databaseConf){
