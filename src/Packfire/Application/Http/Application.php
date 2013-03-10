@@ -63,11 +63,13 @@ class Application extends ServiceApplication {
         $request->method($oriMethod);
         
         $response = $this->prepareResponse($request);
-        $router = $this->ioc['router'];
-        /* @var $router Router */
-        if(!$router){
-            throw new MissingDependencyException('Router service missing.');
+        
+        if(!isset($this->ioc['router'])){
+            throw new MissingDependencyException('Router service required, but missing.');
+            return;
         }
+        /* @var $router Router */
+        $router = $this->ioc['router'];
         $router->load();
         
         $debugMode = $this->ioc['config']
