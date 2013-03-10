@@ -93,8 +93,8 @@ class ServiceLoader implements IConsumer {
             return new EventHandler($c);
         });
         
-        $c['shutdown'] = $c->share(function($c){
-            return $c->instance('\\Packfire\\Core\\ShutdownTaskManager');
+        $c['shutdown'] = $c->share(function(){
+            return new ShutdownTaskManager();
         });
         
         // load services from ioc.yml
@@ -102,7 +102,7 @@ class ServiceLoader implements IConsumer {
         if(isset($c['cache'])){
             $shutdown = $c['shutdown'];
             /* @var $shutdown \Packfire\Core\ShutdownTaskManager */
-            $shutdown->add('cache.gc', array($this->pick('cache'), 'garbageCollect'));
+            $shutdown->add('cache.gc', array($c['cache'], 'garbageCollect'));
         }
         return $this;
     }
