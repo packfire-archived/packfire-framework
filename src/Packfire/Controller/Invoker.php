@@ -13,6 +13,7 @@ namespace Packfire\Controller;
 
 use Packfire\Core\ActionInvoker;
 use Packfire\Application\Pack\Template;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Controller Access Invoker
@@ -23,7 +24,7 @@ use Packfire\Application\Pack\Template;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-class Invoker {
+class Invoker implements IConsumer {
 
     /**
      * The package name
@@ -69,12 +70,9 @@ class Invoker {
      * @param IAppResponse $response The response object
      * @since 1.0-sofia
      */
-    public function __construct($package, $action, $request, $route, $response){
+    public function __construct($package, $action){
         $this->package = $package;
         $this->action = $action;
-        $this->request = $request;
-        $this->route = $route;
-        $this->response = $response;
     }
 
     /**
@@ -152,6 +150,12 @@ class Invoker {
      */
     public function response(){
         return $this->response;
+    }
+    
+    public function __invoke($container) {
+        $this->route = $container['route'];
+        $this->request = $container['request'];
+        $this->response = $container['response'];
     }
 
 }
