@@ -16,7 +16,7 @@ use Packfire\FuelBlade\IConsumer;
 use Packfire\Route\Http\Router;
 use Packfire\Config\Framework\HttpRouterConfig;
 use Packfire\Session\Loader as SessionLoader;
-
+use Packfire\Debugger\Debugger;
 use Packfire\Core\ClassLoader\ClassFinder;
 use Packfire\Core\ClassLoader\ClassLoader;
 use Packfire\Core\ClassLoader\CacheClassFinder;
@@ -33,8 +33,8 @@ use Packfire\Core\ClassLoader\CacheClassFinder;
 class ServiceLoader implements IConsumer {
     
     public function __invoke($c) {
-        if(!$c['exception.handler']){
-            $c['exexception.handler'] = $c->share(function(){
+        if(!isset($c['exception.handler'])){
+            $c['exception.handler'] = $c->share(function(){
                 return new HttpHandler();
             });
         }
@@ -47,9 +47,10 @@ class ServiceLoader implements IConsumer {
             return new Router();
         });
         
-        if($c['config']){
-            $c['debugger'] = new Debugger();
-            $c['debugger']->enabled($c['config']->get('app', 'debug'));
+        if(isset($c['config'])){
+            $c['debugger'] = $c->share(function(){
+                return new Debugger();
+            });
             
             if($c['config']->get('session','enabled')){
                 $loader = new SessionLoader();
@@ -64,7 +65,7 @@ class ServiceLoader implements IConsumer {
             return $classFinder;
         };
         
-        if($c['cache']){
+        if(isset($c['cache'])){
             // only load CacheClassFinder if the cache component is available
             $c['autoload.finder'] = $loadClassFinder;
             $c['autoload.finder'] = $c->share(function(){

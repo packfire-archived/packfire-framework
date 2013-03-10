@@ -33,11 +33,11 @@ class ServiceLoader implements IConsumer {
      * @since 2.1.0
      */
     public function __invoke($c) {
-        $config = $c->share(function(){
+        $c['config'] = $c->share(function(){
             $config = new AppConfig();
             return $config->load();
         });
-        $c['config'] = $config;
+        $config = $c['config'];
         
         if($config){
             $databaseConf = $config->get('database');
@@ -64,7 +64,7 @@ class ServiceLoader implements IConsumer {
         
         // load services from ioc.yml
         
-        if($c['cache']){
+        if(isset($c['cache'])){
             $shutdown = $c['shutdown'];
             /* @var $shutdown \Packfire\Core\ShutdownTaskManager */
             $shutdown->add('cache.gc', array($this->pick('cache'), 'garbageCollect'));

@@ -46,17 +46,17 @@ class HttpHandler implements IHandler {
      * @since 1.0-sofia
      */
     public function handle($exception) {
-        $this->service('debugger')->exception($exception);
+        //$this->service('debugger')->exception($exception);
         
         $class = $this->view;
         if(!$class){
             $class = 'Packfire\Exception\Handler\ExceptionView';
         }
         $view = new $class($exception);
-        $view->copyBucket($this);
+        //$view->copyBucket($this);
         echo $view->render();
         flush(); 
-        
+        /*
         if(!$this->service('debugger')->enabled() && $this->service('logger')){
             $this->service('logger')->log(
                     '"' . $exception->getMessage() .
@@ -65,6 +65,8 @@ class HttpHandler implements IHandler {
                     get_class($exception) . ' ' . $exception->getCode()
                 );
         }
+        
+         */
     }
     
 }

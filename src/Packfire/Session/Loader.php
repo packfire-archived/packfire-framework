@@ -28,15 +28,14 @@ class Loader implements IConsumer {
     
     public function __invoke($c){
         $storageId = 'session.storage';
-        $storage = $c[$storageId];
-        if(!$storage){
+        if(!isset($c[$storageId])){
             $c[$storageId] = $c->share(function(){
                 return new SessionStorage();
             });
         }
-        /* @var $config \Packfire\Config\Config */
-        $config = $c['config'];
-        if($config){
+        if(isset($c['config'])){
+            /* @var $config \Packfire\Config\Config */
+            $config = $c['config'];
             session_name($config->get('session', 'name'));
             session_set_cookie_params(
                     $config->get('session', 'lifetime'),
@@ -46,9 +45,9 @@ class Loader implements IConsumer {
                     $config->get('session', 'http')
                 );
         }
-        $c['session'] = $c->share(function($c){
+        $c['session'] = $c->share(function($c)use($storageId){
             session_start();
-            return new Session($c['session.storage']);
+            return new Session($c[$storageId]);
         });
     }
     

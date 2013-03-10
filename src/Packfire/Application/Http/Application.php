@@ -70,8 +70,8 @@ class Application extends ServiceApplication {
         }
         $router->load();
         
-        $debugMode = $this->ioc['config.app']
-                && $this->ioc['config.app']->get('app', 'debug');
+        $debugMode = $this->ioc['config']
+                && $this->ioc['config']->get('app', 'debug');
         if($debugMode){
             $config = new Map(array(
                 'rewrite' => '/{path}',
@@ -89,8 +89,8 @@ class Application extends ServiceApplication {
         /* @var $route Route */
         $route = null;
         if($request->method() == HttpMethod::GET 
-                && $this->ioc['config.app']
-                && $this->ioc['config.app']->get('routing', 'caching')){
+                && $this->ioc['config']
+                && $this->ioc['config']->get('routing', 'caching')){
             $cache = $this->ioc['cache'];
             if($cache){
                 $cacheId = 'route.' . $request->method() . sha1($request->uri() . $request->queryString());
