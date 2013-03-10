@@ -26,6 +26,11 @@ use Packfire\FuelBlade\IConsumer;
  */
 class Invoker implements IConsumer {
 
+    /**
+     * The IoC Container
+     * @var \Packfire\FuelBlade\Container
+     * @since 2.1.0
+     */
     private $ioc;
     
     /**
