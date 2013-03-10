@@ -91,8 +91,11 @@ class Packfire {
             return $request;
         });
         $app($this->ioc);
-        $response = $app->process();
-        $this->processResponse($app, $response);
+        $app->process();
+        if(isset($this->ioc['response'])){
+            $response = $this->ioc['response'];
+            $this->processResponse($app);
+        }
     }
 
     /**
@@ -165,10 +168,10 @@ class Packfire {
     /**
      * Process the response and reply to the client
      * @param IApplication $app The application
-     * @param IAppResponse $response The response to reply
      * @since 1.0-sofia
      */
-    public function processResponse($app, $response){
+    public function processResponse($app){
+        $response = $this->ioc['response'];
         if($response instanceof HttpResponse){
             header($response->version() . ' ' . $response->code());
             foreach($response->headers() as $key => $value){

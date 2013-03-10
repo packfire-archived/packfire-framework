@@ -24,7 +24,6 @@ interface IApplication {
     
     /**
      * Process a request and prepare the response
-     * @return \Packfire\Application\IAppResponse Returns the response
      * @since 2.1.0
      */
     public function process();

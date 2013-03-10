@@ -49,7 +49,6 @@ class Application extends ServiceApplication {
     
     /**
      * Process a request and prepare the response
-     * @return \Packfire\Application\IAppResponse Returns the response
      * @since 2.1.0
      */
     public function process(){
@@ -62,9 +61,6 @@ class Application extends ServiceApplication {
             $oriMethod = $request->headers()->get('X-HTTP-Method-Override');
         }
         $request->method($oriMethod);
-        
-        $response = $this->prepareResponse($request);
-        $this->ioc['response'] = $response;
         
         if(!isset($this->ioc['router'])){
             throw new MissingDependencyException('Router service required, but missing.');
@@ -137,19 +133,6 @@ class Application extends ServiceApplication {
         }else{
             throw new HttpException(404);
         }
-
-        return $this->ioc['response'];
-    }
-    
-    /**
-     * Create and prepare the response
-     * @param Packfire\Application\IAppRequest $request The request to respond to
-     * @return Packfire\Application\IAppResponse Returns the response prepared
-     * @since 1.0-sofia
-     */
-    protected function prepareResponse($request){
-        $response = new Response();
-        return $response;
     }
     
     /**

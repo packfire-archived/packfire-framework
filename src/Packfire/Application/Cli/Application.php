@@ -11,7 +11,6 @@
 
 namespace Packfire\Application\Cli;
 
-use Packfire\Application\Cli\Response;
 use Packfire\Application\Cli\ServiceLoader;
 use Packfire\Application\ServiceApplication;
 
