@@ -31,6 +31,10 @@ class HttpHandler implements IHandler {
      */
     private $view;
     
+    private $debug = false;
+    
+    private $logger;
+    
     /**
      * Create a new HttpHandler object
      * @param string $view The package class name of the view to load
@@ -52,21 +56,28 @@ class HttpHandler implements IHandler {
         if(!$class){
             $class = 'Packfire\Exception\Handler\ExceptionView';
         }
-        $view = new $class($exception);
-        //$view->copyBucket($this);
+        $view = new $class($exception, $this->debug);
         echo $view->render();
         flush(); 
-        /*
-        if(!$this->service('debugger')->enabled() && $this->service('logger')){
-            $this->service('logger')->log(
+        
+        if(!$this->debug && $this->logger){
+            $this->logger->log(
                     '"' . $exception->getMessage() .
                         '" at ' . $exception->getFile() . ':' 
                         . $exception->getLine(),
                     get_class($exception) . ' ' . $exception->getCode()
                 );
         }
-        
-         */
+    }
+    
+    public function __invoke($container){
+        if(isset($container['debugger'])){
+            $this->debug = $container['debugger']->enabled();
+        }
+        if(isset($container['logger'])){
+            $this->logger = $container['logger'];
+        }
+        return $this;
     }
     
 }
