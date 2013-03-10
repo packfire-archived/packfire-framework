@@ -171,6 +171,7 @@ class Debugger implements IConsumer {
     public function __invoke($container) {
         $this->output = $container['debugger.output'];
         $this->enabled = $container['config']->get('app', 'debug');
+        return $this;
     }
     
 }

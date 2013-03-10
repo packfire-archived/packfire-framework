@@ -69,6 +69,7 @@ class ServiceLoader implements IConsumer {
             /* @var $shutdown \Packfire\Core\ShutdownTaskManager */
             $shutdown->add('cache.gc', array($this->pick('cache'), 'garbageCollect'));
         }
+        return $this;
     }
 
 }

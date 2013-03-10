@@ -49,6 +49,7 @@ class Loader implements IConsumer {
             session_start();
             return new Session($c[$storageId]);
         });
+        return $this;
     }
     
 }

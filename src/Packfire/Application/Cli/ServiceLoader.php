@@ -12,7 +12,6 @@
 namespace Packfire\Application\Cli;
 
 use Packfire\Exception\Handler\CliHandler;
-use Packfire\Debugger\Debugger;
 use Packfire\FuelBlade\IConsumer;
 
 /**
@@ -27,11 +26,12 @@ use Packfire\FuelBlade\IConsumer;
 class ServiceLoader implements IConsumer {
     
     public function __invoke($c) {
-        if(!$c['exception.handler']){
-            $c['exexception.handler'] = $c->share(function(){
+        if(!isset($c['exception.handler'])){
+            $c['exception.handler'] = $c->share(function(){
                 return new CliHandler();
             });
         }
+        return $this;
     }
     
 }

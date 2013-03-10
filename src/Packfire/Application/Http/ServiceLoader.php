@@ -79,6 +79,7 @@ class ServiceLoader implements IConsumer {
             return new ClassLoader();
         });
         $c['autoload.loader']->register();
+        return $this;
     }
     
 }

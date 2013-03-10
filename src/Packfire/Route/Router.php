@@ -147,6 +147,7 @@ abstract class Router implements IConsumer {
     
     public function __invoke($c){
         $this->settings = $c['config.routing'];
+        return $this;
     }
     
 }
