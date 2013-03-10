@@ -62,7 +62,7 @@ class ServiceLoader implements IConsumer {
         if(isset($c['cache'])){
             // only load CacheClassFinder if the cache component is available
             $c['autoload.finder'] = $loadClassFinder;
-            $c['autoload.finder'] = new CacheClassFinder('src.class.');
+            $c['autoload.finder'] = new CacheClassFinder($c['autoload.finder'], 'src.class.');
         }else{
             $c['autoload.finder'] = $c->share($loadClassFinder);
         }

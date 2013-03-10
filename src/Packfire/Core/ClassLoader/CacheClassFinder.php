@@ -43,8 +43,9 @@ class CacheClassFinder implements IClassFinder, IConsumer {
      *              cache entries in the storage
      * @since 2.0.0
      */
-    public function __construct($prefix = ''){
+    public function __construct($finder, $prefix = ''){
         $this->prefix = $prefix;
+        $this->finder = $finder;
     }
     
     /**
@@ -66,7 +67,6 @@ class CacheClassFinder implements IClassFinder, IConsumer {
     
     public function __invoke($c) {
         $this->cache = $c['cache'];
-        $this->finder = $c['autoload.finder'];
         return $this;
     }
 
