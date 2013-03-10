@@ -97,6 +97,7 @@ abstract class Controller implements IConsumer {
      */
     public function render($view = null){
         if($view){
+            $view($this->ioc);
             $view->state($this->state);
             $output = $view->render();
             if(isset($this->ioc['response']) && $this->ioc['response']){
@@ -299,7 +300,7 @@ abstract class Controller implements IConsumer {
                 throw new InvalidRequestException($errorMsg);
             }
         }
-        return $this->response;
+        return $this->ioc['response'];
     }
 
     /**
@@ -317,8 +318,8 @@ abstract class Controller implements IConsumer {
         
         // disable debugger if non-HTML output
         $type = null;
-        if($this->response instanceof HttpResponse){
-            $type = $this->response->headers()->get('Content-Type');
+        if($this->ioc['response'] instanceof HttpResponse){
+            $type = $this->ioc['response']->headers()->get('Content-Type');
         }
         if($type && isset($this->ioc['debugger'])
                 && strpos(strtolower($type), 'html') === false){

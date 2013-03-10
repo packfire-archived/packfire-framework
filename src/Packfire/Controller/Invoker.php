@@ -92,7 +92,7 @@ class Invoker implements IConsumer {
                         $controller($this->ioc);
                     }
                     if($controller instanceof \Packfire\Controller\Controller){
-                        $this->ioc['response'] = $controller->actionRun($this->action);
+                        $controller->actionRun($this->action);
                     }else{
                         $actionInvoker = new ActionInvoker(array($controller, $this->action));
                         $this->ioc['response'] = $actionInvoker->invoke($route->params());
