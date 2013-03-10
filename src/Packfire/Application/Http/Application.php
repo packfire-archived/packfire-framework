@@ -64,13 +64,14 @@ class Application extends ServiceApplication {
         $request->method($oriMethod);
         
         $response = $this->prepareResponse($request);
+        $this->ioc['response'] = $response;
         
         if(!isset($this->ioc['router'])){
             throw new MissingDependencyException('Router service required, but missing.');
             return;
         }
-        /* @var $router Router */
         $router = $this->ioc['router'];
+        /* @var $router \Packfire\Route\Router */
         $router->load();
         
         $debugMode = isset($this->ioc['config'])
@@ -112,9 +113,10 @@ class Application extends ServiceApplication {
         if(!$route){
             $route = $router->route($request);
         }
+        $this->ioc['route'] = $route;
         
         if($route instanceof RedirectRoute){
-            $response = new RedirectResponse($route->redirect(), $route->code());
+            $this->ioc['response'] = new RedirectResponse($route->redirect(), $route->code());
         }elseif($route){
             if(is_string($route->actual()) && strpos($route->actual(), ':')){
                 list($class, $action) = explode(':', $route->actual());
@@ -124,21 +126,19 @@ class Application extends ServiceApplication {
             }
 
             if($debugMode && $route->name() == 'packfire.directControllerAccess'){
-                $caLoader = $this->directAccessProcessor($request, $route, $response);
+                $caLoader = $this->directAccessProcessor();
             }else{
-                $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
+                $caLoader = new ControllerInvoker($class, $action);
             }
-            $caLoader->copyBucket($this);
-            if($caLoader->load()){
-                $response = $caLoader->response();
-            }else{
+            $caLoader($this->ioc);
+            if(!$caLoader->load()){
                 throw new HttpException(404);
             }
         }else{
             throw new HttpException(404);
         }
 
-        return $response;
+        return $this->ioc['response'];
     }
     
     /**
@@ -163,18 +163,16 @@ class Application extends ServiceApplication {
     
     /**
      * Callback for Direct Controller Access Routing
-     * @param IAppRequest $request The request
-     * @param Route $route The route called
-     * @param IAppResponse $response The response
      * @return ControllerInvoker Returns the loader
      * @since 1.0-sofia
      */
-    public function directAccessProcessor($request, $route, $response){
+    public function directAccessProcessor(){
+        $route = $this->ioc['route'];
         $path = $route->params()->get('path');
         $route->params()->removeAt('path');
         $class = '\\' . str_replace('/', '\\', dirname($path));
         $action = basename($path);
-        $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
+        $caLoader = new ControllerInvoker($class, $action);
         return $caLoader;
     }
     
