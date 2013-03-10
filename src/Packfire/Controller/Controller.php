@@ -236,7 +236,7 @@ abstract class Controller implements IConsumer {
                     $security->identity($this->ioc['config']
                                     ->get('secuity', 'identity'));
                 }
-                $security->request($this->request);
+                $security->request($this->ioc['request']);
             }
 
             if(!$this->handleAuthentication()

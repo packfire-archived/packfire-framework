@@ -37,9 +37,9 @@ abstract class ServiceApplication implements IApplication {
      * @since 2.1.0
      */
     public function __invoke($container){
-        $loader = new ServiceLoader();
-        $loader($container);
         $this->ioc = $container;
+        $loader = new ServiceLoader();
+        $loader($this->ioc);
         return $this;
     }
     

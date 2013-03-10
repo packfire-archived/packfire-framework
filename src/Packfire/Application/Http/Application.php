@@ -45,6 +45,7 @@ class Application extends ServiceApplication {
         
         $loader = new ServiceLoader();
         $loader($this->ioc);
+        return $this;
     }
     
     /**
