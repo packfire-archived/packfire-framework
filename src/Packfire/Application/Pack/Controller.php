@@ -53,6 +53,9 @@ abstract class Controller extends CoreController {
             $class = $name . $func . 'View';
             $view = new $class();
         }
+        if($view instanceof IConsumer){
+            $view($this->ioc);
+        }
         if($view instanceof IView){
             parent::render($view);
         }else{

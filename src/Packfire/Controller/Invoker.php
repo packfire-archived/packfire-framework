@@ -83,7 +83,9 @@ class Invoker implements IConsumer {
                 if($isView){
                     /* @var $view \Packfire\View\View */
                     $view = new $class();
-                    //$view->copyBucket($this);
+                    if($view instanceof IConsumer){
+                        $view($this->ioc);
+                    }
                     $output = $view->render();
                     $response->body($output);
                 }else{
