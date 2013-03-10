@@ -32,14 +32,17 @@ class ExceptionView extends View {
      */
     private $exception;
     
+    private $debug;
+    
     /**
      * Create a new ExceptionView object
      * @param Exception $exception The exception
      * @since 1.0-sofia
      */
-    public function __construct($exception){
+    public function __construct($exception, $debug){
         parent::__construct();
         $this->exception = $exception;
+        $this->debug = $debug;
     }
     
     /**
@@ -51,7 +54,7 @@ class ExceptionView extends View {
         $this->define('title', 'Error ' . $this->exception->getCode());
         $this->define('file',  $this->exception->getFile());
         $this->define('line',  $this->exception->getLine());
-       // $this->define('debug', $this->service('config.app') ? $this->service('config.app')->get('app', 'debug') : false);
+        $this->define('debug', $this->debug);
         $this->define('message',  $this->exception->getMessage());
         $this->define('stack', $this->exception->getTraceAsString());
     }
