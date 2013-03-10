@@ -12,6 +12,7 @@
 namespace Packfire\Security;
 
 use Packfire\Security\ISecurityModule;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * The default security module implementation
@@ -22,7 +23,14 @@ use Packfire\Security\ISecurityModule;
  * @package Packfire\Security
  * @since 1.0-sofia
  */
-class SecurityModule implements ISecurityModule {
+class SecurityModule implements ISecurityModule, IConsumer {
+    
+    /**
+     * The IoC container
+     * @var \Packfire\FuelBlade\Container
+     * @since 2.1.0
+     */
+    protected $ioc;
     
     /**
      * The request made to the application for security checking
@@ -90,6 +98,11 @@ class SecurityModule implements ISecurityModule {
             $this->request = $request;
         }
         return $this->request;
+    }
+ 
+    public function __invoke($container) {
+        $this->ioc = $container;
+        return $this;
     }
     
 }
