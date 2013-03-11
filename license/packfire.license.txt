@@ -3,14 +3,11 @@ open-source software created by Sam-Mauris Yong (the "Author"), and it
 is released under the following Berkeley Software Distribution (BSD) License,
 also known as the "New BSD License".
 
-This product includes PHP software, freely available from
-     <http://www.php.net/software/>.
-
 By means of obtaining the Software, you (the "User") agree and shall comply to
 all terms and conditions of this license, and other licenses included with the
 Software (found the the "licenses" folder).
 
-Copyright (c) 2010-2012, Sam-Mauris Yong
+Copyright (c) 2010-2013, Sam Yong Shan Xian
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
