@@ -81,9 +81,7 @@ class ServiceLoader implements IConsumer {
             if($databaseConf){
                 foreach($databaseConf as $key => $db){
                     $package = ($key == 'default' ? '' : '.' . $key);
-                    $c['database' . $package . '.driver'] = $c->share(function()use($db){
-                        return ConnectorFactory::create($db);
-                    });
+                    $c['database' . $package . '.driver'] = ConnectorFactory::create($db);
                     $c['database' . $package] = $c->share(function($c)use($package){
                         return $c['database' . $package . '.driver']->database();
                     });
