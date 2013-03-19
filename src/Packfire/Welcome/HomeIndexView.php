@@ -28,7 +28,7 @@ use Packfire\Welcome\DarkTheme;
 class HomeIndexView extends View {
 
     protected function create() {
-        $theme = $this->service('session')->get('theme', 'dark');
+        $theme = $this->ioc['session']->get('theme', 'dark');
         if(!in_array($theme, array('dark', 'light'))){
             $theme = 'light';
         }

@@ -1,9 +1,9 @@
 <?php
 namespace Packfire\Session;
 
-use Packfire\Ioc\ServiceBucket;
 require_once('test/Mocks/SessionStorage.php');
 use Packfire\Test\Mocks\SessionStorage;
+use Packfire\FuelBlade\Container;
 
 /**
  * Test class for Messenger.
@@ -15,8 +15,8 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
      * @var Messenger
      */
     protected $object;
-
-    protected $storage;
+    
+    private $ioc;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -24,11 +24,17 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->object = new Messenger;
-        $bucket = new ServiceBucket();
-        $this->storage = new SessionStorage();
-        $bucket->put('session.storage', $this->storage);
-        $bucket->put('session', new Session($this->storage));
-        $bucket->put('messenger', $this->object);
+        $this->ioc = new Container();
+        $bucket = $this->ioc;
+        $bucket['session.storage'] = new SessionStorage();
+        
+        $bucket['session'] = $bucket->share(function($c){
+            return new Session($c['session.storage']);
+        });
+        $bucket['messenger'] = $this->object;
+        
+        $object = $this->object;
+        $object($this->ioc);
     }
 
     /**
@@ -44,7 +50,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
      */
     public function testSend() {
         $this->object->send('test', 'sofia');
-        $this->assertEquals(array('Messenger' => array('$sofia/test' => true)), $this->storage->data());
+        $this->assertEquals(array('Messenger' => array('$sofia/test' => true)), $this->ioc['session.storage']->data());
     }
 
     /**
@@ -52,7 +58,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
      */
     public function testSend2() {
         $this->object->send('test', 'sofia', 'test message');
-        $this->assertEquals(array('Messenger' => array('$sofia/test' => 'test message')), $this->storage->data());
+        $this->assertEquals(array('Messenger' => array('$sofia/test' => 'test message')), $this->ioc['session.storage']->data());
     }
 
     /**
@@ -60,7 +66,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
      */
     public function testSend3() {
         $this->object->send('test', array('sofia', 'elenor'));
-        $this->assertEquals(array('Messenger' => array('$sofia/test' => true, '$elenor/test' => true)), $this->storage->data());
+        $this->assertEquals(array('Messenger' => array('$sofia/test' => true, '$elenor/test' => true)), $this->ioc['session.storage']->data());
     }
 
     /**
@@ -68,7 +74,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
      */
     public function testSend4() {
         $this->object->send('msg');
-        $this->assertEquals(array('Messenger' => array('${global}/msg' => true)), $this->storage->data());
+        $this->assertEquals(array('Messenger' => array('${global}/msg' => true)), $this->ioc['session.storage']->data());
     }
 
     /**
@@ -76,7 +82,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
      */
     public function testSend5() {
         $this->object->send('msg', null, 10);
-        $this->assertEquals(array('Messenger' => array('${global}/msg' => 10)), $this->storage->data());
+        $this->assertEquals(array('Messenger' => array('${global}/msg' => 10)), $this->ioc['session.storage']->data());
     }
 
     /**
@@ -123,10 +129,10 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
     public function testClear() {
         $this->object->send('note', __CLASS__ . ':' . __FUNCTION__);
         $this->object->send('note2', __CLASS__ . ':' . __FUNCTION__, 'pretty please?');
-        $data = $this->storage->data();
+        $data = $this->ioc['session.storage']->data();
         $this->assertCount(2, $data['Messenger']);
         $this->object->clear();
-        $this->assertEquals(array('Messenger' => array()), $this->storage->data());
+        $this->assertEquals(array('Messenger' => array()), $this->ioc['session.storage']->data());
     }
 
 }

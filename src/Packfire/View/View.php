@@ -16,8 +16,8 @@ use Packfire\View\IView;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 use Packfire\Core\ObjectObserver;
-use Packfire\IoC\BucketUser;
 use Packfire\Exception\InvalidArgumentException;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * The generic view class.
@@ -28,7 +28,14 @@ use Packfire\Exception\InvalidArgumentException;
  * @package Packfire\View
  * @since 1.0-sofia
  */
-abstract class View extends BucketUser implements IView {
+abstract class View implements IView, IConsumer {
+    
+    /**
+     * The IoC Container
+     * @var \Packfire\FuelBlade\Container
+     * @since 2.1.0
+     */
+    protected $ioc;
 
     /**
      * The state that is passed from the controller
@@ -184,10 +191,10 @@ abstract class View extends BucketUser implements IView {
      * @since 1.0-sofia
      */
     protected function route($key, $params = array()){
-        $router = $this->service('router');
+        $router = $this->ioc['router'];
         $url = $router->to($key, $params);
-        if(strlen($url) > 0 && $url[0] == '/'){
-            $url = $this->service('config.app')->get('app', 'rootUrl') . $url;
+        if(strlen($url) > 0 && $url[0] == '/' && isset($this->ioc['config'])){
+            $url = $this->ioc['config']->get('app', 'rootUrl') . $url;
         }
         return $url;
     }
@@ -243,6 +250,11 @@ abstract class View extends BucketUser implements IView {
             $output = $this->template->parse();
         }
         return $output;
+    }
+    
+    public function __invoke($c){
+        $this->ioc = $c;
+        return $this;
     }
 
 }

@@ -11,6 +11,8 @@
 
 namespace Packfire\Core\ClassLoader;
 
+use Packfire\FuelBlade\IConsumer;
+
 /**
  * Provides generic functionality for auto-loading class
  *
@@ -20,7 +22,7 @@ namespace Packfire\Core\ClassLoader;
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0
  */
-class ClassLoader implements IClassLoader {
+class ClassLoader implements IClassLoader, IConsumer {
     
     /**
      * The class finder
@@ -31,14 +33,11 @@ class ClassLoader implements IClassLoader {
     
     /**
      * Create a new ClassLoader object
-     * @param \Packfire\Core\ClassLoader\ClassFinder $finder The finder used
+     * @param \Packfire\Core\ClassLoader\ClassFinder $finder (optional) The finder used
      *      to look for the classes' files.
      * @since 2.0.0
      */
     public function __construct($finder = null){
-        if(!$finder){
-            $finder = new ClassFinder();
-        }
         $this->finder = $finder;
     }
     
@@ -70,6 +69,11 @@ class ClassLoader implements IClassLoader {
      */
     public function unregister() {
         spl_autoload_unregister(array($this, 'load'));
+    }
+    
+    public function __invoke($c) {
+        $this->finder = $c['autoload.finder'];
+        return $this;
     }
     
 }

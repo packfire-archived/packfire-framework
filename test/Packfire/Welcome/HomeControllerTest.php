@@ -2,8 +2,6 @@
 namespace Packfire\Welcome;
 
 use Packfire\Application\Http\Response;
-use Packfire\Application\IAppResponse;
-use Packfire\IoC\ServiceBucket;
 use Packfire\Session\Session;
 use Packfire\Route\Http\Route;
 use Packfire\Route\Http\Router;
@@ -28,8 +26,7 @@ class HomeControllerTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->object = new HomeController(null, new Response());
-        $bucket = new ServiceBucket();
-        $this->object->setBucket($bucket);
+        
         $storage = new SessionStorage();
         $bucket->put('session.storage', $storage);
         $bucket->put('session', new Session($storage));

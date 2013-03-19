@@ -11,7 +11,7 @@
 
 namespace Packfire\Core\ClassLoader;
 
-use Packfire\IoC\BucketUser;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Provides generic functionality for finding classes in files
@@ -23,7 +23,11 @@ use Packfire\IoC\BucketUser;
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0
  */
-class CacheClassFinder extends BucketUser implements IClassFinder {
+class CacheClassFinder implements IClassFinder, IConsumer {
+    
+    private $cache;
+    
+    private $finder;
     
     /**
      * The prefix to cache keys
@@ -39,26 +43,9 @@ class CacheClassFinder extends BucketUser implements IClassFinder {
      *              cache entries in the storage
      * @since 2.0.0
      */
-    public function __construct($prefix = ''){
+    public function __construct($finder, $prefix = ''){
         $this->prefix = $prefix;
-    }
-    
-    /**
-     * Get the cache storage
-     * @return \Packfire\Cache\ICache Returns the cache abstraction
-     * @since 2.0.0
-     */
-    protected function cache(){
-        return $this->service('cache');
-    }
-    
-    /**
-     * Get the class finder service
-     * @return ClassFinder Returns the class finder
-     * @since 2.0.0
-     */
-    protected function finder(){
-        return $this->service('autoload.finder');
+        $this->finder = $finder;
     }
     
     /**
@@ -69,13 +56,18 @@ class CacheClassFinder extends BucketUser implements IClassFinder {
      */
     public function find($class) {
         $cacheId = $this->prefix . $class;
-        if($this->cache()->check($cacheId)){
-            $file = $this->cache()->get($cacheId);
+        if($this->cache->check($cacheId)){
+            $file = $this->cache->get($cacheId);
         }else{
-            $file = $this->finder()->find($class);
-            $this->cache()->set($cacheId, $file);
+            $file = $this->finder->find($class);
+            $this->cache->set($cacheId, $file);
         }
         return $file;
+    }
+    
+    public function __invoke($c) {
+        $this->cache = $c['cache'];
+        return $this;
     }
 
 }

@@ -13,7 +13,7 @@ namespace Packfire\Application\Http;
 
 use Packfire\Application\ServiceApplication;
 use Packfire\Application\Http\Response;
-use Packfire\Application\Http\ServiceBucket;
+use Packfire\Application\Http\ServiceLoader;
 use Packfire\Exception\HttpException;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Controller\Invoker as ControllerInvoker;
@@ -36,31 +36,24 @@ use Packfire\Route\Http\Route;
 class Application extends ServiceApplication {
     
     /**
-     * Create a new Application object 
-     * @since 1.0-elenor
+     * Perform service loading processing
+     * @param \Packfire\FuelBlade\Container $container
+     * @since 2.1.0
      */
-    public function __construct(){
-        parent::__construct();
-        $this->loadExceptionHandler();
+    public function __invoke($container){
+        parent::__invoke($container);
         
-        $httpLoader = new ServiceBucket($this->services);
-        $httpLoader->load();
+        $loader = new ServiceLoader();
+        $loader($this->ioc);
+        return $this;
     }
     
     /**
-     * Load the exception handler and prepare handlers
-     * @since 1.0-elenor
+     * Process a request and prepare the response
+     * @since 2.1.0
      */
-    protected function loadExceptionHandler(){
-    }
-    
-    /**
-     * Receive a request, process, and respond.
-     * @param Packfire\Application\Http\Request $request The request made
-     * @return Packfire\Application\IAppResponse Returns the http response
-     * @since 1.0-elenor
-     */
-    public function receive($request){
+    public function process(){
+        $request = $this->ioc['request'];
         $oriMethod = $request->method();
         if($request->headers()->keyExists('X-HTTP-Method')){
             $oriMethod = $request->headers()->get('X-HTTP-Method');
@@ -70,16 +63,16 @@ class Application extends ServiceApplication {
         }
         $request->method($oriMethod);
         
-        $response = $this->prepareResponse($request);
-        $router = $this->service('router');
-        /* @var $router Router */
-        if(!$router){
-            throw new MissingDependencyException('Router service missing.');
+        if(!isset($this->ioc['router'])){
+            throw new MissingDependencyException('Router service required, but missing.');
+            return;
         }
+        $router = $this->ioc['router'];
+        /* @var $router \Packfire\Route\Router */
         $router->load();
         
-        $debugMode = $this->service('config.app')
-                && $this->service('config.app')->get('app', 'debug');
+        $debugMode = isset($this->ioc['config'])
+                && $this->ioc['config']->get('app', 'debug');
         if($debugMode){
             $config = new Map(array(
                 'rewrite' => '/{path}',
@@ -97,10 +90,11 @@ class Application extends ServiceApplication {
         /* @var $route Route */
         $route = null;
         if($request->method() == HttpMethod::GET 
-                && $this->service('config.app')
-                && $this->service('config.app')->get('routing', 'caching')){
-            $cache = $this->service('cache');
-            if($cache){
+                && isset($this->ioc['config'])
+                && $this->ioc['config']->get('routing', 'caching')){
+            
+            if(isset($this->ioc['cache'])){
+                $cache = $this->ioc['cache'];
                 $cacheId = 'route.' . $request->method() . sha1($request->uri() . $request->queryString());
                 if($cache->check($cacheId)){
                     $route = $cache->get($cacheId);
@@ -116,9 +110,12 @@ class Application extends ServiceApplication {
         if(!$route){
             $route = $router->route($request);
         }
+        $this->ioc['route'] = $route;
+        $this->ioc['response'] = new Response();
+        
         
         if($route instanceof RedirectRoute){
-            $response = new RedirectResponse($route->redirect(), $route->code());
+            $this->ioc['response'] = new RedirectResponse($route->redirect(), $route->code());
         }elseif($route){
             if(is_string($route->actual()) && strpos($route->actual(), ':')){
                 list($class, $action) = explode(':', $route->actual());
@@ -128,32 +125,17 @@ class Application extends ServiceApplication {
             }
 
             if($debugMode && $route->name() == 'packfire.directControllerAccess'){
-                $caLoader = $this->directAccessProcessor($request, $route, $response);
+                $caLoader = $this->directAccessProcessor();
             }else{
-                $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
+                $caLoader = new ControllerInvoker($class, $action);
             }
-            $caLoader->copyBucket($this);
-            if($caLoader->load()){
-                $response = $caLoader->response();
-            }else{
+            $caLoader($this->ioc);
+            if(!$caLoader->load()){
                 throw new HttpException(404);
             }
         }else{
             throw new HttpException(404);
         }
-
-        return $response;
-    }
-    
-    /**
-     * Create and prepare the response
-     * @param Packfire\Application\IAppRequest $request The request to respond to
-     * @return Packfire\Application\IAppResponse Returns the response prepared
-     * @since 1.0-sofia
-     */
-    protected function prepareResponse($request){
-        $response = new Response();
-        return $response;
     }
     
     /**
@@ -162,23 +144,21 @@ class Application extends ServiceApplication {
      * @since 1.0-sofia
      */
     public function handleException($exception){
-        $this->service('exception.handler')->handle($exception);
+        $this->ioc['exception.handler']->handle($exception);
     }
     
     /**
      * Callback for Direct Controller Access Routing
-     * @param IAppRequest $request The request
-     * @param Route $route The route called
-     * @param IAppResponse $response The response
      * @return ControllerInvoker Returns the loader
      * @since 1.0-sofia
      */
-    public function directAccessProcessor($request, $route, $response){
+    public function directAccessProcessor(){
+        $route = $this->ioc['route'];
         $path = $route->params()->get('path');
         $route->params()->removeAt('path');
         $class = '\\' . str_replace('/', '\\', dirname($path));
         $action = basename($path);
-        $caLoader = new ControllerInvoker($class, $action, $request, $route, $response);
+        $caLoader = new ControllerInvoker($class, $action);
         return $caLoader;
     }
     

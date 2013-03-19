@@ -23,12 +23,10 @@ namespace Packfire\Application;
 interface IApplication {
     
     /**
-     * Receive a request, process, and respond.
-     * @param ClientRequest $request The request made
-     * @return IAppResponse Returns the response
-     * @since 1.0-sofia
+     * Process a request and prepare the response
+     * @since 2.1.0
      */
-    public function receive($request);
+    public function process();
     
     /**
      * Handles unhandled exception in the application execution

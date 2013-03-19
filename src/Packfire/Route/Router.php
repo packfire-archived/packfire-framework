@@ -11,11 +11,10 @@
 
 namespace Packfire\Route;
 
-use Packfire\IoC\ILoadable;
 use Packfire\Collection\Map;
 use Packfire\Exception\NullException;
 use Packfire\Exception\InvalidRequestException;
-use Packfire\IoC\BucketUser;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Handles URL rewritting and controller routing
@@ -26,7 +25,9 @@ use Packfire\IoC\BucketUser;
  * @package Packfire\Route
  * @since 1.0-sofia
  */
-abstract class Router extends BucketUser implements ILoadable {
+abstract class Router implements IConsumer {
+    
+    protected $settings;
     
     /**
      * The collection of routing entries
@@ -48,7 +49,7 @@ abstract class Router extends BucketUser implements ILoadable {
      * @since 1.0-elenor
      */
     public function load(){
-        $settings = $this->service('config.routing');
+        $settings = $this->settings;
         if($settings){
             $routes = $settings->get();
             foreach($routes as $key => $data){
@@ -143,5 +144,12 @@ abstract class Router extends BucketUser implements ILoadable {
      * @since 1.0-elenor
      */
     protected abstract function prepareRoute($route, $params);
+    
+    public function __invoke($c){
+        if(isset($c['config.routing'])){
+            $this->settings = $c['config.routing'];
+        }
+        return $this;
+    }
     
 }

@@ -9,23 +9,27 @@
  * All rights reserved.
  */
 
-namespace Packfire\IoC;
+namespace Packfire\Debugger\Output;
+
+use Packfire\Debugger\IOutput;
 
 /**
- * An object that can be loaded
+ * Blackhole output. Nothing is written. 
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package packfire.ioc
- * @since 1.0-sofia
+ * @package Packfire\Debugger\Output
+ * @since 2.1.0
  */
-interface ILoadable {
+class Blackhole implements IOutput {
     
-    /**
-     * Load the service
-     * @since 1.0-sofia 
-     */
-    public function load();
+    public function output() {
+        
+    }
+
+    public function write($message, $value = null, $type = 'log') {
+        
+    }
     
 }

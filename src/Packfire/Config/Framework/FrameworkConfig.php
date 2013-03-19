@@ -14,7 +14,6 @@ namespace Packfire\Config\Framework;
 use Packfire\Config\ConfigType;
 use Packfire\Config\ConfigFactory;
 use Packfire\Config\Framework\IFrameworkConfig;
-use Packfire\IoC\ServiceBucket;
 
 /**
  * Application configuration parser
@@ -25,7 +24,7 @@ use Packfire\IoC\ServiceBucket;
  * @package Packfire\Config\Framework
  * @since 1.0-sofia
  */
-abstract class FrameworkConfig extends ServiceBucket implements IFrameworkConfig {
+abstract class FrameworkConfig implements IFrameworkConfig {
     
     /**
      * Load an application configuration file located the the config folder.
@@ -39,7 +38,7 @@ abstract class FrameworkConfig extends ServiceBucket implements IFrameworkConfig
      * @since 1.0-sofia
      */
     protected function loadConfig($name, $context){
-        $path = __APP_ROOT__ . 'config/' . $name;
+        $path = __APP_ROOT__ . '/config/' . $name;
         
         $map = array_keys(ConfigType::typeMap());
         
