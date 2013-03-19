@@ -183,10 +183,11 @@ class Packfire {
             echo $response->output();
         }elseif($response instanceof CliResponse){
             $exitCode = $response->output();
-            $app->service('shutdown')->add('shutdown.exitCode', function()use($exitCode){
-                exit($exitCode);
-            });
-            
+            if(isset($this->ioc['shutdown'])){
+                $this->ioc['shutdown']->add('shutdown.exitCode', function()use($exitCode){
+                    exit($exitCode);
+                });
+            }
         }
     }
 
