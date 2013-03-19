@@ -57,8 +57,7 @@ class InvokerTest extends \PHPUnit_Framework_TestCase {
         $bucket['router'] = $router;
         $bucket['route'] = $router->entries()->get('home');
         
-        $object = $this->object;
-        $object($bucket);
+        call_user_func($this->object, $this->ioc);
     }
 
     /**

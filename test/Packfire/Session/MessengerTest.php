@@ -33,8 +33,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
         });
         $bucket['messenger'] = $this->object;
         
-        $object = $this->object;
-        $object($this->ioc);
+        call_user_func($this->object, $this->ioc);
     }
 
     /**
