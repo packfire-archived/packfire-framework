@@ -25,7 +25,7 @@ use Packfire\Application\Pack\Controller;
 class ThemeSwitchController extends Controller {
     
     public function index($theme){
-        $this->service('session')->set('theme', $theme);
+        $this->ioc['session']->set('theme', $theme);
         $this->redirect($this->route('home'));
     }
     
