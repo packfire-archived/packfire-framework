@@ -66,14 +66,15 @@ class SecurityModule implements ISecurityModule, IConsumer {
      * @since 1.0-sofia
      */
     public function identity($newIdentity = null) {
+        $useSession = isset($this->ioc['session']);
         if(func_num_args() == 1){
-            if($this->service('session')){
-                $this->service('session')->bucket(__CLASS__)
+            if($useSession){
+                $this->ioc['session']->bucket(__CLASS__)
                        ->set('identity', $newIdentity);
             }
         }
-        if($this->service('session')){
-            return $this->service('session')->bucket(__CLASS__)
+        if($useSession){
+            return $this->ioc['session']->bucket(__CLASS__)
                     ->get('identity');
         }
         return $newIdentity;
