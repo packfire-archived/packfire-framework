@@ -31,8 +31,25 @@ class HttpHandler implements IHandler {
      */
     private $view;
     
+    /**
+     * The debugger to use
+     * @var \Packfire\Debugger\Debugger
+     * @since 2.1.0
+     */
+    private $debugger;
+    
+    /**
+     * Flags if debugging is enabled
+     * @var boolean
+     * @since 2.1.0
+     */
     private $debug = false;
     
+    /**
+     * The logger
+     * @var \Packfire\Log\ILogger
+     * @since 2.1.0
+     */
     private $logger;
     
     /**
@@ -50,7 +67,9 @@ class HttpHandler implements IHandler {
      * @since 1.0-sofia
      */
     public function handle($exception) {
-        //$this->service('debugger')->exception($exception);
+        if($this->debugger){
+            $this->debugger->exception($exception);
+        }
         
         $class = $this->view;
         if(!$class){
@@ -72,7 +91,8 @@ class HttpHandler implements IHandler {
     
     public function __invoke($container){
         if(isset($container['debugger'])){
-            $this->debug = $container['debugger']->enabled();
+            $this->debugger = $container['debugger'];
+            $this->debug = $this->debugger->enabled();
         }
         if(isset($container['logger'])){
             $this->logger = $container['logger'];
