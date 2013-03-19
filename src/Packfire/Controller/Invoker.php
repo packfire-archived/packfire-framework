@@ -51,9 +51,6 @@ class Invoker implements IConsumer {
      * Create a new Invoker object
      * @param string $package The package to load the class
      * @param string $action The action to be loaded
-     * @param IAppRequest $request The application request to load with
-     * @param Route $route The route that was called
-     * @param IAppResponse $response The response object
      * @since 1.0-sofia
      */
     public function __construct($package, $action){
@@ -67,7 +64,6 @@ class Invoker implements IConsumer {
      * @since 1.0-sofia
      */
     public function load(){
-        $route = $this->ioc['route'];
         $response = $this->ioc['response'];
         $class = $this->package;
         if(is_string($class)){
@@ -96,8 +92,9 @@ class Invoker implements IConsumer {
                     if($controller instanceof \Packfire\Controller\Controller){
                         $controller->actionRun($this->action);
                     }else{
+                        $params = isset($this->ioc['route']) ? $this->ioc['route']->params : array();
                         $actionInvoker = new ActionInvoker(array($controller, $this->action));
-                        $this->ioc['response'] = $actionInvoker->invoke($route->params());
+                        $this->ioc['response'] = $actionInvoker->invoke($params);
                     }
                 }
             }else{
@@ -133,15 +130,6 @@ class Invoker implements IConsumer {
         return false;
     }
 
-    /**
-     * Get the controller response
-     * @return IAppResponse Returns the controller response
-     * @since 1.0-sofia
-     */
-    public function response(){
-        return $this->response;
-    }
-    
     public function __invoke($container) {
         $this->ioc = $container;
         return $this;

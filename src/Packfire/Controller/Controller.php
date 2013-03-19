@@ -215,9 +215,9 @@ abstract class Controller implements IConsumer {
      * @since 1.0-sofia
      */
     public function actionRun($action){
-        $route = $this->ioc['route'];
+        $route = isset($this->ioc['route']) ? $this->ioc['route'] : null;
         
-        if($this->validationHandler){
+        if($route && $this->validationHandler){
             $validator = new Validator($route->rules(),
                     $this->validationHandler);
             $params = array();
