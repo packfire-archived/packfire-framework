@@ -132,7 +132,7 @@ abstract class Controller implements IConsumer {
      * @since 1.0-sofia
      */
     protected function route($key, $params = array()){
-        $router = $this->service('router');
+        $router = $this->ioc['router'];
         $url = $router->to($key, $params);
         if(strlen($url) > 0 && $url[0] == '/' && isset($this->ioc['config'])){
             $url = $this->ioc['config']->get('app', 'rootUrl') . $url;
