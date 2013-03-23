@@ -30,7 +30,7 @@ class YamlConfig extends Config {
      * Read the configuration file
      * @since 1.0-sofia
      */
-    protected function read() {
+    public function read() {
         $stream = new FileInputStream($this->file);
         $yaml = new Yaml($stream);
         $this->data = $yaml->read();

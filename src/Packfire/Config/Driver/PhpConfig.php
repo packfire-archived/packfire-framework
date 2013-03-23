@@ -28,7 +28,7 @@ class PhpConfig extends Config {
      * Read the configuration file
      * @since 1.0-sofia
      */
-    protected function read() {
+    public function read() {
         $this->data = include($this->file);
     }
 

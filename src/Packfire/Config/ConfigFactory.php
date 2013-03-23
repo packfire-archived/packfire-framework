@@ -28,16 +28,22 @@ class ConfigFactory {
     /**
      * Load a configuration file
      * @param string $file Path to the configuration file
-     * @return Config Returns the loaded configuration, or NULL if failed to
+     * @param \Packfire\Config\Config $defaults (optional) The default configuration data to load with.
+     * @return \Packfire\Config\Config Returns the loaded configuration, or NULL if failed to
      *                 find the appropriate configuration parser.
      * @since 1.0-sofia
      */
-    public function load($file, $default = null){
+    public function load($file, $defaults = null){
         $map = ConfigType::typeMap();
         $ext = Path::extension($file);
         if(isset($map[$ext])){
             $class = 'Packfire\\Config\\Driver\\' . $map[$ext];
-            return new $class($file, $default);
+            $config = new $class($file);
+            $config->read();
+            if($defaults){
+                $config->defaults($defaults);
+            }
+            return $config;
         }else{
             return null;
         }

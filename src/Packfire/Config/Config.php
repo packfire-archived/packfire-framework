@@ -42,23 +42,27 @@ abstract class Config implements IConfig {
     /**
      * Create a new configuration file
      * @param string $file Name of the configuration file to load
-     * @param Config $default (optional) The default configuration data to load with.
      * @since 1.0-sofia
      */
-    public function __construct($file, $default = null){
+    public function __construct($file){
         $this->file = $file;
-        $this->read();
-        if($default){
-            $this->data = ArrayHelper::mergeRecursiveDistinct(
-                    $default->data, $this->data);
-        }
     }
     
     /**
      * Read the configuration file 
      * @since 1.0-sofia
      */
-    protected abstract function read();
+    public abstract function read();
+    
+    /**
+     * Set the defaults for missing configuration
+     * @param \Packfire\Config\Config $defaults The default configuration to place
+     * @since 2.1.0
+     */
+    public function defaults(Config $defaults){
+        $this->data = ArrayHelper::mergeRecursiveDistinct(
+                $defaults->data, $this->data);
+    }
     
     /**
      * Get the path to the file loaded
