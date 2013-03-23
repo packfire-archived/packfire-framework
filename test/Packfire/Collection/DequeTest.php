@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Collection;
 
 /**
@@ -25,7 +26,7 @@ class DequeTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
@@ -65,6 +66,13 @@ class DequeTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(5, $this->object->back());
         $this->object->enqueue(15);
         $this->assertEquals(15, $this->object->back());
+    }
+
+    /**
+     * @covers \Packfire\Collection\Deque::back
+     */
+    public function testBack2(){
+        $this->assertNull($this->object->back());
     }
 
 }
