@@ -17,6 +17,7 @@ use Packfire\Event\EventHandler;
 use Packfire\FuelBlade\IConsumer;
 use Packfire\Config\Framework\IoCConfig;
 use Packfire\Core\ShutdownTaskManager;
+use Packfire\Exception\ServiceException;
 
 /**
  * Application service bucket that loads the application's core services

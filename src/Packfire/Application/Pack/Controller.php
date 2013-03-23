@@ -15,6 +15,7 @@ use Packfire\Controller\Controller as CoreController;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Text\Inflector;
 use Packfire\View\IView;
+use \Packfire\FuelBlade\IConsumer;
 
 /**
  * The generic application controller class
