@@ -11,13 +11,38 @@ class IniConfigTest extends \PHPUnit_Framework_TestCase {
      * @var IniConfig
      */
     protected $object;
+    
+    private $file = 'test/Files/sampleConfig.ini';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new IniConfig('test/Files/sampleConfig.ini');
+        $this->object = $this->getMock('\\Packfire\\Config\\Driver\\IniConfig', array('read'), array($this->file));
+        
+        $property = new \ReflectionProperty($this->object, 'data');
+        $property->setAccessible(true);
+        $data = array(
+            'first_section' => array(
+                'one' => 1,
+                'five' => 5,
+                'animal' => 'BIRD'
+            ),
+            'second_section' => array(
+                'path' => '/usr/local/bin',
+                'URL' => 'http://www.example.com/~username'
+            ),
+            'third_section' => array(
+                'phpversion' => array(
+                    '5.0',
+                    '5.1',
+                    '5.2',
+                    '5.3'
+                )
+            )
+        );
+        $property->setValue($this->object, $data);
     }
 
     /**
