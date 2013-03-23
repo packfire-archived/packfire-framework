@@ -26,19 +26,4 @@ class JsonConfigTest  extends ConfigTestSetter {
         
     }
 
-    public function testConfigParse(){
-        $this->assertNotNull($this->object->get('first_section'));
-        $this->assertNotNull($this->object->get('second_section'));
-        $this->assertNotNull($this->object->get('third_section'));
-        $this->assertCount(3, $this->object->get());
-
-        $this->assertEquals(1, $this->object->get('first_section', 'one'));
-        $this->assertEquals('BIRD', $this->object->get('first_section', 'animal'));
-
-        $this->assertEquals(array(
-            'path' => '/usr/local/bin',
-            'URL' => 'http://www.example.com/~username'
-        ), $this->object->get('second_section'));
-    }
-
 }
