@@ -35,6 +35,15 @@ class helperTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(30, using(5, 6,
                 function($a, $b){return $a * $b;}));
     }
+    
+    /**
+     * @covers ::dtype
+     */
+    public function testDtype(){
+        $this->assertEquals('integer', dtype(5));
+        $this->assertEquals('boolean', dtype(false));
+        $this->assertEquals('stdClass/', substr(dtype(new stdClass), 0, 9));
+    }
 
     
 }
