@@ -121,7 +121,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(0, $this->object->hour());
 
         $this->object->hour(-3);
-        $this->assertEquals(7, $this->object->hour());
+        $this->assertEquals(21, $this->object->hour());
     }
 
     /**
