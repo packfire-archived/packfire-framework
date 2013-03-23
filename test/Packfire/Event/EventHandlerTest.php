@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Event;
 
 /**
@@ -26,17 +27,29 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
      * @covers \Packfire\Event\EventHandler
      */
     public function testCombined() {
-        $this->object->on('click', function($obj, $arg = null){
-            $obj->assertNull($arg);
-            $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
-        });
+        $this->object->on('click', function($obj, $arg = null) {
+                    $obj->assertNull($arg);
+                    $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
+                });
         $this->object->trigger('click');
     }
+
+    /**
+     * @covers \Packfire\Event\EventHandler
+     */
+    public function testCombined2() {
+        $this->object->on('click', function($obj, $arg = null) {
+                    $obj->assertEquals(5, $arg);
+                    $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
+                });
+        $this->object->trigger('click', 5);
+    }
+
 }

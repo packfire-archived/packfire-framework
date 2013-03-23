@@ -30,6 +30,14 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
+     * @covers \Packfire\Text\Regex\Regex::__construct
+     */
+    public function testRegex2() {
+        $obj = new Regex('{[0-9]{3}}s');
+        $this->assertEquals('{[0-9]{3}}s', $obj->regex());
+    }
+
+    /**
      * @covers \Packfire\Text\Regex\Regex::regex
      */
     public function testRegex() {
@@ -102,6 +110,15 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
+     * @covers \Packfire\Text\Regex\Regex::replace
+     */
+    public function testReplace2() {
+        $result = $this->object->replace(array('testabc10run', 'testABD20LEH'), 'cool!');
+        $this->assertInstanceOf('\\Packfire\\Collection\\ArrayList', $result);
+        $this->assertEquals(array('testcool!run', 'testcool!LEH'), $result->toArray());
+    }
+
+    /**
      * @covers \Packfire\Text\Regex\Regex::replaceCallback
      */
     public function testReplaceCallback() {
@@ -116,8 +133,8 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      */
     public function testReplaceCallback2() {
         $result = $this->object->replaceCallback(array('testabc10c', 'testabc20c'), function($match) {
-                            return strtoupper($match[0]);
-                        }
+                    return strtoupper($match[0]);
+                }
         );
         $this->assertInstanceOf('\\Packfire\\Collection\\ArrayList', $result);
         $this->assertEquals(array('testABC10c', 'testABC20c'), $result->toArray());

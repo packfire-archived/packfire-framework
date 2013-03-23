@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Collection;
 
 /**
@@ -28,7 +29,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
@@ -37,7 +38,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     public function testIterate() {
         $i = 0;
 
-        while($kvp = $this->object->iterate()){
+        while ($kvp = $this->object->iterate()) {
             $this->assertEquals($this->array[$i], $kvp->value());
             $this->assertEquals($i, $kvp->key());
             ++$i;
@@ -64,10 +65,10 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     public function testMore() {
         $mock = array();
         $this->assertTrue($this->object->more());
-        do{
+        do {
             $a = $this->object->current();
             $mock[] = $a;
-        }while($this->object->next());
+        } while ($this->object->next());
         $this->assertFalse($this->object->more());
     }
 
