@@ -39,19 +39,15 @@ class Regex {
      * @since 1.0-sofia
      */
     public function __construct($regex){
-        $this->regex($regex);
+        $this->regex = $regex;
     }
 
     /**
-     * Get or set the regular expression that is used in this Regex
-     * @param string $regex (optional) If present, the old value will be overriden by this value.
+     * Get the regular expression that is used in this Regex
      * @return string Returns the regular expression.
      * @since 1.0-sofia
      */
-    public function regex($regex = null){
-        if(func_num_args() == 1){
-            $this->regex = $regex;
-        }
+    public function regex(){
         return $this->regex;
     }
 
@@ -66,7 +62,7 @@ class Regex {
      */
     public function match($subject){
         $match = array();
-        preg_match($this->regex(), $subject, $match);
+        preg_match($this->regex, $subject, $match);
         $result = new ArrayList();
         foreach($match as $a){
             $result->add(new Match($this, $a));
