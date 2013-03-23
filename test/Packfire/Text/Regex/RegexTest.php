@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Text\Regex;
 
 /**
@@ -25,7 +26,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
@@ -33,8 +34,6 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      */
     public function testRegex() {
         $this->assertEquals('`[a-z]{3}[0-9]{2}`is', $this->object->regex());
-        $this->object->regex('`[a-z]{2}`is');
-        $this->assertEquals('`[a-z]{2}`is', $this->object->regex());
     }
 
     /**
@@ -106,12 +105,22 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      * @covers \Packfire\Text\Regex\Regex::replaceCallback
      */
     public function testReplaceCallback() {
-        $this->assertEquals('testABC10run',
-                $this->object->replaceCallback('testabc10run',
-                        function($match){
+        $this->assertEquals('testABC10run', $this->object->replaceCallback('testabc10run', function($match) {
                             return strtoupper($match[0]);
                         }
-                    ));
+        ));
+    }
+
+    /**
+     * @covers \Packfire\Text\Regex\Regex::replaceCallback
+     */
+    public function testReplaceCallback2() {
+        $result = $this->object->replaceCallback(array('testabc10c', 'testabc20c'), function($match) {
+                            return strtoupper($match[0]);
+                        }
+        );
+        $this->assertInstanceOf('\\Packfire\\Collection\\ArrayList', $result);
+        $this->assertEquals(array('testABC10c', 'testABC20c'), $result->toArray());
     }
 
     /**
@@ -134,8 +143,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      * @covers \Packfire\Text\Regex\Regex::escape
      */
     public function testEscape() {
-        $this->assertEquals('\[a-z\]\{3\}\[0-9\]\{2\}',
-                Regex::escape('[a-z]{3}[0-9]{2}'));
+        $this->assertEquals('\[a-z\]\{3\}\[0-9\]\{2\}', Regex::escape('[a-z]{3}[0-9]{2}'));
     }
 
 }
