@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Collection;
 
 /**
@@ -17,7 +18,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Queue;
+        $this->object = new Queue();
     }
 
     /**
@@ -25,7 +26,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
@@ -65,4 +66,10 @@ class QueueTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(5, $this->object->front());
     }
 
+    /**
+     * @covers \Packfire\Collection\Queue::front
+     */
+    public function testFront2() {
+        $this->assertEquals(null, $this->object->front());
+    }
 }

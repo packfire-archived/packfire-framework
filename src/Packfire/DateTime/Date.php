@@ -139,7 +139,7 @@ class Date extends DateTimeComponent implements IComparable {
     /**
      * Create date from number of days
      * @param integer $days The number of days
-     * @return Date Returns the created Date object
+     * @return \Packfire\Date\Date Returns the created Date object
      * @since 2.0.0
      */
     public static function fromDays($days){
