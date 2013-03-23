@@ -69,9 +69,9 @@ class DatePeriod implements \Iterator {
 
     /**
      * Create a new DatePeriod object
-     * @param DateTime $startDate The start date
-     * @param TimeSpan $interval The interval between dates
-     * @param integer|DateTime $endDateOrOccurances The number of occurance
+     * @param \Packfire\DateTime\DateTime $startDate The start date
+     * @param \Packfire\DateTime\TimeSpan $interval The interval between dates
+     * @param integer|\Packfire\DateTime\DateTime $endDateOrOccurances The number of occurance
      *          or end date
      * @since 1.0-sofia
      */
@@ -83,6 +83,7 @@ class DatePeriod implements \Iterator {
         }else{
             $this->occurances = $endDateOrOccurances;
         }
+        $this->workingDate = $this->startDate;
     }
 
     /**
@@ -118,7 +119,7 @@ class DatePeriod implements \Iterator {
      * @since 1.0-sofia
      */
     public function occurrances(){
-
+        return $this->occurances;
     }
 
     public function current() {
