@@ -8,7 +8,7 @@ namespace Packfire\Core;
 class ActionInvokerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var ActionInvoker
+     * @var \Packfire\Core\ActionInvoker
      */
     protected $object;
 
@@ -36,7 +36,7 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ActionInvoker::invoke
+     * @covers \Packfire\Core\ActionInvoker::invoke
      */
     public function testInvoke() {
         $object = new ActionInvoker(array($this, 'action'));
@@ -44,7 +44,7 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ActionInvoker::invoke
+     * @covers \Packfire\Core\ActionInvoker::invoke
      */
     public function testInvoke2() {
         $params = array();
@@ -57,7 +57,7 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ActionInvoker::invoke
+     * @covers \Packfire\Core\ActionInvoker::invoke
      */
     public function testInvoke3() {
         $object = new ActionInvoker('strpos');
@@ -65,7 +65,7 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pActionInvoker::invoke
+     * @covers \Packfire\Core\ActionInvoker::invoke
      */
     public function testInvoke4() {
         $object = new ActionInvoker('Packfire\Core\ActionInvokerTest::staticAction');

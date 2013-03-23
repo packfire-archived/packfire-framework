@@ -25,7 +25,7 @@ class TextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Text::truncate
+     * @covers \Packfire\Text\Text::truncate
      */
     public function testTruncate() {
         $this->assertEquals('How are you...', Text::truncate('How are you today?', 15));
@@ -37,7 +37,7 @@ class TextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Text::highlight
+     * @covers \Packfire\Text\Text::highlight
      */
     public function testHighlight() {
         $this->assertEquals('To get <b>over the</b> fence comes <b>over the</b> fear.', Text::highlight('To get over the fence comes over the fear.', 'over the'));
@@ -45,7 +45,7 @@ class TextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Text::stripTags
+     * @covers \Packfire\Text\Text::stripTags
      */
     public function testStripTags() {
         $text = 'To get <b>over the</b> <i>fence</i> comes <b>over the</b> fear.';
@@ -54,7 +54,7 @@ class TextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Text::listing
+     * @covers \Packfire\Text\Text::listing
      */
     public function testListing() {
         $this->assertEquals('harry, hermione and ron', Text::listing(array('harry', 'hermione', 'ron')));
@@ -63,20 +63,23 @@ class TextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Text::rotate13
+     * @covers \Packfire\Text\Text::rotate13
      */
     public function testRotate13() {
         $this->assertEquals('Tbbq qnl, Fve!', Text::rotate13('Good day, Sir!'));
         $this->assertEquals('Enqvb 241 vanpgvir.', Text::rotate13('Radio 241 inactive.'));
     }
     
+    /**
+     * @covers \Packfire\Text\Text::slugify
+     */
     public function testSlugify(){
         $this->assertEquals('apple-pear', Text::slugify('Apple, Pear'));
         $this->assertEquals('26-apple-54-pear', Text::slugify('26 Apple & 54 Pear'));
     }
 
     /**
-     * @covers Text::rotate47
+     * @covers \Packfire\Text\Text::rotate47
      */
     public function testRotate47() {
         $this->assertEquals('v@@5 52J[ $:CP', Text::rotate47('Good day, Sir!'));

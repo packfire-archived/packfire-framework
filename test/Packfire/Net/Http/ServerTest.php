@@ -8,7 +8,7 @@ namespace Packfire\Net\Http;
 class ServerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Server
+     * @var \Packfire\Net\Http\Server
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Net\Http\Server::request
+     * @covers \Packfire\Net\Http\Server::request
      */
     public function testRequest() {
         $request = new Request();

@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class StringMinLengthValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var StringMinLengthValidator
+     * @var \Packfire\Validator\StringMinLengthValidator
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class StringMinLengthValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers StringMinLengthValidator::validate
+     * @covers \Packfire\Validator\StringMinLengthValidator::validate
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate('cave'));

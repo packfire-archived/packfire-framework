@@ -10,7 +10,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     protected $array;
 
     /**
-     * @var Iterator
+     * @var \Packfire\Collection\Iterator
      */
     protected $object;
 
@@ -32,7 +32,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::iterate
+     * @covers \Packfire\Collection\Iterator::iterate
      */
     public function testIterate() {
         $i = 0;
@@ -45,7 +45,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::next
+     * @covers \Packfire\Collection\Iterator::next
      */
     public function testNext() {
         $this->assertEquals(3, $this->object->next());
@@ -59,7 +59,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::more
+     * @covers \Packfire\Collection\Iterator::more
      */
     public function testMore() {
         $mock = array();
@@ -72,7 +72,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::current
+     * @covers \Packfire\Collection\Iterator::current
      */
     public function testCurrent() {
         $this->assertEquals(1, $this->object->current());
@@ -83,7 +83,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::reset
+     * @covers \Packfire\Collection\Iterator::reset
      */
     public function testReset() {
         $this->assertEquals(1, $this->object->current());
@@ -94,7 +94,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::count
+     * @covers \Packfire\Collection\Iterator::count
      */
     public function testCount() {
         $this->assertCount(8, $this->object);

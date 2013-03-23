@@ -10,7 +10,7 @@ use Packfire\Event\EventObserver;
 class ObservableTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Observable
+     * @var \Packfire\Core\Observable
      */
     protected $object;
 
@@ -30,6 +30,11 @@ class ObservableTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @covers \Packfire\Core\Observable::attach
+     * @covers \Packfire\Core\Observable::notify
+     * @covers \Packfire\Core\Observable::detach
+     */
     public function testObserve() {
         $test = $this;
         $observable = $this->object;

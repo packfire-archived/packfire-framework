@@ -8,7 +8,7 @@ namespace Packfire\Linq\Query;
 class SelectTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Select
+     * @var \Packfire\Linq\Query\Select
      */
     protected $object;
 
@@ -31,7 +31,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Select::run
+     * @covers \Packfire\Linq\Query\Select::run
      */
     public function testRun() {
         $data = array(3, 5, 8, 6, 2);

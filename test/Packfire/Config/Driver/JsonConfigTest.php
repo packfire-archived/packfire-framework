@@ -13,6 +13,7 @@ class JsonConfigTest  extends ConfigTestSetter {
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Config\Driver\JsonConfig::read
      */
     protected function setUp() {
         $this->prepare('\\Packfire\\Config\\Driver\\JsonConfig');

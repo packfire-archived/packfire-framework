@@ -10,7 +10,7 @@ use Packfire\Text\TextStream;
 class StreamReaderTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var pStreamReader
+     * @var \Packfire\IO\StreamReader
      */
     protected $object;
 
@@ -43,7 +43,7 @@ EOT;
     }
 
     /**
-     * @covers StreamReader::stream
+     * @covers \Packfire\IO\StreamReader::stream
      */
     public function testStream() {
         $this->assertInstanceOf('Packfire\IO\IStream', $this->object->stream());
@@ -51,7 +51,7 @@ EOT;
     }
 
     /**
-     * @covers StreamReader::line
+     * @covers \Packfire\IO\StreamReader::line
      */
     public function testLine() {
         $line = $this->object->line();
@@ -63,7 +63,7 @@ EOT;
     }
 
     /**
-     * @covers StreamReader::until
+     * @covers \Packfire\IO\StreamReader::until
      */
     public function testUntil() {
         $read = $this->object->until('enim');

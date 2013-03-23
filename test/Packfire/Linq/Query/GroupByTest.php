@@ -8,7 +8,7 @@ namespace Packfire\Linq\Query;
 class GroupByTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var GroupBy
+     * @var \Packfire\Linq\Query\GroupBy
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class GroupByTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers GroupBy::run
+     * @covers \Packfire\Linq\Query\GroupBy::run
      */
     public function testRun() {
         $data = array(

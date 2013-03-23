@@ -24,7 +24,7 @@ class ConfigTypeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ConfigType::typeMap
+     * @covers \Packfire\Config\ConfigType::typeMap
      */
     public function testTypeMap() {
         $this->assertInternalType('array', ConfigType::typeMap());

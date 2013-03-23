@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class CallbackValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var CallbackValidator
+     * @var \Packfire\Validator\CallbackValidator
      */
     protected $object;
 
@@ -31,7 +31,7 @@ class CallbackValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers CallbackValidator::validate
+     * @covers \Packfire\Validator\CallbackValidator::validate
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate(5));

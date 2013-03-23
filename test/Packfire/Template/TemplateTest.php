@@ -8,7 +8,7 @@ namespace Packfire\Template;
 class TemplateTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Template
+     * @var \Packfire\Template\Template
      */
     protected $object;
 
@@ -33,7 +33,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Template::fields
+     * @covers \Packfire\Template\Template::fields
      */
     public function testFields() {
         $this->assertInstanceOf('Packfire\Collection\Map', $this->object->fields());
@@ -44,7 +44,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Template::parse
+     * @covers \Packfire\Template\Template::parse
      */
     public function testParse() {
         $this->object->fields()->add('name', 'David HasHunch');

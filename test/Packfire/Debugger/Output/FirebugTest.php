@@ -8,16 +8,17 @@ namespace Packfire\Debugger\Output;
 class FirebugtTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Firebug
+     * @var \Packfire\Debugger\Output\Firebug
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Debugger\Output\Firebug::__construct
      */
     protected function setUp() {
-        $this->object = new Firebug;
+        $this->object = new Firebug();
     }
 
     /**
@@ -29,7 +30,7 @@ class FirebugtTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Firebug::output
+     * @covers \Packfire\Debugger\Output\Firebug::output
      */
     public function testOutput() {
         ob_start();
@@ -39,7 +40,7 @@ class FirebugtTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Firebug::write
+     * @covers \Packfire\Debugger\Output\Firebug::write
      */
     public function testWrite() {
         $this->object->write('test');

@@ -8,7 +8,7 @@ namespace Packfire\Linq\Query;
 class ReverseTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Reverse
+     * @var \Packfire\Linq\Query\Reverse
      */
     protected $object;
 
@@ -17,7 +17,7 @@ class ReverseTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Reverse;
+        $this->object = new \Packfire\Linq\Query\Reverse;
     }
 
     /**
@@ -29,7 +29,7 @@ class ReverseTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Reverse::run
+     * @covers \Packfire\Linq\Query\Reverse::run
      */
     public function testRun() {
         $data = array('a', 'c', 'd', 'b', 'z');

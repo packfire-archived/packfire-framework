@@ -8,7 +8,7 @@ namespace Packfire\Collection;
 class StackTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Stack
+     * @var \Packfire\Collection\Stack
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class StackTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Stack::push
+     * @covers \Packfire\Collection\Stack::push
      */
     public function testPush() {
         $this->assertCount(0, $this->object);
@@ -42,7 +42,7 @@ class StackTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Stack::pop
+     * @covers \Packfire\Collection\Stack::pop
      */
     public function testPop() {
         $this->object->push(10);
@@ -60,7 +60,7 @@ class StackTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Stack::top
+     * @covers \Packfire\Collection\Stack::top
      */
     public function testTop() {
         $this->object->push(10);

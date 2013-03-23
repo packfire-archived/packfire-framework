@@ -19,7 +19,7 @@ use Packfire\Test\Mocks\Config;
 class ViewTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var View
+     * @var \Packfire\View\View
      */
     protected $object;
     
@@ -54,7 +54,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers View::create
+     * @covers \Packfire\View\View::create
      */
     public function testCreate() {
         $this->object->state(new Map(array('tag' => 'five  ')));

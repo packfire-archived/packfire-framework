@@ -8,7 +8,7 @@ namespace Packfire\Text\Regex;
 class RegexTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Regex
+     * @var \Packfire\Text\Regex\Regex
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Regex::regex
+     * @covers \Packfire\Text\Regex\Regex::regex
      */
     public function testRegex() {
         $this->assertEquals('`[a-z]{3}[0-9]{2}`is', $this->object->regex());
@@ -38,7 +38,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Regex::match
+     * @covers \Packfire\Text\Regex\Regex::match
      */
     public function testMatch() {
         $result = $this->object->match('abc01');
@@ -49,7 +49,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Regex::match
+     * @covers \Packfire\Text\Regex\Regex::match
      */
     public function testMatch1() {
         $result = $this->object->match('abc01 adc21');
@@ -60,7 +60,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Regex::match
+     * @covers \Packfire\Text\Regex\Regex::match
      */
     public function testMatch2() {
         $result = $this->object->match('ab401');
@@ -69,21 +69,21 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Regex::matches
+     * @covers \Packfire\Text\Regex\Regex::matches
      */
     public function testMatches() {
         $this->assertTrue($this->object->matches('abc01'));
     }
 
     /**
-     * @covers Regex::matches
+     * @covers \Packfire\Text\Regex\Regex::matches
      */
     public function testMatches2() {
         $this->assertFalse($this->object->matches('aa011'));
     }
 
     /**
-     * @covers Regex::matchAll
+     * @covers \Packfire\Text\Regex\Regex::matchAll
      */
     public function testMatchAll() {
         $result = $this->object->matchAll('abc01 adc21');
@@ -96,14 +96,14 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Regex::replace
+     * @covers \Packfire\Text\Regex\Regex::replace
      */
     public function testReplace() {
         $this->assertEquals('testcool!run', $this->object->replace('testabc10run', 'cool!'));
     }
 
     /**
-     * @covers Regex::replaceCallback
+     * @covers \Packfire\Text\Regex\Regex::replaceCallback
      */
     public function testReplaceCallback() {
         $this->assertEquals('testABC10run',
@@ -115,7 +115,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Regex::indexOf
+     * @covers \Packfire\Text\Regex\Regex::indexOf
      */
     public function testIndexOf() {
         $this->assertEquals(4, $this->object->indexOf('testabc10run'));
@@ -123,7 +123,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Regex::lastIndexOf
+     * @covers \Packfire\Text\Regex\Regex::lastIndexOf
      */
     public function testLastIndexOf() {
         $this->assertEquals(13, $this->object->lastIndexOf('testabc10runcool10'));
@@ -131,7 +131,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Regex::escape
+     * @covers \Packfire\Text\Regex\Regex::escape
      */
     public function testEscape() {
         $this->assertEquals('\[a-z\]\{3\}\[0-9\]\{2\}',

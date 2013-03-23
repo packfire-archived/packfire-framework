@@ -24,7 +24,7 @@ class ConnectorFactoryTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ConnectorFactory::create
+     * @covers \Packfire\Database\ConnectorFactory::create
      */
     public function testCreate() {
         $driver = ConnectorFactory::create(array(

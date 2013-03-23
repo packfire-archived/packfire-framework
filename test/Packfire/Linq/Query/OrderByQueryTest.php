@@ -13,7 +13,7 @@ class OrderByTest extends \PHPUnit_Framework_TestCase {
     protected $data;
 
     /**
-     * @var OrderBy
+     * @var \Packfire\Linq\Query\OrderBy
      */
     protected $object;
 
@@ -43,7 +43,7 @@ class OrderByTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers OrderBy::run
+     * @covers \Packfire\Linq\Query\OrderBy::run
      */
     public function testRun() {
         $result = $this->object->run($this->data);
@@ -59,7 +59,7 @@ class OrderByTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers OrderBy::compare
+     * @covers \Packfire\Linq\Query\OrderBy::compare
      */
     public function testCompare() {
         $this->assertEquals(-1, $this->object->compare($this->data[0], $this->data[1]));

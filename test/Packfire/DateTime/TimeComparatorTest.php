@@ -9,7 +9,7 @@ namespace Packfire\DateTime;
 class TimeComparatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var TimeComparator
+     * @var \Packfire\DateTime\TimeComparator
      */
     protected $object;
 
@@ -18,7 +18,7 @@ class TimeComparatorTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new TimeComparator;
+        $this->object = new TimeComparator();
     }
 
     /**
@@ -30,10 +30,10 @@ class TimeComparatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\DateTime\TimeComparator::compare
+     * @covers \Packfire\DateTime\TimeComparator::compare
      */
     public function testCompare() {
-        $this->assertInstanceOf('Packfire\Collection\Sort\Comparator\PropertyComparator', $this->object);
+        $this->assertInstanceOf('\\Packfire\\Collection\\Sort\\Comparator\\PropertyComparator', $this->object);
 
         $time1 = new Time(8, 40, 10, 100);
         $time2 = new Time(16, 54, 6, 350);

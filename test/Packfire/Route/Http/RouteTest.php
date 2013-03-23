@@ -13,7 +13,7 @@ use Packfire\Test\Mocks\RouteRequest;
 class RouteTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Route
+     * @var \Packfire\Route\Http\Route
      */
     protected $object;
 
@@ -41,35 +41,35 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Route::name
+     * @covers \Packfire\Route\Http\Route::name
      */
     public function testName() {
         $this->assertEquals('test', $this->object->name());
     }
 
     /**
-     * @covers Route::httpMethod
+     * @covers \Packfire\Route\Http\Route::httpMethod
      */
     public function testHttpMethod() {
         $this->assertEquals(array('delete'), $this->object->httpMethod());
     }
 
     /**
-     * @covers Route::rewrite
+     * @covers \Packfire\Route\Http\Route::rewrite
      */
     public function testRewrite() {
         $this->assertEquals('/home/{data}/{name}', $this->object->rewrite());
     }
 
     /**
-     * @covers Route::actual
+     * @covers \Packfire\Route\Http\Route::actual
      */
     public function testActual() {
         $this->assertEquals('Rest', $this->object->actual());
     }
 
     /**
-     * @covers Route::params
+     * @covers \Packfire\Route\Http\Route::params
      */
     public function testParams() {
         $this->assertEquals(array('data' => 'int', 'name' => 'alnum'),
@@ -77,7 +77,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Route::match
+     * @covers \Packfire\Route\Http\Route::match
      */
     public function testMatch() {
         $request = new RouteRequest('home/200/test',
@@ -86,7 +86,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Route::match
+     * @covers \Packfire\Route\Http\Route::match
      */
     public function testMatch2() {
         $request = new RouteRequest('home/200/jack',
@@ -96,7 +96,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Route::match
+     * @covers \Packfire\Route\Http\Route::match
      */
     public function testMatchVarFail() {
         $request = new RouteRequest('home/20.!0',

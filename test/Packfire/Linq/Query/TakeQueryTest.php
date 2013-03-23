@@ -8,7 +8,7 @@ namespace Packfire\Linq\Query;
 class TakeTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Take
+     * @var \Packfire\Linq\Query\Take
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class TakeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Take::run
+     * @covers \Packfire\Linq\Query\Take::run
      */
     public function testRun() {
         $data = array(6, 4, 3, 1, 7);

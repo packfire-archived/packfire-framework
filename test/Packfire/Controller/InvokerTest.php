@@ -17,7 +17,7 @@ require_once('test/Mocks/SessionStorage.php');
 class InvokerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Invoker
+     * @var \Packfire\Controller\Invoker
      */
     protected $object;
     
@@ -26,6 +26,7 @@ class InvokerTest extends \PHPUnit_Framework_TestCase {
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Controller\Invoker::__invoke
      */
     protected function setUp() {
         $this->ioc = new Container();
@@ -69,7 +70,7 @@ class InvokerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Invoker::load
+     * @covers \Packfire\Controller\Invoker::load
      */
     public function testLoad() {
         $this->assertTrue($this->object->load());

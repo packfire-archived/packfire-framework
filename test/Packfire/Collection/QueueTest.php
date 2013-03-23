@@ -8,7 +8,7 @@ namespace Packfire\Collection;
 class QueueTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Queue
+     * @var \Packfire\Collection\Queue
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pQueue::enqueue
+     * @covers \Packfire\Collection\Queue::enqueue
      */
     public function testEnqueue() {
         $this->assertCount(0, $this->object);
@@ -42,7 +42,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pQueue::dequeue
+     * @covers \Packfire\Collection\Queue::dequeue
      */
     public function testDequeue() {
         $this->object->enqueue(5);
@@ -56,7 +56,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Queue::front
+     * @covers \Packfire\Collection\Queue::front
      */
     public function testFront() {
         $this->object->enqueue(5);

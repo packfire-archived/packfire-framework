@@ -8,7 +8,7 @@ namespace Packfire\Template\Mustache;
 class TemplateTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Template
+     * @var \Packfire\Template\Mustache\Template
      */
     protected $object;
 
@@ -30,7 +30,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Template::fields
+     * @covers \Packfire\Template\Mustache\Template::fields
      */
     public function testFields() {
         $this->assertInstanceOf('Packfire\Collection\Map', $this->object->fields());
@@ -38,14 +38,14 @@ class TemplateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Template::parse
+     * @covers \Packfire\Template\Mustache\Template::parse
      */
     public function testParse2() {
         $this->assertEquals('<b>John</b> is making me great. What is ?', $this->object->parse());
     }
 
     /**
-     * @covers Template::parse
+     * @covers \Packfire\Template\Mustache\Template::parse
      */
     public function testParse() {
         $this->object->set(array(

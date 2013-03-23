@@ -8,16 +8,17 @@ namespace Packfire\DateTime;
 class TimerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Timer
+     * @var \Packfire\DateTime\Timer
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\DateTime\Timer::__construct
      */
     protected function setUp() {
-        $this->object = new Timer;
+        $this->object = new Timer();
     }
 
     /**
@@ -29,14 +30,14 @@ class TimerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Packfire\Exception\InvalidRequestException
+     * @expectedException \Packfire\Exception\InvalidRequestException
      */
     public function testResultFail(){
         $this->object->result(); // should throw exception
     }
 
     /**
-     * @expectedException Packfire\Exception\InvalidRequestException
+     * @expectedException \Packfire\Exception\InvalidRequestException
      */
     public function testResultFail2(){
         $this->object->start();
@@ -46,7 +47,7 @@ class TimerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Packfire\Exception\InvalidRequestException
+     * @expectedException \Packfire\Exception\InvalidRequestException
      */
     public function testStartFail(){
         $this->object->start();
@@ -54,7 +55,7 @@ class TimerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     *
+     * @covers \Packfire\DateTime\Timer
      */
     public function testTimer() {
         $this->object->start();

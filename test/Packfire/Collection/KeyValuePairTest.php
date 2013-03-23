@@ -8,7 +8,7 @@ namespace Packfire\Collection;
 class KeyValuePairTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var KeyValuePair
+     * @var \Packfire\Collection\KeyValuePair
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class KeyValuePairTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers KeyValuePair::key
+     * @covers \Packfire\Collection\KeyValuePair::key
      */
     public function testKey() {
         $this->assertEquals('test', $this->object->key());
@@ -38,7 +38,7 @@ class KeyValuePairTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers KeyValuePair::value
+     * @covers \Packfire\Collection\KeyValuePair::value
      */
     public function testValue() {
         $this->assertEquals('value', $this->object->value());

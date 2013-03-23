@@ -23,6 +23,9 @@ class YamlResponseTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @covers \Packfire\Response\YamlResponse
+     */
     public function testResponse() {
         $data = array(
             'data' => 5

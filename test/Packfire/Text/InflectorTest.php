@@ -41,7 +41,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::firstUpperCase
+     * @covers \Packfire\Text\Inflector::firstUpperCase
      */
     public function testFirstUpperCase(){
         $this->assertEquals(4, Inflector::firstUpperCase('testRun'));
@@ -51,7 +51,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::isWordUpperCase
+     * @covers \Packfire\Text\Inflector::isWordUpperCase
      */
     public function testIsWordUpperCase() {
         $this->assertTrue(Inflector::isWordUpperCase('LMAO'));
@@ -63,7 +63,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::isWordLowerCase
+     * @covers \Packfire\Text\Inflector::isWordLowerCase
      */
     public function testIsWordLowerCase() {
         $this->assertFalse(Inflector::isWordLowerCase('LMAO'));
@@ -77,7 +77,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::isCapitalLetterWord
+     * @covers \Packfire\Text\Inflector::isCapitalLetterWord
      */
     public function testIsCapitalLetterWord() {
         $this->assertTrue(Inflector::isCapitalLetterWord('Good'));
@@ -89,7 +89,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::singular
+     * @covers \Packfire\Text\Inflector::singular
      */
     public function testSingular() {
         $this->testCases = array_merge($this->testCases, array(
@@ -104,7 +104,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::plural
+     * @covers \Packfire\Text\Inflector::plural
      */
     public function testPlural() {
         $this->testCases = array_merge($this->testCases, array(
@@ -119,7 +119,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::quantify
+     * @covers \Packfire\Text\Inflector::quantify
      */
     public function testQuantify() {
         $quantifier = 1;

@@ -23,6 +23,9 @@ class PhpSerializeResponseTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @covers \Packfire\Response\PhpSerializeResponse
+     */
     public function testResponse(){
         $data = array(
             'data' => 5

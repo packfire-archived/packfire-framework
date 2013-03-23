@@ -32,7 +32,7 @@ class NewLineTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers NewLine::neutralize
+     * @covers \Packfire\Text\NewLine::neutralize
      */
     public function testNeutralizeSimple() {
         $this->assertEquals("Breaking\nDawn",
@@ -50,7 +50,7 @@ class NewLineTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers NewLine::neutralize
+     * @covers \Packfire\Text\NewLine::neutralize
      */
     public function testNeutralizeComplex() {
         $this->assertEquals("Breaking\n\n\nDawn",

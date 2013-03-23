@@ -8,7 +8,7 @@ namespace Packfire\Linq\Query;
 class SkipTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Skip
+     * @var \Packfire\Linq\Query\Skip
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class SkipTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Skip::run
+     * @covers \Packfire\Linq\Query\Skip::run
      */
     public function testRun() {
         $data = array(6, 4, 3, 1, 7);

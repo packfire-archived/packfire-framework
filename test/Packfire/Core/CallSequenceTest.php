@@ -7,7 +7,7 @@ namespace Packfire\Core;
 class CallSequenceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var CallSequence
+     * @var \Packfire\Core\CallSequence
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class CallSequenceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Packfire\Core\CallSequence::value
+     * @covers \Packfire\Core\CallSequence::value
      */
     public function testValue()
     {
@@ -37,7 +37,7 @@ class CallSequenceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Packfire\Core\CallSequence::add
+     * @covers \Packfire\Core\CallSequence::add
      */
     public function testAdd()
     {
@@ -50,7 +50,7 @@ class CallSequenceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Packfire\Core\CallSequence::clear
+     * @covers \Packfire\Core\CallSequence::clear
      */
     public function testClear()
     {
@@ -64,7 +64,7 @@ class CallSequenceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Packfire\Core\CallSequence::process
+     * @covers \Packfire\Core\CallSequence::process
      */
     public function testProcess()
     {

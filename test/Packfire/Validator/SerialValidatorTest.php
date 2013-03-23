@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class SerialValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var SerialValidator
+     * @var \Packfire\Validator\SerialValidator
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class SerialValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers SerialValidator::validate
+     * @covers \Packfire\Validator\SerialValidator::validate
      */
     public function testValidate() {
         $this->object->add(new DataTypeValidator('double'));

@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class NumericValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var NumericValidator
+     * @var \Packfire\Validator\NumericValidator
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class NumericValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers NumericValidator::validate
+     * @covers \Packfire\Validator\NumericValidator::validate
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate(0.5));

@@ -8,7 +8,7 @@ namespace Packfire\Collection;
 class DequeTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Deque
+     * @var \Packfire\Collection\Deque
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class DequeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Deque::enqueueFront
+     * @covers \Packfire\Collection\Deque::enqueueFront
      */
     public function testEnqueueFront() {
         $this->assertCount(0, $this->object);
@@ -42,7 +42,7 @@ class DequeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Deque::dequeueBack
+     * @covers \Packfire\Collection\Deque::dequeueBack
      */
     public function testDequeueBack() {
         $this->object->enqueueFront(5);
@@ -56,7 +56,7 @@ class DequeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Deque::back
+     * @covers \Packfire\Collection\Deque::back
      */
     public function testBack() {
         $this->object->enqueueFront(5);

@@ -17,7 +17,7 @@ use Packfire\Test\Mocks\SessionStorage;
 class HomeControllerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var HomeController
+     * @var \Packfire\Welcome\HomeController
      */
     protected $object;
     
@@ -57,7 +57,7 @@ class HomeControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers HomeController::message
+     * @covers \Packfire\Welcome\HomeController::message
      */
     public function testMessage() {
         $this->object->message();
@@ -66,7 +66,7 @@ class HomeControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers HomeController::getIndex
+     * @covers \Packfire\Welcome\HomeController::getIndex
      */
     public function testGetIndex() {
         $this->object->getIndex();
@@ -75,7 +75,7 @@ class HomeControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers HomeController::cliIndex
+     * @covers \Packfire\Welcome\HomeController::cliIndex
      */
     public function testCliIndex() {
         ob_start();

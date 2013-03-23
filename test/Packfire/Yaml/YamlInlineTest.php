@@ -25,7 +25,7 @@ class YamlInlineTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlInline::parseValue
+     * @covers \Packfire\Yaml\YamlInline::parseValue
      */
     public function testParseValue() {
         $this->assertEquals('test two', YamlInline::load('test two')->parseValue());
@@ -38,7 +38,7 @@ class YamlInlineTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlInline::parseKeyValue
+     * @covers \Packfire\Yaml\YamlInline::parseKeyValue
      */
     public function testParseKeyValue() {
         $data = YamlInline::load('test: alpha')->parseKeyValue();
@@ -48,7 +48,7 @@ class YamlInlineTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlInline::parseSequence
+     * @covers \Packfire\Yaml\YamlInline::parseSequence
      */
     public function testParseSequence() {
         $data = YamlInline::load('[test, 1, 2, "{maybe, cool]", three]')->parseSequence();
@@ -56,7 +56,7 @@ class YamlInlineTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlInline::parseMap
+     * @covers \Packfire\Yaml\YamlInline::parseMap
      */
     public function testParseMap() {
         $data = YamlInline::load('{alpha: test, mike: bravo, good: "bad}, equals", hungry: "yes[iam"}')->parseMap();

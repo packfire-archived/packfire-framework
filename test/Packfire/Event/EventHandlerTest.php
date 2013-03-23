@@ -8,13 +8,14 @@ namespace Packfire\Event;
 class EventHandlerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var EventHandler
+     * @var \Packfire\Event\EventHandler
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Event\EventHandler::__construct
      */
     protected function setUp() {
         $this->object = new EventHandler($this);
@@ -29,8 +30,7 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers EventHandler::on
-     * @covers EventHandler::trigger
+     * @covers \Packfire\Event\EventHandler
      */
     public function testCombined() {
         $this->object->on('click', function($obj, $arg = null){

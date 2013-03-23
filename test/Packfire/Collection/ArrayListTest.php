@@ -8,7 +8,7 @@ namespace Packfire\Collection;
 class ArrayListTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var ArrayList
+     * @var \Packfire\Collection\ArrayList
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::count
+     * @covers \Packfire\Collection\ArrayList::count
      */
     public function testCount() {
         $this->assertEquals(3, $this->object->count());
@@ -41,20 +41,26 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::iterator
+     * @covers \Packfire\Collection\ArrayList::iterator
      */
     public function testIterator() {
         $this->assertInstanceof('Packfire\Collection\Iterator', $this->object->iterator());
     }
 
     /**
-     * @covers ArrayList::add
+     * @covers \Packfire\Collection\ArrayList::add
      */
     public function testAdd() {
         $text = 'sam';
         $key = $this->object->add($text);
         $this->assertEquals($text, $this->object->get($key));
         $this->assertEquals($text, $this->object[$key]);
+    }
+    
+    /**
+     * @covers \Packfire\Collection\ArrayList::add
+     */
+    public function testAdd2(){    
         $text = 'fire';
         $key = $this->object->add($text);
         $this->assertEquals($text, $this->object->get($key));
@@ -62,7 +68,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::clear
+     * @covers \Packfire\Collection\ArrayList::clear
      */
     public function testClear() {
         $this->assertCount(3, $this->object);
@@ -72,7 +78,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::contains
+     * @covers \Packfire\Collection\ArrayList::contains
      */
     public function testContains() {
         $this->assertTrue($this->object->contains(5));
@@ -82,7 +88,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::get
+     * @covers \Packfire\Collection\ArrayList::get
      */
     public function testGet() {
         $this->assertEquals(5, $this->object[1]);
@@ -94,7 +100,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::indexOf
+     * @covers \Packfire\Collection\ArrayList::indexOf
      */
     public function testIndexOf() {
         $this->assertEquals(1, $this->object->indexOf(5));
@@ -103,7 +109,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::indexesOf
+     * @covers \Packfire\Collection\ArrayList::indexesOf
      */
     public function testIndexesOf() {
         $this->object->add(5);
@@ -113,7 +119,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::lastIndexOf
+     * @covers \Packfire\Collection\ArrayList::lastIndexOf
      */
     public function testLastIndexOf() {
         $this->object->add(5);
@@ -121,7 +127,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::remove
+     * @covers \Packfire\Collection\ArrayList::remove
      */
     public function testRemove() {
         $this->object->add(5);
@@ -133,7 +139,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::removeAll
+     * @covers \Packfire\Collection\ArrayList::removeAll
      */
     public function testRemoveAll() {
         $this->object->add(5);
@@ -165,7 +171,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::removeAt
+     * @covers \Packfire\Collection\ArrayList::removeAt
      */
     public function testRemoveAt() {
         $this->assertEquals(3, $this->object->removeAt(0));
@@ -175,7 +181,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::toArray
+     * @covers \Packfire\Collection\ArrayList::toArray
      */
     public function testToArray() {
         $array = $this->object->toArray();
@@ -185,7 +191,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::difference
+     * @covers \Packfire\Collection\ArrayList::difference
      */
     public function testDifference() {
         $result = $this->object->difference(array(5, 3, 7));
@@ -202,7 +208,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::complement
+     * @covers \Packfire\Collection\ArrayList::complement
      */
     public function testComplement() {
         $result = $this->object->complement(array(5, 3));
@@ -212,7 +218,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::intersect
+     * @covers \Packfire\Collection\ArrayList::intersect
      */
     public function testIntersect() {
         $result = $this->object->intersect(array(2, 3));
@@ -222,7 +228,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::union
+     * @covers \Packfire\Collection\ArrayList::union
      */
     public function testUnion() {
         $result = $this->object->union(array(8, 6));
@@ -232,7 +238,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::append
+     * @covers \Packfire\Collection\ArrayList::append
      */
     public function testAppend() {
         $this->object->append(array(6, 4));
@@ -244,7 +250,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::prepend
+     * @covers \Packfire\Collection\ArrayList::prepend
      */
     public function testPrepend() {
         $this->object->prepend(array(6, 4));
@@ -256,14 +262,14 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::getIterator
+     * @covers \Packfire\Collection\ArrayList::getIterator
      */
     public function testGetIterator() {
         $this->assertInstanceOf('\ArrayIterator', $this->object->getIterator());
     }
 
     /**
-     * @covers ArrayList::offsetExists
+     * @covers \Packfire\Collection\ArrayList::offsetExists
      */
     public function testOffsetExists() {
         $this->assertTrue($this->object->offsetExists(1));
@@ -273,7 +279,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::offsetGet
+     * @covers \Packfire\Collection\ArrayList::offsetGet
      */
     public function testOffsetGet() {
         $this->assertEquals(3, $this->object->offsetGet(0));
@@ -281,7 +287,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::offsetSet
+     * @covers \Packfire\Collection\ArrayList::offsetSet
      */
     public function testOffsetSet() {
         $this->object->offsetSet(0, 100);
@@ -293,8 +299,8 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::offsetSet
-     * @expectedException Packfire\Exception\OutOfRangeException
+     * @covers \Packfire\Collection\ArrayList::offsetSet
+     * @expectedException \Packfire\Exception\OutOfRangeException
      */
     public function testOffsetSetFail(){
         $this->object->offsetSet(20, 10);
@@ -302,7 +308,7 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayList::offsetUnset
+     * @covers \Packfire\Collection\ArrayList::offsetUnset
      */
     public function testOffsetUnset() {
         $this->object->offsetUnset(0);

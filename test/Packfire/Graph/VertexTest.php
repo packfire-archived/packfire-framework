@@ -8,7 +8,7 @@ namespace Packfire\Graph;
 class VertexTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Vertex
+     * @var \Packfire\Graph\Vertex
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class VertexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Graph\Vertex::connect
+     * @covers \Packfire\Graph\Vertex::connect
      */
     public function testConnect() {
         $this->object->connect(new Vertex(6), 10);
@@ -39,30 +39,30 @@ class VertexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Graph\Vertex::connect
-     * @expectedException Packfire\Exception\InvalidArgumentException
+     * @covers \Packfire\Graph\Vertex::connect
+     * @expectedException \Packfire\Exception\InvalidArgumentException
      */
     public function testConnectFail() {
         $this->object->connect(new Vertex(5), 10);
     }
 
     /**
-     * @covers Packfire\Graph\Vertex::connect
-     * @expectedException Packfire\Exception\InvalidArgumentException
+     * @covers \Packfire\Graph\Vertex::connect
+     * @expectedException \Packfire\Exception\InvalidArgumentException
      */
     public function testConnectFail2() {
         $this->object->connect($this->object, 10);
     }
 
     /**
-     * @covers Packfire\Graph\Vertex::id
+     * @covers \Packfire\Graph\Vertex::id
      */
     public function testId() {
         $this->assertEquals(5, $this->object->id());
     }
 
     /**
-     * @covers Packfire\Graph\Vertex::connections
+     * @covers \Packfire\Graph\Vertex::connections
      */
     public function testConnections() {
         $this->assertInstanceOf('Packfire\Collection\Map', $this->object->connections());
@@ -70,7 +70,7 @@ class VertexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Graph\Vertex::potential
+     * @covers \Packfire\Graph\Vertex::potential
      */
     public function testPotential() {
         $this->assertNull($this->object->from());
@@ -85,7 +85,7 @@ class VertexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Graph\Vertex::from
+     * @covers \Packfire\Graph\Vertex::from
      */
     public function testFrom() {
         $this->assertNull($this->object->from());
@@ -94,7 +94,7 @@ class VertexTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Graph\Vertex::reset
+     * @covers \Packfire\Graph\Vertex::reset
      */
     public function testReset() {
         $this->object->setPotential(5, $this->object);

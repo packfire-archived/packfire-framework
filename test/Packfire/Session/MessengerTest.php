@@ -12,7 +12,7 @@ use Packfire\FuelBlade\Container;
 class MessengerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Messenger
+     * @var \Packfire\Session\Messenger
      */
     protected $object;
     
@@ -45,7 +45,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Messenger::send
+     * @covers \Packfire\Session\Messenger::send
      */
     public function testSend() {
         $this->object->send('test', 'sofia');
@@ -53,7 +53,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Messenger::send
+     * @covers \Packfire\Session\Messenger::send
      */
     public function testSend2() {
         $this->object->send('test', 'sofia', 'test message');
@@ -61,7 +61,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Messenger::send
+     * @covers \Packfire\Session\Messenger::send
      */
     public function testSend3() {
         $this->object->send('test', array('sofia', 'elenor'));
@@ -69,7 +69,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Messenger::send
+     * @covers \Packfire\Session\Messenger::send
      */
     public function testSend4() {
         $this->object->send('msg');
@@ -77,7 +77,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Messenger::send
+     * @covers \Packfire\Session\Messenger::send
      */
     public function testSend5() {
         $this->object->send('msg', null, 10);
@@ -85,7 +85,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Messenger::check
+     * @covers \Packfire\Session\Messenger::check
      */
     public function testCheck() {
         $this->assertFalse($this->object->check('note'));
@@ -103,7 +103,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Messenger::read
+     * @covers \Packfire\Session\Messenger::read
      */
     public function testRead() {
         $this->assertNull($this->object->read('note'));
@@ -123,7 +123,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Messenger::clear
+     * @covers \Packfire\Session\Messenger::clear
      */
     public function testClear() {
         $this->object->send('note', __CLASS__ . ':' . __FUNCTION__);

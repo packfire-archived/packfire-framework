@@ -9,6 +9,10 @@ use Packfire\Text\TextStream;
  */
 class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
 
+    /**
+     *
+     * @var \Packfire\Data\Serialization\JsonSerializer
+     */
     private $object;
 
     /**
@@ -28,7 +32,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::serialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
      */
     public function testSerialize() {
         $data = array('key' => 'value', 'test');
@@ -39,7 +43,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::serialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
      */
     public function testSerialize2() {
         $data = new \stdClass();
@@ -52,7 +56,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::serialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
      */
     public function testSerialize3() {
         $data = new \stdClass();
@@ -63,7 +67,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
      */
     public function testDeserialize() {
         $data = array('key' => 'value', 'arr' => array('test'));
@@ -73,7 +77,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
      */
     public function testDeserialize2() {
         $data = new \stdClass();
@@ -86,7 +90,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
      */
     public function testDeserialize3() {
         $data = new \stdClass();
@@ -97,6 +101,10 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($data, $item);
     }
 
+    /**
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
+     */
     public function testOverall(){
         $data = new \stdClass();
         $data->test = 'data';

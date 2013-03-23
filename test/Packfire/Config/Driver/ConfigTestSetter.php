@@ -37,6 +37,12 @@ abstract class ConfigTestSetter extends \PHPUnit_Framework_TestCase {
         $property->setValue($this->object, $data);
     }
     
+    /**
+     * @covers \Packfire\Config\Driver\IniConfig::file
+     */
+    public function testFile(){
+        $this->assertEquals($this->file, $this->object->file());
+    }
 
     public function testConfigParse(){
         $this->assertNotNull($this->object->get('first_section'));

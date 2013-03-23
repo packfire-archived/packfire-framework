@@ -21,7 +21,7 @@ class helperTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @covers using
+     * @covers ::using
      */
     public function testUsing(){
         $alpha = 'test';

@@ -24,7 +24,7 @@ class SystemTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers System::fileExists
+     * @covers \Packfire\IO\File\System::fileExists
      */
     public function testFileExists() {
         $this->assertTrue(System::fileExists(__FILE__));
@@ -33,7 +33,7 @@ class SystemTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers System::pathExists
+     * @covers \Packfire\IO\File\System::pathExists
      */
     public function testPathExists() {
         $this->assertTrue(System::pathExists(__DIR__));
@@ -42,21 +42,21 @@ class SystemTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers System::freeSpace
+     * @covers \Packfire\IO\File\System::freeSpace
      */
     public function testFreeSpace() {
         $this->assertInternalType('float', System::freeSpace(__DIR__));
     }
 
     /**
-     * @covers System::totalSpace
+     * @covers \Packfire\IO\File\System::totalSpace
      */
     public function testTotalSpace() {
         $this->assertInternalType('float', System::totalSpace(__DIR__));
     }
 
     /**
-     * @covers System::pathSearch
+     * @covers \Packfire\IO\File\System::pathSearch
      */
     public function testPathSearch() {
         $pattern = 'p*.php';
@@ -66,7 +66,7 @@ class SystemTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers System::pathSearch
+     * @covers \Packfire\IO\File\System::pathSearch
      */
     public function testPathSearch2() {
         $pattern = '*.php';

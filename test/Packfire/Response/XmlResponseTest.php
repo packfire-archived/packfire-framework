@@ -23,6 +23,9 @@ class XmlResponseTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @covers \Packfire\Response\XmlResponse
+     */
     public function testResponse() {
         $data = array(
             'data' => 5

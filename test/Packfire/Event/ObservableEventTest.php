@@ -10,7 +10,7 @@ use Packfire\Core\IObserver;
 class ObservableEventTest extends \PHPUnit_Framework_TestCase implements IObserver {
 
     /**
-     * @var ObservableEvent
+     * @var \Packfire\Event\ObservableEvent
      */
     protected $object;
 
@@ -22,6 +22,8 @@ class ObservableEventTest extends \PHPUnit_Framework_TestCase implements IObserv
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Event\ObservableEvent::__construct
+     * @covers \Packfire\Event\ObservableEvent::attach
      */
     protected function setUp() {
         $this->object = new ObservableEvent($this);
@@ -48,7 +50,7 @@ class ObservableEventTest extends \PHPUnit_Framework_TestCase implements IObserv
     }
 
     /**
-     * @covers ObservableEvent::notify
+     * @covers \Packfire\Event\ObservableEvent::notify
      */
     public function testNotify() {
         $this->object->notify(5);

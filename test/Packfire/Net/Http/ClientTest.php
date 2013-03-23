@@ -8,7 +8,7 @@ namespace Packfire\Net\Http;
 class ClientTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Client
+     * @var \Packfire\Net\Http\Client
      */
     protected $object;
 
@@ -33,7 +33,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Client::knownBots
+     * @covers \Packfire\Net\Http\Client::knownBots
      */
     public function testKnownBots() {
         $this->assertInternalType('array', Client::knownBots());
@@ -41,42 +41,42 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Client::browserName
+     * @covers \Packfire\Net\Http\Client::browserName
      */
     public function testBrowserName() {
         $this->assertEquals(ClientBrowser::CHROME, $this->object->browserName());
     }
 
     /**
-     * @covers Client::browserVersion
+     * @covers \Packfire\Net\Http\Client::browserVersion
      */
     public function testBrowserVersion() {
         $this->assertEquals('0.2.149.29', $this->object->browserVersion());
     }
 
     /**
-     * @covers Client::operatingSystem
+     * @covers \Packfire\Net\Http\Client::operatingSystem
      */
     public function testOperatingSystem() {
         $this->assertEquals(ClientOS::WINDOWS, $this->object->operatingSystem());
     }
 
     /**
-     * @covers Client::userAgent
+     * @covers \Packfire\Net\Http\Client::userAgent
      */
     public function testUserAgent() {
         $this->assertEquals(self::UA, $this->object->userAgent());
     }
 
     /**
-     * @covers Client::ipAddress
+     * @covers \Packfire\Net\Http\Client::ipAddress
      */
     public function testIpAddress() {
         $this->assertEquals(self::IP, $this->object->ipAddress());
     }
 
     /**
-     * @covers Client::bot
+     * @covers \Packfire\Net\Http\Client::bot
      */
     public function testBot() {
         $this->assertFalse($this->object->bot());

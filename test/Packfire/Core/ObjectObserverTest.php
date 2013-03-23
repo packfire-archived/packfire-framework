@@ -20,7 +20,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @var ObjectObserver
+     * @var \Packfire\Core\ObjectObserver
      */
     protected $object;
 
@@ -41,7 +41,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ObjectObserver::model
+     * @covers \Packfire\Core\ObjectObserver::model
      */
     public function testModel() {
         $this->assertNotEmpty($this->object->model());
@@ -49,7 +49,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ObjectObserver::on
+     * @covers \Packfire\Core\ObjectObserver::on
      */
     public function testOn() {
         $this->object->on('change', array($this, 'changeListener'));
@@ -68,7 +68,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ObjectObserver::__set
+     * @covers \Packfire\Core\ObjectObserver::__set
      */
     public function test__set() {
         $msg = 'test title';
@@ -78,7 +78,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ObjectObserver::__get
+     * @covers \Packfire\Core\ObjectObserver::__get
      */
     public function test__get() {
         $msg = 'test title';
@@ -88,7 +88,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ObjectObserver::__isset
+     * @covers \Packfire\Core\ObjectObserver::__isset
      */
     public function test__isset() {
         $msg = 'test title';
@@ -98,7 +98,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ObjectObserver::__unset
+     * @covers \Packfire\Core\ObjectObserver::__unset
      */
     public function test__unset() {
         $msg = 'test title';
@@ -109,7 +109,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ObjectObserver::__call
+     * @covers \Packfire\Core\ObjectObserver::__call
      */
     public function test__call() {
         $this->assertFalse($this->call);

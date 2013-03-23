@@ -43,7 +43,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @covers String::from
+     * @covers \Packfire\Text\String::from
      */
     public function testFrom(){
         $obj = String::from($this->rawString[0]);
@@ -52,7 +52,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @covers String::format
+     * @covers \Packfire\Text\String::format
      */
     public function testFormat(){
         $object = String::from('test%d');
@@ -62,7 +62,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::value
+     * @covers \Packfire\Text\String::value
      */
     public function testValue() {
         foreach ($this->objects as $idx => $obj) {
@@ -72,7 +72,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::trim
+     * @covers \Packfire\Text\String::trim
      */
     public function testTrim() {
         foreach ($this->objects as $idx => $obj) {
@@ -82,7 +82,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::trimLeft
+     * @covers \Packfire\Text\String::trimLeft
      */
     public function testTrimLeft() {
         foreach ($this->objects as $idx => $obj) {
@@ -92,7 +92,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::trimRight
+     * @covers \Packfire\Text\String::trimRight
      */
     public function testTrimRight() {
         foreach ($this->objects as $idx => $obj) {
@@ -102,7 +102,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::split
+     * @covers \Packfire\Text\String::split
      */
     public function testSplit() {
         foreach ($this->objects as $idx => $obj) {
@@ -113,7 +113,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::replace
+     * @covers \Packfire\Text\String::replace
      */
     public function testReplace() {
         foreach ($this->objects as $idx => $obj) {
@@ -124,7 +124,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::indexOf
+     * @covers \Packfire\Text\String::indexOf
      */
     public function testIndexOf() {
         $this->assertEquals(4, $this->objects[0]->indexOf('ing'));
@@ -134,7 +134,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::lastIndexOf
+     * @covers \Packfire\Text\String::lastIndexOf
      */
     public function testLastIndexOf() {
         $this->assertEquals(15, $this->objects[0]->lastIndexOf('ing'));
@@ -144,7 +144,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::occurances
+     * @covers \Packfire\Text\String::occurances
      */
     public function testOccurances() {
         $this->assertCount(2, $this->objects[0]->occurances('over'));
@@ -153,7 +153,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::substring
+     * @covers \Packfire\Text\String::substring
      */
     public function testSubstring() {
         $this->assertEquals('test', $this->objects[0]->substring(0, 4));
@@ -161,7 +161,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::toUpper
+     * @covers \Packfire\Text\String::toUpper
      */
     public function testToUpper() {
         foreach ($this->objects as $idx => $obj) {
@@ -171,7 +171,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::toLower
+     * @covers \Packfire\Text\String::toLower
      */
     public function testToLower() {
         foreach ($this->objects as $idx => $obj) {
@@ -181,7 +181,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::padLeft
+     * @covers \Packfire\Text\String::padLeft
      */
     public function testPadLeft() {
         foreach ($this->objects as $idx => $obj) {
@@ -192,7 +192,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::padRight
+     * @covers \Packfire\Text\String::padRight
      */
     public function testPadRight() {
         foreach ($this->objects as $idx => $obj) {
@@ -203,7 +203,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::padBoth
+     * @covers \Packfire\Text\String::padBoth
      */
     public function testPadBoth() {
         foreach ($this->objects as $idx => $obj) {
@@ -214,7 +214,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::length
+     * @covers \Packfire\Text\String::length
      */
     public function testLength() {
         foreach ($this->objects as $idx => $obj) {
@@ -225,7 +225,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::count
+     * @covers \Packfire\Text\String::count
      */
     public function testCount() {
         foreach ($this->objects as $idx => $obj) {
@@ -236,7 +236,7 @@ class StringTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers String::__toString
+     * @covers \Packfire\Text\String::__toString
      */
     public function test__toString() {
         foreach ($this->objects as $idx => $obj) {

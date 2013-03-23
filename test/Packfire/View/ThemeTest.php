@@ -8,7 +8,7 @@ namespace Packfire\View;
 class ThemeTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Theme
+     * @var \Packfire\View\Theme
      */
     protected $object;
 
@@ -29,12 +29,15 @@ class ThemeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Theme::fields
+     * @covers \Packfire\View\Theme::fields
      */
     public function testFields() {
         $this->assertInstanceOf('Packfire\Collection\Map', $this->object->fields());
     }
 
+    /**
+     * @covers \Packfire\View\Theme::define
+     */
     public function testDefine(){
         $class = new \ReflectionClass('Packfire\View\Theme');
         $method = $class->getMethod('define');
