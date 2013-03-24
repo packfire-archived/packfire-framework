@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\IO;
 
 use Packfire\Text\TextStream;
@@ -13,7 +14,11 @@ class StreamReaderTest extends \PHPUnit_Framework_TestCase {
      * @var \Packfire\IO\StreamReader
      */
     protected $object;
-
+    
+    /**
+     *
+     * @var \Packfire\Text\TextStream
+     */
     protected $stream;
 
     /**
@@ -39,11 +44,12 @@ EOT;
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
      * @covers \Packfire\IO\StreamReader::stream
+     * @covers \Packfire\IO\StreamReader::__construct
      */
     public function testStream() {
         $this->assertInstanceOf('Packfire\IO\IStream', $this->object->stream());
@@ -68,8 +74,51 @@ EOT;
     public function testUntil() {
         $read = $this->object->until('enim');
         $this->assertEquals('Mauris sed sem sit amet enim', $read);
+    }
+
+    /**
+     * @covers \Packfire\IO\StreamReader::until
+     */
+    public function testUntil2() {
         $read = $this->object->until('volutpat');
-        $this->assertEquals(' scelerisque facilisis. Aliquam erat volutpat', $read);
+        $this->assertEquals('Mauris sed sem sit amet enim scelerisque facilisis. Aliquam erat volutpat', $read);
+    }
+    
+    /**
+     * @covers \Packfire\IO\StreamReader::until
+     */
+    public function testUntil3() {
+        $this->stream->seek(0);
+        $text = $this->stream->read($this->stream->length());
+        $this->stream->seek(0);
+        $read = $this->object->until('blah');
+        $this->assertEquals($text, $read);
+    }
+    
+    /**
+     * @covers \Packfire\IO\StreamReader::until
+     * @covers \Packfire\IO\StreamReader::strposa
+     */
+    public function testUntilArray() {
+        $read = $this->object->until(array('erat', 'faci'));
+        $this->assertEquals('Mauris sed sem sit amet enim scelerisque faci', $read);
+    }
+    
+    /**
+     * @covers \Packfire\IO\StreamReader::hasMore
+     */
+    public function testHasMore() {
+        $read = $this->object->until('sem');
+        $this->assertEquals('Mauris sed sem', $read);
+        $this->assertTrue($this->object->hasMore());
+    }
+    
+    /**
+     * @covers \Packfire\IO\StreamReader::hasMore
+     */
+    public function testHasMore2() {
+        $this->object->until('blah');
+        $this->assertFalse($this->object->hasMore());
     }
 
 }
