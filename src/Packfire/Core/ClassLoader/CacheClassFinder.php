@@ -25,8 +25,18 @@ use Packfire\FuelBlade\IConsumer;
  */
 class CacheClassFinder implements IClassFinder, IConsumer {
     
+    /**
+     * The cache driver
+     * @var \Packfire\Cache\ICache
+     * @since 2.1.0
+     */
     private $cache;
     
+    /**
+     * Class finder to work with
+     * @var \Packfire\Core\ClassLoader\IClassFinder
+     * @since 2.1.0
+     */
     private $finder;
     
     /**
@@ -38,7 +48,7 @@ class CacheClassFinder implements IClassFinder, IConsumer {
     
     /**
      * Create a new CacheClassFinder object
-     * @param \Packfire\Cache\ICache $cache The cache storage
+     * @param \Packfire\Core\ClassLoader\IClassFinder $finder The class finder to complement
      * @param string $prefix (optional) A prefix to identify all class
      *              cache entries in the storage
      * @since 2.0.0
@@ -65,6 +75,12 @@ class CacheClassFinder implements IClassFinder, IConsumer {
         return $file;
     }
     
+    /**
+     * Perform invoking of dependencies
+     * @param \Packfire\FuelBlade\Container $c The IoC Container to inject dependencies
+     * @return \Packfire\Core\ClassLoader\CacheClassFinder
+     * @since 2.1.0
+     */
     public function __invoke($c) {
         $this->cache = $c['cache'];
         return $this;
