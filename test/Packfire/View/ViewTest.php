@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\View;
 
 use Packfire\Collection\Map;
@@ -9,6 +10,7 @@ use Packfire\FuelBlade\Container;
 
 require_once('test/Mocks/View.php');
 require_once('test/Mocks/Config.php');
+
 use Packfire\Test\Mocks\View;
 use Packfire\Test\Mocks\Config;
 
@@ -22,7 +24,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
      * @var \Packfire\View\View
      */
     protected $object;
-    
     private $ioc;
 
     /**
@@ -41,7 +42,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
 
         $config = new Config();
         $bucket['config'] = $config;
-        
+
         call_user_func($this->object, $this->ioc);
     }
 
@@ -50,7 +51,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**

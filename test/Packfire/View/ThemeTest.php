@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\View;
 
 /**
@@ -26,7 +27,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
@@ -39,7 +40,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase {
     /**
      * @covers \Packfire\View\Theme::define
      */
-    public function testDefine(){
+    public function testDefine() {
         $method = new \ReflectionMethod($this->object, 'define');
         $method->setAccessible(true);
         $method->invoke($this->object, 'test', 'sim');

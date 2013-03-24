@@ -229,10 +229,11 @@ abstract class View implements IView, IConsumer {
                 $name = $filter[0];
                 $filter = $filter[1];
                 $value = $this->fields[$name];
-                if($filter instanceof \Closure || is_callable($filter)){
-                    $value = $filter($value);
-                }elseif(class_exists($filter)){
+                if(class_exists($filter)){
                     $filter = new $filter();
+                }
+                if(is_callable($filter)){
+                    $value = $filter($value);
                 }
                 $this->fields[$name] = $value;
             }
