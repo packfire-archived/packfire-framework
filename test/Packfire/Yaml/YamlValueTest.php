@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Yaml;
 
 /**
@@ -12,7 +13,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-
+        
     }
 
     /**
@@ -20,7 +21,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
@@ -46,6 +47,15 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
         $text = '# "message great maybe this will work?"';
         $this->assertEquals('', YamlValue::stripComment($text));
     }
+
+    /**
+     * @covers \Packfire\Yaml\YamlValue::stripComment
+     */
+    public function testStripComment4() {
+        $text = "message great # \\\"maybe\nthis will work?";
+        $this->assertEquals('message great ', YamlValue::stripComment($text));
+    }
+
 
     /**
      * @covers \Packfire\Yaml\YamlValue::isQuoted
