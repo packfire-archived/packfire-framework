@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Text;
 
 /**
@@ -25,10 +26,19 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
+    }
+    
+    /**
+     * @covers \Packfire\Text\TextStream::open
+     * @covers \Packfire\Text\TextStream::close
+     */
+    public function testOpenClose(){
+        $this->assertTrue(method_exists($this->object, 'open'));
+        $this->assertTrue(method_exists($this->object, 'close'));
     }
 
-    public function testInheritance(){
+    public function testInheritance() {
         $this->assertInstanceOf('Packfire\IO\IStream', $this->object);
     }
 
@@ -42,7 +52,7 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase {
     /**
      * @covers \Packfire\Text\TextStream::length
      */
-    public function testLength2(){
+    public function testLength2() {
         $s = 'I am sam, here we moo';
         $obj = new TextStream($s);
         $this->assertEquals(strlen($s), $obj->length());
@@ -67,6 +77,14 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase {
         $this->object->seek(9);
         $this->assertEquals(9, $this->object->tell());
         $this->assertEquals(' br', $this->object->read(3));
+    }
+
+    /**
+     * @covers \Packfire\Text\TextStream::seek
+     * @expectedException \Packfire\Exception\OutOfRangeException
+     */
+    public function testSeek2() {
+        $this->object->seek($this->object->length()+10);
     }
 
     /**

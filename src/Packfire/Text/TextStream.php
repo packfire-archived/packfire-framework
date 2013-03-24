@@ -99,9 +99,6 @@ class TextStream implements IIOStream {
      * @since 1.0-sofia
      */
     public function seek($position) {
-        if(is_callable($position)){
-            $position = $position($this);
-        }
         if($position >= 0 && $position <= $this->length()){
             $this->pointer = $position;
         }else{
@@ -110,7 +107,6 @@ class TextStream implements IIOStream {
                             $position)
                 );
         }
-        
     }
 
     /**
