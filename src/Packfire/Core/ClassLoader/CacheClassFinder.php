@@ -65,6 +65,10 @@ class CacheClassFinder implements IClassFinder, IConsumer {
      * @since 2.0.0
      */
     public function find($class) {
+        // normalize
+        if(substr($class, 0, 1) == '\\'){
+            $class = substr($class, 1);
+        }
         $cacheId = $this->prefix . $class;
         if($this->cache->check($cacheId)){
             $file = $this->cache->get($cacheId);
