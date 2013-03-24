@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Session;
 
 /**
@@ -35,7 +36,16 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
+    }
+    
+    /**
+     * @covers \Packfire\Session\Session::__construct
+     */
+    public function testStorage(){
+        $property = new \ReflectionProperty($this->object, 'storage');
+        $property->setAccessible(true);
+        $this->assertEquals($this->stub, $property->getValue($this->object));
     }
 
     /**

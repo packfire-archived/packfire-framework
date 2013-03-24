@@ -18,6 +18,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Collection\Iterator::__construct
      */
     protected function setUp() {
         $this->array = array(1, 3, 5, 7, 9, 11, 13, 15);

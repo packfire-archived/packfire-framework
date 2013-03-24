@@ -154,6 +154,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
     public function testLastIndexOf() {
         $this->assertEquals(13, $this->object->lastIndexOf('testabc10runcool10'));
         $this->assertEquals(13, $this->object->lastIndexOf('testabc10runcool10', 6));
+        $this->assertEquals(-1, $this->object->lastIndexOf('yunoexist'));
     }
 
     /**
