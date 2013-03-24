@@ -56,11 +56,7 @@ abstract class Theme {
      */
     protected function define($key, $value = null){
         if(func_num_args() == 1){
-            if(is_string($key)){
-                return $this->fields[$key];
-            }else{
-                $this->fields->append($key);
-            }
+            $this->fields->append($key);
         }else{
             $this->fields[$key] = $value;
         }
