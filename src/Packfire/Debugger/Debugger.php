@@ -160,6 +160,7 @@ class Debugger implements IConsumer {
      * end execution.
      * @internal
      * @ignore 
+     * @codeCoverageIgnore
      */
     public function __destruct(){
         if($this->enabled && __ENVIRONMENT__ != 'test'){

@@ -35,6 +35,7 @@ class PriorityQueue extends Queue {
      * Create a new PriorityQueue object
      * @param Closure|callback $comparator The comparator to perform the sort
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function __construct($comparator) {
         parent::__construct();

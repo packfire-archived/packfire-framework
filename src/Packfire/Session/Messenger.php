@@ -33,14 +33,6 @@ class Messenger implements IConsumer {
      */
     private $session;
 
-    /**
-     * Create a new Messenger object
-     * @since 1.0-sofia
-     */
-    public function __construct(){
-
-    }
-
     public function __invoke($container){
         $this->session = $container['session']->bucket('Messenger');
         return $this;
@@ -52,6 +44,7 @@ class Messenger implements IConsumer {
      * @param string $recepient (optional) The intended recepient.
      * @return string Returns the session key
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     private function buildKey($name, $recepient = null){
         if(null == $recepient){

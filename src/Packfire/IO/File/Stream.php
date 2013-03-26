@@ -41,6 +41,7 @@ class Stream extends FileInputStream implements IIOStream {
      * Does nothing, really.
      * @ignore
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function flush() {
         // well, flush does nothing here at all (:

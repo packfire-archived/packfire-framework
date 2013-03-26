@@ -53,6 +53,7 @@ class TextStream implements IIOStream {
      * Nothing to do here
      * @ignore me... foreveralone
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function close() {
         // nothing here ^^
@@ -62,6 +63,7 @@ class TextStream implements IIOStream {
      * Nothing to do here
      * @ignore me... foreveralone
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function open() {
         // nothing here
@@ -131,6 +133,7 @@ class TextStream implements IIOStream {
      * Does nothing, really.
      * @ignore 
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function flush() {
         // well, flush does nothing here at all (:
