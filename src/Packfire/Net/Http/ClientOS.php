@@ -18,7 +18,8 @@ namespace Packfire\Net\Http;
  * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Net\Http
- * @since 1.0-sifa
+ * @since 1.0-sofia
+ * @codeCoverageIgnore
  */
 class ClientOS {
 

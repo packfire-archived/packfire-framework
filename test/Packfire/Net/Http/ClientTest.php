@@ -19,6 +19,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Net\Http\Client::__construct
+     * @covers \Packfire\Net\Http\Client::detect
      */
     protected function setUp() {
         $this->object = new Client(self::IP, self::UA);

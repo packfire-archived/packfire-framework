@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Response;
 
 /**
@@ -12,7 +13,7 @@ class XmlResponseTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-
+        
     }
 
     /**
@@ -20,7 +21,7 @@ class XmlResponseTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
@@ -31,6 +32,16 @@ class XmlResponseTest extends \PHPUnit_Framework_TestCase {
             'data' => 5
         );
         $object = new XmlResponse($data);
+        $this->assertEquals('application/xml', $object->headers()->get('Content-Type'));
+        $this->assertEquals('<?xml version="1.0" encoding="UTF-8" ?>' . "\n" . '<root><data type="integer">5</data></root>', $object->body());
+        $this->assertEquals($object->body(), $object->output());
+    }
+
+    /**
+     * @covers \Packfire\Response\XmlResponse
+     */
+    public function testResponse2() {
+        $object = new XmlResponse('<?xml version="1.0" encoding="UTF-8" ?>' . "\n" . '<root><data type="integer">5</data></root>');
         $this->assertEquals('application/xml', $object->headers()->get('Content-Type'));
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8" ?>' . "\n" . '<root><data type="integer">5</data></root>', $object->body());
         $this->assertEquals($object->body(), $object->output());
