@@ -28,6 +28,7 @@ class TextTest extends \PHPUnit_Framework_TestCase {
      * @covers \Packfire\Text\Text::truncate
      */
     public function testTruncate() {
+        $this->assertEquals('Hello', Text::truncate('Hello', 100));
         $this->assertEquals('How are you...', Text::truncate('How are you today?', 15));
         $this->assertEquals('How are...', Text::truncate('How are you today?', 10));
         $this->assertEquals('How...', Text::truncate('How are you today?', 5));
@@ -40,6 +41,7 @@ class TextTest extends \PHPUnit_Framework_TestCase {
      * @covers \Packfire\Text\Text::highlight
      */
     public function testHighlight() {
+        $this->assertEquals('To <b>get over</b> the fence <b>comes over</b> the fear.', Text::highlight('To get over the fence comes over the fear.', array('get over', 'comes over')));
         $this->assertEquals('To get <b>over the</b> fence comes <b>over the</b> fear.', Text::highlight('To get over the fence comes over the fear.', 'over the'));
         $this->assertEquals('To get <a href="over the">over the</a> fence comes <a href="over the">over the</a> fear.', Text::highlight('To get over the fence comes over the fear.', 'over the', '<a href="$1">$1</a>'));
     }
@@ -57,6 +59,7 @@ class TextTest extends \PHPUnit_Framework_TestCase {
      * @covers \Packfire\Text\Text::listing
      */
     public function testListing() {
+        $this->assertEquals('harry potter', Text::listing(array('harry potter')));
         $this->assertEquals('harry, hermione and ron', Text::listing(array('harry', 'hermione', 'ron')));
         $this->assertEquals('harry, hermione or ron', Text::listing(array('harry', 'hermione', 'ron'), 'or'));
         $this->assertEquals('harry; hermione or ron', Text::listing(array('harry', 'hermione', 'ron'), 'or', '; '));
@@ -69,11 +72,11 @@ class TextTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('Tbbq qnl, Fve!', Text::rotate13('Good day, Sir!'));
         $this->assertEquals('Enqvb 241 vanpgvir.', Text::rotate13('Radio 241 inactive.'));
     }
-    
+
     /**
      * @covers \Packfire\Text\Text::slugify
      */
-    public function testSlugify(){
+    public function testSlugify() {
         $this->assertEquals('apple-pear', Text::slugify('Apple, Pear'));
         $this->assertEquals('26-apple-54-pear', Text::slugify('26 Apple & 54 Pear'));
     }
