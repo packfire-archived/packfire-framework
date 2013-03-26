@@ -84,7 +84,10 @@ class Inflector {
         'maze' => 'mazes',
         'day' => 'days',
         'has' => 'have',
-        'is' => 'are'
+        'is' => 'are',
+        'mum' => 'mums',
+        'mom' => 'moms',
+        'agenda' => 'agendas'
     );
     
     /**
@@ -104,6 +107,7 @@ class Inflector {
      * @param string $newWord The word to transform
      * @return string Returns the new word in the form of the original word.
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     private static function retainForm($originalWord, $newWord){
         if(self::isWordLowerCase($originalWord)){
@@ -196,7 +200,7 @@ class Inflector {
         $endWith = array('xes', 'ses', 'zes', 'shes', 'ches');
         foreach($endWith as $ew){
             if(substr($lc, -strlen($ew)) == $ew){
-                return self::retainForm($word, substr($word, 0, strlen($w) - 2));
+                return self::retainForm($word, substr($word, 0, strlen($word) - 2));
             }
         }
 
@@ -260,7 +264,7 @@ class Inflector {
         }
         
         // box => boxes
-        $endWith = array('x', 's', 'z', 'sh', 'ch');
+        $endWith = array('x', 'ss', 'us', 'is', 'z', 'sh', 'ch');
         foreach($endWith as $ew){
             if(substr($lc, -strlen($ew)) == $ew){
                 return self::retainForm($word, $word . 'es');

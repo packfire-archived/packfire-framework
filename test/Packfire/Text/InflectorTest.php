@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Text;
 
 /**
@@ -37,13 +38,13 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
      * @covers \Packfire\Text\Inflector::firstUpperCase
      */
-    public function testFirstUpperCase(){
+    public function testFirstUpperCase() {
         $this->assertEquals(4, Inflector::firstUpperCase('testRun'));
         $this->assertEquals(6, Inflector::firstUpperCase('incaseTestRun'));
         $this->assertEquals(false, Inflector::firstUpperCase('home'));
@@ -86,6 +87,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse(Inflector::isCapitalLetterWord('aGood'));
         $this->assertFalse(Inflector::isCapitalLetterWord('bGreat!'));
         $this->assertFalse(Inflector::isCapitalLetterWord('cH4ppy n0w?'));
+        $this->assertFalse(Inflector::isCapitalLetterWord(''));
     }
 
     /**
@@ -96,9 +98,10 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
             'man' => 'man',
             'key' => 'key',
             'mummy' => 'mummy',
-            'yatch' => 'yatch'
+            'yatch' => 'yatch',
+            'matches' => 'match'
         ));
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($singular, Inflector::singular($plural));
         }
     }
@@ -111,9 +114,11 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
             'men' => 'men',
             'keys' => 'keys',
             'mummies' => 'mummies',
-            'yatches' => 'yatches'
+            'yatches' => 'yatches',
+            'passes' => 'pass',
+            'kins' => 'kins'
         ));
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($plural, Inflector::plural($singular));
         }
     }
@@ -123,18 +128,36 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testQuantify() {
         $quantifier = 1;
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($singular, Inflector::quantify($quantifier, $singular));
         }
+    }
+
+    /**
+     * @covers \Packfire\Text\Inflector::quantify
+     */
+    public function testQuantify2() {
         $quantifier = 5;
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($plural, Inflector::quantify($quantifier, $singular));
         }
+    }
+
+    /**
+     * @covers \Packfire\Text\Inflector::quantify
+     */
+    public function testQuantify3() {
         $quantifier = 100;
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($plural, Inflector::quantify($quantifier, $singular));
             $this->assertEquals($singular, Inflector::quantify($quantifier, $singular, $singular));
         }
+    }
+
+    /**
+     * @covers \Packfire\Text\Inflector::quantify
+     */
+    public function testQuantify4() {
         $this->assertEquals('aaa', Inflector::quantify(2, 'bbb', 'aaa'));
         $this->assertEquals('bbb', Inflector::quantify(1, 'bbb', 'aaa'));
     }
