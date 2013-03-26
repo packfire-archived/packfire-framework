@@ -39,6 +39,7 @@ class CallSequence {
     /**
      * Create a new CallSequence object
      * @since 2.0.8
+     * @codeCoverageIgnore
      */
     public function __construct(){
         // create a unique reference object
