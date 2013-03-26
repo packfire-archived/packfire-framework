@@ -43,6 +43,7 @@ class helperTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('integer', dtype(5));
         $this->assertEquals('boolean', dtype(false));
         $this->assertEquals('stdClass/', substr(dtype(new stdClass), 0, 9));
+        $this->assertEquals('resource/', substr(dtype(fopen(__FILE__, 'r')), 0, 9));
     }
 
     
