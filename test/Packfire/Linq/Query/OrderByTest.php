@@ -41,6 +41,15 @@ class OrderByTest extends \PHPUnit_Framework_TestCase {
     protected function tearDown() {
 
     }
+    
+    public function testDescending(){
+        $this->object = new OrderBy(function($item) {
+                            return $item['name'];
+                        }, true);
+        $result = $this->object->run($this->data);
+        $this->assertEquals('Sofia', $result[0]['name']);
+        $this->assertEquals('Sky', $result[1]['name']);
+    }
 
     /**
      * @covers \Packfire\Linq\Query\OrderBy::run
