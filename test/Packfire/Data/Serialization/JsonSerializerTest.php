@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Data\Serialization;
 
 use Packfire\Text\TextStream;
@@ -28,7 +29,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
@@ -67,12 +68,50 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
+     */
+    public function testSerialize4() {
+        $meta = array(
+            'test' => 'data',
+            'control' => array(
+                'date' => true
+            )
+        );
+        $data = $this->getMock('Packfire\Data\Serialization\ISerializable');
+        $data->expects($this->once())
+                ->method('serialize')
+                ->will($this->returnValue($meta));
+        $result = $this->object->serialize($data);
+        $this->assertEquals('{"test":"data","control":{"date":true}}', $result);
+    }
+
+    /**
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
+     */
+    public function testSerialize5() {
+        $meta = array(
+            'test' => 'data',
+            'control' => array(
+                'date' => true
+            )
+        );
+        $data = $this->getMock('Packfire\Data\Serialization\ISerializable');
+        $data->expects($this->once())
+                ->method('serialize')
+                ->will($this->returnValue($meta));
+        $stream = new TextStream();
+        $this->object->serialize($stream, $data);
+        $stream->seek(0);
+        $this->assertEquals('{"test":"data","control":{"date":true}}', $stream->read($stream->length()));
+    }
+
+    /**
      * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
      */
     public function testDeserialize() {
         $data = array('key' => 'value', 'arr' => array('test'));
         $stream = new TextStream('{"key":"value","arr":["test"]}');
-        $item = (array)$this->object->deserialize($stream);
+        $item = (array) $this->object->deserialize($stream);
         $this->assertEquals($data, $item);
     }
 
@@ -105,7 +144,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
      * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
      * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
      */
-    public function testOverall(){
+    public function testOverall() {
         $data = new \stdClass();
         $data->test = 'data';
         $data->control = new \stdClass();

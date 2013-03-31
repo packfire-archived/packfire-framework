@@ -14,9 +14,11 @@ namespace Packfire\Core;
 use Packfire\Collection\Map;
 use Packfire\Exception\MissingDependencyException;
 
+//@codeCoverageIgnoreStart
 if(!class_exists('ReflectionMethod')){
     throw new MissingDependencyException('ActionInvoker requires Reflection to be enabled in order to work');
 }
+//@codeCoverageIgnoreEnd
 
 /**
  * Invokes a callback with an associative argument array

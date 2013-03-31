@@ -1,7 +1,9 @@
 <?php
+
 namespace Packfire\Session;
 
 require_once('test/Mocks/SessionStorage.php');
+
 use Packfire\Test\Mocks\SessionStorage;
 use Packfire\FuelBlade\Container;
 
@@ -15,24 +17,24 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
      * @var \Packfire\Session\Messenger
      */
     protected $object;
-    
     private $ioc;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Session\Messenger::__invoke
      */
     protected function setUp() {
         $this->object = new Messenger;
         $this->ioc = new Container();
         $bucket = $this->ioc;
         $bucket['session.storage'] = new SessionStorage();
-        
-        $bucket['session'] = $bucket->share(function($c){
-            return new Session($c['session.storage']);
-        });
+
+        $bucket['session'] = $bucket->share(function($c) {
+                    return new Session($c['session.storage']);
+                });
         $bucket['messenger'] = $this->object;
-        
+
         call_user_func($this->object, $this->ioc);
     }
 
@@ -41,7 +43,7 @@ class MessengerTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**

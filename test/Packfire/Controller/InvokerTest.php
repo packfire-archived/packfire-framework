@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Controller;
 
 use Packfire\Application\Http\Request as HttpRequest;
@@ -8,6 +9,7 @@ use Packfire\Session\Session;
 use Packfire\Route\Http\Route;
 use Packfire\Route\Http\Router;
 use Packfire\FuelBlade\Container;
+
 require_once('test/Mocks/SessionStorage.php');
 
 /**
@@ -20,7 +22,6 @@ class InvokerTest extends \PHPUnit_Framework_TestCase {
      * @var \Packfire\Controller\Invoker
      */
     protected $object;
-    
     protected $ioc;
 
     /**
@@ -31,33 +32,32 @@ class InvokerTest extends \PHPUnit_Framework_TestCase {
     protected function setUp() {
         $this->ioc = new Container();
         $bucket = $this->ioc;
-        
+
         $this->object = new Invoker(
-                        'Packfire\Welcome\HomeController',
-                        'index'
+                'Packfire\Welcome\HomeController', 'index'
         );
-        
+
         $request = new HttpRequest(null, null);
         $request->method('GET');
         $bucket['request'] = $request;
-        
+
         $bucket['response'] = new HttpResponse();
-        
-        $bucket['session.storage'] = $bucket->share(function(){
-            return new \Packfire\Test\Mocks\SessionStorage();
-        });
-        
-        $bucket['session'] = $bucket->share(function($c){
-            return new Session($c['session.storage']);
-        });
-        
+
+        $bucket['session.storage'] = $bucket->share(function() {
+                    return new \Packfire\Test\Mocks\SessionStorage();
+                });
+
+        $bucket['session'] = $bucket->share(function($c) {
+                    return new Session($c['session.storage']);
+                });
+
         $router = new Router();
         $config = new Map(array('rewrite' => 'home/{theme}', 'actual' => 'Rest'));
         $router->add('home', new Route('route.home', $config));
         $router->add('themeSwitch', new Route('route.home', $config));
         $bucket['router'] = $router;
         $bucket['route'] = $router->entries()->get('home');
-        
+
         call_user_func($this->object, $this->ioc);
     }
 
@@ -66,7 +66,7 @@ class InvokerTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Core;
 
 /**
@@ -17,6 +18,7 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
+        
     }
 
     /**
@@ -24,19 +26,20 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
-    public function action($name, $age){
+    public function action($name, $age) {
         return $name . $age;
     }
 
-    public static function staticAction($height, $weight){
+    public static function staticAction($height, $weight) {
         return floor($weight / pow($height, 2));
     }
 
     /**
      * @covers \Packfire\Core\ActionInvoker::invoke
+     * @covers \Packfire\Core\ActionInvoker::__construct
      */
     public function testInvoke() {
         $object = new ActionInvoker(array($this, 'action'));
@@ -45,19 +48,21 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers \Packfire\Core\ActionInvoker::invoke
+     * @covers \Packfire\Core\ActionInvoker::__construct
      */
     public function testInvoke2() {
         $params = array();
-        $object = new ActionInvoker(function($name, $age) use(&$params){
-            $params = func_get_args();
-            return true;
-        });
+        $object = new ActionInvoker(function($name, $age) use(&$params) {
+                    $params = func_get_args();
+                    return true;
+                });
         $this->assertTrue($object->invoke(array('age' => 5, 'name' => 'John Smith')));
         $this->assertEquals(array('John Smith', 5), $params);
     }
 
     /**
      * @covers \Packfire\Core\ActionInvoker::invoke
+     * @covers \Packfire\Core\ActionInvoker::__construct
      */
     public function testInvoke3() {
         $object = new ActionInvoker('strpos');
@@ -66,6 +71,7 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers \Packfire\Core\ActionInvoker::invoke
+     * @covers \Packfire\Core\ActionInvoker::__construct
      */
     public function testInvoke4() {
         $object = new ActionInvoker('Packfire\Core\ActionInvokerTest::staticAction');
