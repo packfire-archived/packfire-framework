@@ -118,9 +118,9 @@ abstract class Controller implements IConsumer {
             $url = $this->ioc['config']->get('app', 'rootUrl') . $url;
         }
         if(func_num_args() == 2){
-            $this->response = new RedirectResponse($url, $code);
+            $this->ioc['response'] = new RedirectResponse($url, $code);
         }else{
-            $this->response = new RedirectResponse($url);
+            $this->ioc['response'] = new RedirectResponse($url);
         }
     }
 
