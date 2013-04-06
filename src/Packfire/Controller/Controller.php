@@ -221,7 +221,7 @@ abstract class Controller implements IConsumer {
             $validator = new Validator($route->rules(),
                     $this->validationHandler);
             $params = array();
-            $validator->validate($route->params(), $params);
+            $validator->validate($route->remap(), $params);
         }
         
         $securityEnabled = isset($this->ioc['config'])

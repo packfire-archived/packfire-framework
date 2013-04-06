@@ -155,6 +155,9 @@ abstract class Route implements IRoute {
             }elseif(isset($data[$rule])){
                 $param = $data[$rule];
                 $index = $rule;
+            }else{
+                $param = null;
+                $index = $rule;
             }
             if($index){
                 $result[$index] = $param;
