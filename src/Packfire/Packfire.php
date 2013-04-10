@@ -78,6 +78,7 @@ class Packfire {
      * @since 1.0-sofia
      */
     public function fire($app){
+        $app($this->ioc);
         set_error_handler(function($errno, $errstr, $errfile, $errline){
             $e = new ErrorException($errstr);
             $e->setCode($errno);
@@ -90,7 +91,6 @@ class Packfire {
         $this->ioc['request'] = $this->ioc->share(function() use($request){
             return $request;
         });
-        $app($this->ioc);
         $app->process();
         if(isset($this->ioc['response'])){
             $response = $this->ioc['response'];
