@@ -39,35 +39,35 @@ abstract class View implements IView, IConsumer {
 
     /**
      * The state that is passed from the controller
-     * @var Map
+     * @var \Packfire\Collection\Map
      * @since 1.0-sofia
      */
     protected $state;
 
     /**
      * The fields in the view defined
-     * @var Map
+     * @var \Packfire\Collection\Map
      * @since 1.0-sofia
      */
     private $fields;
 
     /**
      * The filters for the output fields
-     * @var ArrayList
+     * @var \Packfire\Collection\ArrayList
      * @since 1.0-sofia
      */
     private $filters;
 
     /**
      * The template for the view to render
-     * @var ITemplate
+     * @var \Packfire\Template\ITemplate
      * @since 1.0-sofia
      */
     private $template;
 
     /**
      * The template for the view to render
-     * @var Theme
+     * @var \Packfire\View\Theme
      * @since 1.0-sofia
      */
     private $theme;
@@ -106,7 +106,7 @@ abstract class View implements IView, IConsumer {
      * As the object property gets updated, the template field gets updated too.
      *
      * @param string $key The template field to bind to
-     * @param ObjectObserver $object The object to be binded
+     * @param \Packfire\Core\ObjectObserver $object The object to be binded
      * @param string $property The property of the object to bind to the
      *                  template field.
      * @throws InvalidArgumentException Thrown when $object is not an instance of ObjectObserver
