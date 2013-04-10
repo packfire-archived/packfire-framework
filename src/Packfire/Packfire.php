@@ -46,25 +46,21 @@ class Packfire {
      * @since 2.0.0
      */
     public function __construct(){
+        if(!defined('__APP_ROOT__')){
+            define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . DIRECTORY_SEPARATOR . 'pack');
+        }
         if(!class_exists('Packfire\Core\ClassLoader\PackfireClassFinder')){
-            if(!defined('__APP_ROOT__')){
-                define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . DIRECTORY_SEPARATOR . 'pack');
-            }
             
             if(is_dir(__APP_ROOT__ . '/vendor')){
                 require(__APP_ROOT__ . '/vendor/autoload.php');
-            }
-            
-            if(is_dir(__DIR__ . '/../../vendor')){
-                require(__DIR__ . '/../../vendor/autoload.php');
             }
             
             require(__DIR__ . '/Core/ClassLoader/IClassLoader.php');
             require(__DIR__ . '/Core/ClassLoader/IClassFinder.php');
             require(__DIR__ . '/Core/ClassLoader/PackfireClassFinder.php');
             require(__DIR__ . '/Core/ClassLoader/ClassLoader.php');
-            require(__DIR__ . '/helper.php');
         }
+        require(__DIR__ . '/helper.php');
         $this->ioc = new Container();
         $this->ioc['autoload.finder'] = new PackfireClassFinder();
         $this->ioc['autoload.loader'] = new ClassLoader();
