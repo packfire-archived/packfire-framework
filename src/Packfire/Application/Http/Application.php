@@ -18,9 +18,9 @@ use Packfire\Exception\HttpException;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Controller\Invoker as ControllerInvoker;
 use Packfire\Net\Http\Method as HttpMethod;
-use Packfire\DateTime\TimeSpan;
 use Packfire\Collection\Map;
 use Packfire\Route\Http\Route;
+use Packfire\Route\CacheRouter;
 
 /**
  * The default web serving application
@@ -84,29 +84,18 @@ class Application extends ServiceApplication {
                     $config));
         }
         
-        /* @var $route Route */
-        $route = null;
         if($request->method() == HttpMethod::GET 
                 && isset($this->ioc['config'])
+                && isset($this->ioc['cache'])
                 && $this->ioc['config']->get('routing', 'caching')){
-            
-            if(isset($this->ioc['cache'])){
-                $cache = $this->ioc['cache'];
-                $cacheId = 'route.' . $request->method() . sha1($request->uri() . $request->queryString());
-                if($cache->check($cacheId)){
-                    $route = $cache->get($cacheId);
-                }else{
-                    $route = $router->route($request);
-                    if($route){
-                        $cache->set($cacheId, $route, new TimeSpan(7200));
-                    }
-                }
-            }
+            $this->ioc['router'] = $this->ioc->share(function($c) use($router){
+                return new CacheRouter($router, $c['cache']);
+            });
+            $router = $this->ioc['router'];
         }
         
-        if(!$route){
-            $route = $router->route($request);
-        }
+        /* @var $route Route */
+        $route = $router->route($request);
         $this->ioc['route'] = $route;
         $this->ioc['response'] = new Response();
                 
