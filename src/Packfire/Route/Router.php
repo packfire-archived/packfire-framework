@@ -27,6 +27,8 @@ use Packfire\FuelBlade\IConsumer;
  */
 abstract class Router implements IConsumer {
     
+    protected $routeType;
+    
     protected $settings;
     
     /**
@@ -52,22 +54,14 @@ abstract class Router implements IConsumer {
         $settings = $this->settings;
         if($settings){
             $routes = $settings->get();
+            $type = $this->routeType;
             foreach($routes as $key => $data){
                 $data = new Map($data);
-                $route = $this->routeFactory($key, $data);
+                $route = new $type($key, $data);
                 $this->add($key, $route);
             }
         }
     }
-    
-    /**
-     * Factory manufature the route based on the configuration
-     * @param string $key Name of the route
-     * @param Map $data The configuration of the route
-     * @return IRoute Returns the route manufactured
-     * @since 1.0-elenor
-     */
-    protected abstract function routeFactory($key, $data);
     
     /**
      * Add a new routing entry to the router
