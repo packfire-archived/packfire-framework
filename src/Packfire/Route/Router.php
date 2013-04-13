@@ -25,13 +25,13 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Route
  * @since 1.0-sofia
  */
-abstract class Router implements IConsumer {
+abstract class Router implements IConsumer, IRouter {
     
     protected $routeType;
     
     /**
      * The collection of routing entries
-     * @var Map
+     * @var \Packfire\Collection\Map
      * @since 1.0-sofia
      */
     private $routes;
@@ -48,7 +48,7 @@ abstract class Router implements IConsumer {
      * Add a new routing entry to the router
      * @param string $key The routing key that uniquely identify this
      *               routing entry.
-     * @param Route $route  The route entry
+     * @param \Packfire\Route\IRoute $route  The route entry
      * @since 1.0-sofia
      */
     public function add($key, $route){
@@ -70,8 +70,8 @@ abstract class Router implements IConsumer {
     
     /**
      * Perform routing operation and return the route entry
-     * @param IAppRequest $request The HTTP request to perform routing
-     * @return IRoute Returns the route found based on the request or NULL
+     * @param \Packfire\Application\IAppRequest $request The HTTP request to perform routing
+     * @return \Packfire\Route\IRoute Returns the route found based on the request or NULL
      *              if no suitable route is found.
      * @since 1.0-elenor
      */
@@ -91,7 +91,7 @@ abstract class Router implements IConsumer {
      * Get the URL for a particular routing key
      * @param string $key The routing key that uniquely identify the routing
      *                    entry to fetch.
-     * @param array|Map $params (optional) The parameters to insert into
+     * @param array|\Packfire\Collection\Map $params (optional) The parameters to insert into
      *                   the URL.
      * @return string Returns the URL
      * @since 1.0-sofia
