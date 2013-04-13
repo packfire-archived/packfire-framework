@@ -69,7 +69,6 @@ class Application extends ServiceApplication {
         }
         $router = $this->ioc['router'];
         /* @var $router \Packfire\Route\Router */
-        $router->load();
         
         $debugMode = isset($this->ioc['config'])
                 && $this->ioc['config']->get('app', 'debug');
@@ -112,8 +111,7 @@ class Application extends ServiceApplication {
         }
         $this->ioc['route'] = $route;
         $this->ioc['response'] = new Response();
-        
-        
+                
         if($route instanceof RedirectRoute){
             $this->ioc['response'] = new RedirectResponse($route->redirect(), $route->code());
         }elseif($route){

@@ -29,8 +29,6 @@ abstract class Router implements IConsumer {
     
     protected $routeType;
     
-    protected $settings;
-    
     /**
      * The collection of routing entries
      * @var Map
@@ -44,23 +42,6 @@ abstract class Router implements IConsumer {
      */
     public function __construct(){
         $this->routes = new Map();
-    }
-    
-    /**
-     * Perform loading of routes from the routing configuration file
-     * @since 1.0-elenor
-     */
-    public function load(){
-        $settings = $this->settings;
-        if($settings){
-            $routes = $settings->get();
-            $type = $this->routeType;
-            foreach($routes as $key => $data){
-                $data = new Map($data);
-                $route = new $type($key, $data);
-                $this->add($key, $route);
-            }
-        }
     }
     
     /**
@@ -141,7 +122,14 @@ abstract class Router implements IConsumer {
     
     public function __invoke($c){
         if(isset($c['config.routing'])){
-            $this->settings = $c['config.routing'];
+            $settings = $c['config.routing'];
+            $routes = $settings->get();
+            $type = $this->routeType;
+            foreach($routes as $key => $data){
+                $data = new Map($data);
+                $route = new $type($key, $data);
+                $this->add($key, $route);
+            }
         }
         return $this;
     }
