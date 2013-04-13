@@ -17,8 +17,6 @@ use Packfire\Application\Http\ServiceLoader;
 use Packfire\Exception\HttpException;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Controller\Invoker as ControllerInvoker;
-use Packfire\Response\RedirectResponse;
-use Packfire\Route\Http\RedirectRoute;
 use Packfire\Net\Http\Method as HttpMethod;
 use Packfire\DateTime\TimeSpan;
 use Packfire\Collection\Map;
@@ -112,9 +110,7 @@ class Application extends ServiceApplication {
         $this->ioc['route'] = $route;
         $this->ioc['response'] = new Response();
                 
-        if($route instanceof RedirectRoute){
-            $this->ioc['response'] = new RedirectResponse($route->redirect(), $route->code());
-        }elseif($route){
+        if($route){
             if(is_string($route->actual()) && strpos($route->actual(), ':')){
                 list($class, $action) = explode(':', $route->actual());
             }else{
