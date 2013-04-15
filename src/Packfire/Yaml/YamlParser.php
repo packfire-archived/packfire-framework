@@ -343,7 +343,7 @@ class YamlParser {
                     // we've got a value and key!
                     $this->line = $value;
                     $this->trimmedLine = trim($value);
-                    $this->intendation += 2;
+                    $this->indentation += 2;
                     $value = $this->fetchFullValue();
                 }
                 $result[$key] = $value;
