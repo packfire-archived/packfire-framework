@@ -294,7 +294,7 @@ abstract class Controller implements IConsumer {
             $errorMsg = sprintf('The requested action "%s" is not found'
                                 . ' in the controller "%s".',
                                 $call, get_class($this));
-            if($this->request instanceof HttpRequest){
+            if(isset($this->ioc['request']) && $this->ioc['request'] instanceof HttpRequest){
                 throw new HttpException(404, $errorMsg);
             }else{
                 throw new InvalidRequestException($errorMsg);
