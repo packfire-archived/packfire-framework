@@ -16,8 +16,8 @@ use Packfire\View\IView;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 use Packfire\Core\ObjectObserver;
-use Packfire\IoC\BucketUser;
 use Packfire\Exception\InvalidArgumentException;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * The generic view class.
@@ -28,39 +28,46 @@ use Packfire\Exception\InvalidArgumentException;
  * @package Packfire\View
  * @since 1.0-sofia
  */
-abstract class View extends BucketUser implements IView {
+abstract class View implements IView, IConsumer {
+    
+    /**
+     * The IoC Container
+     * @var \Packfire\FuelBlade\Container
+     * @since 2.1.0
+     */
+    protected $ioc;
 
     /**
      * The state that is passed from the controller
-     * @var Map
+     * @var \Packfire\Collection\Map
      * @since 1.0-sofia
      */
     protected $state;
 
     /**
      * The fields in the view defined
-     * @var Map
+     * @var \Packfire\Collection\Map
      * @since 1.0-sofia
      */
     private $fields;
 
     /**
      * The filters for the output fields
-     * @var ArrayList
+     * @var \Packfire\Collection\ArrayList
      * @since 1.0-sofia
      */
     private $filters;
 
     /**
      * The template for the view to render
-     * @var ITemplate
+     * @var \Packfire\Template\ITemplate
      * @since 1.0-sofia
      */
     private $template;
 
     /**
      * The template for the view to render
-     * @var Theme
+     * @var \Packfire\View\Theme
      * @since 1.0-sofia
      */
     private $theme;
@@ -99,7 +106,7 @@ abstract class View extends BucketUser implements IView {
      * As the object property gets updated, the template field gets updated too.
      *
      * @param string $key The template field to bind to
-     * @param ObjectObserver $object The object to be binded
+     * @param \Packfire\Core\ObjectObserver $object The object to be binded
      * @param string $property The property of the object to bind to the
      *                  template field.
      * @throws InvalidArgumentException Thrown when $object is not an instance of ObjectObserver
@@ -184,10 +191,10 @@ abstract class View extends BucketUser implements IView {
      * @since 1.0-sofia
      */
     protected function route($key, $params = array()){
-        $router = $this->service('router');
+        $router = $this->ioc['router'];
         $url = $router->to($key, $params);
-        if(strlen($url) > 0 && $url[0] == '/'){
-            $url = $this->service('config.app')->get('app', 'rootUrl') . $url;
+        if(strlen($url) > 0 && $url[0] == '/' && isset($this->ioc['config'])){
+            $url = $this->ioc['config']->get('app', 'rootUrl') . $url;
         }
         return $url;
     }
@@ -222,10 +229,11 @@ abstract class View extends BucketUser implements IView {
                 $name = $filter[0];
                 $filter = $filter[1];
                 $value = $this->fields[$name];
-                if($filter instanceof \Closure || is_callable($filter)){
-                    $value = $filter($value);
-                }elseif(class_exists($filter)){
+                if(class_exists($filter)){
                     $filter = new $filter();
+                }
+                if(is_callable($filter)){
+                    $value = $filter($value);
                 }
                 $this->fields[$name] = $value;
             }
@@ -243,6 +251,11 @@ abstract class View extends BucketUser implements IView {
             $output = $this->template->parse();
         }
         return $output;
+    }
+    
+    public function __invoke($c){
+        $this->ioc = $c;
+        return $this;
     }
 
 }

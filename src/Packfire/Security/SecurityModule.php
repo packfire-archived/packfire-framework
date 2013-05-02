@@ -11,8 +11,8 @@
 
 namespace Packfire\Security;
 
-use Packfire\IoC\BucketUser;
 use Packfire\Security\ISecurityModule;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * The default security module implementation
@@ -23,7 +23,14 @@ use Packfire\Security\ISecurityModule;
  * @package Packfire\Security
  * @since 1.0-sofia
  */
-class SecurityModule extends BucketUser implements ISecurityModule {
+class SecurityModule implements ISecurityModule, IConsumer {
+    
+    /**
+     * The IoC container
+     * @var \Packfire\FuelBlade\Container
+     * @since 2.1.0
+     */
+    protected $ioc;
     
     /**
      * The request made to the application for security checking
@@ -59,14 +66,15 @@ class SecurityModule extends BucketUser implements ISecurityModule {
      * @since 1.0-sofia
      */
     public function identity($newIdentity = null) {
+        $useSession = isset($this->ioc['session']);
         if(func_num_args() == 1){
-            if($this->service('session')){
-                $this->service('session')->bucket(__CLASS__)
+            if($useSession){
+                $this->ioc['session']->bucket(__CLASS__)
                        ->set('identity', $newIdentity);
             }
         }
-        if($this->service('session')){
-            return $this->service('session')->bucket(__CLASS__)
+        if($useSession){
+            return $this->ioc['session']->bucket(__CLASS__)
                     ->get('identity');
         }
         return $newIdentity;
@@ -91,6 +99,11 @@ class SecurityModule extends BucketUser implements ISecurityModule {
             $this->request = $request;
         }
         return $this->request;
+    }
+ 
+    public function __invoke($container) {
+        $this->ioc = $container;
+        return $this;
     }
     
 }

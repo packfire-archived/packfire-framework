@@ -71,7 +71,7 @@ class DateTime extends Date implements IFormattable {
     public function timezone($timezone = null){
         if(func_num_args() == 1 && $this->timezone != $timezone){
             $dt = self::convertTimezone($this, $timezone);
-            $this->year = $dt->year();
+            $this->year = $dt->year;
             $this->month = $dt->month;
             $this->day = $dt->day;
             $this->time = $dt->time;
@@ -207,12 +207,17 @@ class DateTime extends Date implements IFormattable {
      */
     public function toTimestamp($convert = true) {
         $neutral = $this;
+        $default = date_default_timezone_get();
         if($convert){
             $neutral = self::convertTimezone($neutral, 0);
+            date_default_timezone_set('Etc/UTC');
+        }else{
+            date_default_timezone_set('Etc/GMT' . ($this->timezone < 0 ? '-':'+') . abs($this->timezone));
         }
         $ts = gmmktime($neutral->time->hour(), $neutral->time->minute(),
                 $neutral->time->second(), $neutral->month(),
                 $neutral->day(), $neutral->year());
+        date_default_timezone_set($default);
         return $ts;
     }
 
@@ -285,7 +290,7 @@ class DateTime extends Date implements IFormattable {
      * @since 1.0-sofia
      */
     public function format($format){
-        return gmdate($format, $this->toTimestamp());
+        return gmdate($format, $this->toTimestamp(false));
     }
 
     /**

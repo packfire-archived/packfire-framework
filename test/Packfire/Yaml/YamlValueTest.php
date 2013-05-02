@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Yaml;
 
 /**
@@ -12,7 +13,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-
+        
     }
 
     /**
@@ -20,11 +21,11 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers YamlValue::stripComment
+     * @covers \Packfire\Yaml\YamlValue::stripComment
      */
     public function testStripComment() {
         $text = 'message great # maybe this will work?';
@@ -32,7 +33,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::stripComment
+     * @covers \Packfire\Yaml\YamlValue::stripComment
      */
     public function testStripComment2() {
         $text = '"message great # maybe this will work?"';
@@ -40,7 +41,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::stripComment
+     * @covers \Packfire\Yaml\YamlValue::stripComment
      */
     public function testStripComment3() {
         $text = '# "message great maybe this will work?"';
@@ -48,7 +49,16 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::isQuoted
+     * @covers \Packfire\Yaml\YamlValue::stripComment
+     */
+    public function testStripComment4() {
+        $text = "message great # \\\"maybe\nthis will work?";
+        $this->assertEquals('message great ', YamlValue::stripComment($text));
+    }
+
+
+    /**
+     * @covers \Packfire\Yaml\YamlValue::isQuoted
      */
     public function testIsQuoted() {
         $text = '# "message great maybe this will work?"';
@@ -56,7 +66,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::isQuoted
+     * @covers \Packfire\Yaml\YamlValue::isQuoted
      */
     public function testIsQuoted2() {
         $text = '"message great maybe this will work?"';
@@ -64,7 +74,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::isQuoted
+     * @covers \Packfire\Yaml\YamlValue::isQuoted
      */
     public function testIsQuoted3() {
         $text = '\'message great maybe this will work?"';
@@ -72,7 +82,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::isQuoted
+     * @covers \Packfire\Yaml\YamlValue::isQuoted
      */
     public function testIsQuoted4() {
         $text = '\'message great maybe this will work?\'';
@@ -80,7 +90,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::stripQuote
+     * @covers \Packfire\Yaml\YamlValue::stripQuote
      */
     public function testStripQuote() {
         $text = '"message great # maybe this will work?"';
@@ -88,7 +98,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::stripQuote
+     * @covers \Packfire\Yaml\YamlValue::stripQuote
      */
     public function testStripQuote2() {
         $text = '\'message great # maybe this will work?\'';
@@ -96,7 +106,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::stripQuote
+     * @covers \Packfire\Yaml\YamlValue::stripQuote
      */
     public function testStripQuote3() {
         $text = '\'message great # maybe this will work?"';
@@ -104,7 +114,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::translateScalar
+     * @covers \Packfire\Yaml\YamlValue::translateScalar
      */
     public function testTranslateScalar() {
         $this->assertEquals(true, YamlValue::translateScalar('true'));
@@ -118,7 +128,7 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlValue::unescape
+     * @covers \Packfire\Yaml\YamlValue::unescape
      */
     public function testUnescape() {
         $this->assertEquals("test\n\t\r\0", YamlValue::unescape('test\n\t\r\0'));

@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Core\ClassLoader;
 
 /**
@@ -8,7 +9,7 @@ namespace Packfire\Core\ClassLoader;
 class PackfireClassFinderTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var PackfireClassFinder
+     * @var \Packfire\Core\ClassLoader\PackfireClassFinder
      */
     protected $object;
 
@@ -27,25 +28,32 @@ class PackfireClassFinderTest extends \PHPUnit_Framework_TestCase {
     protected function tearDown() {
         
     }
-    
-    protected function runClass($class){
+
+    protected function runClass($class) {
         $reflector = new \ReflectionClass($class);
         $fn = $reflector->getFileName();
         $this->assertEquals($fn, $this->object->find($class));
     }
 
     /**
-     * @covers Packfire\Core\ClassLoader\PackfireClassFinder::find
+     * @covers \Packfire\Core\ClassLoader\PackfireClassFinder::find
      */
     public function testFind() {
         $this->runClass('Packfire\\Packfire');
     }
 
     /**
-     * @covers Packfire\Core\ClassLoader\PackfireClassFinder::find
+     * @covers \Packfire\Core\ClassLoader\PackfireClassFinder::find
      */
     public function testFind2() {
         $this->runClass('Packfire\\Core\\ClassLoader\\PackfireClassFinder');
+    }
+
+    /**
+     * @covers \Packfire\Core\ClassLoader\PackfireClassFinder::find
+     */
+    public function testFind3() {
+        $this->assertNull($this->object->find('\\BobDown\\NoExistClass'));
     }
 
 }

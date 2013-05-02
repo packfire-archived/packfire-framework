@@ -8,7 +8,7 @@ namespace Packfire\OAuth;
 class TokenTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Token
+     * @var \Packfire\OAuth\Token
      */
     protected $object;
 
@@ -29,21 +29,21 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Token::key
+     * @covers \Packfire\OAuth\Token::key
      */
     public function testKey() {
         $this->assertEquals('token', $this->object->key());
     }
 
     /**
-     * @covers Token::secret
+     * @covers \Packfire\OAuth\Token::secret
      */
     public function testSecret() {
         $this->assertEquals('secret', $this->object->secret());
     }
 
     /**
-     * @covers Token::load
+     * @covers \Packfire\OAuth\Token::load
      */
     public function testLoad() {
         $request = new Request();
@@ -55,7 +55,7 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Token::assign
+     * @covers \Packfire\OAuth\Token::assign
      */
     public function testAssign() {
         $request = new Request();
@@ -64,6 +64,9 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('secret', $request->oauth(OAuth::TOKEN_SECRET));
     }
 
+    /**
+     * @covers \Packfire\OAuth\Token::__toString
+     */
     public function test__toString() {
         $this->assertEquals('token', (string)$this->object);
     }

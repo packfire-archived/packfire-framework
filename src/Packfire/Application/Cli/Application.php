@@ -11,8 +11,7 @@
 
 namespace Packfire\Application\Cli;
 
-use Packfire\Application\Cli\Response;
-use Packfire\Application\Cli\ServiceBucket;
+use Packfire\Application\Cli\ServiceLoader;
 use Packfire\Application\ServiceApplication;
 
 /**
@@ -26,22 +25,16 @@ use Packfire\Application\ServiceApplication;
  */
 abstract class Application extends ServiceApplication {
     
-    public function __construct(){
-        parent::__construct();
-        
-        $cliLoader = new ServiceBucket($this->services);
-        $cliLoader->load();
-    }
-    
     /**
-     * Create and prepare the response
-     * @param IAppRequest $request The request to respond to
-     * @return IAppResponse Returns the response prepared
-     * @since 1.0-sofia
+     * Perform service loading processing
+     * @param \Packfire\FuelBlade\Container $container
+     * @since 2.1.0
      */
-    protected function prepareResponse($request){
-        $response = new Response();
-        return $response;
+    public function __invoke($container){
+        parent::__invoke($container);
+        
+        $loader = new ServiceLoader();
+        $loader($this->ioc);
     }
     
     /**
@@ -50,7 +43,7 @@ abstract class Application extends ServiceApplication {
      * @since 1.0-elenor
      */
     public function handleException($exception) {
-        $this->service('exception.handler')->handle($exception);
+        $this->ioc['exception.handler']->handle($exception);
     }
     
 }

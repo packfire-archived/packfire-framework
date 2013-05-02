@@ -8,7 +8,7 @@ namespace Packfire\Collection;
 class PriorityDequeTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var PriorityDeque
+     * @var \Packfire\Collection\PriorityDeque
      */
     protected $object;
 
@@ -32,7 +32,7 @@ class PriorityDequeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PriorityDeque::add
+     * @covers \Packfire\Collection\PriorityDeque::add
      */
     public function testAdd() {
         $this->object->enqueue(5);

@@ -11,8 +11,8 @@
 
 namespace Packfire\Session;
 
-use Packfire\IoC\BucketUser;
 use Packfire\Collection\ArrayList;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Cross-class and controller session messenger. You can utilize this service
@@ -24,24 +24,18 @@ use Packfire\Collection\ArrayList;
  * @package Packfire\Session
  * @since 1.0-sofia
  */
-class Messenger extends BucketUser {
-
+class Messenger implements IConsumer {
+    
     /**
-     * Create a new Messenger object
-     * @since 1.0-sofia
+     * The session bucket instance
+     * @var \Packfire\Session\Bucket\ISessionBucket
+     * @since 2.1.0
      */
-    public function __construct(){
+    private $session;
 
-    }
-
-    /**
-     * Get the session bucket instance
-     * @return SessionBucket Returns the session bucket instance
-     * @since 1.0-sofia
-     */
-    private function session(){
-        $bucket = $this->service('session')->bucket('Messenger');
-        return $bucket;
+    public function __invoke($container){
+        $this->session = $container['session']->bucket('Messenger');
+        return $this;
     }
 
     /**
@@ -50,6 +44,7 @@ class Messenger extends BucketUser {
      * @param string $recepient (optional) The intended recepient.
      * @return string Returns the session key
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     private function buildKey($name, $recepient = null){
         if(null == $recepient){
@@ -73,7 +68,7 @@ class Messenger extends BucketUser {
                 $this->send($name, $to, $message);
             }
         }else{
-            $this->session()->set($this->buildKey($name, $recepient), $message);
+            $this->session->set($this->buildKey($name, $recepient), $message);
         }
     }
 
@@ -92,7 +87,7 @@ class Messenger extends BucketUser {
             $recepient = (array_key_exists('class', $trace) ?
                     $trace['class'] . ':' : '') . $trace['function'];
         }
-        return $this->session()->has($this->buildKey($name, $recepient));
+        return $this->session->has($this->buildKey($name, $recepient));
     }
 
     /**
@@ -112,8 +107,8 @@ class Messenger extends BucketUser {
                     $trace['class'] . ':' : '') . $trace['function'];
         }
         $key = $this->buildKey($name, $recepient);
-        $content = $this->session()->get($key);
-        $this->session()->remove($key);
+        $content = $this->session->get($key);
+        $this->session->remove($key);
         return $content;
     }
 
@@ -122,7 +117,7 @@ class Messenger extends BucketUser {
      * @since 1.0-sofia
      */
     public function clear(){
-        $this->session()->clear();
+        $this->session->clear();
     }
 
 }

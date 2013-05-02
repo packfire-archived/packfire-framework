@@ -8,7 +8,7 @@ namespace Packfire\Yaml;
 class YamlReferenceTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var YamlReference
+     * @var \Packfire\Yaml\YamlReference
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlReference::__get
+     * @covers \Packfire\Yaml\YamlReference::__get
      */
     public function test__get() {
         $this->assertEquals('hurray', $this->object->test);
@@ -37,7 +37,7 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlReference::__set
+     * @covers \Packfire\Yaml\YamlReference::__set
      */
     public function test__set() {
         $this->object->alpha = 5;
@@ -48,7 +48,7 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlReference::map
+     * @covers \Packfire\Yaml\YamlReference::map
      */
     public function testMap() {
         $this->assertInstanceOf('Packfire\Collection\Map', $this->object->map());
@@ -57,14 +57,14 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlReference::offsetExists
+     * @covers \Packfire\Yaml\YamlReference::offsetExists
      */
     public function testOffsetExists() {
         $this->assertFalse(empty($this->object));
     }
 
     /**
-     * @covers YamlReference::offsetGet
+     * @covers \Packfire\Yaml\YamlReference::offsetGet
      */
     public function testOffsetGet() {
         $this->assertEquals('hurray', $this->object['test']);
@@ -72,7 +72,7 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlReference::offsetSet
+     * @covers \Packfire\Yaml\YamlReference::offsetSet
      */
     public function testOffsetSet() {
         $this->assertNull($this->object['alpha']);
@@ -83,7 +83,7 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlReference::offsetUnset
+     * @covers \Packfire\Yaml\YamlReference::offsetUnset
      */
     public function testOffsetUnset() {
         unset($this->object['test']);

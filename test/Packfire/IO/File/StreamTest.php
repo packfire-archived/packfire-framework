@@ -8,7 +8,7 @@ namespace Packfire\IO\File;
 class StreamTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Stream
+     * @var \Packfire\IO\File\Stream
      */
     protected $object;
 
@@ -31,14 +31,14 @@ class StreamTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Stream::flush
+     * @covers \Packfire\IO\File\Stream::flush
      */
     public function testFlush() {
         $this->assertTrue(method_exists('Packfire\IO\File\Stream', 'flush'));
     }
 
     /**
-     * @covers Stream::write
+     * @covers \Packfire\IO\File\Stream::write
      */
     public function testWrite() {
         $this->object->write('test');

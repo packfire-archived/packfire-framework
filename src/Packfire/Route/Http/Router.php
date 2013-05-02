@@ -12,8 +12,6 @@
 namespace Packfire\Route\Http;
 
 use Packfire\Route\Router as CoreRouter;
-use Packfire\Route\Http\Route;
-use Packfire\Route\Http\RedirectRoute;
 use Packfire\Net\Http\Url;
 use Packfire\Template\Template;
 
@@ -29,40 +27,6 @@ use Packfire\Template\Template;
 class Router extends CoreRouter {
     
     /**
-     * Whether HTTP routing is enabled or not
-     * @var boolean
-     * @since 1.0-elenor
-     */
-    private $enabled = true;
-    
-    /**
-     * Perform loading of routes from the routing configuration file
-     * @since 1.0-elenor
-     */
-    public function load(){
-        parent::load();
-        if($this->service('config.app')){
-            $this->enabled = $this->service('config.app')->get('routing', 'enabled');
-        }
-    }
-    
-    /**
-     * Factory manufature the route based on the configuration
-     * @param string $key Name of the route
-     * @param Map $data The configuration of the route
-     * @return IRoute Returns the route manufactured
-     * @since 1.0-elenor
-     */
-    protected function routeFactory($key, $data){
-        if($data->get('redirect')){
-            $route = new RedirectRoute($key, $data);
-        }else{
-            $route = new Route($key, $data);
-        }
-        return $route;
-    }
-    
-    /**
      * Prepare a route with the parameters
      * @param Route $route The route to be prepared
      * @param array|Map $params The parameters to prepare
@@ -76,6 +40,11 @@ class Router extends CoreRouter {
         }
 
         return $template->parse();
+    }
+    
+    public function __invoke($c){
+        $this->routeType = '\\Packfire\\Route\\Http\\Route';
+        return parent::__invoke($c);
     }
     
 }

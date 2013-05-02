@@ -12,7 +12,7 @@ use Packfire\IO\File\InputStream;
 class YamlParserTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var YamlParser
+     * @var \Packfire\Yaml\YamlParser
      */
     protected $object;
 
@@ -43,7 +43,7 @@ class YamlParserTest extends \PHPUnit_Framework_TestCase {
         return $parser;
     }
     /**
-     * @covers YamlParser::parse
+     * @covers \Packfire\Yaml\YamlParser::parse
      */
     public function testParse2() {
         $object = $this->createParser('test/Files/sample2.yml');
@@ -66,7 +66,7 @@ class YamlParserTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlParser::parse
+     * @covers \Packfire\Yaml\YamlParser::parse
      */
     public function testParse() {
         $object = $this->createParser('test/Files/sample1.yml');
@@ -103,7 +103,7 @@ class YamlParserTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlParser::parse
+     * @covers \Packfire\Yaml\YamlParser::parse
      */
     public function testParse3() {
         $object = $this->createParser('test/Files/sample3.yml');

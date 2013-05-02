@@ -8,7 +8,7 @@ namespace Packfire\Application\Cli;
 class RequestTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Request
+     * @var \Packfire\Application\Cli\Request
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Request::params
+     * @covers \Packfire\Application\Cli\Request::params
      */
     public function testParams() {
         $this->assertEquals('-t', $this->object->params()->get(0));
@@ -38,7 +38,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Request::method
+     * @covers \Packfire\Application\Cli\Request::method
      */
     public function testMethod() {
         $this->assertEquals('cli', $this->object->method());

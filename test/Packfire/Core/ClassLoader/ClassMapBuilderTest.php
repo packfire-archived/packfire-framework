@@ -8,7 +8,7 @@ namespace Packfire\Core\ClassLoader;
 class ClassMapBuilderTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var ClassMapBuilder
+     * @var \Packfire\Core\ClassLoader\ClassMapBuilder
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class ClassMapBuilderTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Core\ClassLoader\ClassMapBuilder::build
+     * @covers \Packfire\Core\ClassLoader\ClassMapBuilder::build
      */
     public function testBuild() {
         $map = $this->object->build(__DIR__);

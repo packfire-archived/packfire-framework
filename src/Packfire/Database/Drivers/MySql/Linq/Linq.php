@@ -202,7 +202,7 @@ class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq {
             $map = $this->mapping;
             $result = array();
             foreach($list as $index => $row){
-                $row = $map($row);
+                $row = call_user_func($map, $row);
                 $result[$index] = $row;
             }
             $list = $result;

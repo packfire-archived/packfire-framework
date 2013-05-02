@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class EmailValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var EmailValidator
+     * @var \Packfire\Validator\EmailValidator
      */
     protected $object;
 
@@ -28,6 +28,9 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @covers \Packfire\Validator\EmailValidator::validate
+     */
     public function testValidate(){
         $this->assertTrue($this->object->validate('test@gmail.com'));
         $this->assertTrue($this->object->validate('green@goearth.co.uk'));

@@ -10,7 +10,7 @@ use Packfire\Collection\ArrayList;
 class LinqTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Linq
+     * @var \Packfire\Linq\Linq
      */
     protected $object;
 
@@ -31,7 +31,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::from
+     * @covers \Packfire\Linq\Linq::from
      */
     public function testFrom() {
         $object = Linq::from(array(50, 20, 30));
@@ -39,7 +39,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::average
+     * @covers \Packfire\Linq\Linq::average
      */
     public function testAverage() {
         $object = Linq::from(array(50, 20, 20));
@@ -48,7 +48,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::count
+     * @covers \Packfire\Linq\Linq::count
      */
     public function testCount() {
         $this->assertCount(9, $this->object);
@@ -57,7 +57,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::distinct
+     * @covers \Packfire\Linq\Linq::distinct
      */
     public function testDistinct() {
         $object = Linq::from(array(50, 20, 20))->distinct();
@@ -66,27 +66,31 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::first
+     * @covers \Packfire\Linq\Linq::first
      */
     public function testFirst() {
         $first = $this->object->first();
         $this->assertEquals(5, $first);
     }
 
+    /**
+     * @covers \Packfire\Linq\Linq::first
+     */
     public function testFirst2(){
         $first = $this->object->skip(8)->first();
         $this->assertEquals(30, $first);
     }
 
     /**
-     * @expectedException Packfire\Exception\NullException
+     * @covers \Packfire\Linq\Linq::first
+     * @expectedException \Packfire\Exception\NullException
      */
     public function testFirstFail(){
         $this->object->skip(9)->first();
     }
 
     /**
-     * @covers Linq::firstOrDefault
+     * @covers \Packfire\Linq\Linq::firstOrDefault
      */
     public function testFirstOrDefault() {
         $first = $this->object->firstOrDefault();
@@ -98,7 +102,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::groupBy
+     * @covers \Packfire\Linq\Linq::groupBy
      */
     public function testGroupBy() {
         $data = array(
@@ -126,7 +130,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::join
+     * @covers \Packfire\Linq\Linq::join
      */
     public function testJoin() {
         $col1 = new Linq(array(
@@ -142,7 +146,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::last
+     * @covers \Packfire\Linq\Linq::last
      */
     public function testLast() {
         $last = $this->object->last();
@@ -150,7 +154,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::last
+     * @covers \Packfire\Linq\Linq::last
      */
     public function testLast1() {
         $last = $this->object->take(2)->last();
@@ -158,15 +162,15 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::last
-     * @expectedException Packfire\Exception\NullException
+     * @covers \Packfire\Linq\Linq::last
+     * @expectedException \Packfire\Exception\NullException
      */
     public function testLast2() {
         $this->object->where(function(){return false;})->last();
     }
 
     /**
-     * @covers Linq::lastOrDefault
+     * @covers \Packfire\Linq\Linq::lastOrDefault
      */
     public function testLastOrDefault() {
         $first = $this->object->lastOrDefault();
@@ -178,7 +182,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::limit
+     * @covers \Packfire\Linq\Linq::limit
      */
     public function testLimit() {
         $list = $this->object->limit(5)->toList();
@@ -189,7 +193,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::max
+     * @covers \Packfire\Linq\Linq::max
      */
     public function testMax() {
         $max = $this->object->max();
@@ -199,7 +203,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::min
+     * @covers \Packfire\Linq\Linq::min
      */
     public function testMin() {
         $min = $this->object->min();
@@ -209,7 +213,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::all
+     * @covers \Packfire\Linq\Linq::all
      */
     public function testAll() {
         $this->assertTrue($this->object->all(function($x){return $x > 0;}));
@@ -218,7 +222,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::any
+     * @covers \Packfire\Linq\Linq::any
      */
     public function testAny() {
         $this->assertTrue($this->object->any(function($x){return $x > 0;}));
@@ -227,7 +231,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::orderBy
+     * @covers \Packfire\Linq\Linq::orderBy
      */
     public function testOrderBy() {
         $data = array(
@@ -245,7 +249,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::orderByDesc
+     * @covers \Packfire\Linq\Linq::orderByDesc
      */
     public function testOrderByDesc() {
         $data = array(
@@ -263,7 +267,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::select
+     * @covers \Packfire\Linq\Linq::select
      */
     public function testSelect() {
         $result = $this->object->select(function($x){
@@ -273,7 +277,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::sum
+     * @covers \Packfire\Linq\Linq::sum
      */
     public function testSum() {
         $sum = $this->object->sum();
@@ -283,7 +287,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::skip
+     * @covers \Packfire\Linq\Linq::skip
      */
     public function testSkip() {
         $object = $this->object->skip(2);
@@ -295,7 +299,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::take
+     * @covers \Packfire\Linq\Linq::take
      */
     public function testTake() {
         $list = $this->object->take(5)->toList();
@@ -304,7 +308,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::where
+     * @covers \Packfire\Linq\Linq::where
      */
     public function testWhere() {
         $array = $this->object->where(function($x){return $x < 5;})->toList()->toArray();
@@ -312,14 +316,14 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::getIterator
+     * @covers \Packfire\Linq\Linq::getIterator
      */
     public function testGetIterator() {
         $this->assertInstanceOf('ArrayIterator', $this->object->getIterator());
     }
 
     /**
-     * @covers Linq::toList
+     * @covers \Packfire\Linq\Linq::toList
      */
     public function testToList() {
         $this->assertInstanceOf('Packfire\Collection\ArrayList', $this->object->toList());
@@ -327,7 +331,7 @@ class LinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Linq::reverse
+     * @covers \Packfire\Linq\Linq::reverse
      */
     public function testReverse() {
         $first = $this->object->reverse()->first();

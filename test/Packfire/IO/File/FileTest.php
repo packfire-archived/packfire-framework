@@ -8,17 +8,17 @@ namespace Packfire\IO\File;
 class FileTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var File
+     * @var \Packfire\IO\File\File
      */
     protected $normalFile;
 
     /**
-     * @var File
+     * @var \Packfire\IO\File\File
      */
     protected $dirFile;
 
     /**
-     * @var File
+     * @var \Packfire\IO\File\File
      */
     protected $ghostFile;
 
@@ -46,7 +46,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers File::size
+     * @covers \Packfire\IO\File\File::size
      */
     public function testSize() {
         $this->assertTrue($this->normalFile->size() > 0);
@@ -55,9 +55,9 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers File::create
-     * @covers File::exists
-     * @covers File::delete
+     * @covers \Packfire\IO\File\File::create
+     * @covers \Packfire\IO\File\File::exists
+     * @covers \Packfire\IO\File\File::delete
      */
     public function testCreate() {
         $this->assertFalse($this->ghostFile->exists());
@@ -68,7 +68,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers File::write
+     * @covers \Packfire\IO\File\File::write
      */
     public function testWrite() {
         $this->assertFalse($this->ghostFile->exists());
@@ -78,7 +78,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers File::append
+     * @covers \Packfire\IO\File\File::append
      */
     public function testAppend() {
         $this->assertFalse($this->ghostFile->exists());
@@ -89,7 +89,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers File::copy
+     * @covers \Packfire\IO\File\File::copy
      */
     public function testCopy() {
         $file = $this->normalFile->copy($this->ghostFile->pathname());
@@ -101,14 +101,14 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pFile::pathname
+     * @covers \Packfire\IO\File\File::pathname
      */
     public function testPathname() {
         $this->assertEquals(__FILE__, $this->normalFile->pathname());
     }
 
     /**
-     * @covers File::rename
+     * @covers \Packfire\IO\File\File::rename
      */
     public function testRename() {
         $this->ghostFile->create();
@@ -121,7 +121,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers File::move
+     * @covers \Packfire\IO\File\File::move
      */
     public function testMove() {
         $this->ghostFile->create();
@@ -133,7 +133,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers File::lastModified
+     * @covers \Packfire\IO\File\File::lastModified
      */
     public function testLastModified() {
         $lmdt = $this->normalFile->lastModified();
@@ -142,15 +142,15 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers File::lastModified
-     * @expectedException Packfire\Exception\IOException
+     * @covers \Packfire\IO\File\File::lastModified
+     * @expectedException \Packfire\Exception\IOException
      */
     public function testLastModified2() {
         $this->ghostFile->lastModified();
     }
 
     /**
-     * @covers File::permissions
+     * @covers \Packfire\IO\File\File::permission
      */
     public function testPermissions() {
         $permission = $this->normalFile->permission();
@@ -158,7 +158,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers File::stream
+     * @covers \Packfire\IO\File\File::stream
      */
     public function testStream() {
         $this->assertInstanceof('Packfire\IO\File\Stream', $this->normalFile->stream());

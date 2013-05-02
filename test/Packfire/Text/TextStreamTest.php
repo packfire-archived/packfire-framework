@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Text;
 
 /**
@@ -8,7 +9,7 @@ namespace Packfire\Text;
 class TextStreamTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var TextStream
+     * @var \Packfire\Text\TextStream
      */
     protected $object;
 
@@ -25,31 +26,40 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
+    }
+    
+    /**
+     * @covers \Packfire\Text\TextStream::open
+     * @covers \Packfire\Text\TextStream::close
+     */
+    public function testOpenClose(){
+        $this->assertTrue(method_exists($this->object, 'open'));
+        $this->assertTrue(method_exists($this->object, 'close'));
     }
 
-    public function testInheritance(){
+    public function testInheritance() {
         $this->assertInstanceOf('Packfire\IO\IStream', $this->object);
     }
 
     /**
-     * @covers TextStream::length
+     * @covers \Packfire\Text\TextStream::length
      */
     public function testLength() {
         $this->assertEquals(44, $this->object->length());
     }
 
     /**
-     * @covers TextStream::length
+     * @covers \Packfire\Text\TextStream::length
      */
-    public function testLength2(){
+    public function testLength2() {
         $s = 'I am sam, here we moo';
         $obj = new TextStream($s);
         $this->assertEquals(strlen($s), $obj->length());
     }
 
     /**
-     * @covers TextStream::read
+     * @covers \Packfire\Text\TextStream::read
      */
     public function testRead() {
         $str = $this->object->read(3);
@@ -61,7 +71,7 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TextStream::seek
+     * @covers \Packfire\Text\TextStream::seek
      */
     public function testSeek() {
         $this->object->seek(9);
@@ -70,14 +80,22 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TextStream::seekable
+     * @covers \Packfire\Text\TextStream::seek
+     * @expectedException \Packfire\Exception\OutOfRangeException
+     */
+    public function testSeek2() {
+        $this->object->seek($this->object->length()+10);
+    }
+
+    /**
+     * @covers \Packfire\Text\TextStream::seekable
      */
     public function testSeekable() {
         $this->assertTrue($this->object->seekable());
     }
 
     /**
-     * @covers TextStream::tell
+     * @covers \Packfire\Text\TextStream::tell
      */
     public function testTell() {
         $this->assertEquals(0, $this->object->tell());
@@ -94,7 +112,7 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TextStream::write
+     * @covers \Packfire\Text\TextStream::write
      */
     public function testWrite() {
         $s = 'Run apple. ';
@@ -104,7 +122,7 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TextStream::write
+     * @covers \Packfire\Text\TextStream::write
      */
     public function testWrite2() {
         $s = 'Run apple. ';
@@ -115,7 +133,7 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TextStream::write
+     * @covers \Packfire\Text\TextStream::write
      */
     public function testWrite3() {
         $s = 'Run apple. ';

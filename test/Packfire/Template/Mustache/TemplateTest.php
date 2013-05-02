@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Template\Mustache;
 
 /**
@@ -8,13 +9,14 @@ namespace Packfire\Template\Mustache;
 class TemplateTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Template
+     * @var \Packfire\Template\Mustache\Template
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Template\Mustache\Template::__construct
      */
     protected function setUp() {
         $this->object = new Template('{{&html}} is making me {{#cond}}sick{{/cond}}{{^cond}}great{{/cond}}. {{#repeat}}My name is {{name}}. {{/repeat}}What is {{normal}}?');
@@ -26,11 +28,11 @@ class TemplateTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers Template::fields
+     * @covers \Packfire\Template\Mustache\Template::fields
      */
     public function testFields() {
         $this->assertInstanceOf('Packfire\Collection\Map', $this->object->fields());
@@ -38,17 +40,45 @@ class TemplateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Template::parse
+     * @covers \Packfire\Template\Mustache\Template::parse
      */
     public function testParse2() {
         $this->assertEquals('<b>John</b> is making me great. What is ?', $this->object->parse());
     }
 
     /**
-     * @covers Template::parse
+     * @covers \Packfire\Template\Mustache\Template::__toString
+     */
+    public function testToString() {
+        $this->assertEquals('<b>John</b> is making me great. What is ?', $this->object);
+    }
+
+
+    /**
+     * @covers \Packfire\Template\Mustache\Template::parse
+     * @covers \Packfire\Template\Mustache\Template::set
      */
     public function testParse() {
         $this->object->set(array(
+            'html' => '<b>John</b>',
+            'cond' => true,
+            'repeat' => array(
+                array('name' => 'Julia', 'age' => 50),
+                array('name' => 'Sofia', 'age' => 10),
+                array('name' => 'Jackie', 'age' => 40)
+            ),
+            'normal' => '<i>apple</i>'
+        ));
+        $this->assertEquals('<b>John</b> is making me sick. My name is Julia. My name is Sofia. My name is Jackie. What is &lt;i&gt;apple&lt;/i&gt;?', $this->object->parse());
+    }
+
+
+    /**
+     * @covers \Packfire\Template\Mustache\Template::parse
+     * @covers \Packfire\Template\Mustache\Template::set
+     */
+    public function testParseObj() {
+        $this->object->set((object)array(
             'html' => '<b>John</b>',
             'cond' => true,
             'repeat' => array(

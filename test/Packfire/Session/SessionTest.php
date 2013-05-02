@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Session;
 
 /**
@@ -13,7 +14,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     protected $stub;
 
     /**
-     * @var Session
+     * @var \Packfire\Session\Session
      */
     protected $object;
 
@@ -35,11 +36,20 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
+    }
+    
+    /**
+     * @covers \Packfire\Session\Session::__construct
+     */
+    public function testStorage(){
+        $property = new \ReflectionProperty($this->object, 'storage');
+        $property->setAccessible(true);
+        $this->assertEquals($this->stub, $property->getValue($this->object));
     }
 
     /**
-     * @covers Session::get
+     * @covers \Packfire\Session\Session::get
      */
     public function testGet() {
         $this->stub->expects($this->any())
@@ -49,7 +59,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Session::set
+     * @covers \Packfire\Session\Session::set
      */
     public function testSet() {
         $this->stub->expects($this->once())
@@ -59,7 +69,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Session::clear
+     * @covers \Packfire\Session\Session::clear
      */
     public function testClear() {
         $this->stub->expects($this->once())
@@ -69,7 +79,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Session::invalidate
+     * @covers \Packfire\Session\Session::invalidate
      */
     public function testInvalidate() {
         $this->stub->expects($this->once())
@@ -83,7 +93,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Session::regenerate
+     * @covers \Packfire\Session\Session::regenerate
      */
     public function testRegenerate() {
         $this->stub->expects($this->once())
@@ -94,7 +104,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Session::bucket
+     * @covers \Packfire\Session\Session::bucket
      */
     public function testBucket() {
         $this->stub->expects($this->once())
@@ -110,7 +120,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Session::bucket
+     * @covers \Packfire\Session\Session::bucket
      */
     public function testBucket2() {
         $this->stub->expects($this->once())
@@ -122,7 +132,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Session::register
+     * @covers \Packfire\Session\Session::register
      */
     public function testRegister() {
         $this->stub->expects($this->once())

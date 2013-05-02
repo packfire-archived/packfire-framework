@@ -36,6 +36,7 @@ class ShutdownTaskManager {
     /**
      * Create a new ShutdownTaskManager object
      * @since 2.0.3
+     * @codeCoverageIgnore
      */
     public function __construct(){
         $this->tasks = new Map();

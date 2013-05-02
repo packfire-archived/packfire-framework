@@ -9,7 +9,7 @@ namespace Packfire\Core;
 class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var ShutdownTaskManager
+     * @var \Packfire\Core\ShutdownTaskManager
      */
     protected $object;
 
@@ -30,7 +30,7 @@ class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Core\ShutdownTaskManager::add
+     * @covers \Packfire\Core\ShutdownTaskManager::add
      */
     public function testAdd() {
         $reflection = new \ReflectionProperty('Packfire\Core\ShutdownTaskManager', 'tasks');
@@ -43,7 +43,8 @@ class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Packfire\Exception\InvalidArgumentException
+     * @expectedException \Packfire\Exception\InvalidArgumentException
+     * @covers \Packfire\Core\ShutdownTaskManager::add
      */
     public function testAddFail() {
         $reflection = new \ReflectionProperty('Packfire\Core\ShutdownTaskManager', 'tasks');
@@ -53,7 +54,7 @@ class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Core\ShutdownTaskManager::remove
+     * @covers \Packfire\Core\ShutdownTaskManager::remove
      */
     public function testRemove() {
         $reflection = new \ReflectionProperty('Packfire\Core\ShutdownTaskManager', 'tasks');
@@ -66,7 +67,8 @@ class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Core\ShutdownTaskManager::doShutdown
+     * @covers \Packfire\Core\ShutdownTaskManager::doShutdown
+     * @covers \Packfire\Core\ShutdownTaskManager::add
      */
     public function testDoShutdown() {
         $data = false;
@@ -79,7 +81,8 @@ class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Core\ShutdownTaskManager::doShutdown
+     * @covers \Packfire\Core\ShutdownTaskManager::doShutdown
+     * @covers \Packfire\Core\ShutdownTaskManager::add
      */
     public function testDoShutdown2() {
         $data = false;

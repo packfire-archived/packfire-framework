@@ -8,7 +8,7 @@ namespace Packfire\Linq;
 class OrderedLinqTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var OrderedLinq
+     * @var \Packfire\Linq\OrderedLinq
      */
     protected $object;
 
@@ -34,7 +34,7 @@ class OrderedLinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Linq\OrderedLinq::thenBy
+     * @covers \Packfire\Linq\OrderedLinq::thenBy
      */
     public function testThenBy() {
         $this->object->orderBy(function($x){return $x['i'];});
@@ -48,7 +48,7 @@ class OrderedLinqTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Linq\OrderedLinq::thenByDesc
+     * @covers \Packfire\Linq\OrderedLinq::thenByDesc
      */
     public function testThenByDesc() {
         $this->object->orderBy(function($x){return $x['i'];});

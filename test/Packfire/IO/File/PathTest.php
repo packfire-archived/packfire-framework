@@ -38,7 +38,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::create
+     * @covers \Packfire\IO\File\Path::create
      */
     public function testCreate() {
         $path = new Path($this->dir);
@@ -48,7 +48,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::exists
+     * @covers \Packfire\IO\File\Path::exists
      */
     public function testExists() {
         $path = new Path($this->dir);
@@ -60,7 +60,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::permission
+     * @covers \Packfire\IO\File\Path::permission
      */
     public function testPermission() {
         $path = new Path($this->dir);
@@ -70,7 +70,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::delete
+     * @covers \Packfire\IO\File\Path::delete
      */
     public function testDelete() {
         $path = new Path($this->dir);
@@ -81,7 +81,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::copy
+     * @covers \Packfire\IO\File\Path::copy
      */
     public function testCopy() {
         $copy = Path::fileName(__FILE__) . '2';
@@ -97,7 +97,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::clear
+     * @covers \Packfire\IO\File\Path::clear
      */
     public function testClear() {
         $original = new Path($this->dir);
@@ -109,7 +109,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::combine
+     * @covers \Packfire\IO\File\Path::combine
      */
     public function testCombine1() {
         $path = DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'test' . DIRECTORY_SEPARATOR . 'call' . DIRECTORY_SEPARATOR . 'me' . DIRECTORY_SEPARATOR . 'maybe';
@@ -118,7 +118,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::combine
+     * @covers \Packfire\IO\File\Path::combine
      */
     public function testCombine2() {
         $path = 'C:' . DIRECTORY_SEPARATOR . 'workspace' . DIRECTORY_SEPARATOR . 'projects' . DIRECTORY_SEPARATOR . 'packfire';
@@ -127,15 +127,15 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::temPath
+     * @covers \Packfire\IO\File\Path::tempPath
      */
-    public function testTemPath() {
+    public function testTempPath() {
         $this->assertNotEmpty(Path::tempPath());
         $this->assertEquals(sys_get_temp_dir(), Path::tempPath());
     }
 
     /**
-     * @covers Path::fileName
+     * @covers \Packfire\IO\File\Path::fileName
      */
     public function testFileName() {
         $this->assertEquals('test', Path::fileName('C:\\michael\\jackson\\this_is_it\\test.bak'));
@@ -145,7 +145,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::baseName
+     * @covers \Packfire\IO\File\Path::baseName
      */
     public function testBaseName() {
         $this->assertEquals('test.bak', Path::baseName('C:\\michael\\jackson\\this_is_it\\test.bak'));
@@ -155,7 +155,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::extension
+     * @covers \Packfire\IO\File\Path::extension
      */
     public function testExtension() {
         $this->assertEquals('bak', Path::extension('C:\\michael\\jackson\\this_is_it\\test.bak'));
@@ -166,7 +166,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::path
+     * @covers \Packfire\IO\File\Path::path
      */
     public function testPath() {
         $this->assertEquals(Path::normalize('C:\\michael\\jackson\\this_is_it'), Path::path('C:\\michael\\jackson\\this_is_it\\test.bak'));
@@ -176,7 +176,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::pathInfo
+     * @covers \Packfire\IO\File\Path::pathInfo
      */
     public function testPathInfo() {
         $this->assertCount(4, Path::pathInfo('/opt/ion/is/not/yours/test.bin'));
@@ -185,14 +185,14 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::pathInfo
+     * @covers \Packfire\IO\File\Path::pathInfo
      */
     public function testPathInfoNull() {
         $this->assertNull(Path::pathInfo('/opt/ion/is/not/yours/test', PathPart::EXTENSION));
     }
 
     /**
-     * @covers Path::currentWorkingPath
+     * @covers \Packfire\IO\File\Path::currentWorkingPath
      */
     public function testCurrentWorkingPath() {
         $this->assertNotEmpty(Path::currentWorkingPath());
@@ -200,7 +200,7 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::scriptPath
+     * @covers \Packfire\IO\File\Path::scriptPath
      */
     public function testScriptPath() {
         $this->assertNotEmpty(Path::scriptPath());
@@ -208,14 +208,14 @@ class PathTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Path::classPathName
+     * @covers \Packfire\IO\File\Path::classPathName
      */
     public function testClassPathName() {
         $this->assertEquals(__FILE__, Path::classPathName('Packfire\IO\File\PathTest'));
     }
 
     /**
-     * @covers Path::relativePath
+     * @covers \Packfire\IO\File\Path::relativePath
      */
     public function testRelativePath() {
         $this->assertEquals(Path::normalize('root/b/b.php'), Path::relativePath('/home/a.php', '/home/root/b/b.php'));

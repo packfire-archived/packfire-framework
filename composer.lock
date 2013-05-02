@@ -1,6 +1,140 @@
 {
-    "hash": "4e0107a5ce1a0c8872ecdd0602238559",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "0194c0552c90f928ad1e360d905d66da",
     "packages": [
+        {
+            "name": "mauris/yaml",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpdeveloper/Yaml.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpdeveloper/Yaml/zipball/1.0.0",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Yaml\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Sam-Mauris Yong",
+                    "email": "sam@mauris.sg"
+                }
+            ],
+            "description": "Mauris Build of the Symfony Yaml Component",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "parser",
+                "yaml"
+            ],
+            "time": "2013-05-02 11:55:31"
+        },
+        {
+            "name": "packfire/config",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/packfire/config.git",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/packfire/config/zipball/1.0.1",
+                "reference": "1.0.1",
+                "shasum": ""
+            },
+            "require": {
+                "mauris/yaml": "1.0.*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Packfire\\Config": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sam-Mauris Yong",
+                    "email": "sam@mauris.sg"
+                }
+            ],
+            "description": "A config driver that is easy to use",
+            "time": "2013-05-02 12:22:46"
+        },
+        {
+            "name": "packfire/fuelblade",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/packfire/fuelblade.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/packfire/fuelblade/zipball/1.0.0",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Packfire\\FuelBlade": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sam-Mauris Yong",
+                    "email": "mauris@hotmail.sg",
+                    "homepage": "http://mauris.sg/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Packfire FuelBlade - Dependency Injection / IoC library for PHP",
+            "homepage": "http://mauris.sg/packfire/",
+            "keywords": [
+                "dependency",
+                "di",
+                "ioc"
+            ],
+            "time": "2013-02-28 04:09:13"
+        },
         {
             "name": "packfire/options",
             "version": "1.1.2",
@@ -18,9 +152,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-12-24 12:35:55",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Packfire\\Options": "src/"
@@ -41,12 +173,13 @@
             "description": "Better CLI argument processing in PHP",
             "homepage": "http://mauris.sg/packfire/",
             "keywords": [
-                "cli",
-                "closure",
                 "argument",
                 "callback",
+                "cli",
+                "closure",
                 "processing"
-            ]
+            ],
+            "time": "2012-12-24 12:35:55"
         },
         {
             "name": "packfire/php5.3-compat",
@@ -65,15 +198,13 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-10-27 22:29:18",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "": "src/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -88,18 +219,27 @@
             "description": "Provides class and interface compatibility between PHP 5.3 and PHP 5.4 through autoloading.",
             "homepage": "http://mauris.sg/packfire/",
             "keywords": [
-                "library",
                 "OOP",
-                "compatibility"
-            ]
+                "compatibility",
+                "library"
+            ],
+            "time": "2012-10-27 22:29:18"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
     "minimum-stability": "stable",
     "stability-flags": [
+
+    ],
+    "platform": {
+        "php": ">=5.3.0"
+    },
+    "platform-dev": [
 
     ]
 }

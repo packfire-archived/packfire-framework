@@ -8,11 +8,12 @@ namespace Packfire\DateTime;
 class DateTimeTest extends \PHPUnit_Framework_TestCase {
 
     public function __construct(){
+        parent::__construct();
         date_default_timezone_set('UTC');
     }
 
     /**
-     * @var pDateTime
+     * @var \Packfire\DateTime\DateTime
      */
     protected $object;
 
@@ -33,7 +34,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::timezone
+     * @covers \Packfire\DateTime\DateTime::timezone
      */
     public function testTimezone() {
         $this->assertEquals(0, $this->object->timezone());
@@ -52,7 +53,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::time
+     * @covers \Packfire\DateTime\DateTime::time
      */
     public function testTime() {
         $this->assertInstanceOf('Packfire\DateTime\Time', $this->object->time());
@@ -62,7 +63,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::dayOfWeek
+     * @covers \Packfire\DateTime\DateTime::dayOfWeek
      */
     public function testDayOfWeek() {
         $this->assertEquals(DaysOfWeek::THURSDAY, $this->object->dayOfWeek());
@@ -73,7 +74,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::isLeapYear
+     * @covers \Packfire\DateTime\DateTime::isLeapYear
      */
     public function testIsLeapYear() {
         $this->assertFalse(DateTime::isLeapYear(1999));
@@ -89,7 +90,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::daysInMonth
+     * @covers \Packfire\DateTime\DateTime::daysInMonth
      */
     public function testDaysInMonth() {
         $this->assertEquals(31, DateTime::daysInMonth(10));
@@ -103,7 +104,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::now
+     * @covers \Packfire\DateTime\DateTime::now
      */
     public function testNow() {
         $now = DateTime::now();
@@ -112,7 +113,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::fromTimestamp
+     * @covers \Packfire\DateTime\DateTime::fromTimestamp
      */
     public function testFromTimestamp() {
         $timestamp = time();
@@ -126,7 +127,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::toTimestamp
+     * @covers \Packfire\DateTime\DateTime::toTimestamp
      */
     public function testToTimestamp() {
         $timestamp = $this->object->toTimestamp();
@@ -141,7 +142,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pDateTime::convertTimezone
+     * @covers \Packfire\DateTime\DateTime::convertTimezone
      */
     public function testConvertTimezone() {
         $dt = DateTime::convertTimezone($this->object, '-2');
@@ -152,7 +153,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pDateTime::convertTimezone
+     * @covers \Packfire\DateTime\DateTime::convertTimezone
      */
     public function testConvertTimezone2() {
         $dt = DateTime::convertTimezone($this->object, '8');
@@ -163,7 +164,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pDateTime::convertTimezone
+     * @covers \Packfire\DateTime\DateTime::convertTimezone
      */
     public function testConvertTimezone3() {
         $dt = DateTime::convertTimezone($this->object, '12');
@@ -174,7 +175,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pDateTime::convertTimezone
+     * @covers \Packfire\DateTime\DateTime::convertTimezone
      */
     public function testConvertTimezone4() {
         $dt = DateTime::convertTimezone($this->object, '-11');
@@ -185,7 +186,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::fromString
+     * @covers \Packfire\DateTime\DateTime::fromString
      */
     public function testFromString() {
         $case = DateTime::fromString('1986-5-23');
@@ -198,7 +199,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::fromString
+     * @covers \Packfire\DateTime\DateTime::fromString
      */
     public function testFromString2() {
         $case = DateTime::fromString('today');
@@ -208,7 +209,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::fromString
+     * @covers \Packfire\DateTime\DateTime::fromString
      */
     public function testFromString3() {
         $case = DateTime::fromString('1998-7-3 05:24:13+0000');
@@ -221,7 +222,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::toISO8601
+     * @covers \Packfire\DateTime\DateTime::toISO8601
      */
     public function testToISO8601() {
         $time = time();
@@ -230,7 +231,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::toRFC822
+     * @covers \Packfire\DateTime\DateTime::toRFC822
      */
     public function testToRFC822() {
         $time = time();
@@ -239,7 +240,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::format
+     * @covers \Packfire\DateTime\DateTime::format
      */
     public function testFormat() {
         $formats = array(
@@ -255,7 +256,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::add
+     * @covers \Packfire\DateTime\DateTime::add
      */
     public function testAdd() {
         $datetime = $this->object->add(new TimeSpan(7200));
@@ -263,7 +264,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::add
+     * @covers \Packfire\DateTime\DateTime::add
      */
     public function testAdd2() {
         $datetime = $this->object->add(new TimeSpan(86400));
@@ -271,7 +272,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::add
+     * @covers \Packfire\DateTime\DateTime::add
      */
     public function testAdd3() {
         // year: 31536000
@@ -280,7 +281,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::subtract
+     * @covers \Packfire\DateTime\DateTime::subtract
      */
     public function testSubtract() {
         $datetime = $this->object->subtract(new TimeSpan(7200));
@@ -288,7 +289,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::subtract
+     * @covers \Packfire\DateTime\DateTime::subtract
      */
     public function testSubtract2() {
         $datetime = $this->object->subtract(new TimeSpan(86400));
@@ -296,7 +297,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::subtract
+     * @covers \Packfire\DateTime\DateTime::subtract
      */
     public function testSubtract3() {
         // year: 31536000
@@ -305,7 +306,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::calculateAge
+     * @covers \Packfire\DateTime\DateTime::calculateAge
      */
     public function testCalculateAge() {
         $birthday = new DateTime(2010, 1, 1);
@@ -313,7 +314,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::calculateAge
+     * @covers \Packfire\DateTime\DateTime::calculateAge
      */
     public function testCalculateAge2() {
         // test that if birthday is next month, the age is one year less
@@ -323,7 +324,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::microtime
+     * @covers \Packfire\DateTime\DateTime::microtime
      */
     public function testMicrotime() {
         $this->assertInternalType(
@@ -334,7 +335,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DateTime::compareTo
+     * @covers \Packfire\DateTime\DateTime::compareTo
      */
     public function testCompareTo() {
         $dt = $this->object->subtract(new TimeSpan(31622400));

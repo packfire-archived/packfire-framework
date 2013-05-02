@@ -8,7 +8,7 @@ namespace Packfire\Welcome;
 class DarkThemeTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var DarkTheme
+     * @var \Packfire\Welcome\DarkTheme
      */
     protected $object;
 
@@ -29,10 +29,10 @@ class DarkThemeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers DarkTheme::render
+     * @covers \Packfire\Welcome\DarkTheme::render
      */
     public function testRender() {
-        $this->assertInstanceOf('Packfire\View\Theme', $this->object);
+        $this->assertInstanceOf('\\Packfire\\View\\Theme', $this->object);
         $this->object->render();
         $this->assertCount(1, $this->object->fields());
         $this->assertEquals('dark', $this->object->fields()->get('style'));

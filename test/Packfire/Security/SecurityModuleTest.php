@@ -8,7 +8,7 @@ namespace Packfire\Security;
 class SecurityModuleTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var SecurityModule
+     * @var \Packfire\Security\SecurityModule
      */
     protected $object;
 
@@ -29,21 +29,21 @@ class SecurityModuleTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers SecurityModule::authenticate
+     * @covers \Packfire\Security\SecurityModule::authenticate
      */
     public function testAuthenticate() {
         $this->assertTrue($this->object->authenticate(null));
     }
 
     /**
-     * @covers SecurityModule::authorize
+     * @covers \Packfire\Security\SecurityModule::authorize
      */
     public function testAuthorize() {
         $this->assertTrue($this->object->authorize(null));
     }
 
     /**
-     * @covers SecurityModule::identity
+     * @covers \Packfire\Security\SecurityModule::identity
      */
     public function testIdentity() {
         $this->assertNull($this->object->identity(null));
@@ -52,14 +52,14 @@ class SecurityModuleTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers SecurityModule::deauthenticate
+     * @covers \Packfire\Security\SecurityModule::deauthenticate
      */
     public function testDeauthenticate() {
         $this->assertTrue(method_exists($this->object, 'deauthenticate'));
     }
 
     /**
-     * @covers SecurityModule::request
+     * @covers \Packfire\Security\SecurityModule::request
      */
     public function testRequest(){
         $this->assertNull($this->object->request());

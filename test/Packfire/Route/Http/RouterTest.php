@@ -12,7 +12,7 @@ use Packfire\Test\Mocks\RouteRequest;
 class RouterTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Router
+     * @var \Packfire\Route\Http\Router
      */
     protected $object;
 
@@ -37,7 +37,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pRouter::add
+     * @covers \Packfire\Route\Http\Router::add
      */
     public function testAdd() {
         $this->assertCount(2, $this->object->entries());
@@ -48,7 +48,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Router::entries
+     * @covers \Packfire\Route\Http\Router::entries
      */
     public function testEntries() {
         $this->assertCount(2, $this->object->entries());
@@ -56,7 +56,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Router::route
+     * @covers \Packfire\Route\Http\Router::route
      */
     public function testRoute() {
         $request = new RouteRequest('home/200',
@@ -67,7 +67,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Router::route
+     * @covers \Packfire\Route\Http\Router::route
      */
     public function testRoute2() {
         $request = new RouteRequest('home/500',
@@ -78,7 +78,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Router::route
+     * @covers \Packfire\Route\Http\Router::route
      */
     public function testRoute3() {
         $request = new RouteRequest('home/a',
@@ -88,7 +88,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Router::to
+     * @covers \Packfire\Route\Http\Router::to
      */
     public function testTo() {
         $this->assertEquals('/home', $this->object->to('route.home'));

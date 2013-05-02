@@ -52,18 +52,18 @@ class EventHandler implements IEventHandler {
     /**
      * Bind an event listener to an event of the class
      * @param string $event The name of the event
-     * @param IObserver|Closure|callback $listener The function, method or
+     * @param IObserver|Closure|callback $observer The function, method or
      *              observer to listen to this event
      * @since 1.0-elenor
      */
-    public function on($event, $listener){
+    public function on($event, $observer){
         if(!array_key_exists($event, $this->events)){
             $this->events[$event] = new ObservableEvent($this->listener);
         }
-        if(is_callable($listener)){
-            $listener = new EventObserver($listener);
+        if(is_callable($observer)){
+            $observer = new EventObserver($observer);
         }
-        $this->events[$event]->attach($listener);
+        $this->events[$event]->attach($observer);
     }
     
     /**

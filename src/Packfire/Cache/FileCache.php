@@ -45,7 +45,7 @@ class FileCache implements ICache {
      */
     public function __construct(){
         if(!self::$storePath){
-            self::$storePath = __APP_ROOT__ . 'storage/cache';
+            self::$storePath = __APP_ROOT__ . '/storage/cache';
         }
     }
 
@@ -117,18 +117,22 @@ class FileCache implements ICache {
      * @since 1.0-sofia
      */
     public function garbageCollect() {
-        $files = glob(self::$storePath .'/FileCache-*.cache', GLOB_NOSORT);
-        if($files){
-            $files = array_combine($files, array_map('filemtime', $files));
-            asort($files);
-            $time = time();
-            foreach($files as $file => $expiry){
-                if($expiry < $time){
-                    @unlink($file);
-                }else{
-                    break;
+        try{
+            $files = glob(self::$storePath .'/FileCache-*.cache', GLOB_NOSORT);
+            if($files){
+                $files = array_combine($files, array_map('filemtime', $files));
+                asort($files);
+                $time = time();
+                foreach($files as $file => $expiry){
+                    if($expiry < $time){
+                        @unlink($file);
+                    }else{
+                        break;
+                    }
                 }
             }
+        }catch(Exception $ex){
+            // silent the exception!
         }
     }
 

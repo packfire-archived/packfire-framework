@@ -10,7 +10,7 @@ use Packfire\Text\TextStream;
 class PhpSerializerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var PhpSerializer
+     * @var \Packfire\Data\Serialization\PhpSerializer
      */
     protected $object;
 
@@ -31,7 +31,7 @@ class PhpSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PhpSerializer::serialize
+     * @covers \Packfire\Data\Serialization\PhpSerializer::serialize
      */
     public function testSerialize() {
         $data = array('key' => 'value', 'test');
@@ -42,7 +42,7 @@ class PhpSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PhpSerializer::serialize
+     * @covers \Packfire\Data\Serialization\PhpSerializer::serialize
      */
     public function testSerialize2() {
         $data = new \stdClass();
@@ -55,7 +55,7 @@ class PhpSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PhpSerializer::serialize
+     * @covers \Packfire\Data\Serialization\PhpSerializer::serialize
      */
     public function testSerialize3() {
         $data = new \stdClass();
@@ -66,7 +66,7 @@ class PhpSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PhpSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\PhpSerializer::deserialize
      */
     public function testDeserialize() {
         $data = array('key' => 'value', 'test');
@@ -76,7 +76,7 @@ class PhpSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PhpSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\PhpSerializer::deserialize
      */
     public function testDeserialize2() {
         $data = new \stdClass();
@@ -88,7 +88,7 @@ class PhpSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PhpSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\PhpSerializer::deserialize
      */
     public function testDeserialize3() {
         $data = new \stdClass();
@@ -98,6 +98,11 @@ class PhpSerializerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($data, $result);
     }
 
+
+    /**
+     * @covers \Packfire\Data\Serialization\PhpSerializer::serialize
+     * @covers \Packfire\Data\Serialization\PhpSerializer::deserialize
+     */
     public function testOverall(){
         $data = new \stdClass();
         $data->test = 'data';

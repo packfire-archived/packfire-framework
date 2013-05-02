@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Core;
 
 use Packfire\Event\EventObserver;
@@ -10,7 +11,7 @@ use Packfire\Event\EventObserver;
 class ObservableTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Observable
+     * @var \Packfire\Core\Observable
      */
     protected $object;
 
@@ -27,22 +28,30 @@ class ObservableTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
+    /**
+     * @covers \Packfire\Core\Observable::attach
+     * @covers \Packfire\Core\Observable::notify
+     * @covers \Packfire\Core\Observable::detach
+     */
     public function testObserve() {
         $test = $this;
         $observable = $this->object;
         $data = 10;
-        $closure = function($sender, $arg) use($observable, $test, &$data){
-            $test->assertEquals($observable, $sender);
-            $test->assertEquals(5, $arg);
-            $data = $arg;
-        };
+        $closure = function($sender, $arg = null) use($observable, $test, &$data) {
+                    $test->assertEquals($observable, $sender);
+                    $data = $arg;
+                };
         $eventObserver = new EventObserver($closure);
         $this->object->attach($eventObserver);
         $this->object->notify(5);
         $this->assertEquals(5, $data);
+        
+        $this->object->notify();
+        $this->assertNull($data);
+        
         $this->object->detach($eventObserver);
         $data = 10;
         $this->object->notify(5);

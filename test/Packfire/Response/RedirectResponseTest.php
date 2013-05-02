@@ -25,6 +25,9 @@ class RedirectResponseTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @covers \Packfire\Response\RedirectResponse
+     */
     public function testResponse() {
         $url = 'http://example.com/';
         $object = new RedirectResponse($url);
@@ -34,6 +37,9 @@ class RedirectResponseTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('', $object->output());
     }
 
+    /**
+     * @covers \Packfire\Response\RedirectResponse
+     */
     public function testResponse2() {
         $url = 'http://example.com/';
         $object = new RedirectResponse($url, ResponseCode::HTTP_301);

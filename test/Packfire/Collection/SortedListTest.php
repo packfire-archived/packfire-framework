@@ -10,7 +10,7 @@ use Packfire\Collection\Sort\IComparator;
 class SortedListTest extends \PHPUnit_Framework_TestCase implements IComparator {
 
     /**
-     * @var SortedList
+     * @var \Packfire\Collection\SortedList
      */
     protected $object;
 
@@ -34,6 +34,9 @@ class SortedListTest extends \PHPUnit_Framework_TestCase implements IComparator 
         return $a < $b ? -1 : 1;
     }
 
+    /**
+     * @covers \Packfire\Collection\SortedList::add
+     */
     public function testOne(){
         $this->object = new SortedList(function($a, $b){
                 if($a == $b){return 0;}
@@ -42,19 +45,22 @@ class SortedListTest extends \PHPUnit_Framework_TestCase implements IComparator 
         $this->runner();
     }
 
+    /**
+     * @covers \Packfire\Collection\SortedList::add
+     */
     public function testTwo(){
         $this->object = new SortedList(array($this, 'compare'));
         $this->runner();
     }
 
+    /**
+     * @covers \Packfire\Collection\SortedList::add
+     */
     public function testThree(){
         $this->object = new SortedList($this);
         $this->runner();
     }
-
-    /**
-     * @covers SortedList::add
-     */
+    
     protected function runner() {
         $this->object->add(5);
         $this->object->add(6);

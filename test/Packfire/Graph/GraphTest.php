@@ -10,27 +10,27 @@ use Packfire\Collection\Map;
 class GraphTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Graph
+     * @var \Packfire\Graph\Graph
      */
     protected $graph;
 
     /**
-     * @var Vertex
+     * @var \Packfire\Graph\Vertex
      */
     protected $nodeA;
 
     /**
-     * @var Vertex
+     * @var \Packfire\Graph\Vertex
      */
     protected $nodeB;
 
     /**
-     * @var Vertex
+     * @var \Packfire\Graph\Vertex
      */
     protected $nodeC;
 
     /**
-     * @var Vertex
+     * @var \Packfire\Graph\Vertex
      */
     protected $nodeD;
 
@@ -61,7 +61,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Graph::add
+     * @covers \Packfire\Graph\Graph::add
      */
     public function testAddGet() {
         $test = new Vertex('test');
@@ -74,7 +74,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Graph::vertices
+     * @covers \Packfire\Graph\Graph::vertices
      */
     public function testVertices() {
         $this->assertCount(4, $this->graph->vertices());
@@ -82,7 +82,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Graph::find
+     * @covers \Packfire\Graph\Graph::find
      */
     public function testFindSimple() {
         $this->nodeA->connect($this->nodeB, 5);
@@ -95,7 +95,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Graph::find
+     * @covers \Packfire\Graph\Graph::find
      */
     public function testFindComplex() {
         $this->nodeA->connect($this->nodeB, 5);

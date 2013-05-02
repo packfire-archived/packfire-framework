@@ -1,13 +1,15 @@
 <?php
+
 namespace Packfire\Controller;
 
 use Packfire\Application\Http\Request as HttpRequest;
 use Packfire\Application\Http\Response as HttpResponse;
 use Packfire\Collection\Map;
-use Packfire\IoC\ServiceBucket;
 use Packfire\Session\Session;
 use Packfire\Route\Http\Route;
 use Packfire\Route\Http\Router;
+use Packfire\FuelBlade\Container;
+
 require_once('test/Mocks/SessionStorage.php');
 
 /**
@@ -17,34 +19,46 @@ require_once('test/Mocks/SessionStorage.php');
 class InvokerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Invoker
+     * @var \Packfire\Controller\Invoker
      */
     protected $object;
+    protected $ioc;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Controller\Invoker::__invoke
      */
     protected function setUp() {
+        $this->ioc = new Container();
+        $bucket = $this->ioc;
+
+        $this->object = new Invoker(
+                'Packfire\Welcome\HomeController', 'index'
+        );
+
         $request = new HttpRequest(null, null);
         $request->method('GET');
-        $this->object = new Invoker(
-                        'Packfire\Welcome\HomeController',
-                        'index',
-                        $request,
-                        new Route('test', array()),
-                        new HttpResponse()
-        );
-        $bucket = new ServiceBucket();
-        $storage = new \Packfire\Test\Mocks\SessionStorage();
-        $bucket->put('session.storage', $storage);
-        $bucket->put('session', new Session($storage));
-        $bucket->put('loader', $this->object);
+        $bucket['request'] = $request;
+
+        $bucket['response'] = new HttpResponse();
+
+        $bucket['session.storage'] = $bucket->share(function() {
+                    return new \Packfire\Test\Mocks\SessionStorage();
+                });
+
+        $bucket['session'] = $bucket->share(function($c) {
+                    return new Session($c['session.storage']);
+                });
+
         $router = new Router();
         $config = new Map(array('rewrite' => 'home/{theme}', 'actual' => 'Rest'));
         $router->add('home', new Route('route.home', $config));
         $router->add('themeSwitch', new Route('route.home', $config));
-        $bucket->put('router', $router);
+        $bucket['router'] = $router;
+        $bucket['route'] = $router->entries()->get('home');
+
+        call_user_func($this->object, $this->ioc);
     }
 
     /**
@@ -52,16 +66,16 @@ class InvokerTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers Invoker::load
+     * @covers \Packfire\Controller\Invoker::load
      */
     public function testLoad() {
         $this->assertTrue($this->object->load());
-        $this->assertInstanceOf('Packfire\Application\IAppResponse', $this->object->response());
-        $this->assertNotEmpty($this->object->response()->body());
+        $this->assertInstanceOf('Packfire\Application\IAppResponse', $this->ioc['response']);
+        $this->assertNotEmpty($this->ioc['response']->body());
     }
 
 }

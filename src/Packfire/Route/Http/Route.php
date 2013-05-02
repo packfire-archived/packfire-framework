@@ -126,8 +126,6 @@ class Route extends CoreRoute {
                         $this->params = new Map($params);
                         if($this->remap->count() > 0){
                             $this->remapParam($this->remap, $params);
-                        }else{
-                            $this->remap = new Map($params);
                         }
                         $this->remap = new Map($params);
                     }

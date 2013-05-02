@@ -41,6 +41,7 @@ class Match {
      * @param Regex $regex The Regex object that created this match
      * @param string $match The matching string
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function __construct($regex, $match){
         $this->regex = $regex;

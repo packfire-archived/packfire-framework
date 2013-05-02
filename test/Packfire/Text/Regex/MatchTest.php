@@ -8,7 +8,7 @@ namespace Packfire\Text\Regex;
 class MatchTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Match
+     * @var \Packfire\Text\Regex\Match
      */
     protected $object;
 
@@ -29,14 +29,14 @@ class MatchTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Match::regex
+     * @covers \Packfire\Text\Regex\Match::regex
      */
     public function testRegex() {
         $this->assertInternalType('object', $this->object->regex());
     }
 
     /**
-     * @covers Match::match
+     * @covers \Packfire\Text\Regex\Match::match
      */
     public function testMatch() {
         $this->assertEquals('test', $this->object->match());

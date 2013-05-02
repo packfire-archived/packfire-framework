@@ -73,12 +73,12 @@ class ClassFinder implements IClassFinder {
      */
     public function find($class) {
         $class = ltrim($class, '\\');
-        $fileName = str_replace(array('\\', '_'), DIRECTORY_SEPARATOR, $class) . '.php';
+        $fileName = str_replace(array('\\', '_'), '/', $class) . '.php';
         
         foreach($this->namespaces as $namespace => $dirs){
             if(0 === strpos($class, $namespace)){
                 foreach($dirs as $dir){
-                    $path = $dir . DIRECTORY_SEPARATOR . $fileName;
+                    $path = $dir . '/' . $fileName;
                     if(file_exists($path)){
                         return $path;
                     }
@@ -87,7 +87,7 @@ class ClassFinder implements IClassFinder {
         }
         
         foreach($this->searchDirs as $dir){
-            $path = $dir . DIRECTORY_SEPARATOR . $fileName;
+            $path = $dir . '/' . $fileName;
             if(file_exists($path)){
                 return $path;
             }

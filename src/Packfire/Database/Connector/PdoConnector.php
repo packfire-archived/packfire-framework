@@ -12,9 +12,9 @@
 namespace Packfire\Database\Connector;
 
 use Packfire\Database\IConnector;
-use Packfire\IoC\BucketUser;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Database\Expression;
+use Packfire\FuelBlade\IConsumer;
 
 if(!class_exists('\PDO')){
     throw new MissingDependencyException('PdoConnector requires the PDO extension in order to run properly.');
@@ -29,7 +29,9 @@ if(!class_exists('\PDO')){
  * @package Packfire\Database\Connector
  * @since 1.0-sofia
  */
-abstract class PdoConnector extends BucketUser implements IConnector {
+abstract class PdoConnector implements IConnector, IConsumer {
+    
+    protected $debugger;
 
     /**
      * The PDO object
@@ -106,7 +108,7 @@ abstract class PdoConnector extends BucketUser implements IConnector {
      * @since 1.0-sofia
      */
     public function prepare($query){
-        $this->service('debugger')->query($query, 'prepare');
+        $this->debugger->query($query, 'prepare');
         return $this->pdo->prepare($query);
     }
 
@@ -117,7 +119,7 @@ abstract class PdoConnector extends BucketUser implements IConnector {
      * @since 1.0-sofia
      */
     public function query($query){
-        $this->service('debugger')->query($query);
+        $this->debugger->query($query);
         return $this->pdo->query($query);
     }
 
@@ -153,6 +155,13 @@ abstract class PdoConnector extends BucketUser implements IConnector {
      */
     public function rollback(){
         $this->pdo->rollBack();
+    }
+    
+    public function __invoke($c){
+        if(isset($c['debugger'])){
+            $this->debugger = $c['debugger'];
+        }
+        return $this;
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Text;
 
 /**
@@ -37,13 +38,13 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers Inflector::firstUpperCase
+     * @covers \Packfire\Text\Inflector::firstUpperCase
      */
-    public function testFirstUpperCase(){
+    public function testFirstUpperCase() {
         $this->assertEquals(4, Inflector::firstUpperCase('testRun'));
         $this->assertEquals(6, Inflector::firstUpperCase('incaseTestRun'));
         $this->assertEquals(false, Inflector::firstUpperCase('home'));
@@ -51,7 +52,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::isWordUpperCase
+     * @covers \Packfire\Text\Inflector::isWordUpperCase
      */
     public function testIsWordUpperCase() {
         $this->assertTrue(Inflector::isWordUpperCase('LMAO'));
@@ -63,7 +64,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::isWordLowerCase
+     * @covers \Packfire\Text\Inflector::isWordLowerCase
      */
     public function testIsWordLowerCase() {
         $this->assertFalse(Inflector::isWordLowerCase('LMAO'));
@@ -77,7 +78,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Inflector::isCapitalLetterWord
+     * @covers \Packfire\Text\Inflector::isCapitalLetterWord
      */
     public function testIsCapitalLetterWord() {
         $this->assertTrue(Inflector::isCapitalLetterWord('Good'));
@@ -86,55 +87,77 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse(Inflector::isCapitalLetterWord('aGood'));
         $this->assertFalse(Inflector::isCapitalLetterWord('bGreat!'));
         $this->assertFalse(Inflector::isCapitalLetterWord('cH4ppy n0w?'));
+        $this->assertFalse(Inflector::isCapitalLetterWord(''));
     }
 
     /**
-     * @covers Inflector::singular
+     * @covers \Packfire\Text\Inflector::singular
      */
     public function testSingular() {
         $this->testCases = array_merge($this->testCases, array(
             'man' => 'man',
             'key' => 'key',
             'mummy' => 'mummy',
-            'yatch' => 'yatch'
+            'yatch' => 'yatch',
+            'matches' => 'match'
         ));
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($singular, Inflector::singular($plural));
         }
     }
 
     /**
-     * @covers Inflector::plural
+     * @covers \Packfire\Text\Inflector::plural
      */
     public function testPlural() {
         $this->testCases = array_merge($this->testCases, array(
             'men' => 'men',
             'keys' => 'keys',
             'mummies' => 'mummies',
-            'yatches' => 'yatches'
+            'yatches' => 'yatches',
+            'passes' => 'pass',
+            'kins' => 'kins'
         ));
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($plural, Inflector::plural($singular));
         }
     }
 
     /**
-     * @covers Inflector::quantify
+     * @covers \Packfire\Text\Inflector::quantify
      */
     public function testQuantify() {
         $quantifier = 1;
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($singular, Inflector::quantify($quantifier, $singular));
         }
+    }
+
+    /**
+     * @covers \Packfire\Text\Inflector::quantify
+     */
+    public function testQuantify2() {
         $quantifier = 5;
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($plural, Inflector::quantify($quantifier, $singular));
         }
+    }
+
+    /**
+     * @covers \Packfire\Text\Inflector::quantify
+     */
+    public function testQuantify3() {
         $quantifier = 100;
-        foreach($this->testCases as $plural => $singular){
+        foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($plural, Inflector::quantify($quantifier, $singular));
             $this->assertEquals($singular, Inflector::quantify($quantifier, $singular, $singular));
         }
+    }
+
+    /**
+     * @covers \Packfire\Text\Inflector::quantify
+     */
+    public function testQuantify4() {
         $this->assertEquals('aaa', Inflector::quantify(2, 'bbb', 'aaa'));
         $this->assertEquals('bbb', Inflector::quantify(1, 'bbb', 'aaa'));
     }

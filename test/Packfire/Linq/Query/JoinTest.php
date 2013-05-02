@@ -8,7 +8,7 @@ namespace Packfire\Linq\Query;
 class JoinTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Join
+     * @var \Packfire\Linq\Query\Join
      */
     protected $object;
 
@@ -39,7 +39,7 @@ class JoinTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Join::run
+     * @covers \Packfire\Linq\Query\Join::run
      */
     public function testRun() {
         $collection = array(

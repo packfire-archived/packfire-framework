@@ -8,13 +8,14 @@ namespace Packfire\DateTime;
 class DatePeriodTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var DatePeriod
+     * @var \Packfire\DateTime\DatePeriod
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\DateTime\DatePeriod::__construct
      */
     protected function setUp() {
         $this->object = new DatePeriod(new DateTime(2012, 1, 10), new TimeSpan(2 * 86400), 5);
@@ -27,11 +28,30 @@ class DatePeriodTest extends \PHPUnit_Framework_TestCase {
     protected function tearDown() {
 
     }
+    
+    /**
+     * @covers \Packfire\DateTime\DatePeriod::occurrances
+     */
+    public function testOccurances(){
+        $this->assertEquals(5, $this->object->occurrances());
+    }
+    
+    /**
+     * @covers \Packfire\DateTime\DatePeriod::key
+     */
+    public function testKey(){
+        $this->assertEquals(0, $this->object->key());
+        $this->object->next();
+        $this->assertEquals(1, $this->object->key());
+    }
 
+    /**
+     * @covers \Packfire\DateTime\DatePeriod
+     */
     function testRun(){
         $array = array();
-        foreach($this->object as $date){
-            $array[] = $date;
+        foreach($this->object as $key => $date){
+            $array[$key] = $date;
         }
         $this->assertEquals(10, $array[0]->day());
         $this->assertEquals(1, $array[0]->month());

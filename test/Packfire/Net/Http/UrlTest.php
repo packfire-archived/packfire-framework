@@ -8,7 +8,7 @@ namespace Packfire\Net\Http;
 class UrlTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Url
+     * @var \Packfire\Net\Http\Url
      */
     protected $object;
 
@@ -29,56 +29,56 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Url::fragment
+     * @covers \Packfire\Net\Http\Url::fragment
      */
     public function testFragment() {
         $this->assertEquals('true', $this->object->fragment());
     }
 
     /**
-     * @covers Url::host
+     * @covers \Packfire\Net\Http\Url::host
      */
     public function testHost() {
         $this->assertEquals('git.example.com', $this->object->host());
     }
 
     /**
-     * @covers Url::pass
+     * @covers \Packfire\Net\Http\Url::pass
      */
     public function testPass() {
         $this->assertEquals('pwd', $this->object->pass());
     }
 
     /**
-     * @covers Url::port
+     * @covers \Packfire\Net\Http\Url::port
      */
     public function testPort() {
         $this->assertEquals('2103', $this->object->port());
     }
 
     /**
-     * @covers Url::path
+     * @covers \Packfire\Net\Http\Url::path
      */
     public function testPath() {
         $this->assertEquals('/path/test.html', $this->object->path());
     }
 
     /**
-     * @covers Url::scheme
+     * @covers \Packfire\Net\Http\Url::scheme
      */
     public function testScheme() {
         $this->assertEquals('ftp', $this->object->scheme());
     }
 
     /**
-     * @covers Url::user
+     * @covers \Packfire\Net\Http\Url::user
      */
     public function testUser() {
         $this->assertEquals('user', $this->object->user());
     }
 
     /**
-     * @covers Url::params
+     * @covers \Packfire\Net\Http\Url::params
      */
     public function testParams() {
         $this->assertInstanceOf('Packfire\Collection\Map', $this->object->params());
@@ -86,7 +86,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Url::__toString
+     * @covers \Packfire\Net\Http\Url::__toString
      */
     public function test__toString() {
         $this->assertEquals('ftp://user:pwd@git.example.com:2103/path/test.html'
@@ -94,7 +94,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Url::encode
+     * @covers \Packfire\Net\Http\Url::encode
      */
     public function testEncode() {
         $this->assertEquals('%3C', Url::encode('<'));
@@ -105,7 +105,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Url::decode
+     * @covers \Packfire\Net\Http\Url::decode
      */
     public function testDecode() {
         $this->assertEquals('<', Url::decode('%3C'));
@@ -116,7 +116,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Url::combine
+     * @covers \Packfire\Net\Http\Url::combine
      */
     public function testCombine() {
         $final = Url::combine('http://example.com/test', '../object');
@@ -124,7 +124,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Url::combine
+     * @covers \Packfire\Net\Http\Url::combine
      */
     public function testCombine2(){
         $final = Url::combine('/test/data', '../object/true');

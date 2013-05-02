@@ -9,6 +9,9 @@ use Packfire\Text\TextStream;
  */
 class XmlSerializerTest extends \PHPUnit_Framework_TestCase {
 
+    /**
+     * @var \Packfire\Data\Serialization\XmlSerializer
+     */
     private $object;
 
     /**
@@ -28,7 +31,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers XmlSerializer::serialize
+     * @covers \Packfire\Data\Serialization\XmlSerializer::serialize
      */
     public function testSerialize() {
         $data = array('key' => 'value', 'test');
@@ -39,7 +42,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers XmlSerializer::serialize
+     * @covers \Packfire\Data\Serialization\XmlSerializer::serialize
      */
     public function testSerialize2() {
         $data = new \stdClass();
@@ -52,7 +55,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers XmlSerializer::serialize
+     * @covers \Packfire\Data\Serialization\XmlSerializer::serialize
      */
     public function testSerialize3() {
         $data = new \stdClass();
@@ -63,7 +66,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers XmlSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\XmlSerializer::deserialize
      */
     public function testDeserialize() {
         $data = array('key' => 'value', 'test');
@@ -73,7 +76,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers XmlSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\XmlSerializer::deserialize
      */
     public function testDeserialize2() {
         $data = new \stdClass();
@@ -85,7 +88,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers XmlSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\XmlSerializer::deserialize
      */
     public function testDeserialize3() {
         $data = new \stdClass();
@@ -95,6 +98,10 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($data, $item);
     }
 
+    /**
+     * @covers \Packfire\Data\Serialization\XmlSerializer::serialize
+     * @covers \Packfire\Data\Serialization\XmlSerializer::deserialize
+     */
     public function testOverall(){
         $data = new \stdClass();
         $data->test = 'data';
