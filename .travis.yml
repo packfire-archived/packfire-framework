@@ -11,6 +11,6 @@ php:
   - 5.5
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('password') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - composer install
+  - composer install --prefer-source
 after_script:
   - "wget --quiet http://mauris.sg/bin/pdc.phar && php pdc.phar src"
