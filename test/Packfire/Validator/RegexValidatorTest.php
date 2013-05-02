@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class RegexValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var RegexValidator
+     * @var \Packfire\Validator\RegexValidator
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class RegexValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers RegexValidator::validate
+     * @covers \Packfire\Validator\RegexValidator::validate
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate('on'));

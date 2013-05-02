@@ -10,7 +10,7 @@ use Packfire\Text\TextStream;
 class YamlTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Yaml
+     * @var \Packfire\Yaml\Yaml
      */
     protected $object;
 
@@ -32,7 +32,7 @@ class YamlTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Yaml::read
+     * @covers \Packfire\Yaml\Yaml::read
      */
     public function testRead() {
         $result = $this->object->read();
@@ -42,7 +42,7 @@ class YamlTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Yaml::parser
+     * @covers \Packfire\Yaml\Yaml::parser
      */
     public function testParser() {
         $this->assertInstanceof('Packfire\Yaml\YamlParser', $this->object->parser());

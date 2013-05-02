@@ -53,6 +53,7 @@ class TextStream implements IIOStream {
      * Nothing to do here
      * @ignore me... foreveralone
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function close() {
         // nothing here ^^
@@ -62,6 +63,7 @@ class TextStream implements IIOStream {
      * Nothing to do here
      * @ignore me... foreveralone
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function open() {
         // nothing here
@@ -99,9 +101,6 @@ class TextStream implements IIOStream {
      * @since 1.0-sofia
      */
     public function seek($position) {
-        if(is_callable($position)){
-            $position = $position($this);
-        }
         if($position >= 0 && $position <= $this->length()){
             $this->pointer = $position;
         }else{
@@ -110,7 +109,6 @@ class TextStream implements IIOStream {
                             $position)
                 );
         }
-        
     }
 
     /**
@@ -135,6 +133,7 @@ class TextStream implements IIOStream {
      * Does nothing, really.
      * @ignore 
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function flush() {
         // well, flush does nothing here at all (:

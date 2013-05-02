@@ -9,27 +9,27 @@
  * All rights reserved.
  */
 
-namespace Packfire\Config\Driver;
+namespace Packfire\Debugger\Output;
 
-use Packfire\Config\Config;
+use Packfire\Debugger\IOutput;
 
 /**
- * A PHP configuration file that returns an array of configuration information.
+ * Blackhole output. Nothing is written. 
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Config\Driver
- * @since 1.0-sofia
+ * @package Packfire\Debugger\Output
+ * @since 2.1.0
  */
-class PhpConfig extends Config {
-
-    /**
-     * Read the configuration file
-     * @since 1.0-sofia
-     */
-    protected function read() {
-        $this->data = include($this->file);
+class Blackhole implements IOutput {
+    
+    public function output() {
+        
     }
 
+    public function write($message, $value = null, $type = 'log') {
+        
+    }
+    
 }

@@ -136,7 +136,7 @@ class Mustache {
                     switch($tagType){
                         case self::TYPE_COMMENT:
                             // comment, do nothing
-                            $this->findClosingTag($name, $position, $end);
+                            $position = $tagEnd;
                             break;
                         case self::TYPE_OPEN:
                             $position = $start + $tagEnd;

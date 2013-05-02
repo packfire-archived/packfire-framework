@@ -24,7 +24,7 @@ class SignatureTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Signature::load
+     * @covers \Packfire\OAuth\Signature::load
      */
     public function testLoad() {
         $class = Signature::load('HMAC-SHA1');
@@ -32,7 +32,7 @@ class SignatureTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Signature::load
+     * @covers \Packfire\OAuth\Signature::load
      */
     public function testLoad2() {
         $class = Signature::load('PLAINTEXT');
@@ -40,14 +40,14 @@ class SignatureTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Signature::load
+     * @covers \Packfire\OAuth\Signature::load
      */
     public function testLoadFail() {
         $this->assertNull(Signature::load('WOAHFAIL'));
     }
 
     /**
-     * @covers Signature::check
+     * @covers \Packfire\OAuth\Signature::check
      */
     public function testCheck() {
         $stub = $this->getMockForAbstractClass('Packfire\OAuth\Signature', array(), '', false);

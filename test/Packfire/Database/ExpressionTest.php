@@ -8,13 +8,14 @@ namespace Packfire\Database;
 class ExpressionTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Expression
+     * @var \Packfire\Database\Expression
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Database\Expression::__construct
      */
     protected function setUp() {
         $this->object = new Expression('NOW()');
@@ -29,7 +30,7 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Expression::expression
+     * @covers \Packfire\Database\Expression::expression
      */
     public function testExpression() {
         $this->assertEquals('NOW()', $this->object->expression());

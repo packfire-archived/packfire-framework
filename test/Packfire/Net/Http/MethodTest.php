@@ -7,6 +7,9 @@ namespace Packfire\Net\Http;
  */
 class MethodTest extends \PHPUnit_Framework_TestCase {
 
+    /**
+     * @covers \Packfire\Net\Http\Method
+     */
     function testConstants(){
         $this->assertEquals('GET', Method::GET);
         $this->assertEquals('POST', Method::POST);

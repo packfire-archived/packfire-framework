@@ -10,7 +10,7 @@ use Packfire\Net\Http\Request as HttpRequest;
 class RequestTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Request
+     * @var \Packfire\OAuth\Request
      */
     protected $object;
 
@@ -31,7 +31,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Request::preload
+     * @covers \Packfire\OAuth\Request::preload
      */
     public function testPreload() {
         $request = new HttpRequest();
@@ -43,7 +43,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Request::oauth
+     * @covers \Packfire\OAuth\Request::oauth
      */
     public function testOauth() {
         $this->assertNull($this->object->oauth(OAuth::CALLBACK));
@@ -52,7 +52,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Request::parse
+     * @covers \Packfire\OAuth\Request::parse
      */
     public function testParse() {
         $http = "POST /api/test?oauth_token=token HTTP/1.1\nHost: example.com\n"
@@ -64,7 +64,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Request::signatureBase
+     * @covers \Packfire\OAuth\Request::signatureBase
      */
     public function testSignatureBase() {
         $this->object->oauth(OAuth::CONSUMER_KEY, 'consumer');
@@ -78,14 +78,14 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Request::method
+     * @covers \Packfire\OAuth\Request::method
      */
     public function testMethod() {
         $this->assertEquals('GET', $this->object->method('get'));
     }
 
     /**
-     * @covers Request::buildAuthorizationHeader
+     * @covers \Packfire\OAuth\Request::buildAuthorizationHeader
      */
     public function testBuildAuthorizationHeader() {
         $this->object->oauth(OAuth::CONSUMER_KEY, 'consumer');
@@ -97,7 +97,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Request::sign
+     * @covers \Packfire\OAuth\Request::sign
      */
     public function testSign() {
         $this->object->oauth(OAuth::NONCE, 'test');
@@ -109,8 +109,8 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Request::sign
-     * @expectedException Packfire\Exception\InvalidArgumentException
+     * @covers \Packfire\OAuth\Request::sign
+     * @expectedException \Packfire\Exception\InvalidArgumentException
      */
     public function testSignFail(){
         $this->object->sign('WOAHFAKE', new Consumer('consumer', 'secret'));

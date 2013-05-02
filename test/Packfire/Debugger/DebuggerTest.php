@@ -1,7 +1,7 @@
 <?php
 namespace Packfire\Debugger;
 
-use Packfire\IoC\ServiceBucket;
+use \Packfire\FuelBlade\Container;
 
 /**
  * Test class for Debugger.
@@ -12,22 +12,25 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase {
     const DEBUGOUTPUT = 'debugger.output';
 
     /**
-     * @var Debugger
+     * @var \Packfire\Debugger\Debugger
      */
     protected $object;
+    
+    private $ioc;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Debugger\Debugger::__construct
+     * @covers \Packfire\Debugger\Debugger::__invoke
      */
     protected function setUp() {
+        $this->ioc = new Container();
+        $this->ioc[self::DEBUGOUTPUT] = $this->getMock('Packfire\\Debugger\\IOutput');
 
-        $bucket = new ServiceBucket();
-        $bucket->put(self::DEBUGOUTPUT, $this->getMock('Packfire\\Debugger\\IOutput'));
-
-        /* @var $object Debugger */
         $this->object = new Debugger();
-        $this->object->setBucket($bucket);
+
+        call_user_func($this->object, $this->ioc);
     }
 
     /**
@@ -39,7 +42,7 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Debugger::enabled
+     * @covers \Packfire\Debugger\Debugger::enabled
      */
     public function testEnabled() {
         $this->assertTrue($this->object->enabled());
@@ -50,10 +53,10 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Debugger::dump
+     * @covers \Packfire\Debugger\Debugger::dump
      */
     public function testDump() {
-        $this->object->service(self::DEBUGOUTPUT)
+        $this->ioc[self::DEBUGOUTPUT]
                 ->expects($this->once())
                 ->method('write')
                 ->with(
@@ -65,10 +68,10 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Debugger::log
+     * @covers \Packfire\Debugger\Debugger::log
      */
     public function testLog() {
-        $this->object->service(self::DEBUGOUTPUT)
+        $this->ioc[self::DEBUGOUTPUT]
                 ->expects($this->once())
                 ->method('write')
                 ->with(
@@ -80,10 +83,10 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Debugger::exception
+     * @covers \Packfire\Debugger\Debugger::exception
      */
     public function testException() {
-        $this->object->service(self::DEBUGOUTPUT)
+        $this->ioc[self::DEBUGOUTPUT]
                 ->expects($this->once())
                 ->method('write')
                 ->with(
@@ -95,10 +98,10 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Debugger::timeCheck
+     * @covers \Packfire\Debugger\Debugger::timeCheck
      */
     public function testTimeCheck() {
-        $this->object->service(self::DEBUGOUTPUT)
+        $this->ioc[self::DEBUGOUTPUT]
                 ->expects($this->once())
                 ->method('write')
                 ->with(
@@ -110,10 +113,10 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Debugger::query
+     * @covers \Packfire\Debugger\Debugger::query
      */
     public function testQuery() {
-        $this->object->service(self::DEBUGOUTPUT)
+        $this->ioc[self::DEBUGOUTPUT]
                 ->expects($this->once())
                 ->method('write')
                 ->with(

@@ -8,7 +8,7 @@ namespace Packfire\Welcome;
 class HelloWorldViewTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var pHelloWorldView
+     * @var \Packfire\Welcome\HelloWorldView
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class HelloWorldViewTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers HelloWorldView::render()
+     * @covers \Packfire\Welcome\HelloWorldView::render()
      */
     public function testRender(){
         $content = $this->object->render();

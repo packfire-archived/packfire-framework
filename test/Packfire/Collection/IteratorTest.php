@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Collection;
 
 /**
@@ -10,13 +11,14 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     protected $array;
 
     /**
-     * @var Iterator
+     * @var \Packfire\Collection\Iterator
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Collection\Iterator::__construct
      */
     protected function setUp() {
         $this->array = array(1, 3, 5, 7, 9, 11, 13, 15);
@@ -28,16 +30,16 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers Iterator::iterate
+     * @covers \Packfire\Collection\Iterator::iterate
      */
     public function testIterate() {
         $i = 0;
 
-        while($kvp = $this->object->iterate()){
+        while ($kvp = $this->object->iterate()) {
             $this->assertEquals($this->array[$i], $kvp->value());
             $this->assertEquals($i, $kvp->key());
             ++$i;
@@ -45,7 +47,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::next
+     * @covers \Packfire\Collection\Iterator::next
      */
     public function testNext() {
         $this->assertEquals(3, $this->object->next());
@@ -59,20 +61,20 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::more
+     * @covers \Packfire\Collection\Iterator::more
      */
     public function testMore() {
         $mock = array();
         $this->assertTrue($this->object->more());
-        do{
+        do {
             $a = $this->object->current();
             $mock[] = $a;
-        }while($this->object->next());
+        } while ($this->object->next());
         $this->assertFalse($this->object->more());
     }
 
     /**
-     * @covers Iterator::current
+     * @covers \Packfire\Collection\Iterator::current
      */
     public function testCurrent() {
         $this->assertEquals(1, $this->object->current());
@@ -83,7 +85,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::reset
+     * @covers \Packfire\Collection\Iterator::reset
      */
     public function testReset() {
         $this->assertEquals(1, $this->object->current());
@@ -94,7 +96,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Iterator::count
+     * @covers \Packfire\Collection\Iterator::count
      */
     public function testCount() {
         $this->assertCount(8, $this->object);

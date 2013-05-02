@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\DateTime;
 
 /**
@@ -8,13 +9,14 @@ namespace Packfire\DateTime;
 class TimeTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Time
+     * @var \Packfire\DateTime\Time
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\DateTime\Time::__construct
      */
     protected function setUp() {
         $this->object = new Time(10, 20, 5, 100);
@@ -25,11 +27,11 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers Time::millisecond
+     * @covers \Packfire\DateTime\Time::millisecond
      */
     public function testMillisecond() {
         $this->assertEquals(100, $this->object->millisecond());
@@ -44,7 +46,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Time::second
+     * @covers \Packfire\DateTime\Time::second
      */
     public function testSecond() {
         $this->assertEquals(5, $this->object->second());
@@ -54,7 +56,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Time::second
+     * @covers \Packfire\DateTime\Time::second
      */
     public function testSecond2() {
         $minute = $this->object->minute();
@@ -64,7 +66,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Time::second
+     * @covers \Packfire\DateTime\Time::second
      */
     public function testSecond3() {
         $minute = $this->object->minute();
@@ -74,7 +76,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Time::minute
+     * @covers \Packfire\DateTime\Time::minute
      */
     public function testMinute() {
         $this->assertEquals(20, $this->object->minute());
@@ -84,7 +86,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Time::minute
+     * @covers \Packfire\DateTime\Time::minute
      */
     public function testMinute2() {
         $hour = $this->object->hour();
@@ -94,7 +96,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Time::minute
+     * @covers \Packfire\DateTime\Time::minute
      */
     public function testMinute3() {
         $hour = $this->object->hour();
@@ -104,7 +106,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Time::hour
+     * @covers \Packfire\DateTime\Time::hour
      */
     public function testHour() {
         $this->assertEquals(10, $this->object->hour());
@@ -117,10 +119,13 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
 
         $this->object->hour(48);
         $this->assertEquals(0, $this->object->hour());
+
+        $this->object->hour(-3);
+        $this->assertEquals(21, $this->object->hour());
     }
 
     /**
-     * @covers Time::totalSeconds
+     * @covers \Packfire\DateTime\Time::totalSeconds
      */
     public function testTotalSeconds() {
         $this->assertEquals(37205.1, $this->object->totalSeconds());
@@ -129,7 +134,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Time::add
+     * @covers \Packfire\DateTime\Time::add
      */
     public function testAdd() {
         $time = new Time(22, 20, 59, 500);
@@ -141,7 +146,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pTime::subtract
+     * @covers \Packfire\DateTime\Time::subtract
      */
     public function testSubtract() {
         $time = new Time(8, 20, 59, 500);
@@ -153,7 +158,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Time::compareTo
+     * @covers \Packfire\DateTime\Time::compareTo
      */
     public function testCompareTo() {
         $time1 = new Time(8, 20, 59, 500);

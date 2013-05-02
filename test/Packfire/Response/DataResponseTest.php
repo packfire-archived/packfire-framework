@@ -24,7 +24,7 @@ class DataResponseTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Response::build
+     * @covers \Packfire\Response\DataResponse
      */
     public function testBuild() {
         $data = array('data' => 5);
@@ -35,7 +35,7 @@ class DataResponseTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Response::create
+     * @covers \Packfire\Response\DataResponse
      */
     public function testCreate() {
         $data = array('data' => 5);

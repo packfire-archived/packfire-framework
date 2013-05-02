@@ -9,27 +9,21 @@
  * All rights reserved.
  */
 
-namespace Packfire\Config\Driver;
-
-use Packfire\Config\Config;
+namespace Packfire\Route;
 
 /**
- * An INI configuration file
+ * Handles URL rewritting and controller routing
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) Sam-Mauris Yong
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
- * @package Packfire\Config\Driver
- * @since 1.0-sofia
+ * @package Packfire\Route
+ * @since 2.1.0
  */
-class IniConfig extends Config {
+interface IRouter {
     
-    /**
-     * Read the configuration file 
-     * @since 1.0-sofia
-     */
-    protected function read() {
-        $this->data = parse_ini_file($this->file, true);
-    }
+    public function route($request);
+    
+    public function to($key, $params = array());
     
 }

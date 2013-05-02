@@ -26,7 +26,7 @@
  * @param Closure|callback $func The function to execute
  * @return mixed
  * @example
- * <code>using($this->service('debugger'), function($debug){
+ * <code>using($this->ioc['debugger'], function($debug){
  *      $debug->enabled(true);
  *      $debug->log('cool here');
  *      $debug->timeCheck();

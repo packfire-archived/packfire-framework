@@ -8,7 +8,7 @@ namespace Packfire\Net\Http;
 class ServerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Server
+     * @var \Packfire\Net\Http\Server
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Net\Http\Server::request
+     * @covers \Packfire\Net\Http\Server::request
      */
     public function testRequest() {
         $request = new Request();
@@ -38,7 +38,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase {
         
         $response = $this->object->request($request);
         $this->assertInstanceOf('Packfire\Net\Http\Response', $response);
-        $this->assertEquals('http://www.iana.org/domains/example/', $response->headers()->get('location'));
+        $this->assertEquals('http://example.iana.org', $response->headers()->get('location'));
         $this->assertEquals('302 Found', $response->code());
     }
 

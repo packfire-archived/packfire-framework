@@ -1,14 +1,16 @@
 <?php
+
 namespace Packfire\View;
 
 use Packfire\Collection\Map;
-use Packfire\IoC\ServiceBucket;
 use Packfire\Route\Http\Route;
 use Packfire\Route\Http\Router;
 use Packfire\Template\Template;
+use Packfire\FuelBlade\Container;
 
 require_once('test/Mocks/View.php');
 require_once('test/Mocks/Config.php');
+
 use Packfire\Test\Mocks\View;
 use Packfire\Test\Mocks\Config;
 
@@ -19,9 +21,10 @@ use Packfire\Test\Mocks\Config;
 class ViewTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var View
+     * @var \Packfire\View\View
      */
     protected $object;
+    private $ioc;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -29,16 +32,18 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->object = new View();
-        $services = new ServiceBucket();
-        $this->object->setBucket($services);
+        $this->ioc = new Container();
+        $bucket = $this->ioc;
 
         $router = new Router();
         $configData = new Map(array('rewrite' => '/home', 'actual' => 'Rest'));
         $router->add('home', new Route('home', $configData));
-        $services->put('router', $router);
+        $bucket['router'] = $router;
 
-        $mockConfig = new Config();
-        $services->put('config.app', $mockConfig);
+        $config = new Config();
+        $bucket['config'] = $config;
+
+        call_user_func($this->object, $this->ioc);
     }
 
     /**
@@ -46,11 +51,11 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers View::create
+     * @covers \Packfire\View\View::create
      */
     public function testCreate() {
         $this->object->state(new Map(array('tag' => 'five  ')));

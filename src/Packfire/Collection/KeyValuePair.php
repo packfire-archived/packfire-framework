@@ -41,10 +41,11 @@ class KeyValuePair {
      * @param string $key The key name
      * @param mixed $value The value
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     function __construct($key, $value) {
-        $this->key($key);
-        $this->value($value);
+        $this->key = $key;
+        $this->value = $value;
     }
 
     /**

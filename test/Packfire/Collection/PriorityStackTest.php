@@ -8,7 +8,7 @@ namespace Packfire\Collection;
 class PriorityStackTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var pPriorityStack
+     * @var \Packfire\Collection\PriorityStack
      */
     protected $object;
 
@@ -32,7 +32,7 @@ class PriorityStackTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pPriorityStack::add
+     * @covers \Packfire\Collection\PriorityStack::add
      */
     public function testAdd() {
         $this->object->push(5);

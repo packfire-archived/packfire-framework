@@ -82,6 +82,7 @@ class Client {
     /**
      * Auto detect parameters from the user agent
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     protected function detect(){
         if (strpos($this->userAgent, 'Windows')) {

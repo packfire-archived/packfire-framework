@@ -8,7 +8,7 @@ namespace Packfire\Application\Cli;
 class ResponseTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Response
+     * @var \Packfire\Application\Cli\Response
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Response::output
+     * @covers \Packfire\Application\Cli\Response::output
      */
     public function testOutput() {
         $this->assertNull($this->object->output());

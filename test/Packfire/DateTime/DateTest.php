@@ -8,13 +8,14 @@ namespace Packfire\DateTime;
 class DateTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Date
+     * @var \Packfire\DateTime\Date
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\DateTime\Date::__construct
      */
     protected function setUp() {
         $this->object = new Date(1999, 9, 19);
@@ -29,7 +30,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Date::day
+     * @covers \Packfire\DateTime\Date::day
      */
     public function testDay() {
         $this->assertEquals(19, $this->object->day());
@@ -45,7 +46,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Date::month
+     * @covers \Packfire\DateTime\Date::month
      */
     public function testMonth() {
         $this->assertEquals(9, $this->object->month());
@@ -58,7 +59,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Date::year
+     * @covers \Packfire\DateTime\Date::year
      */
     public function testYear() {
         $this->assertEquals(1999, $this->object->year());
@@ -68,7 +69,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Date::shortYear
+     * @covers \Packfire\DateTime\Date::shortYear
      */
     public function testShortYear() {
         $this->assertEquals(99, $this->object->shortYear());
@@ -77,7 +78,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Date::century
+     * @covers \Packfire\DateTime\Date::century
      */
     public function testCentury() {
         $this->assertEquals(20, $this->object->century());
@@ -86,7 +87,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Date::totalDays
+     * @covers \Packfire\DateTime\Date::totalDays
      */
     public function testTotalDays() {
         $this->assertEquals(730321, $this->object->totalDays());
@@ -99,7 +100,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Date::add
+     * @covers \Packfire\DateTime\Date::add
      */
     public function testAdd() {
         $ts = new TimeSpan(86400);
@@ -109,7 +110,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Date::subtract
+     * @covers \Packfire\DateTime\Date::subtract
      */
     public function testSubtract() {
         $ts = new TimeSpan(86400);
@@ -120,6 +121,9 @@ class DateTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($this->object->year(), $date->year());
     }
 
+    /**
+     * @covers \Packfire\DateTime\Date::subtract
+     */
     public function testSubtract2(){
         $ts = new TimeSpan(3600);
         $date = $this->object->subtract($ts);
@@ -128,7 +132,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Date::compareTo
+     * @covers \Packfire\DateTime\Date::compareTo
      */
     public function testCompareTo() {
         $comp = new Date(1992, 12, 25);
@@ -139,6 +143,9 @@ class DateTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1, $comp->compareTo($this->object));
     }
 
+    /**
+     * @covers \Packfire\DateTime\Date::fromDays
+     */
     public function testFromDays(){
         $date = Date::fromDays($this->object->totalDays());
         $this->assertEquals(0, $this->object->compareTo($date));

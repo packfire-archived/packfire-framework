@@ -77,7 +77,7 @@ class StreamReader {
                 if(is_array($search)){
                     $result = self::strposa($buffer, $search);
                     if($result){
-                        list($search, $pos) = $result;
+                        list($pos, $search) = $result;
                     }
                 }else{
                     $pos = strpos($buffer, $search);

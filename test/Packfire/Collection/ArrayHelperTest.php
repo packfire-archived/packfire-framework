@@ -24,7 +24,7 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers ArrayHelper::mergeRecursiveDistinct
+     * @covers \Packfire\Collection\ArrayHelper::mergeRecursiveDistinct
      */
     public function testMergeRecursiveDistinct() {
         $alpha = array(

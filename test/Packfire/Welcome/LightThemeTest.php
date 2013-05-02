@@ -8,7 +8,7 @@ namespace Packfire\Welcome;
 class LightThemeTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var LightTheme
+     * @var \Packfire\Welcome\LightTheme
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class LightThemeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers LightTheme::render
+     * @covers \Packfire\Welcome\LightTheme::render
      */
     public function testRender() {
         $this->assertInstanceOf('Packfire\View\Theme', $this->object);

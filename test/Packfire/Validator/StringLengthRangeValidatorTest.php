@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class StringLengthRangeValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var StringLengthRangeValidator
+     * @var \Packfire\Validator\StringLengthRangeValidator
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class StringLengthRangeValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers StringLengthRangeValidator::validate
+     * @covers \Packfire\Validator\StringLengthRangeValidator::validate
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate('test'));

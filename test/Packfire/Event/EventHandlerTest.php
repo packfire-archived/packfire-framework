@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Event;
 
 /**
@@ -8,13 +9,14 @@ namespace Packfire\Event;
 class EventHandlerTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var EventHandler
+     * @var \Packfire\Event\EventHandler
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\Event\EventHandler::__construct
      */
     protected function setUp() {
         $this->object = new EventHandler($this);
@@ -25,18 +27,29 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers EventHandler::on
-     * @covers EventHandler::trigger
+     * @covers \Packfire\Event\EventHandler
      */
     public function testCombined() {
-        $this->object->on('click', function($obj, $arg = null){
-            $obj->assertNull($arg);
-            $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
-        });
+        $this->object->on('click', function($obj, $arg = null) {
+                    $obj->assertNull($arg);
+                    $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
+                });
         $this->object->trigger('click');
     }
+
+    /**
+     * @covers \Packfire\Event\EventHandler
+     */
+    public function testCombined2() {
+        $this->object->on('click', function($obj, $arg = null) {
+                    $obj->assertEquals(5, $arg);
+                    $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
+                });
+        $this->object->trigger('click', 5);
+    }
+
 }

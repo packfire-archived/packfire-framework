@@ -9,7 +9,7 @@ namespace Packfire\Collection\Sort\Comparator;
 class ObjectSelectedFieldComparatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var ObjectSelectedFieldComparator
+     * @var \Packfire\Collection\Sort\Comparator\ObjectSelectedFieldComparator
      */
     protected $object;
 
@@ -30,7 +30,7 @@ class ObjectSelectedFieldComparatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers pObjectFieldComparator::compare
+     * @covers \Packfire\Collection\Sort\Comparator\ObjectFieldComparator::compare
      */
     public function testCompare() {
         $object1 = new \stdClass();

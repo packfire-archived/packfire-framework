@@ -11,10 +11,9 @@
 
 namespace Packfire\Controller;
 
-use Packfire\IoC\BucketUser;
 use Packfire\Core\ActionInvoker;
-use Packfire\IoC\IBucketUser;
 use Packfire\Application\Pack\Template;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Controller Access Invoker
@@ -25,8 +24,15 @@ use Packfire\Application\Pack\Template;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-class Invoker extends BucketUser {
+class Invoker implements IConsumer {
 
+    /**
+     * The IoC Container
+     * @var \Packfire\FuelBlade\Container
+     * @since 2.1.0
+     */
+    private $ioc;
+    
     /**
      * The package name
      * @var string
@@ -42,41 +48,14 @@ class Invoker extends BucketUser {
     private $action;
 
     /**
-     * The request from the client
-     * @var ClientRequest
-     * @since 1.0-sofia
-     */
-    private $request;
-
-    /**
-     * The Route that the application came through
-     * @var Route
-     * @since 1.0-sofia
-     */
-    private $route;
-
-    /**
-     * The response to the client
-     * @var IAppResponse
-     * @since 1.0-sofia
-     */
-    private $response;
-
-    /**
      * Create a new Invoker object
      * @param string $package The package to load the class
      * @param string $action The action to be loaded
-     * @param IAppRequest $request The application request to load with
-     * @param Route $route The route that was called
-     * @param IAppResponse $response The response object
      * @since 1.0-sofia
      */
-    public function __construct($package, $action, $request, $route, $response){
+    public function __construct($package, $action){
         $this->package = $package;
         $this->action = $action;
-        $this->request = $request;
-        $this->route = $route;
-        $this->response = $response;
     }
 
     /**
@@ -85,36 +64,37 @@ class Invoker extends BucketUser {
      * @since 1.0-sofia
      */
     public function load(){
+        $response = $this->ioc['response'];
         $class = $this->package;
         if(is_string($class)){
             if(false !== strpos($class, '.')){ // check if there is an extension
                 $template = Template::load($class);
                 if($template){
-                    $this->response->body($template->parse());
+                    $response->body($template->parse());
                 }else{
                     return false;
                 }
             }elseif(class_exists($class)){
                 $isView = self::classInstanceOf($class, 'Packfire\View\IView');
                 if($isView){
-                    /* @var $view View */
+                    /* @var $view \Packfire\View\View */
                     $view = new $class();
-                    $view->copyBucket($this);
+                    if($view instanceof IConsumer){
+                        $view($this->ioc);
+                    }
                     $output = $view->render();
-                    $this->response->body($output);
+                    $response->body($output);
                 }else{
-                    if(self::classInstanceOf($class, 'Packfire\Controller\Controller')){
-                        /* @var $controller Packfire\Controller\Controller */
-                        $controller = new $class($this->request, $this->response);
-                        $controller->copyBucket($this);
-                        $this->response = $controller->actionRun($this->route, $this->action);
+                    $controller = new $class();
+                    if($controller instanceof \Packfire\FuelBlade\IConsumer){
+                        $controller($this->ioc);
+                    }
+                    if($controller instanceof \Packfire\Controller\Controller){
+                        $controller->actionRun($this->action);
                     }else{
-                        $controller = new $class();
-                        if($controller instanceof IBucketUser){
-                            $controller->copyBucket($this);
-                        }
+                        $params = isset($this->ioc['route']) ? $this->ioc['route']->params : array();
                         $actionInvoker = new ActionInvoker(array($controller, $this->action));
-                        $this->response = $actionInvoker->invoke($this->route->params());
+                        $this->ioc['response'] = $actionInvoker->invoke($params);
                     }
                 }
             }else{
@@ -141,7 +121,7 @@ class Invoker extends BucketUser {
             }
             if(!$classOnly){
                 $interfaces = $class->getInterfaceNames();
-                if(is_array( $interfaces) && in_array($search, $interfaces)) {
+                if(is_array($interfaces) && in_array($search, $interfaces)) {
                     return true;
                 }
             }
@@ -150,13 +130,9 @@ class Invoker extends BucketUser {
         return false;
     }
 
-    /**
-     * Get the controller response
-     * @return IAppResponse Returns the controller response
-     * @since 1.0-sofia
-     */
-    public function response(){
-        return $this->response;
+    public function __invoke($container) {
+        $this->ioc = $container;
+        return $this;
     }
 
 }

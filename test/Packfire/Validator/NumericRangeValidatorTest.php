@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class NumericRangeValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var NumericRangeValidator
+     * @var \Packfire\Validator\NumericRangeValidator
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class NumericRangeValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers NumericRangeValidator::validate
+     * @covers \Packfire\Validator\NumericRangeValidator::validate
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate(50));

@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class CheckboxValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var CheckboxValidator
+     * @var \Packfire\Validator\CheckboxValidator
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class CheckboxValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers CheckboxValidator::validate
+     * @covers \Packfire\Validator\CheckboxValidator::validate
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate(false));

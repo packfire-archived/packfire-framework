@@ -12,7 +12,6 @@
 namespace Packfire\Exception\Handler;
 
 use Packfire\Exception\Handler\IHandler;
-use Packfire\IoC\BucketUser;
 
 /**
  * An exception handler for HTTP
@@ -23,7 +22,7 @@ use Packfire\IoC\BucketUser;
  * @package Packfire\Exception\Handler
  * @since 1.0-sofia
  */
-class HttpHandler extends BucketUser implements IHandler {
+class HttpHandler implements IHandler {
     
     /**
      * The view package name to load
@@ -31,6 +30,27 @@ class HttpHandler extends BucketUser implements IHandler {
      * @since 1.1-sofia
      */
     private $view;
+    
+    /**
+     * The debugger to use
+     * @var \Packfire\Debugger\Debugger
+     * @since 2.1.0
+     */
+    private $debugger;
+    
+    /**
+     * Flags if debugging is enabled
+     * @var boolean
+     * @since 2.1.0
+     */
+    private $debug = false;
+    
+    /**
+     * The logger
+     * @var \Packfire\Log\ILogger
+     * @since 2.1.0
+     */
+    private $logger;
     
     /**
      * Create a new HttpHandler object
@@ -47,25 +67,37 @@ class HttpHandler extends BucketUser implements IHandler {
      * @since 1.0-sofia
      */
     public function handle($exception) {
-        $this->service('debugger')->exception($exception);
+        if($this->debugger){
+            $this->debugger->exception($exception);
+        }
         
         $class = $this->view;
         if(!$class){
             $class = 'Packfire\Exception\Handler\ExceptionView';
         }
-        $view = new $class($exception);
-        $view->copyBucket($this);
+        $view = new $class($exception, $this->debug);
         echo $view->render();
         flush(); 
         
-        if(!$this->service('debugger')->enabled() && $this->service('logger')){
-            $this->service('logger')->log(
+        if(!$this->debug && $this->logger){
+            $this->logger->log(
                     '"' . $exception->getMessage() .
                         '" at ' . $exception->getFile() . ':' 
                         . $exception->getLine(),
                     get_class($exception) . ' ' . $exception->getCode()
                 );
         }
+    }
+    
+    public function __invoke($container){
+        if(isset($container['debugger'])){
+            $this->debugger = $container['debugger'];
+            $this->debug = $this->debugger->enabled();
+        }
+        if(isset($container['logger'])){
+            $this->logger = $container['logger'];
+        }
+        return $this;
     }
     
 }

@@ -25,6 +25,7 @@ use Packfire\DateTime\DateTime;
 use Packfire\Exception\ErrorException;
 use Packfire\Core\ClassLoader\ClassLoader;
 use Packfire\Core\ClassLoader\PackfireClassFinder;
+use Packfire\FuelBlade\Container;
 
 /**
  * Provides functionality to boot the application
@@ -38,47 +39,41 @@ use Packfire\Core\ClassLoader\PackfireClassFinder;
  */
 class Packfire {
     
-    /**
-     * The framework class loader
-     * @var ClassLoader
-     */
-    private $classLoader;
+    private $ioc;
     
     /**
      * Create a new Packfire object
      * @since 2.0.0
      */
     public function __construct(){
-        if(!class_exists('Packfire\Core\ClassLoader\PackfireClassFinder')){
-            if(!defined('__APP_ROOT__')){
-                define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . DIRECTORY_SEPARATOR . 'pack' . DIRECTORY_SEPARATOR);
+        if(!defined('__APP_ROOT__')){
+            define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . DIRECTORY_SEPARATOR . 'pack');
+        }
+        if(!class_exists('Packfire\Core\ClassLoader\PackfireClassFinder')){            
+            if(is_dir(__DIR__ . '/../../vendor')){
+                require(__DIR__ . '/../../vendor/autoload.php');
             }
+            
             require(__DIR__ . '/Core/ClassLoader/IClassLoader.php');
             require(__DIR__ . '/Core/ClassLoader/IClassFinder.php');
             require(__DIR__ . '/Core/ClassLoader/PackfireClassFinder.php');
             require(__DIR__ . '/Core/ClassLoader/ClassLoader.php');
-            require(__DIR__ . '/helper.php');
         }
-        $finder = new PackfireClassFinder();
-        $this->classLoader = new ClassLoader($finder);
-    }
-    
-    /**
-     * Load the framework class loader
-     * @return ClassLoader Returns the class loader that has been loaded.
-     * @since 2.0.0
-     */
-    public function classLoader(){
-        return $this->classLoader;
+        require(__DIR__ . '/helper.php');
+        $this->ioc = new Container();
+        $this->ioc['autoload.finder'] = new PackfireClassFinder();
+        $this->ioc['autoload.loader'] = new ClassLoader();
+        $this->ioc['autoload.loader']->register();
     }
 
     /**
      * Start the framework execution
      * This is the entry point: this is it.
-     * @param IApplication $app The application to start running
+     * @param \Packfire\Application\IApplication $app The application to start running
      * @since 1.0-sofia
      */
     public function fire($app){
+        $app($this->ioc);
         set_error_handler(function($errno, $errstr, $errfile, $errline){
             $e = new ErrorException($errstr);
             $e->setCode($errno);
@@ -88,8 +83,14 @@ class Packfire {
         });
         set_exception_handler(array($app, 'handleException'));
         $request = $this->loadRequest();
-        $response = $app->receive($request);
-        $this->processResponse($app, $response);
+        $this->ioc['request'] = $this->ioc->share(function() use($request){
+            return $request;
+        });
+        $app->process();
+        if(isset($this->ioc['response'])){
+            $response = $this->ioc['response'];
+            $this->processResponse($app);
+        }
     }
 
     /**
@@ -162,10 +163,10 @@ class Packfire {
     /**
      * Process the response and reply to the client
      * @param IApplication $app The application
-     * @param IAppResponse $response The response to reply
      * @since 1.0-sofia
      */
-    public function processResponse($app, $response){
+    public function processResponse($app){
+        $response = $this->ioc['response'];
         if($response instanceof HttpResponse){
             header($response->version() . ' ' . $response->code());
             foreach($response->headers() as $key => $value){
@@ -177,10 +178,11 @@ class Packfire {
             echo $response->output();
         }elseif($response instanceof CliResponse){
             $exitCode = $response->output();
-            $app->service('shutdown')->add('shutdown.exitCode', function()use($exitCode){
-                exit($exitCode);
-            });
-            
+            if(isset($this->ioc['shutdown'])){
+                $this->ioc['shutdown']->add('shutdown.exitCode', function()use($exitCode){
+                    exit($exitCode);
+                });
+            }
         }
     }
 

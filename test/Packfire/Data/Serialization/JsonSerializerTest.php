@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Data\Serialization;
 
 use Packfire\Text\TextStream;
@@ -9,6 +10,10 @@ use Packfire\Text\TextStream;
  */
 class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
 
+    /**
+     *
+     * @var \Packfire\Data\Serialization\JsonSerializer
+     */
     private $object;
 
     /**
@@ -24,11 +29,11 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers JsonSerializer::serialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
      */
     public function testSerialize() {
         $data = array('key' => 'value', 'test');
@@ -39,7 +44,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::serialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
      */
     public function testSerialize2() {
         $data = new \stdClass();
@@ -52,7 +57,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::serialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
      */
     public function testSerialize3() {
         $data = new \stdClass();
@@ -63,17 +68,55 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
+     */
+    public function testSerialize4() {
+        $meta = array(
+            'test' => 'data',
+            'control' => array(
+                'date' => true
+            )
+        );
+        $data = $this->getMock('Packfire\Data\Serialization\ISerializable');
+        $data->expects($this->once())
+                ->method('serialize')
+                ->will($this->returnValue($meta));
+        $result = $this->object->serialize($data);
+        $this->assertEquals('{"test":"data","control":{"date":true}}', $result);
+    }
+
+    /**
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
+     */
+    public function testSerialize5() {
+        $meta = array(
+            'test' => 'data',
+            'control' => array(
+                'date' => true
+            )
+        );
+        $data = $this->getMock('Packfire\Data\Serialization\ISerializable');
+        $data->expects($this->once())
+                ->method('serialize')
+                ->will($this->returnValue($meta));
+        $stream = new TextStream();
+        $this->object->serialize($stream, $data);
+        $stream->seek(0);
+        $this->assertEquals('{"test":"data","control":{"date":true}}', $stream->read($stream->length()));
+    }
+
+    /**
+     * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
      */
     public function testDeserialize() {
         $data = array('key' => 'value', 'arr' => array('test'));
         $stream = new TextStream('{"key":"value","arr":["test"]}');
-        $item = (array)$this->object->deserialize($stream);
+        $item = (array) $this->object->deserialize($stream);
         $this->assertEquals($data, $item);
     }
 
     /**
-     * @covers JsonSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
      */
     public function testDeserialize2() {
         $data = new \stdClass();
@@ -86,7 +129,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers JsonSerializer::deserialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
      */
     public function testDeserialize3() {
         $data = new \stdClass();
@@ -97,7 +140,11 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($data, $item);
     }
 
-    public function testOverall(){
+    /**
+     * @covers \Packfire\Data\Serialization\JsonSerializer::serialize
+     * @covers \Packfire\Data\Serialization\JsonSerializer::deserialize
+     */
+    public function testOverall() {
         $data = new \stdClass();
         $data->test = 'data';
         $data->control = new \stdClass();

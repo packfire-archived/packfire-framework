@@ -37,6 +37,7 @@ class PriorityStack extends Stack {
      * Create a new PriorityStack object
      * @param Closure|callback $comparator The comparator to perform the sort
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function __construct($comparator) {
         parent::__construct();

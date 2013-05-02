@@ -23,6 +23,9 @@ class ClientBrowserTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @covers \Packfire\Net\Http\ClientBrowser
+     */
     public function testConstants(){
         $this->assertEquals('Chrome', ClientBrowser::CHROME);
         $this->assertEquals('Firefox', ClientBrowser::FIREFOX);

@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\DateTime;
 
 /**
@@ -8,13 +9,14 @@ namespace Packfire\DateTime;
 class TimeSpanTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var TimeSpan
+     * @var \Packfire\DateTime\TimeSpan
      */
     protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     * @covers \Packfire\DateTime\TimeSpan::__construct
      */
     protected function setUp() {
         $this->object = new TimeSpan(3695);
@@ -25,11 +27,11 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
     /**
-     * @covers TimeSpan::hour
+     * @covers \Packfire\DateTime\TimeSpan::hour
      */
     public function testHour() {
         $this->assertEquals(1, $this->object->hour());
@@ -39,7 +41,7 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TimeSpan::day
+     * @covers \Packfire\DateTime\TimeSpan::day
      */
     public function testDay() {
         $this->assertEquals(0, $this->object->day());
@@ -47,9 +49,17 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(5, $this->object->day());
         $this->assertEquals(3, $this->object->day(3));
     }
+    
+    /**
+     * @covers \Packfire\DateTime\TimeSpan::day
+     * @expectedException \Packfire\Exception\InvalidArgumentException
+     */
+    public function testDayNegative(){
+        $this->object->day(-3);
+    }
 
     /**
-     * @covers TimeSpan::totalSeconds
+     * @covers \Packfire\DateTime\TimeSpan::totalSeconds
      */
     public function testTotalSeconds() {
         $this->assertEquals(3695, $this->object->totalSeconds());
@@ -60,7 +70,7 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TimeSpan::totalMinutes
+     * @covers \Packfire\DateTime\TimeSpan::totalMinutes
      */
     public function testTotalMinutes() {
         $this->assertEquals(3695 / 60, $this->object->totalMinutes());
@@ -71,7 +81,7 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TimeSpan::totalHours
+     * @covers \Packfire\DateTime\TimeSpan::totalHours
      */
     public function testTotalHours() {
         $this->assertEquals(3695 / 3600, $this->object->totalHours());
@@ -82,7 +92,7 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TimeSpan::totalDays
+     * @covers \Packfire\DateTime\TimeSpan::totalDays
      */
     public function testTotalDays() {
         $this->assertEquals(3695 / 86400, $this->object->totalDays());
@@ -93,7 +103,7 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TimeSpan::add
+     * @covers \Packfire\DateTime\TimeSpan::add
      */
     public function testAdd() {
         $ts = $this->object->add(new TimeSpan(90015));
@@ -104,7 +114,7 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers TimeSpan::subtract
+     * @covers \Packfire\DateTime\TimeSpan::subtract
      */
     public function testSubtract() {
         $ts = $this->object->subtract(new TimeSpan(1425));

@@ -8,7 +8,7 @@ namespace Packfire\Cache;
 class MockCacheTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var MockCache
+     * @var \Packfire\Cache\MockCache
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class MockCacheTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers MockCache::check
+     * @covers \Packfire\Cache\MockCache::check
      */
     public function testCheck() {
         $this->assertFalse($this->object->check('test'));
@@ -38,7 +38,7 @@ class MockCacheTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers MockCache::clear
+     * @covers \Packfire\Cache\MockCache::clear
      */
     public function testClear() {
         $this->object->set('test', 5, 3600);
@@ -48,7 +48,7 @@ class MockCacheTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers MockCache::flush
+     * @covers \Packfire\Cache\MockCache::flush
      */
     public function testFlush() {
         $this->object->set('test', 5, 3600);
@@ -58,14 +58,14 @@ class MockCacheTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers MockCache::garbageCollect
+     * @covers \Packfire\Cache\MockCache::garbageCollect
      */
     public function testGarbageCollect() {
         $this->assertTrue(method_exists($this->object, 'garbageCollect'));
     }
 
     /**
-     * @covers MockCache::get
+     * @covers \Packfire\Cache\MockCache::get
      */
     public function testGet() {
         $this->assertNull($this->object->get('test'));

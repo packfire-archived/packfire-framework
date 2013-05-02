@@ -12,8 +12,8 @@
 namespace Packfire\Debugger;
 
 use Packfire\DateTime\DateTime;
-use Packfire\IoC\BucketUser;
 use Packfire\IO\File\Path;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * The debugger to help you debug in your application
@@ -24,7 +24,14 @@ use Packfire\IO\File\Path;
  * @package Packfire\Debugger
  * @since 1.0-sofia
  */
-class Debugger extends BucketUser {
+class Debugger implements IConsumer {
+    
+    /**
+     * The output method of the debugger
+     * @var \Packfire\Debugger\IOutput
+     * @since 2.1.0
+     */
+    private $output;
     
     /**
      * State whether the debugger is enabled or not.
@@ -74,7 +81,7 @@ class Debugger extends BucketUser {
                 $dbt = reset($dbts);
                 $where = sprintf('%s:%d', Path::baseName($dbt['file']),
                         $dbt['line']);
-                $this->output()->write($output, $where, __FUNCTION__);
+                $this->output->write($output, $where, __FUNCTION__);
             }
         }
     }
@@ -86,7 +93,7 @@ class Debugger extends BucketUser {
      */
     public function log($message){
         if($this->enabled){
-            $this->output()->write($message);
+            $this->output->write($message);
         }
     }
     
@@ -102,7 +109,7 @@ class Debugger extends BucketUser {
                     $exception->getLine());
             $message = sprintf('Error %s: %s', $exception->getCode(),
                     $exception->getMessage());
-            $this->output()->write($message, $where, __FUNCTION__);
+            $this->output->write($message, $where, __FUNCTION__);
         }
     }
     
@@ -119,7 +126,7 @@ class Debugger extends BucketUser {
             $message = sprintf(
                     'Time taken from application loaded to reach %s line %s',
                     $dbt['file'], $dbt['line']);
-            $this->output()->write($message,
+            $this->output->write($message,
                     (DateTime::microtime() - __PACKFIRE_START__) . 's',
                     __FUNCTION__);
         }
@@ -144,17 +151,8 @@ class Debugger extends BucketUser {
             }
             $where = sprintf('%s:%d', Path::baseName($dbt['file']),
                     $dbt['line']);
-            $this->output()->write($sql, $where, $type);
+            $this->output->write($sql, $where, $type);
         }
-    }
-    
-    /**
-     * Get the output method
-     * @return IDebugOutput Returns the debugging output method
-     * @since 1.0-sofia
-     */
-    protected function output(){
-        return $this->service('debugger.output');
     }
     
     /**
@@ -162,12 +160,24 @@ class Debugger extends BucketUser {
      * end execution.
      * @internal
      * @ignore 
+     * @codeCoverageIgnore
      */
     public function __destruct(){
         if($this->enabled && __ENVIRONMENT__ != 'test'){
             $this->timeCheck();
-            $this->output()->output();
+            $this->output->output();
         }
+    }
+    
+    public function __invoke($container) {
+        if(!isset($container['debugger.output'])){
+            $container['debugger.output'] = new Output\Blackhole();
+        }
+        $this->output = $container['debugger.output'];
+        if(isset($container['config'])){
+            $this->enabled = $container['config']->get('app', 'debug');
+        }
+        return $this;
     }
     
 }

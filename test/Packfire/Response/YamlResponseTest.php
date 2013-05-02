@@ -1,4 +1,5 @@
 <?php
+
 namespace Packfire\Response;
 
 /**
@@ -12,7 +13,7 @@ class YamlResponseTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-
+        
     }
 
     /**
@@ -20,14 +21,27 @@ class YamlResponseTest extends \PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-
+        
     }
 
+    /**
+     * @covers \Packfire\Response\YamlResponse
+     */
     public function testResponse() {
         $data = array(
             'data' => 5
         );
         $object = new YamlResponse($data);
+        $this->assertEquals('application/x-yaml', $object->headers()->get('Content-Type'));
+        $this->assertEquals("\n---\ndata: 5\n...\n", $object->body());
+        $this->assertEquals($object->body(), $object->output());
+    }
+
+    /**
+     * @covers \Packfire\Response\YamlResponse
+     */
+    public function testResponse2() {
+        $object = new YamlResponse("\n---\ndata: 5\n...\n");
         $this->assertEquals('application/x-yaml', $object->headers()->get('Content-Type'));
         $this->assertEquals("\n---\ndata: 5\n...\n", $object->body());
         $this->assertEquals($object->body(), $object->output());

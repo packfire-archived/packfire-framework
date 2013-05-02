@@ -11,13 +11,13 @@
 
 namespace Packfire\OAuth;
 
-use Packfire\IoC\BucketUser;
 use Packfire\Net\Http\Request as HttpRequest;
 use Packfire\OAuth\Request;
 use Packfire\OAuth\OAuth;
 use Packfire\OAuth\Response;
 use Packfire\OAuth\Signature;
 use Packfire\OAuth\OAuthException;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * The service provider functionality of OAuth
@@ -28,7 +28,7 @@ use Packfire\OAuth\OAuthException;
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class Provider extends BucketUser {
+class Provider implements IConsumer {
     
     /**
      * The data storage
@@ -70,9 +70,6 @@ class Provider extends BucketUser {
      * @since 1.1-sofia
      */
     protected function store(){
-        if(!$this->store){
-            $this->store = $this->service('oauth.store');
-        }
         return $this->store;
     }
     
@@ -218,6 +215,11 @@ class Provider extends BucketUser {
         $this->verifyRequest($request, $accessToken->secret());
         $this->checkNonce($request, $accessToken);
         return $request;
+    }
+    
+    public function __invoke($container) {
+        $this->store = $container['oauth.store'];
+        return $this;
     }
     
 }

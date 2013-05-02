@@ -8,7 +8,7 @@ namespace Packfire\IO\File;
 class InputStreamTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var InputStream
+     * @var \Packfire\IO\File\InputStream
      */
     protected $object;
 
@@ -30,28 +30,28 @@ class InputStreamTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers InputStream::pathname
+     * @covers \Packfire\IO\File\InputStream::pathname
      */
     public function testPathname() {
         $this->assertEquals(__FILE__, $this->object->pathname());
     }
 
     /**
-     * @covers InputStream::length
+     * @covers \Packfire\IO\File\InputStream::length
      */
     public function testLength() {
         $this->assertEquals(filesize(__FILE__), $this->object->length());
     }
 
     /**
-     * @covers InputStream::read
+     * @covers \Packfire\IO\File\InputStream::read
      */
     public function testRead() {
         $this->assertEquals('<?php', $this->object->read(5));
     }
 
     /**
-     * @covers InputStream::seek
+     * @covers \Packfire\IO\File\InputStream::seek
      */
     public function testSeek() {
         $this->object->seek(2);
@@ -59,14 +59,14 @@ class InputStreamTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers InputStream::seekable
+     * @covers \Packfire\IO\File\InputStream::seekable
      */
     public function testSeekable() {
         $this->assertTrue($this->object->seekable());
     }
 
     /**
-     * @covers InputStream::tell
+     * @covers \Packfire\IO\File\InputStream::tell
      */
     public function testTell() {
         $this->assertEquals(0, $this->object->tell());

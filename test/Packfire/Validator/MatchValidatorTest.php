@@ -26,7 +26,7 @@ class MatchValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers MatchValidator::validate
+     * @covers \Packfire\Validator\MatchValidator::validate
      */
     public function testValidate() {
         $object = new MatchValidator(array('a', 'b', 'c'));
@@ -37,7 +37,7 @@ class MatchValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers MatchValidator::validate
+     * @covers \Packfire\Validator\MatchValidator::validate
      */
     public function testValidate2() {
         $object = new MatchValidator(new ArrayList(array('a', 'b', 'c')));
@@ -48,7 +48,7 @@ class MatchValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers MatchValidator::validate
+     * @covers \Packfire\Validator\MatchValidator::validate
      */
     public function testValidate3() {
         $object = new MatchValidator(5);

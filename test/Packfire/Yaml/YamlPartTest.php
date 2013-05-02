@@ -24,7 +24,7 @@ class YamlPartTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers YamlPart::quotationMarkers
+     * @covers \Packfire\Yaml\YamlPart::quotationMarkers
      */
     public function testClass() {
         $this->assertEquals('---', YamlPart::DOC_START);

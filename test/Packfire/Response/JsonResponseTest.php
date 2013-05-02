@@ -23,6 +23,9 @@ class JsonResponseTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @covers \Packfire\Response\JsonResponse
+     */
     public function testResponse() {
         $data = array(
             'data' => 5
@@ -33,6 +36,9 @@ class JsonResponseTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($object->body(), $object->output());
     }
 
+    /**
+     * @covers \Packfire\Response\JsonResponse
+     */
     public function testResponse2() {
         $data = array(
             'data' => 5

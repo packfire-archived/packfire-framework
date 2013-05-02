@@ -19,6 +19,7 @@ namespace Packfire\Net\Http;
  * @license http://www.opensource.org/licenses/bsd-license New BSD License
  * @package Packfire\Net\Http
  * @since 1.0-sofia
+ * @codeCoverageIgnore
  */
 class ClientBrowser {
 

@@ -34,7 +34,7 @@ abstract class Route implements IRoute {
 
     /**
      * The route parameters to check
-     * @var Map
+     * @var \Packfire\Collection\Map
      * @since 1.1-sofia
      */
     protected $params;
@@ -48,14 +48,14 @@ abstract class Route implements IRoute {
 
     /**
      * The parameter remapping data
-     * @var Map
+     * @var \Packfire\Collection\Map
      * @since 2.0.0
      */
     protected $remap;
     
     /**
      * The parameter validation rules
-     * @var Map
+     * @var \Packfire\Collection\Map
      * @since 2.0.0
      */
     protected $rules;
@@ -154,6 +154,9 @@ abstract class Route implements IRoute {
                 $index = $key;
             }elseif(isset($data[$rule])){
                 $param = $data[$rule];
+                $index = $rule;
+            }else{
+                $param = null;
                 $index = $rule;
             }
             if($index){

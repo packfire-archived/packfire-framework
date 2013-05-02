@@ -36,6 +36,7 @@ class String implements \Countable, IFormattable {
      * Create a new String object
      * @param string|String $value The string value to initialize with
      * @since 1.0-sofia
+     * @codeCoverageIgnore
      */
     public function __construct($value = '') {
         if($value instanceof String){

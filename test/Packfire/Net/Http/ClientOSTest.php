@@ -23,6 +23,9 @@ class ClientOSTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @covers \Packfire\Net\Http\ClientOS
+     */
     public function testConstants() {
         $this->assertEquals('Android', ClientOS::ANDROID);
         $this->assertEquals('BingBot', ClientOS::BINGBOT);

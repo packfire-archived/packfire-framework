@@ -8,7 +8,7 @@ namespace Packfire\Template\Mustache;
 class MustacheTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Mustache
+     * @var \Packfire\Template\Mustache\Mustache
      */
     protected $object;
 
@@ -30,7 +30,7 @@ class MustacheTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Mustache::template
+     * @covers \Packfire\Template\Mustache\Mustache::template
      */
     public function testTemplate() {
         $this->object->template('Good day {{name}}!');
@@ -38,7 +38,7 @@ class MustacheTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Mustache::parameters
+     * @covers \Packfire\Template\Mustache\Mustache::parameters
      */
     public function testParameters() {
         $this->object->parameters(array('name' => 'Jack', 'intro' => 'Jill'));
@@ -46,7 +46,7 @@ class MustacheTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Mustache::render
+     * @covers \Packfire\Template\Mustache\Mustache::render
      */
     public function testRender() {
         $this->assertEquals('Hello world!', $this->object->render());

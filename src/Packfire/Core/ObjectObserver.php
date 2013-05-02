@@ -43,6 +43,7 @@ class ObjectObserver implements IEventWatchable {
      * Create a new ObjectObserver object
      * @param object $model The object to be watched
      * @since 1.1-sofia
+     * @codeCoverageIgnore
      */
     public function __construct($model){
         $this->handler = new EventHandler($this);

@@ -11,7 +11,7 @@
 
 namespace Packfire\Core\ClassLoader;
 
-use Packfire\IoC\BucketUser;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Provides generic functionality for finding classes in files
@@ -23,7 +23,21 @@ use Packfire\IoC\BucketUser;
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0
  */
-class CacheClassFinder extends BucketUser implements IClassFinder {
+class CacheClassFinder implements IClassFinder, IConsumer {
+    
+    /**
+     * The cache driver
+     * @var \Packfire\Cache\ICache
+     * @since 2.1.0
+     */
+    private $cache;
+    
+    /**
+     * Class finder to work with
+     * @var \Packfire\Core\ClassLoader\IClassFinder
+     * @since 2.1.0
+     */
+    private $finder;
     
     /**
      * The prefix to cache keys
@@ -34,31 +48,14 @@ class CacheClassFinder extends BucketUser implements IClassFinder {
     
     /**
      * Create a new CacheClassFinder object
-     * @param \Packfire\Cache\ICache $cache The cache storage
+     * @param \Packfire\Core\ClassLoader\IClassFinder $finder The class finder to complement
      * @param string $prefix (optional) A prefix to identify all class
      *              cache entries in the storage
      * @since 2.0.0
      */
-    public function __construct($prefix = ''){
+    public function __construct($finder, $prefix = ''){
         $this->prefix = $prefix;
-    }
-    
-    /**
-     * Get the cache storage
-     * @return \Packfire\Cache\ICache Returns the cache abstraction
-     * @since 2.0.0
-     */
-    protected function cache(){
-        return $this->service('cache');
-    }
-    
-    /**
-     * Get the class finder service
-     * @return ClassFinder Returns the class finder
-     * @since 2.0.0
-     */
-    protected function finder(){
-        return $this->service('autoload.finder');
+        $this->finder = $finder;
     }
     
     /**
@@ -68,14 +65,29 @@ class CacheClassFinder extends BucketUser implements IClassFinder {
      * @since 2.0.0
      */
     public function find($class) {
+        // normalize
+        if(substr($class, 0, 1) == '\\'){
+            $class = substr($class, 1);
+        }
         $cacheId = $this->prefix . $class;
-        if($this->cache()->check($cacheId)){
-            $file = $this->cache()->get($cacheId);
+        if($this->cache->check($cacheId)){
+            $file = $this->cache->get($cacheId);
         }else{
-            $file = $this->finder()->find($class);
-            $this->cache()->set($cacheId, $file);
+            $file = $this->finder->find($class);
+            $this->cache->set($cacheId, $file);
         }
         return $file;
+    }
+    
+    /**
+     * Perform invoking of dependencies
+     * @param \Packfire\FuelBlade\Container $c The IoC Container to inject dependencies
+     * @return \Packfire\Core\ClassLoader\CacheClassFinder
+     * @since 2.1.0
+     */
+    public function __invoke($c) {
+        $this->cache = $c['cache'];
+        return $this;
     }
 
 }

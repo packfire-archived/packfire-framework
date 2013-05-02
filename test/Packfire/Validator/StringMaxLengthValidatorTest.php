@@ -8,7 +8,7 @@ namespace Packfire\Validator;
 class StringMaxLengthValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var StringMaxLengthValidator
+     * @var \Packfire\Validator\StringMaxLengthValidator
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class StringMaxLengthValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers StringMaxLengthValidator::validate
+     * @covers \Packfire\Validator\StringMaxLengthValidator::validate
      */
     public function testValidate() {
         $this->assertTrue($this->object->validate('cave'));

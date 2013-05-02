@@ -8,7 +8,7 @@ namespace Packfire\OAuth;
 class ResponseTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Response
+     * @var \Packfire\OAuth\Response
      */
     protected $object;
 
@@ -29,7 +29,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Response::oauth
+     * @covers \Packfire\OAuth\Response::oauth
      */
     public function testOauth() {
         $this->assertNull($this->object->oauth(OAuth::CALLBACK));
@@ -38,7 +38,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Response::format
+     * @covers \Packfire\OAuth\Response::format
      */
     public function testFormat() {
         $this->object->oauth(OAuth::TOKEN, 'token');
@@ -49,7 +49,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Response::body
+     * @covers \Packfire\OAuth\Response::body
      */
     public function testBody() {
         $this->object->oauth(OAuth::TOKEN, 'token');
@@ -58,7 +58,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Response::output
+     * @covers \Packfire\OAuth\Response::output
      */
     public function testOutput() {
         $this->object->oauth(OAuth::TOKEN, 'token');

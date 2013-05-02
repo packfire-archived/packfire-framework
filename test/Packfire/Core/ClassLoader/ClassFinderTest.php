@@ -8,7 +8,7 @@ namespace Packfire\Core\ClassLoader;
 class ClassFinderTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var ClassFinder
+     * @var \Packfire\Core\ClassLoader\ClassFinder
      */
     protected $object;
 
@@ -30,7 +30,7 @@ class ClassFinderTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Core\ClassLoader\ClassFinder::addNamespace
+     * @covers \Packfire\Core\ClassLoader\ClassFinder::addNamespace
      */
     public function testAddNamespace() {
         $this->object->addNamespace('Packfire', 'vendor');
@@ -42,7 +42,7 @@ class ClassFinderTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Packfire\Core\ClassLoader\ClassFinder::find
+     * @covers \Packfire\Core\ClassLoader\ClassFinder::find
      */
     public function testFind() {
         $class = 'Packfire\Core\ClassLoader\ClassFinder';
