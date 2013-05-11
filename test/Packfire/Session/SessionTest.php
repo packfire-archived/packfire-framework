@@ -131,15 +131,4 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->object->bucket('test'));
     }
 
-    /**
-     * @covers \Packfire\Session\Session::register
-     */
-    public function testRegister() {
-        $this->stub->expects($this->once())
-                ->method('register')
-                ->with($this->equalTo('test'));
-
-        $this->object->register('test');
-    }
-
 }
