@@ -46,7 +46,9 @@ class Loader implements IConsumer {
                 );
         }
         $c['session'] = $c->share(function($c)use($storageId){
-            session_start();
+            if($_COOKIE[session_name()]){
+                session_start();
+            }
             return new Session($c[$storageId]);
         });
         return $this;

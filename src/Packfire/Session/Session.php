@@ -97,18 +97,26 @@ class Session implements ISession {
         $result = $this->storage->bucket($bucket);
         if(!$result){
             $result = new SessionBucket($bucket);
-            $this->register($result);
+            $this->storage->register($result);
         }
         return $result;
     }
     
     /**
-     * Register a session bucket 
-     * @param SessionBucket $bucket The session bucket to register
-     * @since 1.0-sofia
+     * Register the session
+     * @since 2.1.0
      */
-    public function register($bucket){
-        $this->storage->register($bucket);
+    public static function register(){
+         session_start();
+    }
+    
+    /**
+     * Unregister the session
+     * @since 2.1.0
+     */
+    public static function unregister(){
+         session_destroy();
+         setcookie(session_name(), '', -1);
     }
     
 }
