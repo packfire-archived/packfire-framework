@@ -13,7 +13,6 @@ namespace Packfire\Text\Regex;
 
 use Packfire\Text\Regex\Match;
 use Packfire\Text\String;
-use Packfire\Collection\ArrayList;
 
 /**
  * Provides functionality for regular expression matching and replacement
@@ -55,7 +54,7 @@ class Regex {
      * Perform a perl-compatible regular expression (PCRE) match to match 
      * within the subject
      * @param string $subject The input string
-     * @return ArrayList A list that contains all the Match found 
+     * @return array A list that contains all the Match found 
      *          in the subject
      * @link http://php.net/manual/en/function.preg-match.php
      * @since 1.0-sofia
@@ -63,9 +62,9 @@ class Regex {
     public function match($subject){
         $match = array();
         preg_match($this->regex, $subject, $match);
-        $result = new ArrayList();
+        $result = array();
         foreach($match as $a){
-            $result->add(new Match($this, $a));
+            $result[] = new Match($this, $a);
         }
         return $result;
     }
@@ -87,18 +86,18 @@ class Regex {
      * Perform a perl-compatible regular expression (PCRE) match to match all 
      * matches within the subject
      * @param string $subject The input string
-     * @return ArrayList Returns the set of match collections
+     * @return array Returns the set of match collections
      * @link http://www.php.net/manual/en/function.preg-match-all.php
      * @since 1.0-sofia
      */
     public function matchAll($subject){
         $matches = array();
         preg_match_all($this->regex(), $subject, $matches, PREG_SET_ORDER);
-        $finalResult = new ArrayList();
+        $finalResult = array();
         foreach($matches as $match){
-            $result = new ArrayList();
+            $result = array();
             foreach($match as $c){
-                $result->add(new Match($this, $c));
+                $result[] = new Match($this, $c);
             }
             $finalResult[] = $result;
         }
@@ -108,41 +107,35 @@ class Regex {
     /**
      * Perform a perl-compatible regular expression search and replace
      * @param string $subject The input string
-     * @param string|array|ArrayList $replacement The string or collection
+     * @param string|array $replacement The string or collection
      *                  of replacements
      * @param integer $limit (Optional) If set, the number of search and replace
      *                  operations will be limited by this limit.
-     * @return string|ArrayList
+     * @return string|array
      * @link http://www.php.net/manual/en/function.preg-replace.php
      * @since 1.0-sofia
      */
     public function replace($subject, $replacement, $limit = -1){
         $result = preg_replace($this->regex, $replacement, $subject, $limit);
-        if(is_array($result)){
-            $result = new ArrayList($result);
-        }
         return $result;
     }
 
     /**
      * Perform a perl-compatible regular expression search and replace using a
      *  callback
-     * @param string|ArrayList|array $subject The input string
+     * @param string|array $subject The input string
      * @param callback $callback A callback that will be called and passed an
      *                  array of matched elements in the subject string. The 
      *                  callback should return the replacement string.
      * @param integer $limit (Optional) If set, the number of search and replace
      *                  operations will be limited by this limit.
-     * @return string|ArrayList Returns the parsed result
+     * @return string|array Returns the parsed result
      * @link http://www.php.net/manual/en/function.preg-replace-callback.php
      * @since 1.0-sofia
      */
     public function replaceCallback($subject, $callback, $limit = -1){
         $result = preg_replace_callback($this->regex, $callback,
                 $subject, $limit);
-        if(is_array($result)){
-            $result = new ArrayList($result);
-        }
         return $result;
     }
     
@@ -164,7 +157,8 @@ class Regex {
                 PREG_OFFSET_CAPTURE , $offset);
         $result = -1;
         if($i){
-            $result = $subject->indexOf($match[0][0], $offset);
+            $match = reset($match);
+            $result = $subject->indexOf($match[0], $offset);
         }
         return $result;
     }

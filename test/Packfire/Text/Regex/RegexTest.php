@@ -49,7 +49,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      */
     public function testMatch() {
         $result = $this->object->match('abc01');
-        $this->assertInstanceOf('Packfire\Collection\ArrayList', $result);
+        $this->assertInternalType('array', $result);
         $this->assertCount(1, $result);
         $this->assertInstanceOf('Packfire\Text\Regex\Match', $result[0]);
         $this->assertEquals('abc01', $result[0]->match());
@@ -60,7 +60,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      */
     public function testMatch1() {
         $result = $this->object->match('abc01 adc21');
-        $this->assertInstanceOf('Packfire\Collection\ArrayList', $result);
+        $this->assertInternalType('array', $result);
         $this->assertCount(1, $result);
         $this->assertInstanceOf('Packfire\Text\Regex\Match', $result[0]);
         $this->assertEquals('abc01', $result[0]->match());
@@ -71,7 +71,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      */
     public function testMatch2() {
         $result = $this->object->match('ab401');
-        $this->assertInstanceOf('Packfire\Collection\ArrayList', $result);
+        $this->assertInternalType('array', $result);
         $this->assertCount(0, $result);
     }
 
@@ -94,9 +94,9 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      */
     public function testMatchAll() {
         $result = $this->object->matchAll('abc01 adc21');
-        $this->assertInstanceOf('Packfire\Collection\ArrayList', $result);
+        $this->assertInternalType('array', $result);
         $this->assertCount(2, $result);
-        $this->assertInstanceOf('Packfire\Collection\ArrayList', $result[0]);
+        $this->assertInternalType('array', $result[0]);
         $this->assertInstanceOf('Packfire\Text\Regex\Match', $result[0][0]);
         $this->assertEquals('abc01', $result[0][0]->match());
         $this->assertEquals('adc21', $result[1][0]->match());
@@ -114,8 +114,8 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
      */
     public function testReplace2() {
         $result = $this->object->replace(array('testabc10run', 'testABD20LEH'), 'cool!');
-        $this->assertInstanceOf('\\Packfire\\Collection\\ArrayList', $result);
-        $this->assertEquals(array('testcool!run', 'testcool!LEH'), $result->toArray());
+        $this->assertInternalType('array', $result);
+        $this->assertEquals(array('testcool!run', 'testcool!LEH'), $result);
     }
 
     /**
@@ -136,8 +136,8 @@ class RegexTest extends \PHPUnit_Framework_TestCase {
                     return strtoupper($match[0]);
                 }
         );
-        $this->assertInstanceOf('\\Packfire\\Collection\\ArrayList', $result);
-        $this->assertEquals(array('testABC10c', 'testABC20c'), $result->toArray());
+        $this->assertInternalType('array', $result);
+        $this->assertEquals(array('testABC10c', 'testABC20c'), $result);
     }
 
     /**
