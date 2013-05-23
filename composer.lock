@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0194c0552c90f928ad1e360d905d66da",
+    "hash": "69f824aefc037550704d4026c9efb0f7",
     "packages": [
         {
             "name": "mauris/yaml",
@@ -224,6 +224,39 @@
                 "library"
             ],
             "time": "2012-10-27 22:29:18"
+        },
+        {
+            "name": "packfire/regex",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/packfire/regex.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/packfire/regex/zipball/1.0.0",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Packfire\\Text\\Regex\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Sam-Mauris Yong",
+                    "email": "sam@mauris.sg"
+                }
+            ],
+            "description": "Packfire Framework Regular Expression Component",
+            "time": "2013-05-23 14:14:44"
         }
     ],
     "packages-dev": [
