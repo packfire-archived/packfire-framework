@@ -142,7 +142,7 @@ class String implements \Countable, IFormattable {
 
     /**
      * Find the position of the first occurance of the string $s in the string
-     * @param String|string $string The string to search for
+     * @param \Packfire\Text\String|string $string The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer A non-negative number indicating the position of $s in
      *                 the string, or -1 if not found.
@@ -151,47 +151,35 @@ class String implements \Countable, IFormattable {
         if (!($string instanceof self)) {
             $string = new self($string);
         }
-        $result = strpos($this->value(), $string->value(), $offset);
-        if ($result === false) {
-            return -1;
-        }
-        return $result;
+        $result = strpos($this->value, (string)$string, $offset);
+        return $result === false ? -1 : $result;
     }
 
     /**
      * Find the position of the last occurance of the string $s in the string
-     * @param String|string $s The string to search for
+     * @param \Packfire\Text\String|string $string The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer Returns a non-negative number indicating the position of
      *                 s in the string, or -1 if not found.
      * @since 1.0-sofia
      */
-    public function lastIndexOf($s, $offset = 0) {
-        if (!($s instanceof self)) {
-            $s = new self($s);
-        }
-        $result = strrpos($this->value, $s->value, $offset);
-        if ($result === false) {
-            return -1;
-        }
-        return $result;
+    public function lastIndexOf($string, $offset = 0) {
+        $result = strrpos($this->value, (string)$string, $offset);
+        return $result === false ? -1 : $result;
     }
 
     /**
      * Find all unique occurances of a substring in the string
-     * @param String|string $s The substring to find occurances
+     * @param \Packfire\Text\String|string $string The substring to find occurances
      * @param integer $offset (optional) The position to start searching for
      * @return ArrayList Returns the list of index where the substring occurred.
      * @since 1.0-sofia
      */
-    public function occurances($s, $offset = 0) {
-        if (!($s instanceof self)) {
-            $s = new self($s);
-        }
+    public function occurances($string, $offset = 0) {
         $occurances = new ArrayList();
-        while (($idx = $this->indexOf($s, $offset)) >= 0) {
+        while (($idx = $this->indexOf($string, $offset)) >= 0) {
             $occurances->add($idx);
-            $offset = $idx + $s->length();
+            $offset = $idx + strlen($string);
         }
         return $occurances;
     }
@@ -202,20 +190,20 @@ class String implements \Countable, IFormattable {
      * @param integer $length (optional) The number of characters to fetch. If
      *                        this is not specified, the method will fetch from
      *                        start to the end of the string
-     * @return String Returns the part of the string fetched.
+     * @return \Packfire\Text\String Returns the part of the string fetched.
      * @since 1.0-sofia
      */
     public function substring($start, $length = null) {
         if (func_num_args() == 2) {
-            return new self(substr($this->value(), $start, $length));
+            return new self(substr($this->value, $start, $length));
         } else {
-            return new self(substr($this->value(), $start));
+            return new self(substr($this->value, $start));
         }
     }
 
     /**
      * Set all alphabets in the string to upper case
-     * @return String Returns the resulting string.
+     * @return \Packfire\Text\String Returns the resulting string.
      * @since 1.0-sofia
      */
     public function toUpper() {
@@ -224,7 +212,7 @@ class String implements \Countable, IFormattable {
 
     /**
      * Set all alphabets in the string to lower case
-     * @return String Returns the resulting string.
+     * @return \Packfire\Text\String Returns the resulting string.
      * @since 1.0-sofia
      */
     public function toLower() {
@@ -235,7 +223,7 @@ class String implements \Countable, IFormattable {
      * Pad the left side of the string to the desired length
      * @param string $char The string used for padding
      * @param integer $length The maximum amount of characters for the string
-     * @return String Returns the resulting string
+     * @return \Packfire\Text\String Returns the resulting string
      * @since 1.0-sofia
      */
     public function padLeft($char, $length) {
@@ -246,7 +234,7 @@ class String implements \Countable, IFormattable {
      * Pad the right side of the string to the desired length
      * @param string $char The string used for padding
      * @param integer $length The maximum amount of characters for the string
-     * @return String Returns the resulting string
+     * @return \Packfire\Text\String Returns the resulting string
      * @since 1.0-sofia
      */
     public function padRight($char, $length) {
@@ -257,7 +245,7 @@ class String implements \Countable, IFormattable {
      * Pad both sides of the string to the desired length equally
      * @param string $char The string used for padding
      * @param integer $length The maximum amount of characters for the string
-     * @return String Returns the resulting string
+     * @return \Packfire\Text\String Returns the resulting string
      * @since 1.0-sofias
      */
     public function padBoth($char, $length) {
