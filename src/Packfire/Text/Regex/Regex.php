@@ -149,18 +149,15 @@ class Regex {
      * @since 1.0-sofia
      */
     public function indexOf($subject, $offset = 0){
-        if(!($subject instanceof String)){
-            $subject = new String($subject);
-        }
         $match = array(array(''));
         $i = preg_match($this->regex(), $subject, $match,
                 PREG_OFFSET_CAPTURE , $offset);
-        $result = -1;
         if($i){
             $match = reset($match);
-            $result = $subject->indexOf($match[0], $offset);
+            $result = strpos($subject, $match[0], $offset);
+            return $result === false ? -1 : $result;
         }
-        return $result;
+        return -1;
     }
     
     /**
@@ -173,15 +170,13 @@ class Regex {
      * @since 1.0-sofia
      */
     public function lastIndexOf($subject, $offset = 0){
-        if(!($subject instanceof String)){
-            $subject = new String($subject);
-        }
         $match = array(array(''));
         $i = preg_match_all($this->regex(), $subject, $match,
                 PREG_SET_ORDER , $offset);
         if($i){
             $match = end($match);
-            return $subject->lastIndexOf($match[0], $offset);
+            $result = strrpos($subject, $match[0], $offset);
+            return $result === false ? -1 : $result;
         }
         return -1;
     }
