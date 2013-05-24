@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "69f824aefc037550704d4026c9efb0f7",
+    "hash": "7c9340c49007a5bb672b9f9fa7397935",
     "packages": [
         {
             "name": "mauris/yaml",
@@ -134,6 +134,39 @@
                 "ioc"
             ],
             "time": "2013-02-28 04:09:13"
+        },
+        {
+            "name": "packfire/mustache",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/packfire/mustache.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/packfire/mustache/zipball/1.0.0",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Packfire\\Template\\Mustache\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Sam-Mauris Yong",
+                    "email": "sam@mauris.sg"
+                }
+            ],
+            "description": "PHP Mustache Implementation",
+            "time": "2013-05-24 17:00:42"
         },
         {
             "name": "packfire/options",

@@ -27,7 +27,8 @@
         "packfire/options": "1.1.*",
         "packfire/fuelblade": "1.0.*",
         "packfire/config": "1.0.*",
-        "packfire/regex": "1.0.*"
+        "packfire/regex": "1.0.*",
+        "packfire/mustache": "1.0.*"
     },
     "autoload": {
         "psr-0": {"Packfire": "src/"}
