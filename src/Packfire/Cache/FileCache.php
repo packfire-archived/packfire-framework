@@ -131,7 +131,7 @@ class FileCache implements ICache {
                     }
                 }
             }
-        }catch(Exception $ex){
+        }catch(\Exception $ex){
             // silent the exception!
         }
     }
