@@ -11,8 +11,6 @@
 
 namespace Packfire\Template\Mustache;
 
-use Packfire\Collection\ArrayList;
-
 /**
  * A PHP implementation of Mustache, a simple logic-less templating system
  *
@@ -110,9 +108,6 @@ class Mustache {
      */
     private function parse($scopePath, $start, $end){
         $scope = $this->scope($scopePath);
-        if($scope instanceof ArrayList){
-            $scope = $scope->toArray();
-        }
         if($this->isArrayOfObjects($scope)){
             $keys = array_keys($scope);
             foreach($keys as $key){
@@ -348,7 +343,7 @@ class Mustache {
     
     /**
      * Set the parameters to be rendered into the template
-     * @param mixed $parameters The parameters
+     * @param array $parameters The parameters
      * @return Mustache Returns self for chaining
      * @since 1.0-sofia
      */
@@ -364,9 +359,6 @@ class Mustache {
     protected function loadParameters(){
         if(get_class($this) != __CLASS__){
             $this->parameters = $this;
-        }
-        if($this->parameters instanceof ArrayList){
-            $this->parameters = $this->parameters->toArray();
         }
         if(count($this->parameters) == 0){
             $this->parameters = null;

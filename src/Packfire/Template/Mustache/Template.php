@@ -54,7 +54,7 @@ class Template implements ITemplate {
 
     /**
      * Get the fields set to render into the template
-     * @return mixed Returns the fields and their values
+     * @return \Packfire\Collection\Map Returns the fields and their values
      * @since 1.0-sofia
      */
     public function fields() {
@@ -67,7 +67,7 @@ class Template implements ITemplate {
      * @since 1.0-sofia
      */
     public function parse() {
-        return $this->parser->parameters($this->fields)->render();
+        return $this->parser->parameters($this->fields->toArray())->render();
     }
     
     /**
@@ -81,7 +81,7 @@ class Template implements ITemplate {
         }
         if(is_array($set) || $set instanceof ArrayList){
             foreach($set as $key => $value){
-                $this->fields->add($key, $value);
+                $this->fields[$key] = $value;
             }
         }
     }
