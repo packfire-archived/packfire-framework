@@ -3,14 +3,22 @@
 # this file provides configuration for Travis Continuous Integration
 # See Packfire on TravisCI at http://travis-ci.org/packfire/packfire-framework
 
-language: php
+language: "php"
+
 php:
-  - 5.3.3
-  - 5.3
-  - 5.4
-  - 5.5
+  - "5.3"
+  - "5.3.3"
+  - "5.4"
+  - "5.5"
+
+matrix:
+  allow_failures:
+    - php: "5.5"
+
 before_script:
+  - "curl -s http://getcomposer.org/installer | php"
+  - "php composer.phar install --prefer-source --no-interaction --dev"
+  - "pear install pear/PHP_CodeSniffer && phpenv rehash"
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('password') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - composer install --prefer-source
 after_script:
   - "wget --quiet http://mauris.sg/bin/pdc.phar && php pdc.phar src"
