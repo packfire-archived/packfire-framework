@@ -11,8 +11,6 @@
 
 namespace Packfire\Linq;
 
-use Packfire\Linq\ILinq;
-
 /**
  * A generic ordered LINQ with the thenBy() and thenByDesc() implementation
  *

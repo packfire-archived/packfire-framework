@@ -11,8 +11,6 @@
 
 namespace Packfire\Linq;
 
-use Packfire\Linq\IQuery;
-
 /**
  * A worker query that allows the specification of a worker closure or callback.
  *

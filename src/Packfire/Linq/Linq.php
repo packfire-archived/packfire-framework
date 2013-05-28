@@ -11,7 +11,6 @@
 
 namespace Packfire\Linq;
 
-use Packfire\Linq\ILinq;
 use Packfire\Collection\ArrayList;
 use Packfire\Linq\Query\Where;
 use Packfire\Linq\Query\Take;
@@ -23,7 +22,6 @@ use Packfire\Linq\Query\OrderBy;
 use Packfire\Linq\Query\Join;
 use Packfire\Linq\Query\GroupBy;
 use Packfire\Exception\NullException;
-use Packfire\Linq\OrderedLinq;
 
 /**
  * Provides functionality to perform LINQ queries on a collection.
