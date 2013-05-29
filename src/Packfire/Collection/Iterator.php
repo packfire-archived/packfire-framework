@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,8 +22,8 @@ use Packfire\Collection\KeyValuePair;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class Iterator implements \Countable {
-
+class Iterator implements \Countable
+{
     /**
      * The array to iterate through
      * @var IList|array
@@ -36,7 +36,8 @@ class Iterator implements \Countable {
      * @param IList|array $collection The collection
      * @since 1.0-sofia
      */
-    public function  __construct($collection) {
+    public function  __construct($collection)
+    {
         $this->array = $collection;
     }
 
@@ -45,14 +46,15 @@ class Iterator implements \Countable {
      * @return KeyValuePair Returns the next key value pair
      * @since 1.0-sofia
      */
-    public function iterate(){
+    public function iterate()
+    {
         $item = each($this->array);
-        if(!$item){
+        if (!$item) {
             return null;
         }
+
         return new KeyValuePair($item['key'], $item['value']);
     }
-
 
     /**
      * Get the next element of the iteration.<br /><br />
@@ -63,7 +65,8 @@ class Iterator implements \Countable {
      * @since 1.0-sofia
      * @see Iterator::more()
      */
-    public function next(){
+    public function next()
+    {
         return next($this->array);
     }
 
@@ -72,12 +75,14 @@ class Iterator implements \Countable {
      * @return boolean
      * @since 1.0-sofia
      */
-    public function more(){
+    public function more()
+    {
         $ret = each($this->array);
-        if($ret === false){
+        if ($ret === false) {
             return false;
-        }else{
+        } else {
             prev($this->array);
+
             return true;
         }
     }
@@ -91,7 +96,8 @@ class Iterator implements \Countable {
      * @since 1.0-sofia
      * @see Iterator::more()
      */
-    public function current(){
+    public function current()
+    {
         return current($this->array);
     }
 
@@ -99,7 +105,8 @@ class Iterator implements \Countable {
      * Reset the Iteration back to the first element.
      * @since 1.0-sofia
      */
-    public function reset(){
+    public function reset()
+    {
         reset($this->array);
     }
 
@@ -109,7 +116,8 @@ class Iterator implements \Countable {
      * @return integer
      * @since 1.0-sofia
      */
-    public function count(){
+    public function count()
+    {
         return count($this->array);
     }
 

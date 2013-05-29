@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,8 +23,8 @@ use Packfire\Collection\Map;
  * @package Packfire\Route
  * @since 1.1-sofia
  */
-abstract class Route implements IRoute {
-
+abstract class Route implements IRoute
+{
     /**
      * The name of the route
      * @var string
@@ -52,28 +52,29 @@ abstract class Route implements IRoute {
      * @since 2.0.0
      */
     protected $remap;
-    
+
     /**
      * The parameter validation rules
      * @var \Packfire\Collection\Map
      * @since 2.0.0
      */
     protected $rules;
-    
+
     /**
      * Response hinting for the controller
      * @var string
      * @since 2.0.7
      */
     protected $response;
-    
+
     /**
      * Create a new Route object
-     * @param string $name The name of the route
+     * @param string    $name The name of the route
      * @param array|Map $data The data retrieved from the settings
      * @since 2.0.0
      */
-    public function __construct($name, $data){
+    public function __construct($name, $data)
+    {
         $this->name = $name;
         $this->params = new Map();
         $this->actual = $data->get('actual');
@@ -87,7 +88,8 @@ abstract class Route implements IRoute {
      * @return Map Returns the parameters
      * @since 1.1-sofia
      */
-    public function params(){
+    public function params()
+    {
         return $this->params;
     }
 
@@ -96,7 +98,8 @@ abstract class Route implements IRoute {
      * @return string Returns the controller class name
      * @since 1.1-sofia
      */
-    public function actual(){
+    public function actual()
+    {
         return $this->actual;
     }
 
@@ -105,7 +108,8 @@ abstract class Route implements IRoute {
      * @return string Returns the name
      * @since 1.1-sofia
      */
-    public function name() {
+    public function name()
+    {
         return $this->name;
     }
 
@@ -114,7 +118,8 @@ abstract class Route implements IRoute {
      * @return Map Returns the remapping data
      * @since 2.0.0
      */
-    public function remap() {
+    public function remap()
+    {
         return $this->remap;
     }
 
@@ -123,7 +128,8 @@ abstract class Route implements IRoute {
      * @return Map Returns the validation rules
      * @since 2.0.0
      */
-    public function rules() {
+    public function rules()
+    {
         return $this->rules;
     }
 
@@ -132,38 +138,40 @@ abstract class Route implements IRoute {
      * @return string Returns response hint
      * @since 2.0.7
      */
-    public function response() {
+    public function response()
+    {
         return $this->response;
     }
-    
+
     /**
      * Perform remapping of the parameters
-     * @param array|IList $rules The remapping rules
-     * @param array|IList $data The data to be remapped
-     * @return array Returns the resulting remapped data
+     * @param  array|IList $rules The remapping rules
+     * @param  array|IList $data  The data to be remapped
+     * @return array       Returns the resulting remapped data
      * @since 2.0.0
      */
-    protected function remapParam($rules, &$data){
+    protected function remapParam($rules, &$data)
+    {
         $result = array();
-        foreach($rules as $key => $rule){
+        foreach ($rules as $key => $rule) {
             $param = null;
             $index = null;
-            if(is_array($rule)){
+            if (is_array($rule)) {
                 $param = $data;
                 $this->remapParam($rule, $param);
                 $index = $key;
-            }elseif(isset($data[$rule])){
+            } elseif (isset($data[$rule])) {
                 $param = $data[$rule];
                 $index = $rule;
-            }else{
+            } else {
                 $param = null;
                 $index = $rule;
             }
-            if($index){
+            if ($index) {
                 $result[$index] = $param;
             }
         }
         $data = $result;
     }
-    
+
 }

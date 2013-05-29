@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,8 +23,8 @@ use Packfire\Exception\InvalidArgumentException;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class Cookie {
-    
+class Cookie
+{
     /**
      * Name of the cookie
      * @var string
@@ -78,10 +78,11 @@ class Cookie {
     /**
      * Creates a new Cookie object
      * @param string $n Name of the Cookie
-     * @param mixed $k (optional) Value of the Cookie variable
+     * @param mixed  $k (optional) Value of the Cookie variable
      * @since 1.0-sofia
      */
-    function __construct($n, $k = null) {
+    public function __construct($n, $k = null)
+    {
         $this->name($n);
         if ($k !== null) {
             $this->value($k);
@@ -91,92 +92,106 @@ class Cookie {
 
     /**
      * Get or set the name of the cookie
-     * @param string $n (optional) If $n is passed in as argument, it will set the name of the cookie
+     * @param  string $n (optional) If $n is passed in as argument, it will set the name of the cookie
      * @return string
      */
-    public function name($n = false){
-        if(func_num_args() == 1){
+    public function name($n = false)
+    {
+        if (func_num_args() == 1) {
             $this->name = $n;
         }
+
         return $this->name;
     }
 
     /**
      * Get or set the value of the cookie
-     * @param mixed $v (optional) If $v is passed in as argument, it will set the value of the cookie
+     * @param  mixed $v (optional) If $v is passed in as argument, it will set the value of the cookie
      * @return mixed
      */
-    public function value($v = false){
-        if(func_num_args() == 1){
+    public function value($v = false)
+    {
+        if (func_num_args() == 1) {
             $this->value = $v;
         }
+
         return $this->value;
     }
 
     /**
      * Get or set the path of the cookie in which the cookie resides
-     * @param string $p (optional) If $p is passed in as argument, it will set the path of the cookie in which the cookie resides
+     * @param  string $p (optional) If $p is passed in as argument, it will set the path of the cookie in which the cookie resides
      * @return string
      */
-    public function path($p = false){
-        if(func_num_args() == 1){
+    public function path($p = false)
+    {
+        if (func_num_args() == 1) {
             $this->path = $p;
         }
+
         return $this->path;
     }
 
     /**
      * Get or set whether the cookie can only be used via HTTPS
-     * @param boolean $s (optional) If $s is passed in as argument, it will set the cookie can only be used via HTTPS
+     * @param  boolean $s (optional) If $s is passed in as argument, it will set the cookie can only be used via HTTPS
      * @return boolean
      */
-    public function secure($s = false){
-        if(func_num_args() == 1){
+    public function secure($s = false)
+    {
+        if (func_num_args() == 1) {
             $this->secure = $s;
         }
+
         return $this->secure;
     }
 
     /**
      * Get or set the expiry date / time of the cookie
-     * @param DateTime $d (optional) Set the value of expiry date/time.
-     * @return DateTime Returns the expiry date time of the cookie
+     * @param  DateTime                 $d (optional) Set the value of expiry date/time.
+     * @return DateTime                 Returns the expiry date time of the cookie
      * @throws InvalidArgumentException Thrown when $expire is not of type DateTime
      * @since 1.0-sofia
      */
-    public function expire($expire = false){
-        if(func_num_args() == 1){
-            if(!($expire instanceof DateTime)){
+    public function expire($expire = false)
+    {
+        if (func_num_args() == 1) {
+            if (!($expire instanceof DateTime)) {
                 throw new InvalidArgumentException('Cookie::expire', 'datetime', 'of type DateTime', $expire);
             }
             $this->expire = $expire;
         }
+
         return $this->expire;
     }
 
     /**
      * Get or set the domain in which the cookie resides
-     * @param string $d (optional) If $d is passed in as argument, it will set the value of domain.
+     * @param  string $d (optional) If $d is passed in as argument, it will set the value of domain.
      * @return string
      * @since 1.0-sofia
      */
-    public function domain($d = false){
-        if(func_num_args() == 1){
+    public function domain($d = false)
+    {
+        if (func_num_args() == 1) {
             $this->domain = $d;
         }
+
         return $this->domain;
     }
 
     /**
      * Get or set whether the cookie is for HTTP only
-     * @param boolean $h (optional) If $h is passed in as argument, it will set the value of httpOnly.
+     * @param  boolean $h (optional) If $h is passed in as argument, it will set the value of httpOnly.
      * @return boolean
      * @since 1.0-sofia
      */
-    public function httpOnly($h = false){
-        if(func_num_args() == 1){
+    public function httpOnly($h = false)
+    {
+        if (func_num_args() == 1) {
             $this->httpOnly = $h;
         }
+
         return $this->httpOnly;
     }
 
@@ -185,7 +200,8 @@ class Cookie {
      * @return boolean
      * @since 1.0-sofia
      */
-    public function set() {
+    public function set()
+    {
         return setcookie($this->name, $this->value,
                 $this->expire->toTimestamp(),
                 $this->path, $this->domain, $this->secure, $this->httpOnly);
@@ -195,10 +211,11 @@ class Cookie {
      * Remove this cookie from the webpage header response
      * @since 1.0-sofia
      */
-    public function remove(){
+    public function remove()
+    {
         $this->expire = -36000;
         $this->value = null;
         $this->set();
     }
-    
+
 }

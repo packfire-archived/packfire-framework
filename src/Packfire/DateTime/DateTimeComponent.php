@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,28 +20,30 @@ namespace Packfire\DateTime;
  * @package Packfire\DateTime
  * @since 1.0-sofia
  */
-abstract class DateTimeComponent {
-    
+abstract class DateTimeComponent
+{
     /**
      * Process the next component
-     * @param integer $value
-     * @param string $next
-     * @param integer $max
+     * @param  integer $value
+     * @param  string  $next
+     * @param  integer $max
      * @return integer
      * @internal
      * @since 1.0-sofia
      */
-    protected function processNextComponent($value, $next, $max){
-        if($value >= $max){
-            $addNext = (int)floor($value / $max);
+    protected function processNextComponent($value, $next, $max)
+    {
+        if ($value >= $max) {
+            $addNext = (int) floor($value / $max);
             $this->$next($this->$next() + $addNext);
             $value -= $addNext * $max;
-        }elseif($value < 0){
-            $subNext = (int)floor(abs($value) / $max);
+        } elseif ($value < 0) {
+            $subNext = (int) floor(abs($value) / $max);
             $this->$next($this->$next() - $subNext - 1);
             $value = $max + ($value % $max);
         }
+
         return $value;
     }
-    
+
 }

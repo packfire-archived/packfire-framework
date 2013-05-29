@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,12 +22,12 @@ use Packfire\Collection\IQueue;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-interface IDeque extends IQueue {
-    
+interface IDeque extends IQueue
+{
     public function enqueueFront($item);
-    
+
     public function back();
-    
+
     public function dequeueBack();
-    
+
 }

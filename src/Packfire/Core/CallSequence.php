@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,82 +20,88 @@ namespace Packfire\Core;
  * @package Packfire\Core
  * @since 2.0.8
  */
-class CallSequence {
-    
+class CallSequence
+{
     /**
      * The reference for inserting the values.
      * @var object
      * @since 2.0.8
      */
     private $reference;
-    
+
     /**
      * The pipeline of functions to run
      * @var array
      * @since 2.0.8
      */
     private $pipeline = array();
-    
+
     /**
      * Create a new CallSequence object
      * @since 2.0.8
      * @codeCoverageIgnore
      */
-    public function __construct(){
+    public function __construct()
+    {
         // create a unique reference object
         $this->reference = new \stdClass();
     }
-    
+
     /**
      * Get the reference for value parameter
      * @return object Returns the object for referencing
      * @since 2.0.8
      */
-    public function value(){
+    public function value()
+    {
         return $this->reference;
     }
-    
+
     /**
      * Add a callback into the call sequence
-     * @param callback|Closure $func The callback to process the value
-     * @param array $parameters (optional) The array of parameters to
+     * @param callback|Closure $func       The callback to process the value
+     * @param array            $parameters (optional) The array of parameters to
      *          pass into the callback.
      * @param boolean $return (optional) Set whether the value is set to the
      *          returning value of this callback. Defaults to true.
      * @since 2.0.8
      */
-    public function add($func, $parameters = array(), $return = true){
+    public function add($func, $parameters = array(), $return = true)
+    {
         $this->pipeline[] = array($func, $parameters, $return);
     }
-    
+
     /**
      * Clear the call sequence
      * @since 2.0.8
      */
-    public function clear(){
+    public function clear()
+    {
         $this->pipeline = array();
     }
-    
+
     /**
      * Process a value with the call sequence
-     * @param mixed $value The value to pass through the call sequence
+     * @param  mixed $value The value to pass through the call sequence
      * @return mixed Returns the final resulting value
      * @since 2.0.8
      */
-    public function process($value){
-        foreach($this->pipeline as $stage){
+    public function process($value)
+    {
+        foreach ($this->pipeline as $stage) {
             list($callback, $parameters, $return) = $stage;
             $keys = array_keys($parameters, $this->reference, true);
-            foreach($keys as $key){
+            foreach ($keys as $key) {
                 $parameters[$key] = $value;
             }
-            if($return){
+            if ($return) {
                 $value = call_user_func_array($callback, $parameters);
-            }else{
+            } else {
                 call_user_func_array($callback, $parameters);
             }
         }
+
         return $value;
     }
-    
+
 }

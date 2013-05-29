@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -25,11 +25,12 @@ use Packfire\Welcome\DarkTheme;
  * @package Packfire\Welcome
  * @since 1.0-sofia
  */
-class HomeIndexView extends View {
-
-    protected function create() {
+class HomeIndexView extends View
+{
+    protected function create()
+    {
         $theme = $this->ioc['session']->get('theme', 'dark');
-        if(!in_array($theme, array('dark', 'light'))){
+        if (!in_array($theme, array('dark', 'light'))) {
             $theme = 'light';
         }
         $template = new TemplateFile(__DIR__ . '/HomeIndexView.html');

@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,79 +20,81 @@ namespace Packfire\Database;
  * @package Packfire\Database
  * @since 1.0-sofia
  */
-abstract class Schema {
-    
+abstract class Schema
+{
     /**
      * The database driver
      * @var IConnector
      * @snce 1.0-sofia
      */
     protected $driver;
-    
+
     /**
      * The name of this schema
      * @var string
      * @snce 1.0-sofia
      */
     protected $name;
-    
+
     /**
      * Create a new Schema object
      * @param IConnector $driver The database driver
-     * @param string $name Name of the schema
+     * @param string     $name   Name of the schema
      * @since 1.0-sofia
      */
-    public function __construct($driver, $name){
+    public function __construct($driver, $name)
+    {
         $this->driver = $driver;
         $this->name = $name;
     }
-    
+
     /**
      * Get the name of the schema
      * @return string Returns the name of the schema
      * @since 1.0-sofia
      */
-    public function name(){
+    public function name()
+    {
         return $this->name;
     }
-    
+
     /**
      * Create a new table in the schema
-     * @param string $name The name of the table
-     * @param array|IList $columns The list of columns belonging to the table
-     * @return Table Returns the table representation of the newly
+     * @param  string      $name    The name of the table
+     * @param  array|IList $columns The list of columns belonging to the table
+     * @return Table       Returns the table representation of the newly
      *                  created table.
      * @since 1.0-sofia
      */
-    public abstract function create($name, $columns);
-    
+    abstract public function create($name, $columns);
+
     /**
      * Delete a table from the schema
      * @param string|Table $table The table to delete
      * @since 1.0-sofia
      */
-    public abstract function delete($table);
-    
+    abstract public function delete($table);
+
     /**
      * Truncate / empty a table
      * @param string|Table $table The table to empty
      * @since 1.0-sofia
      */
-    public abstract function truncate($table);
-    
+    abstract public function truncate($table);
+
     /**
      * Fetch a table representation
-     * @param string $table Name of the table to fetch
-     * @return Table Returns the table representation
+     * @param  string $table Name of the table to fetch
+     * @return Table  Returns the table representation
      * @since 1.0-sofia
      */
-    public abstract function table($table);
-    
+    abstract public function table($table);
+
     /**
      * Get a list of tables in the schema
      * @return ArrayList Returns a list of table names
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
-    public abstract function tables();
-    
+    abstract public function tables();
+
 }

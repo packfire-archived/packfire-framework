@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,8 +23,8 @@ use Packfire\IO\IInputStream;
  * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class InputStream implements IInputStream, IFile {
-
+class InputStream implements IInputStream, IFile
+{
     /**
      * The file resource
      * @var resource
@@ -44,7 +44,8 @@ class InputStream implements IInputStream, IFile {
      * @param string $file The pathname to the file to stream
      * @since 1.0-sofia
      */
-    public function __construct($file){
+    public function __construct($file)
+    {
         $this->file = $file;
     }
 
@@ -53,7 +54,8 @@ class InputStream implements IInputStream, IFile {
      * @return string Returns the file pathname.
      * @since 1.0-sofia
      */
-    public function pathname(){
+    public function pathname()
+    {
         return $this->file;
     }
 
@@ -62,22 +64,25 @@ class InputStream implements IInputStream, IFile {
      * @return integer Returns the file size.
      * @since 1.0-sofia
      */
-    public function length() {
+    public function length()
+    {
         return filesize($this->file);
     }
 
     /**
      * Read data from the file stream.
-     * @param integer $length The amount of bytes to read.
-     * @return string Returns the data read from the file or NULL if end of file
+     * @param  integer $length The amount of bytes to read.
+     * @return string  Returns the data read from the file or NULL if end of file
      *                is reached.
      * @since 1.0-sofia
      */
-    public function read($length) {
-        if(feof($this->handle)){
+    public function read($length)
+    {
+        if (feof($this->handle)) {
             return null;
         }
         $result = fread($this->handle, $length);
+
         return $result;
     }
 
@@ -86,7 +91,8 @@ class InputStream implements IInputStream, IFile {
      * @param integer $position The position of pointer to set to
      * @since 1.0-sofia
      */
-    public function seek($position) {
+    public function seek($position)
+    {
         fseek($this->handle, $position, SEEK_SET);
     }
 
@@ -96,7 +102,8 @@ class InputStream implements IInputStream, IFile {
      *                 otherwise.
      * @since 1.0-sofia
      */
-    public function seekable() {
+    public function seekable()
+    {
         return 0 === fseek($this->handle, $this->tell());
     }
 
@@ -105,7 +112,8 @@ class InputStream implements IInputStream, IFile {
      * @return integer Returns the file pointer position.
      * @since 1.0-sofia
      */
-    public function tell() {
+    public function tell()
+    {
         return ftell($this->handle);
     }
 
@@ -113,7 +121,8 @@ class InputStream implements IInputStream, IFile {
      * Close the stream
      * @since 1.0-sofia
      */
-    public function close() {
+    public function close()
+    {
         fclose($this->handle);
     }
 
@@ -121,7 +130,8 @@ class InputStream implements IInputStream, IFile {
      * Open the stream
      * @since 1.0-sofia
      */
-    public function open() {
+    public function open()
+    {
         $this->handle = fopen($this->file, 'r');
     }
 

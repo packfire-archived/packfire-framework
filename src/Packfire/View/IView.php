@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,20 +20,20 @@ namespace Packfire\View;
  * @package Packfire\View
  * @since 1.0-sofia
  */
-interface IView {
-
+interface IView
+{
     /**
      * Generate the output of this view
      * @return string Returns the generated output
      * @since 1.0-sofia
      */
     public function render();
-    
+
     /**
      * Set the state from the controller to the view
      * @param Map $state The state of the controller passed to the view.
      * @since 1.0-sofia
      */
     public function state($state);
-    
+
 }

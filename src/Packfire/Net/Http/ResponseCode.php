@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,8 +20,8 @@ namespace Packfire\Net\Http;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class ResponseCode {
-
+class ResponseCode
+{
     const HTTP_100 = '100 Continue';
     const HTTP_101 = '101 Switching Protocols';
     const HTTP_102 = '102 Processing';
@@ -82,5 +82,5 @@ class ResponseCode {
     const HTTP_507 = '507 Insufficient Storage';
     const HTTP_509 = '509 Bandwidth Limit Exceeded';
     const HTTP_510 = '510 Not Extended';
-    
+
 }

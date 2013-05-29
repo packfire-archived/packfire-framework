@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -24,28 +24,31 @@ use Packfire\Collection\Queue;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class Deque extends Queue implements IDeque {
-    
+class Deque extends Queue implements IDeque
+{
     /**
      * Enqueue the item to the front of the queue, giving the item priority.
      * @param mixed $item The item to enqueue
      * @since 1.0-sofia
      */
-    public function enqueueFront($item){
+    public function enqueueFront($item)
+    {
         array_unshift($this->array, $item);
     }
-    
+
     /**
      * Dequeue the item from the back of the queue.
      * @return mixed Returns the item that was dequeued from the back, or NULL
      *               if there is no item in the queue.
      * @since 1.0-sofia
      */
-    public function dequeueBack(){
+    public function dequeueBack()
+    {
         $value = null;
-        if($this->count() > 0){
+        if ($this->count() > 0) {
             $value = array_pop($this->array);
         }
+
         return $value;
     }
 
@@ -55,11 +58,13 @@ class Deque extends Queue implements IDeque {
      *               there is no item in the queue.
      * @since 1.0-sofia
      */
-    public function back(){
-        if($this->count() > 0){
+    public function back()
+    {
+        if ($this->count() > 0) {
             return end($this->array);
         }
+
         return null;
     }
-    
+
 }

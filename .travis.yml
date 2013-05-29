@@ -20,7 +20,10 @@ before_script:
   - "php composer.phar install --prefer-source --no-interaction --dev"
   - "pear install pear/PHP_CodeSniffer && phpenv rehash"
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('password') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+
 script:
-  - phpunit -c test
+    - "phpunit -c test"
+    - "phpcs --encoding=utf-8 --extensions=php --standard=test/phpcs.xml -nsp ./"
+
 after_script:
   - "wget --quiet http://mauris.sg/bin/pdc.phar && php pdc.phar src"

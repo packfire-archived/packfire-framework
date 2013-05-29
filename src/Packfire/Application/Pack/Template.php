@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,17 +22,19 @@ use Packfire\IO\File\Path;
  * @package Packfire\Application\Pack
  * @since 1.1-sofia
  */
-class Template {
-    
+class Template
+{
+
     /**
      * Load a template from the template folder
-     * @param string $name Name of the template to load
+     * @param  string                       $name Name of the template to load
      * @return \Packfire\Template\ITemplate Returns the template
      * @since 1.0-sofia
      */
-    public static function load($name){
+    public static function load($name)
+    {
         $path = __APP_ROOT__ . '/src' . DIRECTORY_SEPARATOR . str_replace(array('_', '\\', '/'), DIRECTORY_SEPARATOR, $name);
-        
+
         // parsers
         $extensions = array(
             'html' => 'Packfire\Template\Mustache\TemplateFile',
@@ -40,21 +42,20 @@ class Template {
             'mustache' => 'Packfire\Template\Mustache\TemplateFile',
             'php' => 'Packfire\Template\Php\TemplateFile'
         );
-        
+
         $template = null;
-        if($extension = Path::extension($path)){
+        if ($extension = Path::extension($path)) {
             $class = $extensions[$extension];
             $template = new $class($path);
-        }else{
-            foreach($extensions as $type => $class){
-                if(is_file($path . '.' .  $type)){
+        } else {
+            foreach ($extensions as $type => $class) {
+                if (is_file($path . '.' .  $type)) {
                     $template = new $class($path . '.' .  $type);
                     break;
                 }
             }
         }
-        
+
         return $template;
     }
-    
 }

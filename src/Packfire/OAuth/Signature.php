@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,8 +22,8 @@ use Packfire\Collection\Map;
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-abstract class Signature {
-
+abstract class Signature
+{
     /**
      * The request parameters that was used
      * @var Request
@@ -47,27 +47,30 @@ abstract class Signature {
 
     /**
      * Create a new Signature object
-     * @param Request $request The request that uses this signature generation
-     * @param Consumer $consumer The consumer
-     * @param string $tokenSecret The token secret provided by the OAuth provider
+     * @param Request  $request     The request that uses this signature generation
+     * @param Consumer $consumer    The consumer
+     * @param string   $tokenSecret The token secret provided by the OAuth provider
      * @since 1.1-sofia
      */
-    public function __construct($request, $consumer, $tokenSecret = null){
+    public function __construct($request, $consumer, $tokenSecret = null)
+    {
         $this->request = $request;
         $this->consumer = $consumer;
         $this->tokenSecret = $tokenSecret;
     }
 
-    public static function load($name){
+    public static function load($name)
+    {
         $registry = new Map();
         $registry->add('HMAC-SHA1', 'Packfire\OAuth\Signature\HmacSha1');
         $registry->add('PLAINTEXT', 'Packfire\OAuth\Signature\PlainText');
         $class = null;
-        if($registry->keyExists($name)){
+        if ($registry->keyExists($name)) {
             $class = $registry->get($name);
-        }elseif($registry->contains($name)){
+        } elseif ($registry->contains($name)) {
             $class = $name;
         }
+
         return $class;
     }
 
@@ -87,11 +90,12 @@ abstract class Signature {
 
     /**
      * Check if a signature is valid based on the parameters provided.
-     * @param string $signature
+     * @param  string  $signature
      * @return boolean Returns true if the signature is valid, false otherwise.
      * @since 1.1-sofia
      */
-    public function check($signature){
+    public function check($signature)
+    {
         return $this->build() == $signature;
     }
 

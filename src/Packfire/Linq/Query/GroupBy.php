@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -25,31 +25,33 @@ use Packfire\Collection\KeyValuePair;
  * @package Packfire\Linq\Query
  * @since 1.0-sofia
  */
-class GroupBy extends Worker {
-    
+class GroupBy extends Worker
+{
     /**
      * Execute the query
-     * @param array $collection The collection to execute upon
+     * @param  array $collection The collection to execute upon
      * @return mixed Returns the result after the query execution
      * @since 1.0-sofia
      */
-    public function run($collection) {
+    public function run($collection)
+    {
         $grouping = array();
         $worker = $this->worker();
         $matrix = new Map();
-        
-        foreach($collection as $element){
+
+        foreach ($collection as $element) {
             $key = $worker($element);
-            if(!$matrix->keyExists($key)){
+            if (!$matrix->keyExists($key)) {
                 $matrix->add($key, new ArrayList());
             }
             $matrix->get($key)->add($element);
         }
-        
-        foreach($matrix as $key => $value){
+
+        foreach ($matrix as $key => $value) {
             $grouping[] = new KeyValuePair($key, $value);
         }
+
         return $grouping;
     }
-    
+
 }

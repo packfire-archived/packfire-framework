@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,40 +23,41 @@ use Packfire\IO\File\Path;
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0
  */
-class ClassMapBuilder {
-    
+class ClassMapBuilder
+{
     /**
      * Build the class map
-     * @param string $path The path to the folder to start building the class map.
-     * @return array Returns the array of class map. Class's paths returned are relative to the $path provided.
+     * @param  string $path The path to the folder to start building the class map.
+     * @return array  Returns the array of class map. Class's paths returned are relative to the $path provided.
      * @since 2.0.0
      */
-    public function build($path){
+    public function build($path)
+    {
         $map = array();
         $iterator = new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
                 \RecursiveIteratorIterator::CHILD_FIRST);
-        foreach($iterator as $file){
+        foreach ($iterator as $file) {
             // for PHP prior to 5.3.6
             // see http://php.net/manual/en/splfileinfo.getextension.php
             $extension = pathinfo($file->getFilename(), PATHINFO_EXTENSION);
-            if($file->isFile() && $extension == 'php'){
-                $tokens = token_get_all(file_get_contents((string)$file));
+            if ($file->isFile() && $extension == 'php') {
+                $tokens = token_get_all(file_get_contents((string) $file));
                 $namespace = '';
                 $classes = array();
                 $iterator = new Iterator($tokens);
-                while($iterator->more()){
+                while ($iterator->more()) {
                     $token = $iterator->current();
                     if (!is_string($token)) {
                         list($id, $text) = $token;
                         if ($id == T_NAMESPACE) {
                             $ns = '';
                             $iterator->next();
-                            while($iterator->more()){
+                            while ($iterator->more()) {
                                 $token = $iterator->next();
-                                if($token == ';'){
+                                if ($token == ';') {
                                     break;
-                                }elseif(!is_string($token)){
+                                } elseif (!is_string($token)) {
                                     list($id, $text) = $token;
                                     $ns .= $text;
                                 }
@@ -66,16 +67,17 @@ class ClassMapBuilder {
                         if ($id == T_CLASS) {
                             $iterator->next();
                             list($id, $text) = $iterator->next();
-                            $classes[$namespace . '\\' . $text] = Path::relativePath($path, (string)$file);
+                            $classes[$namespace . '\\' . $text] = Path::relativePath($path, (string) $file);
                         }
                     }
-                    
+
                     $iterator->next();
                 }
                 $map = array_merge($map, $classes);
             }
         }
+
         return $map;
     }
-    
+
 }

@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -26,8 +26,9 @@ use \Packfire\FuelBlade\IConsumer;
  * @package Packfire\Application\Pack
  * @since 1.1-sofia
  */
-abstract class Controller extends CoreController {
-    
+abstract class Controller extends CoreController
+{
+
     /**
      * Load and render the view for this controller
      * @param IView $view (optional) The view object to be rendered. If omitted,
@@ -36,35 +37,35 @@ abstract class Controller extends CoreController {
      *              instance of IView or the view cannot be loaded.
      * @since 1.1-sofia
      */
-    public function render($view = null) {
-        if(func_num_args() == 0){
+    public function render($view = null)
+    {
+        if (func_num_args() == 0) {
             $dbt = debug_backtrace();
             $func = ucfirst($dbt[1]['function']);
             $func2 = null;
-            if(($firstUpper = Inflector::firstUpperCase($dbt[1]['function'])) !== false){
+            if (($firstUpper = Inflector::firstUpperCase($dbt[1]['function'])) !== false) {
                 $func2 = substr($dbt[1]['function'], $firstUpper);
             }
-            
+
             $name = get_class($this);
-            if(substr($name, -10) == 'Controller'){
+            if (substr($name, -10) == 'Controller') {
                 $name = substr($name, 0, strlen($name) - 10);
             }
-            
+
             // todo autoloading
             $class = $name . $func . 'View';
             $view = new $class();
         }
-        if($view instanceof IConsumer){
+        if ($view instanceof IConsumer) {
             $view($this->ioc);
         }
-        if($view instanceof IView){
+        if ($view instanceof IView) {
             parent::render($view);
-        }else{
+        } else {
             throw new MissingDependencyException(
                 'View not rendered because not found.' .
                     ($class ? ' Looked for ' . $class . '.' : '')
             );
         }
     }
-    
 }

@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,15 +22,15 @@ use Packfire\Event\IEventWatchable;
  * @package Packfire\Event
  * @since 1.0-elenor
  */
-interface IEventHandler extends IEventWatchable {
-    
+interface IEventHandler extends IEventWatchable
+{
     /**
      * Trigger an event in this handler
      * @param string $event The name of the event to trigger
-     * @param mixed $args (optional) Additional information to provide to the
+     * @param mixed  $args  (optional) Additional information to provide to the
      *              observers.
      * @since 1.0-elenor
      */
     public function trigger($event, $args = null);
-    
+
 }

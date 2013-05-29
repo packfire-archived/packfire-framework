@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -25,93 +25,98 @@ use Packfire\Collection\Map;
  * @package Packfire\Application\Http
  * @since 1.0-elenor
  */
-class Request extends ClientRequest implements IAppRequest {
-    
+class Request extends ClientRequest implements IAppRequest
+{
     /**
      * The script name called
      * @var string
      * @since 1.0-elenor
      */
     protected $scriptName;
-    
+
     /**
      * The script name
      * @var string
      * @since 1.0-elenor
      */
     protected $phpSelf;
-    
+
     /**
      * The path info provided
      * @var string
      * @since 1.0-elenor
      */
     private $pathInfo;
-    
+
     /**
      * Create a new Request object
      * @param Client $client The client making the request
-     * @param array $server The $_SERVER variables to pass in
+     * @param array  $server The $_SERVER variables to pass in
      * @since 1.0-elenor
      */
-    public function __construct($client, $server){
+    public function __construct($client, $server)
+    {
         parent::__construct($client);
-        if($server){
+        if ($server) {
             $this->scriptName = $server['SCRIPT_NAME'];
             $this->phpSelf = $server['PHP_SELF'];
-            if(isset($server['ORIG_PATH_INFO'])){
+            if (isset($server['ORIG_PATH_INFO'])) {
                 $this->pathInfo = $server['ORIG_PATH_INFO'];
-            }elseif(isset($server['PATH_INFO'])){
+            } elseif (isset($server['PATH_INFO'])) {
                 $this->pathInfo = $server['PATH_INFO'];
-            }else{
-                if($this->scriptName == $this->phpSelf){
+            } else {
+                if ($this->scriptName == $this->phpSelf) {
                     $this->pathInfo = '/';
-                }else{
+                } else {
                     $this->pathInfo = substr($this->phpSelf, strlen($this->scriptName));
                 }
             }
         }
     }
-    
+
     /**
      * Get the parameters of the request based on the HTTP method
-     * @return Map Returns the parameters 
+     * @return Map Returns the parameters
      * @since 1.0-sofia
      */
-    public function params(){
+    public function params()
+    {
         $result = new Map();
         $result->append($this->get());
-        if($this->method() == HttpMethod::POST){
+        if ($this->method() == HttpMethod::POST) {
             $result->append($this->post());
         }
+
         return $result;
     }
-    
+
     /**
      * Get the name of the script called
      * @return string Returns the name of the script
      * @since 1.0-elenor
      */
-    public function scriptName(){
+    public function scriptName()
+    {
         return $this->scriptName;
     }
-    
+
     /**
      * Get the PHP self value
      * @return string Returns the PHP self value
      * @since 1.0-elenor
      */
-    public function phpSelf(){
+    public function phpSelf()
+    {
         return $this->phpSelf;
     }
-    
+
     /**
      * Get the path info
      * @return string Returns the path info
      * @since 1.0-elenor
      */
-    public function pathInfo(){
+    public function pathInfo()
+    {
         return $this->pathInfo;
     }
-    
 }

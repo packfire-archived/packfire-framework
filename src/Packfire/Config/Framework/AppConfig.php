@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,8 +22,8 @@ use Packfire\Config\Framework\FrameworkConfig;
  * @package Packfire\Config\Framework
  * @since 1.0-sofia
  */
-class AppConfig extends FrameworkConfig {
-    
+class AppConfig extends FrameworkConfig
+{
     /**
      * Load the application configuration file located the the config folder.
      * @param string $context (optional) The context from which we are loading
@@ -34,8 +34,9 @@ class AppConfig extends FrameworkConfig {
      *                 or NULL if the file is not recognized or not found.
      * @since 1.0-sofia
      */
-    public function load($context = __ENVIRONMENT__){
+    public function load($context = __ENVIRONMENT__)
+    {
         return $this->loadConfig('app', $context);
     }
-    
+
 }

@@ -17,29 +17,29 @@ security:
   disabled: false
   override: false
   identity: null
-    
+
 session:
   enabled: false
   name: packfire
   lifetime: 3600
   http: true
   secure: false
-  
+
 routing:
   enabled: true
 
 database:
-  default: 
+  default:
     driver: mysql
     host: localhost
     dbname: default
-    user: root 
+    user: root
     password: password
-  auth: 
+  auth:
     driver: mysql
     host: localhost
     dbname: auth
-    user: root 
+    user: root
     password: password
 
 ...

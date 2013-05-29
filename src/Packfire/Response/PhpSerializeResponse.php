@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,15 +23,16 @@ use Packfire\Response\IResponseFormat;
  * @package Packfire\Response
  * @since 1.1-sofia
  */
-class PhpSerializeResponse extends HttpResponse implements IResponseFormat {
-    
+class PhpSerializeResponse extends HttpResponse implements IResponseFormat
+{
     /**
      * Create a new PhpSerializeResponse object
      * @param mixed $object The object that will be encoded and sent to the
      *                      client
      * @since 1.1-sofia
      */
-    public function __construct($object) {
+    public function __construct($object)
+    {
         parent::__construct();
         $this->headers()->add('Content-Type', 'text/plain');
         $this->body(serialize($object));

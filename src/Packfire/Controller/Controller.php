@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -33,8 +33,8 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-abstract class Controller implements IConsumer {
-
+abstract class Controller implements IConsumer
+{
     /**
      * The IoC container
      * @var \Packfire\FuelBlade\Container
@@ -62,7 +62,7 @@ abstract class Controller implements IConsumer {
      * @since 1.0-sofia
      */
     protected $errors;
-    
+
     /**
      * A validation callback handler
      * Gives the fields: $field, $value, $validity
@@ -75,7 +75,8 @@ abstract class Controller implements IConsumer {
      * Create a new Controller object
      * @since 1.0-sofia
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->state = new Map();
         $this->errors = new Error();
         $this->models = new Map();
@@ -86,7 +87,8 @@ abstract class Controller implements IConsumer {
      * @return Map|mixed Returns the state of the controller
      * @since 1.0-sofia
      */
-    public function state(){
+    public function state()
+    {
         return $this->state;
     }
 
@@ -95,12 +97,13 @@ abstract class Controller implements IConsumer {
      * @param IView $view (optional) The view object to be rendered
      * @since 1.0-sofia
      */
-    public function render($view = null){
-        if($view){
+    public function render($view = null)
+    {
+        if ($view) {
             $view($this->ioc);
             $view->state($this->state);
             $output = $view->render();
-            if(isset($this->ioc['response']) && $this->ioc['response']){
+            if (isset($this->ioc['response']) && $this->ioc['response']) {
                 $this->ioc['response']->body($output);
             }
         }
@@ -108,51 +111,56 @@ abstract class Controller implements IConsumer {
 
     /**
      * Create and prepare a redirect to another URL
-     * @param string $url The URL to route to
+     * @param string $url  The URL to route to
      * @param string $code (optional) The HTTP code. Defaults to "302 Found".
      *                     Use constants from Packfire\Net\Http\ResponseCode
      * @since 1.0-sofia
      */
-    protected function redirect($url, $code = null){
-        if(strlen($url) > 0 && $url[0] == '/' && isset($this->ioc['config'])){
+    protected function redirect($url, $code = null)
+    {
+        if (strlen($url) > 0 && $url[0] == '/' && isset($this->ioc['config'])) {
             $url = $this->ioc['config']->get('app', 'rootUrl') . $url;
         }
-        if(func_num_args() == 2){
+        if (func_num_args() == 2) {
             $this->ioc['response'] = new RedirectResponse($url, $code);
-        }else{
+        } else {
             $this->ioc['response'] = new RedirectResponse($url);
         }
     }
 
     /**
      * Get a specific routing URL from the router service
-     * @param string $key The routing key
-     * @param array $params (optionl) URL Parameters
+     * @param  string $key    The routing key
+     * @param  array  $params (optionl) URL Parameters
      * @return string Returns the URL
      * @since 1.0-sofia
      */
-    protected function route($key, $params = array()){
+    protected function route($key, $params = array())
+    {
         $router = $this->ioc['router'];
         $url = $router->to($key, $params);
-        if(strlen($url) > 0 && $url[0] == '/' && isset($this->ioc['config'])){
+        if (strlen($url) > 0 && $url[0] == '/' && isset($this->ioc['config'])) {
             $url = $this->ioc['config']->get('app', 'rootUrl') . $url;
         }
+
         return $url;
     }
 
     /**
      * Load and create a model from the application folder
-     * @param string $model Name of the model to load
+     * @param string  $model       Name of the model to load
      * @param boolean $forceReload (optional) If set to true, the method will
      *                  create a new model instance. Defaults to false.
      * @return object Returns the model object
      * @since 1.0-sofia
      */
-    public function model($model, $forceReload = false){
-        if($forceReload || !$this->models->keyExists($model)){
+    public function model($model, $forceReload = false)
+    {
+        if ($forceReload || !$this->models->keyExists($model)) {
             $obj = new $model();
             $this->models[$model] = $obj;
         }
+
         return $this->models[$model];
     }
 
@@ -162,7 +170,8 @@ abstract class Controller implements IConsumer {
      *               false otherwise.
      * @since 1.0-sofia
      */
-    protected function handleAuthorization(){
+    protected function handleAuthorization()
+    {
         return true;
     }
 
@@ -172,67 +181,71 @@ abstract class Controller implements IConsumer {
      *               false otherwise.
      * @since 1.0-sofia
      */
-    protected function handleAuthentication(){
+    protected function handleAuthentication()
+    {
         return true;
     }
-    
+
     /**
      * Check for action method
-     * @param string $method The method of the request in lower case
-     * @param string $action The name of the controller action in lower camel casing.
+     * @param  string $method The method of the request in lower case
+     * @param  string $action The name of the controller action in lower camel casing.
      * @return string Returns the method name
      * @since 1.1-sofia
      */
-    private function checkMethod($method, $action){
+    private function checkMethod($method, $action)
+    {
         $call = $action;
         $httpMethodCall = $method . ucfirst($action);
-        if(is_callable(array($this, $httpMethodCall))){
+        if (is_callable(array($this, $httpMethodCall))) {
             $call = $httpMethodCall;
         }
+
         return $call;
     }
-    
+
     /**
      * Method is called before controller action runs
      * @since 2.0.3
      */
-    protected function beforeRun(){
-        
+    protected function beforeRun()
+    {
     }
-    
+
     /**
      * Method is called after controller action ran
      * @since 2.0.3
      */
-    protected function afterRun(){
-        
+    protected function afterRun()
+    {
     }
 
     /**
      * Run the controller action with the route
-     * @param string $action The action to perform
-     * @return mixed Returns the result of the action
+     * @param  string $action The action to perform
+     * @return mixed  Returns the result of the action
      * @since 1.0-sofia
      */
-    public function actionRun($action){
+    public function actionRun($action)
+    {
         $route = isset($this->ioc['route']) ? $this->ioc['route'] : null;
-        
-        if($route && $this->validationHandler){
+
+        if ($route && $this->validationHandler) {
             $validator = new Validator($route->rules(),
                     $this->validationHandler);
             $params = array();
             $validator->validate($route->remap(), $params);
         }
-        
+
         $securityEnabled = isset($this->ioc['config'])
                 && !$this->ioc['config']->get('security', 'disabled');
-        
-        if($securityEnabled){
+
+        if ($securityEnabled) {
             $security = null;
-            if(isset($this->ioc['security'])){
+            if (isset($this->ioc['security'])) {
                 $security = $this->ioc['security'];
                 // perform overriding of identity
-                if($this->ioc['config']->get('secuity', 'override')){
+                if ($this->ioc['config']->get('secuity', 'override')) {
                     $security->identity($this->ioc['config']
                                     ->get('secuity', 'identity'));
                 }
@@ -252,37 +265,37 @@ abstract class Controller implements IConsumer {
 
         $method = strtolower($this->ioc['request']->method());
         $call = $this->checkMethod($method, '');
-        if(!$call){
+        if (!$call) {
             $call = $this->checkMethod($method, $action);
         }
-        if(!$call){
+        if (!$call) {
             $call = $this->checkMethod($method, 'index');
         }
-        if($call){
+        if ($call) {
             $method = 'do' . ucfirst($call);
-            if(is_callable(array($this, $method))){
+            if (is_callable(array($this, $method))) {
                 $call = $method;
             }
         }
 
-        if(is_callable(array($this, $call))){
-            
-            if(isset($this->ioc['session'])){
+        if (is_callable(array($this, $call))) {
+
+            if (isset($this->ioc['session'])) {
                 $session = $this->ioc['session'];
                 /* @var $session \Packfire\Session\Session */
                 $errors = $session->bucket('errors')->get('errors');
                 $session->bucket('errors')->clear();
-                if($errors){
+                if ($errors) {
                     $this->errors = new Error($errors);
                 }
             }
-            
+
             $this->beforeRun();
             // call the controller action
             $actionInvoker = new ActionInvoker(array($this, $call));
             $result = $actionInvoker->invoke($route->remap());
-            if($result){
-                if($route->response() && !($result instanceof IAppResponse)){
+            if ($result) {
+                if ($route->response() && !($result instanceof IAppResponse)) {
                     $response = $route->response();
                     $result = new $response($result);
                 }
@@ -290,16 +303,17 @@ abstract class Controller implements IConsumer {
             }
             $this->processAftermath();
             $this->afterRun();
-        }else{
+        } else {
             $errorMsg = sprintf('The requested action "%s" is not found'
                                 . ' in the controller "%s".',
                                 $call, get_class($this));
-            if(isset($this->ioc['request']) && $this->ioc['request'] instanceof HttpRequest){
+            if (isset($this->ioc['request']) && $this->ioc['request'] instanceof HttpRequest) {
                 throw new HttpException(404, $errorMsg);
-            }else{
+            } else {
                 throw new InvalidRequestException($errorMsg);
             }
         }
+
         return $this->ioc['response'];
     }
 
@@ -307,18 +321,19 @@ abstract class Controller implements IConsumer {
      * Perform post-processing after the action is executed
      * @since 1.0-sofia
      */
-    private function processAftermath(){           
-        if($this->errors->exists()){
-            if(isset($this->ioc['session'])){
+    private function processAftermath()
+    {
+        if ($this->errors->exists()) {
+            if (isset($this->ioc['session'])) {
                 $session = $this->ioc['session'];
                 /* @var $session \Packfire\Session\Session */
                 $session->bucket('errors')->set('errors', $this->errors->errors());
             }
         }
-        
+
         // disable debugger if non-HTML output
         $type = null;
-        if($this->ioc['response'] instanceof HttpResponse){
+        if ($this->ioc['response'] instanceof HttpResponse) {
             $type = $this->ioc['response']->headers()->get('Content-Type');
         }
         if($type && isset($this->ioc['debugger'])
@@ -332,8 +347,10 @@ abstract class Controller implements IConsumer {
      * @return IAppResponse
      * @since 1.0-sofia
      */
-    public function __invoke($container) {
+    public function __invoke($container)
+    {
         $this->ioc = $container;
+
         return $this;
     }
 

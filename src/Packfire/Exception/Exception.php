@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,15 +23,16 @@ use \Exception as PhpException;
  * @package Packfire\Exception
  * @since 1.0-sofia
  */
-class Exception extends PhpException {
-    
+class Exception extends PhpException
+{
     protected $responseCode = ResponseCode::HTTP_503;
-    
-    public function __construct($message, $code = null) {
+
+    public function __construct($message, $code = null)
+    {
         if (!headers_sent()) { // takes care HTTP or not
             header('HTTP/1.1 ' . $this->responseCode);
         }
         parent::__construct($message, $code);
     }
-    
+
 }

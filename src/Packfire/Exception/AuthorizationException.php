@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,11 +23,12 @@ use Packfire\Net\Http\ResponseCode;
  * @package Packfire\Exception
  * @since 1.0-sofia
  */
-class AuthorizationException extends Exception {
-    
-    public function __construct($message, $code = null) {
+class AuthorizationException extends Exception
+{
+    public function __construct($message, $code = null)
+    {
         $this->responseCode = ResponseCode::HTTP_403;
         parent::__construct($message, $code);
     }
-    
+
 }

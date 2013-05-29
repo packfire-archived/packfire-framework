@@ -15,46 +15,55 @@ use Packfire\DateTime\DateTime;
  * @package Packfire\Test\Mocks
  * @since 1.0-sofia
  */
-class RouteRequest extends Request {
-    
+class RouteRequest extends Request
+{
     private $route = '';
-    
-    public function __construct($uri, $server){
+
+    public function __construct($uri, $server)
+    {
         parent::__construct(null, $server);
         parent::method(HttpMethod::GET);
         $this->route = $uri;
     }
-    
-    public function body($b = null) {
+
+    public function body($b = null)
+    {
         return '';
     }
 
-    public function cookies() {
+    public function cookies()
+    {
         return new Map();;
     }
 
-    public function get() {
+    public function get()
+    {
         return new Map(array());
     }
 
-    public function https($h = null) {
+    public function https($h = null)
+    {
         return false;
     }
 
-    public function post() {
+    public function post()
+    {
         return new Map();
     }
 
-    public function queryString() {
+    public function queryString()
+    {
         return '';
     }
 
-    public function time($t = null) {
+    public function time($t = null)
+    {
         return DateTime::now();
     }
-    
-    public function uri($uri = null) {
+
+    public function uri($uri = null)
+    {
         return '/' . $this->route;
     }
-    
+
 }

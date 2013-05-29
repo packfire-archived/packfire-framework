@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,8 +23,8 @@ use Packfire\Exception\InvalidRequestException;
  * @package Packfire\DateTime
  * @since 1.0-sofia
  */
-class Timer {
-
+class Timer
+{
     /**
      * The start time of the timer
      * @var integer|double
@@ -45,8 +45,9 @@ class Timer {
      *                       creation (optional, default FALSE).
      * @since 1.0-sofia
      */
-    function __construct($start = false){
-        if($start){
+    public function __construct($start = false)
+    {
+        if ($start) {
             $this->start();
         }
     }
@@ -56,11 +57,13 @@ class Timer {
      * @throws InvalidRequestException
      * @since 1.0-sofia
      */
-    public function start(){
-        if($this->running()){
+    public function start()
+    {
+        if ($this->running()) {
             throw new InvalidRequestException(
                     'Timer::start() cannot be called when the timer is already running.'
                 );
+
             return;
         }
         $this->startTime = DateTime::microtime();
@@ -68,38 +71,43 @@ class Timer {
 
     /**
      * Stop the timer and return the result
-     * @return double|integer Returns the result of the timing
+     * @return double|integer          Returns the result of the timing
      * @throws InvalidRequestException
      * @since 1.0-sofia
      */
-    public function stop(){
-        if(!$this->running()){
+    public function stop()
+    {
+        if (!$this->running()) {
             throw new InvalidRequestException(
                     'Timer::stop() cannot be called when the timer is already stopped.'
                 );
+
             return;
         }
         $this->endTime = DateTime::microtime();
+
         return $this->result();
     }
 
     /**
      * Get the timing result from the start till stop. If the timer is still
      * running, the result from the start till the result call will be returned.
-     * @return double|integer Returns the timing result in terms of seconds.
+     * @return double|integer          Returns the timing result in terms of seconds.
      * @throws InvalidRequestException Throws when the timer has not started before yet
      * @since 1.0-sofia
      */
-    public function result(){
-        if(!$this->running() && !$this->endTime){
+    public function result()
+    {
+        if (!$this->running() && !$this->endTime) {
             throw new InvalidRequestException(
                     'Timer::result() cannot be called when the timer has not started yet.'
                 );
         }
         $endTime = $this->endTime;
-        if(!$endTime){
+        if (!$endTime) {
             $endTime = DateTime::microtime();
         }
+
         return $endTime - $this->startTime;
     }
 
@@ -107,7 +115,8 @@ class Timer {
      * Reset the timer
      * @since 1.0-sofia
      */
-    public function reset(){
+    public function reset()
+    {
         $this->startTime = false;
         $this->endTime = false;
     }
@@ -117,7 +126,8 @@ class Timer {
      * @return boolean Returns true if the timer is running, false otherwise.
      * @since 1.0-sofia
      */
-    public function running(){
+    public function running()
+    {
         return $this->startTime && !$this->endTime;
     }
 

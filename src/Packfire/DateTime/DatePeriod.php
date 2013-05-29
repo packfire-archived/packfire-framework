@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,8 +23,8 @@ use Packfire\DateTime\TimeSpan;
  * @package Packfire\DateTime
  * @since 1.0-sofia
  */
-class DatePeriod implements \Iterator {
-
+class DatePeriod implements \Iterator
+{
     /**
      * The interval
      * @var TimeSpan
@@ -69,18 +69,19 @@ class DatePeriod implements \Iterator {
 
     /**
      * Create a new DatePeriod object
-     * @param \Packfire\DateTime\DateTime $startDate The start date
-     * @param \Packfire\DateTime\TimeSpan $interval The interval between dates
+     * @param \Packfire\DateTime\DateTime         $startDate           The start date
+     * @param \Packfire\DateTime\TimeSpan         $interval            The interval between dates
      * @param integer|\Packfire\DateTime\DateTime $endDateOrOccurances The number of occurance
      *          or end date
      * @since 1.0-sofia
      */
-    public function __construct($startDate, $interval, $endDateOrOccurances){
+    public function __construct($startDate, $interval, $endDateOrOccurances)
+    {
         $this->startDate = $startDate;
         $this->interval = $interval;
-        if($endDateOrOccurances instanceof DateTime){
+        if ($endDateOrOccurances instanceof DateTime) {
             $this->endDate = $endDateOrOccurances;
-        }else{
+        } else {
             $this->occurances = $endDateOrOccurances;
         }
         $this->workingDate = $this->startDate;
@@ -91,7 +92,8 @@ class DatePeriod implements \Iterator {
      * @return DateTime Returns the start date
      * @since 1.0-sofia
      */
-    public function startDate(){
+    public function startDate()
+    {
         return $this->startDate;
     }
 
@@ -100,7 +102,8 @@ class DatePeriod implements \Iterator {
      * @return TimeSpan Returns the interval
      * @since 1.0-sofia
      */
-    public function interval(){
+    public function interval()
+    {
         return $this->interval;
     }
 
@@ -109,7 +112,8 @@ class DatePeriod implements \Iterator {
      * @return DateTime Returns the end date if set, NULL otherwise.
      * @since 1.0-sofia
      */
-    public function endDate(){
+    public function endDate()
+    {
         return $this->endDate;
     }
 
@@ -118,29 +122,35 @@ class DatePeriod implements \Iterator {
      * @return integer Returns the number of occurrances if set, NULL otherwise.
      * @since 1.0-sofia
      */
-    public function occurrances(){
+    public function occurrances()
+    {
         return $this->occurances;
     }
 
-    public function current() {
+    public function current()
+    {
         return $this->workingDate;
     }
 
-    public function key() {
+    public function key()
+    {
         return $this->count;
     }
 
-    public function next() {
+    public function next()
+    {
         $this->workingDate = $this->workingDate->add($this->interval);
         ++$this->count;
     }
 
-    public function rewind() {
+    public function rewind()
+    {
         $this->workingDate = $this->startDate->add(new TimeSpan());
         $this->count = 0;
     }
 
-    public function valid() {
+    public function valid()
+    {
         return ($this->occurances !== null && $this->count < $this->occurances) ||
             ($this->endDate instanceof DateTime &&
                 $this->endDate->compareTo($this->workingDate) === 1);

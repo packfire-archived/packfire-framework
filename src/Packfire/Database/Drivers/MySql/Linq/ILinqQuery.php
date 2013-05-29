@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,13 +20,13 @@ namespace Packfire\Database\Drivers\MySql\Linq;
  * @package Packfire\Database\Drivers\MySql\Linq
  * @since 1.0-sofia
  */
-interface ILinqQuery {
-    
+interface ILinqQuery
+{
     /**
      * Create the statement
      * @return string Returns the resulting statement
      * @since 1.0-sofia
      */
     public function create();
-    
+
 }

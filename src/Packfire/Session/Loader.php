@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -24,16 +24,17 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Session
  * @since 1.0-sofia
  */
-class Loader implements IConsumer {
-    
-    public function __invoke($c){
+class Loader implements IConsumer
+{
+    public function __invoke($c)
+    {
         $storageId = 'session.storage';
-        if(!isset($c[$storageId])){
+        if (!isset($c[$storageId])) {
             $c[$storageId] = $c->share(function(){
                 return new SessionStorage();
             });
         }
-        if(isset($c['config'])){
+        if (isset($c['config'])) {
             /* @var $config \Packfire\Config\Config */
             $config = $c['config'];
             session_name($config->get('session', 'name'));
@@ -45,13 +46,15 @@ class Loader implements IConsumer {
                     $config->get('session', 'http')
                 );
         }
-        $c['session'] = $c->share(function($c)use($storageId){
-            if(isset($_COOKIE[session_name()]) && $_COOKIE[session_name()]){
+        $c['session'] = $c->share(function($c) use ($storageId) {
+            if (isset($_COOKIE[session_name()]) && $_COOKIE[session_name()]) {
                 session_start();
             }
+
             return new Session($c[$storageId]);
         });
+
         return $this;
     }
-    
+
 }

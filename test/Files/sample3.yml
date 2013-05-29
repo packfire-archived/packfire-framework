@@ -20,26 +20,25 @@ security: # the security module is optional. The default security module does no
 # the messenger service
 messenger:
   class: packfire.session.pMessenger
-  
+
 #configure the logging functionality
 logger:
   class: packfire.log.pLogger
-  parameters: 
+  parameters:
     - 'pack/storage/log/default.log'
 
 #set the session storage method
 "session.storage"  :
   class: packfire.session.storage.pSessionStorage
   parameters: []
-  
+
 # set the cache to use
 cache:
   class: packfire.cache.pFileCache
-  
+
 # this sets the debugger output method
 debugger.output:
   class: packfire.debugger.console.pConsoleDebugOutput
-  
+
 router:
   class: packfire.routing.pRouter
-  

@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,8 +22,8 @@ use Packfire\Collection\IList;
  * @package Packfire\Text
  * @since 1.0-sofia
  */
-class Text {
-
+class Text
+{
     /**
      * An array of line breaking points
      * @var array
@@ -33,18 +33,19 @@ class Text {
 
     /**
      * Truncate string if it is longer than a specified length
-     * 
+     *
      * Note that if the breaking occurs in a middle of a word, the method will
      * find a line breaking character before the word to break the line
-     * 
-     * @param string $string The original string
+     *
+     * @param string  $string The original string
      * @param integer $length The maximum length of the
-     * @param string $ending (optional) The ending to append if length of string
+     * @param string  $ending (optional) The ending to append if length of string
      *                       is too long. Defaults to '...'
      * @return string Returns the resulting string
      * @since 1.0-sofia
      */
-    public static function truncate($string, $length, $ending = '...') {
+    public static function truncate($string, $length, $ending = '...')
+    {
         if (strlen($string) < $length) {
             return $string;
         }
@@ -61,20 +62,22 @@ class Text {
             }
             $length = $i;
         }
+
         return substr($string, 0, $length) . $ending;
     }
 
     /**
      * Highlight specific phrase in a string case-insensitively
-     * @param String|string $string The original string to search in
+     * @param String|string      $string The original string to search in
      * @param string|IList|array $phrase The phrase to highlight
-     * @param string $format (optional) The format of the highlight. Note that
+     * @param string             $format (optional) The format of the highlight. Note that
      *                       $1 refers to the original text to be highlighted.
      *                       Defaults to '<b>$1</b>'
      * @return string Returns the resulting string
      * @since 1.0-sofia
      */
-    public static function highlight($string, $phrase, $format = '<b>$1</b>') {
+    public static function highlight($string, $phrase, $format = '<b>$1</b>')
+    {
         if (is_array($phrase) || $phrase instanceof IList) {
             foreach ($phrase as &$p) {
                 $p = '`(?![^<]+>)(' . $p . ')(?![^<]+>)`is';
@@ -82,49 +85,53 @@ class Text {
         } else {
             $phrase = '`(?![^<]+>)(' . $phrase . ')(?![^<]+>)`is';
         }
+
         return preg_replace($phrase, $format, $string);
     }
 
     /**
      * Strip off all HTML tags in a string.
-     * @param String|string $str The string to strip HTML tags
-     * @param string $allowed (optional) The tags to be allowed
-     * @return string Returns the resulting string.
+     * @param  String|string $str     The string to strip HTML tags
+     * @param  string        $allowed (optional) The tags to be allowed
+     * @return string        Returns the resulting string.
      * @link http://php.net/strip-tags
      * @since 1.0-sofia
      */
-    public static function stripTags($str, $allowed = null) {
+    public static function stripTags($str, $allowed = null)
+    {
         return strip_tags($str, $allowed);
     }
 
     /**
      * Create a comma separated list where the last two items are joined with
      * 'and', forming a natural English list.
-     * 
-     * @param array|IList $list The array or collection of items
-     * @param string $and (optional) The 'and' word to use. Defaults to 'and'.
-     * @param string $separator (optional) The comma separator to use. Defaults
+     *
+     * @param array|IList $list      The array or collection of items
+     * @param string      $and       (optional) The 'and' word to use. Defaults to 'and'.
+     * @param string      $separator (optional) The comma separator to use. Defaults
      *                          to ', '.
      * @return string Returns the resulting string
      * @since 1.0-sofia
      */
-    public static function listing($list, $and = 'and', $separator = ', ') {
+    public static function listing($list, $and = 'and', $separator = ', ')
+    {
         if (count($list) > 1) {
-            return implode($separator, array_slice($list, null, -1)) . ' ' 
+            return implode($separator, array_slice($list, null, -1)) . ' '
                     . $and . ' ' . array_pop($list);
         } else {
             return array_pop($list);
         }
     }
-    
+
     /**
      * Transform a string into its slug representation
-     * @param string $text The text to be transformed
+     * @param  string $text The text to be transformed
      * @return string Returns the slug
      * @since 2.0.8
      */
-    public static function slugify($text){
-        if($text){
+    public static function slugify($text)
+    {
+        if ($text) {
             // replace non letter or digits by -
             $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
 
@@ -140,30 +147,33 @@ class Text {
             // remove unwanted characters
             $text = preg_replace('~[^-\w]+~', '', $text);
         }
+
         return $text;
     }
 
     /**
      * Rotate the string through 13 characters
-     * @param String|string $str The string to be rotated
-     * @return string Returns the resulting string.
+     * @param  String|string $str The string to be rotated
+     * @return string        Returns the resulting string.
      * @since 1.0-sofia
      */
-    public static function rotate13($str) {
+    public static function rotate13($str)
+    {
         return str_rot13($str);
     }
 
     /**
      * Rotate the string through 47 characters
-     * @param String|string $str The string to be rotated
-     * @return string Returns the resulting string.
+     * @param  String|string $str The string to be rotated
+     * @return string        Returns the resulting string.
      * @since 1.0-sofia
      */
-    public static function rotate47($str) {
+    public static function rotate47($str)
+    {
         return strtr($str, '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ'
                 . '[\]^_`abcdefghijklmnopqrstuvwxyz{|}~', 'PQRSTUVWXYZ[\]^_`'
                 . 'abcdefghijklmnopqrstuvwxyz{|}~!"#$%&\'()*+,-./0123456789'
                 . ':;<=>?@ABCDEFGHIJKLMNO');
     }
-    
+
 }

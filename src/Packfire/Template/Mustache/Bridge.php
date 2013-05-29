@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -24,28 +24,30 @@ use Packfire\Collection\ArrayList;
  * @package Packfire\Template\Mustache
  * @since 1.1-sofia
  */
-class Bridge extends Mustache {
-
+class Bridge extends Mustache
+{
     /**
      * Get the partial by name and add to the buffer
      * @param string $name Name of the partial
      * @since 1.0-sofia
      */
-    protected function partial($name, $scope){
+    protected function partial($name, $scope)
+    {
         /* @var $template ITemplate */
         $template = AppTemplate::load($name);
-        if($template){
+        if ($template) {
             // Partial will use scope parameters only because partial does not know what is on top
             $template->set($scope);
             $this->buffer .= $template->parse();
         }
     }
 
-    protected function loadParameters(){
-        if($this->parameters instanceof ArrayList){
+    protected function loadParameters()
+    {
+        if ($this->parameters instanceof ArrayList) {
             $this->parameters = $this->parameters->toArray();
         }
-        if(count($this->parameters) == 0){
+        if (count($this->parameters) == 0) {
             $this->parameters = null;
         }
     }

@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,13 +22,13 @@ use Packfire\Application\IAppResponse;
  * @package Packfire\Response
  * @since 1.1-sofia
  */
-interface IResponseFormat extends IAppResponse {
-    
+interface IResponseFormat extends IAppResponse
+{
     /**
      * Create a new instance of IResponseFormat
      * @param mixed $object The object to format and respond
      * @since 1.1-sofia
      */
     public function __construct($object);
-    
+
 }

@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,15 +23,18 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Application\Cli
  * @since 2.1.0
  */
-class ServiceLoader implements IConsumer {
-    
-    public function __invoke($c) {
-        if(!isset($c['exception.handler'])){
-            $c['exception.handler'] = $c->share(function(){
-                return new CliHandler();
-            });
+class ServiceLoader implements IConsumer
+{
+    public function __invoke($c)
+    {
+        if (!isset($c['exception.handler'])) {
+            $c['exception.handler'] = $c->share(
+                function(){
+                    return new CliHandler();
+                }
+            );
         }
+
         return $this;
     }
-    
 }

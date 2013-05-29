@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,8 +20,8 @@ namespace Packfire\Collection\Sort;
  * @package Packfire\Collection\Sort
  * @since 1.0-sofia
  */
-interface IComparator {
-    
+interface IComparator
+{
     /**
      * Compare between two items
      * @param mixed $one The first item
@@ -30,5 +30,5 @@ interface IComparator {
      * @since 1.0-sofia
      */
     public function compare($one, $two);
-    
+
 }

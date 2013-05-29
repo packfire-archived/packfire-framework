@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,10 +22,11 @@ use Packfire\View\Theme;
  * @package Packfire\Welcome
  * @since 1.0-sofia
  */
-class DarkTheme extends Theme {
-    
-    public function render() {
+class DarkTheme extends Theme
+{
+    public function render()
+    {
         $this->define('style', 'dark');
     }
-    
+
 }

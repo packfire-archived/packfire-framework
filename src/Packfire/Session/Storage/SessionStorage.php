@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -24,8 +24,8 @@ use Packfire\Collection\Map;
  * @package Packfire\Session\Storage
  * @since 1.0-sofia
  */
-class SessionStorage implements ISessionStorage {
-
+class SessionStorage implements ISessionStorage
+{
     /**
      * The container of buckets
      * @var Map
@@ -44,7 +44,8 @@ class SessionStorage implements ISessionStorage {
      * Create a new SessionStorage object
      * @since 1.0-sofia
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->buckets = new Map();
         $this->overallBucket = new SessionBucket($this->id());
         $this->registerHandler();
@@ -56,19 +57,21 @@ class SessionStorage implements ISessionStorage {
      * @return string Returns the bucket ID
      * @since 1.0-sofia
      */
-    public function id() {
+    public function id()
+    {
         return 'default';
     }
 
     /**
      * Get a value from the default session bucket
-     * @param string $key The key to identify value in the session bucket
-     * @param mixed $default (optional) The default value to return if the key
+     * @param string $key     The key to identify value in the session bucket
+     * @param mixed  $default (optional) The default value to return if the key
      *              is not found in the session bucket. Defaults to null.
      * @return mixed Returns the value
      * @since 1.0-sofia
      */
-    public function get($key, $default = null) {
+    public function get($key, $default = null)
+    {
         return $this->overallBucket->get($key, $default);
     }
 
@@ -77,17 +80,19 @@ class SessionStorage implements ISessionStorage {
      * @param string $key The key to remove
      * @since 1.0-sofia
      */
-    public function remove($key) {
+    public function remove($key)
+    {
         $this->overallBucket->remove($key);
     }
 
     /**
      * Set a value to the default session bucket
-     * @param string $key The key to uniquely identify the value
-     * @param mixed $data The value to set to the bucket
+     * @param string $key  The key to uniquely identify the value
+     * @param mixed  $data The value to set to the bucket
      * @since 1.0-sofia
      */
-    public function set($key, $data) {
+    public function set($key, $data)
+    {
         $this->overallBucket->set($key, $data);
     }
 
@@ -96,7 +101,8 @@ class SessionStorage implements ISessionStorage {
      * @param boolean $delete (optional) Set to delete old session or not
      * @since 1.0-sofia
      */
-    public function regenerate($delete = false) {
+    public function regenerate($delete = false)
+    {
         session_regenerate_id($delete);
     }
 
@@ -104,9 +110,10 @@ class SessionStorage implements ISessionStorage {
      * Register the session handler
      * @since 1.0-sofia
      */
-    protected function registerHandler(){
-        if($this instanceof ISessionHandler
-                || $this instanceof \SessionHandlerInterface){
+    protected function registerHandler()
+    {
+        if ($this instanceof ISessionHandler
+                || $this instanceof \SessionHandlerInterface) {
             session_set_save_handler(
                 array($this, 'open'),
                 array($this, 'close'),
@@ -122,7 +129,8 @@ class SessionStorage implements ISessionStorage {
      * Register the write close shutdown function
      * @since 1.0-sofia
      */
-    protected function registerShutdown(){
+    protected function registerShutdown()
+    {
         register_shutdown_function('session_write_close');
     }
 
@@ -131,31 +139,35 @@ class SessionStorage implements ISessionStorage {
      * @param ISessionBucket $bucket The bucket to register
      * @since 1.0-sofia
      */
-    public function register($bucket) {
+    public function register($bucket)
+    {
         $id = $bucket->id();
-        if($id){
+        if ($id) {
             $this->buckets[$id] = $bucket;
             $bucket->load($_SESSION[$id]);
         }
     }
 
-    public function bucket($id){
+    public function bucket($id)
+    {
         return $this->buckets->get($id);
     }
 
-    public function clear() {
+    public function clear()
+    {
         $this->overallBucket->clear();
     }
 
-    public function load(&$data = null) {
-        if(func_num_args() == 0){
+    public function load(&$data = null)
+    {
+        if (func_num_args() == 0) {
             $data = &$_SESSION;
         }
 
         $this->overallBucket->load($data);
 
-        foreach($this->buckets as $id => $bucket){
-            if(!isset($data[$id])){
+        foreach ($this->buckets as $id => $bucket) {
+            if (!isset($data[$id])) {
                 $data[$id] = array();
             }
             $bucket->load($data[$id]);
@@ -163,7 +175,8 @@ class SessionStorage implements ISessionStorage {
 
     }
 
-    public function has($key){
+    public function has($key)
+    {
         $this->overallBucket->has($key);
     }
 

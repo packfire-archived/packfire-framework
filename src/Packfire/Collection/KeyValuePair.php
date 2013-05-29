@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,8 +20,8 @@ namespace Packfire\Collection;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-class KeyValuePair {
-   
+class KeyValuePair
+{
     /**
      * The key that identifies the value.
      * @var string|integer
@@ -38,40 +38,45 @@ class KeyValuePair {
 
     /**
      * Create a new KeyValuePair object
-     * @param string $key The key name
-     * @param mixed $value The value
+     * @param string $key   The key name
+     * @param mixed  $value The value
      * @since 1.0-sofia
      * @codeCoverageIgnore
      */
-    function __construct($key, $value) {
+    public function __construct($key, $value)
+    {
         $this->key = $key;
         $this->value = $value;
     }
 
     /**
      * Get or set the key name
-     * @param string|integer $key (optional) Set the key name
+     * @param  string|integer $key (optional) Set the key name
      * @return string|integer Returns the key name
      * @since 1.0-sofia
      */
-    public function key($key = false){
-        if(func_num_args() == 1){
+    public function key($key = false)
+    {
+        if (func_num_args() == 1) {
             $this->key = $key;
         }
+
         return $this->key;
     }
 
     /**
      * Get or set the value of the KeyValuePair
-     * @param mixed $value (optional) Set the value
+     * @param  mixed $value (optional) Set the value
      * @return mixed Returns the value
      * @since 1.0-sofia
      */
-    public function value($value = false){
-        if(func_num_args() == 1){
+    public function value($value = false)
+    {
+        if (func_num_args() == 1) {
             $this->value = $value;
         }
+
         return $this->value;
     }
-    
+
 }

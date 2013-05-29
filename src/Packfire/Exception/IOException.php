@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,8 +22,6 @@ use Packfire\Exception\Exception;
  * @package Packfire\Exception
  * @since 1.0-sofia
  */
-class IOException extends Exception {
-    
-    
-    
+class IOException extends Exception
+{
 }

@@ -13,16 +13,18 @@ use Packfire\Core\ObjectObserver;
  * @package Packfire\Test\Mocks
  * @since 1.0-sofia
  */
-class View extends CoreView {
-
+class View extends CoreView
+{
     public $name;
 
-    public function using($template){
+    public function using($template)
+    {
         $this->template($template);
     }
 
-    protected function create() {
-        foreach($this->state as $key => $value){
+    protected function create()
+    {
+        foreach ($this->state as $key => $value) {
             $this->define($key, $value);
             $this->filter($key, 'trim');
         }

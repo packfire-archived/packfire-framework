@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -14,7 +14,7 @@ namespace Packfire\Debugger\Output;
 use Packfire\Debugger\IOutput;
 
 /**
- * Blackhole output. Nothing is written. 
+ * Blackhole output. Nothing is written.
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
  * @copyright Copyright (c) Sam-Mauris Yong
@@ -22,14 +22,14 @@ use Packfire\Debugger\IOutput;
  * @package Packfire\Debugger\Output
  * @since 2.1.0
  */
-class Blackhole implements IOutput {
-    
-    public function output() {
-        
+class Blackhole implements IOutput
+{
+    public function output()
+    {
     }
 
-    public function write($message, $value = null, $type = 'log') {
-        
+    public function write($message, $value = null, $type = 'log')
+    {
     }
-    
+
 }

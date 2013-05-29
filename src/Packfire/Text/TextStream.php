@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,28 +23,29 @@ use Packfire\Exception\OutOfRangeException;
  * @package Packfire\Text
  * @since 1.0-sofia
  */
-class TextStream implements IIOStream {
-    
+class TextStream implements IIOStream
+{
     /**
      * The data stream
      * @var string
      * @since 1.0-sofia
      */
     private $buffer;
-    
+
     /**
      * The current pointer position in the buffer;
-     * @var integer 
+     * @var integer
      * @since 1.0-sofia
      */
     private $pointer;
-    
+
     /**
      * Create a new TextStream object
      * @param string $data (optional) Intialize the stream with some data.
      * @since 1.0-sofia
      */
-    public function __construct($data = ''){
+    public function __construct($data = '')
+    {
         $this->buffer = $data;
         $this->pointer = 0;
     }
@@ -55,7 +56,8 @@ class TextStream implements IIOStream {
      * @since 1.0-sofia
      * @codeCoverageIgnore
      */
-    public function close() {
+    public function close()
+    {
         // nothing here ^^
     }
 
@@ -65,45 +67,50 @@ class TextStream implements IIOStream {
      * @since 1.0-sofia
      * @codeCoverageIgnore
      */
-    public function open() {
+    public function open()
+    {
         // nothing here
     }
-    
+
     /**
      * Get the length of the stream.
      * @return integer Returns the length of the stream.
      * @since 1.0-sofia
      */
-    public function length() {
+    public function length()
+    {
         return strlen($this->buffer);
     }
 
     /**
      * Read data from the stream.
-     * @param integer $length The amount of data to read.
-     * @return string Returns the data read from the stream or NULL if the end
+     * @param  integer $length The amount of data to read.
+     * @return string  Returns the data read from the stream or NULL if the end
      *                of the stream has been reached.
      * @since 1.0-sofia
      */
-    public function read($length) {
+    public function read($length)
+    {
         $data = null;
-        if($this->pointer < $this->length()){
+        if ($this->pointer < $this->length()) {
             $data = substr($this->buffer, $this->pointer, $length);
             $this->pointer += strlen($data);
         }
+
         return $data;
     }
 
     /**
      * Move the pointer to a specific position.
-     * @param integer $position The position to move to.
+     * @param  integer             $position The position to move to.
      * @throws OutOfRangeException
      * @since 1.0-sofia
      */
-    public function seek($position) {
-        if($position >= 0 && $position <= $this->length()){
+    public function seek($position)
+    {
+        if ($position >= 0 && $position <= $this->length()) {
             $this->pointer = $position;
-        }else{
+        } else {
             throw new OutOfRangeException(
                     sprintf('Failed to seek out of range in text stream position %d.',
                             $position)
@@ -116,7 +123,8 @@ class TextStream implements IIOStream {
      * @return boolean Returns true if the stream is seekable, false otherwise.
      * @since 1.0-sofia
      */
-    public function seekable() {
+    public function seekable()
+    {
         return true;
     }
 
@@ -125,31 +133,34 @@ class TextStream implements IIOStream {
      * @return integer Returns the current position.
      * @since 1.0-sofia
      */
-    public function tell() {
+    public function tell()
+    {
         return $this->pointer;
     }
 
     /**
      * Does nothing, really.
-     * @ignore 
+     * @ignore
      * @since 1.0-sofia
      * @codeCoverageIgnore
      */
-    public function flush() {
+    public function flush()
+    {
         // well, flush does nothing here at all (:
     }
 
     /**
      * Write data into the stream.
-     * @param string $data The data to write into the stream.
+     * @param string  $data   The data to write into the stream.
      * @param integer $offset (optional) The position of the stream to write to.
      * @param integer $length (optional) The amount of data to write.
      * @since 1.0-sofia
      */
-    public function write($data, $offset = null, $length = null) {
-        switch(func_num_args()){
+    public function write($data, $offset = null, $length = null)
+    {
+        switch (func_num_args()) {
             case 3:
-                if(null === $offset){
+                if (null === $offset) {
                     $offset = $this->pointer;
                 }
                 $this->buffer = substr($this->buffer, 0, $offset)
@@ -170,5 +181,5 @@ class TextStream implements IIOStream {
                 break;
         }
     }
-    
+
 }

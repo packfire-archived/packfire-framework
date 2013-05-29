@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,19 +20,19 @@ namespace Packfire\Application;
  * @package Packfire\Application
  * @since 1.0-sofia
  */
-interface IApplication {
-    
+interface IApplication
+{
+
     /**
      * Process a request and prepare the response
      * @since 2.1.0
      */
     public function process();
-    
+
     /**
      * Handles unhandled exception in the application execution
      * @param Exception $exception The unhandled exception
      * @since 1.0-sofia
      */
     public function handleException($exception);
-    
 }

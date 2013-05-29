@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,38 +22,41 @@ use Packfire\Collection\Sort\ISorter;
  * @package Packfire\Graph
  * @since 1.0-sofia
  */
-class VertexSorter implements ISorter {
-    
+class VertexSorter implements ISorter
+{
     /**
      * Perform the sorting operation
      * @param mixed $list The list of vertices to sort
      * @since 1.0-sofia
      */
-    public function sort(&$list){
+    public function sort(&$list)
+    {
         uasort($list, array($this, 'compare'));
     }
-    
+
     /**
      * Compare two IVertex objects in terms of their
-     * @param IVertex $a The first vertex 
-     * @param IVertex $b The second vertex
+     * @param  IVertex $a The first vertex
+     * @param  IVertex $b The second vertex
      * @return integer Returns the comparison value
      * @since 1.0-sofia
      */
-    public function compare($a, $b) {
+    public function compare($a, $b)
+    {
         $noHasA = $a->potential() === null;
         $noHasB = $b->potential() === null;
-        if($noHasA || $noHasB){
-            if(!$noHasA){
+        if ($noHasA || $noHasB) {
+            if (!$noHasA) {
                 return -1;
             }
-            if(!$noHasB){
+            if (!$noHasB) {
                 return 1;
             }
+
             return 0;
-        }else{
+        } else {
             return $a->potential() < $b->potential() ? -1 : 1;
         }
     }
-    
+
 }

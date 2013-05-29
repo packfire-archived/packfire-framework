@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -24,24 +24,25 @@ use Packfire\Response\IResponseFormat;
  * @package Packfire\Response
  * @since 1.0-sofia
  */
-class XmlResponse extends HttpResponse implements IResponseFormat {
-    
+class XmlResponse extends HttpResponse implements IResponseFormat
+{
     /**
      * Create a new XmlResponse object
      * @param mixed $object The object that will be encoded and sent to the
      *                      client
      * @since 1.0-sofia
      */
-    public function __construct($object){
+    public function __construct($object)
+    {
         parent::__construct();
         $this->headers()->add('Content-Type', 'application/xml');
-        if(is_string($object)){ // probably already encoded
-            $this->body($object); 
-        }else{
+        if (is_string($object)) { // probably already encoded
+            $this->body($object);
+        } else {
             $serializer = new XmlSerializer();
             $this->body('<?xml version="1.0" encoding="UTF-8" ?>'
                     . "\n" . $serializer->serialize($object));
         }
     }
-    
+
 }

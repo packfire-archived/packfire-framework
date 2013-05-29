@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -37,23 +37,24 @@ use Packfire\FuelBlade\Container;
  * @since 1.0-sofia
  * @link http://www.github.com/packfire
  */
-class Packfire {
-    
+class Packfire
+{
     private $ioc;
-    
+
     /**
      * Create a new Packfire object
      * @since 2.0.0
      */
-    public function __construct(){
-        if(!defined('__APP_ROOT__')){
+    public function __construct()
+    {
+        if (!defined('__APP_ROOT__')) {
             define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . DIRECTORY_SEPARATOR . 'pack');
         }
-        if(!class_exists('Packfire\Core\ClassLoader\PackfireClassFinder')){            
-            if(is_dir(__DIR__ . '/../../vendor')){
+        if (!class_exists('Packfire\Core\ClassLoader\PackfireClassFinder')) {
+            if (is_dir(__DIR__ . '/../../vendor')) {
                 require(__DIR__ . '/../../vendor/autoload.php');
             }
-            
+
             require(__DIR__ . '/Core/ClassLoader/IClassLoader.php');
             require(__DIR__ . '/Core/ClassLoader/IClassFinder.php');
             require(__DIR__ . '/Core/ClassLoader/PackfireClassFinder.php');
@@ -72,7 +73,8 @@ class Packfire {
      * @param \Packfire\Application\IApplication $app The application to start running
      * @since 1.0-sofia
      */
-    public function fire($app){
+    public function fire($app)
+    {
         $app($this->ioc);
         set_error_handler(function($errno, $errstr, $errfile, $errline){
             $e = new ErrorException($errstr);
@@ -83,11 +85,11 @@ class Packfire {
         });
         set_exception_handler(array($app, 'handleException'));
         $request = $this->loadRequest();
-        $this->ioc['request'] = $this->ioc->share(function() use($request){
+        $this->ioc['request'] = $this->ioc->share(function() use ($request) {
             return $request;
         });
         $app->process();
-        if(isset($this->ioc['response'])){
+        if (isset($this->ioc['response'])) {
             $response = $this->ioc['response'];
             $this->processResponse($app);
         }
@@ -98,12 +100,13 @@ class Packfire {
      * @return IAppRequest The client's request
      * @since 1.0-sofia
      */
-    private function loadRequest(){
-        if(php_sapi_name() == "cli") {
+    private function loadRequest()
+    {
+        if (php_sapi_name() == "cli") {
             $request = new CliRequest();
-        }else{
+        } else {
             $agent = null;
-            if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){
+            if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
                 $agent = $_SERVER['HTTP_USER_AGENT'];
             }
             $client = new HttpClient($_SERVER['REMOTE_ADDR'], $agent);
@@ -115,31 +118,31 @@ class Packfire {
             // changed to stream to prevent Denial Of Service
             $request->body(file_get_contents('php://input'));
             $request->time(DateTime::fromTimestamp($_SERVER['REQUEST_TIME']));
-            if(array_key_exists('HTTP_HOST', $_SERVER)){
+            if (array_key_exists('HTTP_HOST', $_SERVER)) {
                 $request->headers()->add('host', $_SERVER['HTTP_HOST'], true);
             }
-            if(array_key_exists('HTTP_REFERER', $_SERVER)){
+            if (array_key_exists('HTTP_REFERER', $_SERVER)) {
                 $request->headers()->add('referer', $_SERVER['HTTP_REFERER'], true);
             }
-            if(array_key_exists('HTTP_CONNECTION', $_SERVER)){
+            if (array_key_exists('HTTP_CONNECTION', $_SERVER)) {
                 $request->headers()->add('connection', $_SERVER['HTTP_CONNECTION'], true);
             }
-            if(array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)){
+            if (array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)) {
                 $request->headers()->add('accept-language', $_SERVER['HTTP_ACCEPT_LANGUAGE'], true);
             }
-            if(array_key_exists('HTTP_ACCEPT_ENCODING', $_SERVER)){
+            if (array_key_exists('HTTP_ACCEPT_ENCODING', $_SERVER)) {
                 $request->headers()->add('accept-encoding', $_SERVER['HTTP_ACCEPT_ENCODING'], true);
             }
-            if(array_key_exists('HTTP_ACCEPT_CHARSET', $_SERVER)){
+            if (array_key_exists('HTTP_ACCEPT_CHARSET', $_SERVER)) {
                 $request->headers()->add('accept-charset', $_SERVER['HTTP_ACCEPT_CHARSET'], true);
             }
-            if(array_key_exists('HTTP_ACCEPT', $_SERVER)){
+            if (array_key_exists('HTTP_ACCEPT', $_SERVER)) {
                 $request->headers()->add('accept', $_SERVER['HTTP_ACCEPT'], true);
             }
-            if(array_key_exists('HTTP_USER_AGENT', $_SERVER)){
+            if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
                 $request->headers()->add('user-agent', $_SERVER['HTTP_USER_AGENT'], true);
             }
-            if(array_key_exists('HTTP_AUTHORIZATION', $_SERVER)){
+            if (array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
                 $request->headers()->add('authorization', $_SERVER['HTTP_AUTHORIZATION'], true);
             }
 
@@ -157,6 +160,7 @@ class Packfire {
 
             $request->https((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'));
         }
+
         return $request;
     }
 
@@ -165,21 +169,22 @@ class Packfire {
      * @param IApplication $app The application
      * @since 1.0-sofia
      */
-    public function processResponse($app){
+    public function processResponse($app)
+    {
         $response = $this->ioc['response'];
-        if($response instanceof HttpResponse){
+        if ($response instanceof HttpResponse) {
             header($response->version() . ' ' . $response->code());
-            foreach($response->headers() as $key => $value){
+            foreach ($response->headers() as $key => $value) {
                 header($key . ': ' . $value);
             }
-            foreach($response->cookies() as $cookie){
+            foreach ($response->cookies() as $cookie) {
                 $cookie->set();
             }
             echo $response->output();
-        }elseif($response instanceof CliResponse){
+        } elseif ($response instanceof CliResponse) {
             $exitCode = $response->output();
-            if(isset($this->ioc['shutdown'])){
-                $this->ioc['shutdown']->add('shutdown.exitCode', function()use($exitCode){
+            if (isset($this->ioc['shutdown'])) {
+                $this->ioc['shutdown']->add('shutdown.exitCode', function() use ($exitCode) {
                     exit($exitCode);
                 });
             }

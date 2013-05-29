@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -24,15 +24,15 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Debugger
  * @since 1.0-sofia
  */
-class Debugger implements IConsumer {
-    
+class Debugger implements IConsumer
+{
     /**
      * The output method of the debugger
      * @var \Packfire\Debugger\IOutput
      * @since 2.1.0
      */
     private $output;
-    
+
     /**
      * State whether the debugger is enabled or not.
      * By default, the debugger is enabled.
@@ -40,15 +40,15 @@ class Debugger implements IConsumer {
      * @since 1.0-sofia
      */
     protected $enabled = true;
-    
+
     /**
      * Create a new Debugger object
      * @since 1.0-sofia
      */
-    public function __construct(){
-        
+    public function __construct()
+    {
     }
-    
+
     /**
      * Check whether the debugger is enabled or not
      * @param boolean $enable (optional) Set whether the debugger is enabled or not.
@@ -56,26 +56,29 @@ class Debugger implements IConsumer {
      * @return boolean Returns true if the debugger is enabled, false otherwise.
      * @since 1.0-sofia
      */
-    public function enabled($enable = null){
-        if(func_num_args() == 1){
+    public function enabled($enable = null)
+    {
+        if (func_num_args() == 1) {
             $this->enabled = $enable;
         }
+
         return $this->enabled;
     }
 
     /**
      * Write a variable dump to the debugger log
      * @param mixed $value The variable to dump
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
-    public function dump($value){
-        if($this->enabled){
-            if(func_num_args() > 1){
+    public function dump($value)
+    {
+        if ($this->enabled) {
+            if (func_num_args() > 1) {
                 $args = func_get_args();
-                foreach($args as $value){
+                foreach ($args as $value) {
                     $this->dump($value);
                 }
-            }else{
+            } else {
                 $output = var_export($value, true);
                 $dbts = debug_backtrace();
                 $dbt = reset($dbts);
@@ -85,25 +88,27 @@ class Debugger implements IConsumer {
             }
         }
     }
-    
+
     /**
      * Write a log message
      * @param string $message The log message to be written
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
-    public function log($message){
-        if($this->enabled){
+    public function log($message)
+    {
+        if ($this->enabled) {
             $this->output->write($message);
         }
     }
-    
+
     /**
      * Log an exception's details
      * @param Exception $exception The exception to be logged
      * @since 1.0-sofia
      */
-    public function exception($exception){
-        if($this->enabled){
+    public function exception($exception)
+    {
+        if ($this->enabled) {
             $where = sprintf('%s:%d',
                     Path::baseName($exception->getFile()),
                     $exception->getLine());
@@ -112,15 +117,16 @@ class Debugger implements IConsumer {
             $this->output->write($message, $where, __FUNCTION__);
         }
     }
-    
+
     /**
      * Do a time check log.
-     * Time taken from the application load to reach the time check will be 
+     * Time taken from the application load to reach the time check will be
      * shown on the log
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
-    public function timeCheck(){
-        if($this->enabled){
+    public function timeCheck()
+    {
+        if ($this->enabled) {
             $dbts = debug_backtrace();
             $dbt = reset($dbts);
             $message = sprintf(
@@ -131,22 +137,23 @@ class Debugger implements IConsumer {
                     __FUNCTION__);
         }
     }
-    
+
     /**
      * Log the SQL query performed.
-     * @param string $sql The query string.
+     * @param string $sql  The query string.
      * @param string $type (optional) Defaults to 'query'. Can be 'query'
-     *               or 'prepared'. 
+     *               or 'prepared'.
      * @since 1.0-sofia
      */
-    public function query($sql, $type = 'query'){
-        if($this->enabled){
+    public function query($sql, $type = 'query')
+    {
+        if ($this->enabled) {
             $dbts = debug_backtrace();
             $dbt = $dbts[1];
-            if(!array_key_exists('file', $dbt)){
+            if (!array_key_exists('file', $dbt)) {
                 $dbt['file'] = '{unknown}';
             }
-            if(!array_key_exists('line', $dbt)){
+            if (!array_key_exists('line', $dbt)) {
                 $dbt['line'] = '{0}';
             }
             $where = sprintf('%s:%d', Path::baseName($dbt['file']),
@@ -154,30 +161,33 @@ class Debugger implements IConsumer {
             $this->output->write($sql, $where, $type);
         }
     }
-    
+
     /**
      * Perform output when the debugger is destroyed, supposedly application
      * end execution.
      * @internal
-     * @ignore 
+     * @ignore
      * @codeCoverageIgnore
      */
-    public function __destruct(){
-        if($this->enabled && __ENVIRONMENT__ != 'test'){
+    public function __destruct()
+    {
+        if ($this->enabled && __ENVIRONMENT__ != 'test') {
             $this->timeCheck();
             $this->output->output();
         }
     }
-    
-    public function __invoke($container) {
-        if(!isset($container['debugger.output'])){
+
+    public function __invoke($container)
+    {
+        if (!isset($container['debugger.output'])) {
             $container['debugger.output'] = new Output\Blackhole();
         }
         $this->output = $container['debugger.output'];
-        if(isset($container['config'])){
+        if (isset($container['config'])) {
             $this->enabled = $container['config']->get('app', 'debug');
         }
+
         return $this;
     }
-    
+
 }

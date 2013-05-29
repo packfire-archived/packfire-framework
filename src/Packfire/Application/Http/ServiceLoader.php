@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -30,48 +30,52 @@ use Packfire\Core\ClassLoader\CacheClassFinder;
  * @package Packfire\Application\Cli
  * @since 2.1.0
  */
-class ServiceLoader implements IConsumer {
+class ServiceLoader implements IConsumer
+{
     
-    public function __invoke($c) {
-        if(!isset($c['exception.handler'])){
+    public function __invoke($c)
+    {
+        if (!isset($c['exception.handler'])) {
             $c['exception.handler'] = new HttpHandler();
         }
-        
+
         $c['config.routing'] = $c->share(function(){
             $config = new HttpRouterConfig();
+
             return $config->load();
         });
         $c['router'] = new Router();
-        
-        if(isset($c['config'])){
+
+        if (isset($c['config'])) {
             $debugger = new Debugger();
             $debugger($c);
             $c['debugger'] = $debugger;
-            
-            if($c['config']->get('session','enabled')){
+
+            if ($c['config']->get('session','enabled')) {
                 $loader = new SessionLoader();
                 $loader($c);
             }
         }
-        
+
         // class finder and loader
         $loadClassFinder = function(){
             $classFinder = new ClassFinder();
             $classFinder->addPath('pack/src/');
+
             return $classFinder;
         };
-        
-        if(isset($c['cache'])){
+
+        if (isset($c['cache'])) {
             // only load CacheClassFinder if the cache component is available
             $c['autoload.finder'] = $loadClassFinder;
             $c['autoload.finder'] = new CacheClassFinder($c['autoload.finder'], 'src.class.');
-        }else{
+        } else {
             $c['autoload.finder'] = $c->share($loadClassFinder);
         }
-        
+
         $c['autoload.loader'] = new ClassLoader();
         $c['autoload.loader']->register();
+
         return $this;
     }
-    
 }

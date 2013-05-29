@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -27,8 +27,8 @@ use Packfire\Collection\ArrayList;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class Response {
-
+class Response
+{
     /**
      * The HTTP Version of the Status-Line in the HTTP response
      * @var string
@@ -63,49 +63,51 @@ class Response {
      * @since 1.0-sofia
      */
     protected $cookies;
-    
+
     /**
-     * Create a new Response object 
+     * Create a new Response object
      * @since 1.0-sofia
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->headers = new Map();
         $this->cookies = new Map();
     }
-    
+
     /**
      * Parse a HTTP response string into this object
-     * @param string $strResponse The response to parse
+     * @param  string         $strResponse The response to parse
      * @throws ParseException
      * @since 1.0-sofia
      */
-    public function parse($strResponse){
+    public function parse($strResponse)
+    {
         $strResponse = NewLine::neutralize($strResponse);
-       
+
         $matches = array();
         $okay = preg_match('`^([^\s]*) (.*)\n`', $strResponse, $matches);
-        if(!$okay){
+        if (!$okay) {
             throw new ParseException(
                     'Failed to parse HTTP version and code in response'
                 );
         }
         $this->version = $matches[1];
         $this->code  = $matches[2];
-        
+
         $firstLinePos = strpos($strResponse, "\n");
         $headerEnd = strpos($strResponse, "\n\n");
         Utility::parseHeaders(substr($strResponse, $firstLinePos + 1, $headerEnd - $firstLinePos - 1),
                 $this->headers);
-        if($this->headers->keyExists('set-cookie')){
+        if ($this->headers->keyExists('set-cookie')) {
             $cookies = $this->headers->get('set-cookie');
-            if(!($cookies instanceof ArrayList)){
-                $cookies = (array)$cookies;
+            if (!($cookies instanceof ArrayList)) {
+                $cookies = (array) $cookies;
             }
-            foreach($cookies as $cookie){
-                preg_match_all('/([^;=\s]+)\s*={0,1}\s*([^;=\s]*)/', $cookie, $matches); 
+            foreach ($cookies as $cookie) {
+                preg_match_all('/([^;=\s]+)\s*={0,1}\s*([^;=\s]*)/', $cookie, $matches);
                 $result = array_combine($matches[1], $matches[2]);
-                foreach($result as $key => $value){
-                    if(!preg_match('`(path|domain|secure|httponly|version|expires)`i', $key)){
+                foreach ($result as $key => $value) {
+                    if (!preg_match('`(path|domain|secure|httponly|version|expires)`i', $key)) {
                         $this->cookies[$key] = $value;
                     }
                 }
@@ -113,43 +115,49 @@ class Response {
         }
         $this->body(substr($strResponse, $headerEnd + 2));
     }
-    
+
     /**
      * Get or set the status code of the HTTP response
-     * @param string $code (optional) If set, the new value will be set.
+     * @param  string $code (optional) If set, the new value will be set.
      * @return string Returns the HTTP status code
      * @since 1.0-sofia
      */
-    public function code($code = null){
-        if(func_num_args() == 1){
+    public function code($code = null)
+    {
+        if (func_num_args() == 1) {
             $this->code = $code;
         }
+
         return $this->code;
     }
 
     /**
      * Get or set the version of the HTTP response
-     * @param string $version (optional) If set, the new value will be set.
+     * @param  string $version (optional) If set, the new value will be set.
      * @return string Returns the HTTP version
      * @since 1.0-sofia
      */
-    public function version($version = null){
-        if(func_num_args() == 1){
+    public function version($version = null)
+    {
+        if (func_num_args() == 1) {
             $this->version = $version;
         }
+
         return $this->version;
     }
 
     /**
      * Get or set the body of the HTTP response
-     * @param string $body (optional) If set, the new value will be set.
+     * @param  string $body (optional) If set, the new value will be set.
      * @return string Returns the body response
      * @since 1.0-sofia
      */
-    public function body($body = null){
-        if(func_num_args() == 1){
+    public function body($body = null)
+    {
+        if (func_num_args() == 1) {
             $this->body = $body;
         }
+
         return $this->body;
     }
 
@@ -158,7 +166,8 @@ class Response {
      * @return Map Returns the HTTP headers' hash map
      * @since 1.0-sofia
      */
-    public function headers(){
+    public function headers()
+    {
         return $this->headers;
     }
 
@@ -167,11 +176,13 @@ class Response {
      * @return Map Returns the HTTP cookies hash
      * @since 1.0-sofia
      */
-    public function cookies(){
+    public function cookies()
+    {
         return $this->cookies;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         $buffer = '';
         $buffer = $this->version() . ' ' . $this->code() . NewLine::UNIX;
         foreach ($this->headers() as $k => $h) {
@@ -184,7 +195,8 @@ class Response {
             }
         }
         $buffer .=  NewLine::UNIX . $this->body();
+
         return $buffer;
     }
-    
+
 }
