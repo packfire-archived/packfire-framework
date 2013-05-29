@@ -47,7 +47,7 @@ class HttpHandler implements IHandler {
     
     /**
      * The logger
-     * @var \Packfire\Log\ILogger
+     * @var \Psr\Log\LoggerInterface
      * @since 2.1.0
      */
     private $logger;
@@ -80,11 +80,14 @@ class HttpHandler implements IHandler {
         flush(); 
         
         if(!$this->debug && $this->logger){
-            $this->logger->log(
+            $this->logger->critical(
                     '"' . $exception->getMessage() .
                         '" at ' . $exception->getFile() . ':' 
                         . $exception->getLine(),
-                    get_class($exception) . ' ' . $exception->getCode()
+                    array(
+                        'exception'     => get_class($exception),
+                        'code'          => $exception->getCode()
+                    )
                 );
         }
     }
