@@ -27,6 +27,7 @@ use Packfire\Collection\Map;
  */
 class MockCache implements ICache
 {
+
     /**
      * The cache storage
      * @var Map
@@ -110,5 +111,4 @@ class MockCache implements ICache
     {
         $this->store->add($cacheId, $value);
     }
-
 }

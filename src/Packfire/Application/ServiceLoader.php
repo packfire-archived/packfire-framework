@@ -38,18 +38,20 @@ class ServiceLoader implements IConsumer
      */
     public function __invoke($c)
     {
-        $c['config'] = $c->share(function(){
-            $config = new AppConfig();
-
-            return $config->load();
-        });
+        $c['config'] = $c->share(
+            function () {
+                $config = new AppConfig();
+                return $config->load();
+            }
+        );
         $config = $c['config'];
 
-        $c['config.ioc'] = $c->share(function(){
-            $config = new IoCConfig();
-
-            return $config->load();
-        });
+        $c['config.ioc'] = $c->share(
+            function () {
+                $config = new IoCConfig();
+                return $config->load();
+            }
+        );
         $iocConfig = $c['config.ioc'];
         if ($iocConfig) {
             $services = $iocConfig->get();
@@ -57,26 +59,30 @@ class ServiceLoader implements IConsumer
                 if (isset($service['class'])) {
                     $package = $service['class'];
                     $params = isset($service['parameters']) ? $service['parameters'] : null;
-                    $c[$key] = $c->share(function($c) use ($package, $params) {
-                        if (class_exists($package)) {
-                            $reflect = new \ReflectionClass($package);
-                            if ($params) {
-                                $instance = $reflect->newInstanceArgs($params);
-                            } else {
-                                $instance = $reflect->newInstance();
-                            }
-                            if ($instance instanceof IConsumer) {
-                                return $instance($c);
-                            } else {
-                                return $instance;
+                    $c[$key] = $c->share(
+                        function ($c) use ($package, $params) {
+                            if (class_exists($package)) {
+                                $reflect = new \ReflectionClass($package);
+                                if ($params) {
+                                    $instance = $reflect->newInstanceArgs($params);
+                                } else {
+                                    $instance = $reflect->newInstance();
+                                }
+                                if ($instance instanceof IConsumer) {
+                                    return $instance($c);
+                                } else {
+                                    return $instance;
+                                }
                             }
                         }
-                    });
+                    );
                 } else {
-                    throw new ServiceException('Service "' . $key
-                            . '" defined in the service configuration'
-                            . ' file "ioc.yml" contains not conain a'
-                            . ' class definition.');
+                    throw new ServiceException(
+                        'Service "' . $key
+                        . '" defined in the service configuration'
+                        . ' file "ioc.yml" contains not conain a'
+                        . ' class definition.'
+                    );
                 }
             }
         }
@@ -87,20 +93,26 @@ class ServiceLoader implements IConsumer
                 foreach ($databaseConf as $key => $db) {
                     $package = ($key == 'default' ? '' : '.' . $key);
                     $c['database' . $package . '.driver'] = ConnectorFactory::create($db);
-                    $c['database' . $package] = $c->share(function($c) use ($package) {
-                        return $c['database' . $package . '.driver']->database();
-                    });
+                    $c['database' . $package] = $c->share(
+                        function ($c) use ($package) {
+                            return $c['database' . $package . '.driver']->database();
+                        }
+                    );
                 }
             }
         }
 
-        $c['events'] = $c->share(function($c){
-            return new EventHandler($c);
-        });
+        $c['events'] = $c->share(
+            function ($c) {
+                return new EventHandler($c);
+            }
+        );
 
-        $c['shutdown'] = $c->share(function(){
-            return new ShutdownTaskManager();
-        });
+        $c['shutdown'] = $c->share(
+            function ($c) {
+                return new ShutdownTaskManager();
+            }
+        );
 
         // load services from ioc.yml
 

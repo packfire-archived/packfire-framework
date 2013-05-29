@@ -64,7 +64,7 @@ abstract class Controller extends CoreController
         } else {
             throw new MissingDependencyException(
                 'View not rendered because not found.' .
-                    ($class ? ' Looked for ' . $class . '.' : '')
+                ($class ? ' Looked for ' . $class . '.' : '')
             );
         }
     }

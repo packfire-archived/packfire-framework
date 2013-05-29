@@ -31,6 +31,7 @@ if (!class_exists('\Memcache')) {
  */
 class MemCache implements ICache
 {
+
     /**
      * The Memcache instance
      * @var \Memcache
@@ -135,5 +136,4 @@ class MemCache implements ICache
             $this->memcache->set($cacheId, $value, 0);
         }
     }
-
 }

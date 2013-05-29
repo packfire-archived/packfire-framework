@@ -22,6 +22,7 @@ namespace Packfire\Cache;
  */
 interface ICache
 {
+
     /**
      * Store the cache value uniquely identified by the identifier with expiry
      * @param string            $cacheId The identifier of the cache value
@@ -72,5 +73,4 @@ interface ICache
      * @since 1.0-sofia
      */
     public function flush();
-
 }

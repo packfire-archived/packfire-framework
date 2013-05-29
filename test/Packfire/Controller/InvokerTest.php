@@ -10,7 +10,7 @@ use Packfire\Route\Http\Route;
 use Packfire\Route\Http\Router;
 use Packfire\FuelBlade\Container;
 
-require_once 'test/Mocks/SessionStorage.php';
+require_once __DIR__ . '/../../Mocks/SessionStorage.php';
 
 /**
  * Test class for Invoker.

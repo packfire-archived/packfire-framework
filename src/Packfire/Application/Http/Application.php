@@ -74,26 +74,34 @@ class Application extends ServiceApplication
         $debugMode = isset($this->ioc['config'])
                 && $this->ioc['config']->get('app', 'debug');
         if ($debugMode) {
-            $config = new Map(array(
-                'rewrite' => '/{path}',
-                'actual' => 'directControllerAccessRoute',
-                'method' => null,
-                'params' => new Map(array(
-                    'path' => 'any',
-                ))
-            ));
-            $router->add('packfire.directControllerAccess', new Route(
+            $config = new Map(
+                array(
+                    'rewrite' => '/{path}',
+                    'actual' => 'directControllerAccessRoute',
+                    'method' => null,
+                    'params' => new Map(
+                        array( 'path' => 'any' )
+                    )
+                )
+            );
+            $router->add(
+                'packfire.directControllerAccess',
+                new Route(
                     'packfire.directControllerAccess',
-                    $config));
+                    $config
+                )
+            );
         }
 
-        if($request->method() == HttpMethod::GET
+        if ($request->method() == HttpMethod::GET
                 && isset($this->ioc['config'])
                 && isset($this->ioc['cache'])
-                && $this->ioc['config']->get('routing', 'caching')){
-            $this->ioc['router'] = $this->ioc->share(function($c) use ($router) {
-                return new CacheRouter($router, $c['cache']);
-            });
+                && $this->ioc['config']->get('routing', 'caching')) {
+            $this->ioc['router'] = $this->ioc->share(
+                function ($c) use ($router) {
+                    return new CacheRouter($router, $c['cache']);
+                }
+            );
             $router = $this->ioc['router'];
         }
 

@@ -39,11 +39,12 @@ class ServiceLoader implements IConsumer
             $c['exception.handler'] = new HttpHandler();
         }
 
-        $c['config.routing'] = $c->share(function(){
-            $config = new HttpRouterConfig();
-
-            return $config->load();
-        });
+        $c['config.routing'] = $c->share(
+            function () {
+                $config = new HttpRouterConfig();
+                return $config->load();
+            }
+        );
         $c['router'] = new Router();
 
         if (isset($c['config'])) {
@@ -51,14 +52,14 @@ class ServiceLoader implements IConsumer
             $debugger($c);
             $c['debugger'] = $debugger;
 
-            if ($c['config']->get('session','enabled')) {
+            if ($c['config']->get('session', 'enabled')) {
                 $loader = new SessionLoader();
                 $loader($c);
             }
         }
 
         // class finder and loader
-        $loadClassFinder = function(){
+        $loadClassFinder = function () {
             $classFinder = new ClassFinder();
             $classFinder->addPath('pack/src/');
 

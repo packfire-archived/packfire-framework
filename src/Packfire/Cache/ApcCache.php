@@ -123,5 +123,4 @@ class ApcCache implements ICache
             \apc_store($cacheId, $value);
         }
     }
-
 }

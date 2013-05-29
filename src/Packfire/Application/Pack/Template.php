@@ -37,10 +37,10 @@ class Template
 
         // parsers
         $extensions = array(
-            'html' => 'Packfire\Template\Mustache\TemplateFile',
-            'htm' => 'Packfire\Template\Mustache\TemplateFile',
-            'mustache' => 'Packfire\Template\Mustache\TemplateFile',
-            'php' => 'Packfire\Template\Php\TemplateFile'
+            'html' => 'Packfire\\Template\\Mustache\\TemplateFile',
+            'htm' => 'Packfire\\Template\\Mustache\\TemplateFile',
+            'mustache' => 'Packfire\\Template\\Mustache\\TemplateFile',
+            'php' => 'Packfire\\Template\\Php\\TemplateFile'
         );
 
         $template = null;

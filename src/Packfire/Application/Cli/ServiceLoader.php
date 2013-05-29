@@ -29,7 +29,7 @@ class ServiceLoader implements IConsumer
     {
         if (!isset($c['exception.handler'])) {
             $c['exception.handler'] = $c->share(
-                function(){
+                function () {
                     return new CliHandler();
                 }
             );
