@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<phpunit
+    bootstrap="bootstrap.php"
+    colors="true"
+>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+    <testsuites>
+        <testsuite>
+            <directory suffix="Test.php">.</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <const name="__ENVIRONMENT__" value="test" />
+    </php>
+</phpunit>
