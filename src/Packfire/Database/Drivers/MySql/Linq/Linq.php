@@ -352,9 +352,7 @@ class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq
         if (!$field) {
             $field = '*';
         }
-        $this->selects = new ArrayList(array(
-            'AVERAGE(' . $field . ')'
-        ));
+        $this->selects = new ArrayList('AVERAGE(' . $field . ')');
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
