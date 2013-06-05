@@ -40,8 +40,8 @@ class Map extends ArrayList implements IMap
         if (func_num_args() == 1) {
             if ($initialize instanceof self) {
                 $this->array = $initialize->array;
-            } elseif (is_array($initialize)) {
-                $this->array = $initialize;
+            } else {
+                $this->array = (array) $initialize;
             }
         }
     }

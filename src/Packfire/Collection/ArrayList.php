@@ -45,8 +45,8 @@ class ArrayList implements IList
         if (func_num_args() == 1) {
             if ($initialize instanceof self) {
                 $this->array = array_values($initialize->array);
-            } elseif (is_array($initialize)) {
-                $this->array = array_values($initialize);
+            } else {
+                $this->array = array_values((array) $initialize);
             }
         }
     }
