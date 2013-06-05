@@ -523,9 +523,7 @@ class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq
      */
     public function max($field = null)
     {
-        $this->selects = new ArrayList(array(
-            'MAX(' . $field . ')'
-        ));
+        $this->selects = new ArrayList('MAX(' . $field . ')');
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
@@ -541,9 +539,7 @@ class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq
      */
     public function min($field = null)
     {
-        $this->selects = new ArrayList(array(
-            'MIN(' . $field . ')'
-        ));
+        $this->selects = new ArrayList('MIN(' . $field . ')');
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
@@ -629,9 +625,7 @@ class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq
      */
     public function sum($field = null)
     {
-        $this->selects = new ArrayList(array(
-            'SUM(' . $field . ')'
-        ));
+        $this->selects = new ArrayList('SUM(' . $field . ')');
         $statement = $this->prepare();
         $statement->execute();
         $this->reset();
