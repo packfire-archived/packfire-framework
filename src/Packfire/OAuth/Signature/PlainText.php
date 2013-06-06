@@ -27,10 +27,10 @@ class PlainText extends Signature
 {
     public function build()
     {
-        $keyParts = Helper::urlencode(array(
+        $keyParts = Helper::urlencode(
             $this->consumer->secret(),
             $this->tokenSecret ? $this->tokenSecret : ''
-        ));
+        );
 
         $key = implode('&', $keyParts);
 
