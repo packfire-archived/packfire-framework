@@ -43,8 +43,8 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase
      */
     public function testSet()
     {
-        $this->assertEquals(5, $this->object->alpha);
         $this->object->alpha = 5;
+        $this->assertEquals(5, $this->object->alpha);
         $this->assertEquals('hurray', $this->object->test);
         $this->assertEquals(
             array('test' => 'hurray', 'alpha' => 5),
