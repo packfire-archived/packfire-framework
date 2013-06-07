@@ -38,5 +38,4 @@ class HttpRouterConfig extends FrameworkConfig
     {
         return $this->loadConfig('routing', $context);
     }
-
 }

@@ -33,5 +33,4 @@ interface IStream
      * @since 1.0-sofia
      */
     public function close();
-
 }

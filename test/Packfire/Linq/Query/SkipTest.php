@@ -38,5 +38,4 @@ class SkipTest extends \PHPUnit_Framework_TestCase
         $result = $this->object->run($data);
         $this->assertEquals(array(3, 1, 7), $result);
     }
-
 }

@@ -33,5 +33,4 @@ interface ISession
     public function invalidate();
 
     public function regenerate();
-
 }

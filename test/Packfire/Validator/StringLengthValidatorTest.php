@@ -38,5 +38,4 @@ class StringLengthValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->validate('pit'));
         $this->assertFalse($this->object->validate('match'));
     }
-
 }

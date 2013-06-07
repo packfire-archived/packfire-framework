@@ -18,9 +18,11 @@ class CallbackValidatorTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new CallbackValidator(function($value) {
-                            return $value === 5;
-                        });
+        $this->object = new CallbackValidator(
+            function ($value) {
+                return $value === 5;
+            }
+        );
     }
 
     /**
@@ -39,5 +41,4 @@ class CallbackValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->object->validate(5));
         $this->assertFalse($this->object->validate('5'));
     }
-
 }

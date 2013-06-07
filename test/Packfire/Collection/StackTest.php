@@ -74,5 +74,4 @@ class StackTest extends \PHPUnit_Framework_TestCase
         $this->object->push(5);
         $this->assertEquals(5, $this->object->top());
     }
-
 }

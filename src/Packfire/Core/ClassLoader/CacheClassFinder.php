@@ -91,8 +91,6 @@ class CacheClassFinder implements IClassFinder, IConsumer
     public function __invoke($c)
     {
         $this->cache = $c['cache'];
-
         return $this;
     }
-
 }

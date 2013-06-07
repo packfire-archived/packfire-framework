@@ -32,9 +32,9 @@ class PackfireClassFinder implements IClassFinder
     {
         $class = ltrim($class, '\\');
         if (0 === strpos($class, 'Packfire\\')) {
-            return realpath(__DIR__ . '/../../../'
-                    . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php');
+            return realpath(
+                __DIR__ . '/../../../' . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php'
+            );
         }
     }
-
 }

@@ -65,5 +65,4 @@ interface ILinq extends \Countable
     public function any($predicate = null);
 
     public function reverse();
-
 }

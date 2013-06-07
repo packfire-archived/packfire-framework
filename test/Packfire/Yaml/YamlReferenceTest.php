@@ -32,7 +32,7 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\Yaml\YamlReference::__get
      */
-    public function test__get()
+    public function testGet()
     {
         $this->assertEquals('hurray', $this->object->test);
         $this->assertNull($this->object->alpha);
@@ -41,13 +41,15 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\Yaml\YamlReference::__set
      */
-    public function test__set()
+    public function testSet()
     {
-        $this->object->alpha = 5;
         $this->assertEquals(5, $this->object->alpha);
+        $this->object->alpha = 5;
         $this->assertEquals('hurray', $this->object->test);
-        $this->assertEquals(array('test' => 'hurray', 'alpha' => 5),
-                $this->object->map()->toArray());
+        $this->assertEquals(
+            array('test' => 'hurray', 'alpha' => 5),
+            $this->object->map()->toArray()
+        );
     }
 
     /**
@@ -56,8 +58,10 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase
     public function testMap()
     {
         $this->assertInstanceOf('Packfire\Collection\Map', $this->object->map());
-        $this->assertEquals(array('test' => 'hurray'),
-                $this->object->map()->toArray());
+        $this->assertEquals(
+            array('test' => 'hurray'),
+            $this->object->map()->toArray()
+        );
     }
 
     /**
@@ -85,8 +89,10 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->object['alpha']);
         $this->object['alpha'] = 5;
         $this->assertEquals(5, $this->object['alpha']);
-        $this->assertEquals(array('test' => 'hurray', 'alpha' => 5),
-                $this->object->map()->toArray());
+        $this->assertEquals(
+            array('test' => 'hurray', 'alpha' => 5),
+            $this->object->map()->toArray()
+        );
     }
 
     /**
@@ -98,5 +104,4 @@ class YamlReferenceTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->object['test']);
         $this->assertNull($this->object->test);
     }
-
 }

@@ -30,5 +30,4 @@ class AuthorizationException extends Exception
         $this->responseCode = ResponseCode::HTTP_403;
         parent::__construct($message, $code);
     }
-
 }

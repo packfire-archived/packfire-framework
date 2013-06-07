@@ -76,8 +76,6 @@ class AliasClassFinder
     public function find($class)
     {
         $class = str_replace(array_keys($this->aliases), $this->aliases, $class);
-
         return $this->finder->find($class);
     }
-
 }

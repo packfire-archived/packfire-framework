@@ -96,5 +96,4 @@ abstract class Schema
      * @since 1.0-sofia
      */
     abstract public function tables();
-
 }

@@ -78,8 +78,6 @@ class ClassLoader implements IClassLoader, IConsumer
     public function __invoke($c)
     {
         $this->finder = $c['autoload.finder'];
-
         return $this;
     }
-
 }

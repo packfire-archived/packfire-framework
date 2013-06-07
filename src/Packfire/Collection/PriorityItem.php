@@ -72,5 +72,4 @@ class PriorityItem
 
         return $key;
     }
-
 }

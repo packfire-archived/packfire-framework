@@ -53,5 +53,4 @@ class CheckboxValidator implements IValidator
     {
         return (bool) $value === $this->state;
     }
-
 }

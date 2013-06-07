@@ -63,8 +63,10 @@ class RouterTest extends \PHPUnit_Framework_TestCase
      */
     public function testRoute()
     {
-        $request = new RouteRequest('home/200',
-                array('PHP_SELF' => 'index.php/home/200', 'SCRIPT_NAME' => 'index.php'));
+        $request = new RouteRequest(
+            'home/200',
+            array('PHP_SELF' => 'index.php/home/200', 'SCRIPT_NAME' => 'index.php')
+        );
         $route = $this->object->route($request);
         $this->assertInstanceOf('Packfire\Route\Http\Route', $route);
         $this->assertEquals(200, $route->params()->get('data'));
@@ -75,8 +77,10 @@ class RouterTest extends \PHPUnit_Framework_TestCase
      */
     public function testRoute2()
     {
-        $request = new RouteRequest('home/500',
-                array('PHP_SELF' => 'index.php/home/500', 'SCRIPT_NAME' => 'index.php'));
+        $request = new RouteRequest(
+            'home/500',
+            array('PHP_SELF' => 'index.php/home/500', 'SCRIPT_NAME' => 'index.php')
+        );
         $route = $this->object->route($request);
         $this->assertInstanceOf('Packfire\Route\Http\Route', $route);
         $this->assertEquals('500', $route->params()->get('data'));
@@ -87,8 +91,10 @@ class RouterTest extends \PHPUnit_Framework_TestCase
      */
     public function testRoute3()
     {
-        $request = new RouteRequest('home/a',
-                array('PHP_SELF' => 'index.php/home/a', 'SCRIPT_NAME' => 'index.php'));
+        $request = new RouteRequest(
+            'home/a',
+            array('PHP_SELF' => 'index.php/home/a', 'SCRIPT_NAME' => 'index.php')
+        );
         $route = $this->object->route($request);
         $this->assertNull($route);
     }
@@ -100,5 +106,4 @@ class RouterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('/home', $this->object->to('route.home'));
     }
-
 }

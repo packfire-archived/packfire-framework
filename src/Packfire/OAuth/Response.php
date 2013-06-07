@@ -89,5 +89,4 @@ class Response extends HttpResponse implements IHttpEntity
 
         return Helper::buildQuery($this->oauthParams);
     }
-
 }

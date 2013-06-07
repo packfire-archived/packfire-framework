@@ -73,5 +73,4 @@ class TimerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($stop > 0);
         $this->assertEquals($stop, $this->object->result());
     }
-
 }

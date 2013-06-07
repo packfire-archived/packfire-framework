@@ -35,5 +35,4 @@ class CliHandler implements IHandler
         echo $exception->getTraceAsString();
         exit;
     }
-
 }

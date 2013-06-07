@@ -81,5 +81,4 @@ class Month
      * December
      */
     const DECEMBER = 12;
-
 }

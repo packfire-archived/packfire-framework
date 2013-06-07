@@ -60,5 +60,4 @@ class ObservableEvent extends Observable
             }
         }
     }
-
 }

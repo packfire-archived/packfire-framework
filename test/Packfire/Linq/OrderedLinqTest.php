@@ -18,12 +18,14 @@ class OrderedLinqTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new OrderedLinq(array(
-            array('i' => 5, 'r' => 3),
-            array('i' => 2, 'r' => 5),
-            array('i' => 2, 'r' => 1),
-            array('i' => 3, 'r' => 8)
-        ));
+        $this->object = new OrderedLinq(
+            array(
+                array('i' => 5, 'r' => 3),
+                array('i' => 2, 'r' => 5),
+                array('i' => 2, 'r' => 1),
+                array('i' => 3, 'r' => 8)
+            )
+        );
     }
 
     /**
@@ -39,8 +41,16 @@ class OrderedLinqTest extends \PHPUnit_Framework_TestCase
      */
     public function testThenBy()
     {
-        $this->object->orderBy(function($x){return $x['i'];});
-        $this->object->thenBy(function($x){return $x['r'];});
+        $this->object->orderBy(
+            function ($x) {
+                return $x['i'];
+            }
+        );
+        $this->object->thenBy(
+            function ($x) {
+                return $x['r'];
+            }
+        );
         $list = $this->object->toList();
         $this->assertCount(4, $list);
         $this->assertEquals(array('i' => 2, 'r' => 1), $list[0]);
@@ -54,8 +64,16 @@ class OrderedLinqTest extends \PHPUnit_Framework_TestCase
      */
     public function testThenByDesc()
     {
-        $this->object->orderBy(function($x){return $x['i'];});
-        $this->object->thenByDesc(function($x){return $x['r'];});
+        $this->object->orderBy(
+            function ($x) {
+                return $x['i'];
+            }
+        );
+        $this->object->thenByDesc(
+            function ($x) {
+                return $x['r'];
+            }
+        );
         $list = $this->object->toList();
         $this->assertCount(4, $list);
         $this->assertEquals(array('i' => 2, 'r' => 5), $list[0]);
@@ -63,5 +81,4 @@ class OrderedLinqTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('i' => 3, 'r' => 8), $list[2]);
         $this->assertEquals(array('i' => 5, 'r' => 3), $list[3]);
     }
-
 }

@@ -46,5 +46,4 @@ class Type
      * Others
      */
     const OTHERS = 'others';
-
 }

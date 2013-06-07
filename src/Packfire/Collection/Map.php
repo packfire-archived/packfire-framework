@@ -167,8 +167,8 @@ class Map extends ArrayList implements IMap
             return $item;
         } else {
             throw new OutOfRangeException(
-                    sprintf('Unable to remove value at key %s from map.', $index)
-                );
+                sprintf('Unable to remove value at key %s from map.', $index)
+            );
         }
     }
 
@@ -231,8 +231,8 @@ class Map extends ArrayList implements IMap
     {
         if ($offset === null) {
             throw new InvalidRequestException(
-                    'Unable to set value without key into a map.'
-                );
+                'Unable to set value without key into a map.'
+            );
         } else {
             $this->array[$offset] = $value;
         }
@@ -248,5 +248,4 @@ class Map extends ArrayList implements IMap
     {
         unset($this->array[$offset]);
     }
-
 }

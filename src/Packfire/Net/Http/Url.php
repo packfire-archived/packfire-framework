@@ -250,8 +250,8 @@ class Url
             $url .= '@';
         }
         $url .= $this->host();
-        if($this->port() != null
-                && !in_array($this->scheme, array('https', 'http'))){
+        if ($this->port() != null
+                && !in_array($this->scheme, array('https', 'http'))) {
             $url .= ':'.$this->port();
         }
         $url .= $this->path();
@@ -314,5 +314,4 @@ class Url
 
         return $baseUrl;
     }
-
 }

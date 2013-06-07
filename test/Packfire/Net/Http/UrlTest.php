@@ -97,10 +97,13 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\Net\Http\Url::__toString
      */
-    public function test__toString()
+    public function testToString()
     {
-        $this->assertEquals('ftp://user:pwd@git.example.com:2103/path/test.html'
-                . '?query=1#true', $this->object .'');
+        $this->assertEquals(
+            'ftp://user:pwd@git.example.com:2103/path/test.html'
+            . '?query=1#true',
+            $this->object .''
+        );
     }
 
     /**
@@ -144,5 +147,4 @@ class UrlTest extends \PHPUnit_Framework_TestCase
         $final = Url::combine('/test/data', '../object/true');
         $this->assertEquals('/test/object/true', (string) $final);
     }
-
 }

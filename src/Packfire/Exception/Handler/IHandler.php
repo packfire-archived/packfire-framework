@@ -23,5 +23,4 @@ namespace Packfire\Exception\Handler;
 interface IHandler
 {
     public function handle($exception);
-
 }

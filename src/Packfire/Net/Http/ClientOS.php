@@ -82,5 +82,4 @@ class ClientOS
      * Bot: Yahoo's Search Engine Bot
      */
     const YAHOOBOT = 'Yahoo! Slurp';
-
 }

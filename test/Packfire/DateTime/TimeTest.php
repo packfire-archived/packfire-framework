@@ -182,5 +182,4 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $time1->compareTo($time2));
         $this->assertEquals(-1, $time2->compareTo($this->object));
     }
-
 }

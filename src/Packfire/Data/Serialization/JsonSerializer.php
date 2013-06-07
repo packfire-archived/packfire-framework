@@ -69,5 +69,4 @@ class JsonSerializer implements ISerializer
 
         return json_decode($buffer);
     }
-
 }

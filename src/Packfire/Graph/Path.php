@@ -65,5 +65,4 @@ class Path
             return $this->vertices->last()->potential();
         }
     }
-
 }

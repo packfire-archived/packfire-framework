@@ -28,5 +28,4 @@ class LightTheme extends Theme
     {
         $this->define('style', 'light');
     }
-
 }

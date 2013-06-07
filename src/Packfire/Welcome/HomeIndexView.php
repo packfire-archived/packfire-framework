@@ -48,5 +48,4 @@ class HomeIndexView extends View
         $this->filter('title', 'htmlentities|trim');
         $this->filter('message', 'htmlentities|trim');
     }
-
 }

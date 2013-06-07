@@ -55,5 +55,4 @@ class PriorityStack extends Stack
         parent::add($item);
         usort($this->array, $this->comparator);
     }
-
 }

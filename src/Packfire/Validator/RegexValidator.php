@@ -55,5 +55,4 @@ class RegexValidator implements IValidator
 
         return $regex->matches($value);
     }
-
 }

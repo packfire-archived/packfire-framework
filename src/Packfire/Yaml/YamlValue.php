@@ -68,11 +68,12 @@ class YamlValue
                         }
                     } else {
                         $openQuote = $line[$position];
-                        $pos = strpos($line, $line[$position], $position + 1) ;
+                        $pos = strpos($line, $line[$position], $position + 1);
                         if ($pos !== false) {
                             $position = $pos - 1;
                         }
                     }
+                    break;
             }
             ++$position;
         }
@@ -184,5 +185,4 @@ class YamlValue
 
         return str_replace(array_keys($replace), $replace, $text);
     }
-
 }

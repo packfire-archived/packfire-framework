@@ -98,5 +98,4 @@ abstract class Signature
     {
         return $this->build() == $signature;
     }
-
 }

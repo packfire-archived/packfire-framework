@@ -31,9 +31,11 @@ class MessengerTest extends \PHPUnit_Framework_TestCase
         $bucket = $this->ioc;
         $bucket['session.storage'] = new SessionStorage();
 
-        $bucket['session'] = $bucket->share(function($c) {
-                    return new Session($c['session.storage']);
-                });
+        $bucket['session'] = $bucket->share(
+            function ($c) {
+                return new Session($c['session.storage']);
+            }
+        );
         $bucket['messenger'] = $this->object;
 
         call_user_func($this->object, $this->ioc);
@@ -144,5 +146,4 @@ class MessengerTest extends \PHPUnit_Framework_TestCase
         $this->object->clear();
         $this->assertEquals(array('Messenger' => array()), $this->ioc['session.storage']->data());
     }
-
 }

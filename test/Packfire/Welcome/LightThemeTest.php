@@ -39,5 +39,4 @@ class LightThemeTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $this->object->fields());
         $this->assertEquals('light', $this->object->fields()->get('style'));
     }
-
 }

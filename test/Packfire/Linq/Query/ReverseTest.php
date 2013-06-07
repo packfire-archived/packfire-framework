@@ -37,5 +37,4 @@ class ReverseTest extends \PHPUnit_Framework_TestCase
         $data = array('a', 'c', 'd', 'b', 'z');
         $this->assertEquals(array_reverse($data), $this->object->run($data));
     }
-
 }

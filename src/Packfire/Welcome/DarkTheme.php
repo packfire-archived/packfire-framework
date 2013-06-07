@@ -28,5 +28,4 @@ class DarkTheme extends Theme
     {
         $this->define('style', 'dark');
     }
-
 }

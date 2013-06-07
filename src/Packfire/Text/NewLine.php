@@ -71,5 +71,4 @@ class NewLine
 
         return $string;
     }
-
 }

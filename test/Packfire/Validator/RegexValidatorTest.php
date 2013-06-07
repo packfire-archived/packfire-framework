@@ -39,5 +39,4 @@ class RegexValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->validate('ON'));
         $this->assertFalse($this->object->validate('OFF'));
     }
-
 }

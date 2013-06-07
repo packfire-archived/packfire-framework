@@ -153,7 +153,6 @@ class DatePeriod implements \Iterator
     {
         return ($this->occurances !== null && $this->count < $this->occurances) ||
             ($this->endDate instanceof DateTime &&
-                $this->endDate->compareTo($this->workingDate) === 1);
+            $this->endDate->compareTo($this->workingDate) === 1);
     }
-
 }

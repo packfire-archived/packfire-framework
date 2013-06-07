@@ -158,31 +158,47 @@ class Validator
                 case 'real':
                 case 'double':
                     $validator->add(new NumericValidator());
-                    $validator->add(new CallbackValidator(function($value){
-                        return is_float($value + 0);
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($value) {
+                                return is_float($value + 0);
+                            }
+                        )
+                    );
                     $value += 0;
                     break;
                 case 'integer':
                 case 'int':
                 case 'long':
                     $validator->add(new NumericValidator());
-                    $validator->add(new CallbackValidator(function($value){
-                        return is_int($value + 0);
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($value) {
+                                return is_int($value + 0);
+                            }
+                        )
+                    );
                     $value += 0;
                     break;
                 case 'min':
                     $min = $options + 0;
-                    $validator->add(new CallbackValidator(function($x) use ($min) {
-                        return $x >= $min;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) use ($min) {
+                                return $x >= $min;
+                            }
+                        )
+                    );
                     break;
                 case 'max':
                     $max = $options + 0;
-                    $validator->add(new CallbackValidator(function($x) use ($max) {
-                        return $x <= $max;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) use ($max) {
+                                return $x <= $max;
+                            }
+                        )
+                    );
                     break;
                 case 'bool':
                 case 'boolean':
@@ -197,15 +213,23 @@ class Validator
                     break;
                 case 'strmin':
                     $min = $options + 0;
-                    $validator->add(new CallbackValidator(function($x) use ($min) {
-                        return strlen($x) >= $min;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) use ($min) {
+                                return strlen($x) >= $min;
+                            }
+                        )
+                    );
                     break;
                 case 'strmax':
                     $max = $options + 0;
-                    $validator->add(new CallbackValidator(function($x) use ($max) {
-                        return strlen($x) <= $max;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) use ($max) {
+                                return strlen($x) <= $max;
+                            }
+                        )
+                    );
                     break;
                 case 'email':
                     $validator->add(new EmailValidator());
@@ -229,9 +253,13 @@ class Validator
                     break;
                 case 'nonempty':
                 case 'non-empty':
-                    $validator->add(new CallbackValidator(function($x){
-                        return (bool) $x;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) {
+                                return (bool) $x;
+                            }
+                        )
+                    );
                     break;
                 case 'empty':
                 case 'optional':
@@ -244,5 +272,4 @@ class Validator
 
         return $validator->validate($original);
     }
-
 }

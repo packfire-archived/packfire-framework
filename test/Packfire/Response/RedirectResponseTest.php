@@ -50,5 +50,4 @@ class RedirectResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $object->body());
         $this->assertEquals('', $object->output());
     }
-
 }

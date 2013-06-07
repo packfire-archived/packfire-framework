@@ -75,8 +75,6 @@ class KeyValuePair
         if (func_num_args() == 1) {
             $this->value = $value;
         }
-
         return $this->value;
     }
-
 }

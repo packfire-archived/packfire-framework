@@ -117,5 +117,4 @@ class PhpSerializerTest extends \PHPUnit_Framework_TestCase
         $item = $this->object->deserialize($this->object->serialize($data));
         $this->assertEquals($data, $item);
     }
-
 }

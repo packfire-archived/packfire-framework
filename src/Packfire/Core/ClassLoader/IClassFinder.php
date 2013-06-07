@@ -29,5 +29,4 @@ interface IClassFinder
      * @since 2.0.0
      */
     public function find($class);
-
 }

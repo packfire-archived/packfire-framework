@@ -69,5 +69,4 @@ class PhpSerializer implements ISerializer
 
         return unserialize($buffer);
     }
-
 }

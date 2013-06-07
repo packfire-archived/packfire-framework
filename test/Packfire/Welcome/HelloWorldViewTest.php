@@ -37,5 +37,4 @@ class HelloWorldViewTest extends \PHPUnit_Framework_TestCase
         $content = $this->object->render();
         $this->assertEquals('Hello World', $content);
     }
-
 }

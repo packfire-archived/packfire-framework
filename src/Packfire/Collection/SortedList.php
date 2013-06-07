@@ -56,5 +56,4 @@ class SortedList extends ArrayList
         parent::add($item);
         usort($this->array, $this->comparator);
     }
-
 }

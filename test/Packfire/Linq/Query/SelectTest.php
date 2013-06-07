@@ -18,9 +18,11 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Select(function($x) {
-                            return $x * 3;
-                        });
+        $this->object = new Select(
+            function ($x) {
+                return $x * 3;
+            }
+        );
     }
 
     /**
@@ -40,5 +42,4 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $result = $this->object->run($data);
         $this->assertEquals(array(9, 15, 24, 18, 6), $result);
     }
-
 }

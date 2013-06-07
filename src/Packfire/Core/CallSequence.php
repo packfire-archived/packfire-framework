@@ -103,5 +103,4 @@ class CallSequence
 
         return $value;
     }
-
 }

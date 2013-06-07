@@ -62,5 +62,4 @@ class ThenBy extends OrderBy
 
         return parent::compare($a, $b);
     }
-
 }

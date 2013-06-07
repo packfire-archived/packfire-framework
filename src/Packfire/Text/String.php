@@ -310,5 +310,4 @@ class String implements \Countable, IFormattable
     {
         return $this->value;
     }
-
 }

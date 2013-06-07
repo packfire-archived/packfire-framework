@@ -38,5 +38,4 @@ class RedirectResponse extends HttpResponse implements IResponseFormat
         $this->code($code);
         $this->headers()->add('Location', (string) $url);
     }
-
 }

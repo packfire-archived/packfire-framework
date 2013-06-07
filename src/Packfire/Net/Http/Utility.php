@@ -42,13 +42,14 @@ class Utility
                 if ($headers->get($key) instanceof ArrayList) {
                     $headers->get($key)->add($value);
                 } else {
-                    $headers->add($key,
-                            new ArrayList(array($headers->get($key), $value)));
+                    $headers->add(
+                        $key,
+                        new ArrayList(array($headers->get($key), $value))
+                    );
                 }
             } else {
                 $headers->add($key, $value);
             }
         }
     }
-
 }

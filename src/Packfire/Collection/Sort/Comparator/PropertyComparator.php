@@ -37,10 +37,10 @@ abstract class PropertyComparator implements IComparator
     private function compareComponent($value1, $value2, $com)
     {
         $comparator = new ObjectSelectedFieldComparator(
-                function($object) use ($com) {
-                    return $object->$com();
-                });
-
+            function ($object) use ($com) {
+                return $object->$com();
+            }
+        );
         return $comparator->compare($value2, $value1);
     }
 
@@ -62,8 +62,6 @@ abstract class PropertyComparator implements IComparator
                 break;
             }
         }
-
         return $componentComp;
     }
-
 }

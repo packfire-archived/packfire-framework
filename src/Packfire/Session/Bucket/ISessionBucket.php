@@ -35,5 +35,4 @@ interface ISessionBucket
     public function remove($name);
 
     public function clear();
-
 }

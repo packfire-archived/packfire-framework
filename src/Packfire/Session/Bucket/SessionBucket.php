@@ -132,5 +132,4 @@ class SessionBucket implements ISessionBucket
     {
         $this->data[$name] = $value;
     }
-
 }

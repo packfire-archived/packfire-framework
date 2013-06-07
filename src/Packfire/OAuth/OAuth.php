@@ -43,5 +43,4 @@ class OAuth
     const VERIFIER = 'oauth_verifier';
 
     const CALLBACK_CONFIRMED = 'oauth_callback_confirmed';
-
 }

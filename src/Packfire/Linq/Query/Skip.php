@@ -51,5 +51,4 @@ class Skip implements IQuery
     {
         return array_slice($collection, $this->count);
     }
-
 }

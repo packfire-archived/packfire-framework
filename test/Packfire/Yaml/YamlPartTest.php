@@ -35,5 +35,4 @@ class YamlPartTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("-\n", YamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE);
         $this->assertEquals(array('"', '\''), YamlPart::quotationMarkers());
     }
-
 }

@@ -29,5 +29,4 @@ interface ISet
     public function difference($set);
 
     public function complement($set);
-
 }

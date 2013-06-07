@@ -46,5 +46,4 @@ class StringLengthRangeValidator extends NumericRangeValidator
     {
         return parent::validate(strlen($value));
     }
-
 }

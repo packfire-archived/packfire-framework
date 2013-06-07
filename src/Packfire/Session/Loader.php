@@ -30,31 +30,34 @@ class Loader implements IConsumer
     {
         $storageId = 'session.storage';
         if (!isset($c[$storageId])) {
-            $c[$storageId] = $c->share(function(){
-                return new SessionStorage();
-            });
+            $c[$storageId] = $c->share(
+                function () {
+                    return new SessionStorage();
+                }
+            );
         }
         if (isset($c['config'])) {
             /* @var $config \Packfire\Config\Config */
             $config = $c['config'];
             session_name($config->get('session', 'name'));
             session_set_cookie_params(
-                    $config->get('session', 'lifetime'),
-                    $config->get('session', 'path'),
-                    $config->get('session', 'domain'),
-                    $config->get('session', 'secure'),
-                    $config->get('session', 'http')
-                );
+                $config->get('session', 'lifetime'),
+                $config->get('session', 'path'),
+                $config->get('session', 'domain'),
+                $config->get('session', 'secure'),
+                $config->get('session', 'http')
+            );
         }
-        $c['session'] = $c->share(function($c) use ($storageId) {
-            if (isset($_COOKIE[session_name()]) && $_COOKIE[session_name()]) {
-                session_start();
-            }
+        $c['session'] = $c->share(
+            function ($c) use ($storageId) {
+                if (isset($_COOKIE[session_name()]) && $_COOKIE[session_name()]) {
+                    session_start();
+                }
 
-            return new Session($c[$storageId]);
-        });
+                return new Session($c[$storageId]);
+            }
+        );
 
         return $this;
     }
-
 }

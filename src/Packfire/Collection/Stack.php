@@ -45,7 +45,6 @@ class Stack extends ArrayList implements IStack
         if ($this->count() > 0) {
             $value = array_pop($this->array);
         }
-
         return $value;
     }
 
@@ -60,8 +59,6 @@ class Stack extends ArrayList implements IStack
         if ($this->count() > 0) {
             $value = end($this->array);
         }
-
         return $value;
     }
-
 }

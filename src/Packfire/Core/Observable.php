@@ -75,5 +75,4 @@ class Observable implements IObservable
             }
         }
     }
-
 }

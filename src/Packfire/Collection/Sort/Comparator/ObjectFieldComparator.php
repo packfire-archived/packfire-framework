@@ -55,7 +55,6 @@ class ObjectFieldComparator implements IComparator
         if ($resultOne == $resultTwo) {
             return 0;
         }
-
         return ($resultOne < $resultTwo) ? -1 : 1;
     }
 
@@ -73,5 +72,4 @@ class ObjectFieldComparator implements IComparator
             return $object->{$this->field};
         }
     }
-
 }

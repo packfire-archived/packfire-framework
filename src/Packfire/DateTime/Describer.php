@@ -189,5 +189,4 @@ class Describer
                 ? Text::listing($desc, $this->adjectives['and'], $this->adjectives['comma'])
                 : implode(' ', $desc);
     }
-
 }

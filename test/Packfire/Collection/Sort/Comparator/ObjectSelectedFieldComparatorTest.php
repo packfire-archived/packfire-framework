@@ -18,7 +18,11 @@ class ObjectSelectedFieldComparatorTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new ObjectSelectedFieldComparator(function($object){return $object->key;});
+        $this->object = new ObjectSelectedFieldComparator(
+            function ($object) {
+                return $object->key;
+            }
+        );
     }
 
     /**
@@ -42,5 +46,4 @@ class ObjectSelectedFieldComparatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->object->compare($object2, $object2));
         $this->assertEquals(1, $this->object->compare($object2, $object1));
     }
-
 }

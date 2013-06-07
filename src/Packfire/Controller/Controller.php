@@ -231,8 +231,10 @@ abstract class Controller implements IConsumer
         $route = isset($this->ioc['route']) ? $this->ioc['route'] : null;
 
         if ($route && $this->validationHandler) {
-            $validator = new Validator($route->rules(),
-                    $this->validationHandler);
+            $validator = new Validator(
+                $route->rules(),
+                $this->validationHandler
+            );
             $params = array();
             $validator->validate($route->remap(), $params);
         }
@@ -246,19 +248,18 @@ abstract class Controller implements IConsumer
                 $security = $this->ioc['security'];
                 // perform overriding of identity
                 if ($this->ioc['config']->get('secuity', 'override')) {
-                    $security->identity($this->ioc['config']
-                                    ->get('secuity', 'identity'));
+                    $security->identity($this->ioc['config']->get('secuity', 'identity'));
                 }
                 $security->request($this->ioc['request']);
             }
 
-            if(!$this->handleAuthentication()
-                || ($security && !$security->authenticate())){
+            if (!$this->handleAuthentication()
+                || ($security && !$security->authenticate())) {
                 throw new AuthenticationException('User is not authenticated.');
             }
 
-            if(!$this->handleAuthorization()
-                || ($security && !$security->authorize($route))){
+            if (!$this->handleAuthorization()
+                || ($security && !$security->authorize($route))) {
                 throw new AuthorizationException('Access not authorized.');
             }
         }
@@ -304,9 +305,11 @@ abstract class Controller implements IConsumer
             $this->processAftermath();
             $this->afterRun();
         } else {
-            $errorMsg = sprintf('The requested action "%s" is not found'
-                                . ' in the controller "%s".',
-                                $call, get_class($this));
+            $errorMsg = sprintf(
+                'The requested action "%s" is not found in the controller "%s".',
+                $call,
+                get_class($this)
+            );
             if (isset($this->ioc['request']) && $this->ioc['request'] instanceof HttpRequest) {
                 throw new HttpException(404, $errorMsg);
             } else {
@@ -336,8 +339,8 @@ abstract class Controller implements IConsumer
         if ($this->ioc['response'] instanceof HttpResponse) {
             $type = $this->ioc['response']->headers()->get('Content-Type');
         }
-        if($type && isset($this->ioc['debugger'])
-                && strpos(strtolower($type), 'html') === false){
+        if ($type && isset($this->ioc['debugger'])
+                && strpos(strtolower($type), 'html') === false) {
             $this->ioc['debugger']->enabled(false);
         }
     }
@@ -350,8 +353,6 @@ abstract class Controller implements IConsumer
     public function __invoke($container)
     {
         $this->ioc = $container;
-
         return $this;
     }
-
 }

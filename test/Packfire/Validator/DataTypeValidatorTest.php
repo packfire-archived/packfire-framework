@@ -44,5 +44,4 @@ class DataTypeValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($object->validate(new \stdClass()));
         $this->assertFalse($object->validate('test'));
     }
-
 }

@@ -50,5 +50,4 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceof('Packfire\Yaml\YamlParser', $this->object->parser());
     }
-
 }

@@ -50,5 +50,4 @@ class ObjectSelectedFieldComparator extends ObjectFieldComparator
             return call_user_func($func, $object);
         }
     }
-
 }

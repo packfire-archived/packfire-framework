@@ -25,5 +25,4 @@ interface IRouter
     public function route($request);
 
     public function to($key, $params = array());
-
 }

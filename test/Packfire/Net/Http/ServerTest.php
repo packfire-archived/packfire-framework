@@ -43,5 +43,4 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.iana.org', $response->headers()->get('location'));
         $this->assertEquals('302 Found', $response->code());
     }
-
 }

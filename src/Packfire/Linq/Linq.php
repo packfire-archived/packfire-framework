@@ -137,9 +137,9 @@ class Linq implements ILinq, \IteratorAggregate
     public function average($field = null)
     {
         if (!$field) {
-            $field = function($x){
-                    return $x;
-                };
+            $field = function ($x) {
+                return $x;
+            };
         }
         $result = self::from($this->collection, $this->queue)->select($field)->finalize();
 
@@ -489,5 +489,4 @@ class Linq implements ILinq, \IteratorAggregate
 
         return $this->orDowncast();
     }
-
 }

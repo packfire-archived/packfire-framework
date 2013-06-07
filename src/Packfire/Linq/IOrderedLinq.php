@@ -25,5 +25,4 @@ interface IOrderedLinq extends ILinq
     public function thenBy($field);
 
     public function thenByDesc($field);
-
 }

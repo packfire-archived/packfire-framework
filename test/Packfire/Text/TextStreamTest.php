@@ -155,5 +155,4 @@ class TextStreamTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Runk brown', $this->object->read(10));
         $this->assertEquals(44, $this->object->length());
     }
-
 }

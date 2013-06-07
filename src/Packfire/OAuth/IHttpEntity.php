@@ -23,5 +23,4 @@ namespace Packfire\OAuth;
 interface IHttpEntity
 {
     public function oauth($key, $value = null);
-
 }

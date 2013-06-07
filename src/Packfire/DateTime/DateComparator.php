@@ -34,8 +34,6 @@ class DateComparator extends PropertyComparator
      */
     public function compare($date1, $date2)
     {
-        return $this->compareComponents($date1, $date2,
-                array('year', 'month', 'day'));
+        return $this->compareComponents($date1, $date2, array('year', 'month', 'day'));
     }
-
 }

@@ -83,9 +83,8 @@ class Graph
     {
         $dijkstra = new Dijkstra($this);
         $path = $dijkstra->start($this->get($start))
-                ->end($this->get($end))->find();
+            ->end($this->get($end))->find();
 
         return $path;
     }
-
 }

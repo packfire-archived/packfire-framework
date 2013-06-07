@@ -106,8 +106,12 @@ abstract class Router implements IConsumer, IRouter
             $route = $this->routes->get($key);
             if ($route === null) {
                 throw new NullException(
-                        sprintf('Routing route "%s" was not found in the'
-                                . ' router\'s entries.', $key));
+                    sprintf(
+                        'Routing route "%s" was not found in the'
+                        . ' router\'s entries.',
+                        $key
+                    )
+                );
             }
 
             return $this->prepareRoute($route, $params);
@@ -140,5 +144,4 @@ abstract class Router implements IConsumer, IRouter
 
         return $this;
     }
-
 }

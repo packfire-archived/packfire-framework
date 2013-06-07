@@ -51,5 +51,4 @@ class ClientRequest extends Request
     {
         return $this->client;
     }
-
 }

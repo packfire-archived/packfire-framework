@@ -124,5 +124,4 @@ class Schema extends DbSchema
 
         return $tables;
     }
-
 }

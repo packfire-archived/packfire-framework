@@ -25,5 +25,4 @@ use Packfire\Linq\ILinq as ICoreLinq;
 interface ILinq extends ICoreLinq
 {
     public function model($model);
-
 }

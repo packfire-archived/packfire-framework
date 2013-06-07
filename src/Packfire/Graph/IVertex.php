@@ -74,5 +74,4 @@ interface IVertex
      * @since 1.0-sofia
      */
     public function reset();
-
 }

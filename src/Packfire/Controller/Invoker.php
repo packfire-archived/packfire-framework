@@ -141,5 +141,4 @@ class Invoker implements IConsumer
 
         return $this;
     }
-
 }

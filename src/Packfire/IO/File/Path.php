@@ -86,7 +86,7 @@ class Path
         $dir = @opendir($path);
         while (false !== ($file = readdir($dir))) {
             if (!in_array($file, $ignore)) {
-                $file = $path . DIRECTORY_SEPARATOR . $file;
+                $file = $path . '/' . $file;
                 chmod($file, $permission);
                 if (is_dir($file)) {
                     self::setPermission($file, $permission);
@@ -122,12 +122,16 @@ class Path
         mkdir($destination, 0777, true);
         while (false !== ( $file = readdir($dir))) {
             if (($file != '.') && ($file != '..')) {
-                if (is_dir($source . DIRECTORY_SEPARATOR . $file)) {
-                    self::copy($source . DIRECTORY_SEPARATOR . $file,
-                            $destination . DIRECTORY_SEPARATOR . $file);
+                if (is_dir($source . '/' . $file)) {
+                    self::copy(
+                        $source . '/' . $file,
+                        $destination . '/' . $file
+                    );
                 } else {
-                    copy($source . DIRECTORY_SEPARATOR . $file,
-                            $destination . DIRECTORY_SEPARATOR . $file);
+                    copy(
+                        $source . '/' . $file,
+                        $destination . '/' . $file
+                    );
                 }
             }
         }
@@ -145,8 +149,9 @@ class Path
     public function clear()
     {
         $iterator = new \RecursiveIteratorIterator(
-                new \RecursiveDirectoryIterator($this->path, \RecursiveDirectoryIterator::SKIP_DOTS),
-                \RecursiveIteratorIterator::CHILD_FIRST);
+            new \RecursiveDirectoryIterator($this->path, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
         foreach ($iterator as $path) {
             if ($path->isDir()) {
                 rmdir((string) $path);
@@ -397,5 +402,4 @@ class Path
 
         return implode(DIRECTORY_SEPARATOR, $relPath);
     }
-
 }

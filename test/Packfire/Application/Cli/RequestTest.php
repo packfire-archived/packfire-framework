@@ -46,5 +46,4 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('cli', $this->object->method());
     }
-
 }

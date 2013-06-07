@@ -251,8 +251,10 @@ class Inflector
         $aeiou = array('a', 'e', 'i', 'o', 'u');
         // penny => pennies
         if (substr($lc, -1) == 'y' && !in_array(substr($lc, -2, 1), $aeiou)) {
-            return self::retainForm($word,
-                    substr($word, 0, strlen($word) - 1) . 'ies');
+            return self::retainForm(
+                $word,
+                substr($word, 0, strlen($word) - 1) . 'ies'
+            );
         }
         // penny => pennies
         if (substr($lc, -3) == 'ies' && !in_array(substr($lc, -4, 1), $aeiou)) {
@@ -261,8 +263,10 @@ class Inflector
 
         // alumnus => alumni
         if (substr($lc, -2) == 'us') {
-            return self::retainForm($word,
-                    substr($word, 0, strlen($word) - 2) . 'i');
+            return self::retainForm(
+                $word,
+                substr($word, 0, strlen($word) - 2) . 'i'
+            );
         }
 
         $endWith = array('xes', 'ses', 'zes', 'shes', 'ches');
@@ -306,5 +310,4 @@ class Inflector
         return $num == 1 ? $singular :
             ($plural ? $plural : self::plural($singular));
     }
-
 }

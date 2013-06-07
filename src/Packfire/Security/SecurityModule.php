@@ -114,5 +114,4 @@ class SecurityModule implements ISecurityModule, IConsumer
 
         return $this;
     }
-
 }

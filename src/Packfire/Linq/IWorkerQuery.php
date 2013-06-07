@@ -28,5 +28,4 @@ interface IWorkerQuery extends IQuery
      * @since 1.0-sofia
      */
     public function worker();
-
 }

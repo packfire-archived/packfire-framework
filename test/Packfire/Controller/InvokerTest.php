@@ -35,7 +35,8 @@ class InvokerTest extends \PHPUnit_Framework_TestCase
         $bucket = $this->ioc;
 
         $this->object = new Invoker(
-                'Packfire\Welcome\HomeController', 'index'
+            'Packfire\Welcome\HomeController',
+            'index'
         );
 
         $request = new HttpRequest(null, null);
@@ -44,13 +45,17 @@ class InvokerTest extends \PHPUnit_Framework_TestCase
 
         $bucket['response'] = new HttpResponse();
 
-        $bucket['session.storage'] = $bucket->share(function() {
-                    return new \Packfire\Test\Mocks\SessionStorage();
-                });
+        $bucket['session.storage'] = $bucket->share(
+            function () {
+                return new \Packfire\Test\Mocks\SessionStorage();
+            }
+        );
 
-        $bucket['session'] = $bucket->share(function($c) {
-                    return new Session($c['session.storage']);
-                });
+        $bucket['session'] = $bucket->share(
+            function ($c) {
+                return new Session($c['session.storage']);
+            }
+        );
 
         $router = new Router();
         $config = new Map(array('rewrite' => 'home/{theme}', 'actual' => 'Rest'));
@@ -79,5 +84,4 @@ class InvokerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Packfire\Application\IAppResponse', $this->ioc['response']);
         $this->assertNotEmpty($this->ioc['response']->body());
     }
-
 }

@@ -82,8 +82,7 @@ class Debugger implements IConsumer
                 $output = var_export($value, true);
                 $dbts = debug_backtrace();
                 $dbt = reset($dbts);
-                $where = sprintf('%s:%d', Path::baseName($dbt['file']),
-                        $dbt['line']);
+                $where = sprintf('%s:%d', Path::baseName($dbt['file']), $dbt['line']);
                 $this->output->write($output, $where, __FUNCTION__);
             }
         }
@@ -109,11 +108,12 @@ class Debugger implements IConsumer
     public function exception($exception)
     {
         if ($this->enabled) {
-            $where = sprintf('%s:%d',
-                    Path::baseName($exception->getFile()),
-                    $exception->getLine());
-            $message = sprintf('Error %s: %s', $exception->getCode(),
-                    $exception->getMessage());
+            $where = sprintf(
+                '%s:%d',
+                Path::baseName($exception->getFile()),
+                $exception->getLine()
+            );
+            $message = sprintf('Error %s: %s', $exception->getCode(), $exception->getMessage());
             $this->output->write($message, $where, __FUNCTION__);
         }
     }
@@ -130,11 +130,15 @@ class Debugger implements IConsumer
             $dbts = debug_backtrace();
             $dbt = reset($dbts);
             $message = sprintf(
-                    'Time taken from application loaded to reach %s line %s',
-                    $dbt['file'], $dbt['line']);
-            $this->output->write($message,
-                    (DateTime::microtime() - __PACKFIRE_START__) . 's',
-                    __FUNCTION__);
+                'Time taken from application loaded to reach %s line %s',
+                $dbt['file'],
+                $dbt['line']
+            );
+            $this->output->write(
+                $message,
+                (DateTime::microtime() - __PACKFIRE_START__) . 's',
+                __FUNCTION__
+            );
         }
     }
 
@@ -156,8 +160,7 @@ class Debugger implements IConsumer
             if (!array_key_exists('line', $dbt)) {
                 $dbt['line'] = '{0}';
             }
-            $where = sprintf('%s:%d', Path::baseName($dbt['file']),
-                    $dbt['line']);
+            $where = sprintf('%s:%d', Path::baseName($dbt['file']), $dbt['line']);
             $this->output->write($sql, $where, $type);
         }
     }
@@ -189,5 +192,4 @@ class Debugger implements IConsumer
 
         return $this;
     }
-
 }

@@ -45,5 +45,4 @@ class JsonResponse extends HttpResponse implements IResponseFormat
             $this->body($serializer->serialize($object));
         }
     }
-
 }

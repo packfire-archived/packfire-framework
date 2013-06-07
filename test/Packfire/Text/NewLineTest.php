@@ -37,18 +37,30 @@ class NewLineTest extends \PHPUnit_Framework_TestCase
      */
     public function testNeutralizeSimple()
     {
-        $this->assertEquals("Breaking\nDawn",
-                NewLine::neutralize("Breaking\nDawn"));
-        $this->assertEquals("Breaking\rDawn",
-                NewLine::neutralize("Breaking\nDawn", NewLine::MACINTOSH));
-        $this->assertEquals("Breaking\r\nDawn",
-                NewLine::neutralize("Breaking\nDawn", NewLine::WINDOWS));
-        $this->assertEquals('Breaking<br>Dawn',
-                NewLine::neutralize("Breaking\nDawn", NewLine::HTML_BR));
-        $this->assertEquals('Breaking<br />Dawn',
-                NewLine::neutralize("Breaking\nDawn", NewLine::XHTML_BR));
-        $this->assertEquals("Breaking-Dawn",
-                NewLine::neutralize("Breaking\nDawn", '-'));
+        $this->assertEquals(
+            "Breaking\nDawn",
+            NewLine::neutralize("Breaking\nDawn")
+        );
+        $this->assertEquals(
+            "Breaking\rDawn",
+            NewLine::neutralize("Breaking\nDawn", NewLine::MACINTOSH)
+        );
+        $this->assertEquals(
+            "Breaking\r\nDawn",
+            NewLine::neutralize("Breaking\nDawn", NewLine::WINDOWS)
+        );
+        $this->assertEquals(
+            'Breaking<br>Dawn',
+            NewLine::neutralize("Breaking\nDawn", NewLine::HTML_BR)
+        );
+        $this->assertEquals(
+            'Breaking<br />Dawn',
+            NewLine::neutralize("Breaking\nDawn", NewLine::XHTML_BR)
+        );
+        $this->assertEquals(
+            "Breaking-Dawn",
+            NewLine::neutralize("Breaking\nDawn", '-')
+        );
     }
 
     /**
@@ -56,12 +68,17 @@ class NewLineTest extends \PHPUnit_Framework_TestCase
      */
     public function testNeutralizeComplex()
     {
-        $this->assertEquals("Breaking\n\n\nDawn",
-                NewLine::neutralize("Breaking\n\r\n\nDawn"));
-        $this->assertEquals("Breaking\r\r\rDawn",
-                NewLine::neutralize("Breaking\n\r\n\nDawn", NewLine::MACINTOSH));
-        $this->assertEquals("Breaking\r\n\r\n\r\nDawn",
-                NewLine::neutralize("Breaking\n\r\n\nDawn", NewLine::WINDOWS));
+        $this->assertEquals(
+            "Breaking\n\n\nDawn",
+            NewLine::neutralize("Breaking\n\r\n\nDawn")
+        );
+        $this->assertEquals(
+            "Breaking\r\r\rDawn",
+            NewLine::neutralize("Breaking\n\r\n\nDawn", NewLine::MACINTOSH)
+        );
+        $this->assertEquals(
+            "Breaking\r\n\r\n\r\nDawn",
+            NewLine::neutralize("Breaking\n\r\n\nDawn", NewLine::WINDOWS)
+        );
     }
-
 }

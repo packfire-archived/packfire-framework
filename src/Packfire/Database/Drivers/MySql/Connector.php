@@ -65,5 +65,4 @@ class Connector extends PdoConnector
 
         return $database;
     }
-
 }

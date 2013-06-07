@@ -145,5 +145,4 @@ class YamlValueTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals("test\n\t\r\0", YamlValue::unescape('test\n\t\r\0'));
     }
-
 }

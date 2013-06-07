@@ -67,6 +67,7 @@ class Stream extends FileInputStream implements IIOStream
                 break;
             case 2:
                 $this->seek($offset);
+                // write the data in default case
             default:
                 fwrite($this->handle, $data);
                 break;
@@ -81,5 +82,4 @@ class Stream extends FileInputStream implements IIOStream
     {
         $this->handle = fopen($this->file, 'r+');
     }
-
 }

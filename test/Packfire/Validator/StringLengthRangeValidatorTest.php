@@ -39,5 +39,4 @@ class StringLengthRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->validate('hello world'));
         $this->assertFalse($this->object->validate('arm'));
     }
-
 }

@@ -130,5 +130,4 @@ class YamlReference implements \ArrayAccess
             unset($this->data[$offset]);
         }
     }
-
 }

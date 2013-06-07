@@ -34,8 +34,6 @@ class HttpException extends Exception
     {
         $http = constant('Packfire\Net\Http\ResponseCode::HTTP_' . $httpCode);
         $this->responseCode = $httpCode;
-        parent::__construct($http . ($message ? ' ' . $message : ''),
-                $httpCode);
+        parent::__construct($http . ($message ? ' ' . $message : ''), $httpCode);
     }
-
 }

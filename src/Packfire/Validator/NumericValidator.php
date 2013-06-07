@@ -35,5 +35,4 @@ class NumericValidator implements IValidator
     {
         return is_numeric($value);
     }
-
 }

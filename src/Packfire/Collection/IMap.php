@@ -29,5 +29,4 @@ interface IMap extends IList
     public function keys();
 
     public function values();
-
 }

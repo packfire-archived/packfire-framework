@@ -60,5 +60,4 @@ class ObservableEventTest extends \PHPUnit_Framework_TestCase implements IObserv
         $this->object->notify(5);
         $this->assertEquals(10, $this->counter);
     }
-
 }

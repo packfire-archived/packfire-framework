@@ -43,5 +43,4 @@ interface IObservable
      * @since 1.0-elenor
      */
     public function notify($arg = null);
-
 }

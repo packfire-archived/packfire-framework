@@ -45,5 +45,4 @@ interface ISessionStorage extends ISessionBucket
      * @since 1.0-sofia
      */
     public function bucket($id);
-
 }

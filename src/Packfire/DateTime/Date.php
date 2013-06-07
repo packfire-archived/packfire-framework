@@ -74,8 +74,11 @@ class Date extends DateTimeComponent implements IComparable
         if (func_num_args() == 1) {
             if ($day != $this->day) {
                 $day--;
-                $day = $this->processNextComponent($day, 'month',
-                        DateTime::daysInMonth($this->month, $this->year)) + 1;
+                $day = $this->processNextComponent(
+                    $day,
+                    'month',
+                    DateTime::daysInMonth($this->month, $this->year)
+                ) + 1;
                 $this->day = $day + 0;
             }
         }
@@ -220,5 +223,4 @@ class Date extends DateTimeComponent implements IComparable
 
         return $comparator->compare($this, $another);
     }
-
 }

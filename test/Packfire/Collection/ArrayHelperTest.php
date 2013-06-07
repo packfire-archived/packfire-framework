@@ -83,5 +83,4 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($charlie, $delta);
 
     }
-
 }

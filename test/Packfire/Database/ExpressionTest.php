@@ -37,5 +37,4 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('NOW()', $this->object->expression());
     }
-
 }

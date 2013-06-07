@@ -42,5 +42,4 @@ class ClientOSTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('', ClientOS::UNKNOWN);
     }
-
 }

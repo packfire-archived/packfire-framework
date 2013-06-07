@@ -42,8 +42,6 @@ class DateTimeComparator implements IComparator
             $timeComp = new TimeComparator();
             $result = $timeComp->compare($datetime1->time(), $datetime2->time());
         }
-
         return $result;
     }
-
 }

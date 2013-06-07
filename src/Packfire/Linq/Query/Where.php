@@ -42,5 +42,4 @@ class Where extends Worker
 
         return $result;
     }
-
 }

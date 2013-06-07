@@ -34,5 +34,4 @@ class Reverse implements IQuery
     {
         return array_reverse($collection);
     }
-
 }

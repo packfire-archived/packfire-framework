@@ -29,5 +29,4 @@ interface IQuery
      * @since 1.0-sofia
      */
     public function run($collection);
-
 }

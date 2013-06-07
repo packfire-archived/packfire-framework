@@ -48,7 +48,6 @@ class Deque extends Queue implements IDeque
         if ($this->count() > 0) {
             $value = array_pop($this->array);
         }
-
         return $value;
     }
 
@@ -66,5 +65,4 @@ class Deque extends Queue implements IDeque
 
         return null;
     }
-
 }

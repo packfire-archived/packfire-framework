@@ -61,5 +61,4 @@ class SignatureTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($stub->check('test'));
         $this->assertFalse($stub->check('test2'));
     }
-
 }

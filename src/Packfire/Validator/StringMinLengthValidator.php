@@ -52,5 +52,4 @@ class StringMinLengthValidator implements IValidator
     {
         return strlen($value) >= $this->length;
     }
-
 }

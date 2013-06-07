@@ -79,5 +79,4 @@ class DequeTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertNull($this->object->back());
     }
-
 }

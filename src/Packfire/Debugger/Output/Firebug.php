@@ -79,5 +79,4 @@ class Firebug implements IOutput
         $this->buffer[] = array($jsFunction,
             $message . ($value ? ' ['. $value . ']' : ''));
     }
-
 }

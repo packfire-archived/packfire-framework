@@ -132,5 +132,4 @@ class StreamReader
     {
         return $this->stream->tell() < $this->stream->length();
     }
-
 }

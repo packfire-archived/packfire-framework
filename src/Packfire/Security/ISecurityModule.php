@@ -59,5 +59,4 @@ interface ISecurityModule
      * @since 1.1-sofia
      */
     public function request($request = null);
-
 }

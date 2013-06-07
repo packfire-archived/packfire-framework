@@ -100,13 +100,16 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSingular()
     {
-        $this->testCases = array_merge($this->testCases, array(
-            'man' => 'man',
-            'key' => 'key',
-            'mummy' => 'mummy',
-            'yatch' => 'yatch',
-            'matches' => 'match'
-        ));
+        $this->testCases = array_merge(
+            $this->testCases,
+            array(
+                'man' => 'man',
+                'key' => 'key',
+                'mummy' => 'mummy',
+                'yatch' => 'yatch',
+                'matches' => 'match'
+            )
+        );
         foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($singular, Inflector::singular($plural));
         }
@@ -117,14 +120,17 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testPlural()
     {
-        $this->testCases = array_merge($this->testCases, array(
-            'men' => 'men',
-            'keys' => 'keys',
-            'mummies' => 'mummies',
-            'yatches' => 'yatches',
-            'passes' => 'pass',
-            'kins' => 'kins'
-        ));
+        $this->testCases = array_merge(
+            $this->testCases,
+            array(
+                'men' => 'men',
+                'keys' => 'keys',
+                'mummies' => 'mummies',
+                'yatches' => 'yatches',
+                'passes' => 'pass',
+                'kins' => 'kins'
+            )
+        );
         foreach ($this->testCases as $plural => $singular) {
             $this->assertEquals($plural, Inflector::plural($singular));
         }
@@ -172,5 +178,4 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('aaa', Inflector::quantify(2, 'bbb', 'aaa'));
         $this->assertEquals('bbb', Inflector::quantify(1, 'bbb', 'aaa'));
     }
-
 }

@@ -140,8 +140,6 @@ class ObjectObserver implements IEventWatchable
     public function __call($name, $args)
     {
         $this->handler->trigger('call', array($name, $args));
-
         return call_user_func_array(array($this->model, $name), $args);
     }
-
 }

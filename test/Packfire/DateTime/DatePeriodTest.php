@@ -67,5 +67,4 @@ class DatePeriodTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $array[2]->month());
         $this->assertEquals(2012, $array[2]->year());
     }
-
 }

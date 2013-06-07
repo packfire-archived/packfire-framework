@@ -47,7 +47,14 @@ class LinqTest extends \PHPUnit_Framework_TestCase
     {
         $object = Linq::from(array(50, 20, 20));
         $this->assertEquals(30, $object->average());
-        $this->assertEquals(60, $object->average(function($x){return $x * 2;}));
+        $this->assertEquals(
+            60,
+            $object->average(
+                function ($x) {
+                    return $x * 2;
+                }
+            )
+        );
     }
 
     /**
@@ -57,7 +64,14 @@ class LinqTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertCount(9, $this->object);
         $this->assertEquals(9, $this->object->count());
-        $this->assertEquals(3, $this->object->count(function($x){return $x > 10;}));
+        $this->assertEquals(
+            3,
+            $this->object->count(
+                function ($x) {
+                    return $x > 10;
+                }
+            )
+        );
     }
 
     /**
@@ -121,22 +135,38 @@ class LinqTest extends \PHPUnit_Framework_TestCase
             array('name' => 'Smith', 'area' => 1),
             array('name' => 'Mace', 'area' => 3),
         );
-        $result = Linq::from($data)->groupBy(function($x){return $x['area'];})
-                    ->toList()->toArray();
+        $result = Linq::from($data)->groupBy(
+            function ($x) {
+                return $x['area'];
+            }
+        )->toList()->toArray();
 
         $this->assertCount(3, $result);
         $this->assertEquals(2, $result[0]->key());
         $this->assertCount(2, $result[0]->value());
-        $this->assertEquals(array(array('name' => 'Jason', 'area' => 2),
-            array('name' => 'Jack', 'area' => 2)), $result[0]->value()->toArray());
+        $this->assertEquals(
+            array(
+                array('name' => 'Jason', 'area' => 2),
+                array('name' => 'Jack', 'area' => 2)
+            ),
+            $result[0]->value()->toArray()
+        );
         $this->assertEquals(1, $result[1]->key());
         $this->assertCount(1, $result[1]->value());
-        $this->assertEquals(array(array('name' => 'Smith', 'area' => 1)),
-                $result[1]->value()->toArray());
+        $this->assertEquals(
+            array(
+                array('name' => 'Smith', 'area' => 1)
+            ),
+            $result[1]->value()->toArray()
+        );
         $this->assertEquals(3, $result[2]->key());
         $this->assertCount(1, $result[2]->value());
-        $this->assertEquals(array(array('name' => 'Mace', 'area' => 3)),
-                $result[2]->value()->toArray());
+        $this->assertEquals(
+            array(
+                array('name' => 'Mace', 'area' => 3)
+            ),
+            $result[2]->value()->toArray()
+        );
     }
 
     /**
@@ -144,15 +174,30 @@ class LinqTest extends \PHPUnit_Framework_TestCase
      */
     public function testJoin()
     {
-        $col1 = new Linq(array(
-            array('key' => 1, 'name' => 'Sam', 'foreign' => 2),
-            array('key' => 2, 'name' => 'Kent', 'foreign' => 1)
-        ));
+        $col1 = new Linq(
+            array(
+                array('key' => 1, 'name' => 'Sam', 'foreign' => 2),
+                array('key' => 2, 'name' => 'Kent', 'foreign' => 1)
+            )
+        );
         $col2 = array(
             array('key' => 1, 'name' => 'Ridge'),
             array('key' => 2, 'name' => 'Yong')
         );
-        $col1->join($col2, function($x){return $x['foreign'];}, function($x){return $x['key'];}, function($a, $b){return $a['name'] . ' ' . $b['name'];});
+        $col1Selector = function ($x) {
+            return $x['foreign'];
+        };
+        $col2Selector = function ($x) {
+            return $x['key'];
+        };
+        $col1->join(
+            $col2,
+            $col1Selector,
+            $col2Selector,
+            function ($a, $b) {
+                return $a['name'] . ' ' . $b['name'];
+            }
+        );
         $this->assertEquals(array('Sam Yong', 'Kent Ridge'), $col1->toList()->toArray());
     }
 
@@ -180,7 +225,11 @@ class LinqTest extends \PHPUnit_Framework_TestCase
      */
     public function testLast2()
     {
-        $this->object->where(function(){return false;})->last();
+        $this->object->where(
+            function () {
+                return false;
+            }
+        )->last();
     }
 
     /**
@@ -192,7 +241,11 @@ class LinqTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(30, $first);
         $first = $this->object->take(2)->lastOrDefault();
         $this->assertEquals(6, $first);
-        $first = $this->object->where(function(){return false;})->lastOrDefault();
+        $first = $this->object->where(
+            function () {
+                return false;
+            }
+        )->lastOrDefault();
         $this->assertNull($first);
     }
 
@@ -215,7 +268,11 @@ class LinqTest extends \PHPUnit_Framework_TestCase
     {
         $max = $this->object->max();
         $this->assertEquals(100, $max);
-        $max = $this->object->where(function($x){return $x < 50;})->max();
+        $max = $this->object->where(
+            function ($x) {
+                return $x < 50;
+            }
+        )->max();
         $this->assertEquals(30, $max);
     }
 
@@ -226,7 +283,11 @@ class LinqTest extends \PHPUnit_Framework_TestCase
     {
         $min = $this->object->min();
         $this->assertEquals(2, $min);
-        $min = $this->object->where(function($x){return $x > 6;})->min();
+        $min = $this->object->where(
+            function ($x) {
+                return $x > 6;
+            }
+        )->min();
         $this->assertEquals(8, $min);
     }
 
@@ -235,9 +296,27 @@ class LinqTest extends \PHPUnit_Framework_TestCase
      */
     public function testAll()
     {
-        $this->assertTrue($this->object->all(function($x){return $x > 0;}));
-        $this->assertFalse($this->object->all(function($x){return $x > 50;}));
-        $this->assertFalse($this->object->all(function($x){return false;}));
+        $this->assertTrue(
+            $this->object->all(
+                function ($x) {
+                    return $x > 0;
+                }
+            )
+        );
+        $this->assertFalse(
+            $this->object->all(
+                function ($x) {
+                    return $x > 50;
+                }
+            )
+        );
+        $this->assertFalse(
+            $this->object->all(
+                function ($x) {
+                    return false;
+                }
+            )
+        );
     }
 
     /**
@@ -245,9 +324,27 @@ class LinqTest extends \PHPUnit_Framework_TestCase
      */
     public function testAny()
     {
-        $this->assertTrue($this->object->any(function($x){return $x > 0;}));
-        $this->assertTrue($this->object->any(function($x){return $x > 50;}));
-        $this->assertFalse($this->object->any(function($x){return false;}));
+        $this->assertTrue(
+            $this->object->any(
+                function ($x) {
+                    return $x > 0;
+                }
+            )
+        );
+        $this->assertTrue(
+            $this->object->any(
+                function ($x) {
+                    return $x > 50;
+                }
+            )
+        );
+        $this->assertFalse(
+            $this->object->any(
+                function ($x) {
+                    return false;
+                }
+            )
+        );
     }
 
     /**
@@ -261,11 +358,17 @@ class LinqTest extends \PHPUnit_Framework_TestCase
             array('name' => 'Smith', 'age' => 30),
             array('name' => 'Mace', 'age' => 85),
         );
-        $result = Linq::from($data)->orderBy(function($x){return $x['age'];})
-                ->select(function($x){return $x['name'];})->toList()->toArray();
+        $ageSelector = function ($x) {
+            return $x['age'];
+        };
+        $result = Linq::from($data)->orderBy($ageSelector)->select(
+            function ($x) {
+                return $x['name'];
+            }
+        )->toList()->toArray();
         $this->assertEquals(array('Jack', 'Smith', 'Jason', 'Mace'), $result);
-        $result = Linq::from($data)->orderBy(function($x){return $x['age'];})
-                ->select(function($x){return $x['age'];})->toList()->toArray();
+        $result = Linq::from($data)->orderBy($ageSelector)
+            ->select($ageSelector)->toList()->toArray();
         $this->assertEquals(array(29, 30, 50, 85), $result);
     }
 
@@ -280,11 +383,17 @@ class LinqTest extends \PHPUnit_Framework_TestCase
             array('name' => 'Smith', 'age' => 30),
             array('name' => 'Mace', 'age' => 85),
         );
-        $result = Linq::from($data)->orderByDesc(function($x){return $x['age'];})
-                ->select(function($x){return $x['name'];})->toList()->toArray();
+        $ageSelector = function ($x) {
+            return $x['age'];
+        };
+        $result = Linq::from($data)->orderByDesc($ageSelector)->select(
+            function ($x) {
+                return $x['name'];
+            }
+        )->toList()->toArray();
         $this->assertEquals(array('Mace', 'Jason', 'Smith', 'Jack'), $result);
-        $result = Linq::from($data)->orderByDesc(function($x){return $x['age'];})
-                ->select(function($x){return $x['age'];})->toList()->toArray();
+        $result = Linq::from($data)->orderByDesc($ageSelector)
+            ->select($ageSelector)->toList()->toArray();
         $this->assertEquals(array(85, 50, 30, 29), $result);
     }
 
@@ -293,9 +402,11 @@ class LinqTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelect()
     {
-        $result = $this->object->select(function($x){
-            return $x - 1;
-        })->toList()->toArray();
+        $result = $this->object->select(
+            function ($x) {
+                return $x - 1;
+            }
+        )->toList()->toArray();
         $this->assertEquals(array(4, 5, 2, 1, 3, 7, 99, 49, 29), $result);
     }
 
@@ -306,7 +417,11 @@ class LinqTest extends \PHPUnit_Framework_TestCase
     {
         $sum = $this->object->sum();
         $this->assertEquals(208, $sum);
-        $sum = $this->object->where(function($x){return $x < 5;})->sum();
+        $sum = $this->object->where(
+            function ($x) {
+                return $x < 5;
+            }
+        )->sum();
         $this->assertEquals(9, $sum);
     }
 
@@ -338,7 +453,11 @@ class LinqTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhere()
     {
-        $array = $this->object->where(function($x){return $x < 5;})->toList()->toArray();
+        $array = $this->object->where(
+            function ($x) {
+                return $x < 5;
+            }
+        )->toList()->toArray();
         $this->assertEquals(array(3, 2, 4), $array);
     }
 
@@ -369,5 +488,4 @@ class LinqTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(30, $first);
         $this->assertEquals(5, $last);
     }
-
 }

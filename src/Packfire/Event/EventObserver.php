@@ -53,5 +53,4 @@ class EventObserver implements IObserver
         // pass the arguments to the handler to handle.
         call_user_func_array($this->handler, func_get_args());
     }
-
 }

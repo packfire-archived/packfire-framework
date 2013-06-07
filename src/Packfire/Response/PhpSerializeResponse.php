@@ -37,5 +37,4 @@ class PhpSerializeResponse extends HttpResponse implements IResponseFormat
         $this->headers()->add('Content-Type', 'text/plain');
         $this->body(serialize($object));
     }
-
 }

@@ -56,5 +56,4 @@ interface ITemplate
      * @since 2.0.9
      */
     public function __toString();
-
 }

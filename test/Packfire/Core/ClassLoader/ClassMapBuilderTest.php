@@ -38,5 +38,4 @@ class ClassMapBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $map);
         $this->assertArrayHasKey('Packfire\Core\ClassLoader\ClassMapBuilderTest', $map);
     }
-
 }

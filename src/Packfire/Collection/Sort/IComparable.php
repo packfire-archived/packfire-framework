@@ -23,5 +23,4 @@ namespace Packfire\Collection\Sort;
 interface IComparable
 {
     public function compareTo($another);
-
 }

@@ -70,5 +70,4 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->object->oauth(OAuth::TOKEN_SECRET, 'secret');
         $this->assertEquals($this->object->body(), $this->object->output());
     }
-
 }

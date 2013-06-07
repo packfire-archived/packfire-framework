@@ -30,5 +30,4 @@ interface ISorter extends IComparator
      * @since 1.0-sofia
      */
     public function sort(&$sortable);
-
 }

@@ -111,8 +111,8 @@ class YamlInline
      * @return array Returns the array ($key => $value) data parsed from the line.
      * @since 1.0-sofia
      */
-    public function parseKeyValue(&$position = 0,
-            $breakers = array('{', YamlPart::KEY_VALUE_SEPARATOR, "\n")){
+    public function parseKeyValue(&$position = 0, $breakers = array('{', YamlPart::KEY_VALUE_SEPARATOR, "\n"))
+    {
         $result = array();
         $key = $this->parseScalar($position, $breakers, false);
         $value = $this->parseValue($position, $breakers);
@@ -135,13 +135,14 @@ class YamlInline
      * @return string  Returns the parsed value.
      * @since 1.0-sofia
      */
-    public function parseScalar(&$position = 0,
-            $breakers = array("\n"),
-            $translate = true){
+    public function parseScalar(
+        &$position = 0,
+        $breakers = array("\n"),
+        $translate = true
+    ) {
         $line = $this->line;
         $length = $this->length;
-        if($length > 1 && in_array($line[$position],
-                YamlPart::quotationMarkers())){
+        if ($length > 1 && in_array($line[$position], YamlPart::quotationMarkers())) {
             $result = $this->parseQuotedString($position);
             // skip additional data till the breaker
             $this->parseNormalScalar($position, $breakers);
@@ -165,8 +166,8 @@ class YamlInline
      * @return Returns the parsed value
      * @since 1.0-sofia
      */
-    private function parseNormalScalar(&$position = 0,
-            $breakers = array("\n")){
+    private function parseNormalScalar(&$position = 0, $breakers = array("\n"))
+    {
         $offset = null;
         $line = $this->line;
         foreach ($breakers as $breaker) {
@@ -249,8 +250,7 @@ class YamlInline
                     // do nothing here
                     break;
                 default:
-                    $result[] = $this->parseScalar($position,
-                            array(',', ']', '#'));
+                    $result[] = $this->parseScalar($position, array(',', ']', '#'));
                     break;
             }
             ++$position;
@@ -287,8 +287,7 @@ class YamlInline
                     continue;
                     break;
                 default:
-                    $data = $this->parseKeyValue($position,
-                            array(':', $separator, '}'));
+                    $data = $this->parseKeyValue($position, array(':', $separator, '}'));
                     $result = array_merge($result, $data);
                     break;
             }
@@ -298,5 +297,4 @@ class YamlInline
 
         return $result;
     }
-
 }

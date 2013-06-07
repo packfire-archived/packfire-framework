@@ -45,5 +45,4 @@ class SessionStorage extends Storage
     {
         return $this->data;
     }
-
 }

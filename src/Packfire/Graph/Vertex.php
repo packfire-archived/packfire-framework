@@ -77,11 +77,11 @@ class Vertex implements IVertex
     {
         if ($this == $vertex || $this->id() == $vertex->id()) {
             throw new InvalidArgumentException(
-                    'Vertex::connect',
-                    'vertex',
-                    'not an instance of itself',
-                    'Vertex#' . $vertex->id()
-                );
+                'Vertex::connect',
+                'vertex',
+                'not an instance of itself',
+                'Vertex#' . $vertex->id()
+            );
         }
         $this->connections[$vertex->id()] = $cost;
     }
@@ -152,9 +152,8 @@ class Vertex implements IVertex
      */
     public function reset()
     {
-       $this->passed = false;
-       $this->bestFrom = null;
-       $this->potential = null;
+        $this->passed = false;
+        $this->bestFrom = null;
+        $this->potential = null;
     }
-
 }

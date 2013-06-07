@@ -29,5 +29,4 @@ class ThemeSwitchController extends Controller
         $this->ioc['session']->set('theme', $theme);
         $this->redirect($this->route('home'));
     }
-
 }

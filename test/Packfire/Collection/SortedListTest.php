@@ -32,7 +32,9 @@ class SortedListTest extends \PHPUnit_Framework_TestCase implements IComparator
 
     public function compare($a, $b)
     {
-        if ($a == $b) {return 0;}
+        if ($a == $b) {
+            return 0;
+        }
 
         return $a < $b ? -1 : 1;
     }
@@ -42,11 +44,15 @@ class SortedListTest extends \PHPUnit_Framework_TestCase implements IComparator
      */
     public function testOne()
     {
-        $this->object = new SortedList(function($a, $b){
-                if ($a == $b) {return 0;}
+        $this->object = new SortedList(
+            function ($a, $b) {
+                if ($a == $b) {
+                    return 0;
+                }
 
                 return $a < $b ? -1 : 1;
-            });
+            }
+        );
         $this->runner();
     }
 
@@ -81,5 +87,4 @@ class SortedListTest extends \PHPUnit_Framework_TestCase implements IComparator
         $this->assertCount(7, $this->object);
         $this->assertEquals(array(2, 4, 5, 5, 6, 7, 8), $this->object->toArray());
     }
-
 }

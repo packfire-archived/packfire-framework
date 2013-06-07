@@ -34,5 +34,4 @@ interface ISessionHandler
     public function garbageCollect($life);
 
     public function close();
-
 }

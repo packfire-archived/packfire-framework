@@ -42,5 +42,4 @@ class SerialValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->validate(250));
         $this->assertFalse($this->object->validate(1000.5));
     }
-
 }

@@ -29,5 +29,4 @@ interface IDeque extends IQueue
     public function back();
 
     public function dequeueBack();
-
 }

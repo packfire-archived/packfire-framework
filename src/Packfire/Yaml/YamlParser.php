@@ -149,8 +149,11 @@ class YamlParser
     private function parseKeyValue($line)
     {
         $position = 0;
-        $key = YamlInline::load($line)->parseScalar($position,
-                        array(YamlPart::KEY_VALUE_SEPARATOR), false);
+        $key = YamlInline::load($line)->parseScalar(
+            $position,
+            array(YamlPart::KEY_VALUE_SEPARATOR),
+            false
+        );
         $after = $position;
         if ($after >= strlen($line)) {
             $value = null;
@@ -190,8 +193,8 @@ class YamlParser
                 $result = YamlInline::load(trim($this->fetchBlock()))->parseMap();
             } elseif ($this->trimmedLine[0] == '[') {
                 $result = YamlInline::load(trim($this->fetchBlock()))->parseSequence();
-            }elseif(substr($this->trimmedLine, 0, 2) == YamlPart::SEQUENCE_ITEM_BULLET
-                    || $this->trimmedLine == YamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE){
+            } elseif (substr($this->trimmedLine, 0, 2) == YamlPart::SEQUENCE_ITEM_BULLET
+                    || $this->trimmedLine == YamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE) {
                 $result = $this->parseSequenceItems();
             } else {
                 if ($this->hasKeyValueLine($this->trimmedLine)) {
@@ -249,8 +252,11 @@ class YamlParser
                 case '>': // folded literal block
                     $this->nextLine();
                     $result = NewLine::neutralize(trim($this->fetchBlock()));
-                    $result = preg_replace(array('`\n\s+([^\s]+)`', '`([^\n]+)\n([^\n]+)`'),
-                            array("\n".'$1', '$1 $2'), $result);
+                    $result = preg_replace(
+                        array('`\n\s+([^\s]+)`', '`([^\n]+)\n([^\n]+)`'),
+                        array("\n".'$1', '$1 $2'),
+                        $result
+                    );
                     $result = str_replace("\n\n", "\n", $result);
                     break;
                 case '*': // refer to reference
@@ -295,8 +301,8 @@ class YamlParser
             $next = true;
             if ($this->trimmedLine) {
                 $bulletCheck = substr($this->trimmedLine, 0, 2);
-                if(($bulletCheck == YamlPart::SEQUENCE_ITEM_BULLET
-                        || ltrim($this->line) == YamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE)){
+                if (($bulletCheck == YamlPart::SEQUENCE_ITEM_BULLET
+                        || ltrim($this->line) == YamlPart::SEQUENCE_ITEM_BULLET_EMPTYLINE)) {
 
                     $lineValue = substr($this->trimmedLine, 2);
                     $cleanLineValue = YamlValue::stripQuote($lineValue);
@@ -400,5 +406,4 @@ class YamlParser
 
         return $text;
     }
-
 }

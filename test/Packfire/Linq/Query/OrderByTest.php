@@ -30,9 +30,11 @@ class OrderByTest extends \PHPUnit_Framework_TestCase
             array('name' => 'Sky', 'age' => 2),
             array('name' => 'Barr', 'age' => 6)
         );
-        $this->object = new OrderBy(function($item) {
-                            return $item['name'];
-                        });
+        $this->object = new OrderBy(
+            function ($item) {
+                return $item['name'];
+            }
+        );
     }
 
     /**
@@ -45,9 +47,12 @@ class OrderByTest extends \PHPUnit_Framework_TestCase
 
     public function testDescending()
     {
-        $this->object = new OrderBy(function($item) {
-                            return $item['name'];
-                        }, true);
+        $this->object = new OrderBy(
+            function ($item) {
+                return $item['name'];
+            },
+            true
+        );
         $result = $this->object->run($this->data);
         $this->assertEquals('Sofia', $result[0]['name']);
         $this->assertEquals('Sky', $result[1]['name']);
@@ -60,14 +65,15 @@ class OrderByTest extends \PHPUnit_Framework_TestCase
     {
         $result = $this->object->run($this->data);
         $this->assertEquals(
-                array(
-            array('name' => 'Barr', 'age' => 6),
-            array('name' => 'Raine', 'age' => 8),
-            array('name' => 'Roger', 'age' => 5),
-            array('name' => 'Sky', 'age' => 2),
-            array('name' => 'Sofia', 'age' => 17)
-                )
-                , $result);
+            array(
+                array('name' => 'Barr', 'age' => 6),
+                array('name' => 'Raine', 'age' => 8),
+                array('name' => 'Roger', 'age' => 5),
+                array('name' => 'Sky', 'age' => 2),
+                array('name' => 'Sofia', 'age' => 17)
+            ),
+            $result
+        );
     }
 
     /**
@@ -79,5 +85,4 @@ class OrderByTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->object->compare($this->data[1], $this->data[1]));
         $this->assertEquals(1, $this->object->compare($this->data[3], $this->data[4]));
     }
-
 }

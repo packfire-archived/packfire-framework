@@ -34,5 +34,4 @@ class Exception extends PhpException
         }
         parent::__construct($message, $code);
     }
-
 }

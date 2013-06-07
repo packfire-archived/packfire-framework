@@ -58,5 +58,4 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
         $this->assertEquals('David HasHunch: Scientist Monday', $result);
     }
-
 }

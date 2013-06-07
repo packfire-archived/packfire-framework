@@ -129,5 +129,4 @@ class Messenger implements IConsumer
     {
         $this->session->clear();
     }
-
 }

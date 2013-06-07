@@ -34,10 +34,10 @@ class OrderedLinq extends Linq implements IOrderedLinq
      */
     public function thenBy($field)
     {
-       $lastQuery = $this->lastQuery();
-       $this->queueAdd(new ThenBy($field, array($lastQuery, 'compare')));
+        $lastQuery = $this->lastQuery();
+        $this->queueAdd(new ThenBy($field, array($lastQuery, 'compare')));
 
-       return $this;
+        return $this;
     }
 
     /**
@@ -49,10 +49,9 @@ class OrderedLinq extends Linq implements IOrderedLinq
      */
     public function thenByDesc($field)
     {
-       $lastQuery = $this->lastQuery();
-       $this->queueAdd(new ThenBy($field, array($lastQuery, 'compare'), true));
+        $lastQuery = $this->lastQuery();
+        $this->queueAdd(new ThenBy($field, array($lastQuery, 'compare'), true));
 
-       return $this;
+        return $this;
     }
-
 }

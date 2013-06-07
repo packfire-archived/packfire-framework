@@ -202,9 +202,15 @@ class Cookie
      */
     public function set()
     {
-        return setcookie($this->name, $this->value,
-                $this->expire->toTimestamp(),
-                $this->path, $this->domain, $this->secure, $this->httpOnly);
+        return setcookie(
+            $this->name,
+            $this->value,
+            $this->expire->toTimestamp(),
+            $this->path,
+            $this->domain,
+            $this->secure,
+            $this->httpOnly
+        );
     }
 
     /**
@@ -217,5 +223,4 @@ class Cookie
         $this->value = null;
         $this->set();
     }
-
 }

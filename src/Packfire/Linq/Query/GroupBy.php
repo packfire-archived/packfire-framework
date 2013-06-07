@@ -53,5 +53,4 @@ class GroupBy extends Worker
 
         return $grouping;
     }
-
 }

@@ -123,8 +123,8 @@ class Request
         $okay = preg_match('`^([^\s]*) ([^\s]*) ([^\s]*)\n`', $strRequest, $matches);
         if (!$okay) {
             throw new ParseException(
-                    'Failed to parse HTTP method, URI and version in request'
-                );
+                'Failed to parse HTTP method, URI and version in request'
+            );
         }
 
         // process the status line
@@ -138,8 +138,10 @@ class Request
 
         $firstLinePos = strpos($strRequest, "\n");
         $headerEnd = strpos($strRequest, "\n\n");
-        Utility::parseHeaders(substr($strRequest, $firstLinePos + 1, $headerEnd - $firstLinePos - 1),
-                $this->headers);
+        Utility::parseHeaders(
+            substr($strRequest, $firstLinePos + 1, $headerEnd - $firstLinePos - 1),
+            $this->headers
+        );
 
         if ($this->headers->keyExists('cookie')) {
             $cookies = $this->headers->get('cookie');
@@ -356,5 +358,4 @@ class Request
 
         return $buffer;
     }
-
 }

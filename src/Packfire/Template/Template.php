@@ -101,9 +101,14 @@ class Template implements ITemplate
     {
         $tokens = new ArrayList();
         $matches = array();
-        $i = preg_match_all('`' . Regex::escape(self::KEY_OPEN) .
-                '([a-zA-Z0-9\.]+)' . Regex::escape(self::KEY_CLOSE) .
-                '`is', $this->template, $matches, PREG_SET_ORDER);
+        $i = preg_match_all(
+            '`' . Regex::escape(self::KEY_OPEN) .
+            '([a-zA-Z0-9\.]+)' . Regex::escape(self::KEY_CLOSE) .
+            '`is',
+            $this->template,
+            $matches,
+            PREG_SET_ORDER
+        );
         if ($i > 0) {
             foreach ($matches as $m) {
                 $tokens->add($m[1]);
@@ -134,5 +139,4 @@ class Template implements ITemplate
     {
         return $this->parse();
     }
-
 }

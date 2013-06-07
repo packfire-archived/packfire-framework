@@ -40,9 +40,10 @@ class XmlResponse extends HttpResponse implements IResponseFormat
             $this->body($object);
         } else {
             $serializer = new XmlSerializer();
-            $this->body('<?xml version="1.0" encoding="UTF-8" ?>'
-                    . "\n" . $serializer->serialize($object));
+            $this->body(
+                '<?xml version="1.0" encoding="UTF-8" ?>'
+                . "\n" . $serializer->serialize($object)
+            );
         }
     }
-
 }

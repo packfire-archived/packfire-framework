@@ -30,5 +30,4 @@ interface IComparator
      * @since 1.0-sofia
      */
     public function compare($one, $two);
-
 }

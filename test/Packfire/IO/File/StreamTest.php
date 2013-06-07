@@ -49,5 +49,4 @@ class StreamTest extends \PHPUnit_Framework_TestCase
         $this->object->seek(0);
         $this->assertEquals('test', $this->object->read(4));
     }
-
 }

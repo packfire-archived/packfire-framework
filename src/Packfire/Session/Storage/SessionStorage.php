@@ -179,5 +179,4 @@ class SessionStorage implements ISessionStorage
     {
         $this->overallBucket->has($key);
     }
-
 }

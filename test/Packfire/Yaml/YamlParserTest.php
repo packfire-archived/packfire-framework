@@ -81,27 +81,36 @@ class YamlParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('app', 'security', 'session', 'routing', 'database'), array_keys($result));
 
         $this->assertTrue(array_key_exists('app', $result));
-        $this->assertEquals(array(
-            'version' => '1.0',
-            'rootUrl' => 'http://localhost',
-            'debug' => false
-        ), $result['app']);
+        $this->assertEquals(
+            array(
+                'version' => '1.0',
+                'rootUrl' => 'http://localhost',
+                'debug' => false
+            ),
+            $result['app']
+        );
 
         $this->assertTrue(array_key_exists('security', $result));
-        $this->assertEquals(array(
-            'disabled' => false,
-            'override' => false,
-            'identity' => null
-        ), $result['security']);
+        $this->assertEquals(
+            array(
+                'disabled' => false,
+                'override' => false,
+                'identity' => null
+            ),
+            $result['security']
+        );
 
         $this->assertTrue(array_key_exists('session', $result));
-        $this->assertEquals(array(
-            'enabled' => false,
-            'name' => 'packfire',
-            'lifetime' => 3600,
-            'http' => true,
-            'secure' => false
-        ), $result['session']);
+        $this->assertEquals(
+            array(
+                'enabled' => false,
+                'name' => 'packfire',
+                'lifetime' => 3600,
+                'http' => true,
+                'secure' => false
+            ),
+            $result['session']
+        );
 
         $this->assertCount(2, $result['database']);
     }
@@ -121,5 +130,4 @@ class YamlParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('security', 'messenger', 'logger', 'session.storage', 'cache', 'debugger.output', 'router'), array_keys($result));
 
     }
-
 }

@@ -243,5 +243,4 @@ class PathTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Path::normalize('../../root/b/b.php'), Path::relativePath('/home/apache/a/a.php', '/home/root/b/b.php'));
         $this->assertEquals(Path::normalize('../../apache/htdocs/b/en/b.php'), Path::relativePath('/home/root/a/a.php', '/home/apache/htdocs/b/en/b.php'));
     }
-
 }

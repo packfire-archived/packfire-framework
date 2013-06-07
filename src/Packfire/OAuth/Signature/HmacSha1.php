@@ -43,5 +43,4 @@ class HmacSha1 extends Signature
     {
         return 'HMAC-SHA1';
     }
-
 }

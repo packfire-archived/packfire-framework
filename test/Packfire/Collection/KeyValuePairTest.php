@@ -48,5 +48,4 @@ class KeyValuePairTest extends \PHPUnit_Framework_TestCase
         $this->object->value('hey');
         $this->assertEquals('hey', $this->object->value());
     }
-
 }

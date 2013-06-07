@@ -56,11 +56,13 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase
     public function testInvoke2()
     {
         $params = array();
-        $object = new ActionInvoker(function($name, $age) use (&$params) {
-                    $params = func_get_args();
+        $object = new ActionInvoker(
+            function ($name, $age) use (&$params) {
+                $params = func_get_args();
 
-                    return true;
-                });
+                return true;
+            }
+        );
         $this->assertTrue($object->invoke(array('age' => 5, 'name' => 'John Smith')));
         $this->assertEquals(array('John Smith', 5), $params);
     }
@@ -84,5 +86,4 @@ class ActionInvokerTest extends \PHPUnit_Framework_TestCase
         $object = new ActionInvoker('Packfire\Core\ActionInvokerTest::staticAction');
         $this->assertEquals(28, $object->invoke(array('weight' => 84, 'height' => '1.72')));
     }
-
 }

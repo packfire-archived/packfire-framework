@@ -134,5 +134,4 @@ class InputStream implements IInputStream, IFile
     {
         $this->handle = fopen($this->file, 'r');
     }
-
 }

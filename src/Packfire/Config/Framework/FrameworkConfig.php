@@ -55,8 +55,6 @@ abstract class FrameworkConfig implements IFrameworkConfig
                 return $default;
             }
         }
-
         return null;
     }
-
 }

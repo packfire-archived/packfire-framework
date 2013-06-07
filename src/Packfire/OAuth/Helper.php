@@ -31,7 +31,9 @@ class Helper
                 return array_map(__METHOD__, $input);
             } elseif (is_scalar($input)) {
                 return str_replace(
-                    '+', ' ', str_replace('%7E', '~', rawurlencode($input))
+                    '+',
+                    ' ',
+                    str_replace('%7E', '~', rawurlencode($input))
                 );
             } else {
                 return '';
@@ -79,5 +81,4 @@ class Helper
 
         return implode('&', $pData);
     }
-
 }

@@ -51,5 +51,4 @@ class Bridge extends Mustache
             $this->parameters = null;
         }
     }
-
 }

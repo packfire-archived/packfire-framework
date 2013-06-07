@@ -56,5 +56,4 @@ class DaysOfWeek
      * Friday
      */
     const FRIDAY = 6;
-
 }

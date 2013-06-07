@@ -112,5 +112,4 @@ class LinqJoin implements ILinqQuery
 
         return $join;
     }
-
 }

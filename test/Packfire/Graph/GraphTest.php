@@ -94,8 +94,10 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         $path = $this->graph->find('A', 'B');
         $this->assertEquals(5, $path->distance());
         $this->assertEquals(0, $path->distance(0));
-        $this->assertEquals(array($this->nodeA, $this->nodeB),
-                $path->vertices()->toArray());
+        $this->assertEquals(
+            array($this->nodeA, $this->nodeB),
+            $path->vertices()->toArray()
+        );
     }
 
     /**
@@ -114,8 +116,9 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $path->distance(0));
         $this->assertEquals(3, $path->distance(1));
         $this->assertEquals(6, $path->distance(2));
-        $this->assertEquals(array($this->nodeA, $this->nodeC, $this->nodeD),
-                $path->vertices()->toArray());
+        $this->assertEquals(
+            array($this->nodeA, $this->nodeC, $this->nodeD),
+            $path->vertices()->toArray()
+        );
     }
-
 }

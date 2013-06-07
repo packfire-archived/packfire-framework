@@ -73,5 +73,4 @@ class Join implements IQuery
 
         return $result;
     }
-
 }

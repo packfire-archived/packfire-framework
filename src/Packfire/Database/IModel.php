@@ -35,5 +35,4 @@ interface IModel
      * @since 1.0-sofia
      */
     public function map();
-
 }

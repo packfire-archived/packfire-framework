@@ -22,13 +22,18 @@ class JoinTest extends \PHPUnit_Framework_TestCase
             array('key' => 1, 'name' => 'Ridge'),
             array('key' => 2, 'name' => 'Yong')
         );
-        $this->object = new Join($data, function($x) {
-                            return $x['foreign'];
-                        }, function($x) {
-                            return $x['key'];
-                        }, function($a, $b) {
-                            return $a['name'] . ' ' . $b['name'];
-                        });
+        $this->object = new Join(
+            $data,
+            function ($x) {
+                return $x['foreign'];
+            },
+            function ($x) {
+                return $x['key'];
+            },
+            function ($a, $b) {
+                return $a['name'] . ' ' . $b['name'];
+            }
+        );
     }
 
     /**
@@ -51,5 +56,4 @@ class JoinTest extends \PHPUnit_Framework_TestCase
         $result = $this->object->run($collection);
         $this->assertEquals(array('Sam Yong', 'Kent Ridge'), $result);
     }
-
 }

@@ -27,5 +27,4 @@ interface IQueue
     public function enqueue($item);
 
     public function front();
-
 }

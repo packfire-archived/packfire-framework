@@ -85,5 +85,4 @@ class EventHandler implements IEventHandler
             }
         }
     }
-
 }

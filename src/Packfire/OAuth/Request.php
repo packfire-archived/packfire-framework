@@ -118,8 +118,7 @@ class Request extends HttpRequest implements IHttpEntity
         if (is_string($authHeader) && substr($authHeader, 0, 6) == 'OAuth ') {
             $params = array();
             $matches = array();
-            if (preg_match_all('/(oauth[a-z_-]*)=(:?"([^"]*)"|([^,]*))/',
-                    $authHeader, $matches)) {
+            if (preg_match_all('/(oauth[a-z_-]*)=(:?"([^"]*)"|([^,]*))/', $authHeader, $matches)) {
                 foreach ($matches[1] as $i => $key) {
                     $params[$key] = Helper::urldecode(
                         empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]
@@ -129,9 +128,12 @@ class Request extends HttpRequest implements IHttpEntity
             $this->oauthParams->append($params);
         } elseif ($authHeader) {
             throw new OAuthException(
-                sprintf('Request parsed is not a valid OAuth as Authorization'
-                        . ' header is not set as "OAuth", "%s" was given'
-                        . ' instead.', $authHeader)
+                sprintf(
+                    'Request parsed is not a valid OAuth as Authorization'
+                    . ' header is not set as "OAuth", "%s" was given'
+                    . ' instead.',
+                    $authHeader
+                )
             );
         }
     }
@@ -172,7 +174,7 @@ class Request extends HttpRequest implements IHttpEntity
         }
         $headerData[] = implode('&', $pData);
 
-        return implode('&', Helper::urlencode($headerData)) ;
+        return implode('&', Helper::urlencode($headerData));
     }
 
     /**
@@ -199,12 +201,10 @@ class Request extends HttpRequest implements IHttpEntity
     {
         $params = array();
         foreach ($this->oauthParams as $key => $value) {
-          if (substr($key, 0, 5) == 'oauth') {
-            $params[] = Helper::urlencode($key) .
-                    '="' .
-                    Helper::urlencode($value) .
-                    '"';
-          }
+            if (substr($key, 0, 5) == 'oauth') {
+                $params[] = Helper::urlencode($key) .
+                    '="' . Helper::urlencode($value) . '"';
+            }
         }
 
         return 'OAuth ' . implode(', ', $params);
@@ -223,11 +223,11 @@ class Request extends HttpRequest implements IHttpEntity
         $sigMethod = Signature::load($method);
         if (!$sigMethod) {
             throw new InvalidArgumentException(
-                    'Request::sign',
-                    'method',
-                    'the name of a valid OAuth signature method',
-                    $method
-                );
+                'Request::sign',
+                'method',
+                'the name of a valid OAuth signature method',
+                $method
+            );
         }
         /* @var $signer Signature */
         $signer = new $sigMethod($this, $consumer, $tokenSecret);
@@ -235,5 +235,4 @@ class Request extends HttpRequest implements IHttpEntity
         $this->oauth(OAuth::TIMESTAMP, time());
         $this->oauth(OAuth::SIGNATURE, $signer->build());
     }
-
 }

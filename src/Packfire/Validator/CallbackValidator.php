@@ -52,5 +52,4 @@ class CallbackValidator implements IValidator
     {
         return call_user_func($this->callback, $value);
     }
-
 }

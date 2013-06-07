@@ -173,5 +173,4 @@ abstract class Route implements IRoute
         }
         $data = $result;
     }
-
 }

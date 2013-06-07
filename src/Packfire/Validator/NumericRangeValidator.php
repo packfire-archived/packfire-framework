@@ -61,5 +61,4 @@ class NumericRangeValidator implements IValidator
     {
         return $this->min <= $value && $this->max >= $value;
     }
-
 }

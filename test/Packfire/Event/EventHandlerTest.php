@@ -36,10 +36,13 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCombined()
     {
-        $this->object->on('click', function($obj, $arg = null) {
-                    $obj->assertNull($arg);
-                    $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
-                });
+        $this->object->on(
+            'click',
+            function ($obj, $arg = null) {
+                $obj->assertNull($arg);
+                $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
+            }
+        );
         $this->object->trigger('click');
     }
 
@@ -48,11 +51,13 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCombined2()
     {
-        $this->object->on('click', function($obj, $arg = null) {
-                    $obj->assertEquals(5, $arg);
-                    $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
-                });
+        $this->object->on(
+            'click',
+            function ($obj, $arg = null) {
+                $obj->assertEquals(5, $arg);
+                $obj->assertInstanceOf('\PHPUnit_Framework_TestCase', $obj);
+            }
+        );
         $this->object->trigger('click', 5);
     }
-
 }

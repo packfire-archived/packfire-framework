@@ -18,7 +18,11 @@ class GroupByTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new GroupBy(function($row){return $row['age'];});
+        $this->object = new GroupBy(
+            function ($row) {
+                return $row['age'];
+            }
+        );
     }
 
     /**
@@ -46,5 +50,4 @@ class GroupByTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(7, $result[1]->key());
         $this->assertEquals(6, $result[2]->key());
     }
-
 }

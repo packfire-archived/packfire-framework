@@ -24,5 +24,4 @@ namespace Packfire\Text\Format;
 interface IFormattable
 {
     public function format($format);
-
 }

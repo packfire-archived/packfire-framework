@@ -28,5 +28,4 @@ interface ILinqQuery
      * @since 1.0-sofia
      */
     public function create();
-
 }

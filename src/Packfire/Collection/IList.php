@@ -52,5 +52,4 @@ interface IList extends \ArrayAccess, IIterable, ISet
     public function first();
 
     public function last();
-
 }

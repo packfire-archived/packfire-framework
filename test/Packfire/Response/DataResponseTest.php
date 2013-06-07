@@ -45,5 +45,4 @@ class DataResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Packfire\Response\JsonResponse', $response);
         $this->assertEquals(json_encode($data), $response->output());
     }
-
 }

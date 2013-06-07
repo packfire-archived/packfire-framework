@@ -30,5 +30,4 @@ interface IEventWatchable
      * @since 1.1-sofia
      */
     public function on($event, $listener);
-
 }

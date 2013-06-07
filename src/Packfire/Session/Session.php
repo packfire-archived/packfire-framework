@@ -128,5 +128,4 @@ class Session implements ISession
          session_destroy();
          setcookie(session_name(), '', -1);
     }
-
 }

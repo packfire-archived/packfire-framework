@@ -42,5 +42,4 @@ class ObjectFieldComparatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->object->compare($object2, $object2));
         $this->assertEquals(1, $this->object->compare($object2, $object1));
     }
-
 }

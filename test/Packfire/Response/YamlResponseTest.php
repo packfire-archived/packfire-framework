@@ -48,5 +48,4 @@ class YamlResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("\n---\ndata: 5\n...\n", $object->body());
         $this->assertEquals($object->body(), $object->output());
     }
-
 }

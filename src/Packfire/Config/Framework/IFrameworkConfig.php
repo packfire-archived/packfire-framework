@@ -33,5 +33,4 @@ interface IFrameworkConfig
      * @since 1.0-sofia
      */
     public function load($environment = __ENVIRONMENT__);
-
 }

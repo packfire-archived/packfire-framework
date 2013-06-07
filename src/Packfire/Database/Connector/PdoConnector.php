@@ -176,5 +176,4 @@ abstract class PdoConnector implements IConnector, IConsumer
 
         return $this;
     }
-
 }

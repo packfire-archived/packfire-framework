@@ -61,5 +61,4 @@ class Method
      * HTTP PATCH Method
      */
     const PATCH = 'PATCH';
-
 }

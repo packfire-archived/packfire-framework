@@ -82,5 +82,4 @@ class ResponseCode
     const HTTP_507 = '507 Insufficient Storage';
     const HTTP_509 = '509 Bandwidth Limit Exceeded';
     const HTTP_510 = '510 Not Extended';
-
 }

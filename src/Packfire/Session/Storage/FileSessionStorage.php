@@ -55,5 +55,4 @@ class FileSessionStorage extends SessionStorage
         ini_set('session.save_handler', 'files');
         ini_set('session.save_path', $this->path);
     }
-
 }

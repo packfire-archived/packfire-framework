@@ -27,5 +27,4 @@ interface IStack
      public function pop();
 
      public function top();
-
 }

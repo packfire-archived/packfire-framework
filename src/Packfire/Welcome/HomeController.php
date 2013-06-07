@@ -46,5 +46,4 @@ class HomeController extends Controller
                 . "\n" . '-----------------------------' . "\n\n";
         echo $this->state['message'] . "\n";
     }
-
 }

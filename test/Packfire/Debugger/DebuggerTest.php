@@ -60,13 +60,13 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase
     public function testDump()
     {
         $this->ioc[self::DEBUGOUTPUT]
-                ->expects($this->once())
-                ->method('write')
-                ->with(
-                        $this->equalTo('5'),
-                        $this->isType('string'),
-                        $this->equalTo('dump')
-                    );
+            ->expects($this->once())
+            ->method('write')
+            ->with(
+                $this->equalTo('5'),
+                $this->isType('string'),
+                $this->equalTo('dump')
+            );
         $this->object->dump(5);
     }
 
@@ -76,13 +76,13 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase
     public function testLog()
     {
         $this->ioc[self::DEBUGOUTPUT]
-                ->expects($this->once())
-                ->method('write')
-                ->with(
-                        $this->equalTo(5),
-                        $this->isNull(),
-                        $this->equalTo('log')
-                    );
+            ->expects($this->once())
+            ->method('write')
+            ->with(
+                $this->equalTo(5),
+                $this->isNull(),
+                $this->equalTo('log')
+            );
         $this->object->log(5);
     }
 
@@ -92,13 +92,13 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase
     public function testException()
     {
         $this->ioc[self::DEBUGOUTPUT]
-                ->expects($this->once())
-                ->method('write')
-                ->with(
-                        $this->equalTo('Error 5: test message'),
-                        $this->isType('string'),
-                        $this->equalTo('exception')
-                    );
+            ->expects($this->once())
+            ->method('write')
+            ->with(
+                $this->equalTo('Error 5: test message'),
+                $this->isType('string'),
+                $this->equalTo('exception')
+            );
         $this->object->exception(new \Exception('test message', 5));
     }
 
@@ -108,13 +108,13 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase
     public function testTimeCheck()
     {
         $this->ioc[self::DEBUGOUTPUT]
-                ->expects($this->once())
-                ->method('write')
-                ->with(
-                        $this->isType('string'),
-                        $this->isType('string'),
-                        $this->equalTo('timeCheck')
-                    );
+            ->expects($this->once())
+            ->method('write')
+            ->with(
+                $this->isType('string'),
+                $this->isType('string'),
+                $this->equalTo('timeCheck')
+            );
         $this->object->timeCheck();
     }
 
@@ -124,14 +124,13 @@ class DebuggerTest extends \PHPUnit_Framework_TestCase
     public function testQuery()
     {
         $this->ioc[self::DEBUGOUTPUT]
-                ->expects($this->once())
-                ->method('write')
-                ->with(
-                        $this->equalTo('SELECT * FROM `table`'),
-                        $this->isType('string'),
-                        $this->equalTo('query')
-                    );
+            ->expects($this->once())
+            ->method('write')
+            ->with(
+                $this->equalTo('SELECT * FROM `table`'),
+                $this->isType('string'),
+                $this->equalTo('query')
+            );
         $this->object->query('SELECT * FROM `table`');
     }
-
 }

@@ -38,5 +38,4 @@ class AppConfig extends FrameworkConfig
     {
         return $this->loadConfig('app', $context);
     }
-
 }

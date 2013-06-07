@@ -52,5 +52,4 @@ class StringMaxLengthValidator implements IValidator
     {
         return strlen($value) <= $this->length;
     }
-
 }

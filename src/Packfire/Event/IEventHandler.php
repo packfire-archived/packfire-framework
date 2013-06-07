@@ -32,5 +32,4 @@ interface IEventHandler extends IEventWatchable
      * @since 1.0-elenor
      */
     public function trigger($event, $args = null);
-
 }

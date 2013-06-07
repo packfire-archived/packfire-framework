@@ -72,8 +72,10 @@ class Error
             $exception = $exception->getMessage();
         }
         if (isset($this->errors[$target])) {
-            $this->errors[$target] = array_merge($this->errors[$target],
-                    (array) $exception);
+            $this->errors[$target] = array_merge(
+                $this->errors[$target],
+                (array) $exception
+            );
         } else {
             $this->errors[$target] = (array) $exception;
         }
@@ -87,5 +89,4 @@ class Error
     {
         $this->errors = array();
     }
-
 }

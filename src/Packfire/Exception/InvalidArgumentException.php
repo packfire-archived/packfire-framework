@@ -35,9 +35,13 @@ class InvalidArgumentException extends Exception
      */
     public function __construct($method, $argument, $expectation, $given = null, $code = null)
     {
-        $message = sprintf('%s() expects $%s to be %s.' . (func_num_args() > 3 ? ' %s was given instead.' : ''),
-                $method, $argument, $expectation, (string) $given);
+        $message = sprintf(
+            '%s() expects $%s to be %s.' . (func_num_args() > 3 ? ' %s was given instead.' : ''),
+            $method,
+            $argument,
+            $expectation,
+            (string) $given
+        );
         parent::__construct($message, $code);
     }
-
 }

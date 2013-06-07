@@ -73,5 +73,4 @@ class Yaml
     {
         return $this->parser;
     }
-
 }

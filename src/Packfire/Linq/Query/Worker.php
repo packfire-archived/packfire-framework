@@ -50,5 +50,4 @@ abstract class Worker implements IWorkerQuery
     {
         return $this->worker;
     }
-
 }

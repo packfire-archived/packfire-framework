@@ -46,5 +46,4 @@ class DistinctTest extends \PHPUnit_Framework_TestCase
         $collection = array(5, 5, 2, 3, 5, 1, 2, 6);
         $this->assertEquals(array(5, 2, 3, 1, 6), array_values($this->object->run($collection)));
     }
-
 }

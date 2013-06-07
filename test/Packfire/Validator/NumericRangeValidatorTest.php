@@ -45,5 +45,4 @@ class NumericRangeValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->validate(20));
         $this->assertFalse($this->object->validate(1000));
     }
-
 }

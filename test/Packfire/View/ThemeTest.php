@@ -51,5 +51,4 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         $method->invoke($this->object, array('test2' => 5));
         $this->assertEquals(5, $this->object->fields()->get('test2'));
     }
-
 }

@@ -34,8 +34,10 @@ class TimeComparator extends PropertyComparator
      */
     public function compare($time1, $time2)
     {
-        return $this->compareComponents($time1, $time2,
-                array('hour', 'minute', 'second', 'millisecond'));
+        return $this->compareComponents(
+            $time1,
+            $time2,
+            array('hour', 'minute', 'second', 'millisecond')
+        );
     }
-
 }

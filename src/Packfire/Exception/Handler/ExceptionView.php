@@ -54,11 +54,10 @@ class ExceptionView extends View
     {
         $this->template(new TemplateFile(__DIR__ . '/ExceptionView.html'));
         $this->define('title', 'Error ' . $this->exception->getCode());
-        $this->define('file',  $this->exception->getFile());
-        $this->define('line',  $this->exception->getLine());
+        $this->define('file', $this->exception->getFile());
+        $this->define('line', $this->exception->getLine());
         $this->define('debug', $this->debug);
-        $this->define('message',  $this->exception->getMessage());
+        $this->define('message', $this->exception->getMessage());
         $this->define('stack', $this->exception->getTraceAsString());
     }
-
 }

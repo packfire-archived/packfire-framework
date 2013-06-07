@@ -258,11 +258,12 @@ class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq
      */
     public function listOf($object)
     {
-        $this->map(function($row) use ($object) {
-            $reflection = new \ReflectionClass($object);
-
-            return call_user_func_array(array($reflection, 'newInstance'), $row);
-        });
+        $this->map(
+            function ($row) use ($object) {
+                $reflection = new \ReflectionClass($object);
+                return call_user_func_array(array($reflection, 'newInstance'), $row);
+            }
+        );
 
         return $this;
     }
@@ -746,8 +747,7 @@ class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq
             $columns->append($instance['columns']);
         }
         $this->select($columns);
-        $this->mapping = function($row)
-                use ($class, $mapping){
+        $this->mapping = function ($row) use ($class, $mapping) {
             $result = array();
             $columnIndex = 0;
             foreach ($mapping as $instance) {
@@ -772,5 +772,4 @@ class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq
 
         return $this;
     }
-
 }

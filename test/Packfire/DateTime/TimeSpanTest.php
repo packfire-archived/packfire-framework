@@ -133,5 +133,4 @@ class TimeSpanTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(37, $ts->minute());
         $this->assertEquals(50, $ts->second());
     }
-
 }

@@ -72,5 +72,4 @@ class SecurityModuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test', $this->object->request('test'));
         $this->assertEquals('test', $this->object->request());
     }
-
 }

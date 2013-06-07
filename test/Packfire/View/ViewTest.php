@@ -64,5 +64,4 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $this->object->using(new Template('data: {tag} route: {route} {binder}'));
         $this->assertEquals('data: five route: http://example.com/test/home test2', $this->object->render());
     }
-
 }

@@ -90,9 +90,11 @@ class File implements IFile
     {
         if (!@unlink($this->pathname)) {
             throw new IOException(
-                    sprintf('An error occurred deleting file \'%s\'.',
-                            $this->pathname)
-                );
+                sprintf(
+                    'An error occurred deleting file \'%s\'.',
+                    $this->pathname
+                )
+            );
         }
     }
 
@@ -106,8 +108,8 @@ class File implements IFile
     {
         if (!@file_put_contents($this->pathname, $content)) {
             throw new IOException(
-                    sprintf('Failed to write content file \'%s\'.', $this->pathname)
-                );
+                sprintf('Failed to write content file \'%s\'.', $this->pathname)
+            );
         }
     }
 
@@ -124,8 +126,11 @@ class File implements IFile
         if ($link) {
             if (!@fwrite($link, $content)) {
                 throw new IOException(
-                    sprintf('An error occurred while appending '.
-                            'content to file \'%s\'.', $this->pathname)
+                    sprintf(
+                        'An error occurred while appending '.
+                        'content to file \'%s\'.',
+                        $this->pathname
+                    )
                 );
             }
             @fclose($link);
@@ -147,9 +152,11 @@ class File implements IFile
         $content = @file_get_contents($this->pathname);
         if ($content === false) {
             throw new IOException(
-                    sprintf('An error occurred reading file \'%s\'.',
-                            $this->pathname)
-                );
+                sprintf(
+                    'An error occurred reading file \'%s\'.',
+                    $this->pathname
+                )
+            );
         }
 
         return $content;
@@ -166,16 +173,21 @@ class File implements IFile
     public function copy($destination)
     {
         if (FileSystem::pathExists($destination)) {
-            $destination = Path::combine($destination,
-                    Path::baseName($this->pathname));
+            $destination = Path::combine(
+                $destination,
+                Path::baseName($this->pathname)
+            );
         }
         if (@copy($this->pathname, $destination)) {
             return new self($destination);
         } else {
             throw new IOException(
-                    sprintf('Failed to copy file \'%s\' to destination \'%s\'.',
-                            $this->pathname, $destination)
-                );
+                sprintf(
+                    'Failed to copy file \'%s\' to destination \'%s\'.',
+                    $this->pathname,
+                    $destination
+                )
+            );
         }
     }
 
@@ -198,14 +210,17 @@ class File implements IFile
     public function rename($newname)
     {
         $newname = Path::path($this->pathname) . DIRECTORY_SEPARATOR
-                . Path::baseName($newname);
+            . Path::baseName($newname);
         if (@rename($this->pathname, $newname)) {
             $this->pathname = $newname;
         } else {
             throw new IOException(
-                    sprintf('An error occurred renaming file \'%s\' to \'%s\'.',
-                            $this->pathname, $newname)
-                );
+                sprintf(
+                    'An error occurred renaming file \'%s\' to \'%s\'.',
+                    $this->pathname,
+                    $newname
+                )
+            );
         }
     }
 
@@ -223,9 +238,12 @@ class File implements IFile
             $this->pathname = $newdir;
         } else {
             throw new IOException(
-                    sprintf('An error occurred moving file \'%s\' to \'%s\'.',
-                            $this->pathname, $newdir)
-                );
+                sprintf(
+                    'An error occurred moving file \'%s\' to \'%s\'.',
+                    $this->pathname,
+                    $newdir
+                )
+            );
         }
     }
 
@@ -239,8 +257,10 @@ class File implements IFile
     {
         if (func_num_args() == 1) {
             if (!@touch($this->pathname, $datetime->toTimestamp())) {
-                throw new IOException('Failed to set last modified time for'
-                        . ' file "'. $this->pathname . '".');
+                throw new IOException(
+                    'Failed to set last modified time for'
+                    . ' file "'. $this->pathname . '".'
+                );
             }
 
             return $datetime;
@@ -248,8 +268,10 @@ class File implements IFile
             if ($time = @filemtime($this->pathname)) {
                 return DateTime::fromTimestamp($time);
             } else {
-                throw new IOException('Failed to retrieve last modified time'
-                        . ' for file "'. $this->pathname . '".');
+                throw new IOException(
+                    'Failed to retrieve last modified time'
+                    . ' for file "'. $this->pathname . '".'
+                );
             }
         }
     }
@@ -265,8 +287,10 @@ class File implements IFile
     {
         if (func_num_args() == 1) {
             if (!@chmod($this->pathname, $permission)) {
-                throw new IOException('Failed to perform file permission'
-                        . ' change for file "' . $this->pathname . '".');
+                throw new IOException(
+                    'Failed to perform file permission'
+                    . ' change for file "' . $this->pathname . '".'
+                );
             }
 
             return $permission;
@@ -274,8 +298,10 @@ class File implements IFile
             if ($perm = @fileperms($this->pathname)) {
                 return substr(decoct($perm), 2);
             } else {
-                throw new IOException('Failed to retrieve file permission'
-                        . ' for file "' . $this->pathname . '".');
+                throw new IOException(
+                    'Failed to retrieve file permission'
+                    . ' for file "' . $this->pathname . '".'
+                );
             }
         }
     }
@@ -299,5 +325,4 @@ class File implements IFile
     {
         return $this->pathname;
     }
-
 }

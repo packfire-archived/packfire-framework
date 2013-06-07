@@ -55,8 +55,14 @@ class Table extends DbTable
      */
     public function add($column)
     {
-        $this->driver->query(sprintf('ALTER TABLE `%s` ADD COLUMN `%s` %s', $this->name,
-                $column->name(), $this->driver->translateType($column->type())));
+        $this->driver->query(
+            sprintf(
+                'ALTER TABLE `%s` ADD COLUMN `%s` %s',
+                $this->name,
+                $column->name(),
+                $this->driver->translateType($column->type())
+            )
+        );
         $this->columns();
         $this->columns->add($column);
     }
@@ -249,5 +255,4 @@ class Table extends DbTable
 
         return $this->primaryKeys;
     }
-
 }

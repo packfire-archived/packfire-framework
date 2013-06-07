@@ -80,5 +80,4 @@ class SystemTest extends \PHPUnit_Framework_TestCase
         $list2 = glob($pattern, GLOB_NOSORT);
         $this->assertEquals($list2, $list);
     }
-
 }

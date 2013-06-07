@@ -270,8 +270,10 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
             DateTimeFormat::RFC3339
         );
         foreach ($formats as $format) {
-            $this->assertEquals(gmdate($format, $this->object->toTimestamp()),
-                    $this->object->format($format));
+            $this->assertEquals(
+                gmdate($format, $this->object->toTimestamp()),
+                $this->object->format($format)
+            );
         }
     }
 
@@ -357,9 +359,9 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     public function testMicrotime()
     {
         $this->assertInternalType(
-                \PHPUnit_Framework_Constraint_IsType::TYPE_FLOAT,
-                DateTime::microtime()
-            );
+            \PHPUnit_Framework_Constraint_IsType::TYPE_FLOAT,
+            DateTime::microtime()
+        );
         $this->assertTrue(DateTime::microtime() > 0);
     }
 
@@ -373,5 +375,4 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $dt->compareTo($dt));
         $this->assertEquals(1, $dt->compareTo($this->object));
     }
-
 }

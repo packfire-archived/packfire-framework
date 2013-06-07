@@ -83,7 +83,6 @@ class ArrayList implements IList
         end($this->array);
         $key = key($this->array);
         reset($this->array);
-
         return $key;
     }
 
@@ -139,7 +138,6 @@ class ArrayList implements IList
         if ($index === false) {
             $index = null;
         }
-
         return $index;
     }
 
@@ -154,7 +152,6 @@ class ArrayList implements IList
         $list = new self();
         $keys = array_keys($this->array, $item, true);
         $list->array = $keys;
-
         return $list;
     }
 
@@ -172,7 +169,6 @@ class ArrayList implements IList
         if ($index === false) {
             $index = null;
         }
-
         return $index;
     }
 
@@ -190,7 +186,6 @@ class ArrayList implements IList
             unset($this->array[$key]);
         }
         $this->array = array_values($this->array);
-
         return count($keys);
     }
 
@@ -223,12 +218,11 @@ class ArrayList implements IList
             $item = $this->array[$index];
             unset($this->array[$index]);
             $this->array = array_values($this->array);
-
             return $item;
         } else {
             throw new OutOfRangeException(
-                    sprintf('Unable to remove value at index %d from list.', $index)
-                );
+                sprintf('Unable to remove value at index %d from list.', $index)
+            );
         }
     }
 
@@ -251,9 +245,9 @@ class ArrayList implements IList
     {
         $result = new self();
         if ($set instanceof self) {
-                $result->array = array_diff($this->array, $set->array);
+            $result->array = array_diff($this->array, $set->array);
         } else {
-                $result->array = array_diff($this->array, $set);
+            $result->array = array_diff($this->array, $set);
         }
         $result->array = array_values($result->array);
 
@@ -271,7 +265,6 @@ class ArrayList implements IList
         $list = new self();
         $list->array = $this->array;
         $list->removeAll($set);
-
         return $list;
     }
 
@@ -305,7 +298,6 @@ class ArrayList implements IList
         $result = new self();
         $result->array = $this->array;
         $result->append($set);
-
         return $result;
     }
 
@@ -413,8 +405,8 @@ class ArrayList implements IList
             $this->array[$offset] = $value;
         } else {
             throw new OutOfRangeException(
-                    sprintf('Unable to set value at index %d into list.', $offset)
-                );
+                sprintf('Unable to set value at index %d into list.', $offset)
+            );
         }
     }
 
@@ -447,5 +439,4 @@ class ArrayList implements IList
 
         return new static($result);
     }
-
 }

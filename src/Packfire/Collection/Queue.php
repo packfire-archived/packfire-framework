@@ -66,5 +66,4 @@ class Queue extends ArrayList implements IQueue
 
         return null;
     }
-
 }

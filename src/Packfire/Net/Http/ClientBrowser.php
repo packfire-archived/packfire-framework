@@ -52,5 +52,4 @@ class ClientBrowser
      * Browser: Unknown
      */
     const UNKNOWN = '';
-
 }

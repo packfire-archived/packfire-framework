@@ -60,5 +60,4 @@ class PackfireClassFinderTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertNull($this->object->find('\\BobDown\\NoExistClass'));
     }
-
 }

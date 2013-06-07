@@ -218,9 +218,11 @@ class Provider implements IConsumer
         if (!$this->consumer) {
             throw new OAuthException('No consumer found based on request consumer key');
         }
-        $accessToken = $this->store()->getAccessToken($this->consumer,
-                $request->oauth(OAuth::TOKEN),
-                $request->oauth(OAuth::VERIFIER));
+        $accessToken = $this->store()->getAccessToken(
+            $this->consumer,
+            $request->oauth(OAuth::TOKEN),
+            $request->oauth(OAuth::VERIFIER)
+        );
         if (!$accessToken) {
             throw new OAuthException('Access denied because access token was not granted.');
         }
@@ -237,5 +239,4 @@ class Provider implements IConsumer
 
         return $this;
     }
-
 }

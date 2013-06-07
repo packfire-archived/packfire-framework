@@ -32,12 +32,12 @@ class Select extends Worker
      */
     public function run($collection)
     {
-       $result = array();
-       $worker = $this->worker();
-       foreach ($collection as $element) {
-           $result[] = $worker($element);
-       }
+        $result = array();
+        $worker = $this->worker();
+        foreach ($collection as $element) {
+            $result[] = $worker($element);
+        }
 
-       return $result;
+        return $result;
     }
 }

@@ -110,5 +110,4 @@ class VertexTest extends \PHPUnit_Framework_TestCase
         $this->object->reset();
         $this->assertNull($this->object->from());
     }
-
 }

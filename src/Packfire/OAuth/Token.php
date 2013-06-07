@@ -103,5 +103,4 @@ class Token
     {
         return (string) $this->key;
     }
-
 }

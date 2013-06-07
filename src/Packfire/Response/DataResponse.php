@@ -84,5 +84,4 @@ class DataResponse
 
         return $response->build($object, $options);
     }
-
 }

@@ -38,5 +38,4 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $this->object->output(5));
         $this->assertEquals(5, $this->object->output());
     }
-
 }

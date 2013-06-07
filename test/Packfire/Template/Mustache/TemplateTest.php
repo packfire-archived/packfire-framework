@@ -63,16 +63,18 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
      */
     public function testParse()
     {
-        $this->object->set(array(
-            'html' => '<b>John</b>',
-            'cond' => true,
-            'repeat' => array(
-                array('name' => 'Julia', 'age' => 50),
-                array('name' => 'Sofia', 'age' => 10),
-                array('name' => 'Jackie', 'age' => 40)
-            ),
-            'normal' => '<i>apple</i>'
-        ));
+        $this->object->set(
+            array(
+                'html' => '<b>John</b>',
+                'cond' => true,
+                'repeat' => array(
+                    array('name' => 'Julia', 'age' => 50),
+                    array('name' => 'Sofia', 'age' => 10),
+                    array('name' => 'Jackie', 'age' => 40)
+                ),
+                'normal' => '<i>apple</i>'
+            )
+        );
         $this->assertEquals('<b>John</b> is making me sick. My name is Julia. My name is Sofia. My name is Jackie. What is &lt;i&gt;apple&lt;/i&gt;?', $this->object->parse());
     }
 
@@ -82,17 +84,18 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseObj()
     {
-        $this->object->set((object) array(
-            'html' => '<b>John</b>',
-            'cond' => true,
-            'repeat' => array(
-                array('name' => 'Julia', 'age' => 50),
-                array('name' => 'Sofia', 'age' => 10),
-                array('name' => 'Jackie', 'age' => 40)
-            ),
-            'normal' => '<i>apple</i>'
-        ));
+        $this->object->set(
+            (object) array(
+                'html' => '<b>John</b>',
+                'cond' => true,
+                'repeat' => array(
+                    array('name' => 'Julia', 'age' => 50),
+                    array('name' => 'Sofia', 'age' => 10),
+                    array('name' => 'Jackie', 'age' => 40)
+                ),
+                'normal' => '<i>apple</i>'
+            )
+        );
         $this->assertEquals('<b>John</b> is making me sick. My name is Julia. My name is Sofia. My name is Jackie. What is &lt;i&gt;apple&lt;/i&gt;?', $this->object->parse());
     }
-
 }

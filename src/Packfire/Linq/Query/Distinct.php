@@ -36,5 +36,4 @@ class Distinct implements IQuery
 
         return $result;
     }
-
 }

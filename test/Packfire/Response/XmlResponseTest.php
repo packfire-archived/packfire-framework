@@ -48,5 +48,4 @@ class XmlResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8" ?>' . "\n" . '<root><data type="integer">5</data></root>', $object->body());
         $this->assertEquals($object->body(), $object->output());
     }
-
 }

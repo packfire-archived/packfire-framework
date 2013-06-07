@@ -83,8 +83,11 @@ class Time extends DateTimeComponent implements IComparable
     {
         if (func_num_args() == 1) {
             if ($millisecond != $this->millisecond) {
-                $millisecond = $this->processNextComponent($millisecond,
-                                            'second', 1000);
+                $millisecond = $this->processNextComponent(
+                    $millisecond,
+                    'second',
+                    1000
+                );
                 $this->millisecond = (int) $millisecond;
             }
         }
@@ -221,5 +224,4 @@ class Time extends DateTimeComponent implements IComparable
 
         return $comparator->compare($this, $another);
     }
-
 }

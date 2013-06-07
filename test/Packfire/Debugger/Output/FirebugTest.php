@@ -52,5 +52,4 @@ class FirebugtTest extends \PHPUnit_Framework_TestCase
         $content = ob_get_clean();
         $this->assertTrue(strpos($content, 'console.log("test");') > 0);
     }
-
 }

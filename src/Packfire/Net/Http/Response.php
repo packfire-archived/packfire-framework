@@ -88,16 +88,18 @@ class Response
         $okay = preg_match('`^([^\s]*) (.*)\n`', $strResponse, $matches);
         if (!$okay) {
             throw new ParseException(
-                    'Failed to parse HTTP version and code in response'
-                );
+                'Failed to parse HTTP version and code in response'
+            );
         }
         $this->version = $matches[1];
         $this->code  = $matches[2];
 
         $firstLinePos = strpos($strResponse, "\n");
         $headerEnd = strpos($strResponse, "\n\n");
-        Utility::parseHeaders(substr($strResponse, $firstLinePos + 1, $headerEnd - $firstLinePos - 1),
-                $this->headers);
+        Utility::parseHeaders(
+            substr($strResponse, $firstLinePos + 1, $headerEnd - $firstLinePos - 1),
+            $this->headers
+        );
         if ($this->headers->keyExists('set-cookie')) {
             $cookies = $this->headers->get('set-cookie');
             if (!($cookies instanceof ArrayList)) {
@@ -198,5 +200,4 @@ class Response
 
         return $buffer;
     }
-
 }

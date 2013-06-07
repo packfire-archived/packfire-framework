@@ -109,5 +109,4 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(8, $this->object);
         $this->assertEquals(8, $this->object->count());
     }
-
 }

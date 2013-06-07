@@ -28,5 +28,4 @@ interface IFile
      * @since 1.0-sofia
      */
     public function pathname();
-
 }

@@ -53,7 +53,7 @@ class CacheClassFinderTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Packfire\Core\ClassLoader\CacheClassFinder::__invoke
      */
-    public function test__invoke()
+    public function testInvoke()
     {
         $ioc = array(
             'cache' => new \stdClass()

@@ -18,11 +18,15 @@ class PriorityQueueTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new PriorityQueue(function($a, $b){
-                if ($a == $b) {return 0;}
+        $this->object = new PriorityQueue(
+            function ($a, $b) {
+                if ($a == $b) {
+                    return 0;
+                }
 
                 return $a < $b ? -1 : 1;
-            });
+            }
+        );
     }
 
     /**
@@ -49,5 +53,4 @@ class PriorityQueueTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(7, $this->object);
         $this->assertEquals(array(2, 4, 5, 5, 6, 7, 8), $this->object->toArray());
     }
-
 }

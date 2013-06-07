@@ -44,5 +44,4 @@ class TimeComparatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-1, $this->object->compare($time2, $time1));
         $this->assertEquals(0, $this->object->compare($time2, $time3));
     }
-
 }

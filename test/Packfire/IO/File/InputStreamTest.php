@@ -83,5 +83,4 @@ class InputStreamTest extends \PHPUnit_Framework_TestCase
         $this->object->seek(2);
         $this->assertEquals(2, $this->object->tell());
     }
-
 }

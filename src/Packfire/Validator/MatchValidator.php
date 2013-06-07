@@ -60,5 +60,4 @@ class MatchValidator implements IValidator
             return $this->matches === $value;
         }
     }
-
 }

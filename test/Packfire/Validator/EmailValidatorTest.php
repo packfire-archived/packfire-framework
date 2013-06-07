@@ -39,5 +39,4 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->validate('example.co.uk'));
         $this->assertFalse($this->object->validate('test'));
     }
-
 }

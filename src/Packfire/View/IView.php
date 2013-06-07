@@ -35,5 +35,4 @@ interface IView
      * @since 1.0-sofia
      */
     public function state($state);
-
 }

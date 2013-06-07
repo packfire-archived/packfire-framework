@@ -97,5 +97,4 @@ class TemplateFile implements ITemplateFile
             }
         }
     }
-
 }

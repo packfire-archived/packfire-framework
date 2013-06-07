@@ -53,5 +53,4 @@ class PriorityQueue extends Queue
         parent::add($item);
         usort($this->array, $this->comparator);
     }
-
 }

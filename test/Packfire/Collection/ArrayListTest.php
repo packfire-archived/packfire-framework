@@ -342,5 +342,4 @@ class ArrayListTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $this->object);
         $this->assertEquals(5, $this->object[0]);
     }
-
 }

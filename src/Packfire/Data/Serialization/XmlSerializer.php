@@ -92,8 +92,8 @@ class XmlSerializer implements ISerializer
     {
         $object = array();
         $name = $node->nodeName;
-        if($node->childNodes->length == 1
-                && $node->childNodes->item(0) instanceof \DOMText){
+        if ($node->childNodes->length == 1
+                && $node->childNodes->item(0) instanceof \DOMText) {
             $key = $node->attributes->getNamedItem('key');
             $type = $node->attributes->getNamedItem('type');
             $value = $node->childNodes->item(0)->wholeText;
@@ -141,8 +141,7 @@ class XmlSerializer implements ISerializer
         }
         $stream->write('<' . $block);
         foreach ($attributes as $key => $value) {
-            $stream->write(' ' . $key . '="'
-                    . htmlspecialchars($value, ENT_QUOTES) . '"');
+            $stream->write(' ' . $key . '="' . htmlspecialchars($value, ENT_QUOTES) . '"');
         }
         $stream->write('>');
         self::writeItemXml($stream, $data);
@@ -179,5 +178,4 @@ class XmlSerializer implements ISerializer
             }
         }
     }
-
 }

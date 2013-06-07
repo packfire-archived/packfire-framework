@@ -26,7 +26,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     {
         $storageStub = $this->getMock('Packfire\Session\Storage\ISessionStorage');
         $storageStub->expects($this->once())
-                ->method('load');
+            ->method('load');
         $this->stub = $storageStub;
 
         $this->object = new Session($storageStub);
@@ -56,8 +56,8 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     public function testGet()
     {
         $this->stub->expects($this->any())
-                ->method('get')
-                ->will($this->returnArgument(0));
+            ->method('get')
+            ->will($this->returnArgument(0));
         $this->assertEquals('test', $this->object->get('test'));
     }
 
@@ -67,8 +67,8 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     public function testSet()
     {
         $this->stub->expects($this->once())
-                ->method('set')
-                ->with($this->equalTo('test'), $this->equalTo('value'));
+            ->method('set')
+            ->with($this->equalTo('test'), $this->equalTo('value'));
         $this->object->set('test', 'value');
     }
 
@@ -78,8 +78,8 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     public function testClear()
     {
         $this->stub->expects($this->once())
-                ->method('clear')
-                ->with();
+            ->method('clear')
+            ->with();
         $this->object->clear();
     }
 
@@ -89,11 +89,11 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     public function testInvalidate()
     {
         $this->stub->expects($this->once())
-                ->method('clear')
-                ->with();
+            ->method('clear')
+            ->with();
         $this->stub->expects($this->once())
-                ->method('regenerate')
-                ->with($this->equalTo(true));
+            ->method('regenerate')
+            ->with($this->equalTo(true));
 
         $this->object->invalidate();
     }
@@ -104,8 +104,8 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     public function testRegenerate()
     {
         $this->stub->expects($this->once())
-                ->method('regenerate')
-                ->with();
+            ->method('regenerate')
+            ->with();
 
         $this->object->regenerate();
     }
@@ -116,13 +116,13 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     public function testBucket()
     {
         $this->stub->expects($this->once())
-                ->method('bucket')
-                ->with($this->equalTo('test'))
-                ->will($this->returnValue(null));
+            ->method('bucket')
+            ->with($this->equalTo('test'))
+            ->will($this->returnValue(null));
 
         $this->stub->expects($this->once())
-                ->method('register')
-                ->with($this->isInstanceOf('Packfire\Session\Bucket\SessionBucket'));
+            ->method('register')
+            ->with($this->isInstanceOf('Packfire\Session\Bucket\SessionBucket'));
 
         $this->object->bucket('test');
     }
@@ -133,11 +133,10 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     public function testBucket2()
     {
         $this->stub->expects($this->once())
-                ->method('bucket')
-                ->with($this->equalTo('test'))
-                ->will($this->returnValue(true));
+            ->method('bucket')
+            ->with($this->equalTo('test'))
+            ->will($this->returnValue(true));
 
         $this->assertTrue($this->object->bucket('test'));
     }
-
 }

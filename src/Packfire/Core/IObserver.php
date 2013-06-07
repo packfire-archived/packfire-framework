@@ -29,5 +29,4 @@ interface IObserver
      * @since 1.0-elenor
      */
     public function updated($observable, $arg = null);
-
 }

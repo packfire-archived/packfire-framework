@@ -28,5 +28,4 @@ abstract class JsonSerializable implements ISerializable, IJsonSerializable
     {
         return $this->jsonSerialize();
     }
-
 }

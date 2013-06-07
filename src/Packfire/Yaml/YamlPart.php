@@ -61,5 +61,4 @@ class YamlPart
     {
         return array('"', '\'');
     }
-
 }

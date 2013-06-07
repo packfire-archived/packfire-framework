@@ -297,7 +297,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\Text\String::__toString
      */
-    public function test__toString()
+    public function testToString()
     {
         foreach ($this->objects as $idx => $obj) {
             /* @var $obj String */
@@ -305,5 +305,4 @@ class StringTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($this->rawString[$idx], (string) $obj);
         }
     }
-
 }

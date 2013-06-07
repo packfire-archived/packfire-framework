@@ -28,14 +28,15 @@ class ConnectorFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreate()
     {
-        $driver = ConnectorFactory::create(array(
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'dbname' => 'test',
-            'user' => 'root',
-            'password' => defined('__TEST_DB_PWD__') ? __TEST_DB_PWD__ : 'password'
-        ));
+        $driver = ConnectorFactory::create(
+            array(
+                'driver' => 'mysql',
+                'host' => 'localhost',
+                'dbname' => 'test',
+                'user' => 'root',
+                'password' => defined('__TEST_DB_PWD__') ? __TEST_DB_PWD__ : 'password'
+            )
+        );
         $this->assertInstanceOf('Packfire\Database\Drivers\MySql\Connector', $driver);
     }
-
 }

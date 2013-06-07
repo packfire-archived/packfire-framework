@@ -70,5 +70,4 @@ abstract class Theme
      * @since 1.0-sofia
      */
     abstract public function render();
-
 }

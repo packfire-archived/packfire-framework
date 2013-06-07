@@ -38,5 +38,4 @@ class TakeTest extends \PHPUnit_Framework_TestCase
         $result = $this->object->run($data);
         $this->assertEquals(array(6, 4, 3), $result);
     }
-
 }

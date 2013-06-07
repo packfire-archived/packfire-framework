@@ -58,5 +58,4 @@ class MatchValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($object->validate(5));
         $this->assertFalse($object->validate(2));
     }
-
 }

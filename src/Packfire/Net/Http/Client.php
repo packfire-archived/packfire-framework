@@ -91,11 +91,11 @@ class Client
             $this->operatingSystem = ClientOS::WINDOWS;
         } elseif (strpos($this->userAgent, 'iPhone')) {
             $this->operatingSystem = ClientOS::IOS;
-        } elseif (strpos($this->userAgent,'BlackBerry')) {
+        } elseif (strpos($this->userAgent, 'BlackBerry')) {
             $this->operatingSystem = ClientOS::BLACKBERRY;
-        } elseif (strpos($this->userAgent,'Macintosh')) {
+        } elseif (strpos($this->userAgent, 'Macintosh')) {
             $this->operatingSystem = ClientOS::MACINTOSH;
-        } elseif (strpos($this->userAgent,'Android')) {
+        } elseif (strpos($this->userAgent, 'Android')) {
             $this->operatingSystem = ClientOS::ANDROID;
         } elseif (strpos($this->userAgent, 'Linux')) {
             $this->operatingSystem = ClientOS::LINUX;
@@ -110,11 +110,11 @@ class Client
         } elseif (strpos($this->userAgent, 'msnbot')) {
             $this->operatingSystem = ClientOS::MSNBOT;
         } else {
-            $this->operatingSystem = ClientOS::UNKNOWN;;
+            $this->operatingSystem = ClientOS::UNKNOWN;
         }
 
         $matched = array();
-        if (preg_match( '`Opera/([0-9].[0-9]{1,2})`', $this->userAgent, $matched)) {
+        if (preg_match('`Opera/([0-9].[0-9]{1,2})`', $this->userAgent, $matched)) {
             $browser_version = $matched[1];
             $browser = ClientBrowser::OPERA;
         } elseif (preg_match('`MSIE ([0-9].[0-9]{1,2})`', $this->userAgent, $matched)) {
@@ -219,5 +219,4 @@ class Client
     {
         return $this->bot;
     }
-
 }

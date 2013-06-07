@@ -91,11 +91,11 @@ class Route extends CoreRoute
 
         $validation = false;
         // check whether HTTP method matches for RESTful routing
-        if(!$this->httpMethod() ||
+        if (!$this->httpMethod() ||
                 (is_string($this->httpMethod)
                 && $this->httpMethod == $method)
                 || (is_array($this->httpMethod)
-                && in_array($method, $this->httpMethod))){
+                && in_array($method, $this->httpMethod))) {
             if ($this->params) {
                 if ($url == $this->rewrite) {
                     $urlMatch = true;
@@ -104,12 +104,14 @@ class Route extends CoreRoute
                     $template = new Template($this->rewrite);
                     $tokens = $template->tokens();
                     foreach ($tokens as $token) {
-                        $template->fields()->add($token,
-                                '(?<' . $token . '>.+)');
+                        $template->fields()->add($token, '(?<' . $token . '>.+)');
                     }
                     // perform the URL matching
-                    $urlMatch = preg_match('`^' . $template->parse() .
-                            '[/]{0,1}$`isU', $url, $urlData);
+                    $urlMatch = preg_match(
+                        '`^' . $template->parse() . '[/]{0,1}$`isU',
+                        $url,
+                        $urlData
+                    );
                     $urlData = array_intersect_key($urlData, array_flip($tokens->toArray()));
                 }
                 if ($urlMatch) {
@@ -140,5 +142,4 @@ class Route extends CoreRoute
 
         return $validation;
     }
-
 }

@@ -38,5 +38,4 @@ class ErrorException extends Exception
     {
         $this->file = $file;
     }
-
 }

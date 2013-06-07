@@ -52,5 +52,4 @@ class StringLengthValidator implements IValidator
     {
         return strlen($value) == $this->length;
     }
-
 }

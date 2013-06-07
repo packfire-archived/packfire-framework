@@ -140,9 +140,9 @@ class Dijkstra
 
         /* @var $vertex IVertex */
         $vertex = reset($map);
-        if($vertex && $vertex->potential() !== null
-                && ($leastPotential == null
-                || $vertex->potential() < $leastPotential->potential())){
+        if ($vertex && $vertex->potential() !== null
+            && ($leastPotential == null
+            || $vertex->potential() < $leastPotential->potential())) {
             $leastPotential = $vertex;
         }
 
@@ -161,15 +161,15 @@ class Dijkstra
             unset($map[$vertex->id()]);
             reset($map);
             $point = 0;
-            while(($next = current($map)) !== false
-                    && $next->potential() !== null
-                    && $next->potential() < $vertex->potential()){
+            while (($next = current($map)) !== false
+                && $next->potential() !== null
+                && $next->potential() < $vertex->potential()) {
                 ++$point;
                 next($map);
             }
             $map = array_slice($map, 0, $point, true)
-                    + array($vertex->id() => $vertex)
-                    + array_slice($map, $point, null, true);
+                + array($vertex->id() => $vertex)
+                + array_slice($map, $point, null, true);
         }
     }
 

@@ -58,8 +58,10 @@ class FileCache implements ICache
      */
     private static function filePath($cacheId)
     {
-        return Path::combine(self::$storePath,
-                'FileCache-' . self::idCleaner($cacheId) . '.cache');
+        return Path::combine(
+            self::$storePath,
+            'FileCache-' . self::idCleaner($cacheId) . '.cache'
+        );
     }
 
     /**
@@ -95,7 +97,6 @@ class FileCache implements ICache
     public function check($cacheId)
     {
         $file = self::filePath($cacheId);
-
         return self::isCacheFresh($file);
     }
 
@@ -205,5 +206,4 @@ class FileCache implements ICache
             touch($file, PHP_INT_MAX);
         }
     }
-
 }

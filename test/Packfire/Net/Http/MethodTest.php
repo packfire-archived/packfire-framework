@@ -21,5 +21,4 @@ class MethodTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('TRACE', Method::TRACE);
         $this->assertEquals('OPTIONS', Method::OPTIONS);
     }
-
 }

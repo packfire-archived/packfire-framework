@@ -58,5 +58,4 @@ class VertexSorter implements ISorter
             return $a->potential() < $b->potential() ? -1 : 1;
         }
     }
-
 }

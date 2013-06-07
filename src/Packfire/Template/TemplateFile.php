@@ -38,5 +38,4 @@ class TemplateFile extends Template implements ITemplateFile
         }
         parent::__construct(file_get_contents($file));
     }
-
 }

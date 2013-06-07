@@ -38,5 +38,4 @@ interface IOutputStream extends IStream
      * @since 1.0-sofia
      */
     public function flush();
-
 }

@@ -39,5 +39,4 @@ class StringMaxLengthValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->validate('light'));
         $this->assertFalse($this->object->validate('validates'));
     }
-
 }

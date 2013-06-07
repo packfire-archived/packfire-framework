@@ -44,5 +44,4 @@ class Config implements IConfig
 
         return $data;
     }
-
 }

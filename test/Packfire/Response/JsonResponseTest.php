@@ -50,5 +50,4 @@ class JsonResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test(' . json_encode($data) . ')', $object->body());
         $this->assertEquals($object->body(), $object->output());
     }
-
 }

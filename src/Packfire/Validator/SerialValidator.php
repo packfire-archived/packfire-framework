@@ -49,8 +49,11 @@ class SerialValidator implements IValidator
     public function add($validator)
     {
         if ($validator === $this) {
-            throw new InvalidArgumentException('SerialValidator::add',
-                    'validator', 'not itself or inception may happen');
+            throw new InvalidArgumentException(
+                'SerialValidator::add',
+                '$validator',
+                'not itself or inception may happen'
+            );
         }
         $this->validators[] = $validator;
     }
@@ -75,5 +78,4 @@ class SerialValidator implements IValidator
 
         return $result;
     }
-
 }

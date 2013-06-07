@@ -129,5 +129,4 @@ EOT;
         $this->object->until('blah');
         $this->assertFalse($this->object->hasMore());
     }
-
 }

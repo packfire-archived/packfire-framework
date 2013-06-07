@@ -83,12 +83,15 @@ class CallSequenceTest extends \PHPUnit_Framework_TestCase
         $test = null;
         $this->object->add('trim', array($this->object->value()));
         $this->object->add('strtoupper', array($this->object->value()));
-        $this->object->add(function($text) use (&$test) {
-            $test = $text;;
-        }, array($this->object->value()), false);
+        $this->object->add(
+            function ($text) use (&$test) {
+                $test = $text;
+            },
+            array($this->object->value()),
+            false
+        );
 
         $this->assertEquals('ALPHA', $this->object->process('  alpHA '));
         $this->assertEquals('ALPHA', $test);
     }
-
 }

@@ -98,5 +98,4 @@ class ClassFinder implements IClassFinder
 
         return stream_resolve_include_path($fileName);
     }
-
 }

@@ -40,5 +40,4 @@ class NumericValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->validate('test'));
         $this->assertFalse($this->object->validate(true));
     }
-
 }

@@ -118,14 +118,21 @@ abstract class View implements IView, IConsumer
     {
         if ($object instanceof ObjectObserver) {
             $view = $this;
-            $object->on('change', function($src, $eventArgs) use ($view, $key, $property) {
-                if ($eventArgs[0] == $property) {
-                    $view->define($key, $eventArgs[1]);
+            $object->on(
+                'change',
+                function ($src, $eventArgs) use ($view, $key, $property) {
+                    if ($eventArgs[0] == $property) {
+                        $view->define($key, $eventArgs[1]);
+                    }
                 }
-            });
+            );
         } else {
-            throw new InvalidArgumentException('View::bind', 'object',
-                    'an instance of ObjectObserver', dtype($object));
+            throw new InvalidArgumentException(
+                'View::bind',
+                '$object',
+                'an instance of ObjectObserver',
+                dtype($object)
+            );
         }
     }
 
@@ -272,5 +279,4 @@ abstract class View implements IView, IConsumer
 
         return $this;
     }
-
 }

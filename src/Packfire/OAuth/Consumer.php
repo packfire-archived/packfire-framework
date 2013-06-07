@@ -74,8 +74,8 @@ class Consumer
      *      used instead.
      * @since 1.1-sofia
      */
-    public function __construct($key, $secret,
-            $callback = null, $signatureMethod = null){
+    public function __construct($key, $secret, $callback = null, $signatureMethod = null)
+    {
         $this->key = $key;
         $this->secret = $secret;
         $this->callback = $callback;
@@ -145,8 +145,10 @@ class Consumer
         $server = new HttpServer($url->host(), $url->port());
         $request = $this->createRequest();
         $request->get()->append($url->params());
-        $request->headers()->add('Host',
-                $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
+        $request->headers()->add(
+            'Host',
+            $url->host() . ($url->port() == 80 ? '' : ':' . $url->port())
+        );
         $request->uri($url->path());
         $request->oauth(OAuth::NONCE, Helper::generateNonce(__METHOD__));
         $request->sign($this->signatureMethod, $this, $this->tokenSecret);
@@ -172,8 +174,10 @@ class Consumer
         $server = new HttpServer($url->host(), $url->port());
         $request = $this->createRequest();
         $request->get()->append($url->params());
-        $request->headers()->add('Host',
-                $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
+        $request->headers()->add(
+            'Host',
+            $url->host() . ($url->port() == 80 ? '' : ':' . $url->port())
+        );
         $request->uri($url->path());
         $request->oauth(OAuth::TOKEN, (string) $requestToken);
         $request->oauth(OAuth::NONCE, Helper::generateNonce(__METHOD__));
@@ -204,8 +208,10 @@ class Consumer
         $server = new HttpServer($url->host(), $url->port());
         $request = $this->createRequest();
         $request->get()->append($url->params());
-        $request->headers()->add('Host',
-                $url->host() . ($url->port() == 80 ? '' : ':' . $url->port()));
+        $request->headers()->add(
+            'Host',
+            $url->host() . ($url->port() == 80 ? '' : ':' . $url->port())
+        );
         $request->uri($url->path());
         $request->oauth(OAuth::TOKEN, (string) $accessToken);
         $request->oauth(OAuth::NONCE, Helper::generateNonce(__METHOD__));
@@ -215,5 +221,4 @@ class Consumer
 
         return $response;
     }
-
 }

@@ -98,9 +98,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->object->oauth(OAuth::CONSUMER_KEY, 'consumer');
         $this->object->oauth(OAuth::TOKEN, 'token');
         $header = $this->object->buildAuthorizationHeader();
-        $this->assertEquals('OAuth oauth_version="1.0", oauth_consumer_key'
-                . '="consumer", oauth_token="token"', $header);
-
+        $this->assertEquals(
+            'OAuth oauth_version="1.0", oauth_consumer_key'
+            . '="consumer", oauth_token="token"',
+            $header
+        );
     }
 
     /**
@@ -124,5 +126,4 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $this->object->sign('WOAHFAKE', new Consumer('consumer', 'secret'));
     }
-
 }

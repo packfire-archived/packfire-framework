@@ -25,5 +25,4 @@ interface ISerializer
     public function serialize($stream, $data = null);
 
     public function deserialize($stream);
-
 }

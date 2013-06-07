@@ -23,5 +23,4 @@ namespace Packfire\Data\Serialization;
 interface ISerializable
 {
     public function serialize();
-
 }

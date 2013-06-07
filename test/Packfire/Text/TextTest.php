@@ -95,5 +95,4 @@ class TextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('v@@5 52J[ $:CP', Text::rotate47('Good day, Sir!'));
         $this->assertEquals('|2J52JP #25:@ ac` :?24E:G6]', Text::rotate47('Mayday! Radio 241 inactive.'));
     }
-
 }

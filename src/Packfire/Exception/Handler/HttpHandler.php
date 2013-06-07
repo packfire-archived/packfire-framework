@@ -83,14 +83,12 @@ class HttpHandler implements IHandler
 
         if (!$this->debug && $this->logger) {
             $this->logger->critical(
-                    '"' . $exception->getMessage() .
-                        '" at ' . $exception->getFile() . ':'
-                        . $exception->getLine(),
-                    array(
-                        'exception'     => get_class($exception),
-                        'code'          => $exception->getCode()
-                    )
-                );
+                '"' . $exception->getMessage() . '" at ' . $exception->getFile() . ':' . $exception->getLine(),
+                array(
+                    'exception'     => get_class($exception),
+                    'code'          => $exception->getCode()
+                )
+            );
         }
     }
 
@@ -106,5 +104,4 @@ class HttpHandler implements IHandler
 
         return $this;
     }
-
 }

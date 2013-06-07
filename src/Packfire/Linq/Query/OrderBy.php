@@ -86,5 +86,4 @@ class OrderBy extends Worker implements IComparator
 
         return $a < $b ? -1 * $direction : $direction;
     }
-
 }

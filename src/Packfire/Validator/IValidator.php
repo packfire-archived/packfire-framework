@@ -23,5 +23,4 @@ namespace Packfire\Validator;
 interface IValidator
 {
     public function validate($value);
-
 }

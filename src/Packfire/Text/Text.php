@@ -170,10 +170,10 @@ class Text
      */
     public static function rotate47($str)
     {
-        return strtr($str, '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-                . '[\]^_`abcdefghijklmnopqrstuvwxyz{|}~', 'PQRSTUVWXYZ[\]^_`'
-                . 'abcdefghijklmnopqrstuvwxyz{|}~!"#$%&\'()*+,-./0123456789'
-                . ':;<=>?@ABCDEFGHIJKLMNO');
+        return strtr(
+            $str,
+            '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~',
+            'PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO'
+        );
     }
-
 }

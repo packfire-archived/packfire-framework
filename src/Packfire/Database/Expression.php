@@ -48,5 +48,4 @@ class Expression
     {
         return $this->expression;
     }
-
 }

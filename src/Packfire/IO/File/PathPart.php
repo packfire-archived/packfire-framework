@@ -41,5 +41,4 @@ class PathPart
      * Get the file name without the file extension
      */
     const FILENAME = 'filename';
-
 }

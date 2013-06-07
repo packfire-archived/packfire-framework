@@ -114,5 +114,4 @@ interface IStore
      * @since 1.1-sofia
      */
     public function storeNonce($consumer, $token, $timestamp, $nonce);
-
 }

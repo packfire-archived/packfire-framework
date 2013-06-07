@@ -61,8 +61,8 @@ class Timer
     {
         if ($this->running()) {
             throw new InvalidRequestException(
-                    'Timer::start() cannot be called when the timer is already running.'
-                );
+                'Timer::start() cannot be called when the timer is already running.'
+            );
 
             return;
         }
@@ -79,8 +79,8 @@ class Timer
     {
         if (!$this->running()) {
             throw new InvalidRequestException(
-                    'Timer::stop() cannot be called when the timer is already stopped.'
-                );
+                'Timer::stop() cannot be called when the timer is already stopped.'
+            );
 
             return;
         }
@@ -100,8 +100,8 @@ class Timer
     {
         if (!$this->running() && !$this->endTime) {
             throw new InvalidRequestException(
-                    'Timer::result() cannot be called when the timer has not started yet.'
-                );
+                'Timer::result() cannot be called when the timer has not started yet.'
+            );
         }
         $endTime = $this->endTime;
         if (!$endTime) {
@@ -130,5 +130,4 @@ class Timer
     {
         return $this->startTime && !$this->endTime;
     }
-
 }

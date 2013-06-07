@@ -76,7 +76,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\Core\ObjectObserver::__set
      */
-    public function test__set()
+    public function testSet()
     {
         $msg = 'test title';
         $this->assertEmpty($this->title);
@@ -87,7 +87,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\Core\ObjectObserver::__get
      */
-    public function test__get()
+    public function testGet()
     {
         $msg = 'test title';
         $this->assertEmpty($this->object->title);
@@ -98,7 +98,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\Core\ObjectObserver::__isset
      */
-    public function test__isset()
+    public function testIsset()
     {
         $msg = 'test title';
         $this->assertFalse(isset($this->object->title));
@@ -109,7 +109,7 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\Core\ObjectObserver::__unset
      */
-    public function test__unset()
+    public function testUnset()
     {
         $msg = 'test title';
         $this->title = $msg;
@@ -121,11 +121,10 @@ class ObjectObserverTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\Core\ObjectObserver::__call
      */
-    public function test__call()
+    public function testCall()
     {
         $this->assertFalse($this->call);
         $this->object->call();
         $this->assertTrue($this->call);
     }
-
 }

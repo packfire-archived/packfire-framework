@@ -49,5 +49,4 @@ class Router extends CoreRouter
 
         return parent::__invoke($c);
     }
-
 }

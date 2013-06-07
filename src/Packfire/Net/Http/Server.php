@@ -67,8 +67,10 @@ class Server
         if (function_exists('curl_init')) {
             // according to RFC 2616, the port number is required in the
             // Host header unless it is port 80.
-            $request->headers()->add('host',
-                    $this->host . ($this->port == 80 || $this->port == 443 ? '' : ':' . $this->port));
+            $request->headers()->add(
+                'host',
+                $this->host . ($this->port == 80 || $this->port == 443 ? '' : ':' . $this->port)
+            );
 
             $ch = curl_init();
 
@@ -98,7 +100,7 @@ class Server
             // if the request is a https request
             if ($request->https()) {
                 // update the cacert.pem file
-                curl_setopt ($ch, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
+                curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
             }
 
             //execute and fetch result
@@ -122,5 +124,4 @@ class Server
             throw new MissingDependencyException('CURL extension is required by Server but is not enabled.');
         }
     }
-
 }

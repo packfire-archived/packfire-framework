@@ -35,5 +35,4 @@ class ClientBrowserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Opera', ClientBrowser::OPERA);
         $this->assertEquals('', ClientBrowser::UNKNOWN);
     }
-
 }

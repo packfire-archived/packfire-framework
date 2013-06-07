@@ -77,9 +77,12 @@ class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase
     public function testDoShutdown()
     {
         $data = false;
-        $this->object->add('task', function() use (&$data) {
-                    $data = true;
-                });
+        $this->object->add(
+            'task',
+            function () use (&$data) {
+                $data = true;
+            }
+        );
         $this->object->doShutdown();
         $this->assertTrue($data);
         $this->object->remove('task');
@@ -92,12 +95,15 @@ class ShutdownTaskManagerTest extends \PHPUnit_Framework_TestCase
     public function testDoShutdown2()
     {
         $data = false;
-        $this->object->add('task', function($value) use (&$data) {
-            $data = $value;
-        }, 5);
+        $this->object->add(
+            'task',
+            function ($value) use (&$data) {
+                $data = $value;
+            },
+            5
+        );
         $this->object->doShutdown();
         $this->assertEquals(5, $data);
         $this->object->remove('task');
     }
-
 }

@@ -33,7 +33,7 @@ class RouteRequest extends Request
 
     public function cookies()
     {
-        return new Map();;
+        return new Map();
     }
 
     public function get()
@@ -65,5 +65,4 @@ class RouteRequest extends Request
     {
         return '/' . $this->route;
     }
-
 }

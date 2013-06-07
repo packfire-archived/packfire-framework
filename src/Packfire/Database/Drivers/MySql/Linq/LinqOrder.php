@@ -58,7 +58,6 @@ class LinqOrder implements ILinqQuery
      */
     public function create()
     {
-        return $this->field . ($this->descending ? ' DESC': '');;
+        return $this->field . ($this->descending ? ' DESC': '');
     }
-
 }

@@ -101,10 +101,10 @@ class TimeSpan extends Time
     public function totalSeconds()
     {
         return $this->day * 86400.0
-                + $this->hour * 3600.0
-                + $this->minute * 60.0
-                + $this->second
-                + ($this->millisecond / 1000.0);
+            + $this->hour * 3600.0
+            + $this->minute * 60.0
+            + $this->second
+            + ($this->millisecond / 1000.0);
     }
 
     /**
@@ -115,10 +115,10 @@ class TimeSpan extends Time
     public function totalMinutes()
     {
         return $this->day * 1440
-                + $this->hour * 60.0
-                + $this->minute
-                + ($this->second / 60.0)
-                + ($this->millisecond / 60000.0);
+            + $this->hour * 60.0
+            + $this->minute
+            + ($this->second / 60.0)
+            + ($this->millisecond / 60000.0);
     }
 
     /**
@@ -129,10 +129,10 @@ class TimeSpan extends Time
     public function totalHours()
     {
         return $this->day * 24
-                + $this->hour
-                + ($this->minute / 60.0)
-                + ($this->second / 3600.0)
-                + ($this->millisecond / 3600000.0);
+            + $this->hour
+            + ($this->minute / 60.0)
+            + ($this->second / 3600.0)
+            + ($this->millisecond / 3600000.0);
     }
 
     /**
@@ -143,10 +143,10 @@ class TimeSpan extends Time
     public function totalDays()
     {
         return $this->day
-                + ($this->hour / 24.0)
-                + ($this->minute / 1440.0)
-                + ($this->second / 86400.0)
-                + ($this->millisecond / 86400000.0);
+            + ($this->hour / 24.0)
+            + ($this->minute / 1440.0)
+            + ($this->second / 86400.0)
+            + ($this->millisecond / 86400000.0);
     }
 
     /**
@@ -186,5 +186,4 @@ class TimeSpan extends Time
 
         return $temp;
     }
-
 }

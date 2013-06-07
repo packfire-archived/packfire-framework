@@ -54,5 +54,4 @@ class ClassFinderTest extends \PHPUnit_Framework_TestCase
         $this->assertFileExists($file);
         $this->assertEquals($refl->getFileName(), realpath($file));
     }
-
 }

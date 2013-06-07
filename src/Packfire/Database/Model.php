@@ -50,5 +50,4 @@ abstract class Model implements IModel
 
         return $map;
     }
-
 }

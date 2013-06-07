@@ -44,5 +44,4 @@ interface IRoute
      * @since 1.0-elenor
      */
     public function name();
-
 }

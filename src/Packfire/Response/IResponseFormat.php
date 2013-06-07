@@ -30,5 +30,4 @@ interface IResponseFormat extends IAppResponse
      * @since 1.1-sofia
      */
     public function __construct($object);
-
 }

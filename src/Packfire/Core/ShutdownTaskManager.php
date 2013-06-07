@@ -59,7 +59,12 @@ class ShutdownTaskManager
         $args = func_get_args();
         $name = array_shift($args);
         if (!is_callable($task)) {
-            throw new InvalidArgumentException('ShutdownTaskManager::add', 'task', 'closure or callback', $task);
+            throw new InvalidArgumentException(
+                'ShutdownTaskManager::add',
+                'task',
+                'closure or callback',
+                $task
+            );
         }
         $this->tasks->add($name, $args);
     }
@@ -88,5 +93,4 @@ class ShutdownTaskManager
             call_user_func_array($task, $arguments);
         }
     }
-
 }

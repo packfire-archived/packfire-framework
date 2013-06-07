@@ -123,11 +123,13 @@ class YamlWriter
                 if (strlen($value) > 60) {
                     $space = str_repeat(' ', $indentation * 2);
                     $value = "\n" . $space . wordwrap(
-                                str_replace("\n", "\n\n" . $space, $value), 60,
-                             "\n" . $space, true) . "\n";
+                        str_replace("\n", "\n\n" . $space, $value),
+                        60,
+                        "\n" . $space,
+                        true
+                    ) . "\n";
                 } else {
-                    $value = '"' . str_replace(array('\\','"'),
-                            array('\\\\', '\\"'), $value).  '"';
+                    $value = '"' . str_replace(array('\\','"'), array('\\\\', '\\"'), $value).  '"';
                 }
                 break;
             case 'boolean':
@@ -140,5 +142,4 @@ class YamlWriter
 
         return $value;
     }
-
 }

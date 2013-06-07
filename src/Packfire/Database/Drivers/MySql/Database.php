@@ -57,5 +57,4 @@ class Database extends CoreDatabase
     {
         $this->driver->query('DROP SCHEMA `' . $schema . '`');
     }
-
 }

@@ -38,5 +38,4 @@ class IoCConfig extends FrameworkConfig
     {
         return $this->loadConfig('ioc', $context);
     }
-
 }

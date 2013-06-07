@@ -76,18 +76,22 @@ class Packfire
     public function fire($app)
     {
         $app($this->ioc);
-        set_error_handler(function($errno, $errstr, $errfile, $errline){
-            $e = new ErrorException($errstr);
-            $e->setCode($errno);
-            $e->setLine($errline);
-            $e->setFile($errfile);
-            throw $e;
-        });
+        set_error_handler(
+            function ($errno, $errstr, $errfile, $errline) {
+                $e = new ErrorException($errstr);
+                $e->setCode($errno);
+                $e->setLine($errline);
+                $e->setFile($errfile);
+                throw $e;
+            }
+        );
         set_exception_handler(array($app, 'handleException'));
         $request = $this->loadRequest();
-        $this->ioc['request'] = $this->ioc->share(function() use ($request) {
-            return $request;
-        });
+        $this->ioc['request'] = $this->ioc->share(
+            function () use ($request) {
+                return $request;
+            }
+        );
         $app->process();
         if (isset($this->ioc['response'])) {
             $response = $this->ioc['response'];
@@ -184,11 +188,13 @@ class Packfire
         } elseif ($response instanceof CliResponse) {
             $exitCode = $response->output();
             if (isset($this->ioc['shutdown'])) {
-                $this->ioc['shutdown']->add('shutdown.exitCode', function() use ($exitCode) {
-                    exit($exitCode);
-                });
+                $this->ioc['shutdown']->add(
+                    'shutdown.exitCode',
+                    function () use ($exitCode) {
+                        exit($exitCode);
+                    }
+                );
             }
         }
     }
-
 }

@@ -33,9 +33,11 @@ class HomeControllerTest extends \PHPUnit_Framework_TestCase
         $this->ioc = new Container();
         $bucket = $this->ioc;
         $bucket['session.storage'] = new SessionStorage();
-        $bucket['session'] = $bucket->share(function($c){
-            return new Session($c['session.storage']);
-        });
+        $bucket['session'] = $bucket->share(
+            function ($c) {
+                return new Session($c['session.storage']);
+            }
+        );
         $router = new Router();
         $config = new Map(array('rewrite' => 'home/{theme}', 'actual' => 'Rest'));
         $router->add('home', new Route('route.home', $config));
@@ -74,7 +76,7 @@ class HomeControllerTest extends \PHPUnit_Framework_TestCase
     {
         $this->object->getIndex();
         $this->assertInstanceOf('Packfire\Application\Http\Response', $this->ioc['response']);
-        $this->assertEquals('<!DOCTYPE html>', substr($this->ioc['response']->body(),0,15));
+        $this->assertEquals('<!DOCTYPE html>', substr($this->ioc['response']->body(), 0, 15));
     }
 
     /**
@@ -88,5 +90,4 @@ class HomeControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($contents);
         ob_end_clean();
     }
-
 }

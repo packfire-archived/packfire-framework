@@ -31,5 +31,4 @@ abstract class SchemaLinq extends Schema
      * @since 2.0.0-dev
      */
     abstract public function from($table);
-
 }

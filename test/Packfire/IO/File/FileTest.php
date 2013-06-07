@@ -177,5 +177,4 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceof('Packfire\IO\File\Stream', $this->normalFile->stream());
     }
-
 }

@@ -60,5 +60,4 @@ abstract class Database
      * @since 1.0-sofia
      */
     abstract public function delete($schema);
-
 }

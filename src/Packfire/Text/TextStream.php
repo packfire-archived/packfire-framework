@@ -112,9 +112,11 @@ class TextStream implements IIOStream
             $this->pointer = $position;
         } else {
             throw new OutOfRangeException(
-                    sprintf('Failed to seek out of range in text stream position %d.',
-                            $position)
-                );
+                sprintf(
+                    'Failed to seek out of range in text stream position %d.',
+                    $position
+                )
+            );
         }
     }
 
@@ -181,5 +183,4 @@ class TextStream implements IIOStream
                 break;
         }
     }
-
 }

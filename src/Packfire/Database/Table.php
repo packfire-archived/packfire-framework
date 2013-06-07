@@ -116,5 +116,4 @@ abstract class Table
      * @since 1.0-sofia
      */
     abstract public function pk();
-
 }

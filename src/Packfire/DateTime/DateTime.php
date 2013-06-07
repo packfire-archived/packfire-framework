@@ -94,8 +94,12 @@ class DateTime extends Date implements IFormattable
      */
     public function time()
     {
-        $time = new Time($this->time->hour(), $this->time->minute(),
-                $this->time->second(), $this->time->millisecond());
+        $time = new Time(
+            $this->time->hour(),
+            $this->time->minute(),
+            $this->time->second(),
+            $this->time->millisecond()
+        );
 
         return $time;
     }
@@ -159,8 +163,11 @@ class DateTime extends Date implements IFormattable
         }
         if ($month < 1 || $month > 12) {
             throw new InvalidArgumentException(
-                    'DateTime::daysInMonth', '$month', 'from 1 to 12.', $month
-                );
+                'DateTime::daysInMonth',
+                '$month',
+                'from 1 to 12.',
+                $month
+            );
         }
         $mapping = array(
             31, (self::isLeapYear($year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
@@ -199,13 +206,13 @@ class DateTime extends Date implements IFormattable
             $ts = time();
         }
         $dt = new DateTime(
-                gmdate('o', $ts) + 0,
-                gmdate('n', $ts) + 0,
-                gmdate('j', $ts) + 0,
-                gmdate('G', $ts) + 0,
-                gmdate('i', $ts) + 0,
-                gmdate('s', $ts) + 0
-            );
+            gmdate('o', $ts) + 0,
+            gmdate('n', $ts) + 0,
+            gmdate('j', $ts) + 0,
+            gmdate('G', $ts) + 0,
+            gmdate('i', $ts) + 0,
+            gmdate('s', $ts) + 0
+        );
 
         return $dt;
     }
@@ -228,9 +235,14 @@ class DateTime extends Date implements IFormattable
         } else {
             date_default_timezone_set('Etc/GMT' . ($this->timezone < 0 ? '-':'+') . abs($this->timezone));
         }
-        $ts = gmmktime($neutral->time->hour(), $neutral->time->minute(),
-                $neutral->time->second(), $neutral->month(),
-                $neutral->day(), $neutral->year());
+        $ts = gmmktime(
+            $neutral->time->hour(),
+            $neutral->time->minute(),
+            $neutral->time->second(),
+            $neutral->month(),
+            $neutral->day(),
+            $neutral->year()
+        );
         date_default_timezone_set($default);
 
         return $ts;
@@ -249,8 +261,11 @@ class DateTime extends Date implements IFormattable
     {
         if ($target < -12 || $target > 12) {
             throw new InvalidArgumentException(
-                    'DateTime::convertTimezone', '$target', 'from -12 to 12.', $target
-                );
+                'DateTime::convertTimezone',
+                '$target',
+                'from -12 to 12.',
+                $target
+            );
         } else {
             $diff = $dateTime->timezone - $target;
             $ts = new TimeSpan(abs($diff) * 3600);
@@ -300,7 +315,7 @@ class DateTime extends Date implements IFormattable
      */
     public function toRFC822()
     {
-       return gmdate(DateTimeFormat::RFC822, $this->toTimestamp());
+        return gmdate(DateTimeFormat::RFC822, $this->toTimestamp());
     }
 
     /**
@@ -400,8 +415,8 @@ class DateTime extends Date implements IFormattable
         $now = DateTime::now();
         $years = $now->year() - $birthday->year();
 
-        if($now->month() < $birthday->month() ||
-                ($now->month() >= $birthday->month() && $now->day() < $birthday->day())){
+        if ($now->month() < $birthday->month() ||
+            ($now->month() >= $birthday->month() && $now->day() < $birthday->day())) {
             // birthday hasn't pass, so subtract one.
             --$years;
         }
@@ -436,5 +451,4 @@ class DateTime extends Date implements IFormattable
 
         return $comparator->compare($this, $another);
     }
-
 }

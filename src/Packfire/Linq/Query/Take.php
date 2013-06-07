@@ -51,5 +51,4 @@ class Take implements IQuery
     {
         return array_slice($collection, 0, $this->count);
     }
-
 }

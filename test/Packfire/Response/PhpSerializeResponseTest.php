@@ -36,5 +36,4 @@ class PhpSerializeResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(serialize($data), $object->body());
         $this->assertEquals($object->body(), $object->output());
     }
-
 }

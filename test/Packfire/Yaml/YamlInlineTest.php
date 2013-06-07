@@ -63,12 +63,14 @@ class YamlInlineTest extends \PHPUnit_Framework_TestCase
     public function testParseMap()
     {
         $data = YamlInline::load('{alpha: test, mike: bravo, good: "bad}, equals", hungry: "yes[iam"}')->parseMap();
-        $this->assertEquals(array(
-            'alpha' => 'test',
-            'mike' => 'bravo',
-            'good' => 'bad}, equals',
-            'hungry' => 'yes[iam'
-        ), $data);
+        $this->assertEquals(
+            array(
+                'alpha' => 'test',
+                'mike' => 'bravo',
+                'good' => 'bad}, equals',
+                'hungry' => 'yes[iam'
+            ),
+            $data
+        );
     }
-
 }

@@ -33,5 +33,4 @@ class View extends CoreView
         $object->name = 'test2';
         $this->define('route', $this->route('home'));
     }
-
 }

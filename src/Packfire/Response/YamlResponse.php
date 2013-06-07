@@ -50,5 +50,4 @@ class YamlResponse extends HttpResponse implements IResponseFormat
             $this->body($textStream->read($textStream->length()));
         }
     }
-
 }

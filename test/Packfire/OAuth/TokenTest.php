@@ -72,9 +72,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Packfire\OAuth\Token::__toString
      */
-    public function test__toString()
+    public function testToString()
     {
         $this->assertEquals('token', (string) $this->object);
     }
-
 }

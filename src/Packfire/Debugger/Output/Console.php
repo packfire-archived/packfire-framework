@@ -65,8 +65,8 @@ class Console implements IOutput
             $message = '<pre>' . $message . '</pre>';
         }
         $this->lines->add(
-                    array('type' => $type, 'message' => $message, 'value' => $value)
-                );
+            array('type' => $type, 'message' => $message, 'value' => $value)
+        );
         if (!$this->types->keyExists($type)) {
             $this->types->add($type, 0);
         }
@@ -93,5 +93,4 @@ class Console implements IOutput
 
         echo $template->parse();
     }
-
 }

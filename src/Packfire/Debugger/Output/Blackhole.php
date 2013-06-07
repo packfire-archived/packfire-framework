@@ -31,5 +31,4 @@ class Blackhole implements IOutput
     public function write($message, $value = null, $type = 'log')
     {
     }
-
 }

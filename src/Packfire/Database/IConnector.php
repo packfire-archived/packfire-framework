@@ -25,5 +25,4 @@ interface IConnector
     public function __construct($config);
 
     public function database();
-
 }

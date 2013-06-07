@@ -63,5 +63,4 @@ class PriorityDeque extends Deque
         parent::enqueueFront($item);
         usort($this->array, $this->comparator);
     }
-
 }

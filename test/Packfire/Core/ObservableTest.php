@@ -42,10 +42,10 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
         $test = $this;
         $observable = $this->object;
         $data = 10;
-        $closure = function($sender, $arg = null) use ($observable, $test, &$data) {
-                    $test->assertEquals($observable, $sender);
-                    $data = $arg;
-                };
+        $closure = function ($sender, $arg = null) use ($observable, $test, &$data) {
+            $test->assertEquals($observable, $sender);
+            $data = $arg;
+        };
         $eventObserver = new EventObserver($closure);
         $this->object->attach($eventObserver);
         $this->object->notify(5);
@@ -59,5 +59,4 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
         $this->object->notify(5);
         $this->assertEquals(10, $data);
     }
-
 }

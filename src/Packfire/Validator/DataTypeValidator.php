@@ -58,5 +58,4 @@ class DataTypeValidator implements IValidator
 
         return $result;
     }
-
 }

@@ -40,5 +40,4 @@ class RedirectResponse extends Response
         $url->params()->add(OAuth::TOKEN, $token);
         parent::__construct($url);
     }
-
 }
