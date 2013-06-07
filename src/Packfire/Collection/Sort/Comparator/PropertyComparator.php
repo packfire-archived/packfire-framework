@@ -49,19 +49,19 @@ abstract class PropertyComparator implements IComparator
      * @param  object          $o1         The first object to compare
      * @param  object          $o2         The second object to compare
      * @param  array|ArrayList $components The components to compare
-     * @return integer         Returns 0 if they are the same, -1 if $o1 < $o2 and 1 if
-     *                 $o1 > $o2.
+     * @return integer Return 0 if both values are equal, 1 if $value2 > $value1
+     *                 and -1 if $value2 < $value1
      * @since 1.0-sofia
      */
-    protected function compareComponents($o1, $o2, $components)
+    protected function compareComponents($value1, $value2, $components)
     {
-        $componentComp = 0;
-        foreach ($components as $comp) {
-            $componentComp = $this->compareComponent($o1, $o2, $comp);
-            if ($componentComp != 0) {
+        $result = 0;
+        foreach ($components as $component) {
+            $result = $this->compareComponent($value1, $value2, $component);
+            if ($result != 0) {
                 break;
             }
         }
-        return $componentComp;
+        return $result;
     }
 }
