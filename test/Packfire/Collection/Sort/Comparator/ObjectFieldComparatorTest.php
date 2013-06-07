@@ -30,6 +30,17 @@ class ObjectFieldComparatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Packfire\Collection\Sort\Comparator\ObjectFieldComparator::__construct
+     */
+    public function testConstruct()
+    {
+        $field = new \ReflectionProperty($this->object, 'field');
+        $field->setAccessible(true);
+
+        $this->assertEquals('key', $field->getValue($this->object));
+    }
+
+    /**
      * @covers \Packfire\Collection\Sort\Comparator\ObjectFieldComparator::compare
      */
     public function testCompare()
@@ -41,5 +52,32 @@ class ObjectFieldComparatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-1, $this->object->compare($object1, $object2));
         $this->assertEquals(0, $this->object->compare($object2, $object2));
         $this->assertEquals(1, $this->object->compare($object2, $object1));
+    }
+
+    /**
+     * @covers \Packfire\Collection\Sort\Comparator\ObjectFieldComparator::access
+     */
+    public function testAccess()
+    {
+        $object = new \stdClass();
+        $object->key = 5;
+
+        $method = new \ReflectionMethod($this->object, 'access');
+        $method->setAccessible(true);
+
+        $this->assertEquals($object->key, $method->invoke($this->object, $object));
+    }
+
+    /**
+     * @covers \Packfire\Collection\Sort\Comparator\ObjectFieldComparator::access
+     */
+    public function testAccess2()
+    {
+        $object = array('key' => 5);
+
+        $method = new \ReflectionMethod($this->object, 'access');
+        $method->setAccessible(true);
+
+        $this->assertEquals($object['key'], $method->invoke($this->object, $object));
     }
 }
