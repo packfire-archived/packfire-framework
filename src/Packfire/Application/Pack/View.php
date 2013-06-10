@@ -29,18 +29,12 @@ use Packfire\FuelBlade\ConsumerInterface;
  */
 abstract class View extends CoreView
 {
-
-    /**
-     * Create a new View object
-     * @since 1.1-sofia
-     */
-    public function __construct()
+    public function render()
     {
-        parent::__construct();
-
         // set the default template as the name of the view class
         $template = str_replace('\\', DIRECTORY_SEPARATOR, get_class($this));
         $this->template($template);
+        return parent::render();
     }
 
     /**
