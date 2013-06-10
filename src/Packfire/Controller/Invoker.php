@@ -13,7 +13,7 @@ namespace Packfire\Controller;
 
 use Packfire\Core\ActionInvoker;
 use Packfire\Application\Pack\Template;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * Controller Access Invoker
@@ -24,7 +24,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-class Invoker implements IConsumer
+class Invoker implements ConsumerInterface
 {
     /**
      * The IoC Container
@@ -81,17 +81,17 @@ class Invoker implements IConsumer
                 if ($isView) {
                     /* @var $view \Packfire\View\View */
                     $view = new $class();
-                    if ($view instanceof IConsumer) {
+                    if ($view instanceof ConsumerInterface) {
                         $view($this->ioc);
                     }
                     $output = $view->render();
                     $response->body($output);
                 } else {
                     $controller = new $class();
-                    if ($controller instanceof \Packfire\FuelBlade\IConsumer) {
+                    if ($controller instanceof ConsumerInterface) {
                         $controller($this->ioc);
                     }
-                    if ($controller instanceof \Packfire\Controller\Controller) {
+                    if ($controller instanceof Controller) {
                         $controller->actionRun($this->action);
                     } else {
                         $params = isset($this->ioc['route']) ? $this->ioc['route']->params : array();
@@ -138,7 +138,6 @@ class Invoker implements IConsumer
     public function __invoke($container)
     {
         $this->ioc = $container;
-
         return $this;
     }
 }

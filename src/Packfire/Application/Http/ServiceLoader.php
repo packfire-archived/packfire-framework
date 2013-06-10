@@ -12,7 +12,7 @@
 namespace Packfire\Application\Http;
 
 use Packfire\Exception\Handler\HttpHandler;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 use Packfire\Route\Http\Router;
 use Packfire\Config\Framework\HttpRouterConfig;
 use Packfire\Session\Loader as SessionLoader;
@@ -30,7 +30,7 @@ use Packfire\Core\ClassLoader\CacheClassFinder;
  * @package Packfire\Application\Cli
  * @since 2.1.0
  */
-class ServiceLoader implements IConsumer
+class ServiceLoader implements ConsumerInterface
 {
     
     public function __invoke($c)

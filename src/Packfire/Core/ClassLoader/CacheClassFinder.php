@@ -11,7 +11,7 @@
 
 namespace Packfire\Core\ClassLoader;
 
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * Provides generic functionality for finding classes in files
@@ -23,7 +23,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0
  */
-class CacheClassFinder implements IClassFinder, IConsumer
+class CacheClassFinder implements IClassFinder, ConsumerInterface
 {
     /**
      * The cache driver

@@ -12,7 +12,7 @@
 namespace Packfire\Security;
 
 use Packfire\Security\ISecurityModule;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * The default security module implementation
@@ -23,7 +23,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Security
  * @since 1.0-sofia
  */
-class SecurityModule implements ISecurityModule, IConsumer
+class SecurityModule implements ISecurityModule, ConsumerInterface
 {
     /**
      * The IoC container

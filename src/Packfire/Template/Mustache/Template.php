@@ -15,7 +15,7 @@ use Packfire\Template\ITemplate;
 use Packfire\Template\Mustache\Bridge;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * A Packfire template that uses the Mustache
@@ -27,7 +27,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Template\Mustache
  * @since 1.0-sofia
  */
-class Template implements ITemplate, IConsumer
+class Template implements ITemplate, ConsumerInterface
 {
     /**
      * The fields to parse

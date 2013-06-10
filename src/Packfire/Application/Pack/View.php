@@ -14,7 +14,7 @@ namespace Packfire\Application\Pack;
 use Packfire\Application\Pack\Theme;
 use Packfire\Application\Pack\Template;
 use Packfire\View\View as CoreView;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * View class
@@ -54,7 +54,7 @@ abstract class View extends CoreView
     {
         if (is_string($template)) {
             $template = Template::load($template);
-            if ($template instanceof IConsumer) {
+            if ($template instanceof ConsumerInterface) {
                 $template($this->ioc);
             }
         }
@@ -73,7 +73,7 @@ abstract class View extends CoreView
     {
         if (is_string($theme)) {
             $theme = Theme::load($theme);
-            if ($theme instanceof IConsumer) {
+            if ($theme instanceof ConsumerInterface) {
                 $theme($this->ioc);
             }
         }

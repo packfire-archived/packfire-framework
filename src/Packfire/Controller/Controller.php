@@ -22,7 +22,7 @@ use Packfire\Net\Http\Request as HttpRequest;
 use Packfire\Net\Http\Response as HttpResponse;
 use Packfire\Core\ActionInvoker;
 use Packfire\Route\Validator;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * The generic controller class
@@ -33,7 +33,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-abstract class Controller implements IConsumer
+abstract class Controller implements ConsumerInterface
 {
     /**
      * The IoC container

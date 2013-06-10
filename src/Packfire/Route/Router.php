@@ -14,7 +14,7 @@ namespace Packfire\Route;
 use Packfire\Collection\Map;
 use Packfire\Exception\NullException;
 use Packfire\Exception\InvalidRequestException;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * Handles URL rewritting and controller routing
@@ -25,7 +25,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Route
  * @since 1.0-sofia
  */
-abstract class Router implements IConsumer, IRouter
+abstract class Router implements ConsumerInterface, IRouter
 {
     protected $routeType;
 

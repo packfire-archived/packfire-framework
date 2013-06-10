@@ -12,7 +12,7 @@
 namespace Packfire\Application\Cli;
 
 use Packfire\Exception\Handler\CliHandler;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * CLI Application Service Loader
@@ -23,7 +23,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Application\Cli
  * @since 2.1.0
  */
-class ServiceLoader implements IConsumer
+class ServiceLoader implements ConsumerInterface
 {
     public function __invoke($c)
     {

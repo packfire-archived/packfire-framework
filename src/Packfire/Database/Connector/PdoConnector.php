@@ -14,7 +14,7 @@ namespace Packfire\Database\Connector;
 use Packfire\Database\IConnector;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Database\Expression;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 if (!class_exists('\PDO')) {
     throw new MissingDependencyException('PdoConnector requires the PDO extension in order to run properly.');
@@ -29,7 +29,7 @@ if (!class_exists('\PDO')) {
  * @package Packfire\Database\Connector
  * @since 1.0-sofia
  */
-abstract class PdoConnector implements IConnector, IConsumer
+abstract class PdoConnector implements IConnector, ConsumerInterface
 {
     protected $debugger;
 

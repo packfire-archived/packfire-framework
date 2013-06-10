@@ -15,7 +15,7 @@ use Packfire\Controller\Controller as CoreController;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Text\Inflector;
 use Packfire\View\IView;
-use \Packfire\FuelBlade\IConsumer;
+use \Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * The generic application controller class
@@ -56,10 +56,8 @@ abstract class Controller extends CoreController
             $class = $name . $func . 'View';
             $view = new $class();
         }
-        if ($view instanceof IConsumer) {
-            $view($this->ioc);
-        }
         if ($view instanceof IView) {
+            $view($this->ioc);
             parent::render($view);
         } else {
             throw new MissingDependencyException(

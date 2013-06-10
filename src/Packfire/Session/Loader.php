@@ -13,7 +13,7 @@ namespace Packfire\Session;
 
 use Packfire\Session\Storage\SessionStorage;
 use Packfire\Session\Session;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * Performs loading for the session and its storage method
@@ -24,7 +24,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Session
  * @since 1.0-sofia
  */
-class Loader implements IConsumer
+class Loader implements ConsumerInterface
 {
     public function __invoke($c)
     {

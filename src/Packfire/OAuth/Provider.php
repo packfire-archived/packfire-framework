@@ -17,7 +17,7 @@ use Packfire\OAuth\OAuth;
 use Packfire\OAuth\Response;
 use Packfire\OAuth\Signature;
 use Packfire\OAuth\OAuthException;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * The service provider functionality of OAuth
@@ -28,7 +28,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class Provider implements IConsumer
+class Provider implements ConsumerInterface
 {
     /**
      * The data storage

@@ -12,7 +12,7 @@
 namespace Packfire\Session;
 
 use Packfire\Collection\ArrayList;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * Cross-class and controller session messenger. You can utilize this service
@@ -24,7 +24,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Session
  * @since 1.0-sofia
  */
-class Messenger implements IConsumer
+class Messenger implements ConsumerInterface
 {
     /**
      * The session bucket instance

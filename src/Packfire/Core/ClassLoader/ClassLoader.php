@@ -11,7 +11,7 @@
 
 namespace Packfire\Core\ClassLoader;
 
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * Provides generic functionality for auto-loading class
@@ -22,7 +22,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Core\ClassLoader
  * @since 2.0.0
  */
-class ClassLoader implements IClassLoader, IConsumer
+class ClassLoader implements IClassLoader, ConsumerInterface
 {
     /**
      * The class finder

@@ -13,7 +13,7 @@ namespace Packfire\Debugger;
 
 use Packfire\DateTime\DateTime;
 use Packfire\IO\File\Path;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * The debugger to help you debug in your application
@@ -24,7 +24,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Debugger
  * @since 1.0-sofia
  */
-class Debugger implements IConsumer
+class Debugger implements ConsumerInterface
 {
     /**
      * The output method of the debugger

@@ -14,7 +14,7 @@ namespace Packfire\Application;
 use Packfire\Database\ConnectorFactory;
 use Packfire\Config\Framework\AppConfig;
 use Packfire\Event\EventHandler;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 use Packfire\Config\Framework\IoCConfig;
 use Packfire\Core\ShutdownTaskManager;
 use Packfire\Exception\ServiceException;
@@ -28,7 +28,7 @@ use Packfire\Exception\ServiceException;
  * @package Packfire\Application
  * @since 1.0-sofia
  */
-class ServiceLoader implements IConsumer
+class ServiceLoader implements ConsumerInterface
 {
 
     /**
@@ -68,7 +68,7 @@ class ServiceLoader implements IConsumer
                                 } else {
                                     $instance = $reflect->newInstance();
                                 }
-                                if ($instance instanceof IConsumer) {
+                                if ($instance instanceof ConsumerInterface) {
                                     return $instance($c);
                                 } else {
                                     return $instance;
