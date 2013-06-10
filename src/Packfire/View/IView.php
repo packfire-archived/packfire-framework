@@ -11,6 +11,8 @@
 
 namespace Packfire\View;
 
+use Packfire\FuelBlade\IConsumer;
+
 /**
  * View interface that provides an output
  *
@@ -20,7 +22,7 @@ namespace Packfire\View;
  * @package Packfire\View
  * @since 1.0-sofia
  */
-interface IView
+interface IView extends IConsumer
 {
     /**
      * Generate the output of this view

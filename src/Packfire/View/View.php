@@ -17,7 +17,6 @@ use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
 use Packfire\Core\ObjectObserver;
 use Packfire\Exception\InvalidArgumentException;
-use Packfire\FuelBlade\IConsumer;
 
 /**
  * The generic view class.
@@ -28,7 +27,7 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\View
  * @since 1.0-sofia
  */
-abstract class View implements IView, IConsumer
+abstract class View implements IView
 {
     /**
      * The IoC Container
