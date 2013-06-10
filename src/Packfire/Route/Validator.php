@@ -82,33 +82,40 @@ class Validator
                             $rule = $entry;
                         }
                         $validation = $this->validateParam($rule, $value, $data);
+                        if (!$validation) {
+                            if (!$this->validationCallback($key, $value, $rule, isset($entry['message']) ? $entry['message'] : null)) {
+                                break;
+                            }
+                            $validation = true;
+                        }
                         $params[$key] = $value;
                     }
                 } else {
                     // there is data, but no validation rule
                     // as to be strict, we fail validation
-                    $validation = false;
-                }
-                if (!$validation) {
-                    if ($this->callback) {
-                        $package = array(
-                            'field' => $key,
-                            'value' => $value,
-                            'rule' => $rule,
-                            'message' =>
-                            isset($entry['message']) ? $entry['message'] : null
-                        );
-                        if (false == call_user_func($this->callback, $package)) {
-                            return $validation;
-                        }
-                    } else {
-                        return $validation;
+                    if (!$this->validationCallback($key, $value, $rule, isset($entry['message']) ? $entry['message'] : null)) {
+                        break;
                     }
                 }
             }
         }
 
         return $validation;
+    }
+
+    protected function validationCallback($key, $value, $rule, $message)
+    {
+        if ($this->callback) {
+            $package = array(
+                'field' => $key,
+                'value' => $value,
+                'rule' => $rule,
+                'message' => $message
+            );
+            return call_user_func($this->callback, $package);
+        } else {
+            return false;
+        }
     }
 
     /**
