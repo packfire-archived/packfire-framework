@@ -57,7 +57,6 @@ abstract class Controller extends CoreController
             $view = new $class();
         }
         if ($view instanceof IView) {
-            $view($this->ioc);
             parent::render($view);
         } else {
             throw new MissingDependencyException(

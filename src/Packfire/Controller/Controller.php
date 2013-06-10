@@ -99,13 +99,11 @@ abstract class Controller implements ConsumerInterface
      */
     public function render($view = null)
     {
-        if ($view) {
-            $view($this->ioc);
-            $view->state($this->state);
-            $output = $view->render();
-            if (isset($this->ioc['response']) && $this->ioc['response']) {
-                $this->ioc['response']->body($output);
-            }
+        $view($this->ioc);
+        $view->state($this->state);
+        $output = $view->render();
+        if (isset($this->ioc['response']) && $this->ioc['response']) {
+            $this->ioc['response']->body($output);
         }
     }
 
