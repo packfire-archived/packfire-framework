@@ -66,6 +66,6 @@ class Bridge extends Mustache
 
     public function __invoke($container)
     {
-        $this->ioc = $container
+        $this->ioc = $container;
     }
 }
