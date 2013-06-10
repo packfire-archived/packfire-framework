@@ -14,6 +14,7 @@ namespace Packfire\Template\Mustache;
 use Packfire\Template\Mustache\Mustache;
 use Packfire\Application\Pack\Template as AppTemplate;
 use Packfire\Collection\ArrayList;
+use Packfire\View\IView;
 
 /**
  * Mustache bridge that allows loading of partials from Application Templates
@@ -26,6 +27,8 @@ use Packfire\Collection\ArrayList;
  */
 class Bridge extends Mustache
 {
+    protected $ioc;
+
     /**
      * Get the partial by name and add to the buffer
      * @param string $name Name of the partial
@@ -34,11 +37,20 @@ class Bridge extends Mustache
     protected function partial($name, $scope)
     {
         /* @var $template ITemplate */
-        $template = AppTemplate::load($name);
-        if ($template) {
-            // Partial will use scope parameters only because partial does not know what is on top
-            $template->set($scope);
-            $this->buffer .= $template->parse();
+        if (class_exists($name)) {
+            $object = new $name();
+            if($object instanceof IView){
+                $object($this->ioc);
+                $object->state($scope);
+                $this->buffer .= $object->render();
+            }
+        } else {
+            $template = AppTemplate::load($name);
+            if ($template) {
+                // Partial will use scope parameters only because partial does not know what is on top
+                $template->set($scope);
+                $this->buffer .= $template->parse();
+            }
         }
     }
 
@@ -50,5 +62,10 @@ class Bridge extends Mustache
         if (count($this->parameters) == 0) {
             $this->parameters = null;
         }
+    }
+
+    public function __invoke($container)
+    {
+        $this->ioc = $container
     }
 }

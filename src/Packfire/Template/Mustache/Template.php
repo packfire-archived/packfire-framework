@@ -15,6 +15,7 @@ use Packfire\Template\ITemplate;
 use Packfire\Template\Mustache\Bridge;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * A Packfire template that uses the Mustache
@@ -26,7 +27,7 @@ use Packfire\Collection\Map;
  * @package Packfire\Template\Mustache
  * @since 1.0-sofia
  */
-class Template implements ITemplate
+class Template implements ITemplate, IConsumer
 {
     /**
      * The fields to parse
@@ -93,5 +94,11 @@ class Template implements ITemplate
     public function __toString()
     {
         return $this->parse();
+    }
+
+    public function __invoke($container)
+    {
+        // pass the container to the parser bridge
+        call_user_func($this->parser, $container);
     }
 }
