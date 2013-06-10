@@ -15,6 +15,7 @@ use Packfire\Template\Mustache\Mustache;
 use Packfire\Application\Pack\Template as AppTemplate;
 use Packfire\Collection\ArrayList;
 use Packfire\View\IView;
+use Packfire\FuelBlade\IConsumer;
 
 /**
  * Mustache bridge that allows loading of partials from Application Templates
@@ -25,7 +26,7 @@ use Packfire\View\IView;
  * @package Packfire\Template\Mustache
  * @since 1.1-sofia
  */
-class Bridge extends Mustache
+class Bridge extends Mustache implements IConsumer
 {
     protected $ioc;
 
