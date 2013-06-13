@@ -13,6 +13,7 @@ namespace Packfire\Application;
 
 use Packfire\Database\ConnectorFactory;
 use Packfire\Config\Framework\Loader as ConfigLoader;
+use Packfire\FuelBlade\ServiceLoader as FuelBladeLoader;
 use Packfire\Event\EventHandler;
 use Packfire\FuelBlade\ConsumerInterface;
 use Packfire\Core\ShutdownTaskManager;
@@ -53,37 +54,7 @@ class ServiceLoader implements ConsumerInterface
         );
         $iocConfig = $c['config.ioc'];
         if ($iocConfig) {
-            $services = $iocConfig->get();
-            foreach ($services as $key => $service) {
-                if (isset($service['class'])) {
-                    $package = $service['class'];
-                    $params = isset($service['parameters']) ? $service['parameters'] : null;
-                    $c[$key] = $c->share(
-                        function ($c) use ($package, $params) {
-                            if (class_exists($package)) {
-                                $reflect = new \ReflectionClass($package);
-                                if ($params) {
-                                    $instance = $reflect->newInstanceArgs($params);
-                                } else {
-                                    $instance = $reflect->newInstance();
-                                }
-                                if ($instance instanceof ConsumerInterface) {
-                                    return $instance($c);
-                                } else {
-                                    return $instance;
-                                }
-                            }
-                        }
-                    );
-                } else {
-                    throw new ServiceException(
-                        'Service "' . $key
-                        . '" defined in the service configuration'
-                        . ' file "ioc.yml" contains not conain a'
-                        . ' class definition.'
-                    );
-                }
-            }
+            FuelBladeLoader::load($c, $iocConfig->get('services'));
         }
 
         if ($config) {
