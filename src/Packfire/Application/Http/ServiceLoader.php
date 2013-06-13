@@ -61,7 +61,7 @@ class ServiceLoader implements ConsumerInterface
         // class finder and loader
         $loadClassFinder = function () {
             $classFinder = new ClassFinder();
-            $classFinder->addPath('pack/src/');
+            $classFinder->addPath(__APP_ROOT__ . '/src/');
 
             return $classFinder;
         };
