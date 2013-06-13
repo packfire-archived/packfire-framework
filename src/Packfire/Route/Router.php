@@ -131,7 +131,7 @@ abstract class Router implements ConsumerInterface, IRouter
 
     public function __invoke($c)
     {
-        if (isset($c['config.routing'])) {
+        if (isset($c['config.routes'])) {
             $settings = $c['config.routes'];
             $routes = $settings->get();
             $type = $this->routeType;
