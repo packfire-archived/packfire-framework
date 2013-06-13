@@ -14,7 +14,7 @@ namespace Packfire\Application\Http;
 use Packfire\Exception\Handler\HttpHandler;
 use Packfire\FuelBlade\ConsumerInterface;
 use Packfire\Route\Http\Router;
-use Packfire\Config\Framework\HttpRouterConfig;
+use Packfire\Config\Framework\Loader as ConfigLoader;
 use Packfire\Session\Loader as SessionLoader;
 use Packfire\Debugger\Debugger;
 use Packfire\Core\ClassLoader\ClassFinder;
@@ -40,8 +40,8 @@ class ServiceLoader implements ConsumerInterface
         }
 
         $c['config.routing'] = $c->share(
-            function () {
-                $config = new HttpRouterConfig();
+            function ($c) {
+                $config = new ConfigLoader($c['config']->get('router', 'routes'));
                 return $config->load();
             }
         );
