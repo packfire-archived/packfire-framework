@@ -12,10 +12,9 @@
 namespace Packfire\Application;
 
 use Packfire\Database\ConnectorFactory;
-use Packfire\Config\Framework\AppConfig;
+use Packfire\Config\Framework\Loader as ConfigLoader;
 use Packfire\Event\EventHandler;
 use Packfire\FuelBlade\ConsumerInterface;
-use Packfire\Config\Framework\IoCConfig;
 use Packfire\Core\ShutdownTaskManager;
 use Packfire\Exception\ServiceException;
 
@@ -40,7 +39,7 @@ class ServiceLoader implements ConsumerInterface
     {
         $c['config'] = $c->share(
             function () {
-                $config = new AppConfig();
+                $config = new ConfigLoader('app');
                 return $config->load();
             }
         );
@@ -48,7 +47,7 @@ class ServiceLoader implements ConsumerInterface
 
         $c['config.ioc'] = $c->share(
             function () {
-                $config = new IoCConfig();
+                $config = new ConfigLoader('ioc');
                 return $config->load();
             }
         );
