@@ -39,7 +39,7 @@ class ServiceLoader implements ConsumerInterface
             $c['exception.handler'] = new HttpHandler();
         }
 
-        $c['config.routing'] = $c->share(
+        $c['config.routes'] = $c->share(
             function ($c) {
                 $config = new ConfigLoader($c['config']->get('router', 'routes'));
                 return $config->load();
