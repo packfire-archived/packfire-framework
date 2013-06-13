@@ -93,16 +93,16 @@
         },
         {
             "name": "packfire/fuelblade",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/fuelblade.git",
-                "reference": "1.1.0"
+                "reference": "1.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/fuelblade/zipball/1.1.0",
-                "reference": "1.1.0",
+                "url": "https://api.github.com/repos/packfire/fuelblade/zipball/1.1.1",
+                "reference": "1.1.1",
                 "shasum": ""
             },
             "require": {
@@ -133,7 +133,7 @@
                 "di",
                 "ioc"
             ],
-            "time": "2013-05-23 12:59:09"
+            "time": "2013-06-13 07:49:52"
         },
         {
             "name": "packfire/logger",
