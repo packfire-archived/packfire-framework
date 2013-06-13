@@ -29,7 +29,14 @@
         "packfire/config": "1.0.*",
         "packfire/regex": "1.0.*",
         "packfire/mustache": "1.0.*",
-        "packfire/logger": "1.0.*"
+        "packfire/logger": "1.0.*",
+        "ext-pdo": "*"
+    },
+    "suggest": {
+        "ext-apc": "APC caching support can be selected through the use of \\Packfire\\Cache\\ApcCache but requires the APC extension.",
+        "ext-memcache": "MemCache caching support can be selected through the use of \\Packfire\\Cache\\MemCache but requires the MemCache extension.",
+        "ext-dom": "DOM support is required when using Packfire\\Data\\Serialization\\XmlSerializer.",
+        "ext-curl": "Curl support is required when using Packfire\\Net\\Http\\Server's functionality to send and receive data to another HTTP server."
     },
     "autoload": {
         "psr-0": {"Packfire": "src/"}
