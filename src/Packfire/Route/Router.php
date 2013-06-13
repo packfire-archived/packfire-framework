@@ -80,11 +80,9 @@ abstract class Router implements ConsumerInterface, IRouter
      */
     public function route($request)
     {
-        if ($this->routes) {
-            foreach ($this->routes as $route) {
-                if ($route->match($request)) {
-                    return $route;
-                }
+        foreach ($this->routes as $route) {
+            if ($route->match($request)) {
+                return $route;
             }
         }
 
@@ -102,22 +100,18 @@ abstract class Router implements ConsumerInterface, IRouter
      */
     public function to($key, $params = array())
     {
-        if ($this->routes) {
-            $route = $this->routes->get($key);
-            if ($route === null) {
-                throw new NullException(
-                    sprintf(
-                        'Routing route "%s" was not found in the'
-                        . ' router\'s entries.',
-                        $key
-                    )
-                );
-            }
-
-            return $this->prepareRoute($route, $params);
-        } else {
-            return null;
+        $route = $this->routes->get($key);
+        if ($route === null) {
+            throw new NullException(
+                sprintf(
+                    'Routing route "%s" was not found in the'
+                    . ' router\'s entries.',
+                    $key
+                )
+            );
         }
+
+        return $this->prepareRoute($route, $params);
     }
 
     /**
