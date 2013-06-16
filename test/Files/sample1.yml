@@ -25,7 +25,7 @@ session:
   http: true
   secure: false
 
-routing:
+router:
   enabled: true
 
 database:

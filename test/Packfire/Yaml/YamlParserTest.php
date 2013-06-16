@@ -78,7 +78,7 @@ class YamlParserTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result);
         $this->assertCount(5, $result);
 
-        $this->assertEquals(array('app', 'security', 'session', 'routing', 'database'), array_keys($result));
+        $this->assertEquals(array('app', 'security', 'session', 'router', 'database'), array_keys($result));
 
         $this->assertTrue(array_key_exists('app', $result));
         $this->assertEquals(

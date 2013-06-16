@@ -96,7 +96,7 @@ class Application extends ServiceApplication
         if ($request->method() == HttpMethod::GET
                 && isset($this->ioc['config'])
                 && isset($this->ioc['cache'])
-                && $this->ioc['config']->get('routing', 'caching')) {
+                && $this->ioc['config']->get('router', 'caching')) {
             $this->ioc['router'] = $this->ioc->share(
                 function ($c) use ($router) {
                     return new CacheRouter($router, $c['cache']);
