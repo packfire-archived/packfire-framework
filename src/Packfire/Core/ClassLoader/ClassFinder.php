@@ -11,8 +11,6 @@
 
 namespace Packfire\Core\ClassLoader;
 
-use Packfire\Collection\ArrayList;
-
 /**
  * Provides generic functionality for finding classes in files
  *
@@ -41,15 +39,12 @@ class ClassFinder implements IClassFinder
     /**
      * Assign a directory to load from for a namespace
      * @param string                               $namespace The namespace to be loaded
-     * @param array|\Packfire\Collection\ArrayList $path      The path(s) to look in for the namespace loading
+     * @param array $path      The path(s) to look in for the namespace loading
      * @since 2.0.0
      */
     public function addNamespace($namespace, $path)
     {
         if (isset($this->namespaces[$namespace])) {
-            if ($path instanceof ArrayList) {
-                $path = $path->toArray();
-            }
             $this->namespaces[$namespace] =
                     array_merge($this->namespaces[$namespace], (array) $path);
         } else {
