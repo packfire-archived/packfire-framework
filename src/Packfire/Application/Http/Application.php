@@ -12,8 +12,6 @@
 namespace Packfire\Application\Http;
 
 use Packfire\Application\ServiceApplication;
-use Packfire\Application\Http\Response;
-use Packfire\Application\Http\ServiceLoader;
 use Packfire\Exception\HttpException;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Controller\Invoker as ControllerInvoker;
