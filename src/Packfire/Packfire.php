@@ -47,9 +47,6 @@ class Packfire
      */
     public function __construct()
     {
-        if (!defined('__APP_ROOT__')) {
-            define('__APP_ROOT__', dirname($_SERVER['SCRIPT_FILENAME']) . '/../app');
-        }
         if (!class_exists('Packfire\Core\ClassLoader\PackfireClassFinder')) {
             if (is_dir(__DIR__ . '/../../vendor')) {
                 require(__DIR__ . '/../../vendor/autoload.php');
