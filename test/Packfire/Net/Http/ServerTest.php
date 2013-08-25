@@ -40,7 +40,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
         $response = $this->object->request($request);
         $this->assertInstanceOf('Packfire\Net\Http\Response', $response);
-        $this->assertEquals('http://example.iana.org', $response->headers()->get('location'));
-        $this->assertEquals('302 Found', $response->code());
+        $this->assertEquals('text/html', $response->headers()->get('content-type'));
+        $this->assertEquals('200 OK', $response->code());
     }
 }
