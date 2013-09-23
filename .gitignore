@@ -1,2 +1,7 @@
+*~
+*.bak
+Thumbs.db
+desktop.ini
 vendor
+*.phar
 phpunit.xml
