@@ -30,6 +30,7 @@
         "packfire/regex": "1.0.*",
         "packfire/mustache": "1.0.*",
         "packfire/logger": "1.0.*",
+        "mauris/yaml": "1.0.*",
         "ext-pdo": "*"
     },
     "suggest": {

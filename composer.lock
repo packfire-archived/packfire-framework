@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ec95371d67f4286669ea5f9167c48359",
+    "hash": "95a87fa5f07492690e971a2ff8570b83",
     "packages": [
         {
             "name": "camspiers/json-pretty",
@@ -51,12 +51,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mauris/ini-writer.git",
-                "reference": "1.0.0"
+                "reference": "bc9762c44199930858087bedfe8ccffaef3be962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mauris/ini-writer/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/mauris/ini-writer/zipball/bc9762c44199930858087bedfe8ccffaef3be962",
+                "reference": "bc9762c44199930858087bedfe8ccffaef3be962",
                 "shasum": ""
             },
             "require": {
@@ -86,13 +86,13 @@
             "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpdeveloper/Yaml.git",
-                "reference": "1.0.0"
+                "url": "https://github.com/mauris/Yaml.git",
+                "reference": "f4e5637d6264fc996f01f97d661bb19789645df2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpdeveloper/Yaml/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/mauris/Yaml/zipball/f4e5637d6264fc996f01f97d661bb19789645df2",
+                "reference": "f4e5637d6264fc996f01f97d661bb19789645df2",
                 "shasum": ""
             },
             "require": {
@@ -178,12 +178,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/fuelblade.git",
-                "reference": "1.1.1"
+                "reference": "bd118205061042e91ba50f36b5a2900e7e0d4587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/fuelblade/zipball/1.1.1",
-                "reference": "1.1.1",
+                "url": "https://api.github.com/repos/packfire/fuelblade/zipball/bd118205061042e91ba50f36b5a2900e7e0d4587",
+                "reference": "bd118205061042e91ba50f36b5a2900e7e0d4587",
                 "shasum": ""
             },
             "require": {
@@ -222,12 +222,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/logger.git",
-                "reference": "1.0.0"
+                "reference": "6d4b00d9fc8cb14a4338b7bd01b97150e5803f69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/logger/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/packfire/logger/zipball/6d4b00d9fc8cb14a4338b7bd01b97150e5803f69",
+                "reference": "6d4b00d9fc8cb14a4338b7bd01b97150e5803f69",
                 "shasum": ""
             },
             "require": {
@@ -256,12 +256,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/mustache.git",
-                "reference": "1.0.0"
+                "reference": "e5e4449a52d6f394af61f4ec996261f39739595d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/mustache/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/packfire/mustache/zipball/e5e4449a52d6f394af61f4ec996261f39739595d",
+                "reference": "e5e4449a52d6f394af61f4ec996261f39739595d",
                 "shasum": ""
             },
             "require": {
@@ -288,13 +288,13 @@
             "version": "1.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/packfire/options",
-                "reference": "1.1.2"
+                "url": "https://github.com/packfire/options.git",
+                "reference": "d2f9cd4a50773f7295a795bc7a5748f6a9e005e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/packfire/options/archive/1.1.2.zip",
-                "reference": "1.1.2",
+                "url": "https://api.github.com/repos/packfire/options/zipball/d2f9cd4a50773f7295a795bc7a5748f6a9e005e7",
+                "reference": "d2f9cd4a50773f7295a795bc7a5748f6a9e005e7",
                 "shasum": ""
             },
             "require": {
@@ -335,12 +335,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/php5.3-compatibility.git",
-                "reference": "1.0.0"
+                "reference": "b6f257d07b6e0891433857262435622fd4ebd56d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/packfire/php5.3-compatibility/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/packfire/php5.3-compatibility/zipball/b6f257d07b6e0891433857262435622fd4ebd56d",
+                "reference": "b6f257d07b6e0891433857262435622fd4ebd56d",
                 "shasum": ""
             },
             "require": {
@@ -371,7 +371,7 @@
                 "compatibility",
                 "library"
             ],
-            "time": "2012-10-27 22:29:18"
+            "time": "2012-10-28 05:29:18"
         },
         {
             "name": "packfire/regex",
@@ -379,12 +379,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/regex.git",
-                "reference": "1.0.0"
+                "reference": "f60ef18739896eaf6761e9040bbd23e34d34366d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/regex/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/packfire/regex/zipball/f60ef18739896eaf6761e9040bbd23e34d34366d",
+                "reference": "f60ef18739896eaf6761e9040bbd23e34d34366d",
                 "shasum": ""
             },
             "require": {
@@ -457,13 +457,13 @@
             "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-fig/log",
-                "reference": "1.0.0"
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/php-fig/log/archive/1.0.0.zip",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
                 "shasum": ""
             },
             "type": "library",
