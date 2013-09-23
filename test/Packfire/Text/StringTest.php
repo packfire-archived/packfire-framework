@@ -210,6 +210,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('test', $this->objects[0]->substring(0, 4));
         $this->assertEquals('same', $this->objects[0]->substring(8, 4));
+        $this->assertEquals('same thing over and over again  ', $this->objects[0]->substring(8));
     }
 
     /**
