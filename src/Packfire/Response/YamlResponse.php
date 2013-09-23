@@ -12,7 +12,7 @@
 namespace Packfire\Response;
 
 use Packfire\Application\Http\Response as HttpResponse;
-use Packfire\Yaml\YamlWriter;
+use Symfony\Component\Yaml\Yaml;
 use Packfire\Text\TextStream;
 use Packfire\Response\IResponseFormat;
 
@@ -40,14 +40,10 @@ class YamlResponse extends HttpResponse implements IResponseFormat
         if (is_string($object)) { // probably already encoded
             $this->body($object);
         } else {
-            $textStream = new TextStream();
-            $writer = new YamlWriter($textStream);
             if (is_object($object)) {
                 $object = (array) $object;
             }
-            $writer->write($object);
-            $textStream->seek(0);
-            $this->body($textStream->read($textStream->length()));
+            $this->body(Yaml::dump($object));
         }
     }
 }
