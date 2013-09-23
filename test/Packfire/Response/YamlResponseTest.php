@@ -34,7 +34,7 @@ class YamlResponseTest extends \PHPUnit_Framework_TestCase
         );
         $object = new YamlResponse($data);
         $this->assertEquals('application/x-yaml', $object->headers()->get('Content-Type'));
-        $this->assertEquals("\n---\ndata: 5\n...\n", $object->body());
+        $this->assertEquals("data: 5\n", $object->body());
         $this->assertEquals($object->body(), $object->output());
     }
 
