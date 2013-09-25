@@ -35,6 +35,9 @@ class HomeController extends Controller
 
     public function getIndex()
     {
+        if (!session_name()) {
+            $this->ioc['session']->register();
+        }
         $this->message();
         $this->render(new HomeIndexView());
     }
