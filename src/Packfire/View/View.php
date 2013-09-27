@@ -173,6 +173,16 @@ abstract class View implements IView
     }
 
     /**
+     * Get the feedback from the view back to the controller/parent
+     * @return mixed Returns the feedback
+     * @since 2.1.1
+     */
+    public function feedback()
+    {
+        return null;
+    }
+
+    /**
      * Set the template used by the view
      * @param  ITemplate $template The template to use
      * @return View      Returns an instance of self for chaining.

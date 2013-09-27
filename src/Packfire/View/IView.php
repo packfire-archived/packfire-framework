@@ -32,9 +32,16 @@ interface IView extends ConsumerInterface
     public function render();
 
     /**
-     * Set the state from the controller to the view
-     * @param Map $state The state of the controller passed to the view.
+     * Set the state from the controller/parent to the view
+     * @param mixed $state The state passed to the view.
      * @since 1.0-sofia
      */
     public function state($state);
+
+    /**
+     * Get the feedback from the view back to the controller/parent
+     * @return mixed Returns the feedback
+     * @since 2.1.1
+     */
+    public function feedback();
 }
