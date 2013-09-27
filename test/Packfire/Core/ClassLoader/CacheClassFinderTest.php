@@ -42,7 +42,7 @@ class CacheClassFinderTest extends \PHPUnit_Framework_TestCase
             'cache' => new MockCache()
         );
         call_user_func($this->object, $ioc);
-        
+
         $this->assertEquals('src/Packfire/Packfire.php', $this->object->find('Packfire\\Packfire'));
         $this->assertTrue($ioc['cache']->check('Packfire\\Packfire'));
         $this->assertEquals('src/Packfire/Packfire.php', $ioc['cache']->get('Packfire\\Packfire'));
@@ -53,13 +53,13 @@ class CacheClassFinderTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Packfire\Core\ClassLoader\CacheClassFinder::__invoke
      */
-    public function test__invoke()
+    public function testInvoke()
     {
         $ioc = array(
             'cache' => new \stdClass()
         );
         call_user_func($this->object, $ioc);
-        
+
         $property = new \ReflectionProperty($this->object, 'cache');
         $property->setAccessible(true);
         $this->assertEquals($ioc['cache'], $property->getValue($this->object));

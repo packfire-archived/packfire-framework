@@ -3,15 +3,13 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
  */
 
 namespace Packfire\Linq;
-
-use Packfire\Linq\ILinq;
 
 /**
  * A generic ordered LINQ with the thenBy() and thenByDesc() implementation
@@ -22,10 +20,9 @@ use Packfire\Linq\ILinq;
  * @package Packfire\Linq
  * @since 1.0-sofia
  */
-interface IOrderedLinq extends ILinq {
-    
+interface IOrderedLinq extends ILinq
+{
     public function thenBy($field);
-    
+
     public function thenByDesc($field);
-    
 }

@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -25,29 +25,30 @@ use Packfire\Collection\Map;
  * @package Packfire\Template
  * @since 1.1-sofia
  */
-class TemplateFile implements ITemplateFile {
-    
+class TemplateFile implements ITemplateFile
+{
     /**
      * Pathname to the PHP file
      * @var string
      * @since 1.1-sofia
      */
     private $file;
-    
+
     /**
      * The template fields
      * @var Map
      * @since 1.1-sofia
      */
     private $fields;
-    
+
     /**
      * Create a new PhpTemplateFile object
      * @param File|string $file The file or pathname to the file
      * @since 1.1-sofia
      */
-    public function __construct($file) {
-        if($file instanceof File){
+    public function __construct($file)
+    {
+        if ($file instanceof File) {
             $file = $file->pathname();
         }
         $this->file = $file;
@@ -59,7 +60,8 @@ class TemplateFile implements ITemplateFile {
      * @return Map Returns the template fields hash map
      * @since 1.1-sofia
      */
-    public function fields() {
+    public function fields()
+    {
         return $this->fields;
     }
 
@@ -68,12 +70,14 @@ class TemplateFile implements ITemplateFile {
      * @return string Returns the parsed template
      * @since 1.1-sofia
      */
-    public function parse() {
+    public function parse()
+    {
         ob_start();
         var_export($this->fields->toArray());
         include($this->file);
         $output = ob_get_contents();
         ob_end_clean();
+
         return $output;
     }
 
@@ -82,15 +86,15 @@ class TemplateFile implements ITemplateFile {
      * @param mixed $set The fields to be set
      * @since 1.1-sofia
      */
-    public function set($set) {
-        if(is_object($set) && !($set instanceof ArrayList)){
+    public function set($set)
+    {
+        if (is_object($set) && !($set instanceof ArrayList)) {
             $set = get_object_vars($set);
         }
-        if(is_array($set) || $set instanceof ArrayList){
-            foreach($set as $key => $value){
+        if (is_array($set) || $set instanceof ArrayList) {
+            foreach ($set as $key => $value) {
                 $this->fields->add($key, $value);
             }
         }
     }
-
 }

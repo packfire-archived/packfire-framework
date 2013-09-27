@@ -10,7 +10,7 @@ items:
       descrip:   Water Bucket (Filled)
       price:     1.47
       quantity:  4
-      
+
     - part_no:   E1628
       descrip:   High Heeled "Ruby" Slippers
       size:      8
@@ -32,7 +32,7 @@ specialDelivery:  >
 
     Pay no attention to the
     man behind the curtain.
-    
+
 note: |
    There once was a man from Darjeeling
    Who got on a bus bound for Ealing

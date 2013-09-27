@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,13 +22,12 @@ use Packfire\Collection\Sort\IComparator;
  * @package Packfire\Collection\Sort
  * @since 1.0-sofia
  */
-interface ISorter extends IComparator {
-    
+interface ISorter extends IComparator
+{
     /**
      * Perform the sorting operation
      * @param mixed $sortable Something sortable
      * @since 1.0-sofia
      */
     public function sort(&$sortable);
-    
 }

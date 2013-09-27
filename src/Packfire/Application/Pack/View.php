@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -14,6 +14,7 @@ namespace Packfire\Application\Pack;
 use Packfire\Application\Pack\Theme;
 use Packfire\Application\Pack\Template;
 use Packfire\View\View as CoreView;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * View class
@@ -26,18 +27,14 @@ use Packfire\View\View as CoreView;
  * @package Packfire\Application\Pack
  * @since 1.1-sofia
  */
-abstract class View extends CoreView {
-
-    /**
-     * Create a new View object
-     * @since 1.1-sofia
-     */
-    public function __construct(){
-        parent::__construct();
-
+abstract class View extends CoreView
+{
+    public function render()
+    {
         // set the default template as the name of the view class
         $template = str_replace('\\', DIRECTORY_SEPARATOR, get_class($this));
         $this->template($template);
+        return parent::render();
     }
 
     /**
@@ -47,10 +44,15 @@ abstract class View extends CoreView {
      * @return View Returns the object for chaining
      * @since 1.1-sofia
      */
-    protected function template($template) {
-        if(is_string($template)){
+    protected function template($template)
+    {
+        if (is_string($template)) {
             $template = Template::load($template);
+            if ($template instanceof ConsumerInterface) {
+                $template($this->ioc);
+            }
         }
+
         return parent::template($template);
     }
 
@@ -61,11 +63,15 @@ abstract class View extends CoreView {
      * @return View Returns the object for chaining
      * @since 1.1-sofia
      */
-    protected function theme($theme) {
-        if(is_string($theme)){
+    protected function theme($theme)
+    {
+        if (is_string($theme)) {
             $theme = Theme::load($theme);
+            if ($theme instanceof ConsumerInterface) {
+                $theme($this->ioc);
+            }
         }
+
         return parent::theme($theme);
     }
-
 }

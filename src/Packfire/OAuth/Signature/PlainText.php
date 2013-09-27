@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,21 +23,23 @@ use Packfire\OAuth\Signature;
  * @package Packfire\OAuth\Signature
  * @since 1.1-sofia
  */
-class PlainText extends Signature {
-    
-    public function build() {
-        $keyParts = Helper::urlencode(array(
+class PlainText extends Signature
+{
+    public function build()
+    {
+        $keyParts = Helper::urlencode(
             $this->consumer->secret(),
             $this->tokenSecret ? $this->tokenSecret : ''
-        ));
-        
+        );
+
         $key = implode('&', $keyParts);
+
         return $key;
 
     }
 
-    public function name() {
+    public function name()
+    {
         return 'PLAINTEXT';
     }
-    
 }

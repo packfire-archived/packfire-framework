@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,8 +23,8 @@ use Packfire\IO\File\System as FileSystem;
  * @package Packfire\IO\File
  * @since 1.0-sofia
  */
-class Path {
-
+class Path
+{
     /**
      * The working path
      * @var string
@@ -37,7 +37,8 @@ class Path {
      * @param string $path The path to work with
      * @since 1.0-sofia
      */
-    public function __construct($path){
+    public function __construct($path)
+    {
         $this->path = $path;
     }
 
@@ -50,38 +51,42 @@ class Path {
      * @link http://php.net/mkdir
      * @since 1.0-sofia
      */
-    public function create($perm = 0777){
-        return (bool)mkdir($this->path, $perm, true);
+    public function create($perm = 0777)
+    {
+        return (bool) mkdir($this->path, $perm, true);
     }
 
     /**
      * Get the permission of the directory
-     * @param integer $permission (optional) The permission to set the directory and its contents to
+     * @param  integer $permission (optional) The permission to set the directory and its contents to
      * @return integer Returns the permission of the directory
      * @link http://php.net/chmod
      * @since 1.0-sofia
      */
-    public function permission($permission = null){
-        if(func_num_args() == 1){
+    public function permission($permission = null)
+    {
+        if (func_num_args() == 1) {
             self::setPermission($this->path, $permission);
+
             return $permission;
-        }else{
+        } else {
             return substr(decoct(fileperms($this->path)), 2);
         }
     }
 
     /**
      * Set permission for a path recursively
-     * @param string $path The path to set permission
+     * @param string  $path       The path to set permission
      * @param integer $permission The permission to set the path and contents to
      * @since 1.0-sofia
      */
-    private static function setPermission($path, $permission) {
+    private static function setPermission($path, $permission)
+    {
         static $ignore = array('cgi-bin', '.', '..');
         $dir = @opendir($path);
         while (false !== ($file = readdir($dir))) {
             if (!in_array($file, $ignore)) {
-                $file = $path . DIRECTORY_SEPARATOR . $file;
+                $file = $path . '/' . $file;
                 chmod($file, $permission);
                 if (is_dir($file)) {
                     self::setPermission($file, $permission);
@@ -97,30 +102,36 @@ class Path {
      * @link http://php.net/rmdir
      * @since 1.0-sofia
      */
-    public function delete(){
-        return (bool)rmdir($this->path);
+    public function delete()
+    {
+        return (bool) rmdir($this->path);
     }
 
     /**
      * Copy a path and its contents to another
-     * @param string $source The source path to copy from
+     * @param string $source      The source path to copy from
      * @param string $destination The destination path to copy to
      * @since 1.0-sofia
      */
-    public static function copy($source, $destination){
-        if($source == $destination){
+    public static function copy($source, $destination)
+    {
+        if ($source == $destination) {
             return;
         }
         $dir = opendir($source);
         mkdir($destination, 0777, true);
-        while(false !== ( $file = readdir($dir))) {
-            if(($file != '.') && ($file != '..')){
-                if(is_dir($source . DIRECTORY_SEPARATOR . $file)){
-                    self::copy($source . DIRECTORY_SEPARATOR . $file,
-                            $destination . DIRECTORY_SEPARATOR . $file);
-                }else{
-                    copy($source . DIRECTORY_SEPARATOR . $file,
-                            $destination . DIRECTORY_SEPARATOR . $file);
+        while (false !== ( $file = readdir($dir))) {
+            if (($file != '.') && ($file != '..')) {
+                if (is_dir($source . '/' . $file)) {
+                    self::copy(
+                        $source . '/' . $file,
+                        $destination . '/' . $file
+                    );
+                } else {
+                    copy(
+                        $source . '/' . $file,
+                        $destination . '/' . $file
+                    );
                 }
             }
         }
@@ -135,15 +146,17 @@ class Path {
      *
      * @since 1.0-sofia
      */
-    public function clear(){
+    public function clear()
+    {
         $iterator = new \RecursiveIteratorIterator(
-                new \RecursiveDirectoryIterator($this->path, \RecursiveDirectoryIterator::SKIP_DOTS),
-                \RecursiveIteratorIterator::CHILD_FIRST);
-        foreach($iterator as $path){
-            if($path->isDir()){
-                rmdir((string)$path);
-            }else{
-                unlink((string)$path);
+            new \RecursiveDirectoryIterator($this->path, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($iterator as $path) {
+            if ($path->isDir()) {
+                rmdir((string) $path);
+            } else {
+                unlink((string) $path);
             }
         }
     }
@@ -153,7 +166,8 @@ class Path {
      * @return boolean Returns true if the path exists, false otherwise.
      * @since 1.0-elenor
      */
-    public function exists(){
+    public function exists()
+    {
         return FileSystem::pathExists($this->path);
     }
 
@@ -167,36 +181,39 @@ class Path {
      * @return string Returns the final combined path
      * @since 1.0-sofia
      */
-    public static function combine($path, $relative){
-        if(func_num_args() > 2){
+    public static function combine($path, $relative)
+    {
+        if (func_num_args() > 2) {
             $params = func_get_args();
             $path = array_shift($params);
-            foreach($params as $rp){
+            foreach ($params as $rp) {
                 $path = self::combine($path, $rp);
             }
+
             return $path;
-        }else{
-            if(!$relative){
+        } else {
+            if (!$relative) {
                 return $path;
             }
             $relative = str_replace(array('\\', '\\\\', '//'), '/', trim($relative));
             $path = str_replace(array('\\', '\\\\', '//'), '/', trim($path));
-            if($path == ''){
+            if ($path == '') {
                 $path = self::currentWorkingPath();
             }
-            if(substr($path, -1, 1) == '/'){
+            if (substr($path, -1, 1) == '/') {
                 $path = substr($path, 0, strlen($path)-1);
             }
             $relativeParts = explode('/', $relative);
-            foreach($relativeParts as $p){
-                if($p == ''){
+            foreach ($relativeParts as $p) {
+                if ($p == '') {
 
-                }elseif($p == '..'){
+                } elseif ($p == '..') {
                     $path = self::path($path);
-                }elseif($p != '.'){
+                } elseif ($p != '.') {
                     $path .= '/' . $p;
                 }
             }
+
             return str_replace('/', DIRECTORY_SEPARATOR, $path);
         }
     }
@@ -206,61 +223,67 @@ class Path {
      * @return string Returns the system temporary directory
      * @since 1.0-sofia
      */
-    public static function tempPath(){
+    public static function tempPath()
+    {
         return sys_get_temp_dir();
     }
 
     /**
      * Get only the file name from a path name
-     * @param string $p The path name e.g. /home/user/public/test.html
+     * @param  string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the file name e.g. 'test'
      * @see Path::pathInfo()
      * @since 1.0-sofia
      */
-    public static function fileName($path){
+    public static function fileName($path)
+    {
         return self::pathInfo($path, PathPart::FILENAME);
     }
 
     /**
      * Normalize the directory slashes to the operating system's native slash
-     * @param string $path The path to normalize
+     * @param  string $path The path to normalize
      * @return string Returns the path normalized
      * @since 1.0-elenor
      */
-    public static function normalize($path){
+    public static function normalize($path)
+    {
         return str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
     }
 
     /**
      * Get the file name together with the file extension from a path name
-     * @param string $p The path name e.g. /home/user/public/test.html
+     * @param  string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the file name e.g. 'test.html'
      * @see Path::pathInfo()
      * @since 1.0-sofia
      */
-    public static function baseName($p){
+    public static function baseName($p)
+    {
         return self::pathInfo($p, PathPart::BASENAME);
     }
 
     /**
      * Get file extension from a path name
-     * @param string $p The path name e.g. /home/user/public/test.html
+     * @param  string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the file extension e.g. 'html'
      * @see Path::pathInfo()
      * @since 1.0-sofia
      */
-    public static function extension($p){
+    public static function extension($p)
+    {
         return self::pathInfo($p, PathPart::EXTENSION);
     }
 
     /**
      * Get only the directory path from a path name
-     * @param string $p The path name e.g. /home/user/public/test.html
+     * @param  string $p The path name e.g. /home/user/public/test.html
      * @return string Returns the directory path e.g. 'home/user/public'
      * @see Path::pathInfo()
      * @since 1.0-sofia
      */
-    public static function path($p){
+    public static function path($p)
+    {
         return self::pathInfo($p, PathPart::DIRECTORY);
     }
 
@@ -273,16 +296,18 @@ class Path {
      * @link http://php.net/pathinfo
      * @since 1.0-sofia
      */
-    public static function pathInfo($path, $info = null){
+    public static function pathInfo($path, $info = null)
+    {
         $path = self::normalize($path);
         $result = pathinfo($path);
-        if($info){
-            if(isset($result[$info])){
+        if ($info) {
+            if (isset($result[$info])) {
                 $result = $result[$info];
-            }else{
+            } else {
                 $result = null;
             }
         }
+
         return $result;
     }
 
@@ -292,7 +317,8 @@ class Path {
      * @return string Returns the application current working path
      * @since 1.0-sofia
      */
-    public static function currentWorkingPath(){
+    public static function currentWorkingPath()
+    {
         return getcwd();
     }
 
@@ -301,17 +327,19 @@ class Path {
      * @return string Returns the current script path
      * @since 1.0-sofia
      */
-    public static function scriptPath(){
+    public static function scriptPath()
+    {
         return self::path($_SERVER['SCRIPT_FILENAME']);
     }
 
     /**
      * Resolves a directory path
-     * @param string $p The directory path to resolve
+     * @param  string $p The directory path to resolve
      * @return string The resolved directory path
      * @since 1.0-sofia
      */
-    public static function resolve($path){
+    public static function resolve($path)
+    {
         return realpath($path);
     }
 
@@ -319,46 +347,49 @@ class Path {
      * Fetch the path to the file containing a specific class.
      * If the class is defined in the PHP core or PHP extension, null
      * will be returned instead.
-     * @param string $class Name of the class
+     * @param  string $class Name of the class
      * @return string Returns the path to the file of a class or null
      *          if not found.
      * @since 1.0-sofia
      */
-    public static function classPathName($class){
+    public static function classPathName($class)
+    {
         $r = new \ReflectionClass($class);
         $c = $r->getFileName();
-        if($c){
+        if ($c) {
             return $c;
         }
+
         return null;
     }
-    
+
     /**
      * Get the relative path from one to another.
-     * 
+     *
      * Giving thanks to Gordon on Stack Overflow for his implementation on this:
-     * 
+     *
      *     http://stackoverflow.com/questions/2637945/getting-relative-path-from-absolute-path-in-php
-     * 
-     * @param string $from The path to relate to
-     * @param string $to The path to traverse to
+     *
+     * @param  string $from The path to relate to
+     * @param  string $to   The path to traverse to
      * @return string Returns the relative path from $from to $to
      * @since 2.0.0
      */
-    public static function relativePath($from, $to){
+    public static function relativePath($from, $to)
+    {
         $from = explode(DIRECTORY_SEPARATOR, self::normalize($from));
         $to = explode(DIRECTORY_SEPARATOR, self::normalize($to));
         $relPath = $to;
 
-        foreach($from as $depth => $dir) {
+        foreach ($from as $depth => $dir) {
             // find first non-matching dir
-            if($dir == $to[$depth]) {
+            if ($dir == $to[$depth]) {
                 // ignore this directory
                 array_shift($relPath);
             } else {
                 // get number of remaining dirs to $from
                 $remaining = count($from) - $depth;
-                if($remaining > 1) {
+                if ($remaining > 1) {
                     // add traversals up to first matching dir
                     $padLength = (count($relPath) + $remaining - 1) * -1;
                     $relPath = array_pad($relPath, $padLength, '..');
@@ -368,7 +399,7 @@ class Path {
                 }
             }
         }
+
         return implode(DIRECTORY_SEPARATOR, $relPath);
     }
-
 }

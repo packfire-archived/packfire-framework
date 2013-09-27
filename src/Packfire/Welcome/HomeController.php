@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,25 +23,30 @@ use Packfire\Welcome\HomeIndexView;
  * @package Packfire\Welcome
  * @since 1.0-sofia
  */
-class HomeController extends Controller {
-    
-    function message(){
+class HomeController extends Controller
+{
+    public function message()
+    {
         $this->state = array(
             'title' => 'Bring the fire around in a pack.',
             'message' => 'Packfire is a clean and well thought web framework for developers of all walks to scaffold and bring up websites quickly and hassle-free. You\'ll be surprised at how fast you can build a web application with a pack of fire.'
         );
     }
-    
-    function getIndex(){
+
+    public function getIndex()
+    {
+        if (!session_name()) {
+            $this->ioc['session']->register();
+        }
         $this->message();
         $this->render(new HomeIndexView());
     }
-    
-    function cliIndex(){
+
+    public function cliIndex()
+    {
         $this->message();
         echo 'Packfire Framework'
                 . "\n" . '-----------------------------' . "\n\n";
         echo $this->state['message'] . "\n";
     }
-    
 }

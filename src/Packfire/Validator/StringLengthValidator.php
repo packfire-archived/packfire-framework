@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,33 +22,34 @@ use Packfire\Validator\IValidator;
  * @package Packfire\Validator
  * @since 1.0-sofia
  */
-class StringLengthValidator implements IValidator {
-    
+class StringLengthValidator implements IValidator
+{
     /**
-     * The length of the string 
-     * @var string 
+     * The length of the string
+     * @var string
      * @since 1.0-sofia
      */
     private $length;
-    
+
     /**
      * Create a new StringLengthValidator object
      * @param string $length The type of the variable to check against
      * @since 1.0-sofia
      */
-    public function __construct($length){
+    public function __construct($length)
+    {
         $this->length = $length;
     }
-    
+
     /**
      * Validate the value
-     * @param mixed $value The value to validate
+     * @param  mixed   $value The value to validate
      * @return boolean Returns true if the validation succeeded,
      *                        false otherwise.
      * @since 1.0-sofia
      */
-    public function validate($value) {
+    public function validate($value)
+    {
         return strlen($value) == $this->length;
     }
-    
 }

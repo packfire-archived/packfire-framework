@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -13,7 +13,7 @@ namespace Packfire\Controller;
 
 use Packfire\Core\ActionInvoker;
 use Packfire\Application\Pack\Template;
-use Packfire\FuelBlade\IConsumer;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * Controller Access Invoker
@@ -24,15 +24,15 @@ use Packfire\FuelBlade\IConsumer;
  * @package Packfire\Controller
  * @since 1.0-sofia
  */
-class Invoker implements IConsumer {
-
+class Invoker implements ConsumerInterface
+{
     /**
      * The IoC Container
      * @var \Packfire\FuelBlade\Container
      * @since 2.1.0
      */
     private $ioc;
-    
+
     /**
      * The package name
      * @var string
@@ -50,10 +50,11 @@ class Invoker implements IConsumer {
     /**
      * Create a new Invoker object
      * @param string $package The package to load the class
-     * @param string $action The action to be loaded
+     * @param string $action  The action to be loaded
      * @since 1.0-sofia
      */
-    public function __construct($package, $action){
+    public function __construct($package, $action)
+    {
         $this->package = $package;
         $this->action = $action;
     }
@@ -63,76 +64,80 @@ class Invoker implements IConsumer {
      * @return boolean Returns true if loaded successfully, false otherwise.
      * @since 1.0-sofia
      */
-    public function load(){
+    public function load()
+    {
         $response = $this->ioc['response'];
         $class = $this->package;
-        if(is_string($class)){
-            if(false !== strpos($class, '.')){ // check if there is an extension
+        if (is_string($class)) {
+            if (false !== strpos($class, '.')) { // check if there is an extension
                 $template = Template::load($class);
-                if($template){
+                if ($template) {
                     $response->body($template->parse());
-                }else{
+                } else {
                     return false;
                 }
-            }elseif(class_exists($class)){
+            } elseif (class_exists($class)) {
                 $isView = self::classInstanceOf($class, 'Packfire\View\IView');
-                if($isView){
+                if ($isView) {
                     /* @var $view \Packfire\View\View */
                     $view = new $class();
-                    if($view instanceof IConsumer){
+                    if ($view instanceof ConsumerInterface) {
                         $view($this->ioc);
                     }
                     $output = $view->render();
                     $response->body($output);
-                }else{
+                } else {
                     $controller = new $class();
-                    if($controller instanceof \Packfire\FuelBlade\IConsumer){
+                    if ($controller instanceof ConsumerInterface) {
                         $controller($this->ioc);
                     }
-                    if($controller instanceof \Packfire\Controller\Controller){
+                    if ($controller instanceof Controller) {
                         $controller->actionRun($this->action);
-                    }else{
+                    } else {
                         $params = isset($this->ioc['route']) ? $this->ioc['route']->params : array();
                         $actionInvoker = new ActionInvoker(array($controller, $this->action));
                         $this->ioc['response'] = $actionInvoker->invoke($params);
                     }
                 }
-            }else{
+            } else {
                 // oops! the class is really not found (:
                 return false;
             }
-        }else{
+        } else {
             // oops! no idea what you've given me as $class
             return false;
         }
+
         return true;
     }
 
-    protected static function classInstanceOf($className, $search){
+    protected static function classInstanceOf($className, $search)
+    {
         $classOnly = !interface_exists($search);
         $class = new \ReflectionClass($className);
-        if(!$class) {
+        if (!$class) {
             return false;
         }
-        do{
+        do {
             $name = $class->getName();
-            if($search == $name) {
+            if ($search == $name) {
                 return true;
             }
-            if(!$classOnly){
+            if (!$classOnly) {
                 $interfaces = $class->getInterfaceNames();
-                if(is_array($interfaces) && in_array($search, $interfaces)) {
+                if (is_array($interfaces) && in_array($search, $interfaces)) {
                     return true;
                 }
             }
             $class = $class->getParentClass();
-        } while($class);
+        } while ($class);
+
         return false;
     }
 
-    public function __invoke($container) {
+    public function __invoke($container)
+    {
         $this->ioc = $container;
         return $this;
     }
-
 }

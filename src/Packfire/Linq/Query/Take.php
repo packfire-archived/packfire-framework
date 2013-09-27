@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,32 +22,33 @@ use Packfire\Linq\IQuery;
  * @package Packfire\Linq\Query
  * @since 1.0-sofia
  */
-class Take implements IQuery {
-    
+class Take implements IQuery
+{
     /**
      * The amount of elements to take
-     * @var integer 
+     * @var integer
      * @since 1.0-sofia
      */
     private $count;
-    
+
     /**
      * Create a new Take object
      * @param integer $count The amount of elements to take
      * @since 1.0-sofia
      */
-    public function __construct($count){
+    public function __construct($count)
+    {
         $this->count = $count;
     }
-    
+
     /**
      * Execute the query
-     * @param array $collection The collection to execute the query upon
-     * @return array Returns the resulting array after the execution 
+     * @param  array $collection The collection to execute the query upon
+     * @return array Returns the resulting array after the execution
      * @since 1.0-sofia
      */
-    public function run($collection) {
+    public function run($collection)
+    {
         return array_slice($collection, 0, $this->count);
     }
-    
 }

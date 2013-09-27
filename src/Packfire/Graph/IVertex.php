@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,8 +20,8 @@ namespace Packfire\Graph;
  * @package Packfire\Graph
  * @since 1.0-sofia
  */
-interface IVertex {
-
+interface IVertex
+{
     /**
      * Get the vertex that best came here so far
      * @return IVertex Returns the vertex that best came here
@@ -45,17 +45,17 @@ interface IVertex {
 
     /**
      * Set the potential for this vertex
-     * @param integer|double $potential The potential in total
-     * @param IVertex $from The vertex that best came from
-     * @return boolean Returns true if set is successful, false otherwise.
+     * @param  integer|double $potential The potential in total
+     * @param  IVertex        $from      The vertex that best came from
+     * @return boolean        Returns true if set is successful, false otherwise.
      * @since 1.0-sofia
      */
     public function setPotential($potential, $from);
 
     /**
      * Define that this vertex can connect to another vertex
-     * @param IVertex $vertex The vertex to connect to
-     * @param integer|double $cost The cost of moving from this vertex to the
+     * @param IVertex        $vertex The vertex to connect to
+     * @param integer|double $cost   The cost of moving from this vertex to the
      *                  connecting vertex.
      * @since 1.0-sofia
      */
@@ -74,5 +74,4 @@ interface IVertex {
      * @since 1.0-sofia
      */
     public function reset();
-
 }

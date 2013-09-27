@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,27 +23,29 @@ use Packfire\Application\ServiceApplication;
  * @package Packfire\Application\Cli
  * @since 1.0-elenor
  */
-abstract class Application extends ServiceApplication {
-    
+abstract class Application extends ServiceApplication
+{
+
     /**
      * Perform service loading processing
      * @param \Packfire\FuelBlade\Container $container
      * @since 2.1.0
      */
-    public function __invoke($container){
+    public function __invoke($container)
+    {
         parent::__invoke($container);
-        
+
         $loader = new ServiceLoader();
         $loader($this->ioc);
     }
-    
+
     /**
      * Handles unhandled exception in the application execution
      * @param Exception $exception The unhandled exception
      * @since 1.0-elenor
      */
-    public function handleException($exception) {
+    public function handleException($exception)
+    {
         $this->ioc['exception.handler']->handle($exception);
     }
-    
 }

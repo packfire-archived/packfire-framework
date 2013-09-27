@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,29 +23,31 @@ use Packfire\Collection\Map;
  * @package Packfire\Database
  * @since 1.0-sofia
  */
-abstract class Model implements IModel {
-    
+abstract class Model implements IModel
+{
     /**
-     * Get name of the model in the database 
+     * Get name of the model in the database
      * @return string Returns the name of the model, or null if there isn't.
      * @since 1.0-sofia
      */
-    public function dbName(){
+    public function dbName()
+    {
         return strtolower(get_class($this)) . 's';
     }
-    
+
     /**
      * Get the mapping for the model
      * @return Map Returns the mapping for the database modelling
      * @since 1.0-sofia
      */
-    public function map(){
+    public function map()
+    {
         $map = new Map();
         $properties = array_keys(get_object_vars($this));
-        foreach($properties as $key){
+        foreach ($properties as $key) {
             $map->add($key, $key);
         }
+
         return $map;
     }
-    
 }

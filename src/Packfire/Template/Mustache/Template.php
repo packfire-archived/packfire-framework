@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -15,6 +15,7 @@ use Packfire\Template\ITemplate;
 use Packfire\Template\Mustache\Bridge;
 use Packfire\Collection\ArrayList;
 use Packfire\Collection\Map;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * A Packfire template that uses the Mustache
@@ -26,38 +27,40 @@ use Packfire\Collection\Map;
  * @package Packfire\Template\Mustache
  * @since 1.0-sofia
  */
-class Template implements ITemplate {
-    
+class Template implements ITemplate, ConsumerInterface
+{
     /**
      * The fields to parse
      * @var mixed
      * @since 1.0-sofia
      */
     private $fields;
-    
+
     /**
      * The mustache parser
      * @var Mustache
      * @since 1.0-sofia
      */
     private $parser;
-    
+
     /**
      * Create a new Template object
      * @param string $template The template to be parsed
      * @since 1.0-sofia
      */
-    public function __construct($template) {
+    public function __construct($template)
+    {
         $this->parser = new Bridge($template);
         $this->fields = new Map();
     }
 
     /**
      * Get the fields set to render into the template
-     * @return mixed Returns the fields and their values
+     * @return \Packfire\Collection\Map Returns the fields and their values
      * @since 1.0-sofia
      */
-    public function fields() {
+    public function fields()
+    {
         return $this->fields;
     }
 
@@ -66,28 +69,36 @@ class Template implements ITemplate {
      * @return string Returns the parsed template
      * @since 1.0-sofia
      */
-    public function parse() {
-        return $this->parser->parameters($this->fields)->render();
+    public function parse()
+    {
+        return $this->parser->parameters($this->fields->toArray())->render();
     }
-    
+
     /**
      * Set fields to the template
      * @param mixed $set The fields to be set
      * @since 1.0-sofia
      */
-    public function set($set){
-        if(is_object($set) && !($set instanceof ArrayList)){
+    public function set($set)
+    {
+        if (is_object($set) && !($set instanceof ArrayList)) {
             $set = get_object_vars($set);
         }
-        if(is_array($set) || $set instanceof ArrayList){
-            foreach($set as $key => $value){
-                $this->fields->add($key, $value);
+        if (is_array($set) || $set instanceof ArrayList) {
+            foreach ($set as $key => $value) {
+                $this->fields[$key] = $value;
             }
         }
     }
-    
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->parse();
     }
-    
+
+    public function __invoke($container)
+    {
+        // pass the container to the parser bridge
+        call_user_func($this->parser, $container);
+    }
 }

@@ -3,15 +3,13 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
  */
 
 namespace Packfire\Linq;
-
-use Packfire\Linq\IQuery;
 
 /**
  * A worker query that allows the specification of a worker closure or callback.
@@ -22,13 +20,12 @@ use Packfire\Linq\IQuery;
  * @package Packfire\Linq
  * @since 1.0-sofia
  */
-interface IWorkerQuery extends IQuery {
-    
+interface IWorkerQuery extends IQuery
+{
     /**
      * Get the worker for the query
      * @return Closure|callback
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function worker();
-    
 }

@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -24,11 +24,11 @@ use Packfire\Config\Framework\IFrameworkConfig;
  * @package Packfire\Config\Framework
  * @since 1.0-sofia
  */
-abstract class FrameworkConfig implements IFrameworkConfig {
-    
+abstract class FrameworkConfig implements IFrameworkConfig
+{
     /**
      * Load an application configuration file located the the config folder.
-     * @param string $name Name of the configuration file to load
+     * @param string $name    Name of the configuration file to load
      * @param string $context (optional) The context from which we are loading
      *                        the configuration file. $context can be any string
      *                        value such as 'local', 'test' or 'live' to determine
@@ -37,24 +37,24 @@ abstract class FrameworkConfig implements IFrameworkConfig {
      *                 or NULL if the file is not recognized or not found.
      * @since 1.0-sofia
      */
-    protected function loadConfig($name, $context){
+    protected function loadConfig($name, $context)
+    {
         $path = __APP_ROOT__ . '/config/' . $name;
-        
+
         $map = array_keys(ConfigType::typeMap());
-        
+
         $factory = new ConfigFactory();
         $default = null;
-        foreach($map as $type){
-            if(is_file($path . '.' . $type)){
+        foreach ($map as $type) {
+            if (is_file($path . '.' . $type)) {
                 $default = $factory->load($path . '.' . $type);
             }
-            if($context && is_file($path . '.' . $context . '.' . $type)){
+            if ($context && is_file($path . '.' . $context . '.' . $type)) {
                 return $factory->load($path . '.' . $context . '.' . $type, $default);
-            }elseif($default){
+            } elseif ($default) {
                 return $default;
             }
         }
         return null;
     }
-    
 }

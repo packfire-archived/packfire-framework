@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,44 +23,46 @@ use Packfire\Collection\Map;
  * @package Packfire\Application\Cli
  * @since 1.0-sofia
  */
-class Request implements IAppRequest {
-    
+class Request implements IAppRequest
+{
     /**
      * The parameters of the command request
      * @var Map
      * @since 1.0-elenor
      */
     protected $params;
-    
+
     /**
      * Create a new Request object
      * @param array $arguments (optional) The array of arguments for the request.
      *           If not set, the arguments will be loaded from $_SERVER['argv'].
      * @since 1.0-elenor
      */
-    public function __construct($arguments = null){
-        if(!$arguments){
+    public function __construct($arguments = null)
+    {
+        if (!$arguments) {
             $arguments = $_SERVER['argv'];
         }
         $this->params = new Map($arguments);
     }
-    
+
     /**
      * Get the CLI arguments from the command parser
-     * @return Map Returns the parameters 
+     * @return Map Returns the parameters
      * @since 1.0-sofia
      */
-    public function params() {
+    public function params()
+    {
         return $this->params;
     }
-    
+
     /**
      * Get the method of the application request
      * @return string Returns the method identifier 'cli'
      * @since 1.1-sofia
      */
-    public function method(){
+    public function method()
+    {
         return 'cli';
     }
-    
 }
