@@ -28,14 +28,14 @@ class SessionStorage implements ISessionStorage
 {
     /**
      * The container of buckets
-     * @var Map
+     * @var array
      * @since 1.0-sofia
      */
     private $buckets;
 
     /**
      * The overall storage
-     * @var SessionBucket
+     * @var \Packfire\Session\SessionBucket
      * @since 1.0-sofia
      */
     private $overallBucket;
@@ -46,7 +46,7 @@ class SessionStorage implements ISessionStorage
      */
     public function __construct()
     {
-        $this->buckets = new Map();
+        $this->buckets = array();
         $this->overallBucket = new SessionBucket($this->id());
         $this->registerHandler();
         $this->registerShutdown();
@@ -150,7 +150,10 @@ class SessionStorage implements ISessionStorage
 
     public function bucket($id)
     {
-        return $this->buckets->get($id);
+        if (isset($this->buckets[$id])) {
+            return $this->buckets->get($id);
+        }
+        return null;
     }
 
     public function clear()

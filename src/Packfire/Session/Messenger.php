@@ -11,7 +11,6 @@
 
 namespace Packfire\Session;
 
-use Packfire\Collection\ArrayList;
 use Packfire\FuelBlade\ConsumerInterface;
 
 /**
@@ -60,7 +59,7 @@ class Messenger implements ConsumerInterface
     /**
      * Send a message to the recepient(s)
      * @param string                 $name      Name of the message
-     * @param ArrayList|array|string $recepient (optional) The recepient(s) to send to.
+     * @param array|string $recepient (optional) The recepient(s) to send to.
      *          If not set, message will be sent to the global scope.
      * @param mixed $message (optional) The message content. If not set, a
      *          message flag is set instead.
@@ -68,7 +67,7 @@ class Messenger implements ConsumerInterface
      */
     public function send($name, $recepient = null, $message = true)
     {
-        if (is_array($recepient) || $recepient instanceof ArrayList) {
+        if (is_array($recepient)) {
             foreach ($recepient as $to) {
                 $this->send($name, $to, $message);
             }
