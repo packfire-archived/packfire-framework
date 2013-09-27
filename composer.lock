@@ -408,16 +408,16 @@
         },
         {
             "name": "packfire/session",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/session.git",
-                "reference": "296c03feb9ecae906a733c5776304494b7d46566"
+                "reference": "33262769643e632c77444f1762484ab9b73b8f7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/session/zipball/296c03feb9ecae906a733c5776304494b7d46566",
-                "reference": "296c03feb9ecae906a733c5776304494b7d46566",
+                "url": "https://api.github.com/repos/packfire/session/zipball/33262769643e632c77444f1762484ab9b73b8f7c",
+                "reference": "33262769643e632c77444f1762484ab9b73b8f7c",
                 "shasum": ""
             },
             "require": {
@@ -444,7 +444,7 @@
             ],
             "description": "PHP session made easy with Packfire Session library.",
             "homepage": "http://mauris.sg/packfire",
-            "time": "2013-09-27 12:28:36"
+            "time": "2013-09-27 12:37:41"
         },
         {
             "name": "pimple/pimple",
