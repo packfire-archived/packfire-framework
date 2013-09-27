@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "95a87fa5f07492690e971a2ff8570b83",
+    "hash": "f0036f1c599ad0c6fbc67d9e515aa279",
     "packages": [
         {
             "name": "camspiers/json-pretty",
@@ -405,6 +405,46 @@
             ],
             "description": "Packfire Framework Regular Expression Component",
             "time": "2013-05-23 14:14:44"
+        },
+        {
+            "name": "packfire/session",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/packfire/session.git",
+                "reference": "296c03feb9ecae906a733c5776304494b7d46566"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/packfire/session/zipball/296c03feb9ecae906a733c5776304494b7d46566",
+                "reference": "296c03feb9ecae906a733c5776304494b7d46566",
+                "shasum": ""
+            },
+            "require": {
+                "packfire/fuelblade": "1.1.*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Packfire\\Session\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sam-Mauris Yong",
+                    "email": "mauris@hotmail.sg",
+                    "homepage": "http://mauris.sg/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP session made easy with Packfire Session library.",
+            "homepage": "http://mauris.sg/packfire",
+            "time": "2013-09-27 12:28:36"
         },
         {
             "name": "pimple/pimple",
