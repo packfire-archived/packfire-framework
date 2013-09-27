@@ -252,16 +252,16 @@
         },
         {
             "name": "packfire/mustache",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/mustache.git",
-                "reference": "e5e4449a52d6f394af61f4ec996261f39739595d"
+                "reference": "699b625e436395abe67acddff0f69add7c21afab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/mustache/zipball/e5e4449a52d6f394af61f4ec996261f39739595d",
-                "reference": "e5e4449a52d6f394af61f4ec996261f39739595d",
+                "url": "https://api.github.com/repos/packfire/mustache/zipball/699b625e436395abe67acddff0f69add7c21afab",
+                "reference": "699b625e436395abe67acddff0f69add7c21afab",
                 "shasum": ""
             },
             "require": {
@@ -281,7 +281,7 @@
                 }
             ],
             "description": "PHP Mustache Implementation",
-            "time": "2013-05-24 17:00:42"
+            "time": "2013-09-27 13:10:55"
         },
         {
             "name": "packfire/options",
