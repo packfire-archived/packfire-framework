@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,41 +22,45 @@ use Packfire\DateTime\TimeSpan;
  * @package Packfire\Route
  * @since 2.1.0
  */
-class CacheRouter implements IRouter {
-    
+class CacheRouter implements IRouter
+{
     /**
      * The original router
      * @var \\Packfire\\Route\\IRouter
      * @since 2.1.0
      */
     private $router;
-    
+
     /**
      * The caching mechanism
      * @var \\Packfire\\Cache\\ICache
      * @since 2.1.0
      */
     private $cache;
-    
-    public function __construct($router, $cache){
+
+    public function __construct($router, $cache)
+    {
         $this->router = $router;
         $this->cache = $cache;
     }
-    
-    public function route($request) {
+
+    public function route($request)
+    {
         $cacheId = 'route.' . $request->method() . sha1($request->uri() . $request->queryString());
-        if($this->cache->check($cacheId)){
+        if ($this->cache->check($cacheId)) {
             $route = $this->cache->get($cacheId);
-        }else{
+        } else {
             $route = $this->router->route($request);
-            if($route){
+            if ($route) {
                 $this->cache->set($cacheId, $route, new TimeSpan(7200));
             }
         }
+
         return $route;
     }
 
-    public function to($key, $params = array()) {
+    public function to($key, $params = array())
+    {
         return $this->router->to($key, $params);
     }
 }

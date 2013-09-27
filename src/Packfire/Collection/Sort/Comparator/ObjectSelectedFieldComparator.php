@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,30 +23,31 @@ use Packfire\Collection\Sort\Comparator\ObjectFieldComparator;
  * @package Packfire\Collection\Sort\Comparator
  * @since 1.0-sofia
  */
-class ObjectSelectedFieldComparator extends ObjectFieldComparator {
-    
+class ObjectSelectedFieldComparator extends ObjectFieldComparator
+{
     /**
      * Create a new ObjectSelectedfieldComparator
      * @param callback|Closure $fieldSelector The field selecting function
      * @since 1.0-sofia
      */
-    public function __construct($fieldSelector){
+    public function __construct($fieldSelector)
+    {
         $this->field = $fieldSelector;
     }
-    
+
     /**
      * Fetch the field value of an object
-     * @param array|object $object
-     * @return mixed Returns the field value
+     * @param  array|object $object
+     * @return mixed        Returns the field value
      * @since 1.0-sofia
      */
-    protected function access($object){
+    protected function access($object)
+    {
         $func = $this->field;
-        if($func instanceof \Closure){
+        if ($func instanceof \Closure) {
             return $func($object);
-        }else{
+        } else {
             return call_user_func($func, $object);
         }
     }
-
 }

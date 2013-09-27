@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,23 +23,24 @@ use Packfire\Exception\InvalidArgumentException;
  * @package Packfire\DateTime
  * @since 1.0-sofia
  */
-class TimeSpan extends Time {
-
+class TimeSpan extends Time
+{
     /**
      * Number of days
      * @var integer
      * @since 1.0-sofia
      */
     protected $day = 0;
-    
+
     /**
      * Create a new TimeSpan object
      * @param integer $seconds (optional) The number of seconds to initialize
      *                         the time span with.
      * @since 1.0-sofia
      */
-    public function __construct($seconds = null){
-        if(func_num_args() == 1){
+    public function __construct($seconds = null)
+    {
+        if (func_num_args() == 1) {
             $this->day(floor($seconds / 86400));
             $seconds -= $this->day() * 86400;
             $this->hour(floor($seconds / 3600));
@@ -58,13 +59,15 @@ class TimeSpan extends Time {
      * @return integer Returns the hour component of the time
      * @since 1.0-sofia
      */
-    public function hour($hour = null){
-        if(func_num_args() == 1){
-            if($hour != $this->hour){
+    public function hour($hour = null)
+    {
+        if (func_num_args() == 1) {
+            if ($hour != $this->hour) {
                 $hour = $this->processNextComponent($hour, 'day', 24);
                 $this->hour = $hour + 0;
             }
         }
+
         return $this->hour;
     }
 
@@ -72,19 +75,21 @@ class TimeSpan extends Time {
      * Get or set the day component of the time
      * @param integer $day (optional) Set the day value with an integer. Must
      *                     be an non-negative number.
-     * @return integer Returns the day component of the time
+     * @return integer                  Returns the day component of the time
      * @throws InvalidArgumentException Thrown when a negative $day is provided.
      * @since 1.0-sofia
      */
-    public function day($day = null){
-        if(func_num_args() == 1){
-            if($day != $this->day){
-                if($day < 0){
+    public function day($day = null)
+    {
+        if (func_num_args() == 1) {
+            if ($day != $this->day) {
+                if ($day < 0) {
                     throw new InvalidArgumentException('TimeSpan::day', 'day', 'non-negative', $day);
                 }
                 $this->day = $day + 0;
             }
         }
+
         return $this->day;
     }
 
@@ -93,12 +98,13 @@ class TimeSpan extends Time {
      * @return integer|double Returns the total number of seconds
      * @since 1.0-sofia
      */
-    public function totalSeconds(){
-        return $this->day * 86400.0 
-                + $this->hour * 3600.0 
-                + $this->minute * 60.0 
-                + $this->second
-                + ($this->millisecond / 1000.0);
+    public function totalSeconds()
+    {
+        return $this->day * 86400.0
+            + $this->hour * 3600.0
+            + $this->minute * 60.0
+            + $this->second
+            + ($this->millisecond / 1000.0);
     }
 
     /**
@@ -106,12 +112,13 @@ class TimeSpan extends Time {
      * @return integer|double Returns the total number of minutes
      * @since 1.0-sofia
      */
-    public function totalMinutes(){
-        return $this->day * 1440 
-                + $this->hour * 60.0 
-                + $this->minute 
-                + ($this->second / 60.0) 
-                + ($this->millisecond / 60000.0);
+    public function totalMinutes()
+    {
+        return $this->day * 1440
+            + $this->hour * 60.0
+            + $this->minute
+            + ($this->second / 60.0)
+            + ($this->millisecond / 60000.0);
     }
 
     /**
@@ -119,12 +126,13 @@ class TimeSpan extends Time {
      * @return integer|double Returns the total number of hours
      * @since 1.0-sofia
      */
-    public function totalHours(){
-        return $this->day * 24 
-                + $this->hour 
-                + ($this->minute / 60.0) 
-                + ($this->second / 3600.0) 
-                + ($this->millisecond / 3600000.0);
+    public function totalHours()
+    {
+        return $this->day * 24
+            + $this->hour
+            + ($this->minute / 60.0)
+            + ($this->second / 3600.0)
+            + ($this->millisecond / 3600000.0);
     }
 
     /**
@@ -132,48 +140,50 @@ class TimeSpan extends Time {
      * @return integer|double Returns the total number of days
      * @since 1.0-sofia
      */
-    public function totalDays(){
-        return $this->day 
-                + ($this->hour / 24.0) 
-                + ($this->minute / 1440.0) 
-                + ($this->second / 86400.0) 
-                + ($this->millisecond / 86400000.0);
+    public function totalDays()
+    {
+        return $this->day
+            + ($this->hour / 24.0)
+            + ($this->minute / 1440.0)
+            + ($this->second / 86400.0)
+            + ($this->millisecond / 86400000.0);
     }
-    
+
     /**
      * Add another time span to this time span.
-     * @param TimeSpan $time The amount of time to add.
+     * @param  TimeSpan $time The amount of time to add.
      * @return TimeSpan Returns the resulting TimeSpan from the addition operation.
      * @since 1.0-sofia
      */
-    public function add($time){
+    public function add($time)
+    {
         $temp = new self();
-        
+
         $temp->day($this->day + $time->day);
         $temp->hour($this->hour + $time->hour);
         $temp->minute($this->minute + $time->minute);
         $temp->second($this->second + $time->second);
         $temp->millisecond($this->millisecond + $time->millisecond);
-        
+
         return $temp;
     }
 
     /**
      * Subtract some time span from this time span.
-     * @param TimeSpan $time The amount of time to deduct
+     * @param  TimeSpan $time The amount of time to deduct
      * @return TimeSpan Returns the resulting TimeSpan from the subtract operation
      * @since 1.0-sofia
      */
-    public function subtract($time){
+    public function subtract($time)
+    {
         $temp = new self();
-        
+
         $temp->day($this->day - $time->day);
         $temp->hour($this->hour - $time->hour);
         $temp->minute($this->minute - $time->minute);
         $temp->second($this->second - $time->second);
         $temp->millisecond($this->millisecond - $time->millisecond);
-        
+
         return $temp;
     }
-    
 }

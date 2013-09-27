@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -24,20 +24,20 @@ use Packfire\Net\Http\Url;
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class RedirectResponse extends Response {
-
+class RedirectResponse extends Response
+{
     /**
      * Create a new RedirectResponse
-     * @param string|Url $url The service provider authentication URL to redirect to
-     * @param string $token The access token that was granted by the service provider
+     * @param string|Url $url   The service provider authentication URL to redirect to
+     * @param string     $token The access token that was granted by the service provider
      * @since 1.1-sofia
      */
-    function __construct($url, $token) {
-        if(!($url instanceof Url)){
+    public function __construct($url, $token)
+    {
+        if (!($url instanceof Url)) {
             $url = new Url($url);
         }
         $url->params()->add(OAuth::TOKEN, $token);
         parent::__construct($url);
     }
-
 }

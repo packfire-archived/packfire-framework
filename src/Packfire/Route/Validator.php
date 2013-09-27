@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -28,120 +28,131 @@ use Packfire\Validator\EmailValidator;
  * @package Packfire\Route
  * @since 2.0.0
  */
-class Validator {
-    
+class Validator
+{
     /**
      * The list of rules defined
      * @var array|ArrayList
      * @since 2.0.0
      */
     private $rules;
-    
+
     /**
      * Callback for handling validation results
      * @var Closure|callback
      * @since 2.0.0
      */
     private $callback;
-    
+
     /**
      * Create a new Validator object
-     * @param ArrayList|array $rules The list of rules defined
-     * @param Closure|callback $callback (optional) Callback to receive results 
+     * @param ArrayList|array  $rules    The list of rules defined
+     * @param Closure|callback $callback (optional) Callback to receive results
      *              of validation for each field.
      * @since 2.0.0
      */
-    public function __construct($rules, $callback = null){
+    public function __construct($rules, $callback = null)
+    {
         $this->rules = $rules;
         $this->callback = $callback;
     }
-    
+
     /**
      * Validate an array of data
-     * @param ArrayList|array $data The data to be validated
-     * @param Map|array $params (reference) The output parameters
-     * @param boolean $validation (reference, optional) The validation boolean
-     * @return boolean Returns true if validation is successful, false otherwise.
+     * @param  ArrayList|array $data       The data to be validated
+     * @param  Map|array       $params     (reference) The output parameters
+     * @param  boolean         $validation (reference, optional) The validation boolean
+     * @return boolean         Returns true if validation is successful, false otherwise.
      * @since 2.0.0
      */
-    public function validate($data, &$params, &$validation = true){
-        foreach($data as $key => $value){
-            if(is_array($value)){
+    public function validate($data, &$params, &$validation = true)
+    {
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
                 $param = array();
                 $this->validate($value, $param, $validation);
                 $params[$key] = $param;
-            }else{
-                if(isset($this->rules[$key])){
-                    $rules = (array)$this->rules[$key];
-                    foreach($rules as $entry){
-                        if(is_array($entry)){
+            } else {
+                if (isset($this->rules[$key])) {
+                    $rules = (array) $this->rules[$key];
+                    foreach ($rules as $entry) {
+                        if (is_array($entry)) {
                             $rule = $entry['rule'];
-                        }else{
+                        } else {
                             $rule = $entry;
                         }
                         $validation = $this->validateParam($rule, $value, $data);
+                        if (!$validation) {
+                            if (!$this->validationCallback($key, $value, $rule, isset($entry['message']) ? $entry['message'] : null)) {
+                                break;
+                            }
+                            $validation = true;
+                        }
                         $params[$key] = $value;
                     }
-                }else{
+                } else {
                     // there is data, but no validation rule
                     // as to be strict, we fail validation
-                    $validation = false;
-                }
-                if(!$validation){
-                    if($this->callback){
-                        $package = array(
-                            'field' => $key,
-                            'value' => $value,
-                            'rule' => $rule,
-                            'message' => 
-                            isset($entry['message']) ? $entry['message'] : null
-                        );
-                        if(false == call_user_func($this->callback, $package)){
-                            return $validation;
-                        }
-                    }else{
-                        return $validation;
+                    if (!$this->validationCallback($key, $value, $rule, isset($entry['message']) ? $entry['message'] : null)) {
+                        break;
                     }
                 }
             }
         }
+
         return $validation;
+    }
+
+    protected function validationCallback($key, $value, $rule, $message)
+    {
+        if ($this->callback) {
+            $package = array(
+                'field' => $key,
+                'value' => $value,
+                'rule' => $rule,
+                'message' => $message
+            );
+            return call_user_func($this->callback, $package);
+        } else {
+            return false;
+        }
     }
 
     /**
      * Validate a value based on the given rule
-     * @param string|ArrayList|array $rule The name of the validation rule(s)
-     * @param mixed &$value The value to be validated
-     * @return boolean Returns true if the validation succeeded, false otherwise.
+     * @param  string|ArrayList|array $rule   The name of the validation rule(s)
+     * @param  mixed                  &$value The value to be validated
+     * @return boolean                Returns true if the validation succeeded, false otherwise.
      * @since 2.0.0
      */
-    protected function validateParam($rules, &$value, &$data){
-        if(is_array($rules)){
+    protected function validateParam($rules, &$value, &$data)
+    {
+        if (is_array($rules)) {
             $rules = new ArrayList($rules);
         }
-        if(is_string($rules)){
+        if (is_string($rules)) {
             $rules = new ArrayList(array($rules));
         }
 
         // optional parameter and nothing supplied
-        if($value === null){
-            if($rules->contains('optional')){
+        if ($value === null) {
+            if ($rules->contains('optional')) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
 
         $validator = new SerialValidator();
         $original = $value;
-        foreach($rules as $rule){
+        foreach ($rules as $rule) {
             $slashPos = strpos($rule, ':');
             $options = '';
-            if($slashPos !== false){
+            if ($slashPos !== false) {
                 $options = substr($rule, $slashPos + 1);
                 $rule = substr($rule, 0, $slashPos);
             }
-            switch($rule){
+            switch ($rule) {
                 case 'any':
                     break;
                 case 'numeric':
@@ -154,31 +165,47 @@ class Validator {
                 case 'real':
                 case 'double':
                     $validator->add(new NumericValidator());
-                    $validator->add(new CallbackValidator(function($value){
-                        return is_float($value + 0);
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($value) {
+                                return is_float($value + 0);
+                            }
+                        )
+                    );
                     $value += 0;
                     break;
                 case 'integer':
                 case 'int':
                 case 'long':
                     $validator->add(new NumericValidator());
-                    $validator->add(new CallbackValidator(function($value){
-                        return is_int($value + 0);
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($value) {
+                                return is_int($value + 0);
+                            }
+                        )
+                    );
                     $value += 0;
                     break;
                 case 'min':
                     $min = $options + 0;
-                    $validator->add(new CallbackValidator(function($x) use ($min){
-                        return $x >= $min;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) use ($min) {
+                                return $x >= $min;
+                            }
+                        )
+                    );
                     break;
                 case 'max':
                     $max = $options + 0;
-                    $validator->add(new CallbackValidator(function($x) use ($max){
-                        return $x <= $max;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) use ($max) {
+                                return $x <= $max;
+                            }
+                        )
+                    );
                     break;
                 case 'bool':
                 case 'boolean':
@@ -193,15 +220,23 @@ class Validator {
                     break;
                 case 'strmin':
                     $min = $options + 0;
-                    $validator->add(new CallbackValidator(function($x) use ($min){
-                        return strlen($x) >= $min;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) use ($min) {
+                                return strlen($x) >= $min;
+                            }
+                        )
+                    );
                     break;
                 case 'strmax':
                     $max = $options + 0;
-                    $validator->add(new CallbackValidator(function($x) use ($max){
-                        return strlen($x) <= $max;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) use ($max) {
+                                return strlen($x) <= $max;
+                            }
+                        )
+                    );
                     break;
                 case 'email':
                     $validator->add(new EmailValidator());
@@ -225,9 +260,13 @@ class Validator {
                     break;
                 case 'nonempty':
                 case 'non-empty':
-                    $validator->add(new CallbackValidator(function($x){
-                        return (bool)$x;
-                    }));
+                    $validator->add(
+                        new CallbackValidator(
+                            function ($x) {
+                                return (bool) $x;
+                            }
+                        )
+                    );
                     break;
                 case 'empty':
                 case 'optional':
@@ -237,7 +276,7 @@ class Validator {
                     break;
             }
         }
+
         return $validator->validate($original);
-    }   
-    
+    }
 }

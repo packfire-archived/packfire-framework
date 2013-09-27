@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,8 +20,8 @@ namespace Packfire\DateTime;
  * @package Packfire\DateTime
  * @since 1.0-sofia
  */
-class DateTimeFormat {
-    
+class DateTimeFormat
+{
     const ATOM = 'Y-m-d\TH:i:sP';
     const COOKIE = 'l, d-M-y H:i:s T' ;
     const ISO8601 = 'Y-m-d\TH:i:sO' ;
@@ -33,5 +33,4 @@ class DateTimeFormat {
     const RFC3339 = 'Y-m-d\TH:i:sP' ;
     const RSS = 'D, d M Y H:i:s O' ;
     const W3C = 'Y-m-d\TH:i:sP';
-    
 }

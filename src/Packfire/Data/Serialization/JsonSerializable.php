@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,10 +22,10 @@ use \JsonSerializable as IJsonSerializable;
  * @package Packfire\Data\Serialization
  * @since 1.0-sofia
  */
-abstract class JsonSerializable implements ISerializable, IJsonSerializable {
-    
-    public function serialize() {
+abstract class JsonSerializable implements ISerializable, IJsonSerializable
+{
+    public function serialize()
+    {
         return $this->jsonSerialize();
     }
-    
 }

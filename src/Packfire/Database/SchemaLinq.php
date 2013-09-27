@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,14 +22,13 @@ use Packfire\Database\Schema;
  * @package Packfire\Database
  * @since 2.0.0
  */
-abstract class SchemaLinq extends Schema {    
-    
+abstract class SchemaLinq extends Schema
+{
     /**
      * Start the LINQ expression from a table
-     * @param string $table The table to work with
+     * @param  string                  $table The table to work with
      * @return Packfire\Database\ILinq Returns the LINQ object to start chaining
      * @since 2.0.0-dev
      */
-    public abstract function from($table);
-    
+    abstract public function from($table);
 }

@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,8 +23,8 @@ use Packfire\Collection\Map;
  * @package Packfire\Net\Http
  * @since 1.0-sofia
  */
-class Url {
-
+class Url
+{
     /**
      * Scheme / Protocol of the URL e.g. http, https, ftp
      * @var string
@@ -86,18 +86,19 @@ class Url {
      * @param string $url (optional) Create the URL object based on a URL string
      * @since 1.0-sofia
      */
-    public function __construct($url = null){
-        if(func_num_args() == 1){
+    public function __construct($url = null)
+    {
+        if (func_num_args() == 1) {
             $parts = parse_url($url);
-            foreach($parts as $k => $v){
+            foreach ($parts as $k => $v) {
                 $this->$k = $v;
             }
-            if(isset($this->query)){
+            if (isset($this->query)) {
                 parse_str($this->query, $this->params);
             }
             unset($this->query);
-            if(!$this->port){
-                switch($this->scheme){
+            if (!$this->port) {
+                switch ($this->scheme) {
                     case 'https':
                         $this->port = 443;
                         break;
@@ -112,108 +113,124 @@ class Url {
 
     /**
      * Get or set the fragment of the URL (i.e. string after the #)
-     * @param string $f (optional) If specified, the function will set the new value.
+     * @param  string $f (optional) If specified, the function will set the new value.
      * @return string Returns the fragment of the URL
      * @since 1.0-sofia
      */
-    public function fragment($f = null){
-        if(func_num_args() == 1){
+    public function fragment($f = null)
+    {
+        if (func_num_args() == 1) {
             $this->fragment = $f;
         }
+
         return $this->fragment;
     }
 
     /**
      * Get or set the host of the URL (e.g. www.google.com)
-     * @param string $h (optional) If specified, the function will set the new value.
+     * @param  string $h (optional) If specified, the function will set the new value.
      * @return string Returns the host of the URL
      * @since 1.0-sofia
      */
-    public function host($h = null){
-        if(func_num_args() == 1){
+    public function host($h = null)
+    {
+        if (func_num_args() == 1) {
             $this->host = $h;
         }
+
         return $this->host;
     }
 
     /**
      * Get or set the password in the URL
-     * @param string $p (optional) If specified, the function will set the new value.
+     * @param  string $p (optional) If specified, the function will set the new value.
      * @return string Returns the password in the URL
      * @since 1.0-sofia
      */
-    public function pass($p = null){
-        if(func_num_args() == 1){
+    public function pass($p = null)
+    {
+        if (func_num_args() == 1) {
             $this->pass = $p;
         }
+
         return $this->pass;
     }
 
     /**
      * Get or set the port number of the URL (e.g. 8080)
-     * @param string $p (optional) If specified, the function will set the new value.
+     * @param  string $p (optional) If specified, the function will set the new value.
      * @return string Returns the port number of the URL
      * @since 1.0-sofia
      */
-    public function port($p = null){
-        if(func_num_args() == 1){
+    public function port($p = null)
+    {
+        if (func_num_args() == 1) {
             $this->port = $p;
         }
+
         return $this->port;
     }
 
     /**
      * Get or set the path of the URL (e.g. /home/path/to)
-     * @param string $p (optional) If specified, the function will set the new value.
+     * @param  string $p (optional) If specified, the function will set the new value.
      * @return string Returns the path of the URL
      * @since 1.0-sofia
      */
-    public function path($p = null){
-        if(func_num_args() == 1){
+    public function path($p = null)
+    {
+        if (func_num_args() == 1) {
             $this->path = $p;
         }
+
         return $this->path;
     }
 
     /**
      * Get or set the scheme of the URL (e.g. http, https, ftp)
-     * @param string $s (optional) If specified, the function will set the new value.
+     * @param  string $s (optional) If specified, the function will set the new value.
      * @return string Returns the scheme of the URL
      * @since 1.0-sofia
      */
-    public function scheme($s = null){
-        if(func_num_args() == 1){
+    public function scheme($s = null)
+    {
+        if (func_num_args() == 1) {
             $this->scheme = $s;
         }
+
         return $this->scheme;
     }
 
     /**
      * Get or set the username of the URL
-     * @param string $u (optional) If specified, the function will set the new value.
+     * @param  string $u (optional) If specified, the function will set the new value.
      * @return string Returns the username
      * @since 1.0-sofia
      */
-    public function user($u = null){
-        if(func_num_args() == 1){
+    public function user($u = null)
+    {
+        if (func_num_args() == 1) {
             $this->user = $u;
         }
+
         return $this->user;
     }
 
     /**
      * Get or set the GET parameters of the URL
-     * @param Map $p (optional) If specified, the function will set the new value.
+     * @param  Map $p (optional) If specified, the function will set the new value.
      * @return Map Returns the GET parameters in the URL
      * @since 1.0-sofia
      */
-    public function params($p = null){
-        if(func_num_args() == 1){
+    public function params($p = null)
+    {
+        if (func_num_args() == 1) {
             $this->params = $p;
         }
-        if(is_array($this->params)){
+        if (is_array($this->params)) {
             $this->params = new Map($this->params);
         }
+
         return $this->params;
     }
 
@@ -222,76 +239,79 @@ class Url {
      * @return string Returns the URL string
      * @since 1.0-sofia
      */
-    public function __toString(){
+    public function __toString()
+    {
         $url = $this->scheme() . '://';
-        if($this->user())
-        {
+        if ($this->user()) {
             $url .= $this->user();
-            if($this->pass()){
+            if ($this->pass()) {
                 $url .= ':' . $this->pass();
             }
             $url .= '@';
         }
         $url .= $this->host();
-        if($this->port() != null 
-                && !in_array($this->scheme, array('https', 'http'))){
+        if ($this->port() != null
+                && !in_array($this->scheme, array('https', 'http'))) {
             $url .= ':'.$this->port();
         }
         $url .= $this->path();
         $query = http_build_query($this->params()->toArray());
-        if($query){
+        if ($query) {
             $url .= '?' . $query;
         }
-        if($this->fragment()){
+        if ($this->fragment()) {
             $url .= '#' . $this->fragment();
         }
+
         return $url;
     }
 
     /**
      * URL encode a value so that it can be used safely in URL
-     * @param mixed $var The raw value to encode
+     * @param  mixed  $var The raw value to encode
      * @return string The encoded value
      * @since 1.0-sofia
      */
-    public static function encode($var){
+    public static function encode($var)
+    {
         return urlencode($var);
     }
 
     /**
      * URL decode a value that was previously URL encoded
-     * @param string $var The encoded value to decode.
-     * @return mixed Returns the decoded value.
+     * @param  string $var The encoded value to decode.
+     * @return mixed  Returns the decoded value.
      * @since 1.0-sofia
      */
-    public static function decode($var){
+    public static function decode($var)
+    {
         return urldecode($var);
     }
 
     /**
      * Combine a base URL with a relative URL
-     * @param string|Url $baseUrl The base URL
-     * @param string $relativeUrl The relative URL to navigate based on the Base URL
-     * @return Url Returns the combined URL
+     * @param  string|Url $baseUrl     The base URL
+     * @param  string     $relativeUrl The relative URL to navigate based on the Base URL
+     * @return Url        Returns the combined URL
      * @since 1.0-sofia
      */
-    public static function combine($baseUrl, $relativeUrl){
-        if($baseUrl == ''){
+    public static function combine($baseUrl, $relativeUrl)
+    {
+        if ($baseUrl == '') {
             $path = $relativeUrl;
-        }else{
-            if(!($baseUrl instanceof self)){
+        } else {
+            if (!($baseUrl instanceof self)) {
                 $baseUrl = new self($baseUrl);
             }
             $path = Path::combine($baseUrl->path(), $relativeUrl);
         }
         $path = str_replace(array('\\','\\\\','//'), '/', $path);
-        if($baseUrl instanceof self && $baseUrl->scheme()){
+        if ($baseUrl instanceof self && $baseUrl->scheme()) {
             $baseUrl->path($path);
-        }else{
+        } else {
             $baseUrl = $path;
         }
+
         return $baseUrl;
     }
-    
 }
-

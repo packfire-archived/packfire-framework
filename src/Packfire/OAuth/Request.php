@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -30,8 +30,8 @@ use Packfire\OAuth\IHttpEntity;
  * @package Packfire\OAuth
  * @since 1.1-sofia
  */
-class Request extends HttpRequest implements IHttpEntity {
-
+class Request extends HttpRequest implements IHttpEntity
+{
     /**
      * The OAuth parameters
      * @var Map
@@ -43,7 +43,8 @@ class Request extends HttpRequest implements IHttpEntity {
      * Create a new Request object
      * @since 1.1-sofia
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->oauthParams = new Map();
         $this->oauthParams->add(OAuth::VERSION, '1.0');
@@ -54,14 +55,15 @@ class Request extends HttpRequest implements IHttpEntity {
      * @param HttpRequest $request The request to load data from
      * @since 1.1-sofia
      */
-    public function preload($request){
+    public function preload($request)
+    {
         $this->get = new Map($request->get);
         $this->post = new Map($request->post);
         $this->headers = new Map($request->headers);
         $this->cookies = new Map($request->cookies);
         $this->https = $request->https;
         $this->version = $request->version;
-        if($request->time instanceof DateTime){
+        if ($request->time instanceof DateTime) {
             $this->time = DateTime::fromTimestamp($request->time->toTimestamp());
         }
         $this->uri = $request->uri;
@@ -72,16 +74,17 @@ class Request extends HttpRequest implements IHttpEntity {
 
     /**
      * Get or set the OAuth parameters
-     * @param string $key The OAuth parameter key
-     * @param string $value (optional) If set, this value will be set to the key.
+     * @param  string $key   The OAuth parameter key
+     * @param  string $value (optional) If set, this value will be set to the key.
      * @return string Returns the value of the OAuth parameter if $value is not set.
      * @since 1.1-sofia
      */
-    public function oauth($key, $value = null){
-        if(func_num_args() == 2){
+    public function oauth($key, $value = null)
+    {
+        if (func_num_args() == 2) {
             $this->get->add($key, $value);
             $this->oauthParams->add($key, $value);
-        }else{
+        } else {
             return $this->oauthParams->get($key);
         }
     }
@@ -91,30 +94,31 @@ class Request extends HttpRequest implements IHttpEntity {
      * @param string $strRequest The string to be parsed
      * @since 1.1-sofia
      */
-    public function parse($strRequest) {
+    public function parse($strRequest)
+    {
         parent::parse($strRequest);
         $this->loadOAuthParameters();
     }
 
-    protected function loadOAuthParameters(){
-        foreach($this->get as $key => $value){
-            if(substr($key, 0, 5) == 'oauth'){
+    protected function loadOAuthParameters()
+    {
+        foreach ($this->get as $key => $value) {
+            if (substr($key, 0, 5) == 'oauth') {
                 $this->oauthParams->add($key, $value);
             }
         }
-        if($this->method == HttpMethod::POST){
-            foreach($this->post as $key => $value){
-                if(substr($key, 0, 5) == 'oauth'){
+        if ($this->method == HttpMethod::POST) {
+            foreach ($this->post as $key => $value) {
+                if (substr($key, 0, 5) == 'oauth') {
                     $this->oauthParams->add($key, $value);
                 }
             }
         }
         $authHeader = $this->headers->get('authorization');
-        if(is_string($authHeader) && substr($authHeader, 0, 6) == 'OAuth '){
+        if (is_string($authHeader) && substr($authHeader, 0, 6) == 'OAuth ') {
             $params = array();
             $matches = array();
-            if (preg_match_all('/(oauth[a-z_-]*)=(:?"([^"]*)"|([^,]*))/',
-                    $authHeader, $matches)) {
+            if (preg_match_all('/(oauth[a-z_-]*)=(:?"([^"]*)"|([^,]*))/', $authHeader, $matches)) {
                 foreach ($matches[1] as $i => $key) {
                     $params[$key] = Helper::urldecode(
                         empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]
@@ -122,11 +126,14 @@ class Request extends HttpRequest implements IHttpEntity {
                 }
             }
             $this->oauthParams->append($params);
-        }elseif($authHeader){
+        } elseif ($authHeader) {
             throw new OAuthException(
-                sprintf('Request parsed is not a valid OAuth as Authorization'
-                        . ' header is not set as "OAuth", "%s" was given'
-                        . ' instead.', $authHeader)
+                sprintf(
+                    'Request parsed is not a valid OAuth as Authorization'
+                    . ' header is not set as "OAuth", "%s" was given'
+                    . ' instead.',
+                    $authHeader
+                )
             );
         }
     }
@@ -136,11 +143,12 @@ class Request extends HttpRequest implements IHttpEntity {
      * @return string Returns the generated base signature
      * @since 1.1-sofia
      */
-    public function signatureBase(){
+    public function signatureBase()
+    {
         // Grab all parameters
         $params = new Map($this->get);
 
-        if($this->method == HttpMethod::POST){
+        if ($this->method == HttpMethod::POST) {
             $params->append($this->post);
         }
 
@@ -158,27 +166,29 @@ class Request extends HttpRequest implements IHttpEntity {
         $url = $this->url();
         $url->params(array()); // no GET parameters in URL for base signature
 
-        $headerData = array($this->method, (string)$url);
+        $headerData = array($this->method, (string) $url);
 
         $pData = array();
-        foreach($kparams as $key => $value){
+        foreach ($kparams as $key => $value) {
             $pData[] = sprintf('%s=%s', $key, Helper::urlencode($value));
         }
         $headerData[] = implode('&', $pData);
 
-        return implode('&', Helper::urlencode($headerData)) ;
+        return implode('&', Helper::urlencode($headerData));
     }
 
     /**
      * Get or set the method of the HTTP request
-     * @param string $m (optional) Set the method
+     * @param  string $m (optional) Set the method
      * @return string Returns the method of the request
      * @since 1.1-sofia
      */
-    public function method($m = null){
-        if(func_num_args() == 1){
+    public function method($m = null)
+    {
+        if (func_num_args() == 1) {
             $this->method = strtoupper($m);
         }
+
         return $this->method;
     }
 
@@ -187,36 +197,37 @@ class Request extends HttpRequest implements IHttpEntity {
      * @return string Returns the constructed header string value
      * @since 1.1-sofia
      */
-    public function buildAuthorizationHeader(){
+    public function buildAuthorizationHeader()
+    {
         $params = array();
         foreach ($this->oauthParams as $key => $value) {
-          if (substr($key, 0, 5) == 'oauth') {
-            $params[] = Helper::urlencode($key) .
-                    '="' .
-                    Helper::urlencode($value) .
-                    '"';
-          }
+            if (substr($key, 0, 5) == 'oauth') {
+                $params[] = Helper::urlencode($key) .
+                    '="' . Helper::urlencode($value) . '"';
+            }
         }
+
         return 'OAuth ' . implode(', ', $params);
     }
 
     /**
      * Sign this request for OAuth interaction
-     * @param string $method The name of the method to use to sign this request
-     * @param Consumer $consumer The consumer making the request
-     * @param string $tokenSecret (optional) The token secret provided by the OAuth provider
+     * @param  string                   $method      The name of the method to use to sign this request
+     * @param  Consumer                 $consumer    The consumer making the request
+     * @param  string                   $tokenSecret (optional) The token secret provided by the OAuth provider
      * @throws InvalidArgumentException Thrown when $method signature method is invalid
      * @since 1.1-sofia
      */
-    public function sign($method, $consumer, $tokenSecret = null){
+    public function sign($method, $consumer, $tokenSecret = null)
+    {
         $sigMethod = Signature::load($method);
-        if(!$sigMethod){
+        if (!$sigMethod) {
             throw new InvalidArgumentException(
-                    'Request::sign',
-                    'method',
-                    'the name of a valid OAuth signature method',
-                    $method
-                );
+                'Request::sign',
+                'method',
+                'the name of a valid OAuth signature method',
+                $method
+            );
         }
         /* @var $signer Signature */
         $signer = new $sigMethod($this, $consumer, $tokenSecret);
@@ -224,5 +235,4 @@ class Request extends HttpRequest implements IHttpEntity {
         $this->oauth(OAuth::TIMESTAMP, time());
         $this->oauth(OAuth::SIGNATURE, $signer->build());
     }
-
 }

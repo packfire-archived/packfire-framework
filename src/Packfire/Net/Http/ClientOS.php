@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -21,8 +21,8 @@ namespace Packfire\Net\Http;
  * @since 1.0-sofia
  * @codeCoverageIgnore
  */
-class ClientOS {
-
+class ClientOS
+{
     /**
      * Operating System: Microsoft Windows
      */
@@ -47,34 +47,34 @@ class ClientOS {
      * Operating System: Unknown
      */
     const UNKNOWN = '';
-    
+
     /**
-     * Apple's iOS 
+     * Apple's iOS
      */
     const IOS = 'iOS';
-    
+
     /**
-     * BlackBerry  
+     * BlackBerry
      */
     const BLACKBERRY = 'Blackberry';
-    
+
     /**
-     * Google Android OS 
+     * Google Android OS
      */
     const ANDROID = 'Android';
 
     /**
-     * Bot: Googlebot 
+     * Bot: Googlebot
      */
     const GOOGLEBOT = 'Googlebot';
 
     /**
-     * Bot: MSN Search Engine bot 
+     * Bot: MSN Search Engine bot
      */
     const MSNBOT = 'MSNBot';
 
     /**
-     * Bot: Bing Search Engine bot 
+     * Bot: Bing Search Engine bot
      */
     const BINGBOT = 'BingBot';
 
@@ -82,5 +82,4 @@ class ClientOS {
      * Bot: Yahoo's Search Engine Bot
      */
     const YAHOOBOT = 'Yahoo! Slurp';
-    
 }

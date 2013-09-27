@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,25 +22,27 @@ use Packfire\Application\IApplication;
  * @package Packfire\Application
  * @since 1.0-elenor
  */
-abstract class ServiceApplication implements IApplication {
-    
+abstract class ServiceApplication implements IApplication
+{
+
     /**
      * The IoC container
      * @var \Packfire\FuelBlade\Container
      * @since 2.1.0
      */
     protected $ioc;
-    
+
     /**
      * Perform service loading processing
      * @param \Packfire\FuelBlade\Container $container
      * @since 2.1.0
      */
-    public function __invoke($container){
+    public function __invoke($container)
+    {
         $this->ioc = $container;
         $loader = new ServiceLoader();
         $loader($this->ioc);
+
         return $this;
     }
-    
 }

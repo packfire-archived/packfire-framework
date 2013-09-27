@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,15 +20,14 @@ namespace Packfire\Event;
  * @package Packfire\Event
  * @since 1.1-sofia
  */
-interface IEventWatchable {
-    
+interface IEventWatchable
+{
     /**
      * Bind an event listener to an event of the class
-     * @param string $event The name of the event
+     * @param string                     $event    The name of the event
      * @param IObserver|Closure|callback $listener The function, method or
      *              observer to listen to this event
      * @since 1.1-sofia
      */
     public function on($event, $listener);
-    
 }

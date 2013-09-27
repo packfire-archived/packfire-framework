@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -23,34 +23,33 @@ use Packfire\Collection\ISet;
  * @package Packfire\Collection
  * @since 1.0-sofia
  */
-interface IList extends \ArrayAccess, IIterable, ISet {
-    
+interface IList extends \ArrayAccess, IIterable, ISet
+{
     public function add($item);
-    
+
     public function contains($item);
-    
+
     public function clear();
-    
+
     public function get($index);
-    
+
     public function removeAll($list);
-    
+
     public function remove($item);
-    
+
     public function removeAt($index);
-    
+
     public function indexOf($item);
-    
+
     public function indexesOf($item);
-    
+
     public function lastIndexOf($item);
-    
+
     public function prepend($list);
-    
+
     public function append($list);
-    
+
     public function first();
-    
+
     public function last();
-    
 }

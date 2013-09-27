@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,20 +22,20 @@ use Packfire\Database\Drivers\MySql\Connector as MySqlConnector;
  * @package Packfire\Database
  * @since 1.0-sofia
  */
-class ConnectorFactory {
-
+class ConnectorFactory
+{
     /**
      * Create the database connector based on the configuration provided.
-     * @param array|Map $config The database configuration
+     * @param  array|Map $config The database configuration
      * @return Connector Returns the database connector
      * @since 1.0-sofia
      */
-    public static function create($config){
-        switch($config['driver']){
+    public static function create($config)
+    {
+        switch ($config['driver']) {
             case 'mysql':
                 return new MySqlConnector($config);
                 break;
         }
     }
-
 }

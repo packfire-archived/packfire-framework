@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,18 +20,17 @@ namespace Packfire\IO;
  * @package Packfire\IO
  * @since 1.0-sofia
  */
-interface IStream {
-    
+interface IStream
+{
     /**
      * Open the stream for access
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function open();
-    
+
     /**
      * Close the stream and release resources
-     * @since 1.0-sofia 
+     * @since 1.0-sofia
      */
     public function close();
-    
 }

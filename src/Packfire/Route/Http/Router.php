@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -24,27 +24,29 @@ use Packfire\Template\Template;
  * @package Packfire\Route\Http
  * @since 1.0-elenor
  */
-class Router extends CoreRouter {
-    
+class Router extends CoreRouter
+{
     /**
      * Prepare a route with the parameters
-     * @param Route $route The route to be prepared
-     * @param array|Map $params The parameters to prepare
-     * @return string The final route URL
+     * @param  Route     $route  The route to be prepared
+     * @param  array|Map $params The parameters to prepare
+     * @return string    The final route URL
      * @since 1.0-elenor
      */
-    protected function prepareRoute($route, $params){
+    protected function prepareRoute($route, $params)
+    {
         $template = new Template($route->rewrite());
-        foreach($params as $name => $value){
+        foreach ($params as $name => $value) {
             $template->fields()->add($name, Url::encode($value));
         }
 
         return $template->parse();
     }
-    
-    public function __invoke($c){
+
+    public function __invoke($c)
+    {
         $this->routeType = '\\Packfire\\Route\\Http\\Route';
+
         return parent::__invoke($c);
     }
-    
 }

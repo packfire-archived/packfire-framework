@@ -5,7 +5,7 @@ use Packfire\Session\Storage\SessionStorage as Storage;
 
 /**
  * SessionStorage class
- * 
+ *
  * Mock session storage location
  *
  * @author Sam-Mauris Yong / mauris@hotmail.sg
@@ -14,32 +14,35 @@ use Packfire\Session\Storage\SessionStorage as Storage;
  * @package Packfire\Test\Mocks
  * @since 1.0
  */
-class SessionStorage extends Storage {
-    
+class SessionStorage extends Storage
+{
     private $data;
-    
-    public function __construct($data = array()){
+
+    public function __construct($data = array())
+    {
         $this->data = $data;
         parent::__construct();
     }
-    
-    public function load(&$data = null) {
+
+    public function load(&$data = null)
+    {
         parent::load($this->data);
     }
-    
-    public function register($bucket) {
+
+    public function register($bucket)
+    {
         $id = $bucket->id();
-        if($id){
+        if ($id) {
             $this->buckets[$id] = $bucket;
-            if(!array_key_exists($id, $this->data)){
+            if (!array_key_exists($id, $this->data)) {
                 $this->data[$id] = array();
             }
             $bucket->load($this->data[$id]);
         }
     }
-    
-    public function data(){
+
+    public function data()
+    {
         return $this->data;
     }
-
 }

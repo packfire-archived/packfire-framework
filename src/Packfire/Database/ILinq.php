@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -22,8 +22,7 @@ use Packfire\Linq\ILinq as ICoreLinq;
  * @package Packfire\Database
  * @since 1.0-sofia
  */
-interface ILinq extends ICoreLinq {
-    
+interface ILinq extends ICoreLinq
+{
     public function model($model);
-    
 }
