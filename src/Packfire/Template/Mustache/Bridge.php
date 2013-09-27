@@ -44,6 +44,10 @@ class Bridge extends Mustache implements ConsumerInterface
                 $object($this->ioc);
                 $object->state($scope);
                 $this->buffer .= $object->render();
+                $feedback = $object->feedback();
+                if ($feedback) {
+                    $this->parameters = array_merge($this->parameters, $feedback);
+                }
             }
         } else {
             $template = AppTemplate::load($name);
