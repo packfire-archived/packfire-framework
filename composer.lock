@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f0036f1c599ad0c6fbc67d9e515aa279",
+    "hash": "881b38ecc1f3de5662e619e6247d7126",
     "packages": [
         {
             "name": "camspiers/json-pretty",
@@ -252,16 +252,16 @@
         },
         {
             "name": "packfire/mustache",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/mustache.git",
-                "reference": "7a0a372b4632af90776ec1d46b29a19933f3f51a"
+                "reference": "3223123a608ea545a9a1c379a564887ad0233350"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/mustache/zipball/7a0a372b4632af90776ec1d46b29a19933f3f51a",
-                "reference": "7a0a372b4632af90776ec1d46b29a19933f3f51a",
+                "url": "https://api.github.com/repos/packfire/mustache/zipball/3223123a608ea545a9a1c379a564887ad0233350",
+                "reference": "3223123a608ea545a9a1c379a564887ad0233350",
                 "shasum": ""
             },
             "require": {
@@ -281,7 +281,7 @@
                 }
             ],
             "description": "PHP Mustache Implementation",
-            "time": "2013-10-12 19:02:54"
+            "time": "2013-10-12 20:52:53"
         },
         {
             "name": "packfire/options",
