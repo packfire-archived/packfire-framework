@@ -375,16 +375,16 @@
         },
         {
             "name": "packfire/regex",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/regex.git",
-                "reference": "f60ef18739896eaf6761e9040bbd23e34d34366d"
+                "reference": "141bf0e1aec2ae718f402bb3018a2fd608eceb1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/regex/zipball/f60ef18739896eaf6761e9040bbd23e34d34366d",
-                "reference": "f60ef18739896eaf6761e9040bbd23e34d34366d",
+                "url": "https://api.github.com/repos/packfire/regex/zipball/141bf0e1aec2ae718f402bb3018a2fd608eceb1d",
+                "reference": "141bf0e1aec2ae718f402bb3018a2fd608eceb1d",
                 "shasum": ""
             },
             "require": {
@@ -404,7 +404,7 @@
                 }
             ],
             "description": "Packfire Framework Regular Expression Component",
-            "time": "2013-05-23 14:14:44"
+            "time": "2013-10-15 14:08:17"
         },
         {
             "name": "packfire/session",
