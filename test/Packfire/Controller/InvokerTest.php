@@ -6,6 +6,7 @@ use Packfire\Application\Http\Request as HttpRequest;
 use Packfire\Application\Http\Response as HttpResponse;
 use Packfire\Collection\Map;
 use Packfire\Session\Session;
+use Packfire\Session\Storage\SessionStorage;
 use Packfire\Route\Http\Route;
 use Packfire\Route\Http\Router;
 use Packfire\FuelBlade\Container;
@@ -45,12 +46,8 @@ class InvokerTest extends \PHPUnit_Framework_TestCase
 
         $bucket['response'] = new HttpResponse();
 
-        $bucket['session.storage'] = $bucket->share(
-            function () {
-                return new \Packfire\Test\Mocks\SessionStorage();
-            }
-        );
-
+        $_COOKIE[session_name()] = 'set';
+        $bucket['session.storage'] = new SessionStorage();
         $bucket['session'] = $bucket->share(
             function ($c) {
                 return new Session($c['session.storage']);
