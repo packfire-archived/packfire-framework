@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "881b38ecc1f3de5662e619e6247d7126",
+    "hash": "9a6105ae7bb42bd902d2a659517ee238",
     "packages": [
         {
             "name": "camspiers/json-pretty",
@@ -408,16 +408,16 @@
         },
         {
             "name": "packfire/session",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/session.git",
-                "reference": "33262769643e632c77444f1762484ab9b73b8f7c"
+                "reference": "10eb685e16a1217139a021fbadcdb8ebf0f39e06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/session/zipball/33262769643e632c77444f1762484ab9b73b8f7c",
-                "reference": "33262769643e632c77444f1762484ab9b73b8f7c",
+                "url": "https://api.github.com/repos/packfire/session/zipball/10eb685e16a1217139a021fbadcdb8ebf0f39e06",
+                "reference": "10eb685e16a1217139a021fbadcdb8ebf0f39e06",
                 "shasum": ""
             },
             "require": {
@@ -444,7 +444,7 @@
             ],
             "description": "PHP session made easy with Packfire Session library.",
             "homepage": "http://mauris.sg/packfire",
-            "time": "2013-09-27 12:37:41"
+            "time": "2013-10-15 13:09:28"
         },
         {
             "name": "pimple/pimple",
