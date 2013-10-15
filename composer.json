@@ -28,9 +28,9 @@
         "packfire/fuelblade": "1.1.*",
         "packfire/config": "1.0.*",
         "packfire/regex": "1.0.*",
-        "packfire/mustache": "1.0.*",
+        "packfire/mustache": "1.1.*",
         "packfire/logger": "1.0.*",
-        "packfire/session": "1.0.*",
+        "packfire/session": "1.1.*",
         "mauris/yaml": "1.0.*",
         "ext-pdo": "*"
     },
