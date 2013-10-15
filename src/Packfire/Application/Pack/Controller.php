@@ -42,19 +42,16 @@ abstract class Controller extends CoreController
         if (func_num_args() == 0) {
             $dbt = debug_backtrace();
             $func = ucfirst($dbt[1]['function']);
-            $func2 = null;
-            if (($firstUpper = Inflector::firstUpperCase($dbt[1]['function'])) !== false) {
-                $func2 = substr($dbt[1]['function'], $firstUpper);
-            }
 
             $name = get_class($this);
             if (substr($name, -10) == 'Controller') {
                 $name = substr($name, 0, strlen($name) - 10);
             }
 
-            // todo autoloading
             $class = $name . $func . 'View';
-            $view = new $class();
+            if (class_exists($class)) {
+                $view = new $class();
+            }
         }
         if ($view instanceof IView) {
             parent::render($view);
