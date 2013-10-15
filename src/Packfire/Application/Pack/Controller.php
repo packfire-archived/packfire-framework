@@ -15,7 +15,7 @@ use Packfire\Controller\Controller as CoreController;
 use Packfire\Exception\MissingDependencyException;
 use Packfire\Text\Inflector;
 use Packfire\View\IView;
-use \Packfire\FuelBlade\ConsumerInterface;
+use Packfire\FuelBlade\ConsumerInterface;
 
 /**
  * The generic application controller class
@@ -33,6 +33,7 @@ abstract class Controller extends CoreController
      * Load and render the view for this controller
      * @param IView $view (optional) The view object to be rendered. If omitted,
      *           the view will be loaded using the caller method name.
+     * @return mixed Returns the result of the view rendered. 
      * @throws MissingDependencyException Thrown when the $view is not an
      *              instance of IView or the view cannot be loaded.
      * @since 1.1-sofia
@@ -54,7 +55,7 @@ abstract class Controller extends CoreController
             }
         }
         if ($view instanceof IView) {
-            parent::render($view);
+            return parent::render($view);
         } else {
             throw new MissingDependencyException(
                 'View not rendered because not found.' .
