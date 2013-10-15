@@ -32,12 +32,15 @@ class HomeControllerTest extends \PHPUnit_Framework_TestCase
         $this->object = new HomeController();
         $this->ioc = new Container();
         $bucket = $this->ioc;
+
+        $_COOKIE[session_name()] = 'set';
         $bucket['session.storage'] = new SessionStorage();
         $bucket['session'] = $bucket->share(
             function ($c) {
                 return new Session($c['session.storage']);
             }
         );
+
         $router = new Router();
         $config = new Map(array('rewrite' => 'home/{theme}', 'actual' => 'Rest'));
         $router->add('home', new Route('route.home', $config));

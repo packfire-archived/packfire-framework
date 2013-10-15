@@ -139,11 +139,11 @@ class Linq extends Table implements ILinq, IDbLinq, IOrderedLinq
             $query .= implode(', ', $this->selects->toArray()) . ' ';
         }
         $query .= 'FROM ' . $this->name . ' ';
-        if ($this->joins->count() > 0) {
-            foreach ($this->joins as $join) {
-                $query .= $join->create() . ' ';
-            }
+
+        foreach ($this->joins as $join) {
+            $query .= $join->create() . ' ';
         }
+
         if ($this->where) {
             $query .= 'WHERE ' . $this->where . ' ';
         }

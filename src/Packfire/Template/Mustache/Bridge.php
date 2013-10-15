@@ -33,17 +33,19 @@ class Bridge extends Mustache implements ConsumerInterface
     /**
      * Get the partial by name and add to the buffer
      * @param string $name Name of the partial
+     * @return string Returns the partial
      * @since 1.0-sofia
      */
     protected function partial($name, $scope)
     {
+        $buffer = '';
         /* @var $template ITemplate */
         if (class_exists($name)) {
             $object = new $name();
             if ($object instanceof IView) {
                 $object($this->ioc);
                 $object->state($scope);
-                $this->buffer .= $object->render();
+                $buffer .= $object->render();
                 $feedback = $object->feedback();
                 if ($feedback) {
                     $this->parameters = array_merge($this->parameters, $feedback);
@@ -54,9 +56,10 @@ class Bridge extends Mustache implements ConsumerInterface
             if ($template) {
                 // Partial will use scope parameters only because partial does not know what is on top
                 $template->set($scope);
-                $this->buffer .= $template->parse();
+                $buffer .= $template->parse();
             }
         }
+        return $buffer;
     }
 
     protected function loadParameters()

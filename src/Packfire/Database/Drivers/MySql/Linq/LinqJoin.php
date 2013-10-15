@@ -90,14 +90,14 @@ class LinqJoin implements ILinqQuery
         $source = $this->source;
         $sourceAlias = $source;
         $sourceMatches = $regex->match($source);
-        if ($sourceMatches->count()) {
+        if (count($sourceMatches) == 3) {
             $sourceAlias = $sourceMatches[2]->match();
         }
 
         $target = $this->target;
         $targetAlias = $target;
         $targetMatches = $regex->match($target);
-        if ($targetMatches->count()) {
+        if (count($targetMatches) == 3) {
             $targetAlias = $targetMatches[2]->match();
         }
 

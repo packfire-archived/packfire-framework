@@ -95,6 +95,7 @@ abstract class Controller implements ConsumerInterface
     /**
      * Render the view for this controller
      * @param IView $view (optional) The view object to be rendered
+     * @return mixed Returns the result of the view rendered
      * @since 1.0-sofia
      */
     public function render($view = null)
@@ -105,6 +106,7 @@ abstract class Controller implements ConsumerInterface
         if (isset($this->ioc['response']) && $this->ioc['response']) {
             $this->ioc['response']->body($output);
         }
+        return $output;
     }
 
     /**
