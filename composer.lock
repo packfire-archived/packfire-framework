@@ -252,16 +252,16 @@
         },
         {
             "name": "packfire/mustache",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/packfire/mustache.git",
-                "reference": "3223123a608ea545a9a1c379a564887ad0233350"
+                "reference": "380ef85845c7fa52f3a017704f04fa3d3f1b617c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/packfire/mustache/zipball/3223123a608ea545a9a1c379a564887ad0233350",
-                "reference": "3223123a608ea545a9a1c379a564887ad0233350",
+                "url": "https://api.github.com/repos/packfire/mustache/zipball/380ef85845c7fa52f3a017704f04fa3d3f1b617c",
+                "reference": "380ef85845c7fa52f3a017704f04fa3d3f1b617c",
                 "shasum": ""
             },
             "require": {
@@ -274,14 +274,19 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
             "authors": [
                 {
                     "name": "Sam-Mauris Yong",
-                    "email": "sam@mauris.sg"
+                    "email": "sam@mauris.sg",
+                    "homepage": "http://mauris.sg/",
+                    "role": "Developer"
                 }
             ],
             "description": "PHP Mustache Implementation",
-            "time": "2013-10-12 20:52:53"
+            "time": "2013-10-16 15:16:22"
         },
         {
             "name": "packfire/options",
