@@ -12,7 +12,6 @@
 namespace Packfire\Core;
 
 use Packfire\Collection\Map;
-use Packfire\Exception\MissingDependencyException;
 
 /**
  * Invokes a callback with an associative argument array
