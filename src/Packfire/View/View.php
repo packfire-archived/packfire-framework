@@ -247,9 +247,7 @@ abstract class View implements IView
             // render the theme
             $this->theme->render();
             // forward the theme fields to the view
-            foreach ($this->theme->fields() as $key => $value) {
-                $this->define('theme.' . $key, $value);
-            }
+            $this->define('theme', $this->theme->fields()->toArray());
         }
 
         if ($this->template) {
