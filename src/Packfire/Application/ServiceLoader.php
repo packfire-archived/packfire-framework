@@ -17,7 +17,6 @@ use Packfire\FuelBlade\ServiceLoader as FuelBladeLoader;
 use Packfire\Event\EventHandler;
 use Packfire\FuelBlade\ConsumerInterface;
 use Packfire\Core\ShutdownTaskManager;
-use Packfire\Exception\ServiceException;
 
 /**
  * Application service bucket that loads the application's core services

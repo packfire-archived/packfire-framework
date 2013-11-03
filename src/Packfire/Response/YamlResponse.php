@@ -13,7 +13,6 @@ namespace Packfire\Response;
 
 use Packfire\Application\Http\Response as HttpResponse;
 use Symfony\Component\Yaml\Yaml;
-use Packfire\Text\TextStream;
 use Packfire\Response\IResponseFormat;
 
 /**
