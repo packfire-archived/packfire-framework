@@ -23,16 +23,17 @@ use Packfire\Template\Mustache\TemplateFile;
  * @package Packfire\Welcome
  * @since 1.0-sofia
  */
-class HomeIndexView extends View
+class HomeGetIndexView extends View
 {
     protected function create()
     {
+        $template = new TemplateFile(__DIR__ . '/HomeGetIndexView.html');
+        $this->template($template);
+
         $theme = $this->ioc['session']->get('theme', 'dark');
         if (!in_array($theme, array('dark', 'light'))) {
             $theme = 'light';
         }
-        $template = new TemplateFile(__DIR__ . '/HomeIndexView.html');
-        $this->template($template);
         $this->define('style', $theme);
 
         $rootUrl = $this->route('home');

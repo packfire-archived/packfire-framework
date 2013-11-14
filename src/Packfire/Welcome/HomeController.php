@@ -37,7 +37,8 @@ class HomeController extends Controller
     {
         $this->ioc['session']->register();
         $this->message();
-        $view = new HomeIndexView();
+
+        $view = $this->viewBuilder->create();
         $view->define($this->state);
         $this->render($view);
     }
