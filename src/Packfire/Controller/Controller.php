@@ -106,10 +106,23 @@ abstract class Controller implements ConsumerInterface
      * @return mixed Returns the result of the view rendered
      * @since 1.0-sofia
      */
-    public function render($view = null)
+    public function render($view = null, $data = null)
     {
         $output = null;
         if ($view) {
+            $trace = debug_backtrace();
+            $caller = next($trace);
+            unset($trace);
+            $class = $caller['class'];
+            // remove the controller name at the back
+            if (substr($class, -10) == 'Controller') {
+                $class = substr($class, 0, strlen($class) - 10);
+            }
+            $class .= ucfirst($caller['function']);
+
+            $reflector = new \ReflectionClass(get_class($this));
+            $fn = $reflector->getFileName();
+            var_dump($fn);
             $output = $this->viewBuilder->build($view);
         }
         return $output;
