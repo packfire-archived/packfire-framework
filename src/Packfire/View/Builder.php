@@ -16,7 +16,6 @@ class Builder implements BuilderInterface
     public function build($view)
     {
         $view($this->ioc);
-        $view->state($this->state);
         $output = $view->render();
         if (isset($this->ioc['response']) && $this->ioc['response']) {
             $this->ioc['response']->body($output);
