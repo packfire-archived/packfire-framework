@@ -11,7 +11,6 @@
 
 namespace Packfire\Application\Pack;
 
-use Packfire\Application\Pack\Theme;
 use Packfire\Application\Pack\Template;
 use Packfire\View\View as CoreView;
 use Packfire\FuelBlade\ConsumerInterface;
@@ -54,24 +53,5 @@ abstract class View extends CoreView
         }
 
         return parent::template($template);
-    }
-
-    /**
-     * Set the theme for the view class
-     * @param Theme|string $theme The theme or the name of the theme class to
-     *          set to the view class
-     * @return View Returns the object for chaining
-     * @since 1.1-sofia
-     */
-    protected function theme($theme)
-    {
-        if (is_string($theme)) {
-            $theme = Theme::load($theme);
-            if ($theme instanceof ConsumerInterface) {
-                $theme($this->ioc);
-            }
-        }
-
-        return parent::theme($theme);
     }
 }

@@ -65,13 +65,6 @@ abstract class View implements IView
     private $template;
 
     /**
-     * The template for the view to render
-     * @var \Packfire\View\Theme
-     * @since 1.0-sofia
-     */
-    private $theme;
-
-    /**
      * Create a new View object
      * @since 1.0-sofia
      */
@@ -196,19 +189,6 @@ abstract class View implements IView
     }
 
     /**
-     * Set the theme used by the view
-     * @param  Theme $theme The theme to use
-     * @return View  Returns an instance of self for chaining.
-     * @since 1.0-sofia
-     */
-    protected function theme($theme)
-    {
-        $this->theme = $theme;
-
-        return $this;
-    }
-
-    /**
      * Get a specific routing URL from the router service
      * @param  string $key    The routing key
      * @param  array  $params (optionl) URL Parameters
@@ -243,12 +223,6 @@ abstract class View implements IView
         $this->create();
         $output = ob_get_contents();
         ob_end_clean();
-        if ($this->theme) {
-            // render the theme
-            $this->theme->render();
-            // forward the theme fields to the view
-            $this->define('theme', $this->theme->fields()->toArray());
-        }
 
         if ($this->template) {
             foreach ($this->filters as $filter) {

@@ -10,13 +10,12 @@ The View component of Packfire separates your View manipulation logic and HTML c
 - `define($key, $value)` - Defines a field for the template to replace.
 - `route($key, $params = null)` - Creates a URL from the routing key and parameters
 - `template($template)` - Set template to be used. If not set, the template with the same name as the view class will be loaded.
-- `theme($theme)` - Set the theme to be used, optional.
 
 ##Preparing the View
 To prepare the view, implement the `create()` method in your View class and you can write your template field definition in the method. 
 
     public function create(){
-        $this->template('userpage')->theme('lightblue');
+        $this->template('userpage');
         $this->define('homeUrl', $this->route('home'));
         // ...
     }

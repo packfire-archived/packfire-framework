@@ -13,8 +13,6 @@ namespace Packfire\Welcome;
 
 use Packfire\Application\Pack\View;
 use Packfire\Template\Mustache\TemplateFile;
-use Packfire\Welcome\LightTheme;
-use Packfire\Welcome\DarkTheme;
 
 /**
  * View for the homepage
@@ -34,8 +32,8 @@ class HomeIndexView extends View
             $theme = 'light';
         }
         $template = new TemplateFile(__DIR__ . '/HomeIndexView.html');
-        $this->theme($theme == 'dark' ? new DarkTheme() : new LightTheme())
-            ->template($template);
+        $this->template($template);
+        $this->define('style', $theme);
 
         $rootUrl = $this->route('home');
         $this->define('rootUrl', $rootUrl);
