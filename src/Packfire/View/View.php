@@ -37,13 +37,6 @@ abstract class View implements IView
     protected $ioc;
 
     /**
-     * The state that is passed from the controller
-     * @var \Packfire\Collection\Map
-     * @since 1.0-sofia
-     */
-    protected $state;
-
-    /**
      * The fields in the view defined
      * @var \Packfire\Collection\Map
      * @since 1.0-sofia
@@ -70,7 +63,6 @@ abstract class View implements IView
      */
     public function __construct()
     {
-        $this->state = new Map();
         $this->fields = new Map();
         $this->filters = new ArrayList();
     }
@@ -153,16 +145,6 @@ abstract class View implements IView
         } else {
             $this->filters[] = array($name, $filter);
         }
-    }
-
-    /**
-     * Set the state from the controller to the view
-     * @param Map $state The state of the controller passed to the view.
-     * @since 1.0-sofia
-     */
-    public function state($state)
-    {
-        $this->state = $state;
     }
 
     /**

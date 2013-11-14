@@ -110,7 +110,6 @@ abstract class Controller implements ConsumerInterface
     {
         $output = null;
         if ($view) {
-            $view->state($this->state);
             $output = $this->viewBuilder->build($view);
         }
         return $output;
