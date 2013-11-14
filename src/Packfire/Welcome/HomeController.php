@@ -37,7 +37,9 @@ class HomeController extends Controller
     {
         $this->ioc['session']->register();
         $this->message();
-        $this->render(new HomeIndexView());
+        $view = new HomeIndexView();
+        $view->define($this->state);
+        $this->render($view);
     }
 
     public function cliIndex()
