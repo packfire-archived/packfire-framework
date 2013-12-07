@@ -23,6 +23,7 @@ use Packfire\Net\Http\Response as HttpResponse;
 use Packfire\Core\ActionInvoker;
 use Packfire\Route\Validator;
 use Packfire\FuelBlade\ConsumerInterface;
+use Packfire\View\Builder;
 
 /**
  * The generic controller class
@@ -37,10 +38,17 @@ abstract class Controller implements ConsumerInterface
 {
     /**
      * The IoC container
-     * @var \Packfire\FuelBlade\Container
+     * @var Packfire\FuelBlade\Container
      * @since 2.1.0
      */
     protected $ioc;
+
+    /**
+     * The View Builder
+     * @var Packfire\View\Builder
+     * @since 2.1.5
+     */
+    protected $viewBuilder;
 
     /**
      * The controller state
@@ -98,13 +106,24 @@ abstract class Controller implements ConsumerInterface
      * @return mixed Returns the result of the view rendered
      * @since 1.0-sofia
      */
-    public function render($view = null)
+    public function render($view = null, $data = null)
     {
-        $view($this->ioc);
-        $view->state($this->state);
-        $output = $view->render();
-        if (isset($this->ioc['response']) && $this->ioc['response']) {
-            $this->ioc['response']->body($output);
+        $output = null;
+        if ($view) {
+            $trace = debug_backtrace();
+            $caller = next($trace);
+            unset($trace);
+            $class = $caller['class'];
+            // remove the controller name at the back
+            if (substr($class, -10) == 'Controller') {
+                $class = substr($class, 0, strlen($class) - 10);
+            }
+            $class .= ucfirst($caller['function']);
+
+            $reflector = new \ReflectionClass(get_class($this));
+            $fn = $reflector->getFileName();
+            var_dump($fn);
+            $output = $this->viewBuilder->build($view);
         }
         return $output;
     }
@@ -353,6 +372,11 @@ abstract class Controller implements ConsumerInterface
     public function __invoke($container)
     {
         $this->ioc = $container;
+        if (isset($this->ioc['Packfire\\View\\Builder'])) {
+            $this->viewBuilder = $this->ioc['Packfire\\View\\Builder'];
+        } else {
+            $this->viewBuilder = new Builder($this->ioc);
+        }
         return $this;
     }
 }

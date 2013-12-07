@@ -128,11 +128,13 @@ abstract class Router implements ConsumerInterface, IRouter
         if (isset($c['config.routes'])) {
             $settings = $c['config.routes'];
             $routes = $settings->get();
-            $type = $this->routeType;
-            foreach ($routes as $key => $data) {
-                $data = new Map($data);
-                $route = new $type($key, $data);
-                $this->add($key, $route);
+            if (is_array($routes)) {
+                $type = $this->routeType;
+                foreach ($routes as $key => $data) {
+                    $data = new Map($data);
+                    $route = new $type($key, $data);
+                    $this->add($key, $route);
+                }
             }
         }
 

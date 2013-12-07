@@ -24,10 +24,6 @@ class View extends CoreView
 
     protected function create()
     {
-        foreach ($this->state as $key => $value) {
-            $this->define($key, $value);
-            $this->filter($key, 'trim');
-        }
         $object = new ObjectObserver($this);
         $this->bind('binder', $object, 'name');
         $object->name = 'test2';

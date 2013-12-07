@@ -13,8 +13,6 @@ namespace Packfire\Welcome;
 
 use Packfire\Application\Pack\View;
 use Packfire\Template\Mustache\TemplateFile;
-use Packfire\Welcome\LightTheme;
-use Packfire\Welcome\DarkTheme;
 
 /**
  * View for the homepage
@@ -25,27 +23,23 @@ use Packfire\Welcome\DarkTheme;
  * @package Packfire\Welcome
  * @since 1.0-sofia
  */
-class HomeIndexView extends View
+class HomeGetIndexView extends View
 {
     protected function create()
     {
+        $template = new TemplateFile(__DIR__ . '/HomeGetIndexView.html');
+        $this->template($template);
+
         $theme = $this->ioc['session']->get('theme', 'dark');
         if (!in_array($theme, array('dark', 'light'))) {
             $theme = 'light';
         }
-        $template = new TemplateFile(__DIR__ . '/HomeIndexView.html');
-        $this->theme($theme == 'dark' ? new DarkTheme() : new LightTheme())
-            ->template($template);
+        $this->define('style', $theme);
 
         $rootUrl = $this->route('home');
         $this->define('rootUrl', $rootUrl);
-        $this->define('title', $this->state['title']);
-        $this->define('message', $this->state['message']);
 
         $this->define('themeDark', $this->route('themeSwitch', array('theme' => 'dark')));
         $this->define('themeLight', $this->route('themeSwitch', array('theme' => 'light')));
-
-        $this->filter('title', 'htmlentities|trim');
-        $this->filter('message', 'htmlentities|trim');
     }
 }

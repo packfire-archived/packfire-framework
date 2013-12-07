@@ -11,7 +11,7 @@
 
 namespace Packfire\Welcome;
 
-use Packfire\Application\Pack\Controller;
+use Packfire\Controller\Controller;
 use Packfire\Welcome\HomeIndexView;
 
 /**
@@ -37,7 +37,10 @@ class HomeController extends Controller
     {
         $this->ioc['session']->register();
         $this->message();
-        $this->render(new HomeIndexView());
+
+        $view = $this->viewBuilder->create();
+        $view->define($this->state);
+        $this->render($view);
     }
 
     public function cliIndex()

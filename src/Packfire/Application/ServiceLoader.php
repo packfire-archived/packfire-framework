@@ -83,8 +83,6 @@ class ServiceLoader implements ConsumerInterface
             }
         );
 
-        // load services from ioc.yml
-
         if (isset($c['cache'])) {
             $shutdown = $c['shutdown'];
             /* @var $shutdown \Packfire\Core\ShutdownTaskManager */

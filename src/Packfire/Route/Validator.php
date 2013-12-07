@@ -93,7 +93,7 @@ class Validator
                 } else {
                     // there is data, but no validation rule
                     // as to be strict, we fail validation
-                    if (!$this->validationCallback($key, $value, $rule, isset($entry['message']) ? $entry['message'] : null)) {
+                    if (!$this->validationCallback($key, $value, null, isset($entry['message']) ? $entry['message'] : null)) {
                         break;
                     }
                 }

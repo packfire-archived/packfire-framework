@@ -37,13 +37,6 @@ abstract class View implements IView
     protected $ioc;
 
     /**
-     * The state that is passed from the controller
-     * @var \Packfire\Collection\Map
-     * @since 1.0-sofia
-     */
-    protected $state;
-
-    /**
      * The fields in the view defined
      * @var \Packfire\Collection\Map
      * @since 1.0-sofia
@@ -65,19 +58,11 @@ abstract class View implements IView
     private $template;
 
     /**
-     * The template for the view to render
-     * @var \Packfire\View\Theme
-     * @since 1.0-sofia
-     */
-    private $theme;
-
-    /**
      * Create a new View object
      * @since 1.0-sofia
      */
     public function __construct()
     {
-        $this->state = new Map();
         $this->fields = new Map();
         $this->filters = new ArrayList();
     }
@@ -163,16 +148,6 @@ abstract class View implements IView
     }
 
     /**
-     * Set the state from the controller to the view
-     * @param Map $state The state of the controller passed to the view.
-     * @since 1.0-sofia
-     */
-    public function state($state)
-    {
-        $this->state = $state;
-    }
-
-    /**
      * Get the feedback from the view back to the controller/parent
      * @return mixed Returns the feedback
      * @since 2.1.1
@@ -191,19 +166,6 @@ abstract class View implements IView
     protected function template($template)
     {
         $this->template = $template;
-
-        return $this;
-    }
-
-    /**
-     * Set the theme used by the view
-     * @param  Theme $theme The theme to use
-     * @return View  Returns an instance of self for chaining.
-     * @since 1.0-sofia
-     */
-    protected function theme($theme)
-    {
-        $this->theme = $theme;
 
         return $this;
     }
@@ -243,12 +205,6 @@ abstract class View implements IView
         $this->create();
         $output = ob_get_contents();
         ob_end_clean();
-        if ($this->theme) {
-            // render the theme
-            $this->theme->render();
-            // forward the theme fields to the view
-            $this->define('theme', $this->theme->fields()->toArray());
-        }
 
         if ($this->template) {
             foreach ($this->filters as $filter) {

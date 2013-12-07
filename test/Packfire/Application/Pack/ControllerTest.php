@@ -13,6 +13,7 @@ namespace Packfire\Application\Pack;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Packfire\Welcome\HelloWorldView;
+use Packfire\FuelBlade\Container;
 
 class ControllerTest extends TestCase
 {
@@ -22,12 +23,14 @@ class ControllerTest extends TestCase
     public function testRender()
     {
         $controller = $this->getMockForAbstractClass('Packfire\\Application\\Pack\\Controller', array('render'));
+        $controller(new Container());
         $controller->render();
     }
 
     public function testRender2()
     {
         $controller = $this->getMockForAbstractClass('Packfire\\Application\\Pack\\Controller', array('render'));
+        $controller(new Container());
         $result = $controller->render(new HelloWorldView());
         $this->assertEquals('Hello World', $result);
     }
