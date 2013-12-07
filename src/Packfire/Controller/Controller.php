@@ -122,7 +122,6 @@ abstract class Controller implements ConsumerInterface
 
             $reflector = new \ReflectionClass(get_class($this));
             $fn = $reflector->getFileName();
-            var_dump($fn);
             $output = $this->viewBuilder->build($view);
         }
         return $output;
