@@ -39,7 +39,12 @@ use Packfire\FuelBlade\Container;
  */
 class Packfire
 {
-    private $ioc;
+    /**
+     * The main IoC container
+     * @var Packfire\FuelBlade\ContainerInterface
+     * @since 2.1.0
+     */
+    protected $ioc;
 
     /**
      * Create a new Packfire object
@@ -59,6 +64,7 @@ class Packfire
         }
         require(__DIR__ . '/helper.php');
         $this->ioc = new Container();
+        $this->ioc['Packfire\\FuelBlade\\ContainerInterface'] = $this->ioc;
         $this->ioc['autoload.finder'] = new PackfireClassFinder();
         $this->ioc['autoload.loader'] = new ClassLoader();
         $this->ioc['autoload.loader']->register();

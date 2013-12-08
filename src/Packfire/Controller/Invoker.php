@@ -94,7 +94,7 @@ class Invoker implements ConsumerInterface
                     if ($controller instanceof Controller) {
                         $controller->actionRun($this->action);
                     } else {
-                        $params = isset($this->ioc['route']) ? $this->ioc['route']->params : array();
+                        $params = isset($this->ioc['route']) ? $this->ioc['route']->params() : array();
                         $actionInvoker = new ActionInvoker(array($controller, $this->action));
                         $this->ioc['response'] = $actionInvoker->invoke($params);
                     }

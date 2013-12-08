@@ -11,7 +11,7 @@
 
 namespace Packfire\Welcome;
 
-use Packfire\Application\Pack\Controller;
+use Packfire\Controller\Controller;
 use Packfire\Welcome\HomeIndexView;
 
 /**
@@ -27,7 +27,7 @@ class HomeController extends Controller
 {
     public function message()
     {
-        $this->state = array(
+        return array(
             'title' => 'Bring the fire around in a pack.',
             'message' => 'Packfire is a clean and well thought web framework for developers of all walks to scaffold and bring up websites quickly and hassle-free. You\'ll be surprised at how fast you can build a web application with a pack of fire.'
         );
@@ -36,15 +36,18 @@ class HomeController extends Controller
     public function getIndex()
     {
         $this->ioc['session']->register();
-        $this->message();
-        $this->render(new HomeIndexView());
+        $message = $this->message();
+
+        $view = $this->viewBuilder->create();
+        $view->define($message);
+        $this->render($view);
     }
 
     public function cliIndex()
     {
-        $this->message();
+        $message = $this->message();
         echo 'Packfire Framework'
                 . "\n" . '-----------------------------' . "\n\n";
-        echo $this->state['message'] . "\n";
+        echo $message['message'] . "\n";
     }
 }

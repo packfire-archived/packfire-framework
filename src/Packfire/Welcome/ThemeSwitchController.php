@@ -11,7 +11,7 @@
 
 namespace Packfire\Welcome;
 
-use Packfire\Application\Pack\Controller;
+use Packfire\Controller\Controller;
 
 /**
  * Switches between themes
