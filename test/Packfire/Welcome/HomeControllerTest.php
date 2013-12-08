@@ -63,16 +63,6 @@ class HomeControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Packfire\Welcome\HomeController::message
-     */
-    public function testMessage()
-    {
-        $this->object->message();
-        $this->assertTrue(array_key_exists('title', $this->object->state()));
-        $this->assertTrue(array_key_exists('message', $this->object->state()));
-    }
-
-    /**
      * @covers \Packfire\Welcome\HomeController::getIndex
      */
     public function testGetIndex()

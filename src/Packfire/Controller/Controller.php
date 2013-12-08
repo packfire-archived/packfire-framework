@@ -51,13 +51,6 @@ abstract class Controller implements ConsumerInterface
     protected $viewBuilder;
 
     /**
-     * The controller state
-     * @var Map|mixed
-     * @since 1.0-sofia
-     */
-    protected $state;
-
-    /**
      * A collection of loaded models
      * @var Map
      * @since 1.0-sofia
@@ -85,19 +78,8 @@ abstract class Controller implements ConsumerInterface
      */
     public function __construct()
     {
-        $this->state = new Map();
         $this->errors = new Error();
         $this->models = new Map();
-    }
-
-    /**
-     * Get the state of the controller
-     * @return Map|mixed Returns the state of the controller
-     * @since 1.0-sofia
-     */
-    public function state()
-    {
-        return $this->state;
     }
 
     /**
