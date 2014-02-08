@@ -7,8 +7,8 @@ use Packfire\Session\Session;
 use Packfire\Route\Http\Route;
 use Packfire\Route\Http\Router;
 use Packfire\Collection\Map;
-require_once 'test/Mocks/SessionStorage.php';
-use Packfire\Test\Mocks\SessionStorage;
+require_once 'test/Mocks/Storage.php';
+use Packfire\Test\Mocks\Storage as SessionStorage;
 
 /**
  * Test class for HomeController.
