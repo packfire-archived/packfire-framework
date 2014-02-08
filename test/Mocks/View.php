@@ -27,6 +27,5 @@ class View extends CoreView
         $object = new ObjectObserver($this);
         $this->bind('binder', $object, 'name');
         $object->name = 'test2';
-        $this->define('route', $this->route('home'));
     }
 }

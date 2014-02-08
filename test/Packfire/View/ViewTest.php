@@ -36,11 +36,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $this->ioc = new Container();
         $bucket = $this->ioc;
 
-        $router = new Router();
-        $configData = new Map(array('rewrite' => '/home', 'actual' => 'Rest'));
-        $router->add('home', new Route('home', $configData));
-        $bucket['router'] = $router;
-
         $config = new Config();
         $bucket['config'] = $config;
 
@@ -61,7 +56,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $this->object->define(array('tag' => 'five'));
-        $this->object->using(new Template('data: {tag} route: {route} {binder}'));
-        $this->assertEquals('data: five route: http://example.com/test/home test2', $this->object->render());
+        $this->object->using(new Template('data: {tag} route: {binder}'));
+        $this->assertEquals('data: five route: test2', $this->object->render());
     }
 }
