@@ -28,6 +28,6 @@
         "packfire/session": "1.2.*"
     },
     "autoload": {
-        "psr-0": {"Packfire": "src/"}
+        "psr-0": {"Packfire\\Framework": "src/"}
     }
 }
