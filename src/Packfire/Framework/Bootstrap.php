@@ -7,14 +7,15 @@
 namespace Packfire\Framework;
 
 use Packfire\FuelBlade\Container;
+use Packfire\FuelBlade\ContainerInterface;
 
 class Bootstrap
 {
     protected $container;
 
-    public function __construct()
+    public function __construct(ContainerInterface $container = null)
     {
-        $this->container = new Container();
+        $this->container = $container ? $container : new Container();
     }
 
     public function getContainer()
