@@ -18,6 +18,11 @@ class Bootstrap
         $this->container = $container ? $container : new Container();
     }
 
+    public function run()
+    {
+        $this->container['Packfire\\Router\\RouterInterface'] = $this->container->instantiate('Packfire\\Router\\Router');
+    }
+
     public function getContainer()
     {
         return $this->container;
