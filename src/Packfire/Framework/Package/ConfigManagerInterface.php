@@ -15,4 +15,8 @@ interface ConfigManagerInterface extends \ArrayAccess
     public function get($name);
 
     public function remove($name);
+
+    public function &__get($key);
+
+    public function __set($key, $value);
 }

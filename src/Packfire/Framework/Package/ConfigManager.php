@@ -17,7 +17,7 @@ class ConfigManager implements ConfigManagerInterface
 
     public function get($name)
     {
-
+        return $this->configs[$name];
     }
 
     public function remove($name)
@@ -41,6 +41,16 @@ class ConfigManager implements ConfigManagerInterface
     }
 
     public function offsetUnset($name)
+    {
+
+    }
+
+    public function &__get($name)
+    {
+        return $this->configs[$name];
+    }
+
+    public function &__set($name, $config)
     {
         
     }
