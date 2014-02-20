@@ -24,4 +24,24 @@ class ConfigManager implements ConfigManagerInterface
     {
 
     }
+
+    public function offsetExists($name)
+    {
+
+    }
+
+    public function offsetGet($name)
+    {
+
+    }
+
+    public function offsetSet($name, $config)
+    {
+
+    }
+
+    public function offsetUnset($name)
+    {
+        
+    }
 }
