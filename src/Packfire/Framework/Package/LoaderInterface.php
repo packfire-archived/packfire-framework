@@ -8,4 +8,7 @@ namespace Packfire\Framework\Package;
 
 interface LoaderInterface
 {
+    public function __construct(ConfigManagerInterface $masterConfig);
+
+    public function load($package = null);
 }
