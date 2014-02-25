@@ -22,6 +22,7 @@ class Bootstrap
     {
         $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\ConfigManager');
         $this->container['Packfire\\Router\\RouterInterface'] = $this->container->instantiate('Packfire\\Router\\Router');
+        $this->container['Packfire\\Framework\\Package\\LoaderInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\Loader');
     }
 
     public function getContainer()
