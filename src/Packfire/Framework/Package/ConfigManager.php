@@ -6,13 +6,19 @@
 
 namespace Packfire\Framework\Package;
 
+use Packfire\Config\ConfigInterface;
+use Packfire\Config\Config;
+
 class ConfigManager implements ConfigManagerInterface
 {
     protected $configs = array();
 
-    public function commit($name, ConfigInterface $masterConfig)
+    public function commit($name, ConfigInterface $config)
     {
-
+        if (!isset($this->configs[$name])) {
+            $this->configs[$name] = new Config;
+        }
+        $this->configs[$name]->merge($config);
     }
 
     public function get($name)
@@ -22,27 +28,27 @@ class ConfigManager implements ConfigManagerInterface
 
     public function remove($name)
     {
-
+        unset($this->configs[$name]);
     }
 
     public function offsetExists($name)
     {
-
+        return isset($this->configs[$name]);
     }
 
     public function offsetGet($name)
     {
-
+        return $this->get($name);
     }
 
     public function offsetSet($name, $config)
     {
-
+        $this->commit($name, $config);
     }
 
     public function offsetUnset($name)
     {
-
+        unset($this->configs[$name]);
     }
 
     public function &__get($name)
@@ -50,8 +56,8 @@ class ConfigManager implements ConfigManagerInterface
         return $this->configs[$name];
     }
 
-    public function &__set($name, $config)
+    public function __set($name, $config)
     {
-        
+        $this->commit($name, $config);
     }
 }
