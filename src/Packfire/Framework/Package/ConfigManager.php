@@ -8,6 +8,7 @@ namespace Packfire\Framework\Package;
 
 use Packfire\Config\ConfigInterface;
 use Packfire\Config\Config;
+use Packfire\Framework\Exceptions\ConfigNotFoundException;
 
 class ConfigManager implements ConfigManagerInterface
 {
@@ -16,13 +17,16 @@ class ConfigManager implements ConfigManagerInterface
     public function commit($name, ConfigInterface $config)
     {
         if (!isset($this->configs[$name])) {
-            $this->configs[$name] = new Config;
+            $this->configs[$name] = new Config();
         }
         $this->configs[$name]->merge($config);
     }
 
     public function get($name)
     {
+        if (!isset($this->configs[$name])) {
+            throw new ConfigNotFoundException($name);
+        }
         return $this->configs[$name];
     }
 
