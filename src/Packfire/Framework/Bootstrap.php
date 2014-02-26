@@ -13,9 +13,14 @@ class Bootstrap
 {
     protected $container;
 
+    protected $bootPath;
+
     public function __construct(ContainerInterface $container = null)
     {
         $this->container = $container ? $container : new Container();
+
+        $backtrace = debug_backtrace();
+        $this->bootPath = $backtrace[0]['file'];
     }
 
     public function run()
@@ -23,6 +28,11 @@ class Bootstrap
         $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\ConfigManager');
         $this->container['Packfire\\Router\\RouterInterface'] = $this->container->instantiate('Packfire\\Router\\Router');
         $this->container['Packfire\\Framework\\Package\\LoaderInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\Loader');
+    }
+
+    public function bootPath()
+    {
+        return $this->bootPath;
     }
 
     public function getContainer()
