@@ -15,7 +15,7 @@ class Loader implements LoaderInterface
         $this->configManager = $configManager;
     }
 
-    public function load($package = null)
+    public function load($path)
     {
 
     }

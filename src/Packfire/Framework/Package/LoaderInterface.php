@@ -10,5 +10,5 @@ interface LoaderInterface
 {
     public function __construct(ConfigManagerInterface $masterConfig);
 
-    public function load($package = null);
+    public function load($path);
 }
