@@ -8,13 +8,20 @@ namespace Packfire\Framework\Package;
 
 class Loader implements LoaderInterface
 {
-    public function __construct(ConfigManagerInterface $masterConfig)
-    {
+    protected $configManager;
 
+    public function __construct(ConfigManagerInterface $configManager)
+    {
+        $this->configManager = $configManager;
     }
 
     public function load($package = null)
     {
 
+    }
+
+    public function config()
+    {
+        return $this->configManager;
     }
 }
