@@ -21,6 +21,12 @@ class BootstrapTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($container, $bootstrap->getContainer());
     }
 
+    public function testBootPath()
+    {
+        $bootstrap = new Bootstrap();
+        $this->assertEquals(__FILE__, $bootstrap->bootPath());
+    }
+
     public function testRun()
     {
         $bootstrap = new Bootstrap();
