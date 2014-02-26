@@ -56,4 +56,21 @@ class ConfigManagerTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(isset($cfg['second']));
         $this->assertFalse(isset($cfg['first']));
     }
+
+    public function testMagic()
+    {
+        $cfg = new ConfigManager();
+
+        $config1 = new Config();
+        $config1->set('sec1', 'key1', '10');
+        $cfg->first = $config1;
+
+        $config2 = new Config();
+        $config2->set('sec2', 'key1', '3');
+        $cfg->second = $config2;
+
+        $this->assertEquals($config2, $cfg->get('second'));
+        $this->assertEquals($config2, $cfg->second);
+        $this->assertEquals('10', $cfg->first->get('sec1', 'key1'));
+    }
 }
