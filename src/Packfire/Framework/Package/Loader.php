@@ -8,6 +8,7 @@ namespace Packfire\Framework\Package;
 
 use Symfony\Component\Finder\Finder;
 use Packfire\FuelBlade\ConsumerInterface;
+use Packfire\Config\ConfigFactory;
 
 class Loader implements LoaderInterface, ConsumerInterface
 {
@@ -23,8 +24,14 @@ class Loader implements LoaderInterface, ConsumerInterface
         if (is_dir($path . '/config')) {
             $finder = new Finder();
             $finder->files()->in($path . '/config');
+            $factory = new ConfigFactory();
             foreach ($finder as $file) {
-
+                $config = $factory->load($file);
+                if ($config) {
+                    $this->configManager->commit(basename($file), $config);
+                } else {
+                    // todo: throw exception
+                }
             }
         }
     }
