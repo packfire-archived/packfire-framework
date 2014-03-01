@@ -6,7 +6,10 @@
 
 namespace Packfire\Framework\Package;
 
-class Loader implements LoaderInterface
+use Symfony\Component\Finder\Finder;
+use Packfire\FuelBlade\ConsumerInterface;
+
+class Loader implements LoaderInterface, ConsumerInterface
 {
     protected $configManager;
 
@@ -17,11 +20,22 @@ class Loader implements LoaderInterface
 
     public function load($path)
     {
+        if (is_dir($path . '/config')) {
+            $finder = new Finder();
+            $finder->files()->in($path . '/config');
+            foreach ($finder as $file) {
 
+            }
+        }
     }
 
     public function config()
     {
         return $this->configManager;
+    }
+
+    public function __invoke($container)
+    {
+        return $this;
     }
 }
