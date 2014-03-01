@@ -24,7 +24,7 @@
         "packfire/regex": "1.0.*",
         "packfire/mustache": "1.2.*",
         "packfire/logger": "1.0.*",
-        "packfire/router": "1.0.*",
+        "packfire/router": "1.1.*",
         "packfire/session": "1.2.*",
         "symfony/finder": "2.4.*"
     },
