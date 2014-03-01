@@ -17,10 +17,17 @@ class Bootstrap
 
     public function __construct(ContainerInterface $container = null)
     {
-        $this->container = $container ? $container : new Container();
+        $this->container = $container ? $container : $this->createContainer();
 
         $backtrace = debug_backtrace();
         $this->bootPath = $backtrace[0]['file'];
+    }
+
+    protected function createContainer()
+    {
+        $container = new Container();
+        $container['Packfire\\FuelBlade\\ContainerInterface'] = $container;
+        return $container;
     }
 
     public function run()
