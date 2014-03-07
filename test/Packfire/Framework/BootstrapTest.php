@@ -38,6 +38,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->getMock('Packfire\\Config\\ConfigInterface')));
         $container['Packfire\\Framework\\Package\\ConfigManagerInterface'] = $configManager;
         $this->assertFalse(isset($container['Packfire\\Router\\RouterInterface']));
+        $this->setExpectedException('Packfire\\Framework\\Exceptions\\RouteNotFoundException');
         $bootstrap->run();
         $this->assertInstanceOf('Packfire\\Router\\RouterInterface', $container['Packfire\\Router\\RouterInterface']);
         $this->assertInstanceOf('Packfire\\Framework\\Package\\LoaderInterface', $container['Packfire\\Framework\\Package\\LoaderInterface']);
