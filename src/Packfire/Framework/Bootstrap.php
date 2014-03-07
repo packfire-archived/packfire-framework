@@ -10,6 +10,7 @@ use Packfire\FuelBlade\Container;
 use Packfire\FuelBlade\ContainerInterface;
 use Packfire\Router\ConfigLoader;
 use Packfire\Router\CurrentRequest;
+use Packfire\Framework\Exceptions\RouteNotFoundException;
 
 class Bootstrap
 {
@@ -41,7 +42,7 @@ class Bootstrap
             $this->container['Packfire\\Framework\\Package\\LoaderInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\Loader');
         }
 
-        $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($this->bootPath);
+        $this->loadPackage();
 
         if (!isset($this->container['Packfire\\Router\\RouterInterface'])) {
             $configManager = $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'];
@@ -55,6 +56,17 @@ class Bootstrap
             $route->execute();
         } else {
             throw new RouteNotFoundException();
+        }
+    }
+
+    protected function loadPackage()
+    {
+        $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($this->bootPath);
+
+        if (is_dir($this->bootPath . '/vendor')) {
+            foreach (glob($this->bootPath . '/vendor/*', GLOB_ONLYDIR) as $folder) {
+                $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($folder);
+            }
         }
     }
 
