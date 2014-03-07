@@ -43,8 +43,10 @@ class Bootstrap
 
         $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($this->bootPath);
 
-        $configManager = $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'];
-        $this->container['Packfire\\Router\\RouterInterface'] = $this->container->instantiate('Packfire\\Router\\ConfigLoader', array('config' => $configManager->get('routes')))->load();
+        if (!isset($this->container['Packfire\\Router\\RouterInterface'])) {
+            $configManager = $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'];
+            $this->container['Packfire\\Router\\RouterInterface'] = $this->container->instantiate('Packfire\\Router\\ConfigLoader', array('config' => $configManager->get('routes')))->load();
+        }
 
         $router = $this->container['Packfire\\Router\\RouterInterface'];
         $request = new CurrentRequest();
