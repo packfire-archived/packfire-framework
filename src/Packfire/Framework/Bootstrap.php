@@ -14,10 +14,23 @@ use Packfire\Framework\Exceptions\RouteNotFoundException;
 
 class Bootstrap
 {
+    /**
+     * The FuelBlade IoC Container used in booting
+     * @var string
+     */
     protected $container;
 
+    /**
+     * The pathname of the folder Bootstrap was called from
+     * @var string
+     */
     protected $bootPath;
 
+    /**
+     * Create a new Bootstrap object
+     * @param Packfire\FuelBlade\ContainerInterface $container The continer to inject dependencies into Bootstrap
+     * @return void
+     */
     public function __construct(ContainerInterface $container = null)
     {
         $this->container = $container ? $container : $this->createContainer();
@@ -26,6 +39,10 @@ class Bootstrap
         $this->bootPath = $backtrace[0]['file'];
     }
 
+    /**
+     * Create and prepare a new IoC container
+     * @return Packfire\FuelBlade\ContainerInterface Returns a newly created IoC Container
+     */
     protected function createContainer()
     {
         $container = new Container();
@@ -33,6 +50,10 @@ class Bootstrap
         return $container;
     }
 
+    /**
+     * Bootstrap the framework
+     * @return void
+     */
     public function run()
     {
         if (!isset($this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'])) {
@@ -52,6 +73,10 @@ class Bootstrap
         $this->routeRequest();
     }
 
+    /**
+     * Load the packages from the folders
+     * @return void
+     */
     protected function loadPackage()
     {
         $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($this->bootPath);
@@ -63,6 +88,10 @@ class Bootstrap
         }
     }
 
+    /**
+     * Perform the routing of the current request
+     * @return void
+     */
     protected function routeRequest()
     {
         $router = $this->container['Packfire\\Router\\RouterInterface'];
@@ -75,11 +104,19 @@ class Bootstrap
         }
     }
 
+    /**
+     * Get the pathname of the folder where boot started
+     * @return string Returns the pathname
+     */
     public function bootPath()
     {
         return $this->bootPath;
     }
 
+    /**
+     * Get the FuelBlade IoC Container of Bootstrap
+     * @return Packfire\FuelBlade\ContainerInterface Returns the container
+     */
     public function getContainer()
     {
         return $this->container;
