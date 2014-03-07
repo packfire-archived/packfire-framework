@@ -56,11 +56,22 @@ class ConfigManager implements ConfigManagerInterface
         unset($this->configs[$name]);
     }
 
+    /**
+     * Determine if a configuration exists in the manager by its name
+     * @param  string $name The name of the configuration
+     * @return boolean Returns true if the configuration exists, false otherwise.
+     */
     public function offsetExists($name)
     {
         return isset($this->configs[$name]);
     }
 
+    /**
+     * Fetch a configuration by its name
+     * @param  string $name Name of the configuration to fetch.
+     * @return ConfigInterface Returns the configuration from the manager
+     * @throws ConfigNotFoundException Thrown when the configuration could not be found in the manager
+     */
     public function offsetGet($name)
     {
         return $this->get($name);
