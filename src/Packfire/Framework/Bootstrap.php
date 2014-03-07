@@ -9,6 +9,7 @@ namespace Packfire\Framework;
 use Packfire\FuelBlade\Container;
 use Packfire\FuelBlade\ContainerInterface;
 use Packfire\Router\ConfigLoader;
+use Packfire\Router\CurrentRequest;
 
 class Bootstrap
 {
@@ -43,8 +44,14 @@ class Bootstrap
         $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($this->bootPath);
 
         $configManager = $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'];
-        $routerLoader = new ConfigLoader($configManager->get('routes'));
-        $this->container['Packfire\\Router\\RouterInterface'] = $routerLoader->load();
+        $this->container['Packfire\\Router\\RouterInterface'] = $this->container->instantiate('Packfire\\Router\\ConfigLoader', array('config' => $configManager->get('routes')))->load();
+
+        $router = $this->container['Packfire\\Router\\RouterInterface'];
+        $request = new CurrentRequest();
+        $route = $router->route($request);
+        if ($route) {
+            $route->execute();
+        }
     }
 
     public function bootPath()
