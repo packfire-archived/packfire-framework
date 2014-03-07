@@ -53,6 +53,8 @@ class Bootstrap
         $route = $router->route($request);
         if ($route) {
             $route->execute();
+        } else {
+            throw new RouteNotFoundException();
         }
     }
 
