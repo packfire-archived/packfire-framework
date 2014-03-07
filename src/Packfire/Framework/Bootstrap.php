@@ -49,14 +49,7 @@ class Bootstrap
             $this->container['Packfire\\Router\\RouterInterface'] = $this->container->instantiate('Packfire\\Router\\ConfigLoader', array('config' => $configManager->get('routes')))->load();
         }
 
-        $router = $this->container['Packfire\\Router\\RouterInterface'];
-        $request = new CurrentRequest();
-        $route = $router->route($request);
-        if ($route) {
-            $route->execute();
-        } else {
-            throw new RouteNotFoundException();
-        }
+        $this->routeRequest();
     }
 
     protected function loadPackage()
@@ -67,6 +60,18 @@ class Bootstrap
             foreach (glob($this->bootPath . '/vendor/*', GLOB_ONLYDIR) as $folder) {
                 $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($folder);
             }
+        }
+    }
+
+    protected function routeRequest()
+    {
+        $router = $this->container['Packfire\\Router\\RouterInterface'];
+        $request = new CurrentRequest();
+        $route = $router->route($request);
+        if ($route) {
+            $route->execute();
+        } else {
+            throw new RouteNotFoundException();
         }
     }
 
