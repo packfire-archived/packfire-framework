@@ -42,4 +42,23 @@ class BootstrapTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Packfire\\Router\\RouterInterface', $container['Packfire\\Router\\RouterInterface']);
         $this->assertInstanceOf('Packfire\\Framework\\Package\\LoaderInterface', $container['Packfire\\Framework\\Package\\LoaderInterface']);
     }
+
+    public function testRun2()
+    {
+        $bootstrap = new Bootstrap();
+        $container = $bootstrap->getContainer();
+
+        $route = $this->getMock('Packfire\\Router\\RouteInterface');
+        $route->expects($this->once())
+            ->method('execute');
+
+        $router = $this->getMock('Packfire\\Router\\RouterInterface');
+        $router->expects($this->any())
+            ->method('route')
+            ->with($this->isInstanceOf('Packfire\\Router\\RequestInterface'))
+            ->will($this->returnValue($route));
+
+        $container['Packfire\\Router\\RouterInterface'] = $router;
+        $bootstrap->run();
+    }
 }
