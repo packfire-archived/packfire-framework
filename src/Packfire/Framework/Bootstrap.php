@@ -8,6 +8,7 @@ namespace Packfire\Framework;
 
 use Packfire\FuelBlade\Container;
 use Packfire\FuelBlade\ContainerInterface;
+use Packfire\Router\ConfigLoader;
 
 class Bootstrap
 {
@@ -32,11 +33,18 @@ class Bootstrap
 
     public function run()
     {
-        $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\ConfigManager');
-        $this->container['Packfire\\Router\\RouterInterface'] = $this->container->instantiate('Packfire\\Router\\Router');
-        $this->container['Packfire\\Framework\\Package\\LoaderInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\Loader');
+        if (!isset($this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'])) {
+            $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\ConfigManager');
+        }
+        if (!isset($this->container['Packfire\\Framework\\Package\\LoaderInterface'])) {
+            $this->container['Packfire\\Framework\\Package\\LoaderInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\Loader');
+        }
 
         $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($this->bootPath);
+
+        $configManager = $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'];
+        $routerLoader = new ConfigLoader($configManager->get('routes'));
+        $this->container['Packfire\\Router\\RouterInterface'] = $routerLoader->load();
     }
 
     public function bootPath()
