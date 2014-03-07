@@ -12,8 +12,18 @@ use Packfire\Framework\Exceptions\ConfigNotFoundException;
 
 class ConfigManager implements ConfigManagerInterface
 {
+    /**
+     * All the configurations managed by the manager
+     * @var array
+     */
     protected $configs = array();
 
+    /**
+     * Commit a configuration into the manager. If the configuration has already been added before, the old and new will merge.
+     * @param  string          $name   The name of the configuration
+     * @param  ConfigInterface $config The configuration to commit into the manager.
+     * @return void
+     */
     public function commit($name, ConfigInterface $config)
     {
         if (!isset($this->configs[$name])) {
@@ -22,6 +32,12 @@ class ConfigManager implements ConfigManagerInterface
         $this->configs[$name]->merge($config);
     }
 
+    /**
+     * Get a configuration for use
+     * @param  string $name Name of the configuration to fetch.
+     * @return ConfigInterface Returns the configuration from the manager
+     * @throws ConfigNotFoundException Thrown when the configuration could not be found in the manager
+     */
     public function get($name)
     {
         if (!isset($this->configs[$name])) {
@@ -30,6 +46,11 @@ class ConfigManager implements ConfigManagerInterface
         return $this->configs[$name];
     }
 
+    /**
+     * Remove a configuration from the manager
+     * @param  string $name The name of the configuration to remove.
+     * @return void
+     */
     public function remove($name)
     {
         unset($this->configs[$name]);
