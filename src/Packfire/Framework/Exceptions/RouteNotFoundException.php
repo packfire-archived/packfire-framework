@@ -10,8 +10,8 @@ use \Exception;
 
 class RouteNotFoundException extends Exception
 {
-    public function __construct($key)
+    public function __construct()
     {
-        parent::__construct('The route "' . $key . '" could not be found in the router, loaded from the configuration.');
+        parent::__construct('The current request could not be matched to any routes in the router, loaded from the configuration.');
     }
 }
