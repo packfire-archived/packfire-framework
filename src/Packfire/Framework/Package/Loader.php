@@ -9,6 +9,7 @@ namespace Packfire\Framework\Package;
 use Symfony\Component\Finder\Finder;
 use Packfire\FuelBlade\ConsumerInterface;
 use Packfire\Config\ConfigFactory;
+use Packfire\Framework\Exceptions\ConfigLoadFailException;
 
 class Loader implements LoaderInterface, ConsumerInterface
 {
@@ -40,7 +41,7 @@ class Loader implements LoaderInterface, ConsumerInterface
                 if ($config) {
                     $this->configManager->commit(basename($file), $config);
                 } else {
-                    // todo: throw exception
+                    throw new ConfigLoadFailException($file);
                 }
             }
         }
