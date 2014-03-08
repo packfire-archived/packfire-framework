@@ -14,11 +14,21 @@ class Loader implements LoaderInterface, ConsumerInterface
 {
     protected $configManager;
 
+    /**
+     * Create a new Loader object
+     * @param ConfigManagerInterface $configManager The configuration manager to load into
+     * @return void
+     */
     public function __construct(ConfigManagerInterface $configManager)
     {
         $this->configManager = $configManager;
     }
 
+    /**
+     * Load configuration files from package path
+     * @param  string $path The path to the package to load from
+     * @return void
+     */
     public function load($path)
     {
         if (is_dir($path . '/config')) {
@@ -36,11 +46,20 @@ class Loader implements LoaderInterface, ConsumerInterface
         }
     }
 
+    /**
+     * Get the configuration manager in this loader
+     * @return ConfigManagerInterface Returns the configuration manager
+     */
     public function config()
     {
         return $this->configManager;
     }
 
+    /**
+     * Inject the object with the IoC container
+     * @param  Packfire\FuelBlade\ContainerInterface|array $container The FuelBlade IoC Container
+     * @return Loader Returns self
+     */
     public function __invoke($container)
     {
         return $this;
