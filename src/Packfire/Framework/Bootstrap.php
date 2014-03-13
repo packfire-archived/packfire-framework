@@ -11,6 +11,7 @@ use Packfire\FuelBlade\ContainerInterface;
 use Packfire\Router\ConfigLoader;
 use Packfire\Router\CurrentRequest;
 use Packfire\Framework\Exceptions\RouteNotFoundException;
+use Packfire\FuelBlade\ServiceLoader as FuelBladeLoader;
 
 class Bootstrap
 {
@@ -85,6 +86,12 @@ class Bootstrap
             foreach (glob($this->bootPath . '/vendor/*/*', GLOB_ONLYDIR) as $folder) {
                 $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($folder);
             }
+        }
+
+        $configManager = $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'];
+        if (isset($configManager['services'])) {
+            $services = $configManager['services']->get('services');
+            FuelBladeLoader::load($this->container, $services);
         }
     }
 
