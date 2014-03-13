@@ -28,15 +28,19 @@ class Bootstrap
 
     /**
      * Create a new Bootstrap object
-     * @param Packfire\FuelBlade\ContainerInterface $container The continer to inject dependencies into Bootstrap
+     * @param string $bootPath (optional) The path to boot from
+     * @param Packfire\FuelBlade\ContainerInterface $container (optional) The container to inject dependencies into Bootstrap
      * @return void
      */
-    public function __construct(ContainerInterface $container = null)
+    public function __construct($bootPath = null, ContainerInterface $container = null)
     {
         $this->container = $container ? $container : $this->createContainer();
 
-        $backtrace = debug_backtrace();
-        $this->bootPath = $backtrace[0]['file'];
+        $this->bootPath = $bootPath;
+        if (!$this->bootPath) {
+            $backtrace = debug_backtrace();
+            $this->bootPath = $backtrace[0]['file'];
+        }
     }
 
     /**
@@ -82,7 +86,7 @@ class Bootstrap
         $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($this->bootPath);
 
         if (is_dir($this->bootPath . '/vendor')) {
-            foreach (glob($this->bootPath . '/vendor/*', GLOB_ONLYDIR) as $folder) {
+            foreach (glob($this->bootPath . '/vendor/*/*', GLOB_ONLYDIR) as $folder) {
                 $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($folder);
             }
         }
