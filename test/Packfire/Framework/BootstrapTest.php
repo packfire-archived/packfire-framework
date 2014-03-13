@@ -44,11 +44,8 @@ class BootstrapTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Packfire\\Framework\\Package\\LoaderInterface', $container['Packfire\\Framework\\Package\\LoaderInterface']);
     }
 
-    public function testRun2()
+    protected function createMockRouter()
     {
-        $bootstrap = new Bootstrap();
-        $container = $bootstrap->getContainer();
-
         $route = $this->getMock('Packfire\\Router\\RouteInterface');
         $route->expects($this->once())
             ->method('execute');
@@ -59,7 +56,15 @@ class BootstrapTest extends PHPUnit_Framework_TestCase
             ->with($this->isInstanceOf('Packfire\\Router\\RequestInterface'))
             ->will($this->returnValue($route));
 
-        $container['Packfire\\Router\\RouterInterface'] = $router;
+        return $router;
+    }
+
+    public function testRun2()
+    {
+        $bootstrap = new Bootstrap();
+        $container = $bootstrap->getContainer();
+
+        $container['Packfire\\Router\\RouterInterface'] = $this->createMockRouter();
         $bootstrap->run();
     }
 
@@ -68,17 +73,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase
         $bootstrap = new Bootstrap(__DIR__ . '/../../testPackages/package1');
         $container = $bootstrap->getContainer();
 
-        $route = $this->getMock('Packfire\\Router\\RouteInterface');
-        $route->expects($this->once())
-            ->method('execute');
-
-        $router = $this->getMock('Packfire\\Router\\RouterInterface');
-        $router->expects($this->any())
-            ->method('route')
-            ->with($this->isInstanceOf('Packfire\\Router\\RequestInterface'))
-            ->will($this->returnValue($route));
-
-        $container['Packfire\\Router\\RouterInterface'] = $router;
+        $container['Packfire\\Router\\RouterInterface'] = $this->createMockRouter();
 
         $bootstrap->run();
 
