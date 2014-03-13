@@ -36,6 +36,8 @@ class ServiceLoader
             'Psr\\Log\\LoggerInterface' => function ($container) {
                 return $container->instantiate('Packfire\\Logger\\File', array('file' => 'packfire.log'));
             },
+            'Packfire\\Session\\StorageInterface' => 'Packfire\\Session\\Storage',
+            'Packfire\\Session\\SessionInterface' => 'Packfire\\Session\\Session',
         );
     }
 
@@ -49,7 +51,7 @@ class ServiceLoader
             if (!isset($this->container[$interface])) {
                 $this->container[$interface] = is_callable($concrete)
                     ? $concrete
-                    : $this->container->instantiate($concrete);
+                    : $this->container->share($this->container->instance($concrete));
             }
         }
     }

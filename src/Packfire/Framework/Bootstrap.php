@@ -80,11 +80,12 @@ class Bootstrap
      */
     protected function loadPackage()
     {
-        $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($this->bootPath);
+        $loader = $this->container['Packfire\\Framework\\Package\\LoaderInterface'];
+        $loader->load($this->bootPath);
 
         if (is_dir($this->bootPath . '/vendor')) {
             foreach (glob($this->bootPath . '/vendor/*/*', GLOB_ONLYDIR) as $folder) {
-                $this->container['Packfire\\Framework\\Package\\LoaderInterface']->load($folder);
+                $loader->load($folder);
             }
         }
 
