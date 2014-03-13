@@ -20,19 +20,23 @@ class ServiceLoader
      */
     protected $container;
 
-    protected $defaults = array(
-        'Packfire\\Framework\\Package\\ConfigManagerInterface' => 'Packfire\\Framework\\Package\\ConfigManager',
-        'Packfire\\Framework\\Package\\LoaderInterface' => 'Packfire\\Framework\\Package\\Loader',
-    );
+    protected $defaults = array();
 
     /**
      * Create a new ServiceLoader object
-     * @param Packfire\FuelBlade\ContainerInterface $container (optional) The container to be loaded with default dependencies
+     * @param Packfire\FuelBlade\ContainerInterface $container The container to be loaded with default dependencies
      * @return void
      */
-    public function __construct(ContainerInterface $container = null)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->defaults = array(
+            'Packfire\\Framework\\Package\\ConfigManagerInterface' => 'Packfire\\Framework\\Package\\ConfigManager',
+            'Packfire\\Framework\\Package\\LoaderInterface' => 'Packfire\\Framework\\Package\\Loader',
+            'Psr\\Log\\LoggerInterface' => function () use ($container) {
+                return $container->instantiate('Packfire\\Logger\\File', array('file' => 'packfire.log'));
+            },
+        );
     }
 
     /**
@@ -43,7 +47,9 @@ class ServiceLoader
     {
         foreach ($this->defaults as $interface => $concrete) {
             if (!isset($this->container[$interface])) {
-                $this->container[$interface] = $this->container->instantiate($concrete);
+                $this->container[$interface] = is_callable($concrete)
+                    ? call_user_func($concrete)
+                    : $this->container->instantiate($concrete);
             }
         }
     }
