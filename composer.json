@@ -22,7 +22,6 @@
         "packfire/fuelblade": "1.2.*",
         "packfire/config": "1.2.*",
         "packfire/regex": "1.0.*",
-        "packfire/mustache": "1.2.*",
         "packfire/logger": "1.0.*",
         "packfire/router": "1.1.*",
         "packfire/session": "1.2.*",
