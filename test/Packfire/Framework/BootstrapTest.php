@@ -62,4 +62,29 @@ class BootstrapTest extends PHPUnit_Framework_TestCase
         $container['Packfire\\Router\\RouterInterface'] = $router;
         $bootstrap->run();
     }
+
+    public function testLoadPackage()
+    {
+        $bootstrap = new Bootstrap(__DIR__ . '/../../testPackages/package1');
+        $container = $bootstrap->getContainer();
+
+        $route = $this->getMock('Packfire\\Router\\RouteInterface');
+        $route->expects($this->once())
+            ->method('execute');
+
+        $router = $this->getMock('Packfire\\Router\\RouterInterface');
+        $router->expects($this->any())
+            ->method('route')
+            ->with($this->isInstanceOf('Packfire\\Router\\RequestInterface'))
+            ->will($this->returnValue($route));
+
+        $container['Packfire\\Router\\RouterInterface'] = $router;
+
+        $bootstrap->run();
+
+        $config = $container['Packfire\\Framework\\Package\\ConfigManagerInterface'];
+        $this->assertInstanceOf('Packfire\\Framework\\Package\\ConfigManagerInterface', $config);
+        $this->assertEquals('192.168.3.52', $config['test']->get('database', 'users', 'host'));
+        $this->assertEquals('localhost', $config['test']->get('database', 'default', 'host'));
+    }
 }
