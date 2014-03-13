@@ -26,4 +26,15 @@ class LoaderTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(isset($cfg['test']));
         $this->assertEquals('localhost', $cfg['test']->get('database', 'default', 'host'));
     }
+
+    /**
+     * @expectedException Packfire\Framework\Exceptions\ConfigLoadFailException
+     */
+    public function testLoadFail()
+    {
+        $cfg = new ConfigManager();
+
+        $loader = new Loader($cfg);
+        $loader->load(__DIR__ . '/../../../testPackages/package2');
+    }
 }

@@ -41,7 +41,7 @@ class Loader implements LoaderInterface, ConsumerInterface
                 if ($config) {
                     $this->configManager->commit($file->getBasename('.' . $file->getExtension()), $config);
                 } else {
-                    throw new ConfigLoadFailException($file);
+                    throw new ConfigLoadFailException($file->getPathname());
                 }
             }
         }
