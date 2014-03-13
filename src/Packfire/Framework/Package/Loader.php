@@ -7,22 +7,27 @@
 namespace Packfire\Framework\Package;
 
 use Symfony\Component\Finder\Finder;
+use Packfire\FuelBlade\ContainerInterface;
 use Packfire\FuelBlade\ConsumerInterface;
 use Packfire\Config\ConfigFactory;
 use Packfire\Framework\Exceptions\ConfigLoadFailException;
 
 class Loader implements LoaderInterface, ConsumerInterface
 {
-    protected $configManager;
+    /**
+     * The IoC container of Loader
+     * @var Packfire\FuelBlade\ContainerInterface
+     */
+    protected $container;
 
     /**
      * Create a new Loader object
-     * @param ConfigManagerInterface $configManager The configuration manager to load into
+     * @param ContainerInterface $container The IoC container for injecting dependencies into Loader
      * @return void
      */
-    public function __construct(ConfigManagerInterface $configManager)
+    public function __construct(ContainerInterface $container)
     {
-        $this->configManager = $configManager;
+        $this->container = $container;
     }
 
     /**
@@ -33,27 +38,20 @@ class Loader implements LoaderInterface, ConsumerInterface
     public function load($path)
     {
         if (is_dir($path . '/config')) {
+            $configManager = $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'];
+
             $finder = new Finder();
             $finder->files()->in($path . '/config');
             $factory = new ConfigFactory();
             foreach ($finder as $file) {
                 $config = $factory->load($file->getPathname());
                 if ($config) {
-                    $this->configManager->commit($file->getBasename('.' . $file->getExtension()), $config);
+                    $configManager->commit($file->getBasename('.' . $file->getExtension()), $config);
                 } else {
                     throw new ConfigLoadFailException($file->getPathname());
                 }
             }
         }
-    }
-
-    /**
-     * Get the configuration manager in this loader
-     * @return ConfigManagerInterface Returns the configuration manager
-     */
-    public function config()
-    {
-        return $this->configManager;
     }
 
     /**
@@ -63,6 +61,7 @@ class Loader implements LoaderInterface, ConsumerInterface
      */
     public function __invoke($container)
     {
+        $this->container = $container;
         return $this;
     }
 }
