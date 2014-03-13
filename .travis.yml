@@ -7,19 +7,13 @@ language: "php"
 
 php:
   - "5.3"
-  - "5.3.3"
   - "5.4"
   - "5.5"
-
-matrix:
-  allow_failures:
-    - php: "5.5"
 
 before_script:
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - "curl -s http://getcomposer.org/installer | php && php composer.phar install --prefer-source --no-interaction --dev"
   - "pyrus install pear/PHP_CodeSniffer && phpenv rehash"
-  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('password') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
 
 script:
     - "phpunit -c test"

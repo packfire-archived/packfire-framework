@@ -7,9 +7,11 @@
     <filter>
         <blacklist>
             <directory>../vendor</directory>
+            <directory>../test</directory>
         </blacklist>
     </filter>
-    
+
+
     <testsuites>
         <testsuite>
             <directory suffix="Test.php">.</directory>
@@ -19,9 +21,5 @@
     <logging>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
     </logging>
-
-    <php>
-        <const name="__ENVIRONMENT__" value="test" />
-    </php>
 
 </phpunit>

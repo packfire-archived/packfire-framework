@@ -1,8 +1,4 @@
 <?php
 
-define('__PACKFIRE_START__', microtime(true));
-define('__APP_ROOT__', '');
-
-require(__DIR__ . '/../src/Packfire/Packfire.php');
-
-$packfire = new Packfire\Packfire();
+$loader = require(__DIR__ . '/../vendor/autoload.php');
+$loader->add('Packfire\\', __DIR__);
