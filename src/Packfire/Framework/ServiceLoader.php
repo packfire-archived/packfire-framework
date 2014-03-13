@@ -33,7 +33,7 @@ class ServiceLoader
         $this->defaults = array(
             'Packfire\\Framework\\Package\\ConfigManagerInterface' => 'Packfire\\Framework\\Package\\ConfigManager',
             'Packfire\\Framework\\Package\\LoaderInterface' => 'Packfire\\Framework\\Package\\Loader',
-            'Psr\\Log\\LoggerInterface' => function () use ($container) {
+            'Psr\\Log\\LoggerInterface' => function ($container) {
                 return $container->instantiate('Packfire\\Logger\\File', array('file' => 'packfire.log'));
             },
         );
@@ -48,7 +48,7 @@ class ServiceLoader
         foreach ($this->defaults as $interface => $concrete) {
             if (!isset($this->container[$interface])) {
                 $this->container[$interface] = is_callable($concrete)
-                    ? call_user_func($concrete)
+                    ? $concrete
                     : $this->container->instantiate($concrete);
             }
         }
