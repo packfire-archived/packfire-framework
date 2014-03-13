@@ -16,7 +16,7 @@ class Bootstrap
 {
     /**
      * The FuelBlade IoC Container used in booting
-     * @var string
+     * @var Packfire\FuelBlade\ContainerInterface
      */
     protected $container;
 
