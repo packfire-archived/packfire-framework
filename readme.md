@@ -1,5 +1,7 @@
 ![Packfire Framework](https://lh3.googleusercontent.com/-b6yR6t8TzCM/Tz8_uo-hC4I/AAAAAAAAAB8/eMofbj154Ys/w402/packfire.biglogo.light.png)
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/packfire/packfire-framework/badges/quality-score.png?s=77944d964f3859d58eb159746f7597a5df6e110d)](https://scrutinizer-ci.com/g/packfire/packfire-framework/) [![Code Coverage](https://scrutinizer-ci.com/g/packfire/packfire-framework/badges/coverage.png?s=169f0a4c02ca3151a8591ac3367463ee0156f6f1)](https://scrutinizer-ci.com/g/packfire/packfire-framework/) [![Build Status](https://travis-ci.org/packfire/packfire-framework.png?branch=master)](https://travis-ci.org/packfire/packfire-framework)  [![Latest Stable Version](https://poser.pugx.org/packfire/framework/v/stable.png)](https://packagist.org/packages/packfire/framework) [![Total Downloads](https://poser.pugx.org/packfire/framework/downloads.png)](https://packagist.org/packages/packfire/framework)
+
 Be surprised at how fast you can build a web application with a pack of fire.
 
 > Visit us at [http://mauris.sg/packfire](http://mauris.sg/packfire "Packfire Framework for PHP") too (:
