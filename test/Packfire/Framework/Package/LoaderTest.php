@@ -20,7 +20,7 @@ class LoaderTest extends PHPUnit_Framework_TestCase
         $cfg = new ConfigManager();
 
         $loader = new Loader($cfg);
-        $loader->load(__DIR__ . '/../../../samplePackage');
+        $loader->load(__DIR__ . '/../../../testPackages/package1');
 
         $this->assertEquals($cfg, $loader->config());
         $this->assertTrue(isset($cfg['test']));
