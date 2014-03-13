@@ -1,0 +1,10 @@
+{
+    "database": {
+        "users": {
+            "host": "192.168.3.52",
+            "port": "3306",
+            "user": "maple",
+            "password": "password"
+        }
+    }
+}
