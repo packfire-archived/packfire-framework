@@ -16,7 +16,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase
     public function testGetContainer2()
     {
         $container = new Container();
-        $bootstrap = new Bootstrap($container);
+        $bootstrap = new Bootstrap(null, $container);
         $this->assertInstanceof('Packfire\\FuelBlade\\ContainerInterface', $bootstrap->getContainer());
         $this->assertEquals($container, $bootstrap->getContainer());
     }
