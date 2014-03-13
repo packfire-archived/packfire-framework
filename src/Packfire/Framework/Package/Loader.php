@@ -37,9 +37,9 @@ class Loader implements LoaderInterface, ConsumerInterface
             $finder->files()->in($path . '/config');
             $factory = new ConfigFactory();
             foreach ($finder as $file) {
-                $config = $factory->load($file);
+                $config = $factory->load($file->getPathname());
                 if ($config) {
-                    $this->configManager->commit(basename($file), $config);
+                    $this->configManager->commit($file->getBasename('.' . $file->getExtension()), $config);
                 } else {
                     throw new ConfigLoadFailException($file);
                 }
