@@ -6,9 +6,11 @@
 
 namespace Packfire\Framework\Package;
 
+use Packfire\FuelBlade\ContainerInterface;
+
 interface LoaderInterface
 {
-    public function __construct(ConfigManagerInterface $masterConfig);
+    public function __construct(ContainerInterface $masterConfig);
 
     public function load($path);
 }
