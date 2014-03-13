@@ -78,6 +78,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase
         $bootstrap->run();
 
         $config = $container['Packfire\\Framework\\Package\\ConfigManagerInterface'];
+        $this->assertInstanceOf('Packfire\\Session\\StorageInterface', $container['Packfire\\Session\\StorageInterface']);
         $this->assertInstanceOf('Packfire\\Framework\\Package\\ConfigManagerInterface', $config);
         $this->assertEquals('192.168.3.52', $config['test']->get('database', 'users', 'host'));
         $this->assertEquals('localhost', $config['test']->get('database', 'default', 'host'));
