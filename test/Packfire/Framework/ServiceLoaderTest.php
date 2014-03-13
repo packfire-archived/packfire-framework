@@ -11,7 +11,16 @@ class ServiceLoaderTest extends PHPUnit_Framework_TestCase
     {
         $container = new Container();
         $loader = new ServiceLoader($container);
-        $this->assertInstanceof('Packfire\\FuelBlade\\ContainerInterface', $loader->getContainer());
+        $this->assertInstanceOf('Packfire\\FuelBlade\\ContainerInterface', $loader->getContainer());
         $this->assertEquals($container, $loader->getContainer());
+    }
+
+    public function testLoad()
+    {
+        $container = new Container();
+        $loader = new ServiceLoader($container);
+        $container['Packfire\\Framework\\Package\\LoaderInterface'] = $loader;
+        $loader->load();
+        $this->assertInstanceOf('Psr\\Log\\LoggerInterface', $container['Psr\\Log\\LoggerInterface']);
     }
 }
