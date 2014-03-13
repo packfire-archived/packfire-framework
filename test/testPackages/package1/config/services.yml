@@ -1,0 +1,4 @@
+services:
+  Packfire\Session\StorageInterface:
+    class: Packfire\Session\Storage
+    parameters: []
