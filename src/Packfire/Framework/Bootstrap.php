@@ -60,12 +60,8 @@ class Bootstrap
      */
     public function run()
     {
-        if (!isset($this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'])) {
-            $this->container['Packfire\\Framework\\Package\\ConfigManagerInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\ConfigManager');
-        }
-        if (!isset($this->container['Packfire\\Framework\\Package\\LoaderInterface'])) {
-            $this->container['Packfire\\Framework\\Package\\LoaderInterface'] = $this->container->instantiate('Packfire\\Framework\\Package\\Loader');
-        }
+        $services = new ServiceLoader($this->container);
+        $services->load();
 
         $this->loadPackage();
 
