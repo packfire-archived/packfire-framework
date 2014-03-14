@@ -64,6 +64,10 @@ class Bootstrap
         $services = new ServiceLoader($this->container);
         $services->load();
 
+        $whoops = $this->container['Whoops\\Run'];
+        $whoops->pushHandler($this->container['Whoops\\Handler\\HandlerInterface']);
+        $whoops->register();
+
         $this->loadPackage();
 
         if (!isset($this->container['Packfire\\Router\\RouterInterface'])) {

@@ -38,6 +38,8 @@ class ServiceLoader
             },
             'Packfire\\Session\\StorageInterface' => 'Packfire\\Session\\Storage',
             'Packfire\\Session\\SessionInterface' => 'Packfire\\Session\\Session',
+            'Whoops\\Run' => 'Whoops\\Run',
+            'Whoops\\Handler\\HandlerInterface' => 'Whoops\\Handler\\PrettyPageHandler',
         );
     }
 
