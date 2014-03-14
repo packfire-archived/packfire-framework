@@ -40,7 +40,7 @@ class Bootstrap
         $this->bootPath = $bootPath;
         if (!$this->bootPath) {
             $backtrace = debug_backtrace();
-            $this->bootPath = $backtrace[0]['file'];
+            $this->bootPath = pathinfo($backtrace[0]['file'], PATHINFO_DIRNAME);
         }
     }
 
